@@ -5,7 +5,7 @@ import jestTest from "./testmodule";
 describe( "Main Module Test", () => {
     test( "jestTest( \"watcher\" )" , () =>{
 
-        expect( jestTest( "watcher ") ).toBe( "watcher" );
+        expect( jestTest( "watcher") ).toBe( "watcher" );
 
     } );
 });
