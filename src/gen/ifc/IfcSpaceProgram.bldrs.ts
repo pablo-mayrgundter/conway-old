@@ -1,0 +1,70 @@
+
+import Component from "../../core/component"
+import ComponentSpecification from "../../core/component_specification"
+import AttributeSpecification from "../../core/attribute_specification"
+import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import {IfcIdentifier} from "./IfcIdentifier.bldrs"
+import {IfcAreaMeasure} from "./IfcAreaMeasure.bldrs"
+import {IfcSpatialStructureElement} from "./IfcSpatialStructureElement.bldrs"
+import {IfcRelInteractionRequirements} from "./IfcRelInteractionRequirements.bldrs"
+
+
+/**
+ * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcspaceprogram.htm
+ */
+export default class IfcSpaceProgram implements Component< SchemaSpecificationIFC > 
+{
+    public readonly __type__ = 'IfcSpaceProgram';
+
+    public readonly __version__: number = 0;
+
+	SpaceProgramIdentifier : IfcIdentifier;
+	MaxRequiredArea? : IfcAreaMeasure;
+	MinRequiredArea? : IfcAreaMeasure;
+	RequestedLocation? : IfcSpatialStructureElement;
+	StandardRequiredArea : IfcAreaMeasure;
+
+}
+
+export class IfcSpaceProgramSpecification implements ComponentSpecification
+{
+    public readonly name: string = 'IfcSpaceProgram';
+
+    public readonly required: string[] = [ 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+
+    public readonly isAbstract: boolean = false;
+
+    public readonly attributes: AttributeSpecification[] = 
+    [
+		{
+			name: 'SpaceProgramIdentifier',
+			isCollection: false,
+			rank: 0,
+			baseType: 'IfcIdentifier'
+		}, 
+		{
+			name: 'MaxRequiredArea',
+			isCollection: false,
+			rank: 0,
+			baseType: 'IfcAreaMeasure'
+		}, 
+		{
+			name: 'MinRequiredArea',
+			isCollection: false,
+			rank: 0,
+			baseType: 'IfcAreaMeasure'
+		}, 
+		{
+			name: 'RequestedLocation',
+			isCollection: false,
+			rank: 0,
+			baseType: 'IfcSpatialStructureElement'
+		}, 
+		{
+			name: 'StandardRequiredArea',
+			isCollection: false,
+			rank: 0,
+			baseType: 'IfcAreaMeasure'
+		}
+    ];
+}

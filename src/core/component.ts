@@ -1,7 +1,11 @@
-import ModelSpecification from "./model_specification";
-import { ComponentTypeNames } from "./model_specification";
+import SchemaSpecification from "./schema_specification";
+import { ComponentTypeNames } from "./schema_specification";
 
-export default interface Component< T extends ModelSpecification >
+export type ComponentTypeName< T > = T extends Component< infer MS > ? T[ '__type__' ] & ComponentTypeNames< MS > : never; 
+
+export default interface Component< T extends SchemaSpecification >
 {
-    __type__ : ComponentTypeNames< T >;
+    readonly __type__ : ComponentTypeNames< T >;
+
+    readonly __version__: number;
 }

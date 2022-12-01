@@ -16,7 +16,8 @@
     "test": "jest",
     "lint": "yarn eslint src",
     "precommit": "yarn build-rebuild && yarn lint && yarn test",
-    "dist": "tsc --project tsconfig.dist.json && swc src -s -d dist"
+    "dist": "tsc --project tsconfig.dist.json && swc src -s -d dist",
+    "code-gen": "cd ./external/IFC-gen && ./make \"OUTDIR=../../src/gen/ifc\" && cd ../.."
   },
   "author": "",
   "license": "ISC",

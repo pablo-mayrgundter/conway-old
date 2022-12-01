@@ -1,0 +1,4 @@
+[submodule "external/IFC-gen"]
+	path = external/IFC-gen
+	url = https://github.com/bldrs-ai/IFC-gen
+	branch = bldrs-ifc

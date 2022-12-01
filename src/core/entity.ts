@@ -1,8 +1,6 @@
 
-import ModelSpecification from "./model_specification";
-import { ComponentTypeNames } from "./model_specification";
-
-export default class Entity< K extends string | number, T extends ModelSpecification >
+import EntityComponentReference from "./entity_component_reference";
+export default class Entity< K extends string | number >
 {
-    constructor( public readonly key : K, public readonly components : ComponentTypeNames< T >[] ) {};
+    constructor( public readonly id : K, public readonly components : EntityComponentReference[], public readonly fileID : number | undefined ) {};
 }

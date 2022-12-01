@@ -1,0 +1,12 @@
+
+//http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcpumptypeenum.htm
+export enum IfcPumpTypeEnum 
+{
+	CIRCULATOR=".CIRCULATOR.",
+	ENDSUCTION=".ENDSUCTION.",
+	SPLITCASE=".SPLITCASE.",
+	VERTICALINLINE=".VERTICALINLINE.",
+	VERTICALTURBINE=".VERTICALTURBINE.",
+	USERDEFINED=".USERDEFINED.",
+	NOTDEFINED=".NOTDEFINED."
+}
