@@ -1321,7 +1321,6 @@ export default class SchemaSpecificationIFC implements SchemaSpecification
 		localSpecifications.set( 'IfcWorkPlan', new IfcWorkPlanSpecification() );
 		localSpecifications.set( 'IfcWorkSchedule', new IfcWorkScheduleSpecification() );
 
-
         this.specifications = localSpecifications;
     }
 }

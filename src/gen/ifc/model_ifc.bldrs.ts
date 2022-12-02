@@ -1,4 +1,4 @@
-import {{IfcComponentTypeNames}} from './schema_ifc.bldrs'
+import {IfcComponentTypeNames} from './schema_ifc.bldrs'
 import Entity from '../../core/entity'
 
 import IfcGloballyUniqueId from './IfcGloballyUniqueId.bldrs'

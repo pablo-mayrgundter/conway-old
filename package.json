@@ -9,7 +9,7 @@
     "build-transpile-watch": "swc src -w -s -d compiled/src",
     "build-transpile": "swc src -s -d compiled/src",
     "build-incremental": "tsc --build",
-    "build-rebuild": "yarn build-clean && yarn build-incremental",
+    "build-rebuild": "yarn submodule-update && yarn build-clean && yarn code-gen && yarn build-incremental",
     "transpile-clean": "yarn rimraf ./compiled/*.js && yarn rimraf ./compiled/*.js.map && yarn rimraf ./compiled/core/*.js && yarn rimraf ./compiled/core/*.js.map && yarn rimraf ./compiled/gen/*.js && yarn rimraf ./compiled/gen/*.js.map",
     "build-clean": "yarn transpile-clean && tsc --build --clean",
     "test-watch": "jest --watchAll  --notify",
