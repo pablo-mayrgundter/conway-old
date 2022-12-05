@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcColourSpecification} from "./IfcColourSpecification.bldrs"
-import {IfcPreDefinedColour} from "./IfcPreDefinedColour.bldrs"
+import IfcColourSpecification from "./IfcColourSpecification.bldrs"
+import IfcPreDefinedColour from "./IfcPreDefinedColour.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcTextStyleForDefinedFont implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
-	Colour : IfcColourSpecification|IfcPreDefinedColour;
-	BackgroundColour? : IfcColourSpecification|IfcPreDefinedColour;
-
+    constructor( public readonly Colour : IfcColourSpecification|IfcPreDefinedColour , public readonly BackgroundColour : IfcColourSpecification|IfcPreDefinedColour  | undefined ) {}
 }
 
 export class IfcTextStyleForDefinedFontSpecification implements ComponentSpecification

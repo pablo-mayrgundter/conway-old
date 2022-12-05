@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPoint} from "./IfcPoint.bldrs"
-import {IfcGlobalOrLocalEnum} from "./IfcGlobalOrLocalEnum.bldrs"
+import IfcPoint from "./IfcPoint.bldrs"
+import IfcGlobalOrLocalEnum from "./IfcGlobalOrLocalEnum.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcAnnotationFillAreaOccurrence implements Component< Schem
 
     public readonly __version__: number = 0;
 
-	FillStyleTarget? : IfcPoint;
-	GlobalOrLocal? : IfcGlobalOrLocalEnum;
-
+    constructor( public readonly FillStyleTarget : IfcPoint  | undefined, public readonly GlobalOrLocal : IfcGlobalOrLocalEnum  | undefined ) {}
 }
 
 export class IfcAnnotationFillAreaOccurrenceSpecification implements ComponentSpecification

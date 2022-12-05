@@ -3,11 +3,11 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCurveStyle} from "./IfcCurveStyle.bldrs"
-import {IfcOneDirectionRepeatFactor} from "./IfcOneDirectionRepeatFactor.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
-import {IfcCartesianPoint} from "./IfcCartesianPoint.bldrs"
-import {IfcPlaneAngleMeasure} from "./IfcPlaneAngleMeasure.bldrs"
+import IfcCurveStyle from "./IfcCurveStyle.bldrs"
+import IfcOneDirectionRepeatFactor from "./IfcOneDirectionRepeatFactor.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
+import IfcCartesianPoint from "./IfcCartesianPoint.bldrs"
+import IfcPlaneAngleMeasure from "./IfcPlaneAngleMeasure.bldrs"
 
 
 /**
@@ -19,12 +19,7 @@ export default class IfcFillAreaStyleHatching implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	HatchLineAppearance : IfcCurveStyle;
-	StartOfNextHatchLine : IfcOneDirectionRepeatFactor|IfcPositiveLengthMeasure;
-	PointOfReferenceHatchLine? : IfcCartesianPoint;
-	PatternStart? : IfcCartesianPoint;
-	HatchLineAngle : IfcPlaneAngleMeasure;
-
+    constructor( public readonly HatchLineAppearance : IfcCurveStyle , public readonly StartOfNextHatchLine : IfcOneDirectionRepeatFactor|IfcPositiveLengthMeasure , public readonly PointOfReferenceHatchLine : IfcCartesianPoint  | undefined, public readonly PatternStart : IfcCartesianPoint  | undefined, public readonly HatchLineAngle : IfcPlaneAngleMeasure  ) {}
 }
 
 export class IfcFillAreaStyleHatchingSpecification implements ComponentSpecification

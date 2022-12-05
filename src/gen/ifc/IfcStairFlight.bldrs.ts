@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 
 
 /**
@@ -15,11 +15,7 @@ export default class IfcStairFlight implements Component< SchemaSpecificationIFC
 
     public readonly __version__: number = 0;
 
-	NumberOfRiser? : number;
-	NumberOfTreads? : number;
-	RiserHeight? : IfcPositiveLengthMeasure;
-	TreadLength? : IfcPositiveLengthMeasure;
-
+    constructor( public readonly NumberOfRiser : number  | undefined, public readonly NumberOfTreads : number  | undefined, public readonly RiserHeight : IfcPositiveLengthMeasure  | undefined, public readonly TreadLength : IfcPositiveLengthMeasure  | undefined ) {}
 }
 
 export class IfcStairFlightSpecification implements ComponentSpecification

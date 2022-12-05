@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcsiunitname.htm
-export enum IfcSIUnitName 
+enum IfcSIUnitName 
 {
 	AMPERE=".AMPERE.",
 	BECQUEREL=".BECQUEREL.",
@@ -32,4 +32,6 @@ export enum IfcSIUnitName
 	VOLT=".VOLT.",
 	WATT=".WATT.",
 	WEBER=".WEBER."
-}
+};
+
+export default IfcSIUnitName;

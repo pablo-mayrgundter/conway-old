@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcAxis1Placement} from "./IfcAxis1Placement.bldrs"
-import {IfcPlaneAngleMeasure} from "./IfcPlaneAngleMeasure.bldrs"
-import {IfcLine} from "./IfcLine.bldrs"
+import IfcAxis1Placement from "./IfcAxis1Placement.bldrs"
+import IfcPlaneAngleMeasure from "./IfcPlaneAngleMeasure.bldrs"
+import IfcLine from "./IfcLine.bldrs"
 
 
 /**
@@ -17,9 +17,7 @@ export default class IfcRevolvedAreaSolid implements Component< SchemaSpecificat
 
     public readonly __version__: number = 0;
 
-	Axis : IfcAxis1Placement;
-	Angle : IfcPlaneAngleMeasure;
-
+    constructor( public readonly Axis : IfcAxis1Placement , public readonly Angle : IfcPlaneAngleMeasure  ) {}
 }
 
 export class IfcRevolvedAreaSolidSpecification implements ComponentSpecification

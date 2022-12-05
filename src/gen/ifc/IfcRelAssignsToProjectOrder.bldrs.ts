@@ -14,7 +14,7 @@ export default class IfcRelAssignsToProjectOrder implements Component< SchemaSpe
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcRelAssignsToProjectOrderSpecification implements ComponentSpecification

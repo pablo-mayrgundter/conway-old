@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLoop} from "./IfcLoop.bldrs"
+import IfcLoop from "./IfcLoop.bldrs"
 
 
 /**
@@ -15,9 +15,7 @@ export default class IfcFaceBound implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	Bound : IfcLoop;
-	Orientation : boolean;
-
+    constructor( public readonly Bound : IfcLoop , public readonly Orientation : boolean  ) {}
 }
 
 export class IfcFaceBoundSpecification implements ComponentSpecification

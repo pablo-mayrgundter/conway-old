@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPlaneAngleMeasure} from "./IfcPlaneAngleMeasure.bldrs"
-import {IfcLuminousIntensityDistributionMeasure} from "./IfcLuminousIntensityDistributionMeasure.bldrs"
+import IfcPlaneAngleMeasure from "./IfcPlaneAngleMeasure.bldrs"
+import IfcLuminousIntensityDistributionMeasure from "./IfcLuminousIntensityDistributionMeasure.bldrs"
 
 
 /**
@@ -16,10 +16,7 @@ export default class IfcLightDistributionData implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	MainPlaneAngle : IfcPlaneAngleMeasure;
-	SecondaryPlaneAngle : Array<IfcPlaneAngleMeasure>;
-	LuminousIntensity : Array<IfcLuminousIntensityDistributionMeasure>;
-
+    constructor( public readonly MainPlaneAngle : IfcPlaneAngleMeasure , public readonly SecondaryPlaneAngle : Array<IfcPlaneAngleMeasure> , public readonly LuminousIntensity : Array<IfcLuminousIntensityDistributionMeasure>  ) {}
 }
 
 export class IfcLightDistributionDataSpecification implements ComponentSpecification

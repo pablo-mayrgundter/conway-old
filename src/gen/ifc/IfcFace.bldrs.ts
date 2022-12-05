@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcFaceBound} from "./IfcFaceBound.bldrs"
+import IfcFaceBound from "./IfcFaceBound.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcFace implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	Bounds : Array<IfcFaceBound>;
-
+    constructor( public readonly Bounds : Array<IfcFaceBound>  ) {}
 }
 
 export class IfcFaceSpecification implements ComponentSpecification

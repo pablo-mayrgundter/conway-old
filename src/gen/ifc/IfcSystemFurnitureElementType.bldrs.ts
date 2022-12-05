@@ -14,7 +14,7 @@ export default class IfcSystemFurnitureElementType implements Component< SchemaS
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcSystemFurnitureElementTypeSpecification implements ComponentSpecification

@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcAirTerminalTypeEnum} from "./IfcAirTerminalTypeEnum.bldrs"
+import IfcAirTerminalTypeEnum from "./IfcAirTerminalTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcAirTerminalType implements Component< SchemaSpecificatio
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcAirTerminalTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcAirTerminalTypeEnum  ) {}
 }
 
 export class IfcAirTerminalTypeSpecification implements ComponentSpecification

@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccablecarriersegmenttypeenum.htm
-export enum IfcCableCarrierSegmentTypeEnum 
+enum IfcCableCarrierSegmentTypeEnum 
 {
 	CABLELADDERSEGMENT=".CABLELADDERSEGMENT.",
 	CABLETRAYSEGMENT=".CABLETRAYSEGMENT.",
@@ -8,4 +8,6 @@ export enum IfcCableCarrierSegmentTypeEnum
 	CONDUITSEGMENT=".CONDUITSEGMENT.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcCableCarrierSegmentTypeEnum;

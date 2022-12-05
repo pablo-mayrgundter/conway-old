@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcElementType implements Component< SchemaSpecificationIFC
 
     public readonly __version__: number = 0;
 
-	ElementType? : IfcLabel;
-
+    constructor( public readonly ElementType : IfcLabel  | undefined ) {}
 }
 
 export class IfcElementTypeSpecification implements ComponentSpecification

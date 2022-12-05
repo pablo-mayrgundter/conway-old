@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcelectricflowstoragedevicetypeenum.htm
-export enum IfcElectricFlowStorageDeviceTypeEnum 
+enum IfcElectricFlowStorageDeviceTypeEnum 
 {
 	BATTERY=".BATTERY.",
 	CAPACITORBANK=".CAPACITORBANK.",
@@ -9,4 +9,6 @@ export enum IfcElectricFlowStorageDeviceTypeEnum
 	UPS=".UPS.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcElectricFlowStorageDeviceTypeEnum;

@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcpropertysourceenum.htm
-export enum IfcPropertySourceEnum 
+enum IfcPropertySourceEnum 
 {
 	DESIGN=".DESIGN.",
 	DESIGNMAXIMUM=".DESIGNMAXIMUM.",
@@ -11,4 +11,6 @@ export enum IfcPropertySourceEnum
 	MEASURED=".MEASURED.",
 	USERDEFINED=".USERDEFINED.",
 	NOTKNOWN=".NOTKNOWN."
-}
+};
+
+export default IfcPropertySourceEnum;

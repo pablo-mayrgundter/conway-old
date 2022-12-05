@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCurve} from "./IfcCurve.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
-import {IfcParameterValue} from "./IfcParameterValue.bldrs"
+import IfcCurve from "./IfcCurve.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
+import IfcParameterValue from "./IfcParameterValue.bldrs"
 
 
 /**
@@ -17,12 +17,7 @@ export default class IfcSweptDiskSolid implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-	Directrix : IfcCurve;
-	Radius : IfcPositiveLengthMeasure;
-	InnerRadius? : IfcPositiveLengthMeasure;
-	StartParam : IfcParameterValue;
-	EndParam : IfcParameterValue;
-
+    constructor( public readonly Directrix : IfcCurve , public readonly Radius : IfcPositiveLengthMeasure , public readonly InnerRadius : IfcPositiveLengthMeasure  | undefined, public readonly StartParam : IfcParameterValue , public readonly EndParam : IfcParameterValue  ) {}
 }
 
 export class IfcSweptDiskSolidSpecification implements ComponentSpecification

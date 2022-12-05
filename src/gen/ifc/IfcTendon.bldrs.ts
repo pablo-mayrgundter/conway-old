@@ -3,12 +3,12 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcTendonTypeEnum} from "./IfcTendonTypeEnum.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
-import {IfcAreaMeasure} from "./IfcAreaMeasure.bldrs"
-import {IfcForceMeasure} from "./IfcForceMeasure.bldrs"
-import {IfcPressureMeasure} from "./IfcPressureMeasure.bldrs"
-import {IfcNormalisedRatioMeasure} from "./IfcNormalisedRatioMeasure.bldrs"
+import IfcTendonTypeEnum from "./IfcTendonTypeEnum.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
+import IfcAreaMeasure from "./IfcAreaMeasure.bldrs"
+import IfcForceMeasure from "./IfcForceMeasure.bldrs"
+import IfcPressureMeasure from "./IfcPressureMeasure.bldrs"
+import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
 
 
 /**
@@ -20,15 +20,7 @@ export default class IfcTendon implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcTendonTypeEnum;
-	NominalDiameter : IfcPositiveLengthMeasure;
-	CrossSectionArea : IfcAreaMeasure;
-	TensionForce? : IfcForceMeasure;
-	PreStress? : IfcPressureMeasure;
-	FrictionCoefficient? : IfcNormalisedRatioMeasure;
-	AnchorageSlip? : IfcPositiveLengthMeasure;
-	MinCurvatureRadius? : IfcPositiveLengthMeasure;
-
+    constructor( public readonly PredefinedType : IfcTendonTypeEnum , public readonly NominalDiameter : IfcPositiveLengthMeasure , public readonly CrossSectionArea : IfcAreaMeasure , public readonly TensionForce : IfcForceMeasure  | undefined, public readonly PreStress : IfcPressureMeasure  | undefined, public readonly FrictionCoefficient : IfcNormalisedRatioMeasure  | undefined, public readonly AnchorageSlip : IfcPositiveLengthMeasure  | undefined, public readonly MinCurvatureRadius : IfcPositiveLengthMeasure  | undefined ) {}
 }
 
 export class IfcTendonSpecification implements ComponentSpecification

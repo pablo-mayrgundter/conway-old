@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPort} from "./IfcPort.bldrs"
-import {IfcElement} from "./IfcElement.bldrs"
+import IfcPort from "./IfcPort.bldrs"
+import IfcElement from "./IfcElement.bldrs"
 
 
 /**
@@ -16,10 +16,7 @@ export default class IfcRelConnectsPorts implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
-	RelatingPort : IfcPort;
-	RelatedPort : IfcPort;
-	RealizingElement? : IfcElement;
-
+    constructor( public readonly RelatingPort : IfcPort , public readonly RelatedPort : IfcPort , public readonly RealizingElement : IfcElement  | undefined ) {}
 }
 
 export class IfcRelConnectsPortsSpecification implements ComponentSpecification

@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcSurface} from "./IfcSurface.bldrs"
-import {IfcParameterValue} from "./IfcParameterValue.bldrs"
-import {IfcDimensionCount} from "./IfcDimensionCount.bldrs"
+import IfcSurface from "./IfcSurface.bldrs"
+import IfcParameterValue from "./IfcParameterValue.bldrs"
+import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 
 
 /**
@@ -17,14 +17,7 @@ export default class IfcRectangularTrimmedSurface implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
-	BasisSurface : IfcSurface;
-	U1 : IfcParameterValue;
-	V1 : IfcParameterValue;
-	U2 : IfcParameterValue;
-	V2 : IfcParameterValue;
-	Usense : boolean;
-	Vsense : boolean;
-
+    constructor( public readonly BasisSurface : IfcSurface , public readonly U1 : IfcParameterValue , public readonly V1 : IfcParameterValue , public readonly U2 : IfcParameterValue , public readonly V2 : IfcParameterValue , public readonly Usense : boolean , public readonly Vsense : boolean  ) {}
 }
 
 export class IfcRectangularTrimmedSurfaceSpecification implements ComponentSpecification

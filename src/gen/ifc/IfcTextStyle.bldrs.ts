@@ -3,11 +3,11 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcTextStyleForDefinedFont} from "./IfcTextStyleForDefinedFont.bldrs"
-import {IfcTextStyleWithBoxCharacteristics} from "./IfcTextStyleWithBoxCharacteristics.bldrs"
-import {IfcTextStyleTextModel} from "./IfcTextStyleTextModel.bldrs"
-import {IfcPreDefinedTextFont} from "./IfcPreDefinedTextFont.bldrs"
-import {IfcExternallyDefinedTextFont} from "./IfcExternallyDefinedTextFont.bldrs"
+import IfcTextStyleForDefinedFont from "./IfcTextStyleForDefinedFont.bldrs"
+import IfcTextStyleWithBoxCharacteristics from "./IfcTextStyleWithBoxCharacteristics.bldrs"
+import IfcTextStyleTextModel from "./IfcTextStyleTextModel.bldrs"
+import IfcPreDefinedTextFont from "./IfcPreDefinedTextFont.bldrs"
+import IfcExternallyDefinedTextFont from "./IfcExternallyDefinedTextFont.bldrs"
 
 
 /**
@@ -19,10 +19,7 @@ export default class IfcTextStyle implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	TextCharacterAppearance? : IfcTextStyleForDefinedFont;
-	TextStyle? : IfcTextStyleWithBoxCharacteristics|IfcTextStyleTextModel;
-	TextFontStyle : IfcPreDefinedTextFont|IfcExternallyDefinedTextFont;
-
+    constructor( public readonly TextCharacterAppearance : IfcTextStyleForDefinedFont  | undefined, public readonly TextStyle : IfcTextStyleWithBoxCharacteristics|IfcTextStyleTextModel  | undefined, public readonly TextFontStyle : IfcPreDefinedTextFont|IfcExternallyDefinedTextFont  ) {}
 }
 
 export class IfcTextStyleSpecification implements ComponentSpecification

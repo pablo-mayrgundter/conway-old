@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcRepresentationMap} from "./IfcRepresentationMap.bldrs"
-import {IfcCartesianTransformationOperator} from "./IfcCartesianTransformationOperator.bldrs"
+import IfcRepresentationMap from "./IfcRepresentationMap.bldrs"
+import IfcCartesianTransformationOperator from "./IfcCartesianTransformationOperator.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcMappedItem implements Component< SchemaSpecificationIFC 
 
     public readonly __version__: number = 0;
 
-	MappingSource : IfcRepresentationMap;
-	MappingTarget : IfcCartesianTransformationOperator;
-
+    constructor( public readonly MappingSource : IfcRepresentationMap , public readonly MappingTarget : IfcCartesianTransformationOperator  ) {}
 }
 
 export class IfcMappedItemSpecification implements ComponentSpecification

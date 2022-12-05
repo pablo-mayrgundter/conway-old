@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcProfileDef} from "./IfcProfileDef.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcProfileDef from "./IfcProfileDef.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcProfileProperties implements Component< SchemaSpecificat
 
     public readonly __version__: number = 0;
 
-	ProfileName? : IfcLabel;
-	ProfileDefinition? : IfcProfileDef;
-
+    constructor( public readonly ProfileName : IfcLabel  | undefined, public readonly ProfileDefinition : IfcProfileDef  | undefined ) {}
 }
 
 export class IfcProfilePropertiesSpecification implements ComponentSpecification

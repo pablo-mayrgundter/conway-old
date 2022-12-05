@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcPreDefinedCurveFont} from "./IfcPreDefinedCurveFont.bldrs"
-import {IfcCurveStyleFont} from "./IfcCurveStyleFont.bldrs"
-import {IfcPositiveRatioMeasure} from "./IfcPositiveRatioMeasure.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcPreDefinedCurveFont from "./IfcPreDefinedCurveFont.bldrs"
+import IfcCurveStyleFont from "./IfcCurveStyleFont.bldrs"
+import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
 
 
 /**
@@ -18,10 +18,7 @@ export default class IfcCurveStyleFontAndScaling implements Component< SchemaSpe
 
     public readonly __version__: number = 0;
 
-	Name? : IfcLabel;
-	CurveFont : IfcPreDefinedCurveFont|IfcCurveStyleFont;
-	CurveFontScaling : IfcPositiveRatioMeasure;
-
+    constructor( public readonly Name : IfcLabel  | undefined, public readonly CurveFont : IfcPreDefinedCurveFont|IfcCurveStyleFont , public readonly CurveFontScaling : IfcPositiveRatioMeasure  ) {}
 }
 
 export class IfcCurveStyleFontAndScalingSpecification implements ComponentSpecification

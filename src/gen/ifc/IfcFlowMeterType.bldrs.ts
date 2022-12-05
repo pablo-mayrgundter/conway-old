@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcFlowMeterTypeEnum} from "./IfcFlowMeterTypeEnum.bldrs"
+import IfcFlowMeterTypeEnum from "./IfcFlowMeterTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcFlowMeterType implements Component< SchemaSpecificationI
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcFlowMeterTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcFlowMeterTypeEnum  ) {}
 }
 
 export class IfcFlowMeterTypeSpecification implements ComponentSpecification

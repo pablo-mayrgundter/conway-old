@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcProcess} from "./IfcProcess.bldrs"
-import {IfcTimeMeasure} from "./IfcTimeMeasure.bldrs"
-import {IfcSequenceEnum} from "./IfcSequenceEnum.bldrs"
+import IfcProcess from "./IfcProcess.bldrs"
+import IfcTimeMeasure from "./IfcTimeMeasure.bldrs"
+import IfcSequenceEnum from "./IfcSequenceEnum.bldrs"
 
 
 /**
@@ -17,11 +17,7 @@ export default class IfcRelSequence implements Component< SchemaSpecificationIFC
 
     public readonly __version__: number = 0;
 
-	RelatingProcess : IfcProcess;
-	RelatedProcess : IfcProcess;
-	TimeLag : IfcTimeMeasure;
-	SequenceType : IfcSequenceEnum;
-
+    constructor( public readonly RelatingProcess : IfcProcess , public readonly RelatedProcess : IfcProcess , public readonly TimeLag : IfcTimeMeasure , public readonly SequenceType : IfcSequenceEnum  ) {}
 }
 
 export class IfcRelSequenceSpecification implements ComponentSpecification

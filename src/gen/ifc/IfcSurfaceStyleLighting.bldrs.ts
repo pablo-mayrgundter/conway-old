@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcColourRgb} from "./IfcColourRgb.bldrs"
+import IfcColourRgb from "./IfcColourRgb.bldrs"
 
 
 /**
@@ -15,11 +15,7 @@ export default class IfcSurfaceStyleLighting implements Component< SchemaSpecifi
 
     public readonly __version__: number = 0;
 
-	DiffuseTransmissionColour : IfcColourRgb;
-	DiffuseReflectionColour : IfcColourRgb;
-	TransmissionColour : IfcColourRgb;
-	ReflectanceColour : IfcColourRgb;
-
+    constructor( public readonly DiffuseTransmissionColour : IfcColourRgb , public readonly DiffuseReflectionColour : IfcColourRgb , public readonly TransmissionColour : IfcColourRgb , public readonly ReflectanceColour : IfcColourRgb  ) {}
 }
 
 export class IfcSurfaceStyleLightingSpecification implements ComponentSpecification

@@ -14,7 +14,7 @@ export default class IfcTopologyRepresentation implements Component< SchemaSpeci
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcTopologyRepresentationSpecification implements ComponentSpecification

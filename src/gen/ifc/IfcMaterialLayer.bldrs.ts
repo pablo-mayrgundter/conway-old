@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcMaterial} from "./IfcMaterial.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
-import {IfcLogical} from "./IfcLogical.bldrs"
-import {IfcMaterialLayerSet} from "./IfcMaterialLayerSet.bldrs"
+import IfcMaterial from "./IfcMaterial.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
+import IfcLogical from "./IfcLogical.bldrs"
+import IfcMaterialLayerSet from "./IfcMaterialLayerSet.bldrs"
 
 
 /**
@@ -18,10 +18,7 @@ export default class IfcMaterialLayer implements Component< SchemaSpecificationI
 
     public readonly __version__: number = 0;
 
-	Material? : IfcMaterial;
-	LayerThickness : IfcPositiveLengthMeasure;
-	IsVentilated? : IfcLogical;
-
+    constructor( public readonly Material : IfcMaterial  | undefined, public readonly LayerThickness : IfcPositiveLengthMeasure , public readonly IsVentilated : IfcLogical  | undefined ) {}
 }
 
 export class IfcMaterialLayerSpecification implements ComponentSpecification

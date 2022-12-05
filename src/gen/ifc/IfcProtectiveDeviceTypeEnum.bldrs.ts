@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcprotectivedevicetypeenum.htm
-export enum IfcProtectiveDeviceTypeEnum 
+enum IfcProtectiveDeviceTypeEnum 
 {
 	FUSEDISCONNECTOR=".FUSEDISCONNECTOR.",
 	CIRCUITBREAKER=".CIRCUITBREAKER.",
@@ -10,4 +10,6 @@ export enum IfcProtectiveDeviceTypeEnum
 	VARISTOR=".VARISTOR.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcProtectiveDeviceTypeEnum;

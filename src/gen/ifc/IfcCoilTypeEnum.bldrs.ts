@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccoiltypeenum.htm
-export enum IfcCoilTypeEnum 
+enum IfcCoilTypeEnum 
 {
 	DXCOOLINGCOIL=".DXCOOLINGCOIL.",
 	WATERCOOLINGCOIL=".WATERCOOLINGCOIL.",
@@ -10,4 +10,6 @@ export enum IfcCoilTypeEnum
 	GASHEATINGCOIL=".GASHEATINGCOIL.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcCoilTypeEnum;

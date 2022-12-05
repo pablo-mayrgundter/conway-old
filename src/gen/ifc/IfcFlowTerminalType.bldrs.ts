@@ -14,7 +14,7 @@ export default class IfcFlowTerminalType implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcFlowTerminalTypeSpecification implements ComponentSpecification

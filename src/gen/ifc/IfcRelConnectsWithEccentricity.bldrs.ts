@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcConnectionGeometry} from "./IfcConnectionGeometry.bldrs"
+import IfcConnectionGeometry from "./IfcConnectionGeometry.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcRelConnectsWithEccentricity implements Component< Schema
 
     public readonly __version__: number = 0;
 
-	ConnectionConstraint : IfcConnectionGeometry;
-
+    constructor( public readonly ConnectionConstraint : IfcConnectionGeometry  ) {}
 }
 
 export class IfcRelConnectsWithEccentricitySpecification implements ComponentSpecification

@@ -14,7 +14,7 @@ export default class IfcFlowControllerType implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcFlowControllerTypeSpecification implements ComponentSpecification

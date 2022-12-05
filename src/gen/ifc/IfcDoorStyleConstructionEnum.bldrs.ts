@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcdoorstyleconstructionenum.htm
-export enum IfcDoorStyleConstructionEnum 
+enum IfcDoorStyleConstructionEnum 
 {
 	ALUMINIUM=".ALUMINIUM.",
 	HIGH_GRADE_STEEL=".HIGH_GRADE_STEEL.",
@@ -11,4 +11,6 @@ export enum IfcDoorStyleConstructionEnum
 	PLASTIC=".PLASTIC.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcDoorStyleConstructionEnum;

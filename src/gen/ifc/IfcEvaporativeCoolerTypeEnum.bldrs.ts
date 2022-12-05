@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcevaporativecoolertypeenum.htm
-export enum IfcEvaporativeCoolerTypeEnum 
+enum IfcEvaporativeCoolerTypeEnum 
 {
 	DIRECTEVAPORATIVERANDOMMEDIAAIRCOOLER=".DIRECTEVAPORATIVERANDOMMEDIAAIRCOOLER.",
 	DIRECTEVAPORATIVERIGIDMEDIAAIRCOOLER=".DIRECTEVAPORATIVERIGIDMEDIAAIRCOOLER.",
@@ -13,4 +13,6 @@ export enum IfcEvaporativeCoolerTypeEnum
 	INDIRECTDIRECTCOMBINATION=".INDIRECTDIRECTCOMBINATION.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcEvaporativeCoolerTypeEnum;

@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccurrencyenum.htm
-export enum IfcCurrencyEnum 
+enum IfcCurrencyEnum 
 {
 	AED=".AED.",
 	AES=".AES.",
@@ -85,4 +85,6 @@ export enum IfcCurrencyEnum
 	ZAR=".ZAR.",
 	ZWD=".ZWD.",
 	NOK=".NOK."
-}
+};
+
+export default IfcCurrencyEnum;

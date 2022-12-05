@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcControl} from "./IfcControl.bldrs"
+import IfcControl from "./IfcControl.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcRelAssignsToControl implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
-	RelatingControl : IfcControl;
-
+    constructor( public readonly RelatingControl : IfcControl  ) {}
 }
 
 export class IfcRelAssignsToControlSpecification implements ComponentSpecification

@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcBeamTypeEnum} from "./IfcBeamTypeEnum.bldrs"
+import IfcBeamTypeEnum from "./IfcBeamTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcBeamType implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcBeamTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcBeamTypeEnum  ) {}
 }
 
 export class IfcBeamTypeSpecification implements ComponentSpecification

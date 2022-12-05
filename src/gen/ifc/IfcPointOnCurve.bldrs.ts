@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCurve} from "./IfcCurve.bldrs"
-import {IfcParameterValue} from "./IfcParameterValue.bldrs"
-import {IfcDimensionCount} from "./IfcDimensionCount.bldrs"
+import IfcCurve from "./IfcCurve.bldrs"
+import IfcParameterValue from "./IfcParameterValue.bldrs"
+import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 
 
 /**
@@ -17,9 +17,7 @@ export default class IfcPointOnCurve implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
-	BasisCurve : IfcCurve;
-	PointParameter : IfcParameterValue;
-
+    constructor( public readonly BasisCurve : IfcCurve , public readonly PointParameter : IfcParameterValue  ) {}
 }
 
 export class IfcPointOnCurveSpecification implements ComponentSpecification

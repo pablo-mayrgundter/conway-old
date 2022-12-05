@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcspaceheatertypeenum.htm
-export enum IfcSpaceHeaterTypeEnum 
+enum IfcSpaceHeaterTypeEnum 
 {
 	SECTIONALRADIATOR=".SECTIONALRADIATOR.",
 	PANELRADIATOR=".PANELRADIATOR.",
@@ -11,4 +11,6 @@ export enum IfcSpaceHeaterTypeEnum
 	UNITHEATER=".UNITHEATER.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcSpaceHeaterTypeEnum;

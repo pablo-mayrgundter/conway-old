@@ -3,20 +3,20 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcMaterial} from "./IfcMaterial.bldrs"
-import {IfcPerson} from "./IfcPerson.bldrs"
-import {IfcDateAndTime} from "./IfcDateAndTime.bldrs"
-import {IfcMaterialList} from "./IfcMaterialList.bldrs"
-import {IfcOrganization} from "./IfcOrganization.bldrs"
-import {IfcCalendarDate} from "./IfcCalendarDate.bldrs"
-import {IfcLocalTime} from "./IfcLocalTime.bldrs"
-import {IfcPersonAndOrganization} from "./IfcPersonAndOrganization.bldrs"
-import {IfcMaterialLayer} from "./IfcMaterialLayer.bldrs"
-import {IfcExternalReference} from "./IfcExternalReference.bldrs"
-import {IfcTimeSeries} from "./IfcTimeSeries.bldrs"
-import {IfcAddress} from "./IfcAddress.bldrs"
-import {IfcAppliedValue} from "./IfcAppliedValue.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcMaterial from "./IfcMaterial.bldrs"
+import IfcPerson from "./IfcPerson.bldrs"
+import IfcDateAndTime from "./IfcDateAndTime.bldrs"
+import IfcMaterialList from "./IfcMaterialList.bldrs"
+import IfcOrganization from "./IfcOrganization.bldrs"
+import IfcCalendarDate from "./IfcCalendarDate.bldrs"
+import IfcLocalTime from "./IfcLocalTime.bldrs"
+import IfcPersonAndOrganization from "./IfcPersonAndOrganization.bldrs"
+import IfcMaterialLayer from "./IfcMaterialLayer.bldrs"
+import IfcExternalReference from "./IfcExternalReference.bldrs"
+import IfcTimeSeries from "./IfcTimeSeries.bldrs"
+import IfcAddress from "./IfcAddress.bldrs"
+import IfcAppliedValue from "./IfcAppliedValue.bldrs"
 
 
 /**
@@ -28,9 +28,7 @@ export default class IfcPropertyReferenceValue implements Component< SchemaSpeci
 
     public readonly __version__: number = 0;
 
-	UsageName? : IfcLabel;
-	PropertyReference : IfcMaterial|IfcPerson|IfcDateAndTime|IfcMaterialList|IfcOrganization|IfcCalendarDate|IfcLocalTime|IfcPersonAndOrganization|IfcMaterialLayer|IfcExternalReference|IfcTimeSeries|IfcAddress|IfcAppliedValue;
-
+    constructor( public readonly UsageName : IfcLabel  | undefined, public readonly PropertyReference : IfcMaterial|IfcPerson|IfcDateAndTime|IfcMaterialList|IfcOrganization|IfcCalendarDate|IfcLocalTime|IfcPersonAndOrganization|IfcMaterialLayer|IfcExternalReference|IfcTimeSeries|IfcAddress|IfcAppliedValue  ) {}
 }
 
 export class IfcPropertyReferenceValueSpecification implements ComponentSpecification

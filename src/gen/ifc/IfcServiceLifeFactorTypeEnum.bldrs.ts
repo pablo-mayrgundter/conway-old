@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcservicelifefactortypeenum.htm
-export enum IfcServiceLifeFactorTypeEnum 
+enum IfcServiceLifeFactorTypeEnum 
 {
 	A_QUALITYOFCOMPONENTS=".A_QUALITYOFCOMPONENTS.",
 	B_DESIGNLEVEL=".B_DESIGNLEVEL.",
@@ -11,4 +11,6 @@ export enum IfcServiceLifeFactorTypeEnum
 	G_MAINTENANCELEVEL=".G_MAINTENANCELEVEL.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcServiceLifeFactorTypeEnum;

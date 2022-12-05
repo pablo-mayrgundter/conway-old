@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCountMeasure} from "./IfcCountMeasure.bldrs"
-import {IfcNormalisedRatioMeasure} from "./IfcNormalisedRatioMeasure.bldrs"
-import {IfcSpatialStructureElement} from "./IfcSpatialStructureElement.bldrs"
-import {IfcSpaceProgram} from "./IfcSpaceProgram.bldrs"
+import IfcCountMeasure from "./IfcCountMeasure.bldrs"
+import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
+import IfcSpatialStructureElement from "./IfcSpatialStructureElement.bldrs"
+import IfcSpaceProgram from "./IfcSpaceProgram.bldrs"
 
 
 /**
@@ -18,12 +18,7 @@ export default class IfcRelInteractionRequirements implements Component< SchemaS
 
     public readonly __version__: number = 0;
 
-	DailyInteraction? : IfcCountMeasure;
-	ImportanceRating? : IfcNormalisedRatioMeasure;
-	LocationOfInteraction? : IfcSpatialStructureElement;
-	RelatedSpaceProgram : IfcSpaceProgram;
-	RelatingSpaceProgram : IfcSpaceProgram;
-
+    constructor( public readonly DailyInteraction : IfcCountMeasure  | undefined, public readonly ImportanceRating : IfcNormalisedRatioMeasure  | undefined, public readonly LocationOfInteraction : IfcSpatialStructureElement  | undefined, public readonly RelatedSpaceProgram : IfcSpaceProgram , public readonly RelatingSpaceProgram : IfcSpaceProgram  ) {}
 }
 
 export class IfcRelInteractionRequirementsSpecification implements ComponentSpecification

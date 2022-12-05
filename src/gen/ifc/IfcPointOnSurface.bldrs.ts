@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcSurface} from "./IfcSurface.bldrs"
-import {IfcParameterValue} from "./IfcParameterValue.bldrs"
-import {IfcDimensionCount} from "./IfcDimensionCount.bldrs"
+import IfcSurface from "./IfcSurface.bldrs"
+import IfcParameterValue from "./IfcParameterValue.bldrs"
+import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 
 
 /**
@@ -17,10 +17,7 @@ export default class IfcPointOnSurface implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-	BasisSurface : IfcSurface;
-	PointParameterU : IfcParameterValue;
-	PointParameterV : IfcParameterValue;
-
+    constructor( public readonly BasisSurface : IfcSurface , public readonly PointParameterU : IfcParameterValue , public readonly PointParameterV : IfcParameterValue  ) {}
 }
 
 export class IfcPointOnSurfaceSpecification implements ComponentSpecification

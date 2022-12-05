@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 
 
 /**
@@ -15,9 +15,7 @@ export default class IfcRightCircularCylinder implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	Height : IfcPositiveLengthMeasure;
-	Radius : IfcPositiveLengthMeasure;
-
+    constructor( public readonly Height : IfcPositiveLengthMeasure , public readonly Radius : IfcPositiveLengthMeasure  ) {}
 }
 
 export class IfcRightCircularCylinderSpecification implements ComponentSpecification

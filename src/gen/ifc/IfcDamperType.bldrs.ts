@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcDamperTypeEnum} from "./IfcDamperTypeEnum.bldrs"
+import IfcDamperTypeEnum from "./IfcDamperTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcDamperType implements Component< SchemaSpecificationIFC 
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcDamperTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcDamperTypeEnum  ) {}
 }
 
 export class IfcDamperTypeSpecification implements ComponentSpecification

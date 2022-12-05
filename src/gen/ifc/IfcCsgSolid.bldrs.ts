@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcBooleanResult} from "./IfcBooleanResult.bldrs"
-import {IfcCsgPrimitive3D} from "./IfcCsgPrimitive3D.bldrs"
+import IfcBooleanResult from "./IfcBooleanResult.bldrs"
+import IfcCsgPrimitive3D from "./IfcCsgPrimitive3D.bldrs"
 
 
 /**
@@ -16,8 +16,7 @@ export default class IfcCsgSolid implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	TreeRootExpression : IfcBooleanResult|IfcCsgPrimitive3D;
-
+    constructor( public readonly TreeRootExpression : IfcBooleanResult|IfcCsgPrimitive3D  ) {}
 }
 
 export class IfcCsgSolidSpecification implements ComponentSpecification

@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcPropertySetDefinition} from "./IfcPropertySetDefinition.bldrs"
-import {IfcRelDefinesByType} from "./IfcRelDefinesByType.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcPropertySetDefinition from "./IfcPropertySetDefinition.bldrs"
+import IfcRelDefinesByType from "./IfcRelDefinesByType.bldrs"
 
 
 /**
@@ -17,9 +17,7 @@ export default class IfcTypeObject implements Component< SchemaSpecificationIFC 
 
     public readonly __version__: number = 0;
 
-	ApplicableOccurrence? : IfcLabel;
-	HasPropertySets? : Array<IfcPropertySetDefinition>;
-
+    constructor( public readonly ApplicableOccurrence : IfcLabel  | undefined, public readonly HasPropertySets : Array<IfcPropertySetDefinition>  | undefined ) {}
 }
 
 export class IfcTypeObjectSpecification implements ComponentSpecification

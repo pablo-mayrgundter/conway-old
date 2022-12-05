@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPreDefinedSymbol} from "./IfcPreDefinedSymbol.bldrs"
-import {IfcExternallyDefinedSymbol} from "./IfcExternallyDefinedSymbol.bldrs"
-import {IfcCartesianTransformationOperator2D} from "./IfcCartesianTransformationOperator2D.bldrs"
+import IfcPreDefinedSymbol from "./IfcPreDefinedSymbol.bldrs"
+import IfcExternallyDefinedSymbol from "./IfcExternallyDefinedSymbol.bldrs"
+import IfcCartesianTransformationOperator2D from "./IfcCartesianTransformationOperator2D.bldrs"
 
 
 /**
@@ -17,9 +17,7 @@ export default class IfcDefinedSymbol implements Component< SchemaSpecificationI
 
     public readonly __version__: number = 0;
 
-	Definition : IfcPreDefinedSymbol|IfcExternallyDefinedSymbol;
-	Target : IfcCartesianTransformationOperator2D;
-
+    constructor( public readonly Definition : IfcPreDefinedSymbol|IfcExternallyDefinedSymbol , public readonly Target : IfcCartesianTransformationOperator2D  ) {}
 }
 
 export class IfcDefinedSymbolSpecification implements ComponentSpecification

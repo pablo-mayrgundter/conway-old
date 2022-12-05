@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcGloballyUniqueId} from "./IfcGloballyUniqueId.bldrs"
-import {IfcOwnerHistory} from "./IfcOwnerHistory.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcText} from "./IfcText.bldrs"
+import IfcGloballyUniqueId from "./IfcGloballyUniqueId.bldrs"
+import IfcOwnerHistory from "./IfcOwnerHistory.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcText from "./IfcText.bldrs"
 
 
 /**
@@ -18,11 +18,7 @@ export default class IfcRoot implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	GlobalId : IfcGloballyUniqueId;
-	OwnerHistory : IfcOwnerHistory;
-	Name? : IfcLabel;
-	Description? : IfcText;
-
+    constructor( public readonly GlobalId : IfcGloballyUniqueId , public readonly OwnerHistory : IfcOwnerHistory , public readonly Name : IfcLabel  | undefined, public readonly Description : IfcText  | undefined ) {}
 }
 
 export class IfcRootSpecification implements ComponentSpecification

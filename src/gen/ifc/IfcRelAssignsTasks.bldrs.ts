@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcScheduleTimeControl} from "./IfcScheduleTimeControl.bldrs"
+import IfcScheduleTimeControl from "./IfcScheduleTimeControl.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcRelAssignsTasks implements Component< SchemaSpecificatio
 
     public readonly __version__: number = 0;
 
-	TimeForTask? : IfcScheduleTimeControl;
-
+    constructor( public readonly TimeForTask : IfcScheduleTimeControl  | undefined ) {}
 }
 
 export class IfcRelAssignsTasksSpecification implements ComponentSpecification

@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifctimeseriesdatatypeenum.htm
-export enum IfcTimeSeriesDataTypeEnum 
+enum IfcTimeSeriesDataTypeEnum 
 {
 	CONTINUOUS=".CONTINUOUS.",
 	DISCRETE=".DISCRETE.",
@@ -9,4 +9,6 @@ export enum IfcTimeSeriesDataTypeEnum
 	PIECEWISECONSTANT=".PIECEWISECONSTANT.",
 	PIECEWISECONTINUOUS=".PIECEWISECONTINUOUS.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcTimeSeriesDataTypeEnum;

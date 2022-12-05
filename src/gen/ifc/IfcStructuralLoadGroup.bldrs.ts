@@ -3,13 +3,13 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLoadGroupTypeEnum} from "./IfcLoadGroupTypeEnum.bldrs"
-import {IfcActionTypeEnum} from "./IfcActionTypeEnum.bldrs"
-import {IfcActionSourceTypeEnum} from "./IfcActionSourceTypeEnum.bldrs"
-import {IfcPositiveRatioMeasure} from "./IfcPositiveRatioMeasure.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcStructuralResultGroup} from "./IfcStructuralResultGroup.bldrs"
-import {IfcStructuralAnalysisModel} from "./IfcStructuralAnalysisModel.bldrs"
+import IfcLoadGroupTypeEnum from "./IfcLoadGroupTypeEnum.bldrs"
+import IfcActionTypeEnum from "./IfcActionTypeEnum.bldrs"
+import IfcActionSourceTypeEnum from "./IfcActionSourceTypeEnum.bldrs"
+import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcStructuralResultGroup from "./IfcStructuralResultGroup.bldrs"
+import IfcStructuralAnalysisModel from "./IfcStructuralAnalysisModel.bldrs"
 
 
 /**
@@ -21,12 +21,7 @@ export default class IfcStructuralLoadGroup implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcLoadGroupTypeEnum;
-	ActionType : IfcActionTypeEnum;
-	ActionSource : IfcActionSourceTypeEnum;
-	Coefficient? : IfcPositiveRatioMeasure;
-	Purpose? : IfcLabel;
-
+    constructor( public readonly PredefinedType : IfcLoadGroupTypeEnum , public readonly ActionType : IfcActionTypeEnum , public readonly ActionSource : IfcActionSourceTypeEnum , public readonly Coefficient : IfcPositiveRatioMeasure  | undefined, public readonly Purpose : IfcLabel  | undefined ) {}
 }
 
 export class IfcStructuralLoadGroupSpecification implements ComponentSpecification

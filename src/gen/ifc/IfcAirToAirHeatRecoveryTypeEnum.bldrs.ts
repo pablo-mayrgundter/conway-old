@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcairtoairheatrecoverytypeenum.htm
-export enum IfcAirToAirHeatRecoveryTypeEnum 
+enum IfcAirToAirHeatRecoveryTypeEnum 
 {
 	FIXEDPLATECOUNTERFLOWEXCHANGER=".FIXEDPLATECOUNTERFLOWEXCHANGER.",
 	FIXEDPLATECROSSFLOWEXCHANGER=".FIXEDPLATECROSSFLOWEXCHANGER.",
@@ -13,4 +13,6 @@ export enum IfcAirToAirHeatRecoveryTypeEnum
 	THERMOSIPHONCOILTYPEHEATEXCHANGERS=".THERMOSIPHONCOILTYPEHEATEXCHANGERS.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcAirToAirHeatRecoveryTypeEnum;

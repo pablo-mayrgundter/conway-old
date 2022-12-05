@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCurrencyEnum} from "./IfcCurrencyEnum.bldrs"
+import IfcCurrencyEnum from "./IfcCurrencyEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcMonetaryUnit implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
-	Currency : IfcCurrencyEnum;
-
+    constructor( public readonly Currency : IfcCurrencyEnum  ) {}
 }
 
 export class IfcMonetaryUnitSpecification implements ComponentSpecification

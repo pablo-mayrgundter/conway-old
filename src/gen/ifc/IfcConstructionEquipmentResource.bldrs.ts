@@ -14,7 +14,7 @@ export default class IfcConstructionEquipmentResource implements Component< Sche
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcConstructionEquipmentResourceSpecification implements ComponentSpecification

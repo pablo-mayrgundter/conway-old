@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcTypeObject} from "./IfcTypeObject.bldrs"
+import IfcTypeObject from "./IfcTypeObject.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcRelDefinesByType implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
-	RelatingType : IfcTypeObject;
-
+    constructor( public readonly RelatingType : IfcTypeObject  ) {}
 }
 
 export class IfcRelDefinesByTypeSpecification implements ComponentSpecification

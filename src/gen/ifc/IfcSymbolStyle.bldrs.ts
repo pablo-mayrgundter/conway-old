@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcColourSpecification} from "./IfcColourSpecification.bldrs"
-import {IfcPreDefinedColour} from "./IfcPreDefinedColour.bldrs"
+import IfcColourSpecification from "./IfcColourSpecification.bldrs"
+import IfcPreDefinedColour from "./IfcPreDefinedColour.bldrs"
 
 
 /**
@@ -16,8 +16,7 @@ export default class IfcSymbolStyle implements Component< SchemaSpecificationIFC
 
     public readonly __version__: number = 0;
 
-	StyleOfSymbol : IfcColourSpecification|IfcPreDefinedColour;
-
+    constructor( public readonly StyleOfSymbol : IfcColourSpecification|IfcPreDefinedColour  ) {}
 }
 
 export class IfcSymbolStyleSpecification implements ComponentSpecification

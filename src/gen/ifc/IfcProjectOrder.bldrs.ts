@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcIdentifier} from "./IfcIdentifier.bldrs"
-import {IfcProjectOrderTypeEnum} from "./IfcProjectOrderTypeEnum.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
+import IfcIdentifier from "./IfcIdentifier.bldrs"
+import IfcProjectOrderTypeEnum from "./IfcProjectOrderTypeEnum.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
 
 
 /**
@@ -17,10 +17,7 @@ export default class IfcProjectOrder implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
-	ID : IfcIdentifier;
-	PredefinedType : IfcProjectOrderTypeEnum;
-	Status? : IfcLabel;
-
+    constructor( public readonly ID : IfcIdentifier , public readonly PredefinedType : IfcProjectOrderTypeEnum , public readonly Status : IfcLabel  | undefined ) {}
 }
 
 export class IfcProjectOrderSpecification implements ComponentSpecification

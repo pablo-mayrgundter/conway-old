@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcConnectionGeometry} from "./IfcConnectionGeometry.bldrs"
-import {IfcElement} from "./IfcElement.bldrs"
+import IfcConnectionGeometry from "./IfcConnectionGeometry.bldrs"
+import IfcElement from "./IfcElement.bldrs"
 
 
 /**
@@ -16,10 +16,7 @@ export default class IfcRelConnectsElements implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
-	ConnectionGeometry? : IfcConnectionGeometry;
-	RelatingElement : IfcElement;
-	RelatedElement : IfcElement;
-
+    constructor( public readonly ConnectionGeometry : IfcConnectionGeometry  | undefined, public readonly RelatingElement : IfcElement , public readonly RelatedElement : IfcElement  ) {}
 }
 
 export class IfcRelConnectsElementsSpecification implements ComponentSpecification

@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcMaterialLayer} from "./IfcMaterialLayer.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcLengthMeasure} from "./IfcLengthMeasure.bldrs"
+import IfcMaterialLayer from "./IfcMaterialLayer.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 
 
 /**
@@ -17,9 +17,7 @@ export default class IfcMaterialLayerSet implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
-	MaterialLayers : Array<IfcMaterialLayer>;
-	LayerSetName? : IfcLabel;
-
+    constructor( public readonly MaterialLayers : Array<IfcMaterialLayer> , public readonly LayerSetName : IfcLabel  | undefined ) {}
 }
 
 export class IfcMaterialLayerSetSpecification implements ComponentSpecification

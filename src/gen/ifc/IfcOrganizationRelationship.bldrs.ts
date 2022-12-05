@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcText} from "./IfcText.bldrs"
-import {IfcOrganization} from "./IfcOrganization.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcText from "./IfcText.bldrs"
+import IfcOrganization from "./IfcOrganization.bldrs"
 
 
 /**
@@ -17,11 +17,7 @@ export default class IfcOrganizationRelationship implements Component< SchemaSpe
 
     public readonly __version__: number = 0;
 
-	Name : IfcLabel;
-	Description? : IfcText;
-	RelatingOrganization : IfcOrganization;
-	RelatedOrganizations : Array<IfcOrganization>;
-
+    constructor( public readonly Name : IfcLabel , public readonly Description : IfcText  | undefined, public readonly RelatingOrganization : IfcOrganization , public readonly RelatedOrganizations : Array<IfcOrganization>  ) {}
 }
 
 export class IfcOrganizationRelationshipSpecification implements ComponentSpecification

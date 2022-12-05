@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcwindowstyleoperationenum.htm
-export enum IfcWindowStyleOperationEnum 
+enum IfcWindowStyleOperationEnum 
 {
 	SINGLE_PANEL=".SINGLE_PANEL.",
 	DOUBLE_PANEL_VERTICAL=".DOUBLE_PANEL_VERTICAL.",
@@ -13,4 +13,6 @@ export enum IfcWindowStyleOperationEnum
 	TRIPLE_PANEL_HORIZONTAL=".TRIPLE_PANEL_HORIZONTAL.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcWindowStyleOperationEnum;

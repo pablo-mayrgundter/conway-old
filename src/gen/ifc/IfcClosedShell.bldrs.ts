@@ -14,7 +14,7 @@ export default class IfcClosedShell implements Component< SchemaSpecificationIFC
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcClosedShellSpecification implements ComponentSpecification

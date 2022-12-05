@@ -3,11 +3,11 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcAddressTypeEnum} from "./IfcAddressTypeEnum.bldrs"
-import {IfcText} from "./IfcText.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcPerson} from "./IfcPerson.bldrs"
-import {IfcOrganization} from "./IfcOrganization.bldrs"
+import IfcAddressTypeEnum from "./IfcAddressTypeEnum.bldrs"
+import IfcText from "./IfcText.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcPerson from "./IfcPerson.bldrs"
+import IfcOrganization from "./IfcOrganization.bldrs"
 
 
 /**
@@ -19,10 +19,7 @@ export default class IfcAddress implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	Purpose? : IfcAddressTypeEnum;
-	Description? : IfcText;
-	UserDefinedPurpose? : IfcLabel;
-
+    constructor( public readonly Purpose : IfcAddressTypeEnum  | undefined, public readonly Description : IfcText  | undefined, public readonly UserDefinedPurpose : IfcLabel  | undefined ) {}
 }
 
 export class IfcAddressSpecification implements ComponentSpecification

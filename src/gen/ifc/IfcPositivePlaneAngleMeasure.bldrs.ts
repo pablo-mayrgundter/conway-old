@@ -1,6 +1,7 @@
 
-import {BaseIfc} from "./BaseIfc"
-import {IfcPlaneAngleMeasure} from "./IfcPlaneAngleMeasure.g"
+import IfcPlaneAngleMeasure from "./IfcPlaneAngleMeasure.bldrs"
 
 // http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcpositiveplaneanglemeasure.htm
-export type IfcPositivePlaneAngleMeasure = IfcPlaneAngleMeasure
+type IfcPositivePlaneAngleMeasure = IfcPlaneAngleMeasure;
+
+export default IfcPositivePlaneAngleMeasure;

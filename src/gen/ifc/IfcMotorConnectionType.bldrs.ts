@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcMotorConnectionTypeEnum} from "./IfcMotorConnectionTypeEnum.bldrs"
+import IfcMotorConnectionTypeEnum from "./IfcMotorConnectionTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcMotorConnectionType implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcMotorConnectionTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcMotorConnectionTypeEnum  ) {}
 }
 
 export class IfcMotorConnectionTypeSpecification implements ComponentSpecification

@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcAssemblyPlaceEnum} from "./IfcAssemblyPlaceEnum.bldrs"
-import {IfcElementAssemblyTypeEnum} from "./IfcElementAssemblyTypeEnum.bldrs"
+import IfcAssemblyPlaceEnum from "./IfcAssemblyPlaceEnum.bldrs"
+import IfcElementAssemblyTypeEnum from "./IfcElementAssemblyTypeEnum.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcElementAssembly implements Component< SchemaSpecificatio
 
     public readonly __version__: number = 0;
 
-	AssemblyPlace? : IfcAssemblyPlaceEnum;
-	PredefinedType : IfcElementAssemblyTypeEnum;
-
+    constructor( public readonly AssemblyPlace : IfcAssemblyPlaceEnum  | undefined, public readonly PredefinedType : IfcElementAssemblyTypeEnum  ) {}
 }
 
 export class IfcElementAssemblySpecification implements ComponentSpecification

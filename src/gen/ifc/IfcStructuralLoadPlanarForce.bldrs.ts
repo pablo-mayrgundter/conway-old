@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPlanarForceMeasure} from "./IfcPlanarForceMeasure.bldrs"
+import IfcPlanarForceMeasure from "./IfcPlanarForceMeasure.bldrs"
 
 
 /**
@@ -15,10 +15,7 @@ export default class IfcStructuralLoadPlanarForce implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
-	PlanarForceX? : IfcPlanarForceMeasure;
-	PlanarForceY? : IfcPlanarForceMeasure;
-	PlanarForceZ? : IfcPlanarForceMeasure;
-
+    constructor( public readonly PlanarForceX : IfcPlanarForceMeasure  | undefined, public readonly PlanarForceY : IfcPlanarForceMeasure  | undefined, public readonly PlanarForceZ : IfcPlanarForceMeasure  | undefined ) {}
 }
 
 export class IfcStructuralLoadPlanarForceSpecification implements ComponentSpecification

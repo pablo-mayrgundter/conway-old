@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcDirection} from "./IfcDirection.bldrs"
-import {IfcReal} from "./IfcReal.bldrs"
-import {IfcPositivePlaneAngleMeasure} from "./IfcPositivePlaneAngleMeasure.bldrs"
+import IfcDirection from "./IfcDirection.bldrs"
+import IfcReal from "./IfcReal.bldrs"
+import IfcPositivePlaneAngleMeasure from "./IfcPositivePlaneAngleMeasure.bldrs"
 
 
 /**
@@ -17,11 +17,7 @@ export default class IfcLightSourceSpot implements Component< SchemaSpecificatio
 
     public readonly __version__: number = 0;
 
-	Orientation : IfcDirection;
-	ConcentrationExponent? : IfcReal;
-	SpreadAngle : IfcPositivePlaneAngleMeasure;
-	BeamWidthAngle : IfcPositivePlaneAngleMeasure;
-
+    constructor( public readonly Orientation : IfcDirection , public readonly ConcentrationExponent : IfcReal  | undefined, public readonly SpreadAngle : IfcPositivePlaneAngleMeasure , public readonly BeamWidthAngle : IfcPositivePlaneAngleMeasure  ) {}
 }
 
 export class IfcLightSourceSpotSpecification implements ComponentSpecification

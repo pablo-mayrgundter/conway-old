@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcFace} from "./IfcFace.bldrs"
+import IfcFace from "./IfcFace.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcConnectedFaceSet implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
-	CfsFaces : Array<IfcFace>;
-
+    constructor( public readonly CfsFaces : Array<IfcFace>  ) {}
 }
 
 export class IfcConnectedFaceSetSpecification implements ComponentSpecification

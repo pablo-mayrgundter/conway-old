@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcSectionReinforcementProperties} from "./IfcSectionReinforcementProperties.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcSectionReinforcementProperties from "./IfcSectionReinforcementProperties.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcReinforcementDefinitionProperties implements Component< 
 
     public readonly __version__: number = 0;
 
-	DefinitionType? : IfcLabel;
-	ReinforcementSectionDefinitions : Array<IfcSectionReinforcementProperties>;
-
+    constructor( public readonly DefinitionType : IfcLabel  | undefined, public readonly ReinforcementSectionDefinitions : Array<IfcSectionReinforcementProperties>  ) {}
 }
 
 export class IfcReinforcementDefinitionPropertiesSpecification implements ComponentSpecification

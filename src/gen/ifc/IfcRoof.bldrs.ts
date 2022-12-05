@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcRoofTypeEnum} from "./IfcRoofTypeEnum.bldrs"
+import IfcRoofTypeEnum from "./IfcRoofTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcRoof implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	ShapeType : IfcRoofTypeEnum;
-
+    constructor( public readonly ShapeType : IfcRoofTypeEnum  ) {}
 }
 
 export class IfcRoofSpecification implements ComponentSpecification

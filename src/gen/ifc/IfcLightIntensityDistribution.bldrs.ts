@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLightDistributionCurveEnum} from "./IfcLightDistributionCurveEnum.bldrs"
-import {IfcLightDistributionData} from "./IfcLightDistributionData.bldrs"
+import IfcLightDistributionCurveEnum from "./IfcLightDistributionCurveEnum.bldrs"
+import IfcLightDistributionData from "./IfcLightDistributionData.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcLightIntensityDistribution implements Component< SchemaS
 
     public readonly __version__: number = 0;
 
-	LightDistributionCurve : IfcLightDistributionCurveEnum;
-	DistributionData : Array<IfcLightDistributionData>;
-
+    constructor( public readonly LightDistributionCurve : IfcLightDistributionCurveEnum , public readonly DistributionData : Array<IfcLightDistributionData>  ) {}
 }
 
 export class IfcLightIntensityDistributionSpecification implements ComponentSpecification

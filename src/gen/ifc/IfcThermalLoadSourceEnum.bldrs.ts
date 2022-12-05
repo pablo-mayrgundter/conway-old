@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcthermalloadsourceenum.htm
-export enum IfcThermalLoadSourceEnum 
+enum IfcThermalLoadSourceEnum 
 {
 	PEOPLE=".PEOPLE.",
 	LIGHTING=".LIGHTING.",
@@ -15,4 +15,6 @@ export enum IfcThermalLoadSourceEnum
 	INFILTRATION=".INFILTRATION.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcThermalLoadSourceEnum;

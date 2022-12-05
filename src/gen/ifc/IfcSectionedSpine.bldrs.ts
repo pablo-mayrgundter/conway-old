@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCompositeCurve} from "./IfcCompositeCurve.bldrs"
-import {IfcProfileDef} from "./IfcProfileDef.bldrs"
-import {IfcAxis2Placement3D} from "./IfcAxis2Placement3D.bldrs"
-import {IfcDimensionCount} from "./IfcDimensionCount.bldrs"
+import IfcCompositeCurve from "./IfcCompositeCurve.bldrs"
+import IfcProfileDef from "./IfcProfileDef.bldrs"
+import IfcAxis2Placement3D from "./IfcAxis2Placement3D.bldrs"
+import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 
 
 /**
@@ -18,10 +18,7 @@ export default class IfcSectionedSpine implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-	SpineCurve : IfcCompositeCurve;
-	CrossSections : Array<IfcProfileDef>;
-	CrossSectionPositions : Array<IfcAxis2Placement3D>;
-
+    constructor( public readonly SpineCurve : IfcCompositeCurve , public readonly CrossSections : Array<IfcProfileDef> , public readonly CrossSectionPositions : Array<IfcAxis2Placement3D>  ) {}
 }
 
 export class IfcSectionedSpineSpecification implements ComponentSpecification

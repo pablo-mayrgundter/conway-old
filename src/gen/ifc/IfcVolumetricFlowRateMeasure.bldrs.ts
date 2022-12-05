@@ -1,6 +1,7 @@
 
-import {BaseIfc} from "./BaseIfc"
 
 
 // http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcvolumetricflowratemeasure.htm
-export type IfcVolumetricFlowRateMeasure = number
+type IfcVolumetricFlowRateMeasure = number;
+
+export default IfcVolumetricFlowRateMeasure;

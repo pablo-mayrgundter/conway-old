@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcFootingTypeEnum} from "./IfcFootingTypeEnum.bldrs"
+import IfcFootingTypeEnum from "./IfcFootingTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcFooting implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcFootingTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcFootingTypeEnum  ) {}
 }
 
 export class IfcFootingSpecification implements ComponentSpecification

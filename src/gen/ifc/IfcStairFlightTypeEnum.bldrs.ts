@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstairflighttypeenum.htm
-export enum IfcStairFlightTypeEnum 
+enum IfcStairFlightTypeEnum 
 {
 	STRAIGHT=".STRAIGHT.",
 	WINDER=".WINDER.",
@@ -9,4 +9,6 @@ export enum IfcStairFlightTypeEnum
 	FREEFORM=".FREEFORM.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcStairFlightTypeEnum;

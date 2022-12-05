@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcColourRgb} from "./IfcColourRgb.bldrs"
+import IfcColourRgb from "./IfcColourRgb.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcSurfaceStyleShading implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
-	SurfaceColour : IfcColourRgb;
-
+    constructor( public readonly SurfaceColour : IfcColourRgb  ) {}
 }
 
 export class IfcSurfaceStyleShadingSpecification implements ComponentSpecification

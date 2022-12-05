@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcIdentifier} from "./IfcIdentifier.bldrs"
-import {IfcText} from "./IfcText.bldrs"
-import {IfcPropertyDependencyRelationship} from "./IfcPropertyDependencyRelationship.bldrs"
-import {IfcComplexProperty} from "./IfcComplexProperty.bldrs"
+import IfcIdentifier from "./IfcIdentifier.bldrs"
+import IfcText from "./IfcText.bldrs"
+import IfcPropertyDependencyRelationship from "./IfcPropertyDependencyRelationship.bldrs"
+import IfcComplexProperty from "./IfcComplexProperty.bldrs"
 
 
 /**
@@ -18,9 +18,7 @@ export default class IfcProperty implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	Name : IfcIdentifier;
-	Description? : IfcText;
-
+    constructor( public readonly Name : IfcIdentifier , public readonly Description : IfcText  | undefined ) {}
 }
 
 export class IfcPropertySpecification implements ComponentSpecification

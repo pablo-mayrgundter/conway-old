@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcReal} from "./IfcReal.bldrs"
+import IfcReal from "./IfcReal.bldrs"
 
 
 /**
@@ -15,9 +15,7 @@ export default class IfcSurfaceStyleRefraction implements Component< SchemaSpeci
 
     public readonly __version__: number = 0;
 
-	RefractionIndex? : IfcReal;
-	DispersionFactor? : IfcReal;
-
+    constructor( public readonly RefractionIndex : IfcReal  | undefined, public readonly DispersionFactor : IfcReal  | undefined ) {}
 }
 
 export class IfcSurfaceStyleRefractionSpecification implements ComponentSpecification

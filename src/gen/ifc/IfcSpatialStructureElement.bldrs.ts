@@ -3,11 +3,11 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcElementCompositionEnum} from "./IfcElementCompositionEnum.bldrs"
-import {IfcRelReferencedInSpatialStructure} from "./IfcRelReferencedInSpatialStructure.bldrs"
-import {IfcRelServicesBuildings} from "./IfcRelServicesBuildings.bldrs"
-import {IfcRelContainedInSpatialStructure} from "./IfcRelContainedInSpatialStructure.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcElementCompositionEnum from "./IfcElementCompositionEnum.bldrs"
+import IfcRelReferencedInSpatialStructure from "./IfcRelReferencedInSpatialStructure.bldrs"
+import IfcRelServicesBuildings from "./IfcRelServicesBuildings.bldrs"
+import IfcRelContainedInSpatialStructure from "./IfcRelContainedInSpatialStructure.bldrs"
 
 
 /**
@@ -19,9 +19,7 @@ export default class IfcSpatialStructureElement implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
-	LongName? : IfcLabel;
-	CompositionType : IfcElementCompositionEnum;
-
+    constructor( public readonly LongName : IfcLabel  | undefined, public readonly CompositionType : IfcElementCompositionEnum  ) {}
 }
 
 export class IfcSpatialStructureElementSpecification implements ComponentSpecification

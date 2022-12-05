@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcForceMeasure} from "./IfcForceMeasure.bldrs"
+import IfcForceMeasure from "./IfcForceMeasure.bldrs"
 
 
 /**
@@ -15,13 +15,7 @@ export default class IfcFailureConnectionCondition implements Component< SchemaS
 
     public readonly __version__: number = 0;
 
-	TensionFailureX? : IfcForceMeasure;
-	TensionFailureY? : IfcForceMeasure;
-	TensionFailureZ? : IfcForceMeasure;
-	CompressionFailureX? : IfcForceMeasure;
-	CompressionFailureY? : IfcForceMeasure;
-	CompressionFailureZ? : IfcForceMeasure;
-
+    constructor( public readonly TensionFailureX : IfcForceMeasure  | undefined, public readonly TensionFailureY : IfcForceMeasure  | undefined, public readonly TensionFailureZ : IfcForceMeasure  | undefined, public readonly CompressionFailureX : IfcForceMeasure  | undefined, public readonly CompressionFailureY : IfcForceMeasure  | undefined, public readonly CompressionFailureZ : IfcForceMeasure  | undefined ) {}
 }
 
 export class IfcFailureConnectionConditionSpecification implements ComponentSpecification

@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcAnnotationSymbolOccurrence} from "./IfcAnnotationSymbolOccurrence.bldrs"
+import IfcAnnotationSymbolOccurrence from "./IfcAnnotationSymbolOccurrence.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcFillAreaStyleTileSymbolWithStyle implements Component< S
 
     public readonly __version__: number = 0;
 
-	Symbol : IfcAnnotationSymbolOccurrence;
-
+    constructor( public readonly Symbol : IfcAnnotationSymbolOccurrence  ) {}
 }
 
 export class IfcFillAreaStyleTileSymbolWithStyleSpecification implements ComponentSpecification

@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcSIPrefix} from "./IfcSIPrefix.bldrs"
-import {IfcSIUnitName} from "./IfcSIUnitName.bldrs"
-import {IfcDimensionalExponents} from "./IfcDimensionalExponents.bldrs"
+import IfcSIPrefix from "./IfcSIPrefix.bldrs"
+import IfcSIUnitName from "./IfcSIUnitName.bldrs"
+import IfcDimensionalExponents from "./IfcDimensionalExponents.bldrs"
 
 
 /**
@@ -17,9 +17,7 @@ export default class IfcSIUnit implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	Prefix? : IfcSIPrefix;
-	Name : IfcSIUnitName;
-
+    constructor( public readonly Prefix : IfcSIPrefix  | undefined, public readonly Name : IfcSIUnitName  ) {}
 }
 
 export class IfcSIUnitSpecification implements ComponentSpecification

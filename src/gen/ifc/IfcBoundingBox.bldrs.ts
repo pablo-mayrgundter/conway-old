@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCartesianPoint} from "./IfcCartesianPoint.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
-import {IfcDimensionCount} from "./IfcDimensionCount.bldrs"
+import IfcCartesianPoint from "./IfcCartesianPoint.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
+import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 
 
 /**
@@ -17,11 +17,7 @@ export default class IfcBoundingBox implements Component< SchemaSpecificationIFC
 
     public readonly __version__: number = 0;
 
-	Corner : IfcCartesianPoint;
-	XDim : IfcPositiveLengthMeasure;
-	YDim : IfcPositiveLengthMeasure;
-	ZDim : IfcPositiveLengthMeasure;
-
+    constructor( public readonly Corner : IfcCartesianPoint , public readonly XDim : IfcPositiveLengthMeasure , public readonly YDim : IfcPositiveLengthMeasure , public readonly ZDim : IfcPositiveLengthMeasure  ) {}
 }
 
 export class IfcBoundingBoxSpecification implements ComponentSpecification

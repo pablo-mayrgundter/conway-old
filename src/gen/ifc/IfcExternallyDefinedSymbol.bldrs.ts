@@ -14,7 +14,7 @@ export default class IfcExternallyDefinedSymbol implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcExternallyDefinedSymbolSpecification implements ComponentSpecification

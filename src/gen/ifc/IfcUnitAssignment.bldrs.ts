@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcDerivedUnit} from "./IfcDerivedUnit.bldrs"
-import {IfcNamedUnit} from "./IfcNamedUnit.bldrs"
-import {IfcMonetaryUnit} from "./IfcMonetaryUnit.bldrs"
+import IfcDerivedUnit from "./IfcDerivedUnit.bldrs"
+import IfcNamedUnit from "./IfcNamedUnit.bldrs"
+import IfcMonetaryUnit from "./IfcMonetaryUnit.bldrs"
 
 
 /**
@@ -17,8 +17,7 @@ export default class IfcUnitAssignment implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-	Units : Array<IfcDerivedUnit|IfcNamedUnit|IfcMonetaryUnit>;
-
+    constructor( public readonly Units : Array<IfcDerivedUnit|IfcNamedUnit|IfcMonetaryUnit>  ) {}
 }
 
 export class IfcUnitAssignmentSpecification implements ComponentSpecification

@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcIdentifier} from "./IfcIdentifier.bldrs"
-import {IfcAreaMeasure} from "./IfcAreaMeasure.bldrs"
-import {IfcSpatialStructureElement} from "./IfcSpatialStructureElement.bldrs"
-import {IfcRelInteractionRequirements} from "./IfcRelInteractionRequirements.bldrs"
+import IfcIdentifier from "./IfcIdentifier.bldrs"
+import IfcAreaMeasure from "./IfcAreaMeasure.bldrs"
+import IfcSpatialStructureElement from "./IfcSpatialStructureElement.bldrs"
+import IfcRelInteractionRequirements from "./IfcRelInteractionRequirements.bldrs"
 
 
 /**
@@ -18,12 +18,7 @@ export default class IfcSpaceProgram implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
-	SpaceProgramIdentifier : IfcIdentifier;
-	MaxRequiredArea? : IfcAreaMeasure;
-	MinRequiredArea? : IfcAreaMeasure;
-	RequestedLocation? : IfcSpatialStructureElement;
-	StandardRequiredArea : IfcAreaMeasure;
-
+    constructor( public readonly SpaceProgramIdentifier : IfcIdentifier , public readonly MaxRequiredArea : IfcAreaMeasure  | undefined, public readonly MinRequiredArea : IfcAreaMeasure  | undefined, public readonly RequestedLocation : IfcSpatialStructureElement  | undefined, public readonly StandardRequiredArea : IfcAreaMeasure  ) {}
 }
 
 export class IfcSpaceProgramSpecification implements ComponentSpecification

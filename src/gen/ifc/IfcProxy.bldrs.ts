@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcObjectTypeEnum} from "./IfcObjectTypeEnum.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
+import IfcObjectTypeEnum from "./IfcObjectTypeEnum.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcProxy implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	ProxyType : IfcObjectTypeEnum;
-	Tag? : IfcLabel;
-
+    constructor( public readonly ProxyType : IfcObjectTypeEnum , public readonly Tag : IfcLabel  | undefined ) {}
 }
 
 export class IfcProxySpecification implements ComponentSpecification

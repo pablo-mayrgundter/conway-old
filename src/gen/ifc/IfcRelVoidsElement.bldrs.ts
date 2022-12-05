@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcElement} from "./IfcElement.bldrs"
-import {IfcFeatureElementSubtraction} from "./IfcFeatureElementSubtraction.bldrs"
+import IfcElement from "./IfcElement.bldrs"
+import IfcFeatureElementSubtraction from "./IfcFeatureElementSubtraction.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcRelVoidsElement implements Component< SchemaSpecificatio
 
     public readonly __version__: number = 0;
 
-	RelatingBuildingElement : IfcElement;
-	RelatedOpeningElement : IfcFeatureElementSubtraction;
-
+    constructor( public readonly RelatingBuildingElement : IfcElement , public readonly RelatedOpeningElement : IfcFeatureElementSubtraction  ) {}
 }
 
 export class IfcRelVoidsElementSpecification implements ComponentSpecification

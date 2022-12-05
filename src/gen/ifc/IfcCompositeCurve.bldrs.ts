@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCompositeCurveSegment} from "./IfcCompositeCurveSegment.bldrs"
+import IfcCompositeCurveSegment from "./IfcCompositeCurveSegment.bldrs"
 
 
 /**
@@ -15,9 +15,7 @@ export default class IfcCompositeCurve implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-	Segments : Array<IfcCompositeCurveSegment>;
-	SelfIntersect : boolean;
-
+    constructor( public readonly Segments : Array<IfcCompositeCurveSegment> , public readonly SelfIntersect : boolean  ) {}
 }
 
 export class IfcCompositeCurveSpecification implements ComponentSpecification

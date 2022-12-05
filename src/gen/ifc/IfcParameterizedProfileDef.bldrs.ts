@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcAxis2Placement2D} from "./IfcAxis2Placement2D.bldrs"
+import IfcAxis2Placement2D from "./IfcAxis2Placement2D.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcParameterizedProfileDef implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
-	Position : IfcAxis2Placement2D;
-
+    constructor( public readonly Position : IfcAxis2Placement2D  ) {}
 }
 
 export class IfcParameterizedProfileDefSpecification implements ComponentSpecification

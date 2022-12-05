@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcpipesegmenttypeenum.htm
-export enum IfcPipeSegmentTypeEnum 
+enum IfcPipeSegmentTypeEnum 
 {
 	FLEXIBLESEGMENT=".FLEXIBLESEGMENT.",
 	RIGIDSEGMENT=".RIGIDSEGMENT.",
@@ -8,4 +8,6 @@ export enum IfcPipeSegmentTypeEnum
 	SPOOL=".SPOOL.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcPipeSegmentTypeEnum;

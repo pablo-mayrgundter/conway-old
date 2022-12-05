@@ -3,11 +3,11 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcMeasureWithUnit} from "./IfcMeasureWithUnit.bldrs"
-import {IfcCalendarDate} from "./IfcCalendarDate.bldrs"
-import {IfcLocalTime} from "./IfcLocalTime.bldrs"
-import {IfcDateAndTime} from "./IfcDateAndTime.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcMeasureWithUnit from "./IfcMeasureWithUnit.bldrs"
+import IfcCalendarDate from "./IfcCalendarDate.bldrs"
+import IfcLocalTime from "./IfcLocalTime.bldrs"
+import IfcDateAndTime from "./IfcDateAndTime.bldrs"
 
 
 /**
@@ -19,9 +19,7 @@ export default class IfcConditionCriterion implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
-	Criterion : IfcLabel|IfcMeasureWithUnit;
-	CriterionDateTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-
+    constructor( public readonly Criterion : IfcLabel|IfcMeasureWithUnit , public readonly CriterionDateTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  ) {}
 }
 
 export class IfcConditionCriterionSpecification implements ComponentSpecification

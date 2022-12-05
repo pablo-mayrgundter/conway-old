@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPropertySetDefinition} from "./IfcPropertySetDefinition.bldrs"
+import IfcPropertySetDefinition from "./IfcPropertySetDefinition.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcRelDefinesByProperties implements Component< SchemaSpeci
 
     public readonly __version__: number = 0;
 
-	RelatingPropertyDefinition : IfcPropertySetDefinition;
-
+    constructor( public readonly RelatingPropertyDefinition : IfcPropertySetDefinition  ) {}
 }
 
 export class IfcRelDefinesByPropertiesSpecification implements ComponentSpecification

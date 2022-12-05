@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcProtectiveDeviceTypeEnum} from "./IfcProtectiveDeviceTypeEnum.bldrs"
+import IfcProtectiveDeviceTypeEnum from "./IfcProtectiveDeviceTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcProtectiveDeviceType implements Component< SchemaSpecifi
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcProtectiveDeviceTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcProtectiveDeviceTypeEnum  ) {}
 }
 
 export class IfcProtectiveDeviceTypeSpecification implements ComponentSpecification

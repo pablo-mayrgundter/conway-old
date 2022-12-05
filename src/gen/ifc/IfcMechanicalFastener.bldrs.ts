@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 
 
 /**
@@ -15,9 +15,7 @@ export default class IfcMechanicalFastener implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
-	NominalDiameter? : IfcPositiveLengthMeasure;
-	NominalLength? : IfcPositiveLengthMeasure;
-
+    constructor( public readonly NominalDiameter : IfcPositiveLengthMeasure  | undefined, public readonly NominalLength : IfcPositiveLengthMeasure  | undefined ) {}
 }
 
 export class IfcMechanicalFastenerSpecification implements ComponentSpecification

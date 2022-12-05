@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcMaterial} from "./IfcMaterial.bldrs"
+import IfcMaterial from "./IfcMaterial.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcMaterialList implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
-	Materials : Array<IfcMaterial>;
-
+    constructor( public readonly Materials : Array<IfcMaterial>  ) {}
 }
 
 export class IfcMaterialListSpecification implements ComponentSpecification

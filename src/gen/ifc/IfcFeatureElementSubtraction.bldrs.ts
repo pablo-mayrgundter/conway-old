@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcRelVoidsElement} from "./IfcRelVoidsElement.bldrs"
+import IfcRelVoidsElement from "./IfcRelVoidsElement.bldrs"
 
 
 /**
@@ -15,7 +15,7 @@ export default class IfcFeatureElementSubtraction implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcFeatureElementSubtractionSpecification implements ComponentSpecification

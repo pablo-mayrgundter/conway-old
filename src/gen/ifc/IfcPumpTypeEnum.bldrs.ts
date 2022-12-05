@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcpumptypeenum.htm
-export enum IfcPumpTypeEnum 
+enum IfcPumpTypeEnum 
 {
 	CIRCULATOR=".CIRCULATOR.",
 	ENDSUCTION=".ENDSUCTION.",
@@ -9,4 +9,6 @@ export enum IfcPumpTypeEnum
 	VERTICALTURBINE=".VERTICALTURBINE.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcPumpTypeEnum;

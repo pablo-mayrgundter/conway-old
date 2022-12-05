@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcDirection} from "./IfcDirection.bldrs"
+import IfcDirection from "./IfcDirection.bldrs"
 
 
 /**
@@ -15,9 +15,7 @@ export default class IfcAxis2Placement3D implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
-	Axis? : IfcDirection;
-	RefDirection? : IfcDirection;
-
+    constructor( public readonly Axis : IfcDirection  | undefined, public readonly RefDirection : IfcDirection  | undefined ) {}
 }
 
 export class IfcAxis2Placement3DSpecification implements ComponentSpecification

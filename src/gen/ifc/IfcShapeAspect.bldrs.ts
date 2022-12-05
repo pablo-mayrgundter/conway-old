@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcShapeModel} from "./IfcShapeModel.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcText} from "./IfcText.bldrs"
-import {IfcProductDefinitionShape} from "./IfcProductDefinitionShape.bldrs"
+import IfcShapeModel from "./IfcShapeModel.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcText from "./IfcText.bldrs"
+import IfcProductDefinitionShape from "./IfcProductDefinitionShape.bldrs"
 
 
 /**
@@ -18,12 +18,7 @@ export default class IfcShapeAspect implements Component< SchemaSpecificationIFC
 
     public readonly __version__: number = 0;
 
-	ShapeRepresentations : Array<IfcShapeModel>;
-	Name? : IfcLabel;
-	Description? : IfcText;
-	ProductDefinitional : boolean;
-	PartOfProductDefinitionShape : IfcProductDefinitionShape;
-
+    constructor( public readonly ShapeRepresentations : Array<IfcShapeModel> , public readonly Name : IfcLabel  | undefined, public readonly Description : IfcText  | undefined, public readonly ProductDefinitional : boolean , public readonly PartOfProductDefinitionShape : IfcProductDefinitionShape  ) {}
 }
 
 export class IfcShapeAspectSpecification implements ComponentSpecification

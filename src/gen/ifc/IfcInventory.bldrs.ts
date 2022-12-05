@@ -3,12 +3,12 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcInventoryTypeEnum} from "./IfcInventoryTypeEnum.bldrs"
-import {IfcOrganization} from "./IfcOrganization.bldrs"
-import {IfcPerson} from "./IfcPerson.bldrs"
-import {IfcPersonAndOrganization} from "./IfcPersonAndOrganization.bldrs"
-import {IfcCalendarDate} from "./IfcCalendarDate.bldrs"
-import {IfcCostValue} from "./IfcCostValue.bldrs"
+import IfcInventoryTypeEnum from "./IfcInventoryTypeEnum.bldrs"
+import IfcOrganization from "./IfcOrganization.bldrs"
+import IfcPerson from "./IfcPerson.bldrs"
+import IfcPersonAndOrganization from "./IfcPersonAndOrganization.bldrs"
+import IfcCalendarDate from "./IfcCalendarDate.bldrs"
+import IfcCostValue from "./IfcCostValue.bldrs"
 
 
 /**
@@ -20,13 +20,7 @@ export default class IfcInventory implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	InventoryType : IfcInventoryTypeEnum;
-	Jurisdiction : IfcOrganization|IfcPerson|IfcPersonAndOrganization;
-	ResponsiblePersons : Array<IfcPerson>;
-	LastUpdateDate : IfcCalendarDate;
-	CurrentValue? : IfcCostValue;
-	OriginalValue? : IfcCostValue;
-
+    constructor( public readonly InventoryType : IfcInventoryTypeEnum , public readonly Jurisdiction : IfcOrganization|IfcPerson|IfcPersonAndOrganization , public readonly ResponsiblePersons : Array<IfcPerson> , public readonly LastUpdateDate : IfcCalendarDate , public readonly CurrentValue : IfcCostValue  | undefined, public readonly OriginalValue : IfcCostValue  | undefined ) {}
 }
 
 export class IfcInventorySpecification implements ComponentSpecification

@@ -3,16 +3,16 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcTextFontName} from "./IfcTextFontName.bldrs"
-import {IfcFontStyle} from "./IfcFontStyle.bldrs"
-import {IfcFontVariant} from "./IfcFontVariant.bldrs"
-import {IfcFontWeight} from "./IfcFontWeight.bldrs"
-import {IfcRatioMeasure} from "./IfcRatioMeasure.bldrs"
-import {IfcLengthMeasure} from "./IfcLengthMeasure.bldrs"
-import {IfcDescriptiveMeasure} from "./IfcDescriptiveMeasure.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
-import {IfcNormalisedRatioMeasure} from "./IfcNormalisedRatioMeasure.bldrs"
-import {IfcPositiveRatioMeasure} from "./IfcPositiveRatioMeasure.bldrs"
+import IfcTextFontName from "./IfcTextFontName.bldrs"
+import IfcFontStyle from "./IfcFontStyle.bldrs"
+import IfcFontVariant from "./IfcFontVariant.bldrs"
+import IfcFontWeight from "./IfcFontWeight.bldrs"
+import IfcRatioMeasure from "./IfcRatioMeasure.bldrs"
+import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
+import IfcDescriptiveMeasure from "./IfcDescriptiveMeasure.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
+import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
+import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
 
 
 /**
@@ -24,12 +24,7 @@ export default class IfcTextStyleFontModel implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
-	FontFamily? : Array<IfcTextFontName>;
-	FontStyle? : IfcFontStyle;
-	FontVariant? : IfcFontVariant;
-	FontWeight? : IfcFontWeight;
-	FontSize : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure;
-
+    constructor( public readonly FontFamily : Array<IfcTextFontName>  | undefined, public readonly FontStyle : IfcFontStyle  | undefined, public readonly FontVariant : IfcFontVariant  | undefined, public readonly FontWeight : IfcFontWeight  | undefined, public readonly FontSize : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure  ) {}
 }
 
 export class IfcTextStyleFontModelSpecification implements ComponentSpecification

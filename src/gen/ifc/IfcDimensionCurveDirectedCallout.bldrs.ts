@@ -14,7 +14,7 @@ export default class IfcDimensionCurveDirectedCallout implements Component< Sche
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcDimensionCurveDirectedCalloutSpecification implements ComponentSpecification

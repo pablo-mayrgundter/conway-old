@@ -14,7 +14,7 @@ export default class IfcCostItem implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcCostItemSpecification implements ComponentSpecification

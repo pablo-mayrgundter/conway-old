@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcsanitaryterminaltypeenum.htm
-export enum IfcSanitaryTerminalTypeEnum 
+enum IfcSanitaryTerminalTypeEnum 
 {
 	BATH=".BATH.",
 	BIDET=".BIDET.",
@@ -14,4 +14,6 @@ export enum IfcSanitaryTerminalTypeEnum
 	WCSEAT=".WCSEAT.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcSanitaryTerminalTypeEnum;

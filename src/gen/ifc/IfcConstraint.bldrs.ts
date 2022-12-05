@@ -3,19 +3,19 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcText} from "./IfcText.bldrs"
-import {IfcConstraintEnum} from "./IfcConstraintEnum.bldrs"
-import {IfcOrganization} from "./IfcOrganization.bldrs"
-import {IfcPerson} from "./IfcPerson.bldrs"
-import {IfcPersonAndOrganization} from "./IfcPersonAndOrganization.bldrs"
-import {IfcCalendarDate} from "./IfcCalendarDate.bldrs"
-import {IfcLocalTime} from "./IfcLocalTime.bldrs"
-import {IfcDateAndTime} from "./IfcDateAndTime.bldrs"
-import {IfcConstraintClassificationRelationship} from "./IfcConstraintClassificationRelationship.bldrs"
-import {IfcConstraintRelationship} from "./IfcConstraintRelationship.bldrs"
-import {IfcPropertyConstraintRelationship} from "./IfcPropertyConstraintRelationship.bldrs"
-import {IfcConstraintAggregationRelationship} from "./IfcConstraintAggregationRelationship.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcText from "./IfcText.bldrs"
+import IfcConstraintEnum from "./IfcConstraintEnum.bldrs"
+import IfcOrganization from "./IfcOrganization.bldrs"
+import IfcPerson from "./IfcPerson.bldrs"
+import IfcPersonAndOrganization from "./IfcPersonAndOrganization.bldrs"
+import IfcCalendarDate from "./IfcCalendarDate.bldrs"
+import IfcLocalTime from "./IfcLocalTime.bldrs"
+import IfcDateAndTime from "./IfcDateAndTime.bldrs"
+import IfcConstraintClassificationRelationship from "./IfcConstraintClassificationRelationship.bldrs"
+import IfcConstraintRelationship from "./IfcConstraintRelationship.bldrs"
+import IfcPropertyConstraintRelationship from "./IfcPropertyConstraintRelationship.bldrs"
+import IfcConstraintAggregationRelationship from "./IfcConstraintAggregationRelationship.bldrs"
 
 
 /**
@@ -27,14 +27,7 @@ export default class IfcConstraint implements Component< SchemaSpecificationIFC 
 
     public readonly __version__: number = 0;
 
-	Name : IfcLabel;
-	Description? : IfcText;
-	ConstraintGrade : IfcConstraintEnum;
-	ConstraintSource? : IfcLabel;
-	CreatingActor? : IfcOrganization|IfcPerson|IfcPersonAndOrganization;
-	CreationTime? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-	UserDefinedGrade? : IfcLabel;
-
+    constructor( public readonly Name : IfcLabel , public readonly Description : IfcText  | undefined, public readonly ConstraintGrade : IfcConstraintEnum , public readonly ConstraintSource : IfcLabel  | undefined, public readonly CreatingActor : IfcOrganization|IfcPerson|IfcPersonAndOrganization  | undefined, public readonly CreationTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly UserDefinedGrade : IfcLabel  | undefined ) {}
 }
 
 export class IfcConstraintSpecification implements ComponentSpecification

@@ -14,7 +14,7 @@ export default class IfcZone implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcZoneSpecification implements ComponentSpecification

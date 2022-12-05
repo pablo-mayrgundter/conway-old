@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
-import {IfcShapeAspect} from "./IfcShapeAspect.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
+import IfcShapeAspect from "./IfcShapeAspect.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcStructuralSurfaceMemberVarying implements Component< Sch
 
     public readonly __version__: number = 0;
 
-	SubsequentThickness : Array<IfcPositiveLengthMeasure>;
-	VaryingThicknessLocation : IfcShapeAspect;
-
+    constructor( public readonly SubsequentThickness : Array<IfcPositiveLengthMeasure> , public readonly VaryingThicknessLocation : IfcShapeAspect  ) {}
 }
 
 export class IfcStructuralSurfaceMemberVaryingSpecification implements ComponentSpecification

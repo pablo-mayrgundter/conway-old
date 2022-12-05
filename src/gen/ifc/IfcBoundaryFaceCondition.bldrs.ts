@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcModulusOfSubgradeReactionMeasure} from "./IfcModulusOfSubgradeReactionMeasure.bldrs"
+import IfcModulusOfSubgradeReactionMeasure from "./IfcModulusOfSubgradeReactionMeasure.bldrs"
 
 
 /**
@@ -15,10 +15,7 @@ export default class IfcBoundaryFaceCondition implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	LinearStiffnessByAreaX? : IfcModulusOfSubgradeReactionMeasure;
-	LinearStiffnessByAreaY? : IfcModulusOfSubgradeReactionMeasure;
-	LinearStiffnessByAreaZ? : IfcModulusOfSubgradeReactionMeasure;
-
+    constructor( public readonly LinearStiffnessByAreaX : IfcModulusOfSubgradeReactionMeasure  | undefined, public readonly LinearStiffnessByAreaY : IfcModulusOfSubgradeReactionMeasure  | undefined, public readonly LinearStiffnessByAreaZ : IfcModulusOfSubgradeReactionMeasure  | undefined ) {}
 }
 
 export class IfcBoundaryFaceConditionSpecification implements ComponentSpecification

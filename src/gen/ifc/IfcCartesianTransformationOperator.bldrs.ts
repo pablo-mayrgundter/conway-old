@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcDirection} from "./IfcDirection.bldrs"
-import {IfcCartesianPoint} from "./IfcCartesianPoint.bldrs"
-import {IfcDimensionCount} from "./IfcDimensionCount.bldrs"
+import IfcDirection from "./IfcDirection.bldrs"
+import IfcCartesianPoint from "./IfcCartesianPoint.bldrs"
+import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 
 
 /**
@@ -17,11 +17,7 @@ export default class IfcCartesianTransformationOperator implements Component< Sc
 
     public readonly __version__: number = 0;
 
-	Axis1? : IfcDirection;
-	Axis2? : IfcDirection;
-	LocalOrigin : IfcCartesianPoint;
-	Scale? : number;
-
+    constructor( public readonly Axis1 : IfcDirection  | undefined, public readonly Axis2 : IfcDirection  | undefined, public readonly LocalOrigin : IfcCartesianPoint , public readonly Scale : number  | undefined ) {}
 }
 
 export class IfcCartesianTransformationOperatorSpecification implements ComponentSpecification

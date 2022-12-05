@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcDynamicViscosityMeasure} from "./IfcDynamicViscosityMeasure.bldrs"
-import {IfcModulusOfElasticityMeasure} from "./IfcModulusOfElasticityMeasure.bldrs"
-import {IfcPositiveRatioMeasure} from "./IfcPositiveRatioMeasure.bldrs"
-import {IfcThermalExpansionCoefficientMeasure} from "./IfcThermalExpansionCoefficientMeasure.bldrs"
+import IfcDynamicViscosityMeasure from "./IfcDynamicViscosityMeasure.bldrs"
+import IfcModulusOfElasticityMeasure from "./IfcModulusOfElasticityMeasure.bldrs"
+import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
+import IfcThermalExpansionCoefficientMeasure from "./IfcThermalExpansionCoefficientMeasure.bldrs"
 
 
 /**
@@ -18,12 +18,7 @@ export default class IfcMechanicalMaterialProperties implements Component< Schem
 
     public readonly __version__: number = 0;
 
-	DynamicViscosity? : IfcDynamicViscosityMeasure;
-	YoungModulus? : IfcModulusOfElasticityMeasure;
-	ShearModulus? : IfcModulusOfElasticityMeasure;
-	PoissonRatio? : IfcPositiveRatioMeasure;
-	ThermalExpansionCoefficient? : IfcThermalExpansionCoefficientMeasure;
-
+    constructor( public readonly DynamicViscosity : IfcDynamicViscosityMeasure  | undefined, public readonly YoungModulus : IfcModulusOfElasticityMeasure  | undefined, public readonly ShearModulus : IfcModulusOfElasticityMeasure  | undefined, public readonly PoissonRatio : IfcPositiveRatioMeasure  | undefined, public readonly ThermalExpansionCoefficient : IfcThermalExpansionCoefficientMeasure  | undefined ) {}
 }
 
 export class IfcMechanicalMaterialPropertiesSpecification implements ComponentSpecification

@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLengthMeasure} from "./IfcLengthMeasure.bldrs"
-import {IfcReinforcingBarRoleEnum} from "./IfcReinforcingBarRoleEnum.bldrs"
-import {IfcSectionProperties} from "./IfcSectionProperties.bldrs"
-import {IfcReinforcementBarProperties} from "./IfcReinforcementBarProperties.bldrs"
+import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
+import IfcReinforcingBarRoleEnum from "./IfcReinforcingBarRoleEnum.bldrs"
+import IfcSectionProperties from "./IfcSectionProperties.bldrs"
+import IfcReinforcementBarProperties from "./IfcReinforcementBarProperties.bldrs"
 
 
 /**
@@ -18,13 +18,7 @@ export default class IfcSectionReinforcementProperties implements Component< Sch
 
     public readonly __version__: number = 0;
 
-	LongitudinalStartPosition : IfcLengthMeasure;
-	LongitudinalEndPosition : IfcLengthMeasure;
-	TransversePosition? : IfcLengthMeasure;
-	ReinforcementRole : IfcReinforcingBarRoleEnum;
-	SectionDefinition : IfcSectionProperties;
-	CrossSectionReinforcementDefinitions : Array<IfcReinforcementBarProperties>;
-
+    constructor( public readonly LongitudinalStartPosition : IfcLengthMeasure , public readonly LongitudinalEndPosition : IfcLengthMeasure , public readonly TransversePosition : IfcLengthMeasure  | undefined, public readonly ReinforcementRole : IfcReinforcingBarRoleEnum , public readonly SectionDefinition : IfcSectionProperties , public readonly CrossSectionReinforcementDefinitions : Array<IfcReinforcementBarProperties>  ) {}
 }
 
 export class IfcSectionReinforcementPropertiesSpecification implements ComponentSpecification

@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcProperty} from "./IfcProperty.bldrs"
-import {IfcText} from "./IfcText.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
+import IfcProperty from "./IfcProperty.bldrs"
+import IfcText from "./IfcText.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
 
 
 /**
@@ -17,10 +17,7 @@ export default class IfcExtendedMaterialProperties implements Component< SchemaS
 
     public readonly __version__: number = 0;
 
-	ExtendedProperties : Array<IfcProperty>;
-	Description? : IfcText;
-	Name : IfcLabel;
-
+    constructor( public readonly ExtendedProperties : Array<IfcProperty> , public readonly Description : IfcText  | undefined, public readonly Name : IfcLabel  ) {}
 }
 
 export class IfcExtendedMaterialPropertiesSpecification implements ComponentSpecification

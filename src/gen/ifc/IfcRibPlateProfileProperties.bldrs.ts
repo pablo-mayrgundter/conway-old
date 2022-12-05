@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
-import {IfcRibPlateDirectionEnum} from "./IfcRibPlateDirectionEnum.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
+import IfcRibPlateDirectionEnum from "./IfcRibPlateDirectionEnum.bldrs"
 
 
 /**
@@ -16,12 +16,7 @@ export default class IfcRibPlateProfileProperties implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
-	Thickness? : IfcPositiveLengthMeasure;
-	RibHeight? : IfcPositiveLengthMeasure;
-	RibWidth? : IfcPositiveLengthMeasure;
-	RibSpacing? : IfcPositiveLengthMeasure;
-	Direction : IfcRibPlateDirectionEnum;
-
+    constructor( public readonly Thickness : IfcPositiveLengthMeasure  | undefined, public readonly RibHeight : IfcPositiveLengthMeasure  | undefined, public readonly RibWidth : IfcPositiveLengthMeasure  | undefined, public readonly RibSpacing : IfcPositiveLengthMeasure  | undefined, public readonly Direction : IfcRibPlateDirectionEnum  ) {}
 }
 
 export class IfcRibPlateProfilePropertiesSpecification implements ComponentSpecification

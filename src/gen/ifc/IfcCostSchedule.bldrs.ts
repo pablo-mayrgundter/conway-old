@@ -3,15 +3,15 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcOrganization} from "./IfcOrganization.bldrs"
-import {IfcPerson} from "./IfcPerson.bldrs"
-import {IfcPersonAndOrganization} from "./IfcPersonAndOrganization.bldrs"
-import {IfcCalendarDate} from "./IfcCalendarDate.bldrs"
-import {IfcLocalTime} from "./IfcLocalTime.bldrs"
-import {IfcDateAndTime} from "./IfcDateAndTime.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcIdentifier} from "./IfcIdentifier.bldrs"
-import {IfcCostScheduleTypeEnum} from "./IfcCostScheduleTypeEnum.bldrs"
+import IfcOrganization from "./IfcOrganization.bldrs"
+import IfcPerson from "./IfcPerson.bldrs"
+import IfcPersonAndOrganization from "./IfcPersonAndOrganization.bldrs"
+import IfcCalendarDate from "./IfcCalendarDate.bldrs"
+import IfcLocalTime from "./IfcLocalTime.bldrs"
+import IfcDateAndTime from "./IfcDateAndTime.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcIdentifier from "./IfcIdentifier.bldrs"
+import IfcCostScheduleTypeEnum from "./IfcCostScheduleTypeEnum.bldrs"
 
 
 /**
@@ -23,15 +23,7 @@ export default class IfcCostSchedule implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
-	SubmittedBy? : IfcOrganization|IfcPerson|IfcPersonAndOrganization;
-	PreparedBy? : IfcOrganization|IfcPerson|IfcPersonAndOrganization;
-	SubmittedOn? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-	Status? : IfcLabel;
-	TargetUsers? : Array<IfcOrganization|IfcPerson|IfcPersonAndOrganization>;
-	UpdateDate? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-	ID : IfcIdentifier;
-	PredefinedType : IfcCostScheduleTypeEnum;
-
+    constructor( public readonly SubmittedBy : IfcOrganization|IfcPerson|IfcPersonAndOrganization  | undefined, public readonly PreparedBy : IfcOrganization|IfcPerson|IfcPersonAndOrganization  | undefined, public readonly SubmittedOn : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly Status : IfcLabel  | undefined, public readonly TargetUsers : Array<IfcOrganization|IfcPerson|IfcPersonAndOrganization>  | undefined, public readonly UpdateDate : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly ID : IfcIdentifier , public readonly PredefinedType : IfcCostScheduleTypeEnum  ) {}
 }
 
 export class IfcCostScheduleSpecification implements ComponentSpecification

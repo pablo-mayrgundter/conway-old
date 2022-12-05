@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPresentableText} from "./IfcPresentableText.bldrs"
-import {IfcAxis2Placement2D} from "./IfcAxis2Placement2D.bldrs"
-import {IfcAxis2Placement3D} from "./IfcAxis2Placement3D.bldrs"
-import {IfcTextPath} from "./IfcTextPath.bldrs"
+import IfcPresentableText from "./IfcPresentableText.bldrs"
+import IfcAxis2Placement2D from "./IfcAxis2Placement2D.bldrs"
+import IfcAxis2Placement3D from "./IfcAxis2Placement3D.bldrs"
+import IfcTextPath from "./IfcTextPath.bldrs"
 
 
 /**
@@ -18,10 +18,7 @@ export default class IfcTextLiteral implements Component< SchemaSpecificationIFC
 
     public readonly __version__: number = 0;
 
-	Literal : IfcPresentableText;
-	Placement : IfcAxis2Placement2D|IfcAxis2Placement3D;
-	Path : IfcTextPath;
-
+    constructor( public readonly Literal : IfcPresentableText , public readonly Placement : IfcAxis2Placement2D|IfcAxis2Placement3D , public readonly Path : IfcTextPath  ) {}
 }
 
 export class IfcTextLiteralSpecification implements ComponentSpecification

@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCableCarrierFittingTypeEnum} from "./IfcCableCarrierFittingTypeEnum.bldrs"
+import IfcCableCarrierFittingTypeEnum from "./IfcCableCarrierFittingTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcCableCarrierFittingType implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcCableCarrierFittingTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcCableCarrierFittingTypeEnum  ) {}
 }
 
 export class IfcCableCarrierFittingTypeSpecification implements ComponentSpecification

@@ -3,12 +3,12 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcStructuralMember} from "./IfcStructuralMember.bldrs"
-import {IfcStructuralConnection} from "./IfcStructuralConnection.bldrs"
-import {IfcBoundaryCondition} from "./IfcBoundaryCondition.bldrs"
-import {IfcStructuralConnectionCondition} from "./IfcStructuralConnectionCondition.bldrs"
-import {IfcLengthMeasure} from "./IfcLengthMeasure.bldrs"
-import {IfcAxis2Placement3D} from "./IfcAxis2Placement3D.bldrs"
+import IfcStructuralMember from "./IfcStructuralMember.bldrs"
+import IfcStructuralConnection from "./IfcStructuralConnection.bldrs"
+import IfcBoundaryCondition from "./IfcBoundaryCondition.bldrs"
+import IfcStructuralConnectionCondition from "./IfcStructuralConnectionCondition.bldrs"
+import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
+import IfcAxis2Placement3D from "./IfcAxis2Placement3D.bldrs"
 
 
 /**
@@ -20,13 +20,7 @@ export default class IfcRelConnectsStructuralMember implements Component< Schema
 
     public readonly __version__: number = 0;
 
-	RelatingStructuralMember : IfcStructuralMember;
-	RelatedStructuralConnection : IfcStructuralConnection;
-	AppliedCondition? : IfcBoundaryCondition;
-	AdditionalConditions? : IfcStructuralConnectionCondition;
-	SupportedLength? : IfcLengthMeasure;
-	ConditionCoordinateSystem? : IfcAxis2Placement3D;
-
+    constructor( public readonly RelatingStructuralMember : IfcStructuralMember , public readonly RelatedStructuralConnection : IfcStructuralConnection , public readonly AppliedCondition : IfcBoundaryCondition  | undefined, public readonly AdditionalConditions : IfcStructuralConnectionCondition  | undefined, public readonly SupportedLength : IfcLengthMeasure  | undefined, public readonly ConditionCoordinateSystem : IfcAxis2Placement3D  | undefined ) {}
 }
 
 export class IfcRelConnectsStructuralMemberSpecification implements ComponentSpecification

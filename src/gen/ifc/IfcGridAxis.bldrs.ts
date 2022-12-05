@@ -3,11 +3,11 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcCurve} from "./IfcCurve.bldrs"
-import {IfcBoolean} from "./IfcBoolean.bldrs"
-import {IfcGrid} from "./IfcGrid.bldrs"
-import {IfcVirtualGridIntersection} from "./IfcVirtualGridIntersection.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcCurve from "./IfcCurve.bldrs"
+import IfcBoolean from "./IfcBoolean.bldrs"
+import IfcGrid from "./IfcGrid.bldrs"
+import IfcVirtualGridIntersection from "./IfcVirtualGridIntersection.bldrs"
 
 
 /**
@@ -19,10 +19,7 @@ export default class IfcGridAxis implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	AxisTag? : IfcLabel;
-	AxisCurve : IfcCurve;
-	SameSense : IfcBoolean;
-
+    constructor( public readonly AxisTag : IfcLabel  | undefined, public readonly AxisCurve : IfcCurve , public readonly SameSense : IfcBoolean  ) {}
 }
 
 export class IfcGridAxisSpecification implements ComponentSpecification

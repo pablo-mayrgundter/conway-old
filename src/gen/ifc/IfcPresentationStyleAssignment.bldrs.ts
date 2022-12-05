@@ -3,12 +3,12 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcNullStyle} from "./IfcNullStyle.bldrs"
-import {IfcCurveStyle} from "./IfcCurveStyle.bldrs"
-import {IfcSymbolStyle} from "./IfcSymbolStyle.bldrs"
-import {IfcFillAreaStyle} from "./IfcFillAreaStyle.bldrs"
-import {IfcTextStyle} from "./IfcTextStyle.bldrs"
-import {IfcSurfaceStyle} from "./IfcSurfaceStyle.bldrs"
+import IfcNullStyle from "./IfcNullStyle.bldrs"
+import IfcCurveStyle from "./IfcCurveStyle.bldrs"
+import IfcSymbolStyle from "./IfcSymbolStyle.bldrs"
+import IfcFillAreaStyle from "./IfcFillAreaStyle.bldrs"
+import IfcTextStyle from "./IfcTextStyle.bldrs"
+import IfcSurfaceStyle from "./IfcSurfaceStyle.bldrs"
 
 
 /**
@@ -20,8 +20,7 @@ export default class IfcPresentationStyleAssignment implements Component< Schema
 
     public readonly __version__: number = 0;
 
-	Styles : Array<IfcNullStyle|IfcCurveStyle|IfcSymbolStyle|IfcFillAreaStyle|IfcTextStyle|IfcSurfaceStyle>;
-
+    constructor( public readonly Styles : Array<IfcNullStyle|IfcCurveStyle|IfcSymbolStyle|IfcFillAreaStyle|IfcTextStyle|IfcSurfaceStyle>  ) {}
 }
 
 export class IfcPresentationStyleAssignmentSpecification implements ComponentSpecification

@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcActuatorTypeEnum} from "./IfcActuatorTypeEnum.bldrs"
+import IfcActuatorTypeEnum from "./IfcActuatorTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcActuatorType implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcActuatorTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcActuatorTypeEnum  ) {}
 }
 
 export class IfcActuatorTypeSpecification implements ComponentSpecification

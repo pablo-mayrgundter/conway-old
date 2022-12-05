@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcServiceLifeTypeEnum} from "./IfcServiceLifeTypeEnum.bldrs"
-import {IfcTimeMeasure} from "./IfcTimeMeasure.bldrs"
+import IfcServiceLifeTypeEnum from "./IfcServiceLifeTypeEnum.bldrs"
+import IfcTimeMeasure from "./IfcTimeMeasure.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcServiceLife implements Component< SchemaSpecificationIFC
 
     public readonly __version__: number = 0;
 
-	ServiceLifeType : IfcServiceLifeTypeEnum;
-	ServiceLifeDuration : IfcTimeMeasure;
-
+    constructor( public readonly ServiceLifeType : IfcServiceLifeTypeEnum , public readonly ServiceLifeDuration : IfcTimeMeasure  ) {}
 }
 
 export class IfcServiceLifeSpecification implements ComponentSpecification

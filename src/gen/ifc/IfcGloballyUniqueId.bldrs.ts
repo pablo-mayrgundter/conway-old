@@ -1,6 +1,7 @@
 
-import {BaseIfc} from "./BaseIfc"
 
 
 // http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcgloballyuniqueid.htm
-export type IfcGloballyUniqueId = string
+type IfcGloballyUniqueId = string;
+
+export default IfcGloballyUniqueId;

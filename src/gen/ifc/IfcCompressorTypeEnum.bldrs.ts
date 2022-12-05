@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccompressortypeenum.htm
-export enum IfcCompressorTypeEnum 
+enum IfcCompressorTypeEnum 
 {
 	DYNAMIC=".DYNAMIC.",
 	RECIPROCATING=".RECIPROCATING.",
@@ -19,4 +19,6 @@ export enum IfcCompressorTypeEnum
 	TWINSCREW=".TWINSCREW.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcCompressorTypeEnum;

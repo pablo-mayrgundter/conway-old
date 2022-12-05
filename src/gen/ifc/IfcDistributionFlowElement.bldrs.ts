@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcRelFlowControlElements} from "./IfcRelFlowControlElements.bldrs"
+import IfcRelFlowControlElements from "./IfcRelFlowControlElements.bldrs"
 
 
 /**
@@ -15,7 +15,7 @@ export default class IfcDistributionFlowElement implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcDistributionFlowElementSpecification implements ComponentSpecification

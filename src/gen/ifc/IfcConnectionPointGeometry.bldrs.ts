@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPoint} from "./IfcPoint.bldrs"
-import {IfcVertexPoint} from "./IfcVertexPoint.bldrs"
+import IfcPoint from "./IfcPoint.bldrs"
+import IfcVertexPoint from "./IfcVertexPoint.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcConnectionPointGeometry implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
-	PointOnRelatingElement : IfcPoint|IfcVertexPoint;
-	PointOnRelatedElement? : IfcPoint|IfcVertexPoint;
-
+    constructor( public readonly PointOnRelatingElement : IfcPoint|IfcVertexPoint , public readonly PointOnRelatedElement : IfcPoint|IfcVertexPoint  | undefined ) {}
 }
 
 export class IfcConnectionPointGeometrySpecification implements ComponentSpecification

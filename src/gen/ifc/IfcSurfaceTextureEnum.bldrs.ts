@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcsurfacetextureenum.htm
-export enum IfcSurfaceTextureEnum 
+enum IfcSurfaceTextureEnum 
 {
 	BUMP=".BUMP.",
 	OPACITY=".OPACITY.",
@@ -11,4 +11,6 @@ export enum IfcSurfaceTextureEnum
 	TEXTURE=".TEXTURE.",
 	TRANSPARENCYMAP=".TRANSPARENCYMAP.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcSurfaceTextureEnum;

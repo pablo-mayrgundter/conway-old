@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifctendontypeenum.htm
-export enum IfcTendonTypeEnum 
+enum IfcTendonTypeEnum 
 {
 	STRAND=".STRAND.",
 	WIRE=".WIRE.",
@@ -8,4 +8,6 @@ export enum IfcTendonTypeEnum
 	COATED=".COATED.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcTendonTypeEnum;

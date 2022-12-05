@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcModulusOfLinearSubgradeReactionMeasure} from "./IfcModulusOfLinearSubgradeReactionMeasure.bldrs"
-import {IfcModulusOfRotationalSubgradeReactionMeasure} from "./IfcModulusOfRotationalSubgradeReactionMeasure.bldrs"
+import IfcModulusOfLinearSubgradeReactionMeasure from "./IfcModulusOfLinearSubgradeReactionMeasure.bldrs"
+import IfcModulusOfRotationalSubgradeReactionMeasure from "./IfcModulusOfRotationalSubgradeReactionMeasure.bldrs"
 
 
 /**
@@ -16,13 +16,7 @@ export default class IfcBoundaryEdgeCondition implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	LinearStiffnessByLengthX? : IfcModulusOfLinearSubgradeReactionMeasure;
-	LinearStiffnessByLengthY? : IfcModulusOfLinearSubgradeReactionMeasure;
-	LinearStiffnessByLengthZ? : IfcModulusOfLinearSubgradeReactionMeasure;
-	RotationalStiffnessByLengthX? : IfcModulusOfRotationalSubgradeReactionMeasure;
-	RotationalStiffnessByLengthY? : IfcModulusOfRotationalSubgradeReactionMeasure;
-	RotationalStiffnessByLengthZ? : IfcModulusOfRotationalSubgradeReactionMeasure;
-
+    constructor( public readonly LinearStiffnessByLengthX : IfcModulusOfLinearSubgradeReactionMeasure  | undefined, public readonly LinearStiffnessByLengthY : IfcModulusOfLinearSubgradeReactionMeasure  | undefined, public readonly LinearStiffnessByLengthZ : IfcModulusOfLinearSubgradeReactionMeasure  | undefined, public readonly RotationalStiffnessByLengthX : IfcModulusOfRotationalSubgradeReactionMeasure  | undefined, public readonly RotationalStiffnessByLengthY : IfcModulusOfRotationalSubgradeReactionMeasure  | undefined, public readonly RotationalStiffnessByLengthZ : IfcModulusOfRotationalSubgradeReactionMeasure  | undefined ) {}
 }
 
 export class IfcBoundaryEdgeConditionSpecification implements ComponentSpecification

@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcDocumentInformation} from "./IfcDocumentInformation.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
+import IfcDocumentInformation from "./IfcDocumentInformation.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
 
 
 /**
@@ -16,10 +16,7 @@ export default class IfcDocumentInformationRelationship implements Component< Sc
 
     public readonly __version__: number = 0;
 
-	RelatingDocument : IfcDocumentInformation;
-	RelatedDocuments : Array<IfcDocumentInformation>;
-	RelationshipType? : IfcLabel;
-
+    constructor( public readonly RelatingDocument : IfcDocumentInformation , public readonly RelatedDocuments : Array<IfcDocumentInformation> , public readonly RelationshipType : IfcLabel  | undefined ) {}
 }
 
 export class IfcDocumentInformationRelationshipSpecification implements ComponentSpecification

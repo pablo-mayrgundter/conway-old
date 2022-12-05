@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcwindowstyleconstructionenum.htm
-export enum IfcWindowStyleConstructionEnum 
+enum IfcWindowStyleConstructionEnum 
 {
 	ALUMINIUM=".ALUMINIUM.",
 	HIGH_GRADE_STEEL=".HIGH_GRADE_STEEL.",
@@ -10,4 +10,6 @@ export enum IfcWindowStyleConstructionEnum
 	PLASTIC=".PLASTIC.",
 	OTHER_CONSTRUCTION=".OTHER_CONSTRUCTION.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcWindowStyleConstructionEnum;

@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPoint} from "./IfcPoint.bldrs"
-import {IfcCurve} from "./IfcCurve.bldrs"
-import {IfcSurface} from "./IfcSurface.bldrs"
-import {IfcDimensionCount} from "./IfcDimensionCount.bldrs"
+import IfcPoint from "./IfcPoint.bldrs"
+import IfcCurve from "./IfcCurve.bldrs"
+import IfcSurface from "./IfcSurface.bldrs"
+import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 
 
 /**
@@ -18,8 +18,7 @@ export default class IfcGeometricSet implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
-	Elements : Array<IfcPoint|IfcCurve|IfcSurface>;
-
+    constructor( public readonly Elements : Array<IfcPoint|IfcCurve|IfcSurface>  ) {}
 }
 
 export class IfcGeometricSetSpecification implements ComponentSpecification

@@ -3,14 +3,14 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcText} from "./IfcText.bldrs"
-import {IfcCalendarDate} from "./IfcCalendarDate.bldrs"
-import {IfcLocalTime} from "./IfcLocalTime.bldrs"
-import {IfcDateAndTime} from "./IfcDateAndTime.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcIdentifier} from "./IfcIdentifier.bldrs"
-import {IfcApprovalActorRelationship} from "./IfcApprovalActorRelationship.bldrs"
-import {IfcApprovalRelationship} from "./IfcApprovalRelationship.bldrs"
+import IfcText from "./IfcText.bldrs"
+import IfcCalendarDate from "./IfcCalendarDate.bldrs"
+import IfcLocalTime from "./IfcLocalTime.bldrs"
+import IfcDateAndTime from "./IfcDateAndTime.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcIdentifier from "./IfcIdentifier.bldrs"
+import IfcApprovalActorRelationship from "./IfcApprovalActorRelationship.bldrs"
+import IfcApprovalRelationship from "./IfcApprovalRelationship.bldrs"
 
 
 /**
@@ -22,14 +22,7 @@ export default class IfcApproval implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	Description? : IfcText;
-	ApprovalDateTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-	ApprovalStatus? : IfcLabel;
-	ApprovalLevel? : IfcLabel;
-	ApprovalQualifier? : IfcText;
-	Name : IfcLabel;
-	Identifier : IfcIdentifier;
-
+    constructor( public readonly Description : IfcText  | undefined, public readonly ApprovalDateTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime , public readonly ApprovalStatus : IfcLabel  | undefined, public readonly ApprovalLevel : IfcLabel  | undefined, public readonly ApprovalQualifier : IfcText  | undefined, public readonly Name : IfcLabel , public readonly Identifier : IfcIdentifier  ) {}
 }
 
 export class IfcApprovalSpecification implements ComponentSpecification

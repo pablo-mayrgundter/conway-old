@@ -14,7 +14,7 @@ export default class IfcAnnotationCurveOccurrence implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcAnnotationCurveOccurrenceSpecification implements ComponentSpecification

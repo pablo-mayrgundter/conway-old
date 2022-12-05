@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccostscheduletypeenum.htm
-export enum IfcCostScheduleTypeEnum 
+enum IfcCostScheduleTypeEnum 
 {
 	BUDGET=".BUDGET.",
 	COSTPLAN=".COSTPLAN.",
@@ -11,4 +11,6 @@ export enum IfcCostScheduleTypeEnum
 	SCHEDULEOFRATES=".SCHEDULEOFRATES.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcCostScheduleTypeEnum;

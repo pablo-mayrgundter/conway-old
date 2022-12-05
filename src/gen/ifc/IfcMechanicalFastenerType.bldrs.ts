@@ -14,7 +14,7 @@ export default class IfcMechanicalFastenerType implements Component< SchemaSpeci
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcMechanicalFastenerTypeSpecification implements ComponentSpecification

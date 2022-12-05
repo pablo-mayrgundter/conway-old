@@ -1,6 +1,7 @@
 
-import {BaseIfc} from "./BaseIfc"
-import {IfcLengthMeasure} from "./IfcLengthMeasure.g"
+import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 
 // http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcpositivelengthmeasure.htm
-export type IfcPositiveLengthMeasure = IfcLengthMeasure
+type IfcPositiveLengthMeasure = IfcLengthMeasure;
+
+export default IfcPositiveLengthMeasure;

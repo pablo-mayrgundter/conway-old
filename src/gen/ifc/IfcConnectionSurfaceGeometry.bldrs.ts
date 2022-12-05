@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcSurface} from "./IfcSurface.bldrs"
-import {IfcFaceSurface} from "./IfcFaceSurface.bldrs"
-import {IfcFaceBasedSurfaceModel} from "./IfcFaceBasedSurfaceModel.bldrs"
+import IfcSurface from "./IfcSurface.bldrs"
+import IfcFaceSurface from "./IfcFaceSurface.bldrs"
+import IfcFaceBasedSurfaceModel from "./IfcFaceBasedSurfaceModel.bldrs"
 
 
 /**
@@ -17,9 +17,7 @@ export default class IfcConnectionSurfaceGeometry implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
-	SurfaceOnRelatingElement : IfcSurface|IfcFaceSurface|IfcFaceBasedSurfaceModel;
-	SurfaceOnRelatedElement? : IfcSurface|IfcFaceSurface|IfcFaceBasedSurfaceModel;
-
+    constructor( public readonly SurfaceOnRelatingElement : IfcSurface|IfcFaceSurface|IfcFaceBasedSurfaceModel , public readonly SurfaceOnRelatedElement : IfcSurface|IfcFaceSurface|IfcFaceBasedSurfaceModel  | undefined ) {}
 }
 
 export class IfcConnectionSurfaceGeometrySpecification implements ComponentSpecification

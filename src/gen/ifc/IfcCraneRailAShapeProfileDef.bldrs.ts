@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 
 
 /**
@@ -15,19 +15,7 @@ export default class IfcCraneRailAShapeProfileDef implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
-	OverallHeight : IfcPositiveLengthMeasure;
-	BaseWidth2 : IfcPositiveLengthMeasure;
-	Radius? : IfcPositiveLengthMeasure;
-	HeadWidth : IfcPositiveLengthMeasure;
-	HeadDepth2 : IfcPositiveLengthMeasure;
-	HeadDepth3 : IfcPositiveLengthMeasure;
-	WebThickness : IfcPositiveLengthMeasure;
-	BaseWidth4 : IfcPositiveLengthMeasure;
-	BaseDepth1 : IfcPositiveLengthMeasure;
-	BaseDepth2 : IfcPositiveLengthMeasure;
-	BaseDepth3 : IfcPositiveLengthMeasure;
-	CentreOfGravityInY? : IfcPositiveLengthMeasure;
-
+    constructor( public readonly OverallHeight : IfcPositiveLengthMeasure , public readonly BaseWidth2 : IfcPositiveLengthMeasure , public readonly Radius : IfcPositiveLengthMeasure  | undefined, public readonly HeadWidth : IfcPositiveLengthMeasure , public readonly HeadDepth2 : IfcPositiveLengthMeasure , public readonly HeadDepth3 : IfcPositiveLengthMeasure , public readonly WebThickness : IfcPositiveLengthMeasure , public readonly BaseWidth4 : IfcPositiveLengthMeasure , public readonly BaseDepth1 : IfcPositiveLengthMeasure , public readonly BaseDepth2 : IfcPositiveLengthMeasure , public readonly BaseDepth3 : IfcPositiveLengthMeasure , public readonly CentreOfGravityInY : IfcPositiveLengthMeasure  | undefined ) {}
 }
 
 export class IfcCraneRailAShapeProfileDefSpecification implements ComponentSpecification

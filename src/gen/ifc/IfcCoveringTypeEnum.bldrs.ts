@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccoveringtypeenum.htm
-export enum IfcCoveringTypeEnum 
+enum IfcCoveringTypeEnum 
 {
 	CEILING=".CEILING.",
 	FLOORING=".FLOORING.",
@@ -12,4 +12,6 @@ export enum IfcCoveringTypeEnum
 	WRAPPING=".WRAPPING.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcCoveringTypeEnum;

@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcSurface} from "./IfcSurface.bldrs"
+import IfcSurface from "./IfcSurface.bldrs"
 
 
 /**
@@ -15,9 +15,7 @@ export default class IfcFaceSurface implements Component< SchemaSpecificationIFC
 
     public readonly __version__: number = 0;
 
-	FaceSurface : IfcSurface;
-	SameSense : boolean;
-
+    constructor( public readonly FaceSurface : IfcSurface , public readonly SameSense : boolean  ) {}
 }
 
 export class IfcFaceSurfaceSpecification implements ComponentSpecification

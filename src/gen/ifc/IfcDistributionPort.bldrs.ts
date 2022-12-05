@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcFlowDirectionEnum} from "./IfcFlowDirectionEnum.bldrs"
+import IfcFlowDirectionEnum from "./IfcFlowDirectionEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcDistributionPort implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
-	FlowDirection? : IfcFlowDirectionEnum;
-
+    constructor( public readonly FlowDirection : IfcFlowDirectionEnum  | undefined ) {}
 }
 
 export class IfcDistributionPortSpecification implements ComponentSpecification

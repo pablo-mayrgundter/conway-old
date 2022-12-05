@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCurve} from "./IfcCurve.bldrs"
-import {IfcLengthMeasure} from "./IfcLengthMeasure.bldrs"
-import {IfcDirection} from "./IfcDirection.bldrs"
+import IfcCurve from "./IfcCurve.bldrs"
+import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
+import IfcDirection from "./IfcDirection.bldrs"
 
 
 /**
@@ -17,11 +17,7 @@ export default class IfcOffsetCurve3D implements Component< SchemaSpecificationI
 
     public readonly __version__: number = 0;
 
-	BasisCurve : IfcCurve;
-	Distance : IfcLengthMeasure;
-	SelfIntersect : boolean;
-	RefDirection : IfcDirection;
-
+    constructor( public readonly BasisCurve : IfcCurve , public readonly Distance : IfcLengthMeasure , public readonly SelfIntersect : boolean , public readonly RefDirection : IfcDirection  ) {}
 }
 
 export class IfcOffsetCurve3DSpecification implements ComponentSpecification

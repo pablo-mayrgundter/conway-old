@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcProcess} from "./IfcProcess.bldrs"
-import {IfcMeasureWithUnit} from "./IfcMeasureWithUnit.bldrs"
+import IfcProcess from "./IfcProcess.bldrs"
+import IfcMeasureWithUnit from "./IfcMeasureWithUnit.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcRelAssignsToProcess implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
-	RelatingProcess : IfcProcess;
-	QuantityInProcess? : IfcMeasureWithUnit;
-
+    constructor( public readonly RelatingProcess : IfcProcess , public readonly QuantityInProcess : IfcMeasureWithUnit  | undefined ) {}
 }
 
 export class IfcRelAssignsToProcessSpecification implements ComponentSpecification

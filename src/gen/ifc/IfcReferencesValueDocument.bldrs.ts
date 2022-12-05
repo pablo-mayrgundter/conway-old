@@ -3,11 +3,11 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcDocumentReference} from "./IfcDocumentReference.bldrs"
-import {IfcDocumentInformation} from "./IfcDocumentInformation.bldrs"
-import {IfcAppliedValue} from "./IfcAppliedValue.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcText} from "./IfcText.bldrs"
+import IfcDocumentReference from "./IfcDocumentReference.bldrs"
+import IfcDocumentInformation from "./IfcDocumentInformation.bldrs"
+import IfcAppliedValue from "./IfcAppliedValue.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcText from "./IfcText.bldrs"
 
 
 /**
@@ -19,11 +19,7 @@ export default class IfcReferencesValueDocument implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
-	ReferencedDocument : IfcDocumentReference|IfcDocumentInformation;
-	ReferencingValues : Array<IfcAppliedValue>;
-	Name? : IfcLabel;
-	Description? : IfcText;
-
+    constructor( public readonly ReferencedDocument : IfcDocumentReference|IfcDocumentInformation , public readonly ReferencingValues : Array<IfcAppliedValue> , public readonly Name : IfcLabel  | undefined, public readonly Description : IfcText  | undefined ) {}
 }
 
 export class IfcReferencesValueDocumentSpecification implements ComponentSpecification

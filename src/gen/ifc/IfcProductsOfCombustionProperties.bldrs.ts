@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcSpecificHeatCapacityMeasure} from "./IfcSpecificHeatCapacityMeasure.bldrs"
-import {IfcPositiveRatioMeasure} from "./IfcPositiveRatioMeasure.bldrs"
+import IfcSpecificHeatCapacityMeasure from "./IfcSpecificHeatCapacityMeasure.bldrs"
+import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
 
 
 /**
@@ -16,11 +16,7 @@ export default class IfcProductsOfCombustionProperties implements Component< Sch
 
     public readonly __version__: number = 0;
 
-	SpecificHeatCapacity? : IfcSpecificHeatCapacityMeasure;
-	N20Content? : IfcPositiveRatioMeasure;
-	COContent? : IfcPositiveRatioMeasure;
-	CO2Content? : IfcPositiveRatioMeasure;
-
+    constructor( public readonly SpecificHeatCapacity : IfcSpecificHeatCapacityMeasure  | undefined, public readonly N20Content : IfcPositiveRatioMeasure  | undefined, public readonly COContent : IfcPositiveRatioMeasure  | undefined, public readonly CO2Content : IfcPositiveRatioMeasure  | undefined ) {}
 }
 
 export class IfcProductsOfCombustionPropertiesSpecification implements ComponentSpecification

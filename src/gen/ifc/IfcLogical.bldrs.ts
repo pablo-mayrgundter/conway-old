@@ -1,6 +1,7 @@
 
-import {BaseIfc} from "./BaseIfc"
 
 
 // http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifclogical.htm
-export type IfcLogical = boolean
+type IfcLogical = boolean;
+
+export default IfcLogical;

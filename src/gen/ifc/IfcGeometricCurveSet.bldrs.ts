@@ -14,7 +14,7 @@ export default class IfcGeometricCurveSet implements Component< SchemaSpecificat
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcGeometricCurveSetSpecification implements ComponentSpecification

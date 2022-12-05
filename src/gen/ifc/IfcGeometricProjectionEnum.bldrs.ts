@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcgeometricprojectionenum.htm
-export enum IfcGeometricProjectionEnum 
+enum IfcGeometricProjectionEnum 
 {
 	GRAPH_VIEW=".GRAPH_VIEW.",
 	SKETCH_VIEW=".SKETCH_VIEW.",
@@ -11,4 +11,6 @@ export enum IfcGeometricProjectionEnum
 	ELEVATION_VIEW=".ELEVATION_VIEW.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcGeometricProjectionEnum;

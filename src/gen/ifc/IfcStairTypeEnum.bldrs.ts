@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstairtypeenum.htm
-export enum IfcStairTypeEnum 
+enum IfcStairTypeEnum 
 {
 	STRAIGHT_RUN_STAIR=".STRAIGHT_RUN_STAIR.",
 	TWO_STRAIGHT_RUN_STAIR=".TWO_STRAIGHT_RUN_STAIR.",
@@ -18,4 +18,6 @@ export enum IfcStairTypeEnum
 	TWO_CURVED_RUN_STAIR=".TWO_CURVED_RUN_STAIR.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcStairTypeEnum;

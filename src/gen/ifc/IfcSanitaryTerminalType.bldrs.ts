@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcSanitaryTerminalTypeEnum} from "./IfcSanitaryTerminalTypeEnum.bldrs"
+import IfcSanitaryTerminalTypeEnum from "./IfcSanitaryTerminalTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcSanitaryTerminalType implements Component< SchemaSpecifi
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcSanitaryTerminalTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcSanitaryTerminalTypeEnum  ) {}
 }
 
 export class IfcSanitaryTerminalTypeSpecification implements ComponentSpecification

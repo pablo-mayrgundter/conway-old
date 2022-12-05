@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcAxis2Placement3D} from "./IfcAxis2Placement3D.bldrs"
-import {IfcDimensionCount} from "./IfcDimensionCount.bldrs"
+import IfcAxis2Placement3D from "./IfcAxis2Placement3D.bldrs"
+import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 
 
 /**
@@ -16,8 +16,7 @@ export default class IfcCsgPrimitive3D implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-	Position : IfcAxis2Placement3D;
-
+    constructor( public readonly Position : IfcAxis2Placement3D  ) {}
 }
 
 export class IfcCsgPrimitive3DSpecification implements ComponentSpecification

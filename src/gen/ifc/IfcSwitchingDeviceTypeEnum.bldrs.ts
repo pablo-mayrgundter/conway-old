@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcswitchingdevicetypeenum.htm
-export enum IfcSwitchingDeviceTypeEnum 
+enum IfcSwitchingDeviceTypeEnum 
 {
 	CONTACTOR=".CONTACTOR.",
 	EMERGENCYSTOP=".EMERGENCYSTOP.",
@@ -9,4 +9,6 @@ export enum IfcSwitchingDeviceTypeEnum
 	TOGGLESWITCH=".TOGGLESWITCH.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcSwitchingDeviceTypeEnum;

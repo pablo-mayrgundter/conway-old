@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcDayInMonthNumber} from "./IfcDayInMonthNumber.bldrs"
-import {IfcMonthInYearNumber} from "./IfcMonthInYearNumber.bldrs"
-import {IfcYearNumber} from "./IfcYearNumber.bldrs"
+import IfcDayInMonthNumber from "./IfcDayInMonthNumber.bldrs"
+import IfcMonthInYearNumber from "./IfcMonthInYearNumber.bldrs"
+import IfcYearNumber from "./IfcYearNumber.bldrs"
 
 
 /**
@@ -17,10 +17,7 @@ export default class IfcCalendarDate implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
-	DayComponent : IfcDayInMonthNumber;
-	MonthComponent : IfcMonthInYearNumber;
-	YearComponent : IfcYearNumber;
-
+    constructor( public readonly DayComponent : IfcDayInMonthNumber , public readonly MonthComponent : IfcMonthInYearNumber , public readonly YearComponent : IfcYearNumber  ) {}
 }
 
 export class IfcCalendarDateSpecification implements ComponentSpecification

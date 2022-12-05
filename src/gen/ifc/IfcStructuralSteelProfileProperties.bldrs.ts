@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcAreaMeasure} from "./IfcAreaMeasure.bldrs"
-import {IfcPositiveRatioMeasure} from "./IfcPositiveRatioMeasure.bldrs"
+import IfcAreaMeasure from "./IfcAreaMeasure.bldrs"
+import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
 
 
 /**
@@ -16,11 +16,7 @@ export default class IfcStructuralSteelProfileProperties implements Component< S
 
     public readonly __version__: number = 0;
 
-	ShearAreaZ? : IfcAreaMeasure;
-	ShearAreaY? : IfcAreaMeasure;
-	PlasticShapeFactorY? : IfcPositiveRatioMeasure;
-	PlasticShapeFactorZ? : IfcPositiveRatioMeasure;
-
+    constructor( public readonly ShearAreaZ : IfcAreaMeasure  | undefined, public readonly ShearAreaY : IfcAreaMeasure  | undefined, public readonly PlasticShapeFactorY : IfcPositiveRatioMeasure  | undefined, public readonly PlasticShapeFactorZ : IfcPositiveRatioMeasure  | undefined ) {}
 }
 
 export class IfcStructuralSteelProfilePropertiesSpecification implements ComponentSpecification

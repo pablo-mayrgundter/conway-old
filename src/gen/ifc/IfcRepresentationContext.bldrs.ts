@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcRepresentation} from "./IfcRepresentation.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcRepresentation from "./IfcRepresentation.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcRepresentationContext implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	ContextIdentifier? : IfcLabel;
-	ContextType? : IfcLabel;
-
+    constructor( public readonly ContextIdentifier : IfcLabel  | undefined, public readonly ContextType : IfcLabel  | undefined ) {}
 }
 
 export class IfcRepresentationContextSpecification implements ComponentSpecification

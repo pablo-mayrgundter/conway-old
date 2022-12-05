@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcbeamtypeenum.htm
-export enum IfcBeamTypeEnum 
+enum IfcBeamTypeEnum 
 {
 	BEAM=".BEAM.",
 	JOIST=".JOIST.",
@@ -8,4 +8,6 @@ export enum IfcBeamTypeEnum
 	T_BEAM=".T_BEAM.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcBeamTypeEnum;

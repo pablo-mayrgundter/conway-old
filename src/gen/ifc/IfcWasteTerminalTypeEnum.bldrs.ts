@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcwasteterminaltypeenum.htm
-export enum IfcWasteTerminalTypeEnum 
+enum IfcWasteTerminalTypeEnum 
 {
 	FLOORTRAP=".FLOORTRAP.",
 	FLOORWASTE=".FLOORWASTE.",
@@ -14,4 +14,6 @@ export enum IfcWasteTerminalTypeEnum
 	WASTETRAP=".WASTETRAP.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcWasteTerminalTypeEnum;

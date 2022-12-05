@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcobjectiveenum.htm
-export enum IfcObjectiveEnum 
+enum IfcObjectiveEnum 
 {
 	CODECOMPLIANCE=".CODECOMPLIANCE.",
 	DESIGNINTENT=".DESIGNINTENT.",
@@ -10,4 +10,6 @@ export enum IfcObjectiveEnum
 	TRIGGERCONDITION=".TRIGGERCONDITION.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcObjectiveEnum;

@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcairterminaltypeenum.htm
-export enum IfcAirTerminalTypeEnum 
+enum IfcAirTerminalTypeEnum 
 {
 	GRILLE=".GRILLE.",
 	REGISTER=".REGISTER.",
@@ -11,4 +11,6 @@ export enum IfcAirTerminalTypeEnum
 	LINEARDIFFUSER=".LINEARDIFFUSER.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcAirTerminalTypeEnum;

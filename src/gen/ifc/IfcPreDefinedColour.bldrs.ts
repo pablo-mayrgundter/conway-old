@@ -14,7 +14,7 @@ export default class IfcPreDefinedColour implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcPreDefinedColourSpecification implements ComponentSpecification

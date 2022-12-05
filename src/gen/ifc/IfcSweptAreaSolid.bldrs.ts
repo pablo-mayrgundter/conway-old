@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcProfileDef} from "./IfcProfileDef.bldrs"
-import {IfcAxis2Placement3D} from "./IfcAxis2Placement3D.bldrs"
+import IfcProfileDef from "./IfcProfileDef.bldrs"
+import IfcAxis2Placement3D from "./IfcAxis2Placement3D.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcSweptAreaSolid implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-	SweptArea : IfcProfileDef;
-	Position : IfcAxis2Placement3D;
-
+    constructor( public readonly SweptArea : IfcProfileDef , public readonly Position : IfcAxis2Placement3D  ) {}
 }
 
 export class IfcSweptAreaSolidSpecification implements ComponentSpecification

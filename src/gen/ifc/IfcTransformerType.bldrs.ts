@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcTransformerTypeEnum} from "./IfcTransformerTypeEnum.bldrs"
+import IfcTransformerTypeEnum from "./IfcTransformerTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcTransformerType implements Component< SchemaSpecificatio
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcTransformerTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcTransformerTypeEnum  ) {}
 }
 
 export class IfcTransformerTypeSpecification implements ComponentSpecification

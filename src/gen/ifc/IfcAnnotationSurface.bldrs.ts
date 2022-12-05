@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcGeometricRepresentationItem} from "./IfcGeometricRepresentationItem.bldrs"
-import {IfcTextureCoordinate} from "./IfcTextureCoordinate.bldrs"
+import IfcGeometricRepresentationItem from "./IfcGeometricRepresentationItem.bldrs"
+import IfcTextureCoordinate from "./IfcTextureCoordinate.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcAnnotationSurface implements Component< SchemaSpecificat
 
     public readonly __version__: number = 0;
 
-	Item : IfcGeometricRepresentationItem;
-	TextureCoordinates? : IfcTextureCoordinate;
-
+    constructor( public readonly Item : IfcGeometricRepresentationItem , public readonly TextureCoordinates : IfcTextureCoordinate  | undefined ) {}
 }
 
 export class IfcAnnotationSurfaceSpecification implements ComponentSpecification

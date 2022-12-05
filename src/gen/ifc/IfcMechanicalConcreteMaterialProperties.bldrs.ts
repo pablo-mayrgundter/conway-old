@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPressureMeasure} from "./IfcPressureMeasure.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
-import {IfcText} from "./IfcText.bldrs"
-import {IfcNormalisedRatioMeasure} from "./IfcNormalisedRatioMeasure.bldrs"
+import IfcPressureMeasure from "./IfcPressureMeasure.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
+import IfcText from "./IfcText.bldrs"
+import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
 
 
 /**
@@ -18,13 +18,7 @@ export default class IfcMechanicalConcreteMaterialProperties implements Componen
 
     public readonly __version__: number = 0;
 
-	CompressiveStrength? : IfcPressureMeasure;
-	MaxAggregateSize? : IfcPositiveLengthMeasure;
-	AdmixturesDescription? : IfcText;
-	Workability? : IfcText;
-	ProtectivePoreRatio? : IfcNormalisedRatioMeasure;
-	WaterImpermeability? : IfcText;
-
+    constructor( public readonly CompressiveStrength : IfcPressureMeasure  | undefined, public readonly MaxAggregateSize : IfcPositiveLengthMeasure  | undefined, public readonly AdmixturesDescription : IfcText  | undefined, public readonly Workability : IfcText  | undefined, public readonly ProtectivePoreRatio : IfcNormalisedRatioMeasure  | undefined, public readonly WaterImpermeability : IfcText  | undefined ) {}
 }
 
 export class IfcMechanicalConcreteMaterialPropertiesSpecification implements ComponentSpecification

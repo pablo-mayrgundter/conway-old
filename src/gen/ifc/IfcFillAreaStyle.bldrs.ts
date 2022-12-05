@@ -3,11 +3,11 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcFillAreaStyleHatching} from "./IfcFillAreaStyleHatching.bldrs"
-import {IfcFillAreaStyleTiles} from "./IfcFillAreaStyleTiles.bldrs"
-import {IfcColourSpecification} from "./IfcColourSpecification.bldrs"
-import {IfcPreDefinedColour} from "./IfcPreDefinedColour.bldrs"
-import {IfcExternallyDefinedHatchStyle} from "./IfcExternallyDefinedHatchStyle.bldrs"
+import IfcFillAreaStyleHatching from "./IfcFillAreaStyleHatching.bldrs"
+import IfcFillAreaStyleTiles from "./IfcFillAreaStyleTiles.bldrs"
+import IfcColourSpecification from "./IfcColourSpecification.bldrs"
+import IfcPreDefinedColour from "./IfcPreDefinedColour.bldrs"
+import IfcExternallyDefinedHatchStyle from "./IfcExternallyDefinedHatchStyle.bldrs"
 
 
 /**
@@ -19,8 +19,7 @@ export default class IfcFillAreaStyle implements Component< SchemaSpecificationI
 
     public readonly __version__: number = 0;
 
-	FillStyles : Array<IfcFillAreaStyleHatching|IfcFillAreaStyleTiles|IfcColourSpecification|IfcPreDefinedColour|IfcExternallyDefinedHatchStyle>;
-
+    constructor( public readonly FillStyles : Array<IfcFillAreaStyleHatching|IfcFillAreaStyleTiles|IfcColourSpecification|IfcPreDefinedColour|IfcExternallyDefinedHatchStyle>  ) {}
 }
 
 export class IfcFillAreaStyleSpecification implements ComponentSpecification

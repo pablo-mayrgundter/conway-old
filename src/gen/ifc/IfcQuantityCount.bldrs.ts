@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCountMeasure} from "./IfcCountMeasure.bldrs"
+import IfcCountMeasure from "./IfcCountMeasure.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcQuantityCount implements Component< SchemaSpecificationI
 
     public readonly __version__: number = 0;
 
-	CountValue : IfcCountMeasure;
-
+    constructor( public readonly CountValue : IfcCountMeasure  ) {}
 }
 
 export class IfcQuantityCountSpecification implements ComponentSpecification

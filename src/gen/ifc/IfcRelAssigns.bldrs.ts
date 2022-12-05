@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcObjectDefinition} from "./IfcObjectDefinition.bldrs"
-import {IfcObjectTypeEnum} from "./IfcObjectTypeEnum.bldrs"
+import IfcObjectDefinition from "./IfcObjectDefinition.bldrs"
+import IfcObjectTypeEnum from "./IfcObjectTypeEnum.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcRelAssigns implements Component< SchemaSpecificationIFC 
 
     public readonly __version__: number = 0;
 
-	RelatedObjects : Array<IfcObjectDefinition>;
-	RelatedObjectsType? : IfcObjectTypeEnum;
-
+    constructor( public readonly RelatedObjects : Array<IfcObjectDefinition> , public readonly RelatedObjectsType : IfcObjectTypeEnum  | undefined ) {}
 }
 
 export class IfcRelAssignsSpecification implements ComponentSpecification

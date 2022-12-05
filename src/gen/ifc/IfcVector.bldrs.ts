@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcDirection} from "./IfcDirection.bldrs"
-import {IfcLengthMeasure} from "./IfcLengthMeasure.bldrs"
-import {IfcDimensionCount} from "./IfcDimensionCount.bldrs"
+import IfcDirection from "./IfcDirection.bldrs"
+import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
+import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 
 
 /**
@@ -17,9 +17,7 @@ export default class IfcVector implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	Orientation : IfcDirection;
-	Magnitude : IfcLengthMeasure;
-
+    constructor( public readonly Orientation : IfcDirection , public readonly Magnitude : IfcLengthMeasure  ) {}
 }
 
 export class IfcVectorSpecification implements ComponentSpecification

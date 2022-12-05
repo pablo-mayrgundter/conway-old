@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcDimensionExtentUsage} from "./IfcDimensionExtentUsage.bldrs"
+import IfcDimensionExtentUsage from "./IfcDimensionExtentUsage.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcDimensionCurveTerminator implements Component< SchemaSpe
 
     public readonly __version__: number = 0;
 
-	Role : IfcDimensionExtentUsage;
-
+    constructor( public readonly Role : IfcDimensionExtentUsage  ) {}
 }
 
 export class IfcDimensionCurveTerminatorSpecification implements ComponentSpecification

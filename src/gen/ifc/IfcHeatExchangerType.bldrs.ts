@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcHeatExchangerTypeEnum} from "./IfcHeatExchangerTypeEnum.bldrs"
+import IfcHeatExchangerTypeEnum from "./IfcHeatExchangerTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcHeatExchangerType implements Component< SchemaSpecificat
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcHeatExchangerTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcHeatExchangerTypeEnum  ) {}
 }
 
 export class IfcHeatExchangerTypeSpecification implements ComponentSpecification

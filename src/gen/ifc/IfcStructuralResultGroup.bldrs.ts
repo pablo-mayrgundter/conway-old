@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcAnalysisTheoryTypeEnum} from "./IfcAnalysisTheoryTypeEnum.bldrs"
-import {IfcStructuralLoadGroup} from "./IfcStructuralLoadGroup.bldrs"
-import {IfcStructuralAnalysisModel} from "./IfcStructuralAnalysisModel.bldrs"
+import IfcAnalysisTheoryTypeEnum from "./IfcAnalysisTheoryTypeEnum.bldrs"
+import IfcStructuralLoadGroup from "./IfcStructuralLoadGroup.bldrs"
+import IfcStructuralAnalysisModel from "./IfcStructuralAnalysisModel.bldrs"
 
 
 /**
@@ -17,10 +17,7 @@ export default class IfcStructuralResultGroup implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	TheoryType : IfcAnalysisTheoryTypeEnum;
-	ResultForLoadGroup? : IfcStructuralLoadGroup;
-	IsLinear : boolean;
-
+    constructor( public readonly TheoryType : IfcAnalysisTheoryTypeEnum , public readonly ResultForLoadGroup : IfcStructuralLoadGroup  | undefined, public readonly IsLinear : boolean  ) {}
 }
 
 export class IfcStructuralResultGroupSpecification implements ComponentSpecification

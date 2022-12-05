@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcFlowInstrumentTypeEnum} from "./IfcFlowInstrumentTypeEnum.bldrs"
+import IfcFlowInstrumentTypeEnum from "./IfcFlowInstrumentTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcFlowInstrumentType implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcFlowInstrumentTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcFlowInstrumentTypeEnum  ) {}
 }
 
 export class IfcFlowInstrumentTypeSpecification implements ComponentSpecification

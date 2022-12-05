@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPositiveRatioMeasure} from "./IfcPositiveRatioMeasure.bldrs"
+import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
 
 
 /**
@@ -15,16 +15,7 @@ export default class IfcOpticalMaterialProperties implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
-	VisibleTransmittance? : IfcPositiveRatioMeasure;
-	SolarTransmittance? : IfcPositiveRatioMeasure;
-	ThermalIrTransmittance? : IfcPositiveRatioMeasure;
-	ThermalIrEmissivityBack? : IfcPositiveRatioMeasure;
-	ThermalIrEmissivityFront? : IfcPositiveRatioMeasure;
-	VisibleReflectanceBack? : IfcPositiveRatioMeasure;
-	VisibleReflectanceFront? : IfcPositiveRatioMeasure;
-	SolarReflectanceFront? : IfcPositiveRatioMeasure;
-	SolarReflectanceBack? : IfcPositiveRatioMeasure;
-
+    constructor( public readonly VisibleTransmittance : IfcPositiveRatioMeasure  | undefined, public readonly SolarTransmittance : IfcPositiveRatioMeasure  | undefined, public readonly ThermalIrTransmittance : IfcPositiveRatioMeasure  | undefined, public readonly ThermalIrEmissivityBack : IfcPositiveRatioMeasure  | undefined, public readonly ThermalIrEmissivityFront : IfcPositiveRatioMeasure  | undefined, public readonly VisibleReflectanceBack : IfcPositiveRatioMeasure  | undefined, public readonly VisibleReflectanceFront : IfcPositiveRatioMeasure  | undefined, public readonly SolarReflectanceFront : IfcPositiveRatioMeasure  | undefined, public readonly SolarReflectanceBack : IfcPositiveRatioMeasure  | undefined ) {}
 }
 
 export class IfcOpticalMaterialPropertiesSpecification implements ComponentSpecification

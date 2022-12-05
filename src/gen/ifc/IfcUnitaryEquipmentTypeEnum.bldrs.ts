@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcunitaryequipmenttypeenum.htm
-export enum IfcUnitaryEquipmentTypeEnum 
+enum IfcUnitaryEquipmentTypeEnum 
 {
 	AIRHANDLER=".AIRHANDLER.",
 	AIRCONDITIONINGUNIT=".AIRCONDITIONINGUNIT.",
@@ -8,4 +8,6 @@ export enum IfcUnitaryEquipmentTypeEnum
 	ROOFTOPUNIT=".ROOFTOPUNIT.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcUnitaryEquipmentTypeEnum;

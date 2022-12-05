@@ -1,10 +1,12 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrailingtypeenum.htm
-export enum IfcRailingTypeEnum 
+enum IfcRailingTypeEnum 
 {
 	HANDRAIL=".HANDRAIL.",
 	GUARDRAIL=".GUARDRAIL.",
 	BALUSTRADE=".BALUSTRADE.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcRailingTypeEnum;

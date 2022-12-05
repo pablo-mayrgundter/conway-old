@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
-import {IfcPlaneAngleMeasure} from "./IfcPlaneAngleMeasure.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
+import IfcPlaneAngleMeasure from "./IfcPlaneAngleMeasure.bldrs"
 
 
 /**
@@ -16,15 +16,7 @@ export default class IfcUShapeProfileDef implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
-	Depth : IfcPositiveLengthMeasure;
-	FlangeWidth : IfcPositiveLengthMeasure;
-	WebThickness : IfcPositiveLengthMeasure;
-	FlangeThickness : IfcPositiveLengthMeasure;
-	FilletRadius? : IfcPositiveLengthMeasure;
-	EdgeRadius? : IfcPositiveLengthMeasure;
-	FlangeSlope? : IfcPlaneAngleMeasure;
-	CentreOfGravityInX? : IfcPositiveLengthMeasure;
-
+    constructor( public readonly Depth : IfcPositiveLengthMeasure , public readonly FlangeWidth : IfcPositiveLengthMeasure , public readonly WebThickness : IfcPositiveLengthMeasure , public readonly FlangeThickness : IfcPositiveLengthMeasure , public readonly FilletRadius : IfcPositiveLengthMeasure  | undefined, public readonly EdgeRadius : IfcPositiveLengthMeasure  | undefined, public readonly FlangeSlope : IfcPlaneAngleMeasure  | undefined, public readonly CentreOfGravityInX : IfcPositiveLengthMeasure  | undefined ) {}
 }
 
 export class IfcUShapeProfileDefSpecification implements ComponentSpecification

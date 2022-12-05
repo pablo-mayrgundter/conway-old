@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCartesianPoint} from "./IfcCartesianPoint.bldrs"
-import {IfcVector} from "./IfcVector.bldrs"
+import IfcCartesianPoint from "./IfcCartesianPoint.bldrs"
+import IfcVector from "./IfcVector.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcLine implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	Pnt : IfcCartesianPoint;
-	Dir : IfcVector;
-
+    constructor( public readonly Pnt : IfcCartesianPoint , public readonly Dir : IfcVector  ) {}
 }
 
 export class IfcLineSpecification implements ComponentSpecification

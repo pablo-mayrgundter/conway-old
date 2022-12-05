@@ -14,7 +14,7 @@ export default class IfcFlowTreatmentDeviceType implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcFlowTreatmentDeviceTypeSpecification implements ComponentSpecification

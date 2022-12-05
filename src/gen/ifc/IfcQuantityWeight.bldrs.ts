@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcMassMeasure} from "./IfcMassMeasure.bldrs"
+import IfcMassMeasure from "./IfcMassMeasure.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcQuantityWeight implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-	WeightValue : IfcMassMeasure;
-
+    constructor( public readonly WeightValue : IfcMassMeasure  ) {}
 }
 
 export class IfcQuantityWeightSpecification implements ComponentSpecification

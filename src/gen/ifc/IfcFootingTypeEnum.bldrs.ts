@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcfootingtypeenum.htm
-export enum IfcFootingTypeEnum 
+enum IfcFootingTypeEnum 
 {
 	FOOTING_BEAM=".FOOTING_BEAM.",
 	PAD_FOOTING=".PAD_FOOTING.",
@@ -8,4 +8,6 @@ export enum IfcFootingTypeEnum
 	STRIP_FOOTING=".STRIP_FOOTING.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcFootingTypeEnum;

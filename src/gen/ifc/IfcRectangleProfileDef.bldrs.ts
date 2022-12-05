@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 
 
 /**
@@ -15,9 +15,7 @@ export default class IfcRectangleProfileDef implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
-	XDim : IfcPositiveLengthMeasure;
-	YDim : IfcPositiveLengthMeasure;
-
+    constructor( public readonly XDim : IfcPositiveLengthMeasure , public readonly YDim : IfcPositiveLengthMeasure  ) {}
 }
 
 export class IfcRectangleProfileDefSpecification implements ComponentSpecification

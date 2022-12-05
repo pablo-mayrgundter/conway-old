@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifclightemissionsourceenum.htm
-export enum IfcLightEmissionSourceEnum 
+enum IfcLightEmissionSourceEnum 
 {
 	COMPACTFLUORESCENT=".COMPACTFLUORESCENT.",
 	FLUORESCENT=".FLUORESCENT.",
@@ -13,4 +13,6 @@ export enum IfcLightEmissionSourceEnum
 	METALHALIDE=".METALHALIDE.",
 	TUNGSTENFILAMENT=".TUNGSTENFILAMENT.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcLightEmissionSourceEnum;

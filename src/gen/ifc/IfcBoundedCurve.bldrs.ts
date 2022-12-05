@@ -14,7 +14,7 @@ export default class IfcBoundedCurve implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcBoundedCurveSpecification implements ComponentSpecification

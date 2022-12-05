@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcDerivedUnitElement} from "./IfcDerivedUnitElement.bldrs"
-import {IfcDerivedUnitEnum} from "./IfcDerivedUnitEnum.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcDimensionalExponents} from "./IfcDimensionalExponents.bldrs"
+import IfcDerivedUnitElement from "./IfcDerivedUnitElement.bldrs"
+import IfcDerivedUnitEnum from "./IfcDerivedUnitEnum.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcDimensionalExponents from "./IfcDimensionalExponents.bldrs"
 
 
 /**
@@ -18,10 +18,7 @@ export default class IfcDerivedUnit implements Component< SchemaSpecificationIFC
 
     public readonly __version__: number = 0;
 
-	Elements : Array<IfcDerivedUnitElement>;
-	UnitType : IfcDerivedUnitEnum;
-	UserDefinedType? : IfcLabel;
-
+    constructor( public readonly Elements : Array<IfcDerivedUnitElement> , public readonly UnitType : IfcDerivedUnitEnum , public readonly UserDefinedType : IfcLabel  | undefined ) {}
 }
 
 export class IfcDerivedUnitSpecification implements ComponentSpecification

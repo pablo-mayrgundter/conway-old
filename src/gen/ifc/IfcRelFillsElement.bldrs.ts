@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcOpeningElement} from "./IfcOpeningElement.bldrs"
-import {IfcElement} from "./IfcElement.bldrs"
+import IfcOpeningElement from "./IfcOpeningElement.bldrs"
+import IfcElement from "./IfcElement.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcRelFillsElement implements Component< SchemaSpecificatio
 
     public readonly __version__: number = 0;
 
-	RelatingOpeningElement : IfcOpeningElement;
-	RelatedBuildingElement : IfcElement;
-
+    constructor( public readonly RelatingOpeningElement : IfcOpeningElement , public readonly RelatedBuildingElement : IfcElement  ) {}
 }
 
 export class IfcRelFillsElementSpecification implements ComponentSpecification

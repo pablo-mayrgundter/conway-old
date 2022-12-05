@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPerson} from "./IfcPerson.bldrs"
-import {IfcOrganization} from "./IfcOrganization.bldrs"
-import {IfcActorRole} from "./IfcActorRole.bldrs"
+import IfcPerson from "./IfcPerson.bldrs"
+import IfcOrganization from "./IfcOrganization.bldrs"
+import IfcActorRole from "./IfcActorRole.bldrs"
 
 
 /**
@@ -17,10 +17,7 @@ export default class IfcPersonAndOrganization implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	ThePerson : IfcPerson;
-	TheOrganization : IfcOrganization;
-	Roles? : Array<IfcActorRole>;
-
+    constructor( public readonly ThePerson : IfcPerson , public readonly TheOrganization : IfcOrganization , public readonly Roles : Array<IfcActorRole>  | undefined ) {}
 }
 
 export class IfcPersonAndOrganizationSpecification implements ComponentSpecification

@@ -3,11 +3,11 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcText} from "./IfcText.bldrs"
-import {IfcRepresentationItem} from "./IfcRepresentationItem.bldrs"
-import {IfcRepresentation} from "./IfcRepresentation.bldrs"
-import {IfcIdentifier} from "./IfcIdentifier.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcText from "./IfcText.bldrs"
+import IfcRepresentationItem from "./IfcRepresentationItem.bldrs"
+import IfcRepresentation from "./IfcRepresentation.bldrs"
+import IfcIdentifier from "./IfcIdentifier.bldrs"
 
 
 /**
@@ -19,11 +19,7 @@ export default class IfcPresentationLayerAssignment implements Component< Schema
 
     public readonly __version__: number = 0;
 
-	Name : IfcLabel;
-	Description? : IfcText;
-	AssignedItems : Array<IfcRepresentationItem|IfcRepresentation>;
-	Identifier? : IfcIdentifier;
-
+    constructor( public readonly Name : IfcLabel , public readonly Description : IfcText  | undefined, public readonly AssignedItems : Array<IfcRepresentationItem|IfcRepresentation> , public readonly Identifier : IfcIdentifier  | undefined ) {}
 }
 
 export class IfcPresentationLayerAssignmentSpecification implements ComponentSpecification

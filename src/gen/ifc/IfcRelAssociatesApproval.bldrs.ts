@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcApproval} from "./IfcApproval.bldrs"
+import IfcApproval from "./IfcApproval.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcRelAssociatesApproval implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	RelatingApproval : IfcApproval;
-
+    constructor( public readonly RelatingApproval : IfcApproval  ) {}
 }
 
 export class IfcRelAssociatesApprovalSpecification implements ComponentSpecification

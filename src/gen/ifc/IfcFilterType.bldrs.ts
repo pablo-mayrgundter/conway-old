@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcFilterTypeEnum} from "./IfcFilterTypeEnum.bldrs"
+import IfcFilterTypeEnum from "./IfcFilterTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcFilterType implements Component< SchemaSpecificationIFC 
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcFilterTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcFilterTypeEnum  ) {}
 }
 
 export class IfcFilterTypeSpecification implements ComponentSpecification

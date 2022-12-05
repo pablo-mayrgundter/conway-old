@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcClassificationNotation} from "./IfcClassificationNotation.bldrs"
-import {IfcClassificationReference} from "./IfcClassificationReference.bldrs"
-import {IfcMaterial} from "./IfcMaterial.bldrs"
+import IfcClassificationNotation from "./IfcClassificationNotation.bldrs"
+import IfcClassificationReference from "./IfcClassificationReference.bldrs"
+import IfcMaterial from "./IfcMaterial.bldrs"
 
 
 /**
@@ -17,9 +17,7 @@ export default class IfcMaterialClassificationRelationship implements Component<
 
     public readonly __version__: number = 0;
 
-	MaterialClassifications : Array<IfcClassificationNotation|IfcClassificationReference>;
-	ClassifiedMaterial : IfcMaterial;
-
+    constructor( public readonly MaterialClassifications : Array<IfcClassificationNotation|IfcClassificationReference> , public readonly ClassifiedMaterial : IfcMaterial  ) {}
 }
 
 export class IfcMaterialClassificationRelationshipSpecification implements ComponentSpecification

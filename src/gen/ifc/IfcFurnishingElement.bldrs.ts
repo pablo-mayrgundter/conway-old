@@ -14,7 +14,7 @@ export default class IfcFurnishingElement implements Component< SchemaSpecificat
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcFurnishingElementSpecification implements ComponentSpecification

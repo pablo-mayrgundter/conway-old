@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcMemberTypeEnum} from "./IfcMemberTypeEnum.bldrs"
+import IfcMemberTypeEnum from "./IfcMemberTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcMemberType implements Component< SchemaSpecificationIFC 
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcMemberTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcMemberTypeEnum  ) {}
 }
 
 export class IfcMemberTypeSpecification implements ComponentSpecification

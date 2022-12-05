@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcMaterialLayerSet} from "./IfcMaterialLayerSet.bldrs"
-import {IfcLayerSetDirectionEnum} from "./IfcLayerSetDirectionEnum.bldrs"
-import {IfcDirectionSenseEnum} from "./IfcDirectionSenseEnum.bldrs"
-import {IfcLengthMeasure} from "./IfcLengthMeasure.bldrs"
+import IfcMaterialLayerSet from "./IfcMaterialLayerSet.bldrs"
+import IfcLayerSetDirectionEnum from "./IfcLayerSetDirectionEnum.bldrs"
+import IfcDirectionSenseEnum from "./IfcDirectionSenseEnum.bldrs"
+import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 
 
 /**
@@ -18,11 +18,7 @@ export default class IfcMaterialLayerSetUsage implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	ForLayerSet : IfcMaterialLayerSet;
-	LayerSetDirection : IfcLayerSetDirectionEnum;
-	DirectionSense : IfcDirectionSenseEnum;
-	OffsetFromReferenceLine : IfcLengthMeasure;
-
+    constructor( public readonly ForLayerSet : IfcMaterialLayerSet , public readonly LayerSetDirection : IfcLayerSetDirectionEnum , public readonly DirectionSense : IfcDirectionSenseEnum , public readonly OffsetFromReferenceLine : IfcLengthMeasure  ) {}
 }
 
 export class IfcMaterialLayerSetUsageSpecification implements ComponentSpecification

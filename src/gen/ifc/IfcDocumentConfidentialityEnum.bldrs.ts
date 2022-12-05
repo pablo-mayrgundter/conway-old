@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcdocumentconfidentialityenum.htm
-export enum IfcDocumentConfidentialityEnum 
+enum IfcDocumentConfidentialityEnum 
 {
 	PUBLIC=".PUBLIC.",
 	RESTRICTED=".RESTRICTED.",
@@ -8,4 +8,6 @@ export enum IfcDocumentConfidentialityEnum
 	PERSONAL=".PERSONAL.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcDocumentConfidentialityEnum;

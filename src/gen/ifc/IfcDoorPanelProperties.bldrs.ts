@@ -3,11 +3,11 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
-import {IfcDoorPanelOperationEnum} from "./IfcDoorPanelOperationEnum.bldrs"
-import {IfcNormalisedRatioMeasure} from "./IfcNormalisedRatioMeasure.bldrs"
-import {IfcDoorPanelPositionEnum} from "./IfcDoorPanelPositionEnum.bldrs"
-import {IfcShapeAspect} from "./IfcShapeAspect.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
+import IfcDoorPanelOperationEnum from "./IfcDoorPanelOperationEnum.bldrs"
+import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
+import IfcDoorPanelPositionEnum from "./IfcDoorPanelPositionEnum.bldrs"
+import IfcShapeAspect from "./IfcShapeAspect.bldrs"
 
 
 /**
@@ -19,12 +19,7 @@ export default class IfcDoorPanelProperties implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
-	PanelDepth? : IfcPositiveLengthMeasure;
-	PanelOperation : IfcDoorPanelOperationEnum;
-	PanelWidth? : IfcNormalisedRatioMeasure;
-	PanelPosition : IfcDoorPanelPositionEnum;
-	ShapeAspectStyle? : IfcShapeAspect;
-
+    constructor( public readonly PanelDepth : IfcPositiveLengthMeasure  | undefined, public readonly PanelOperation : IfcDoorPanelOperationEnum , public readonly PanelWidth : IfcNormalisedRatioMeasure  | undefined, public readonly PanelPosition : IfcDoorPanelPositionEnum , public readonly ShapeAspectStyle : IfcShapeAspect  | undefined ) {}
 }
 
 export class IfcDoorPanelPropertiesSpecification implements ComponentSpecification

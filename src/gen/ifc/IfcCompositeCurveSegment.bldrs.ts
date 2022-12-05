@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcTransitionCode} from "./IfcTransitionCode.bldrs"
-import {IfcCurve} from "./IfcCurve.bldrs"
-import {IfcDimensionCount} from "./IfcDimensionCount.bldrs"
-import {IfcCompositeCurve} from "./IfcCompositeCurve.bldrs"
+import IfcTransitionCode from "./IfcTransitionCode.bldrs"
+import IfcCurve from "./IfcCurve.bldrs"
+import IfcDimensionCount from "./IfcDimensionCount.bldrs"
+import IfcCompositeCurve from "./IfcCompositeCurve.bldrs"
 
 
 /**
@@ -18,10 +18,7 @@ export default class IfcCompositeCurveSegment implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	Transition : IfcTransitionCode;
-	SameSense : boolean;
-	ParentCurve : IfcCurve;
-
+    constructor( public readonly Transition : IfcTransitionCode , public readonly SameSense : boolean , public readonly ParentCurve : IfcCurve  ) {}
 }
 
 export class IfcCompositeCurveSegmentSpecification implements ComponentSpecification

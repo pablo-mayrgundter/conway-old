@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcInternalOrExternalEnum} from "./IfcInternalOrExternalEnum.bldrs"
-import {IfcLengthMeasure} from "./IfcLengthMeasure.bldrs"
-import {IfcRelCoversSpaces} from "./IfcRelCoversSpaces.bldrs"
-import {IfcRelSpaceBoundary} from "./IfcRelSpaceBoundary.bldrs"
+import IfcInternalOrExternalEnum from "./IfcInternalOrExternalEnum.bldrs"
+import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
+import IfcRelCoversSpaces from "./IfcRelCoversSpaces.bldrs"
+import IfcRelSpaceBoundary from "./IfcRelSpaceBoundary.bldrs"
 
 
 /**
@@ -18,9 +18,7 @@ export default class IfcSpace implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	InteriorOrExteriorSpace : IfcInternalOrExternalEnum;
-	ElevationWithFlooring? : IfcLengthMeasure;
-
+    constructor( public readonly InteriorOrExteriorSpace : IfcInternalOrExternalEnum , public readonly ElevationWithFlooring : IfcLengthMeasure  | undefined ) {}
 }
 
 export class IfcSpaceSpecification implements ComponentSpecification

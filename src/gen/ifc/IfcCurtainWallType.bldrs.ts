@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCurtainWallTypeEnum} from "./IfcCurtainWallTypeEnum.bldrs"
+import IfcCurtainWallTypeEnum from "./IfcCurtainWallTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcCurtainWallType implements Component< SchemaSpecificatio
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcCurtainWallTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcCurtainWallTypeEnum  ) {}
 }
 
 export class IfcCurtainWallTypeSpecification implements ComponentSpecification

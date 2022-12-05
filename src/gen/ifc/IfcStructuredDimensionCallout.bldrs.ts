@@ -14,7 +14,7 @@ export default class IfcStructuredDimensionCallout implements Component< SchemaS
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcStructuredDimensionCalloutSpecification implements ComponentSpecification

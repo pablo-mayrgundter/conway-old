@@ -3,12 +3,12 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCalendarDate} from "./IfcCalendarDate.bldrs"
-import {IfcLocalTime} from "./IfcLocalTime.bldrs"
-import {IfcDateAndTime} from "./IfcDateAndTime.bldrs"
-import {IfcTimeMeasure} from "./IfcTimeMeasure.bldrs"
-import {IfcPositiveRatioMeasure} from "./IfcPositiveRatioMeasure.bldrs"
-import {IfcRelAssignsTasks} from "./IfcRelAssignsTasks.bldrs"
+import IfcCalendarDate from "./IfcCalendarDate.bldrs"
+import IfcLocalTime from "./IfcLocalTime.bldrs"
+import IfcDateAndTime from "./IfcDateAndTime.bldrs"
+import IfcTimeMeasure from "./IfcTimeMeasure.bldrs"
+import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
+import IfcRelAssignsTasks from "./IfcRelAssignsTasks.bldrs"
 
 
 /**
@@ -20,25 +20,7 @@ export default class IfcScheduleTimeControl implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
-	ActualStart? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-	EarlyStart? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-	LateStart? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-	ScheduleStart? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-	ActualFinish? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-	EarlyFinish? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-	LateFinish? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-	ScheduleFinish? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-	ScheduleDuration? : IfcTimeMeasure;
-	ActualDuration? : IfcTimeMeasure;
-	RemainingTime? : IfcTimeMeasure;
-	FreeFloat? : IfcTimeMeasure;
-	TotalFloat? : IfcTimeMeasure;
-	IsCritical? : boolean;
-	StatusTime? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-	StartFloat? : IfcTimeMeasure;
-	FinishFloat? : IfcTimeMeasure;
-	Completion? : IfcPositiveRatioMeasure;
-
+    constructor( public readonly ActualStart : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly EarlyStart : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly LateStart : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly ScheduleStart : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly ActualFinish : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly EarlyFinish : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly LateFinish : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly ScheduleFinish : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly ScheduleDuration : IfcTimeMeasure  | undefined, public readonly ActualDuration : IfcTimeMeasure  | undefined, public readonly RemainingTime : IfcTimeMeasure  | undefined, public readonly FreeFloat : IfcTimeMeasure  | undefined, public readonly TotalFloat : IfcTimeMeasure  | undefined, public readonly IsCritical : boolean  | undefined, public readonly StatusTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly StartFloat : IfcTimeMeasure  | undefined, public readonly FinishFloat : IfcTimeMeasure  | undefined, public readonly Completion : IfcPositiveRatioMeasure  | undefined ) {}
 }
 
 export class IfcScheduleTimeControlSpecification implements ComponentSpecification

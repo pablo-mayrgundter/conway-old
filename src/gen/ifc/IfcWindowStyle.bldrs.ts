@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcWindowStyleConstructionEnum} from "./IfcWindowStyleConstructionEnum.bldrs"
-import {IfcWindowStyleOperationEnum} from "./IfcWindowStyleOperationEnum.bldrs"
+import IfcWindowStyleConstructionEnum from "./IfcWindowStyleConstructionEnum.bldrs"
+import IfcWindowStyleOperationEnum from "./IfcWindowStyleOperationEnum.bldrs"
 
 
 /**
@@ -16,11 +16,7 @@ export default class IfcWindowStyle implements Component< SchemaSpecificationIFC
 
     public readonly __version__: number = 0;
 
-	ConstructionType : IfcWindowStyleConstructionEnum;
-	OperationType : IfcWindowStyleOperationEnum;
-	ParameterTakesPrecedence : boolean;
-	Sizeable : boolean;
-
+    constructor( public readonly ConstructionType : IfcWindowStyleConstructionEnum , public readonly OperationType : IfcWindowStyleOperationEnum , public readonly ParameterTakesPrecedence : boolean , public readonly Sizeable : boolean  ) {}
 }
 
 export class IfcWindowStyleSpecification implements ComponentSpecification

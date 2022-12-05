@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcElement} from "./IfcElement.bldrs"
-import {IfcStructuralMember} from "./IfcStructuralMember.bldrs"
+import IfcElement from "./IfcElement.bldrs"
+import IfcStructuralMember from "./IfcStructuralMember.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcRelConnectsStructuralElement implements Component< Schem
 
     public readonly __version__: number = 0;
 
-	RelatingElement : IfcElement;
-	RelatedStructuralMember : IfcStructuralMember;
-
+    constructor( public readonly RelatingElement : IfcElement , public readonly RelatedStructuralMember : IfcStructuralMember  ) {}
 }
 
 export class IfcRelConnectsStructuralElementSpecification implements ComponentSpecification

@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcOrientedEdge} from "./IfcOrientedEdge.bldrs"
+import IfcOrientedEdge from "./IfcOrientedEdge.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcPath implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	EdgeList : Array<IfcOrientedEdge>;
-
+    constructor( public readonly EdgeList : Array<IfcOrientedEdge>  ) {}
 }
 
 export class IfcPathSpecification implements ComponentSpecification

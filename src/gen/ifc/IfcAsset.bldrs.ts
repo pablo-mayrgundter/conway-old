@@ -3,12 +3,12 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcIdentifier} from "./IfcIdentifier.bldrs"
-import {IfcCostValue} from "./IfcCostValue.bldrs"
-import {IfcOrganization} from "./IfcOrganization.bldrs"
-import {IfcPerson} from "./IfcPerson.bldrs"
-import {IfcPersonAndOrganization} from "./IfcPersonAndOrganization.bldrs"
-import {IfcCalendarDate} from "./IfcCalendarDate.bldrs"
+import IfcIdentifier from "./IfcIdentifier.bldrs"
+import IfcCostValue from "./IfcCostValue.bldrs"
+import IfcOrganization from "./IfcOrganization.bldrs"
+import IfcPerson from "./IfcPerson.bldrs"
+import IfcPersonAndOrganization from "./IfcPersonAndOrganization.bldrs"
+import IfcCalendarDate from "./IfcCalendarDate.bldrs"
 
 
 /**
@@ -20,16 +20,7 @@ export default class IfcAsset implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	AssetID : IfcIdentifier;
-	OriginalValue : IfcCostValue;
-	CurrentValue : IfcCostValue;
-	TotalReplacementCost : IfcCostValue;
-	Owner : IfcOrganization|IfcPerson|IfcPersonAndOrganization;
-	User : IfcOrganization|IfcPerson|IfcPersonAndOrganization;
-	ResponsiblePerson : IfcPerson;
-	IncorporationDate : IfcCalendarDate;
-	DepreciatedValue : IfcCostValue;
-
+    constructor( public readonly AssetID : IfcIdentifier , public readonly OriginalValue : IfcCostValue , public readonly CurrentValue : IfcCostValue , public readonly TotalReplacementCost : IfcCostValue , public readonly Owner : IfcOrganization|IfcPerson|IfcPersonAndOrganization , public readonly User : IfcOrganization|IfcPerson|IfcPersonAndOrganization , public readonly ResponsiblePerson : IfcPerson , public readonly IncorporationDate : IfcCalendarDate , public readonly DepreciatedValue : IfcCostValue  ) {}
 }
 
 export class IfcAssetSpecification implements ComponentSpecification

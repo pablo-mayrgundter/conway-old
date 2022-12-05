@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcVibrationIsolatorTypeEnum} from "./IfcVibrationIsolatorTypeEnum.bldrs"
+import IfcVibrationIsolatorTypeEnum from "./IfcVibrationIsolatorTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcVibrationIsolatorType implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcVibrationIsolatorTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcVibrationIsolatorTypeEnum  ) {}
 }
 
 export class IfcVibrationIsolatorTypeSpecification implements ComponentSpecification

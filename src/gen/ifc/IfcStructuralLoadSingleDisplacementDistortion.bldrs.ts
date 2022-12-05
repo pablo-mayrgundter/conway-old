@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCurvatureMeasure} from "./IfcCurvatureMeasure.bldrs"
+import IfcCurvatureMeasure from "./IfcCurvatureMeasure.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcStructuralLoadSingleDisplacementDistortion implements Co
 
     public readonly __version__: number = 0;
 
-	Distortion? : IfcCurvatureMeasure;
-
+    constructor( public readonly Distortion : IfcCurvatureMeasure  | undefined ) {}
 }
 
 export class IfcStructuralLoadSingleDisplacementDistortionSpecification implements ComponentSpecification

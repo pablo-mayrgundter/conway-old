@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcIdentifier} from "./IfcIdentifier.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
+import IfcIdentifier from "./IfcIdentifier.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
 
 
 /**
@@ -16,12 +16,7 @@ export default class IfcTask implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	TaskId : IfcIdentifier;
-	Status? : IfcLabel;
-	WorkMethod? : IfcLabel;
-	IsMilestone : boolean;
-	Priority? : number;
-
+    constructor( public readonly TaskId : IfcIdentifier , public readonly Status : IfcLabel  | undefined, public readonly WorkMethod : IfcLabel  | undefined, public readonly IsMilestone : boolean , public readonly Priority : number  | undefined ) {}
 }
 
 export class IfcTaskSpecification implements ComponentSpecification

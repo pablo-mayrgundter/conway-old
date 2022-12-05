@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcdoorpaneloperationenum.htm
-export enum IfcDoorPanelOperationEnum 
+enum IfcDoorPanelOperationEnum 
 {
 	SWINGING=".SWINGING.",
 	DOUBLE_ACTING=".DOUBLE_ACTING.",
@@ -10,4 +10,6 @@ export enum IfcDoorPanelOperationEnum
 	ROLLINGUP=".ROLLINGUP.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcDoorPanelOperationEnum;

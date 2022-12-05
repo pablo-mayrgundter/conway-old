@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcelectricdistributionpointfunctionenum.htm
-export enum IfcElectricDistributionPointFunctionEnum 
+enum IfcElectricDistributionPointFunctionEnum 
 {
 	ALARMPANEL=".ALARMPANEL.",
 	CONSUMERUNIT=".CONSUMERUNIT.",
@@ -13,4 +13,6 @@ export enum IfcElectricDistributionPointFunctionEnum
 	SWITCHBOARD=".SWITCHBOARD.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcElectricDistributionPointFunctionEnum;

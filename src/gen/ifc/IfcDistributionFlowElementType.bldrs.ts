@@ -14,7 +14,7 @@ export default class IfcDistributionFlowElementType implements Component< Schema
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcDistributionFlowElementTypeSpecification implements ComponentSpecification

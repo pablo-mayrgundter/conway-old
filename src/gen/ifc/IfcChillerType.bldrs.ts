@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcChillerTypeEnum} from "./IfcChillerTypeEnum.bldrs"
+import IfcChillerTypeEnum from "./IfcChillerTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcChillerType implements Component< SchemaSpecificationIFC
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcChillerTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcChillerTypeEnum  ) {}
 }
 
 export class IfcChillerTypeSpecification implements ComponentSpecification

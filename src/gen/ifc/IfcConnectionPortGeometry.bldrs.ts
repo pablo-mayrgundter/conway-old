@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcAxis2Placement2D} from "./IfcAxis2Placement2D.bldrs"
-import {IfcAxis2Placement3D} from "./IfcAxis2Placement3D.bldrs"
-import {IfcProfileDef} from "./IfcProfileDef.bldrs"
+import IfcAxis2Placement2D from "./IfcAxis2Placement2D.bldrs"
+import IfcAxis2Placement3D from "./IfcAxis2Placement3D.bldrs"
+import IfcProfileDef from "./IfcProfileDef.bldrs"
 
 
 /**
@@ -17,10 +17,7 @@ export default class IfcConnectionPortGeometry implements Component< SchemaSpeci
 
     public readonly __version__: number = 0;
 
-	LocationAtRelatingElement : IfcAxis2Placement2D|IfcAxis2Placement3D;
-	LocationAtRelatedElement? : IfcAxis2Placement2D|IfcAxis2Placement3D;
-	ProfileOfPort : IfcProfileDef;
-
+    constructor( public readonly LocationAtRelatingElement : IfcAxis2Placement2D|IfcAxis2Placement3D , public readonly LocationAtRelatedElement : IfcAxis2Placement2D|IfcAxis2Placement3D  | undefined, public readonly ProfileOfPort : IfcProfileDef  ) {}
 }
 
 export class IfcConnectionPortGeometrySpecification implements ComponentSpecification

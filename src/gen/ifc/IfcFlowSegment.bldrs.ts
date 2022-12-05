@@ -14,7 +14,7 @@ export default class IfcFlowSegment implements Component< SchemaSpecificationIFC
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcFlowSegmentSpecification implements ComponentSpecification

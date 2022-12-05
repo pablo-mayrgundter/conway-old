@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcDirection} from "./IfcDirection.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
+import IfcDirection from "./IfcDirection.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcExtrudedAreaSolid implements Component< SchemaSpecificat
 
     public readonly __version__: number = 0;
 
-	ExtrudedDirection : IfcDirection;
-	Depth : IfcPositiveLengthMeasure;
-
+    constructor( public readonly ExtrudedDirection : IfcDirection , public readonly Depth : IfcPositiveLengthMeasure  ) {}
 }
 
 export class IfcExtrudedAreaSolidSpecification implements ComponentSpecification

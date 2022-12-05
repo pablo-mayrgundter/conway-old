@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcSpecificHeatCapacityMeasure} from "./IfcSpecificHeatCapacityMeasure.bldrs"
-import {IfcThermodynamicTemperatureMeasure} from "./IfcThermodynamicTemperatureMeasure.bldrs"
-import {IfcThermalConductivityMeasure} from "./IfcThermalConductivityMeasure.bldrs"
+import IfcSpecificHeatCapacityMeasure from "./IfcSpecificHeatCapacityMeasure.bldrs"
+import IfcThermodynamicTemperatureMeasure from "./IfcThermodynamicTemperatureMeasure.bldrs"
+import IfcThermalConductivityMeasure from "./IfcThermalConductivityMeasure.bldrs"
 
 
 /**
@@ -17,11 +17,7 @@ export default class IfcThermalMaterialProperties implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
-	SpecificHeatCapacity? : IfcSpecificHeatCapacityMeasure;
-	BoilingPoint? : IfcThermodynamicTemperatureMeasure;
-	FreezingPoint? : IfcThermodynamicTemperatureMeasure;
-	ThermalConductivity? : IfcThermalConductivityMeasure;
-
+    constructor( public readonly SpecificHeatCapacity : IfcSpecificHeatCapacityMeasure  | undefined, public readonly BoilingPoint : IfcThermodynamicTemperatureMeasure  | undefined, public readonly FreezingPoint : IfcThermodynamicTemperatureMeasure  | undefined, public readonly ThermalConductivity : IfcThermalConductivityMeasure  | undefined ) {}
 }
 
 export class IfcThermalMaterialPropertiesSpecification implements ComponentSpecification

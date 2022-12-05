@@ -14,7 +14,7 @@ export default class IfcRelationship implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcRelationshipSpecification implements ComponentSpecification

@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLinearStiffnessMeasure} from "./IfcLinearStiffnessMeasure.bldrs"
-import {IfcRotationalStiffnessMeasure} from "./IfcRotationalStiffnessMeasure.bldrs"
+import IfcLinearStiffnessMeasure from "./IfcLinearStiffnessMeasure.bldrs"
+import IfcRotationalStiffnessMeasure from "./IfcRotationalStiffnessMeasure.bldrs"
 
 
 /**
@@ -16,13 +16,7 @@ export default class IfcBoundaryNodeCondition implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	LinearStiffnessX? : IfcLinearStiffnessMeasure;
-	LinearStiffnessY? : IfcLinearStiffnessMeasure;
-	LinearStiffnessZ? : IfcLinearStiffnessMeasure;
-	RotationalStiffnessX? : IfcRotationalStiffnessMeasure;
-	RotationalStiffnessY? : IfcRotationalStiffnessMeasure;
-	RotationalStiffnessZ? : IfcRotationalStiffnessMeasure;
-
+    constructor( public readonly LinearStiffnessX : IfcLinearStiffnessMeasure  | undefined, public readonly LinearStiffnessY : IfcLinearStiffnessMeasure  | undefined, public readonly LinearStiffnessZ : IfcLinearStiffnessMeasure  | undefined, public readonly RotationalStiffnessX : IfcRotationalStiffnessMeasure  | undefined, public readonly RotationalStiffnessY : IfcRotationalStiffnessMeasure  | undefined, public readonly RotationalStiffnessZ : IfcRotationalStiffnessMeasure  | undefined ) {}
 }
 
 export class IfcBoundaryNodeConditionSpecification implements ComponentSpecification

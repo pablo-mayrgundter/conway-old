@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcResource} from "./IfcResource.bldrs"
+import IfcResource from "./IfcResource.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcRelAssignsToResource implements Component< SchemaSpecifi
 
     public readonly __version__: number = 0;
 
-	RelatingResource : IfcResource;
-
+    constructor( public readonly RelatingResource : IfcResource  ) {}
 }
 
 export class IfcRelAssignsToResourceSpecification implements ComponentSpecification

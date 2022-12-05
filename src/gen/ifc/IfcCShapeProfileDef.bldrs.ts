@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 
 
 /**
@@ -15,13 +15,7 @@ export default class IfcCShapeProfileDef implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
-	Depth : IfcPositiveLengthMeasure;
-	Width : IfcPositiveLengthMeasure;
-	WallThickness : IfcPositiveLengthMeasure;
-	Girth : IfcPositiveLengthMeasure;
-	InternalFilletRadius? : IfcPositiveLengthMeasure;
-	CentreOfGravityInX? : IfcPositiveLengthMeasure;
-
+    constructor( public readonly Depth : IfcPositiveLengthMeasure , public readonly Width : IfcPositiveLengthMeasure , public readonly WallThickness : IfcPositiveLengthMeasure , public readonly Girth : IfcPositiveLengthMeasure , public readonly InternalFilletRadius : IfcPositiveLengthMeasure  | undefined, public readonly CentreOfGravityInX : IfcPositiveLengthMeasure  | undefined ) {}
 }
 
 export class IfcCShapeProfileDefSpecification implements ComponentSpecification

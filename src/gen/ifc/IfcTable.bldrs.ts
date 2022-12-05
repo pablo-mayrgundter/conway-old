@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcTableRow} from "./IfcTableRow.bldrs"
+import IfcTableRow from "./IfcTableRow.bldrs"
 
 
 /**
@@ -15,9 +15,7 @@ export default class IfcTable implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	Name : string;
-	Rows : Array<IfcTableRow>;
-
+    constructor( public readonly Name : string , public readonly Rows : Array<IfcTableRow>  ) {}
 }
 
 export class IfcTableSpecification implements ComponentSpecification

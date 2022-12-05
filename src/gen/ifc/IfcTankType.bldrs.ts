@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcTankTypeEnum} from "./IfcTankTypeEnum.bldrs"
+import IfcTankTypeEnum from "./IfcTankTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcTankType implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcTankTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcTankTypeEnum  ) {}
 }
 
 export class IfcTankTypeSpecification implements ComponentSpecification

@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcWasteTerminalTypeEnum} from "./IfcWasteTerminalTypeEnum.bldrs"
+import IfcWasteTerminalTypeEnum from "./IfcWasteTerminalTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcWasteTerminalType implements Component< SchemaSpecificat
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcWasteTerminalTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcWasteTerminalTypeEnum  ) {}
 }
 
 export class IfcWasteTerminalTypeSpecification implements ComponentSpecification

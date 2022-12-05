@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcdampertypeenum.htm
-export enum IfcDamperTypeEnum 
+enum IfcDamperTypeEnum 
 {
 	CONTROLDAMPER=".CONTROLDAMPER.",
 	FIREDAMPER=".FIREDAMPER.",
@@ -15,4 +15,6 @@ export enum IfcDamperTypeEnum
 	FUMEHOODEXHAUST=".FUMEHOODEXHAUST.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcDamperTypeEnum;

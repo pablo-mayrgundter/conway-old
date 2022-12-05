@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcIdentifier} from "./IfcIdentifier.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcResourceConsumptionEnum} from "./IfcResourceConsumptionEnum.bldrs"
-import {IfcMeasureWithUnit} from "./IfcMeasureWithUnit.bldrs"
+import IfcIdentifier from "./IfcIdentifier.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcResourceConsumptionEnum from "./IfcResourceConsumptionEnum.bldrs"
+import IfcMeasureWithUnit from "./IfcMeasureWithUnit.bldrs"
 
 
 /**
@@ -18,11 +18,7 @@ export default class IfcConstructionResource implements Component< SchemaSpecifi
 
     public readonly __version__: number = 0;
 
-	ResourceIdentifier? : IfcIdentifier;
-	ResourceGroup? : IfcLabel;
-	ResourceConsumption? : IfcResourceConsumptionEnum;
-	BaseQuantity? : IfcMeasureWithUnit;
-
+    constructor( public readonly ResourceIdentifier : IfcIdentifier  | undefined, public readonly ResourceGroup : IfcLabel  | undefined, public readonly ResourceConsumption : IfcResourceConsumptionEnum  | undefined, public readonly BaseQuantity : IfcMeasureWithUnit  | undefined ) {}
 }
 
 export class IfcConstructionResourceSpecification implements ComponentSpecification

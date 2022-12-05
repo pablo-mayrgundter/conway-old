@@ -14,7 +14,7 @@ export default class IfcDimensionPair implements Component< SchemaSpecificationI
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcDimensionPairSpecification implements ComponentSpecification

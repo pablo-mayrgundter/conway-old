@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcClassification} from "./IfcClassification.bldrs"
+import IfcClassification from "./IfcClassification.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcClassificationReference implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
-	ReferencedSource? : IfcClassification;
-
+    constructor( public readonly ReferencedSource : IfcClassification  | undefined ) {}
 }
 
 export class IfcClassificationReferenceSpecification implements ComponentSpecification

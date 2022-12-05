@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcDimensionCount} from "./IfcDimensionCount.bldrs"
+import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcDirection implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	DirectionRatios : Array<number>;
-
+    constructor( public readonly DirectionRatios : Array<number>  ) {}
 }
 
 export class IfcDirectionSpecification implements ComponentSpecification

@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcfiltertypeenum.htm
-export enum IfcFilterTypeEnum 
+enum IfcFilterTypeEnum 
 {
 	AIRPARTICLEFILTER=".AIRPARTICLEFILTER.",
 	ODORFILTER=".ODORFILTER.",
@@ -9,4 +9,6 @@ export enum IfcFilterTypeEnum
 	WATERFILTER=".WATERFILTER.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcFilterTypeEnum;

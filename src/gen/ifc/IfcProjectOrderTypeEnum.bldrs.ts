@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcprojectordertypeenum.htm
-export enum IfcProjectOrderTypeEnum 
+enum IfcProjectOrderTypeEnum 
 {
 	CHANGEORDER=".CHANGEORDER.",
 	MAINTENANCEWORKORDER=".MAINTENANCEWORKORDER.",
@@ -9,4 +9,6 @@ export enum IfcProjectOrderTypeEnum
 	WORKORDER=".WORKORDER.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcProjectOrderTypeEnum;

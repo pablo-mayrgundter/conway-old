@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcvalvetypeenum.htm
-export enum IfcValveTypeEnum 
+enum IfcValveTypeEnum 
 {
 	AIRRELEASE=".AIRRELEASE.",
 	ANTIVACUUM=".ANTIVACUUM.",
@@ -25,4 +25,6 @@ export enum IfcValveTypeEnum
 	STOPCOCK=".STOPCOCK.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcValveTypeEnum;

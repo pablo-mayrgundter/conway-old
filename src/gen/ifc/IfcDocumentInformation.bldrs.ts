@@ -3,19 +3,19 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcIdentifier} from "./IfcIdentifier.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcText} from "./IfcText.bldrs"
-import {IfcDocumentReference} from "./IfcDocumentReference.bldrs"
-import {IfcOrganization} from "./IfcOrganization.bldrs"
-import {IfcPerson} from "./IfcPerson.bldrs"
-import {IfcPersonAndOrganization} from "./IfcPersonAndOrganization.bldrs"
-import {IfcDateAndTime} from "./IfcDateAndTime.bldrs"
-import {IfcDocumentElectronicFormat} from "./IfcDocumentElectronicFormat.bldrs"
-import {IfcCalendarDate} from "./IfcCalendarDate.bldrs"
-import {IfcDocumentConfidentialityEnum} from "./IfcDocumentConfidentialityEnum.bldrs"
-import {IfcDocumentStatusEnum} from "./IfcDocumentStatusEnum.bldrs"
-import {IfcDocumentInformationRelationship} from "./IfcDocumentInformationRelationship.bldrs"
+import IfcIdentifier from "./IfcIdentifier.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcText from "./IfcText.bldrs"
+import IfcDocumentReference from "./IfcDocumentReference.bldrs"
+import IfcOrganization from "./IfcOrganization.bldrs"
+import IfcPerson from "./IfcPerson.bldrs"
+import IfcPersonAndOrganization from "./IfcPersonAndOrganization.bldrs"
+import IfcDateAndTime from "./IfcDateAndTime.bldrs"
+import IfcDocumentElectronicFormat from "./IfcDocumentElectronicFormat.bldrs"
+import IfcCalendarDate from "./IfcCalendarDate.bldrs"
+import IfcDocumentConfidentialityEnum from "./IfcDocumentConfidentialityEnum.bldrs"
+import IfcDocumentStatusEnum from "./IfcDocumentStatusEnum.bldrs"
+import IfcDocumentInformationRelationship from "./IfcDocumentInformationRelationship.bldrs"
 
 
 /**
@@ -27,24 +27,7 @@ export default class IfcDocumentInformation implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
-	DocumentId : IfcIdentifier;
-	Name : IfcLabel;
-	Description? : IfcText;
-	DocumentReferences? : Array<IfcDocumentReference>;
-	Purpose? : IfcText;
-	IntendedUse? : IfcText;
-	Scope? : IfcText;
-	Revision? : IfcLabel;
-	DocumentOwner? : IfcOrganization|IfcPerson|IfcPersonAndOrganization;
-	Editors? : Array<IfcOrganization|IfcPerson|IfcPersonAndOrganization>;
-	CreationTime? : IfcDateAndTime;
-	LastRevisionTime? : IfcDateAndTime;
-	ElectronicFormat? : IfcDocumentElectronicFormat;
-	ValidFrom? : IfcCalendarDate;
-	ValidUntil? : IfcCalendarDate;
-	Confidentiality? : IfcDocumentConfidentialityEnum;
-	Status? : IfcDocumentStatusEnum;
-
+    constructor( public readonly DocumentId : IfcIdentifier , public readonly Name : IfcLabel , public readonly Description : IfcText  | undefined, public readonly DocumentReferences : Array<IfcDocumentReference>  | undefined, public readonly Purpose : IfcText  | undefined, public readonly IntendedUse : IfcText  | undefined, public readonly Scope : IfcText  | undefined, public readonly Revision : IfcLabel  | undefined, public readonly DocumentOwner : IfcOrganization|IfcPerson|IfcPersonAndOrganization  | undefined, public readonly Editors : Array<IfcOrganization|IfcPerson|IfcPersonAndOrganization>  | undefined, public readonly CreationTime : IfcDateAndTime  | undefined, public readonly LastRevisionTime : IfcDateAndTime  | undefined, public readonly ElectronicFormat : IfcDocumentElectronicFormat  | undefined, public readonly ValidFrom : IfcCalendarDate  | undefined, public readonly ValidUntil : IfcCalendarDate  | undefined, public readonly Confidentiality : IfcDocumentConfidentialityEnum  | undefined, public readonly Status : IfcDocumentStatusEnum  | undefined ) {}
 }
 
 export class IfcDocumentInformationSpecification implements ComponentSpecification

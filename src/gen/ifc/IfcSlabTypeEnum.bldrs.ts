@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcslabtypeenum.htm
-export enum IfcSlabTypeEnum 
+enum IfcSlabTypeEnum 
 {
 	FLOOR=".FLOOR.",
 	ROOF=".ROOF.",
@@ -8,4 +8,6 @@ export enum IfcSlabTypeEnum
 	BASESLAB=".BASESLAB.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcSlabTypeEnum;

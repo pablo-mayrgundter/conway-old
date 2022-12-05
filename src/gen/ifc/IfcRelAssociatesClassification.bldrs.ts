@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcClassificationNotation} from "./IfcClassificationNotation.bldrs"
-import {IfcClassificationReference} from "./IfcClassificationReference.bldrs"
+import IfcClassificationNotation from "./IfcClassificationNotation.bldrs"
+import IfcClassificationReference from "./IfcClassificationReference.bldrs"
 
 
 /**
@@ -16,8 +16,7 @@ export default class IfcRelAssociatesClassification implements Component< Schema
 
     public readonly __version__: number = 0;
 
-	RelatingClassification : IfcClassificationNotation|IfcClassificationReference;
-
+    constructor( public readonly RelatingClassification : IfcClassificationNotation|IfcClassificationReference  ) {}
 }
 
 export class IfcRelAssociatesClassificationSpecification implements ComponentSpecification

@@ -3,11 +3,11 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcIdentifier} from "./IfcIdentifier.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcActorRole} from "./IfcActorRole.bldrs"
-import {IfcAddress} from "./IfcAddress.bldrs"
-import {IfcPersonAndOrganization} from "./IfcPersonAndOrganization.bldrs"
+import IfcIdentifier from "./IfcIdentifier.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcActorRole from "./IfcActorRole.bldrs"
+import IfcAddress from "./IfcAddress.bldrs"
+import IfcPersonAndOrganization from "./IfcPersonAndOrganization.bldrs"
 
 
 /**
@@ -19,15 +19,7 @@ export default class IfcPerson implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	Id? : IfcIdentifier;
-	FamilyName? : IfcLabel;
-	GivenName? : IfcLabel;
-	MiddleNames? : Array<IfcLabel>;
-	PrefixTitles? : Array<IfcLabel>;
-	SuffixTitles? : Array<IfcLabel>;
-	Roles? : Array<IfcActorRole>;
-	Addresses? : Array<IfcAddress>;
-
+    constructor( public readonly Id : IfcIdentifier  | undefined, public readonly FamilyName : IfcLabel  | undefined, public readonly GivenName : IfcLabel  | undefined, public readonly MiddleNames : Array<IfcLabel>  | undefined, public readonly PrefixTitles : Array<IfcLabel>  | undefined, public readonly SuffixTitles : Array<IfcLabel>  | undefined, public readonly Roles : Array<IfcActorRole>  | undefined, public readonly Addresses : Array<IfcAddress>  | undefined ) {}
 }
 
 export class IfcPersonSpecification implements ComponentSpecification

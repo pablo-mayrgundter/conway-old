@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifctimeseriesscheduletypeenum.htm
-export enum IfcTimeSeriesScheduleTypeEnum 
+enum IfcTimeSeriesScheduleTypeEnum 
 {
 	ANNUAL=".ANNUAL.",
 	MONTHLY=".MONTHLY.",
@@ -8,4 +8,6 @@ export enum IfcTimeSeriesScheduleTypeEnum
 	DAILY=".DAILY.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcTimeSeriesScheduleTypeEnum;

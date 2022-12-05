@@ -14,7 +14,7 @@ export default class IfcProjectionElement implements Component< SchemaSpecificat
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcProjectionElementSpecification implements ComponentSpecification

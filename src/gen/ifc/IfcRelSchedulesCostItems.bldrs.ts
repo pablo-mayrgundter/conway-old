@@ -14,7 +14,7 @@ export default class IfcRelSchedulesCostItems implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcRelSchedulesCostItemsSpecification implements ComponentSpecification

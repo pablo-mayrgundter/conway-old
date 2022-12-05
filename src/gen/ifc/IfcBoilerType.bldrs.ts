@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcBoilerTypeEnum} from "./IfcBoilerTypeEnum.bldrs"
+import IfcBoilerTypeEnum from "./IfcBoilerTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcBoilerType implements Component< SchemaSpecificationIFC 
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcBoilerTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcBoilerTypeEnum  ) {}
 }
 
 export class IfcBoilerTypeSpecification implements ComponentSpecification

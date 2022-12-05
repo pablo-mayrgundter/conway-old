@@ -3,14 +3,14 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcGeometricRepresentationContext} from "./IfcGeometricRepresentationContext.bldrs"
-import {IfcPositiveRatioMeasure} from "./IfcPositiveRatioMeasure.bldrs"
-import {IfcGeometricProjectionEnum} from "./IfcGeometricProjectionEnum.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcAxis2Placement2D} from "./IfcAxis2Placement2D.bldrs"
-import {IfcAxis2Placement3D} from "./IfcAxis2Placement3D.bldrs"
-import {IfcDimensionCount} from "./IfcDimensionCount.bldrs"
-import {IfcDirection} from "./IfcDirection.bldrs"
+import IfcGeometricRepresentationContext from "./IfcGeometricRepresentationContext.bldrs"
+import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
+import IfcGeometricProjectionEnum from "./IfcGeometricProjectionEnum.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcAxis2Placement2D from "./IfcAxis2Placement2D.bldrs"
+import IfcAxis2Placement3D from "./IfcAxis2Placement3D.bldrs"
+import IfcDimensionCount from "./IfcDimensionCount.bldrs"
+import IfcDirection from "./IfcDirection.bldrs"
 
 
 /**
@@ -22,11 +22,7 @@ export default class IfcGeometricRepresentationSubContext implements Component< 
 
     public readonly __version__: number = 0;
 
-	ParentContext : IfcGeometricRepresentationContext;
-	TargetScale? : IfcPositiveRatioMeasure;
-	TargetView : IfcGeometricProjectionEnum;
-	UserDefinedTargetView? : IfcLabel;
-
+    constructor( public readonly ParentContext : IfcGeometricRepresentationContext , public readonly TargetScale : IfcPositiveRatioMeasure  | undefined, public readonly TargetView : IfcGeometricProjectionEnum , public readonly UserDefinedTargetView : IfcLabel  | undefined ) {}
 }
 
 export class IfcGeometricRepresentationSubContextSpecification implements ComponentSpecification

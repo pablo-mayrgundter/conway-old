@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcGridAxis} from "./IfcGridAxis.bldrs"
-import {IfcRelContainedInSpatialStructure} from "./IfcRelContainedInSpatialStructure.bldrs"
+import IfcGridAxis from "./IfcGridAxis.bldrs"
+import IfcRelContainedInSpatialStructure from "./IfcRelContainedInSpatialStructure.bldrs"
 
 
 /**
@@ -16,10 +16,7 @@ export default class IfcGrid implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	UAxes : Array<IfcGridAxis>;
-	VAxes : Array<IfcGridAxis>;
-	WAxes? : Array<IfcGridAxis>;
-
+    constructor( public readonly UAxes : Array<IfcGridAxis> , public readonly VAxes : Array<IfcGridAxis> , public readonly WAxes : Array<IfcGridAxis>  | undefined ) {}
 }
 
 export class IfcGridSpecification implements ComponentSpecification

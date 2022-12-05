@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcsiprefix.htm
-export enum IfcSIPrefix 
+enum IfcSIPrefix 
 {
 	EXA=".EXA.",
 	PETA=".PETA.",
@@ -18,4 +18,6 @@ export enum IfcSIPrefix
 	PICO=".PICO.",
 	FEMTO=".FEMTO.",
 	ATTO=".ATTO."
-}
+};
+
+export default IfcSIPrefix;

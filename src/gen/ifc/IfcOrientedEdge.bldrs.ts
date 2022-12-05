@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcEdge} from "./IfcEdge.bldrs"
-import {IfcVertex} from "./IfcVertex.bldrs"
+import IfcEdge from "./IfcEdge.bldrs"
+import IfcVertex from "./IfcVertex.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcOrientedEdge implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
-	EdgeElement : IfcEdge;
-	Orientation : boolean;
-
+    constructor( public readonly EdgeElement : IfcEdge , public readonly Orientation : boolean  ) {}
 }
 
 export class IfcOrientedEdgeSpecification implements ComponentSpecification

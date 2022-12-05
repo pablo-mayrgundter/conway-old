@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcElectricFlowStorageDeviceTypeEnum} from "./IfcElectricFlowStorageDeviceTypeEnum.bldrs"
+import IfcElectricFlowStorageDeviceTypeEnum from "./IfcElectricFlowStorageDeviceTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcElectricFlowStorageDeviceType implements Component< Sche
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcElectricFlowStorageDeviceTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcElectricFlowStorageDeviceTypeEnum  ) {}
 }
 
 export class IfcElectricFlowStorageDeviceTypeSpecification implements ComponentSpecification

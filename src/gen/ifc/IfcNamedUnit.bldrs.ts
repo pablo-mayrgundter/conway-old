@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcDimensionalExponents} from "./IfcDimensionalExponents.bldrs"
-import {IfcUnitEnum} from "./IfcUnitEnum.bldrs"
+import IfcDimensionalExponents from "./IfcDimensionalExponents.bldrs"
+import IfcUnitEnum from "./IfcUnitEnum.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcNamedUnit implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	Dimensions : IfcDimensionalExponents;
-	UnitType : IfcUnitEnum;
-
+    constructor( public readonly Dimensions : IfcDimensionalExponents , public readonly UnitType : IfcUnitEnum  ) {}
 }
 
 export class IfcNamedUnitSpecification implements ComponentSpecification

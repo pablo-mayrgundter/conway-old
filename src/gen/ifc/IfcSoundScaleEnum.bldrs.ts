@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcsoundscaleenum.htm
-export enum IfcSoundScaleEnum 
+enum IfcSoundScaleEnum 
 {
 	DBA=".DBA.",
 	DBB=".DBB.",
@@ -9,4 +9,6 @@ export enum IfcSoundScaleEnum
 	NR=".NR.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcSoundScaleEnum;

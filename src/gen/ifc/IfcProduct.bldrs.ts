@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcObjectPlacement} from "./IfcObjectPlacement.bldrs"
-import {IfcProductRepresentation} from "./IfcProductRepresentation.bldrs"
-import {IfcRelAssignsToProduct} from "./IfcRelAssignsToProduct.bldrs"
+import IfcObjectPlacement from "./IfcObjectPlacement.bldrs"
+import IfcProductRepresentation from "./IfcProductRepresentation.bldrs"
+import IfcRelAssignsToProduct from "./IfcRelAssignsToProduct.bldrs"
 
 
 /**
@@ -17,9 +17,7 @@ export default class IfcProduct implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	ObjectPlacement? : IfcObjectPlacement;
-	Representation? : IfcProductRepresentation;
-
+    constructor( public readonly ObjectPlacement : IfcObjectPlacement  | undefined, public readonly Representation : IfcProductRepresentation  | undefined ) {}
 }
 
 export class IfcProductSpecification implements ComponentSpecification

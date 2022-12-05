@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcwindowpanelpositionenum.htm
-export enum IfcWindowPanelPositionEnum 
+enum IfcWindowPanelPositionEnum 
 {
 	LEFT=".LEFT.",
 	MIDDLE=".MIDDLE.",
@@ -8,4 +8,6 @@ export enum IfcWindowPanelPositionEnum
 	BOTTOM=".BOTTOM.",
 	TOP=".TOP.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcWindowPanelPositionEnum;

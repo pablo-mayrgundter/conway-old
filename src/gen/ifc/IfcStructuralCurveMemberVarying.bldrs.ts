@@ -14,7 +14,7 @@ export default class IfcStructuralCurveMemberVarying implements Component< Schem
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcStructuralCurveMemberVaryingSpecification implements ComponentSpecification

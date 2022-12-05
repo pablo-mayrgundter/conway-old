@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcpipefittingtypeenum.htm
-export enum IfcPipeFittingTypeEnum 
+enum IfcPipeFittingTypeEnum 
 {
 	BEND=".BEND.",
 	CONNECTOR=".CONNECTOR.",
@@ -11,4 +11,6 @@ export enum IfcPipeFittingTypeEnum
 	TRANSITION=".TRANSITION.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcPipeFittingTypeEnum;

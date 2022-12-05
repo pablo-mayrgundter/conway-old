@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcAssemblyPlaceEnum} from "./IfcAssemblyPlaceEnum.bldrs"
+import IfcAssemblyPlaceEnum from "./IfcAssemblyPlaceEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcFurnitureType implements Component< SchemaSpecificationI
 
     public readonly __version__: number = 0;
 
-	AssemblyPlace : IfcAssemblyPlaceEnum;
-
+    constructor( public readonly AssemblyPlace : IfcAssemblyPlaceEnum  ) {}
 }
 
 export class IfcFurnitureTypeSpecification implements ComponentSpecification

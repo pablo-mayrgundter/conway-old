@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcBoundedCurve} from "./IfcBoundedCurve.bldrs"
-import {IfcEdgeCurve} from "./IfcEdgeCurve.bldrs"
+import IfcBoundedCurve from "./IfcBoundedCurve.bldrs"
+import IfcEdgeCurve from "./IfcEdgeCurve.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcConnectionCurveGeometry implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
-	CurveOnRelatingElement : IfcBoundedCurve|IfcEdgeCurve;
-	CurveOnRelatedElement? : IfcBoundedCurve|IfcEdgeCurve;
-
+    constructor( public readonly CurveOnRelatingElement : IfcBoundedCurve|IfcEdgeCurve , public readonly CurveOnRelatedElement : IfcBoundedCurve|IfcEdgeCurve  | undefined ) {}
 }
 
 export class IfcConnectionCurveGeometrySpecification implements ComponentSpecification

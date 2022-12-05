@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcAirToAirHeatRecoveryTypeEnum} from "./IfcAirToAirHeatRecoveryTypeEnum.bldrs"
+import IfcAirToAirHeatRecoveryTypeEnum from "./IfcAirToAirHeatRecoveryTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcAirToAirHeatRecoveryType implements Component< SchemaSpe
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcAirToAirHeatRecoveryTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcAirToAirHeatRecoveryTypeEnum  ) {}
 }
 
 export class IfcAirToAirHeatRecoveryTypeSpecification implements ComponentSpecification

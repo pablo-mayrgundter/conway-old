@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcFireSuppressionTerminalTypeEnum} from "./IfcFireSuppressionTerminalTypeEnum.bldrs"
+import IfcFireSuppressionTerminalTypeEnum from "./IfcFireSuppressionTerminalTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcFireSuppressionTerminalType implements Component< Schema
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcFireSuppressionTerminalTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcFireSuppressionTerminalTypeEnum  ) {}
 }
 
 export class IfcFireSuppressionTerminalTypeSpecification implements ComponentSpecification

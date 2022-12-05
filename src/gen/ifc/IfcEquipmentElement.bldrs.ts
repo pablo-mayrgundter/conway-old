@@ -14,7 +14,7 @@ export default class IfcEquipmentElement implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcEquipmentElementSpecification implements ComponentSpecification

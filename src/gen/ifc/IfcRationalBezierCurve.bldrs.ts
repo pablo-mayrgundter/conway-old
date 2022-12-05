@@ -14,8 +14,7 @@ export default class IfcRationalBezierCurve implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
-	WeightsData : Array<number>;
-
+    constructor( public readonly WeightsData : Array<number>  ) {}
 }
 
 export class IfcRationalBezierCurveSpecification implements ComponentSpecification

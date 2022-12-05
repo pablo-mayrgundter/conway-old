@@ -14,7 +14,7 @@ export default class IfcWorkPlan implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcWorkPlanSpecification implements ComponentSpecification

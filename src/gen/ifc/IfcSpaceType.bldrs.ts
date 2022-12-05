@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcSpaceTypeEnum} from "./IfcSpaceTypeEnum.bldrs"
+import IfcSpaceTypeEnum from "./IfcSpaceTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcSpaceType implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcSpaceTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcSpaceTypeEnum  ) {}
 }
 
 export class IfcSpaceTypeSpecification implements ComponentSpecification

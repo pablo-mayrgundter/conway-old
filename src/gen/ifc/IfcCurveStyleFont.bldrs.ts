@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcCurveStyleFontPattern} from "./IfcCurveStyleFontPattern.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcCurveStyleFontPattern from "./IfcCurveStyleFontPattern.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcCurveStyleFont implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-	Name? : IfcLabel;
-	PatternList : Array<IfcCurveStyleFontPattern>;
-
+    constructor( public readonly Name : IfcLabel  | undefined, public readonly PatternList : Array<IfcCurveStyleFontPattern>  ) {}
 }
 
 export class IfcCurveStyleFontSpecification implements ComponentSpecification

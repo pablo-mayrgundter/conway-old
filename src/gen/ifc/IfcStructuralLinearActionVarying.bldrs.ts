@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcShapeAspect} from "./IfcShapeAspect.bldrs"
-import {IfcStructuralLoad} from "./IfcStructuralLoad.bldrs"
+import IfcShapeAspect from "./IfcShapeAspect.bldrs"
+import IfcStructuralLoad from "./IfcStructuralLoad.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcStructuralLinearActionVarying implements Component< Sche
 
     public readonly __version__: number = 0;
 
-	VaryingAppliedLoadLocation : IfcShapeAspect;
-	SubsequentAppliedLoads : Array<IfcStructuralLoad>;
-
+    constructor( public readonly VaryingAppliedLoadLocation : IfcShapeAspect , public readonly SubsequentAppliedLoads : Array<IfcStructuralLoad>  ) {}
 }
 
 export class IfcStructuralLinearActionVaryingSpecification implements ComponentSpecification

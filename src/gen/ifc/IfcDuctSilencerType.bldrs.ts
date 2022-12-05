@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcDuctSilencerTypeEnum} from "./IfcDuctSilencerTypeEnum.bldrs"
+import IfcDuctSilencerTypeEnum from "./IfcDuctSilencerTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcDuctSilencerType implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcDuctSilencerTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcDuctSilencerTypeEnum  ) {}
 }
 
 export class IfcDuctSilencerTypeSpecification implements ComponentSpecification

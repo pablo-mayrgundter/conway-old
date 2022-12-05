@@ -14,7 +14,7 @@ export default class IfcAnnotationSurfaceOccurrence implements Component< Schema
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcAnnotationSurfaceOccurrenceSpecification implements ComponentSpecification

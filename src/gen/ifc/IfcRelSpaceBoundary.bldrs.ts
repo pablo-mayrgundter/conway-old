@@ -3,11 +3,11 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcSpace} from "./IfcSpace.bldrs"
-import {IfcElement} from "./IfcElement.bldrs"
-import {IfcConnectionGeometry} from "./IfcConnectionGeometry.bldrs"
-import {IfcPhysicalOrVirtualEnum} from "./IfcPhysicalOrVirtualEnum.bldrs"
-import {IfcInternalOrExternalEnum} from "./IfcInternalOrExternalEnum.bldrs"
+import IfcSpace from "./IfcSpace.bldrs"
+import IfcElement from "./IfcElement.bldrs"
+import IfcConnectionGeometry from "./IfcConnectionGeometry.bldrs"
+import IfcPhysicalOrVirtualEnum from "./IfcPhysicalOrVirtualEnum.bldrs"
+import IfcInternalOrExternalEnum from "./IfcInternalOrExternalEnum.bldrs"
 
 
 /**
@@ -19,12 +19,7 @@ export default class IfcRelSpaceBoundary implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
-	RelatingSpace : IfcSpace;
-	RelatedBuildingElement? : IfcElement;
-	ConnectionGeometry? : IfcConnectionGeometry;
-	PhysicalOrVirtualBoundary : IfcPhysicalOrVirtualEnum;
-	InternalOrExternalBoundary : IfcInternalOrExternalEnum;
-
+    constructor( public readonly RelatingSpace : IfcSpace , public readonly RelatedBuildingElement : IfcElement  | undefined, public readonly ConnectionGeometry : IfcConnectionGeometry  | undefined, public readonly PhysicalOrVirtualBoundary : IfcPhysicalOrVirtualEnum , public readonly InternalOrExternalBoundary : IfcInternalOrExternalEnum  ) {}
 }
 
 export class IfcRelSpaceBoundarySpecification implements ComponentSpecification

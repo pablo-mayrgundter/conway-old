@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcAppliedValue} from "./IfcAppliedValue.bldrs"
+import IfcAppliedValue from "./IfcAppliedValue.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcRelAssociatesAppliedValue implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
-	RelatingAppliedValue : IfcAppliedValue;
-
+    constructor( public readonly RelatingAppliedValue : IfcAppliedValue  ) {}
 }
 
 export class IfcRelAssociatesAppliedValueSpecification implements ComponentSpecification

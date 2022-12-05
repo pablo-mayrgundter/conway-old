@@ -3,11 +3,11 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcNormalisedRatioMeasure} from "./IfcNormalisedRatioMeasure.bldrs"
-import {IfcColourRgb} from "./IfcColourRgb.bldrs"
-import {IfcSpecularExponent} from "./IfcSpecularExponent.bldrs"
-import {IfcSpecularRoughness} from "./IfcSpecularRoughness.bldrs"
-import {IfcReflectanceMethodEnum} from "./IfcReflectanceMethodEnum.bldrs"
+import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
+import IfcColourRgb from "./IfcColourRgb.bldrs"
+import IfcSpecularExponent from "./IfcSpecularExponent.bldrs"
+import IfcSpecularRoughness from "./IfcSpecularRoughness.bldrs"
+import IfcReflectanceMethodEnum from "./IfcReflectanceMethodEnum.bldrs"
 
 
 /**
@@ -19,15 +19,7 @@ export default class IfcSurfaceStyleRendering implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	Transparency? : IfcNormalisedRatioMeasure;
-	DiffuseColour? : IfcColourRgb|IfcNormalisedRatioMeasure;
-	TransmissionColour? : IfcColourRgb|IfcNormalisedRatioMeasure;
-	DiffuseTransmissionColour? : IfcColourRgb|IfcNormalisedRatioMeasure;
-	ReflectionColour? : IfcColourRgb|IfcNormalisedRatioMeasure;
-	SpecularColour? : IfcColourRgb|IfcNormalisedRatioMeasure;
-	SpecularHighlight? : IfcSpecularExponent|IfcSpecularRoughness;
-	ReflectanceMethod : IfcReflectanceMethodEnum;
-
+    constructor( public readonly Transparency : IfcNormalisedRatioMeasure  | undefined, public readonly DiffuseColour : IfcColourRgb|IfcNormalisedRatioMeasure  | undefined, public readonly TransmissionColour : IfcColourRgb|IfcNormalisedRatioMeasure  | undefined, public readonly DiffuseTransmissionColour : IfcColourRgb|IfcNormalisedRatioMeasure  | undefined, public readonly ReflectionColour : IfcColourRgb|IfcNormalisedRatioMeasure  | undefined, public readonly SpecularColour : IfcColourRgb|IfcNormalisedRatioMeasure  | undefined, public readonly SpecularHighlight : IfcSpecularExponent|IfcSpecularRoughness  | undefined, public readonly ReflectanceMethod : IfcReflectanceMethodEnum  ) {}
 }
 
 export class IfcSurfaceStyleRenderingSpecification implements ComponentSpecification

@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLengthMeasure} from "./IfcLengthMeasure.bldrs"
-import {IfcPostalAddress} from "./IfcPostalAddress.bldrs"
+import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
+import IfcPostalAddress from "./IfcPostalAddress.bldrs"
 
 
 /**
@@ -16,10 +16,7 @@ export default class IfcBuilding implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	ElevationOfRefHeight? : IfcLengthMeasure;
-	ElevationOfTerrain? : IfcLengthMeasure;
-	BuildingAddress? : IfcPostalAddress;
-
+    constructor( public readonly ElevationOfRefHeight : IfcLengthMeasure  | undefined, public readonly ElevationOfTerrain : IfcLengthMeasure  | undefined, public readonly BuildingAddress : IfcPostalAddress  | undefined ) {}
 }
 
 export class IfcBuildingSpecification implements ComponentSpecification

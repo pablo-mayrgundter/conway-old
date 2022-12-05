@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifchumidifiertypeenum.htm
-export enum IfcHumidifierTypeEnum 
+enum IfcHumidifierTypeEnum 
 {
 	STEAMINJECTION=".STEAMINJECTION.",
 	ADIABATICAIRWASHER=".ADIABATICAIRWASHER.",
@@ -17,4 +17,6 @@ export enum IfcHumidifierTypeEnum
 	ASSISTEDSTEAM=".ASSISTEDSTEAM.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcHumidifierTypeEnum;

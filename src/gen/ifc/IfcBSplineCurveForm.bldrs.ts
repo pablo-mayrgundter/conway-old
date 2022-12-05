@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcbsplinecurveform.htm
-export enum IfcBSplineCurveForm 
+enum IfcBSplineCurveForm 
 {
 	POLYLINE_FORM=".POLYLINE_FORM.",
 	CIRCULAR_ARC=".CIRCULAR_ARC.",
@@ -8,4 +8,6 @@ export enum IfcBSplineCurveForm
 	PARABOLIC_ARC=".PARABOLIC_ARC.",
 	HYPERBOLIC_ARC=".HYPERBOLIC_ARC.",
 	UNSPECIFIED=".UNSPECIFIED."
-}
+};
+
+export default IfcBSplineCurveForm;

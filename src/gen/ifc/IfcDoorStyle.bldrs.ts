@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcDoorStyleOperationEnum} from "./IfcDoorStyleOperationEnum.bldrs"
-import {IfcDoorStyleConstructionEnum} from "./IfcDoorStyleConstructionEnum.bldrs"
+import IfcDoorStyleOperationEnum from "./IfcDoorStyleOperationEnum.bldrs"
+import IfcDoorStyleConstructionEnum from "./IfcDoorStyleConstructionEnum.bldrs"
 
 
 /**
@@ -16,11 +16,7 @@ export default class IfcDoorStyle implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	OperationType : IfcDoorStyleOperationEnum;
-	ConstructionType : IfcDoorStyleConstructionEnum;
-	ParameterTakesPrecedence : boolean;
-	Sizeable : boolean;
-
+    constructor( public readonly OperationType : IfcDoorStyleOperationEnum , public readonly ConstructionType : IfcDoorStyleConstructionEnum , public readonly ParameterTakesPrecedence : boolean , public readonly Sizeable : boolean  ) {}
 }
 
 export class IfcDoorStyleSpecification implements ComponentSpecification

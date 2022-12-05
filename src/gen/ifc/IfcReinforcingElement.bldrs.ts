@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcReinforcingElement implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
-	SteelGrade? : IfcLabel;
-
+    constructor( public readonly SteelGrade : IfcLabel  | undefined ) {}
 }
 
 export class IfcReinforcingElementSpecification implements ComponentSpecification

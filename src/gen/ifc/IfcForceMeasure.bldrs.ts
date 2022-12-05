@@ -1,6 +1,7 @@
 
-import {BaseIfc} from "./BaseIfc"
 
 
 // http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcforcemeasure.htm
-export type IfcForceMeasure = number
+type IfcForceMeasure = number;
+
+export default IfcForceMeasure;

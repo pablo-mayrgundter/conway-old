@@ -14,7 +14,7 @@ export default class IfcDiscreteAccessoryType implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcDiscreteAccessoryTypeSpecification implements ComponentSpecification

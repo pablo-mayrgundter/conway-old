@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcActor} from "./IfcActor.bldrs"
-import {IfcActorRole} from "./IfcActorRole.bldrs"
+import IfcActor from "./IfcActor.bldrs"
+import IfcActorRole from "./IfcActorRole.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcRelAssignsToActor implements Component< SchemaSpecificat
 
     public readonly __version__: number = 0;
 
-	RelatingActor : IfcActor;
-	ActingRole? : IfcActorRole;
-
+    constructor( public readonly RelatingActor : IfcActor , public readonly ActingRole : IfcActorRole  | undefined ) {}
 }
 
 export class IfcRelAssignsToActorSpecification implements ComponentSpecification

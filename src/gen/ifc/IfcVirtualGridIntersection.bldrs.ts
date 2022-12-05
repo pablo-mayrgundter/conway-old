@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcGridAxis} from "./IfcGridAxis.bldrs"
-import {IfcLengthMeasure} from "./IfcLengthMeasure.bldrs"
+import IfcGridAxis from "./IfcGridAxis.bldrs"
+import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcVirtualGridIntersection implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
-	IntersectingAxes : Array<IfcGridAxis>;
-	OffsetDistances : Array<IfcLengthMeasure>;
-
+    constructor( public readonly IntersectingAxes : Array<IfcGridAxis> , public readonly OffsetDistances : Array<IfcLengthMeasure>  ) {}
 }
 
 export class IfcVirtualGridIntersectionSpecification implements ComponentSpecification

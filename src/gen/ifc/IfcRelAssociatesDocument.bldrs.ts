@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcDocumentReference} from "./IfcDocumentReference.bldrs"
-import {IfcDocumentInformation} from "./IfcDocumentInformation.bldrs"
+import IfcDocumentReference from "./IfcDocumentReference.bldrs"
+import IfcDocumentInformation from "./IfcDocumentInformation.bldrs"
 
 
 /**
@@ -16,8 +16,7 @@ export default class IfcRelAssociatesDocument implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	RelatingDocument : IfcDocumentReference|IfcDocumentInformation;
-
+    constructor( public readonly RelatingDocument : IfcDocumentReference|IfcDocumentInformation  ) {}
 }
 
 export class IfcRelAssociatesDocumentSpecification implements ComponentSpecification

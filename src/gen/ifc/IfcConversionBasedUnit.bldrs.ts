@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcMeasureWithUnit} from "./IfcMeasureWithUnit.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcMeasureWithUnit from "./IfcMeasureWithUnit.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcConversionBasedUnit implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
-	Name : IfcLabel;
-	ConversionFactor : IfcMeasureWithUnit;
-
+    constructor( public readonly Name : IfcLabel , public readonly ConversionFactor : IfcMeasureWithUnit  ) {}
 }
 
 export class IfcConversionBasedUnitSpecification implements ComponentSpecification

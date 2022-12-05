@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcVertex} from "./IfcVertex.bldrs"
+import IfcVertex from "./IfcVertex.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcVertexLoop implements Component< SchemaSpecificationIFC 
 
     public readonly __version__: number = 0;
 
-	LoopVertex : IfcVertex;
-
+    constructor( public readonly LoopVertex : IfcVertex  ) {}
 }
 
 export class IfcVertexLoopSpecification implements ComponentSpecification

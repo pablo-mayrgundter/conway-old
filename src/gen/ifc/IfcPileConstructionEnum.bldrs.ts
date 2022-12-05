@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcpileconstructionenum.htm
-export enum IfcPileConstructionEnum 
+enum IfcPileConstructionEnum 
 {
 	CAST_IN_PLACE=".CAST_IN_PLACE.",
 	COMPOSITE=".COMPOSITE.",
@@ -8,4 +8,6 @@ export enum IfcPileConstructionEnum
 	PREFAB_STEEL=".PREFAB_STEEL.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcPileConstructionEnum;

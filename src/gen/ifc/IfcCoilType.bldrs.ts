@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCoilTypeEnum} from "./IfcCoilTypeEnum.bldrs"
+import IfcCoilTypeEnum from "./IfcCoilTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcCoilType implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcCoilTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcCoilTypeEnum  ) {}
 }
 
 export class IfcCoilTypeSpecification implements ComponentSpecification

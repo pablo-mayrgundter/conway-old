@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcAnalysisModelTypeEnum} from "./IfcAnalysisModelTypeEnum.bldrs"
-import {IfcAxis2Placement3D} from "./IfcAxis2Placement3D.bldrs"
-import {IfcStructuralLoadGroup} from "./IfcStructuralLoadGroup.bldrs"
-import {IfcStructuralResultGroup} from "./IfcStructuralResultGroup.bldrs"
+import IfcAnalysisModelTypeEnum from "./IfcAnalysisModelTypeEnum.bldrs"
+import IfcAxis2Placement3D from "./IfcAxis2Placement3D.bldrs"
+import IfcStructuralLoadGroup from "./IfcStructuralLoadGroup.bldrs"
+import IfcStructuralResultGroup from "./IfcStructuralResultGroup.bldrs"
 
 
 /**
@@ -18,11 +18,7 @@ export default class IfcStructuralAnalysisModel implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcAnalysisModelTypeEnum;
-	OrientationOf2DPlane? : IfcAxis2Placement3D;
-	LoadedBy? : Array<IfcStructuralLoadGroup>;
-	HasResults? : Array<IfcStructuralResultGroup>;
-
+    constructor( public readonly PredefinedType : IfcAnalysisModelTypeEnum , public readonly OrientationOf2DPlane : IfcAxis2Placement3D  | undefined, public readonly LoadedBy : Array<IfcStructuralLoadGroup>  | undefined, public readonly HasResults : Array<IfcStructuralResultGroup>  | undefined ) {}
 }
 
 export class IfcStructuralAnalysisModelSpecification implements ComponentSpecification

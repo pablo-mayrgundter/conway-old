@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcNamedUnit} from "./IfcNamedUnit.bldrs"
+import IfcNamedUnit from "./IfcNamedUnit.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcPhysicalSimpleQuantity implements Component< SchemaSpeci
 
     public readonly __version__: number = 0;
 
-	Unit? : IfcNamedUnit;
-
+    constructor( public readonly Unit : IfcNamedUnit  | undefined ) {}
 }
 
 export class IfcPhysicalSimpleQuantitySpecification implements ComponentSpecification

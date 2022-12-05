@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcAppliedValue} from "./IfcAppliedValue.bldrs"
-import {IfcArithmeticOperatorEnum} from "./IfcArithmeticOperatorEnum.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcText} from "./IfcText.bldrs"
+import IfcAppliedValue from "./IfcAppliedValue.bldrs"
+import IfcArithmeticOperatorEnum from "./IfcArithmeticOperatorEnum.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcText from "./IfcText.bldrs"
 
 
 /**
@@ -18,12 +18,7 @@ export default class IfcAppliedValueRelationship implements Component< SchemaSpe
 
     public readonly __version__: number = 0;
 
-	ComponentOfTotal : IfcAppliedValue;
-	Components : Array<IfcAppliedValue>;
-	ArithmeticOperator : IfcArithmeticOperatorEnum;
-	Name? : IfcLabel;
-	Description? : IfcText;
-
+    constructor( public readonly ComponentOfTotal : IfcAppliedValue , public readonly Components : Array<IfcAppliedValue> , public readonly ArithmeticOperator : IfcArithmeticOperatorEnum , public readonly Name : IfcLabel  | undefined, public readonly Description : IfcText  | undefined ) {}
 }
 
 export class IfcAppliedValueRelationshipSpecification implements ComponentSpecification

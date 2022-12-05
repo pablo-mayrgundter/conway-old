@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPumpTypeEnum} from "./IfcPumpTypeEnum.bldrs"
+import IfcPumpTypeEnum from "./IfcPumpTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcPumpType implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcPumpTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcPumpTypeEnum  ) {}
 }
 
 export class IfcPumpTypeSpecification implements ComponentSpecification

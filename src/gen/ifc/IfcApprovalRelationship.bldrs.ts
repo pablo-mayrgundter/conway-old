@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcApproval} from "./IfcApproval.bldrs"
-import {IfcText} from "./IfcText.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
+import IfcApproval from "./IfcApproval.bldrs"
+import IfcText from "./IfcText.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
 
 
 /**
@@ -17,11 +17,7 @@ export default class IfcApprovalRelationship implements Component< SchemaSpecifi
 
     public readonly __version__: number = 0;
 
-	RelatedApproval : IfcApproval;
-	RelatingApproval : IfcApproval;
-	Description? : IfcText;
-	Name : IfcLabel;
-
+    constructor( public readonly RelatedApproval : IfcApproval , public readonly RelatingApproval : IfcApproval , public readonly Description : IfcText  | undefined, public readonly Name : IfcLabel  ) {}
 }
 
 export class IfcApprovalRelationshipSpecification implements ComponentSpecification

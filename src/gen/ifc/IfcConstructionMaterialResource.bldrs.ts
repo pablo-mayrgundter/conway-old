@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcOrganization} from "./IfcOrganization.bldrs"
-import {IfcPerson} from "./IfcPerson.bldrs"
-import {IfcPersonAndOrganization} from "./IfcPersonAndOrganization.bldrs"
-import {IfcRatioMeasure} from "./IfcRatioMeasure.bldrs"
+import IfcOrganization from "./IfcOrganization.bldrs"
+import IfcPerson from "./IfcPerson.bldrs"
+import IfcPersonAndOrganization from "./IfcPersonAndOrganization.bldrs"
+import IfcRatioMeasure from "./IfcRatioMeasure.bldrs"
 
 
 /**
@@ -18,9 +18,7 @@ export default class IfcConstructionMaterialResource implements Component< Schem
 
     public readonly __version__: number = 0;
 
-	Suppliers? : Array<IfcOrganization|IfcPerson|IfcPersonAndOrganization>;
-	UsageRatio? : IfcRatioMeasure;
-
+    constructor( public readonly Suppliers : Array<IfcOrganization|IfcPerson|IfcPersonAndOrganization>  | undefined, public readonly UsageRatio : IfcRatioMeasure  | undefined ) {}
 }
 
 export class IfcConstructionMaterialResourceSpecification implements ComponentSpecification

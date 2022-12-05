@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcStructuralSurfaceTypeEnum} from "./IfcStructuralSurfaceTypeEnum.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
+import IfcStructuralSurfaceTypeEnum from "./IfcStructuralSurfaceTypeEnum.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcStructuralSurfaceMember implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcStructuralSurfaceTypeEnum;
-	Thickness? : IfcPositiveLengthMeasure;
-
+    constructor( public readonly PredefinedType : IfcStructuralSurfaceTypeEnum , public readonly Thickness : IfcPositiveLengthMeasure  | undefined ) {}
 }
 
 export class IfcStructuralSurfaceMemberSpecification implements ComponentSpecification

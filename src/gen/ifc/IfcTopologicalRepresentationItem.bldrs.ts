@@ -14,7 +14,7 @@ export default class IfcTopologicalRepresentationItem implements Component< Sche
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcTopologicalRepresentationItemSpecification implements ComponentSpecification

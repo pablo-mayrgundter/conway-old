@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcRelAssignsToProjectOrder} from "./IfcRelAssignsToProjectOrder.bldrs"
-import {IfcProjectOrderRecordTypeEnum} from "./IfcProjectOrderRecordTypeEnum.bldrs"
+import IfcRelAssignsToProjectOrder from "./IfcRelAssignsToProjectOrder.bldrs"
+import IfcProjectOrderRecordTypeEnum from "./IfcProjectOrderRecordTypeEnum.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcProjectOrderRecord implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
-	Records : Array<IfcRelAssignsToProjectOrder>;
-	PredefinedType : IfcProjectOrderRecordTypeEnum;
-
+    constructor( public readonly Records : Array<IfcRelAssignsToProjectOrder> , public readonly PredefinedType : IfcProjectOrderRecordTypeEnum  ) {}
 }
 
 export class IfcProjectOrderRecordSpecification implements ComponentSpecification

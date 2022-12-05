@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcductfittingtypeenum.htm
-export enum IfcDuctFittingTypeEnum 
+enum IfcDuctFittingTypeEnum 
 {
 	BEND=".BEND.",
 	CONNECTOR=".CONNECTOR.",
@@ -11,4 +11,6 @@ export enum IfcDuctFittingTypeEnum
 	TRANSITION=".TRANSITION.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcDuctFittingTypeEnum;

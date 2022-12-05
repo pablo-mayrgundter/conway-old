@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcSurfaceTexture} from "./IfcSurfaceTexture.bldrs"
+import IfcSurfaceTexture from "./IfcSurfaceTexture.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcSurfaceStyleWithTextures implements Component< SchemaSpe
 
     public readonly __version__: number = 0;
 
-	Textures : Array<IfcSurfaceTexture>;
-
+    constructor( public readonly Textures : Array<IfcSurfaceTexture>  ) {}
 }
 
 export class IfcSurfaceStyleWithTexturesSpecification implements ComponentSpecification

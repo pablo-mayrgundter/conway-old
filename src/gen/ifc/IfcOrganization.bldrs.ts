@@ -3,13 +3,13 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcIdentifier} from "./IfcIdentifier.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcText} from "./IfcText.bldrs"
-import {IfcActorRole} from "./IfcActorRole.bldrs"
-import {IfcAddress} from "./IfcAddress.bldrs"
-import {IfcOrganizationRelationship} from "./IfcOrganizationRelationship.bldrs"
-import {IfcPersonAndOrganization} from "./IfcPersonAndOrganization.bldrs"
+import IfcIdentifier from "./IfcIdentifier.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcText from "./IfcText.bldrs"
+import IfcActorRole from "./IfcActorRole.bldrs"
+import IfcAddress from "./IfcAddress.bldrs"
+import IfcOrganizationRelationship from "./IfcOrganizationRelationship.bldrs"
+import IfcPersonAndOrganization from "./IfcPersonAndOrganization.bldrs"
 
 
 /**
@@ -21,12 +21,7 @@ export default class IfcOrganization implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
-	Id? : IfcIdentifier;
-	Name : IfcLabel;
-	Description? : IfcText;
-	Roles? : Array<IfcActorRole>;
-	Addresses? : Array<IfcAddress>;
-
+    constructor( public readonly Id : IfcIdentifier  | undefined, public readonly Name : IfcLabel , public readonly Description : IfcText  | undefined, public readonly Roles : Array<IfcActorRole>  | undefined, public readonly Addresses : Array<IfcAddress>  | undefined ) {}
 }
 
 export class IfcOrganizationSpecification implements ComponentSpecification

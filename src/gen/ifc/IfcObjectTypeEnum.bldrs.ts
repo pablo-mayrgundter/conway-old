@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcobjecttypeenum.htm
-export enum IfcObjectTypeEnum 
+enum IfcObjectTypeEnum 
 {
 	PRODUCT=".PRODUCT.",
 	PROCESS=".PROCESS.",
@@ -10,4 +10,6 @@ export enum IfcObjectTypeEnum
 	GROUP=".GROUP.",
 	PROJECT=".PROJECT.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcObjectTypeEnum;

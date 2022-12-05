@@ -14,7 +14,7 @@ export default class IfcStructuralLoadStatic implements Component< SchemaSpecifi
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcStructuralLoadStaticSpecification implements ComponentSpecification

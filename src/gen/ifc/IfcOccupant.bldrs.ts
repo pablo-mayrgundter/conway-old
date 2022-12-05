@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcOccupantTypeEnum} from "./IfcOccupantTypeEnum.bldrs"
+import IfcOccupantTypeEnum from "./IfcOccupantTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcOccupant implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcOccupantTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcOccupantTypeEnum  ) {}
 }
 
 export class IfcOccupantSpecification implements ComponentSpecification

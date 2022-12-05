@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcMetric} from "./IfcMetric.bldrs"
-import {IfcObjectiveEnum} from "./IfcObjectiveEnum.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
+import IfcMetric from "./IfcMetric.bldrs"
+import IfcObjectiveEnum from "./IfcObjectiveEnum.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
 
 
 /**
@@ -17,11 +17,7 @@ export default class IfcObjective implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	BenchmarkValues? : IfcMetric;
-	ResultValues? : IfcMetric;
-	ObjectiveQualifier : IfcObjectiveEnum;
-	UserDefinedQualifier? : IfcLabel;
-
+    constructor( public readonly BenchmarkValues : IfcMetric  | undefined, public readonly ResultValues : IfcMetric  | undefined, public readonly ObjectiveQualifier : IfcObjectiveEnum , public readonly UserDefinedQualifier : IfcLabel  | undefined ) {}
 }
 
 export class IfcObjectiveSpecification implements ComponentSpecification

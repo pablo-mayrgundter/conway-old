@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcConstraint} from "./IfcConstraint.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcConstraint from "./IfcConstraint.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcRelAssociatesConstraint implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
-	Intent : IfcLabel;
-	RelatingConstraint : IfcConstraint;
-
+    constructor( public readonly Intent : IfcLabel , public readonly RelatingConstraint : IfcConstraint  ) {}
 }
 
 export class IfcRelAssociatesConstraintSpecification implements ComponentSpecification

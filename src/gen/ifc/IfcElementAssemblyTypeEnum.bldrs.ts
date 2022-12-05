@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcelementassemblytypeenum.htm
-export enum IfcElementAssemblyTypeEnum 
+enum IfcElementAssemblyTypeEnum 
 {
 	ACCESSORY_ASSEMBLY=".ACCESSORY_ASSEMBLY.",
 	ARCH=".ARCH.",
@@ -13,4 +13,6 @@ export enum IfcElementAssemblyTypeEnum
 	TRUSS=".TRUSS.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcElementAssemblyTypeEnum;

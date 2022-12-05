@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcSurfaceTextureEnum} from "./IfcSurfaceTextureEnum.bldrs"
-import {IfcCartesianTransformationOperator2D} from "./IfcCartesianTransformationOperator2D.bldrs"
+import IfcSurfaceTextureEnum from "./IfcSurfaceTextureEnum.bldrs"
+import IfcCartesianTransformationOperator2D from "./IfcCartesianTransformationOperator2D.bldrs"
 
 
 /**
@@ -16,11 +16,7 @@ export default class IfcSurfaceTexture implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-	RepeatS : boolean;
-	RepeatT : boolean;
-	TextureType : IfcSurfaceTextureEnum;
-	TextureTransform? : IfcCartesianTransformationOperator2D;
-
+    constructor( public readonly RepeatS : boolean , public readonly RepeatT : boolean , public readonly TextureType : IfcSurfaceTextureEnum , public readonly TextureTransform : IfcCartesianTransformationOperator2D  | undefined ) {}
 }
 
 export class IfcSurfaceTextureSpecification implements ComponentSpecification

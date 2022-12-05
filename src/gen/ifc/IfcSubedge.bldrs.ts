@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcEdge} from "./IfcEdge.bldrs"
+import IfcEdge from "./IfcEdge.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcSubedge implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	ParentEdge : IfcEdge;
-
+    constructor( public readonly ParentEdge : IfcEdge  ) {}
 }
 
 export class IfcSubedgeSpecification implements ComponentSpecification

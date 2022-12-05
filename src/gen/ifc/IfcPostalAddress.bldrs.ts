@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
 
 
 /**
@@ -15,14 +15,7 @@ export default class IfcPostalAddress implements Component< SchemaSpecificationI
 
     public readonly __version__: number = 0;
 
-	InternalLocation? : IfcLabel;
-	AddressLines? : Array<IfcLabel>;
-	PostalBox? : IfcLabel;
-	Town? : IfcLabel;
-	Region? : IfcLabel;
-	PostalCode? : IfcLabel;
-	Country? : IfcLabel;
-
+    constructor( public readonly InternalLocation : IfcLabel  | undefined, public readonly AddressLines : Array<IfcLabel>  | undefined, public readonly PostalBox : IfcLabel  | undefined, public readonly Town : IfcLabel  | undefined, public readonly Region : IfcLabel  | undefined, public readonly PostalCode : IfcLabel  | undefined, public readonly Country : IfcLabel  | undefined ) {}
 }
 
 export class IfcPostalAddressSpecification implements ComponentSpecification

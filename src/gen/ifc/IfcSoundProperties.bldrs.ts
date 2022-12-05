@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcBoolean} from "./IfcBoolean.bldrs"
-import {IfcSoundScaleEnum} from "./IfcSoundScaleEnum.bldrs"
-import {IfcSoundValue} from "./IfcSoundValue.bldrs"
+import IfcBoolean from "./IfcBoolean.bldrs"
+import IfcSoundScaleEnum from "./IfcSoundScaleEnum.bldrs"
+import IfcSoundValue from "./IfcSoundValue.bldrs"
 
 
 /**
@@ -17,10 +17,7 @@ export default class IfcSoundProperties implements Component< SchemaSpecificatio
 
     public readonly __version__: number = 0;
 
-	IsAttenuating : IfcBoolean;
-	SoundScale? : IfcSoundScaleEnum;
-	SoundValues : Array<IfcSoundValue>;
-
+    constructor( public readonly IsAttenuating : IfcBoolean , public readonly SoundScale : IfcSoundScaleEnum  | undefined, public readonly SoundValues : Array<IfcSoundValue>  ) {}
 }
 
 export class IfcSoundPropertiesSpecification implements ComponentSpecification

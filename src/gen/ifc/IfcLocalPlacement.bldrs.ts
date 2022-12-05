@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcObjectPlacement} from "./IfcObjectPlacement.bldrs"
-import {IfcAxis2Placement2D} from "./IfcAxis2Placement2D.bldrs"
-import {IfcAxis2Placement3D} from "./IfcAxis2Placement3D.bldrs"
+import IfcObjectPlacement from "./IfcObjectPlacement.bldrs"
+import IfcAxis2Placement2D from "./IfcAxis2Placement2D.bldrs"
+import IfcAxis2Placement3D from "./IfcAxis2Placement3D.bldrs"
 
 
 /**
@@ -17,9 +17,7 @@ export default class IfcLocalPlacement implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-	PlacementRelTo? : IfcObjectPlacement;
-	RelativePlacement : IfcAxis2Placement2D|IfcAxis2Placement3D;
-
+    constructor( public readonly PlacementRelTo : IfcObjectPlacement  | undefined, public readonly RelativePlacement : IfcAxis2Placement2D|IfcAxis2Placement3D  ) {}
 }
 
 export class IfcLocalPlacementSpecification implements ComponentSpecification

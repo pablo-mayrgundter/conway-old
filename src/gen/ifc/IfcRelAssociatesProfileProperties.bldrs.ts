@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcProfileProperties} from "./IfcProfileProperties.bldrs"
-import {IfcShapeAspect} from "./IfcShapeAspect.bldrs"
-import {IfcPlaneAngleMeasure} from "./IfcPlaneAngleMeasure.bldrs"
-import {IfcDirection} from "./IfcDirection.bldrs"
+import IfcProfileProperties from "./IfcProfileProperties.bldrs"
+import IfcShapeAspect from "./IfcShapeAspect.bldrs"
+import IfcPlaneAngleMeasure from "./IfcPlaneAngleMeasure.bldrs"
+import IfcDirection from "./IfcDirection.bldrs"
 
 
 /**
@@ -18,10 +18,7 @@ export default class IfcRelAssociatesProfileProperties implements Component< Sch
 
     public readonly __version__: number = 0;
 
-	RelatingProfileProperties : IfcProfileProperties;
-	ProfileSectionLocation? : IfcShapeAspect;
-	ProfileOrientation? : IfcPlaneAngleMeasure|IfcDirection;
-
+    constructor( public readonly RelatingProfileProperties : IfcProfileProperties , public readonly ProfileSectionLocation : IfcShapeAspect  | undefined, public readonly ProfileOrientation : IfcPlaneAngleMeasure|IfcDirection  | undefined ) {}
 }
 
 export class IfcRelAssociatesProfilePropertiesSpecification implements ComponentSpecification

@@ -3,17 +3,17 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcText} from "./IfcText.bldrs"
-import {IfcCalendarDate} from "./IfcCalendarDate.bldrs"
-import {IfcLocalTime} from "./IfcLocalTime.bldrs"
-import {IfcDateAndTime} from "./IfcDateAndTime.bldrs"
-import {IfcTimeSeriesDataTypeEnum} from "./IfcTimeSeriesDataTypeEnum.bldrs"
-import {IfcDataOriginEnum} from "./IfcDataOriginEnum.bldrs"
-import {IfcDerivedUnit} from "./IfcDerivedUnit.bldrs"
-import {IfcNamedUnit} from "./IfcNamedUnit.bldrs"
-import {IfcMonetaryUnit} from "./IfcMonetaryUnit.bldrs"
-import {IfcTimeSeriesReferenceRelationship} from "./IfcTimeSeriesReferenceRelationship.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcText from "./IfcText.bldrs"
+import IfcCalendarDate from "./IfcCalendarDate.bldrs"
+import IfcLocalTime from "./IfcLocalTime.bldrs"
+import IfcDateAndTime from "./IfcDateAndTime.bldrs"
+import IfcTimeSeriesDataTypeEnum from "./IfcTimeSeriesDataTypeEnum.bldrs"
+import IfcDataOriginEnum from "./IfcDataOriginEnum.bldrs"
+import IfcDerivedUnit from "./IfcDerivedUnit.bldrs"
+import IfcNamedUnit from "./IfcNamedUnit.bldrs"
+import IfcMonetaryUnit from "./IfcMonetaryUnit.bldrs"
+import IfcTimeSeriesReferenceRelationship from "./IfcTimeSeriesReferenceRelationship.bldrs"
 
 
 /**
@@ -25,15 +25,7 @@ export default class IfcTimeSeries implements Component< SchemaSpecificationIFC 
 
     public readonly __version__: number = 0;
 
-	Name : IfcLabel;
-	Description? : IfcText;
-	StartTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-	EndTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-	TimeSeriesDataType : IfcTimeSeriesDataTypeEnum;
-	DataOrigin : IfcDataOriginEnum;
-	UserDefinedDataOrigin? : IfcLabel;
-	Unit? : IfcDerivedUnit|IfcNamedUnit|IfcMonetaryUnit;
-
+    constructor( public readonly Name : IfcLabel , public readonly Description : IfcText  | undefined, public readonly StartTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime , public readonly EndTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime , public readonly TimeSeriesDataType : IfcTimeSeriesDataTypeEnum , public readonly DataOrigin : IfcDataOriginEnum , public readonly UserDefinedDataOrigin : IfcLabel  | undefined, public readonly Unit : IfcDerivedUnit|IfcNamedUnit|IfcMonetaryUnit  | undefined ) {}
 }
 
 export class IfcTimeSeriesSpecification implements ComponentSpecification

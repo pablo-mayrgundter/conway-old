@@ -3,11 +3,11 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcBooleanOperator} from "./IfcBooleanOperator.bldrs"
-import {IfcSolidModel} from "./IfcSolidModel.bldrs"
-import {IfcHalfSpaceSolid} from "./IfcHalfSpaceSolid.bldrs"
-import {IfcCsgPrimitive3D} from "./IfcCsgPrimitive3D.bldrs"
-import {IfcDimensionCount} from "./IfcDimensionCount.bldrs"
+import IfcBooleanOperator from "./IfcBooleanOperator.bldrs"
+import IfcSolidModel from "./IfcSolidModel.bldrs"
+import IfcHalfSpaceSolid from "./IfcHalfSpaceSolid.bldrs"
+import IfcCsgPrimitive3D from "./IfcCsgPrimitive3D.bldrs"
+import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 
 
 /**
@@ -19,10 +19,7 @@ export default class IfcBooleanResult implements Component< SchemaSpecificationI
 
     public readonly __version__: number = 0;
 
-	Operator : IfcBooleanOperator;
-	FirstOperand : IfcSolidModel|IfcHalfSpaceSolid|IfcBooleanResult|IfcCsgPrimitive3D;
-	SecondOperand : IfcSolidModel|IfcHalfSpaceSolid|IfcBooleanResult|IfcCsgPrimitive3D;
-
+    constructor( public readonly Operator : IfcBooleanOperator , public readonly FirstOperand : IfcSolidModel|IfcHalfSpaceSolid|IfcBooleanResult|IfcCsgPrimitive3D , public readonly SecondOperand : IfcSolidModel|IfcHalfSpaceSolid|IfcBooleanResult|IfcCsgPrimitive3D  ) {}
 }
 
 export class IfcBooleanResultSpecification implements ComponentSpecification

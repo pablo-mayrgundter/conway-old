@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcDirection} from "./IfcDirection.bldrs"
+import IfcDirection from "./IfcDirection.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcCartesianTransformationOperator3D implements Component< 
 
     public readonly __version__: number = 0;
 
-	Axis3? : IfcDirection;
-
+    constructor( public readonly Axis3 : IfcDirection  | undefined ) {}
 }
 
 export class IfcCartesianTransformationOperator3DSpecification implements ComponentSpecification

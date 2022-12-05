@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcreflectancemethodenum.htm
-export enum IfcReflectanceMethodEnum 
+enum IfcReflectanceMethodEnum 
 {
 	BLINN=".BLINN.",
 	FLAT=".FLAT.",
@@ -12,4 +12,6 @@ export enum IfcReflectanceMethodEnum
 	PLASTIC=".PLASTIC.",
 	STRAUSS=".STRAUSS.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcReflectanceMethodEnum;

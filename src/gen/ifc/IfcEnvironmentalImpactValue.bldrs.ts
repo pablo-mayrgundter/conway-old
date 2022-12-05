@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcEnvironmentalImpactCategoryEnum} from "./IfcEnvironmentalImpactCategoryEnum.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcEnvironmentalImpactCategoryEnum from "./IfcEnvironmentalImpactCategoryEnum.bldrs"
 
 
 /**
@@ -16,10 +16,7 @@ export default class IfcEnvironmentalImpactValue implements Component< SchemaSpe
 
     public readonly __version__: number = 0;
 
-	ImpactType : IfcLabel;
-	Category : IfcEnvironmentalImpactCategoryEnum;
-	UserDefinedCategory? : IfcLabel;
-
+    constructor( public readonly ImpactType : IfcLabel , public readonly Category : IfcEnvironmentalImpactCategoryEnum , public readonly UserDefinedCategory : IfcLabel  | undefined ) {}
 }
 
 export class IfcEnvironmentalImpactValueSpecification implements ComponentSpecification

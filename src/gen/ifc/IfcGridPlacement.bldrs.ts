@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcVirtualGridIntersection} from "./IfcVirtualGridIntersection.bldrs"
+import IfcVirtualGridIntersection from "./IfcVirtualGridIntersection.bldrs"
 
 
 /**
@@ -15,9 +15,7 @@ export default class IfcGridPlacement implements Component< SchemaSpecificationI
 
     public readonly __version__: number = 0;
 
-	PlacementLocation : IfcVirtualGridIntersection;
-	PlacementRefDirection? : IfcVirtualGridIntersection;
-
+    constructor( public readonly PlacementLocation : IfcVirtualGridIntersection , public readonly PlacementRefDirection : IfcVirtualGridIntersection  | undefined ) {}
 }
 
 export class IfcGridPlacementSpecification implements ComponentSpecification

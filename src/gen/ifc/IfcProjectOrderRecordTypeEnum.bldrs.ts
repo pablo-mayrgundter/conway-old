@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcprojectorderrecordtypeenum.htm
-export enum IfcProjectOrderRecordTypeEnum 
+enum IfcProjectOrderRecordTypeEnum 
 {
 	CHANGE=".CHANGE.",
 	MAINTENANCE=".MAINTENANCE.",
@@ -9,4 +9,6 @@ export enum IfcProjectOrderRecordTypeEnum
 	WORK=".WORK.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcProjectOrderRecordTypeEnum;

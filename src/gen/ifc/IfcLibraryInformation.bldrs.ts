@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcOrganization} from "./IfcOrganization.bldrs"
-import {IfcCalendarDate} from "./IfcCalendarDate.bldrs"
-import {IfcLibraryReference} from "./IfcLibraryReference.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcOrganization from "./IfcOrganization.bldrs"
+import IfcCalendarDate from "./IfcCalendarDate.bldrs"
+import IfcLibraryReference from "./IfcLibraryReference.bldrs"
 
 
 /**
@@ -18,12 +18,7 @@ export default class IfcLibraryInformation implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
-	Name : IfcLabel;
-	Version? : IfcLabel;
-	Publisher? : IfcOrganization;
-	VersionDate? : IfcCalendarDate;
-	LibraryReference? : Array<IfcLibraryReference>;
-
+    constructor( public readonly Name : IfcLabel , public readonly Version : IfcLabel  | undefined, public readonly Publisher : IfcOrganization  | undefined, public readonly VersionDate : IfcCalendarDate  | undefined, public readonly LibraryReference : Array<IfcLibraryReference>  | undefined ) {}
 }
 
 export class IfcLibraryInformationSpecification implements ComponentSpecification

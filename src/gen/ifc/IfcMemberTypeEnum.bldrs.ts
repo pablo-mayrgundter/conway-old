@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcmembertypeenum.htm
-export enum IfcMemberTypeEnum 
+enum IfcMemberTypeEnum 
 {
 	BRACE=".BRACE.",
 	CHORD=".CHORD.",
@@ -16,4 +16,6 @@ export enum IfcMemberTypeEnum
 	STUD=".STUD.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcMemberTypeEnum;

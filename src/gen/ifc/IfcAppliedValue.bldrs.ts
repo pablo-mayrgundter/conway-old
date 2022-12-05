@@ -3,16 +3,16 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcText} from "./IfcText.bldrs"
-import {IfcRatioMeasure} from "./IfcRatioMeasure.bldrs"
-import {IfcMeasureWithUnit} from "./IfcMeasureWithUnit.bldrs"
-import {IfcMonetaryMeasure} from "./IfcMonetaryMeasure.bldrs"
-import {IfcCalendarDate} from "./IfcCalendarDate.bldrs"
-import {IfcLocalTime} from "./IfcLocalTime.bldrs"
-import {IfcDateAndTime} from "./IfcDateAndTime.bldrs"
-import {IfcReferencesValueDocument} from "./IfcReferencesValueDocument.bldrs"
-import {IfcAppliedValueRelationship} from "./IfcAppliedValueRelationship.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcText from "./IfcText.bldrs"
+import IfcRatioMeasure from "./IfcRatioMeasure.bldrs"
+import IfcMeasureWithUnit from "./IfcMeasureWithUnit.bldrs"
+import IfcMonetaryMeasure from "./IfcMonetaryMeasure.bldrs"
+import IfcCalendarDate from "./IfcCalendarDate.bldrs"
+import IfcLocalTime from "./IfcLocalTime.bldrs"
+import IfcDateAndTime from "./IfcDateAndTime.bldrs"
+import IfcReferencesValueDocument from "./IfcReferencesValueDocument.bldrs"
+import IfcAppliedValueRelationship from "./IfcAppliedValueRelationship.bldrs"
 
 
 /**
@@ -24,13 +24,7 @@ export default class IfcAppliedValue implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
-	Name? : IfcLabel;
-	Description? : IfcText;
-	AppliedValue? : IfcRatioMeasure|IfcMeasureWithUnit|IfcMonetaryMeasure;
-	UnitBasis? : IfcMeasureWithUnit;
-	ApplicableDate? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-	FixedUntilDate? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-
+    constructor( public readonly Name : IfcLabel  | undefined, public readonly Description : IfcText  | undefined, public readonly AppliedValue : IfcRatioMeasure|IfcMeasureWithUnit|IfcMonetaryMeasure  | undefined, public readonly UnitBasis : IfcMeasureWithUnit  | undefined, public readonly ApplicableDate : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly FixedUntilDate : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined ) {}
 }
 
 export class IfcAppliedValueSpecification implements ComponentSpecification

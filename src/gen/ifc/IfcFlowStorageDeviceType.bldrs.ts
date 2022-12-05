@@ -14,7 +14,7 @@ export default class IfcFlowStorageDeviceType implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcFlowStorageDeviceTypeSpecification implements ComponentSpecification

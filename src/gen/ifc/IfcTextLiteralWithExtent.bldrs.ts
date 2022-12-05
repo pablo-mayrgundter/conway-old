@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPlanarExtent} from "./IfcPlanarExtent.bldrs"
-import {IfcBoxAlignment} from "./IfcBoxAlignment.bldrs"
+import IfcPlanarExtent from "./IfcPlanarExtent.bldrs"
+import IfcBoxAlignment from "./IfcBoxAlignment.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcTextLiteralWithExtent implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	Extent : IfcPlanarExtent;
-	BoxAlignment : IfcBoxAlignment;
-
+    constructor( public readonly Extent : IfcPlanarExtent , public readonly BoxAlignment : IfcBoxAlignment  ) {}
 }
 
 export class IfcTextLiteralWithExtentSpecification implements ComponentSpecification

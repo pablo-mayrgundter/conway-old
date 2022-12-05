@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcfiresuppressionterminaltypeenum.htm
-export enum IfcFireSuppressionTerminalTypeEnum 
+enum IfcFireSuppressionTerminalTypeEnum 
 {
 	BREECHINGINLET=".BREECHINGINLET.",
 	FIREHYDRANT=".FIREHYDRANT.",
@@ -9,4 +9,6 @@ export enum IfcFireSuppressionTerminalTypeEnum
 	SPRINKLERDEFLECTOR=".SPRINKLERDEFLECTOR.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcFireSuppressionTerminalTypeEnum;

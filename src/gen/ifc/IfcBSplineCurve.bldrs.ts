@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCartesianPoint} from "./IfcCartesianPoint.bldrs"
-import {IfcBSplineCurveForm} from "./IfcBSplineCurveForm.bldrs"
+import IfcCartesianPoint from "./IfcCartesianPoint.bldrs"
+import IfcBSplineCurveForm from "./IfcBSplineCurveForm.bldrs"
 
 
 /**
@@ -16,12 +16,7 @@ export default class IfcBSplineCurve implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
-	Degree : number;
-	ControlPointsList : Array<IfcCartesianPoint>;
-	CurveForm : IfcBSplineCurveForm;
-	ClosedCurve : boolean;
-	SelfIntersect : boolean;
-
+    constructor( public readonly Degree : number , public readonly ControlPointsList : Array<IfcCartesianPoint> , public readonly CurveForm : IfcBSplineCurveForm , public readonly ClosedCurve : boolean , public readonly SelfIntersect : boolean  ) {}
 }
 
 export class IfcBSplineCurveSpecification implements ComponentSpecification

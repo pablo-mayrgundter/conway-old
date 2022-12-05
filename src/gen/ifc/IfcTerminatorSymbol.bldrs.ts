@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcAnnotationCurveOccurrence} from "./IfcAnnotationCurveOccurrence.bldrs"
+import IfcAnnotationCurveOccurrence from "./IfcAnnotationCurveOccurrence.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcTerminatorSymbol implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
-	AnnotatedCurve : IfcAnnotationCurveOccurrence;
-
+    constructor( public readonly AnnotatedCurve : IfcAnnotationCurveOccurrence  ) {}
 }
 
 export class IfcTerminatorSymbolSpecification implements ComponentSpecification

@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcProjectedOrTrueLengthEnum} from "./IfcProjectedOrTrueLengthEnum.bldrs"
+import IfcProjectedOrTrueLengthEnum from "./IfcProjectedOrTrueLengthEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcStructuralLinearAction implements Component< SchemaSpeci
 
     public readonly __version__: number = 0;
 
-	ProjectedOrTrue : IfcProjectedOrTrueLengthEnum;
-
+    constructor( public readonly ProjectedOrTrue : IfcProjectedOrTrueLengthEnum  ) {}
 }
 
 export class IfcStructuralLinearActionSpecification implements ComponentSpecification

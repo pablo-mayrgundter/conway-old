@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcForceMeasure} from "./IfcForceMeasure.bldrs"
-import {IfcTorqueMeasure} from "./IfcTorqueMeasure.bldrs"
+import IfcForceMeasure from "./IfcForceMeasure.bldrs"
+import IfcTorqueMeasure from "./IfcTorqueMeasure.bldrs"
 
 
 /**
@@ -16,13 +16,7 @@ export default class IfcStructuralLoadSingleForce implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
-	ForceX? : IfcForceMeasure;
-	ForceY? : IfcForceMeasure;
-	ForceZ? : IfcForceMeasure;
-	MomentX? : IfcTorqueMeasure;
-	MomentY? : IfcTorqueMeasure;
-	MomentZ? : IfcTorqueMeasure;
-
+    constructor( public readonly ForceX : IfcForceMeasure  | undefined, public readonly ForceY : IfcForceMeasure  | undefined, public readonly ForceZ : IfcForceMeasure  | undefined, public readonly MomentX : IfcTorqueMeasure  | undefined, public readonly MomentY : IfcTorqueMeasure  | undefined, public readonly MomentZ : IfcTorqueMeasure  | undefined ) {}
 }
 
 export class IfcStructuralLoadSingleForceSpecification implements ComponentSpecification

@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCurve} from "./IfcCurve.bldrs"
+import IfcCurve from "./IfcCurve.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcArbitraryClosedProfileDef implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
-	OuterCurve : IfcCurve;
-
+    constructor( public readonly OuterCurve : IfcCurve  ) {}
 }
 
 export class IfcArbitraryClosedProfileDefSpecification implements ComponentSpecification

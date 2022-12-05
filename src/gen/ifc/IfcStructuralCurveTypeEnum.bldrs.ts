@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstructuralcurvetypeenum.htm
-export enum IfcStructuralCurveTypeEnum 
+enum IfcStructuralCurveTypeEnum 
 {
 	RIGID_JOINED_MEMBER=".RIGID_JOINED_MEMBER.",
 	PIN_JOINED_MEMBER=".PIN_JOINED_MEMBER.",
@@ -9,4 +9,6 @@ export enum IfcStructuralCurveTypeEnum
 	COMPRESSION_MEMBER=".COMPRESSION_MEMBER.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcStructuralCurveTypeEnum;

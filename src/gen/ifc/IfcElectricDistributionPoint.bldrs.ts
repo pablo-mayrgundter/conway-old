@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcElectricDistributionPointFunctionEnum} from "./IfcElectricDistributionPointFunctionEnum.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
+import IfcElectricDistributionPointFunctionEnum from "./IfcElectricDistributionPointFunctionEnum.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcElectricDistributionPoint implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
-	DistributionPointFunction : IfcElectricDistributionPointFunctionEnum;
-	UserDefinedFunction? : IfcLabel;
-
+    constructor( public readonly DistributionPointFunction : IfcElectricDistributionPointFunctionEnum , public readonly UserDefinedFunction : IfcLabel  | undefined ) {}
 }
 
 export class IfcElectricDistributionPointSpecification implements ComponentSpecification

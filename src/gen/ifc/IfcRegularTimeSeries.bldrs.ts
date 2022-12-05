@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcTimeMeasure} from "./IfcTimeMeasure.bldrs"
-import {IfcTimeSeriesValue} from "./IfcTimeSeriesValue.bldrs"
+import IfcTimeMeasure from "./IfcTimeMeasure.bldrs"
+import IfcTimeSeriesValue from "./IfcTimeSeriesValue.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcRegularTimeSeries implements Component< SchemaSpecificat
 
     public readonly __version__: number = 0;
 
-	TimeStep : IfcTimeMeasure;
-	Values : Array<IfcTimeSeriesValue>;
-
+    constructor( public readonly TimeStep : IfcTimeMeasure , public readonly Values : Array<IfcTimeSeriesValue>  ) {}
 }
 
 export class IfcRegularTimeSeriesSpecification implements ComponentSpecification

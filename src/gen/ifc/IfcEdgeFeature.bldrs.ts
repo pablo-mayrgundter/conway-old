@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcEdgeFeature implements Component< SchemaSpecificationIFC
 
     public readonly __version__: number = 0;
 
-	FeatureLength? : IfcPositiveLengthMeasure;
-
+    constructor( public readonly FeatureLength : IfcPositiveLengthMeasure  | undefined ) {}
 }
 
 export class IfcEdgeFeatureSpecification implements ComponentSpecification

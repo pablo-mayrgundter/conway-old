@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPermeableCoveringOperationEnum} from "./IfcPermeableCoveringOperationEnum.bldrs"
-import {IfcWindowPanelPositionEnum} from "./IfcWindowPanelPositionEnum.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
-import {IfcShapeAspect} from "./IfcShapeAspect.bldrs"
+import IfcPermeableCoveringOperationEnum from "./IfcPermeableCoveringOperationEnum.bldrs"
+import IfcWindowPanelPositionEnum from "./IfcWindowPanelPositionEnum.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
+import IfcShapeAspect from "./IfcShapeAspect.bldrs"
 
 
 /**
@@ -18,12 +18,7 @@ export default class IfcPermeableCoveringProperties implements Component< Schema
 
     public readonly __version__: number = 0;
 
-	OperationType : IfcPermeableCoveringOperationEnum;
-	PanelPosition : IfcWindowPanelPositionEnum;
-	FrameDepth? : IfcPositiveLengthMeasure;
-	FrameThickness? : IfcPositiveLengthMeasure;
-	ShapeAspectStyle? : IfcShapeAspect;
-
+    constructor( public readonly OperationType : IfcPermeableCoveringOperationEnum , public readonly PanelPosition : IfcWindowPanelPositionEnum , public readonly FrameDepth : IfcPositiveLengthMeasure  | undefined, public readonly FrameThickness : IfcPositiveLengthMeasure  | undefined, public readonly ShapeAspectStyle : IfcShapeAspect  | undefined ) {}
 }
 
 export class IfcPermeableCoveringPropertiesSpecification implements ComponentSpecification

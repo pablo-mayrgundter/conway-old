@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcIdentifier} from "./IfcIdentifier.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcIdentifier from "./IfcIdentifier.bldrs"
 
 
 /**
@@ -16,10 +16,7 @@ export default class IfcExternalReference implements Component< SchemaSpecificat
 
     public readonly __version__: number = 0;
 
-	Location? : IfcLabel;
-	ItemReference? : IfcIdentifier;
-	Name? : IfcLabel;
-
+    constructor( public readonly Location : IfcLabel  | undefined, public readonly ItemReference : IfcIdentifier  | undefined, public readonly Name : IfcLabel  | undefined ) {}
 }
 
 export class IfcExternalReferenceSpecification implements ComponentSpecification

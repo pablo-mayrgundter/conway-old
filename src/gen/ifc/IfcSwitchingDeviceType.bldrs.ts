@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcSwitchingDeviceTypeEnum} from "./IfcSwitchingDeviceTypeEnum.bldrs"
+import IfcSwitchingDeviceTypeEnum from "./IfcSwitchingDeviceTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcSwitchingDeviceType implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcSwitchingDeviceTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcSwitchingDeviceTypeEnum  ) {}
 }
 
 export class IfcSwitchingDeviceTypeSpecification implements ComponentSpecification

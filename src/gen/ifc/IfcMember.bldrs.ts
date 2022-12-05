@@ -14,7 +14,7 @@ export default class IfcMember implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcMemberSpecification implements ComponentSpecification

@@ -14,7 +14,7 @@ export default class IfcLinearDimension implements Component< SchemaSpecificatio
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcLinearDimensionSpecification implements ComponentSpecification

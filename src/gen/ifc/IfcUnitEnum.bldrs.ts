@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcunitenum.htm
-export enum IfcUnitEnum 
+enum IfcUnitEnum 
 {
 	ABSORBEDDOSEUNIT=".ABSORBEDDOSEUNIT.",
 	AMOUNTOFSUBSTANCEUNIT=".AMOUNTOFSUBSTANCEUNIT.",
@@ -32,4 +32,6 @@ export enum IfcUnitEnum
 	TIMEUNIT=".TIMEUNIT.",
 	VOLUMEUNIT=".VOLUMEUNIT.",
 	USERDEFINED=".USERDEFINED."
-}
+};
+
+export default IfcUnitEnum;

@@ -3,12 +3,12 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcAreaMeasure} from "./IfcAreaMeasure.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcReinforcingBarSurfaceEnum} from "./IfcReinforcingBarSurfaceEnum.bldrs"
-import {IfcLengthMeasure} from "./IfcLengthMeasure.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
-import {IfcCountMeasure} from "./IfcCountMeasure.bldrs"
+import IfcAreaMeasure from "./IfcAreaMeasure.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcReinforcingBarSurfaceEnum from "./IfcReinforcingBarSurfaceEnum.bldrs"
+import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
+import IfcCountMeasure from "./IfcCountMeasure.bldrs"
 
 
 /**
@@ -20,13 +20,7 @@ export default class IfcReinforcementBarProperties implements Component< SchemaS
 
     public readonly __version__: number = 0;
 
-	TotalCrossSectionArea : IfcAreaMeasure;
-	SteelGrade : IfcLabel;
-	BarSurface? : IfcReinforcingBarSurfaceEnum;
-	EffectiveDepth? : IfcLengthMeasure;
-	NominalBarDiameter? : IfcPositiveLengthMeasure;
-	BarCount? : IfcCountMeasure;
-
+    constructor( public readonly TotalCrossSectionArea : IfcAreaMeasure , public readonly SteelGrade : IfcLabel , public readonly BarSurface : IfcReinforcingBarSurfaceEnum  | undefined, public readonly EffectiveDepth : IfcLengthMeasure  | undefined, public readonly NominalBarDiameter : IfcPositiveLengthMeasure  | undefined, public readonly BarCount : IfcCountMeasure  | undefined ) {}
 }
 
 export class IfcReinforcementBarPropertiesSpecification implements ComponentSpecification

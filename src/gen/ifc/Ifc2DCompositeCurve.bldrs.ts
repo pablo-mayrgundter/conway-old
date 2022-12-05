@@ -14,7 +14,7 @@ export default class Ifc2DCompositeCurve implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class Ifc2DCompositeCurveSpecification implements ComponentSpecification

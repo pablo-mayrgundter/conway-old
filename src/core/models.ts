@@ -1,7 +1,7 @@
 import { Model } from "./model";
 import SchemaSpecification from "./schema_specification";
 
-export default interface Models< K extends (string | number), M extends Model< K > >
+export default interface Models< K extends (string | number), T extends SchemaSpecification >
 {
-    readonly models: ReadonlyMap< K, M >;
+    readonly models: ReadonlyMap< K, Model< K, T > >;
 }

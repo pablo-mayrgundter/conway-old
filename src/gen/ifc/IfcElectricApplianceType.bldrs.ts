@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcElectricApplianceTypeEnum} from "./IfcElectricApplianceTypeEnum.bldrs"
+import IfcElectricApplianceTypeEnum from "./IfcElectricApplianceTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcElectricApplianceType implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcElectricApplianceTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcElectricApplianceTypeEnum  ) {}
 }
 
 export class IfcElectricApplianceTypeSpecification implements ComponentSpecification

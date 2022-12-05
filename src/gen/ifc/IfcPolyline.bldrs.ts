@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCartesianPoint} from "./IfcCartesianPoint.bldrs"
+import IfcCartesianPoint from "./IfcCartesianPoint.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcPolyline implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	Points : Array<IfcCartesianPoint>;
-
+    constructor( public readonly Points : Array<IfcCartesianPoint>  ) {}
 }
 
 export class IfcPolylineSpecification implements ComponentSpecification

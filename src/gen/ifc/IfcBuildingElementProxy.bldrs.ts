@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcElementCompositionEnum} from "./IfcElementCompositionEnum.bldrs"
+import IfcElementCompositionEnum from "./IfcElementCompositionEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcBuildingElementProxy implements Component< SchemaSpecifi
 
     public readonly __version__: number = 0;
 
-	CompositionType? : IfcElementCompositionEnum;
-
+    constructor( public readonly CompositionType : IfcElementCompositionEnum  | undefined ) {}
 }
 
 export class IfcBuildingElementProxySpecification implements ComponentSpecification

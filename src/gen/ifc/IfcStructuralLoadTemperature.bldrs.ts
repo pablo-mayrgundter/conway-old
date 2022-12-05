@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcThermodynamicTemperatureMeasure} from "./IfcThermodynamicTemperatureMeasure.bldrs"
+import IfcThermodynamicTemperatureMeasure from "./IfcThermodynamicTemperatureMeasure.bldrs"
 
 
 /**
@@ -15,10 +15,7 @@ export default class IfcStructuralLoadTemperature implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
-	DeltaT_Constant? : IfcThermodynamicTemperatureMeasure;
-	DeltaT_Y? : IfcThermodynamicTemperatureMeasure;
-	DeltaT_Z? : IfcThermodynamicTemperatureMeasure;
-
+    constructor( public readonly DeltaT_Constant : IfcThermodynamicTemperatureMeasure  | undefined, public readonly DeltaT_Y : IfcThermodynamicTemperatureMeasure  | undefined, public readonly DeltaT_Z : IfcThermodynamicTemperatureMeasure  | undefined ) {}
 }
 
 export class IfcStructuralLoadTemperatureSpecification implements ComponentSpecification

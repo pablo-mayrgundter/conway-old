@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPositiveRatioMeasure} from "./IfcPositiveRatioMeasure.bldrs"
-import {IfcIsothermalMoistureCapacityMeasure} from "./IfcIsothermalMoistureCapacityMeasure.bldrs"
-import {IfcVaporPermeabilityMeasure} from "./IfcVaporPermeabilityMeasure.bldrs"
-import {IfcMoistureDiffusivityMeasure} from "./IfcMoistureDiffusivityMeasure.bldrs"
+import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
+import IfcIsothermalMoistureCapacityMeasure from "./IfcIsothermalMoistureCapacityMeasure.bldrs"
+import IfcVaporPermeabilityMeasure from "./IfcVaporPermeabilityMeasure.bldrs"
+import IfcMoistureDiffusivityMeasure from "./IfcMoistureDiffusivityMeasure.bldrs"
 
 
 /**
@@ -18,12 +18,7 @@ export default class IfcHygroscopicMaterialProperties implements Component< Sche
 
     public readonly __version__: number = 0;
 
-	UpperVaporResistanceFactor? : IfcPositiveRatioMeasure;
-	LowerVaporResistanceFactor? : IfcPositiveRatioMeasure;
-	IsothermalMoistureCapacity? : IfcIsothermalMoistureCapacityMeasure;
-	VaporPermeability? : IfcVaporPermeabilityMeasure;
-	MoistureDiffusivity? : IfcMoistureDiffusivityMeasure;
-
+    constructor( public readonly UpperVaporResistanceFactor : IfcPositiveRatioMeasure  | undefined, public readonly LowerVaporResistanceFactor : IfcPositiveRatioMeasure  | undefined, public readonly IsothermalMoistureCapacity : IfcIsothermalMoistureCapacityMeasure  | undefined, public readonly VaporPermeability : IfcVaporPermeabilityMeasure  | undefined, public readonly MoistureDiffusivity : IfcMoistureDiffusivityMeasure  | undefined ) {}
 }
 
 export class IfcHygroscopicMaterialPropertiesSpecification implements ComponentSpecification

@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcElectricGeneratorTypeEnum} from "./IfcElectricGeneratorTypeEnum.bldrs"
+import IfcElectricGeneratorTypeEnum from "./IfcElectricGeneratorTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcElectricGeneratorType implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcElectricGeneratorTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcElectricGeneratorTypeEnum  ) {}
 }
 
 export class IfcElectricGeneratorTypeSpecification implements ComponentSpecification

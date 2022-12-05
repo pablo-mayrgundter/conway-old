@@ -3,11 +3,11 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcMomentOfInertiaMeasure} from "./IfcMomentOfInertiaMeasure.bldrs"
-import {IfcWarpingConstantMeasure} from "./IfcWarpingConstantMeasure.bldrs"
-import {IfcLengthMeasure} from "./IfcLengthMeasure.bldrs"
-import {IfcAreaMeasure} from "./IfcAreaMeasure.bldrs"
-import {IfcSectionModulusMeasure} from "./IfcSectionModulusMeasure.bldrs"
+import IfcMomentOfInertiaMeasure from "./IfcMomentOfInertiaMeasure.bldrs"
+import IfcWarpingConstantMeasure from "./IfcWarpingConstantMeasure.bldrs"
+import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
+import IfcAreaMeasure from "./IfcAreaMeasure.bldrs"
+import IfcSectionModulusMeasure from "./IfcSectionModulusMeasure.bldrs"
 
 
 /**
@@ -19,23 +19,7 @@ export default class IfcStructuralProfileProperties implements Component< Schema
 
     public readonly __version__: number = 0;
 
-	TorsionalConstantX? : IfcMomentOfInertiaMeasure;
-	MomentOfInertiaYZ? : IfcMomentOfInertiaMeasure;
-	MomentOfInertiaY? : IfcMomentOfInertiaMeasure;
-	MomentOfInertiaZ? : IfcMomentOfInertiaMeasure;
-	WarpingConstant? : IfcWarpingConstantMeasure;
-	ShearCentreZ? : IfcLengthMeasure;
-	ShearCentreY? : IfcLengthMeasure;
-	ShearDeformationAreaZ? : IfcAreaMeasure;
-	ShearDeformationAreaY? : IfcAreaMeasure;
-	MaximumSectionModulusY? : IfcSectionModulusMeasure;
-	MinimumSectionModulusY? : IfcSectionModulusMeasure;
-	MaximumSectionModulusZ? : IfcSectionModulusMeasure;
-	MinimumSectionModulusZ? : IfcSectionModulusMeasure;
-	TorsionalSectionModulus? : IfcSectionModulusMeasure;
-	CentreOfGravityInX? : IfcLengthMeasure;
-	CentreOfGravityInY? : IfcLengthMeasure;
-
+    constructor( public readonly TorsionalConstantX : IfcMomentOfInertiaMeasure  | undefined, public readonly MomentOfInertiaYZ : IfcMomentOfInertiaMeasure  | undefined, public readonly MomentOfInertiaY : IfcMomentOfInertiaMeasure  | undefined, public readonly MomentOfInertiaZ : IfcMomentOfInertiaMeasure  | undefined, public readonly WarpingConstant : IfcWarpingConstantMeasure  | undefined, public readonly ShearCentreZ : IfcLengthMeasure  | undefined, public readonly ShearCentreY : IfcLengthMeasure  | undefined, public readonly ShearDeformationAreaZ : IfcAreaMeasure  | undefined, public readonly ShearDeformationAreaY : IfcAreaMeasure  | undefined, public readonly MaximumSectionModulusY : IfcSectionModulusMeasure  | undefined, public readonly MinimumSectionModulusY : IfcSectionModulusMeasure  | undefined, public readonly MaximumSectionModulusZ : IfcSectionModulusMeasure  | undefined, public readonly MinimumSectionModulusZ : IfcSectionModulusMeasure  | undefined, public readonly TorsionalSectionModulus : IfcSectionModulusMeasure  | undefined, public readonly CentreOfGravityInX : IfcLengthMeasure  | undefined, public readonly CentreOfGravityInY : IfcLengthMeasure  | undefined ) {}
 }
 
 export class IfcStructuralProfilePropertiesSpecification implements ComponentSpecification

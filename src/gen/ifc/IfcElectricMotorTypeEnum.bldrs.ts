@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcelectricmotortypeenum.htm
-export enum IfcElectricMotorTypeEnum 
+enum IfcElectricMotorTypeEnum 
 {
 	DC=".DC.",
 	INDUCTION=".INDUCTION.",
@@ -9,4 +9,6 @@ export enum IfcElectricMotorTypeEnum
 	SYNCHRONOUS=".SYNCHRONOUS.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcElectricMotorTypeEnum;

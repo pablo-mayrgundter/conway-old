@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcTubeBundleTypeEnum} from "./IfcTubeBundleTypeEnum.bldrs"
+import IfcTubeBundleTypeEnum from "./IfcTubeBundleTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcTubeBundleType implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcTubeBundleTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcTubeBundleTypeEnum  ) {}
 }
 
 export class IfcTubeBundleTypeSpecification implements ComponentSpecification

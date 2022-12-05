@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcreinforcingbarroleenum.htm
-export enum IfcReinforcingBarRoleEnum 
+enum IfcReinforcingBarRoleEnum 
 {
 	MAIN=".MAIN.",
 	SHEAR=".SHEAR.",
@@ -11,4 +11,6 @@ export enum IfcReinforcingBarRoleEnum
 	RING=".RING.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcReinforcingBarRoleEnum;

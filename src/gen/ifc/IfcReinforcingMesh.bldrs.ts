@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
-import {IfcAreaMeasure} from "./IfcAreaMeasure.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
+import IfcAreaMeasure from "./IfcAreaMeasure.bldrs"
 
 
 /**
@@ -16,15 +16,7 @@ export default class IfcReinforcingMesh implements Component< SchemaSpecificatio
 
     public readonly __version__: number = 0;
 
-	MeshLength? : IfcPositiveLengthMeasure;
-	MeshWidth? : IfcPositiveLengthMeasure;
-	LongitudinalBarNominalDiameter : IfcPositiveLengthMeasure;
-	TransverseBarNominalDiameter : IfcPositiveLengthMeasure;
-	LongitudinalBarCrossSectionArea : IfcAreaMeasure;
-	TransverseBarCrossSectionArea : IfcAreaMeasure;
-	LongitudinalBarSpacing : IfcPositiveLengthMeasure;
-	TransverseBarSpacing : IfcPositiveLengthMeasure;
-
+    constructor( public readonly MeshLength : IfcPositiveLengthMeasure  | undefined, public readonly MeshWidth : IfcPositiveLengthMeasure  | undefined, public readonly LongitudinalBarNominalDiameter : IfcPositiveLengthMeasure , public readonly TransverseBarNominalDiameter : IfcPositiveLengthMeasure , public readonly LongitudinalBarCrossSectionArea : IfcAreaMeasure , public readonly TransverseBarCrossSectionArea : IfcAreaMeasure , public readonly LongitudinalBarSpacing : IfcPositiveLengthMeasure , public readonly TransverseBarSpacing : IfcPositiveLengthMeasure  ) {}
 }
 
 export class IfcReinforcingMeshSpecification implements ComponentSpecification

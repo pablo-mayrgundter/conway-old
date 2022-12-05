@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcproceduretypeenum.htm
-export enum IfcProcedureTypeEnum 
+enum IfcProcedureTypeEnum 
 {
 	ADVICE_CAUTION=".ADVICE_CAUTION.",
 	ADVICE_NOTE=".ADVICE_NOTE.",
@@ -11,4 +11,6 @@ export enum IfcProcedureTypeEnum
 	STARTUP=".STARTUP.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcProcedureTypeEnum;

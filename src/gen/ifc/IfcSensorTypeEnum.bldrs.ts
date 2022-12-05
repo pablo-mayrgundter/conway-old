@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcsensortypeenum.htm
-export enum IfcSensorTypeEnum 
+enum IfcSensorTypeEnum 
 {
 	CO2SENSOR=".CO2SENSOR.",
 	FIRESENSOR=".FIRESENSOR.",
@@ -17,4 +17,6 @@ export enum IfcSensorTypeEnum
 	TEMPERATURESENSOR=".TEMPERATURESENSOR.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcSensorTypeEnum;

@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcElectricHeaterTypeEnum} from "./IfcElectricHeaterTypeEnum.bldrs"
+import IfcElectricHeaterTypeEnum from "./IfcElectricHeaterTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcElectricHeaterType implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcElectricHeaterTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcElectricHeaterTypeEnum  ) {}
 }
 
 export class IfcElectricHeaterTypeSpecification implements ComponentSpecification

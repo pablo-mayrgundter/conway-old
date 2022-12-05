@@ -3,12 +3,12 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcSurfaceSide} from "./IfcSurfaceSide.bldrs"
-import {IfcSurfaceStyleShading} from "./IfcSurfaceStyleShading.bldrs"
-import {IfcSurfaceStyleLighting} from "./IfcSurfaceStyleLighting.bldrs"
-import {IfcSurfaceStyleWithTextures} from "./IfcSurfaceStyleWithTextures.bldrs"
-import {IfcExternallyDefinedSurfaceStyle} from "./IfcExternallyDefinedSurfaceStyle.bldrs"
-import {IfcSurfaceStyleRefraction} from "./IfcSurfaceStyleRefraction.bldrs"
+import IfcSurfaceSide from "./IfcSurfaceSide.bldrs"
+import IfcSurfaceStyleShading from "./IfcSurfaceStyleShading.bldrs"
+import IfcSurfaceStyleLighting from "./IfcSurfaceStyleLighting.bldrs"
+import IfcSurfaceStyleWithTextures from "./IfcSurfaceStyleWithTextures.bldrs"
+import IfcExternallyDefinedSurfaceStyle from "./IfcExternallyDefinedSurfaceStyle.bldrs"
+import IfcSurfaceStyleRefraction from "./IfcSurfaceStyleRefraction.bldrs"
 
 
 /**
@@ -20,9 +20,7 @@ export default class IfcSurfaceStyle implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
-	Side : IfcSurfaceSide;
-	Styles : Array<IfcSurfaceStyleShading|IfcSurfaceStyleLighting|IfcSurfaceStyleWithTextures|IfcExternallyDefinedSurfaceStyle|IfcSurfaceStyleRefraction>;
-
+    constructor( public readonly Side : IfcSurfaceSide , public readonly Styles : Array<IfcSurfaceStyleShading|IfcSurfaceStyleLighting|IfcSurfaceStyleWithTextures|IfcExternallyDefinedSurfaceStyle|IfcSurfaceStyleRefraction>  ) {}
 }
 
 export class IfcSurfaceStyleSpecification implements ComponentSpecification

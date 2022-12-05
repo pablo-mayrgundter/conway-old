@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
-import {IfcLengthMeasure} from "./IfcLengthMeasure.bldrs"
-import {IfcShapeAspect} from "./IfcShapeAspect.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
+import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
+import IfcShapeAspect from "./IfcShapeAspect.bldrs"
 
 
 /**
@@ -17,18 +17,7 @@ export default class IfcDoorLiningProperties implements Component< SchemaSpecifi
 
     public readonly __version__: number = 0;
 
-	LiningDepth? : IfcPositiveLengthMeasure;
-	LiningThickness? : IfcPositiveLengthMeasure;
-	ThresholdDepth? : IfcPositiveLengthMeasure;
-	ThresholdThickness? : IfcPositiveLengthMeasure;
-	TransomThickness? : IfcPositiveLengthMeasure;
-	TransomOffset? : IfcLengthMeasure;
-	LiningOffset? : IfcLengthMeasure;
-	ThresholdOffset? : IfcLengthMeasure;
-	CasingThickness? : IfcPositiveLengthMeasure;
-	CasingDepth? : IfcPositiveLengthMeasure;
-	ShapeAspectStyle? : IfcShapeAspect;
-
+    constructor( public readonly LiningDepth : IfcPositiveLengthMeasure  | undefined, public readonly LiningThickness : IfcPositiveLengthMeasure  | undefined, public readonly ThresholdDepth : IfcPositiveLengthMeasure  | undefined, public readonly ThresholdThickness : IfcPositiveLengthMeasure  | undefined, public readonly TransomThickness : IfcPositiveLengthMeasure  | undefined, public readonly TransomOffset : IfcLengthMeasure  | undefined, public readonly LiningOffset : IfcLengthMeasure  | undefined, public readonly ThresholdOffset : IfcLengthMeasure  | undefined, public readonly CasingThickness : IfcPositiveLengthMeasure  | undefined, public readonly CasingDepth : IfcPositiveLengthMeasure  | undefined, public readonly ShapeAspectStyle : IfcShapeAspect  | undefined ) {}
 }
 
 export class IfcDoorLiningPropertiesSpecification implements ComponentSpecification

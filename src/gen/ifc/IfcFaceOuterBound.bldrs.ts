@@ -14,7 +14,7 @@ export default class IfcFaceOuterBound implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcFaceOuterBoundSpecification implements ComponentSpecification

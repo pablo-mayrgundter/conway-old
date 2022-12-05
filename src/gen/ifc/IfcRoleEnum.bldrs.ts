@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcroleenum.htm
-export enum IfcRoleEnum 
+enum IfcRoleEnum 
 {
 	SUPPLIER=".SUPPLIER.",
 	MANUFACTURER=".MANUFACTURER.",
@@ -25,4 +25,6 @@ export enum IfcRoleEnum
 	FIELDCONSTRUCTIONMANAGER=".FIELDCONSTRUCTIONMANAGER.",
 	RESELLER=".RESELLER.",
 	USERDEFINED=".USERDEFINED."
-}
+};
+
+export default IfcRoleEnum;

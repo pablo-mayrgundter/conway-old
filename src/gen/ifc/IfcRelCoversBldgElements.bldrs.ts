@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcElement} from "./IfcElement.bldrs"
-import {IfcCovering} from "./IfcCovering.bldrs"
+import IfcElement from "./IfcElement.bldrs"
+import IfcCovering from "./IfcCovering.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcRelCoversBldgElements implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	RelatingBuildingElement : IfcElement;
-	RelatedCoverings : Array<IfcCovering>;
-
+    constructor( public readonly RelatingBuildingElement : IfcElement , public readonly RelatedCoverings : Array<IfcCovering>  ) {}
 }
 
 export class IfcRelCoversBldgElementsSpecification implements ComponentSpecification

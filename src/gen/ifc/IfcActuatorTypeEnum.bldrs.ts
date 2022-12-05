@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcactuatortypeenum.htm
-export enum IfcActuatorTypeEnum 
+enum IfcActuatorTypeEnum 
 {
 	ELECTRICACTUATOR=".ELECTRICACTUATOR.",
 	HANDOPERATEDACTUATOR=".HANDOPERATEDACTUATOR.",
@@ -9,4 +9,6 @@ export enum IfcActuatorTypeEnum
 	THERMOSTATICACTUATOR=".THERMOSTATICACTUATOR.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcActuatorTypeEnum;

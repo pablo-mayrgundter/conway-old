@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcCalendarDate} from "./IfcCalendarDate.bldrs"
-import {IfcClassificationItem} from "./IfcClassificationItem.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcCalendarDate from "./IfcCalendarDate.bldrs"
+import IfcClassificationItem from "./IfcClassificationItem.bldrs"
 
 
 /**
@@ -17,11 +17,7 @@ export default class IfcClassification implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-	Source : IfcLabel;
-	Edition : IfcLabel;
-	EditionDate? : IfcCalendarDate;
-	Name : IfcLabel;
-
+    constructor( public readonly Source : IfcLabel , public readonly Edition : IfcLabel , public readonly EditionDate : IfcCalendarDate  | undefined, public readonly Name : IfcLabel  ) {}
 }
 
 export class IfcClassificationSpecification implements ComponentSpecification

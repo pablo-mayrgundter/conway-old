@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLengthMeasure} from "./IfcLengthMeasure.bldrs"
-import {IfcPlaneAngleMeasure} from "./IfcPlaneAngleMeasure.bldrs"
+import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
+import IfcPlaneAngleMeasure from "./IfcPlaneAngleMeasure.bldrs"
 
 
 /**
@@ -16,13 +16,7 @@ export default class IfcStructuralLoadSingleDisplacement implements Component< S
 
     public readonly __version__: number = 0;
 
-	DisplacementX? : IfcLengthMeasure;
-	DisplacementY? : IfcLengthMeasure;
-	DisplacementZ? : IfcLengthMeasure;
-	RotationalDisplacementRX? : IfcPlaneAngleMeasure;
-	RotationalDisplacementRY? : IfcPlaneAngleMeasure;
-	RotationalDisplacementRZ? : IfcPlaneAngleMeasure;
-
+    constructor( public readonly DisplacementX : IfcLengthMeasure  | undefined, public readonly DisplacementY : IfcLengthMeasure  | undefined, public readonly DisplacementZ : IfcLengthMeasure  | undefined, public readonly RotationalDisplacementRX : IfcPlaneAngleMeasure  | undefined, public readonly RotationalDisplacementRY : IfcPlaneAngleMeasure  | undefined, public readonly RotationalDisplacementRZ : IfcPlaneAngleMeasure  | undefined ) {}
 }
 
 export class IfcStructuralLoadSingleDisplacementSpecification implements ComponentSpecification

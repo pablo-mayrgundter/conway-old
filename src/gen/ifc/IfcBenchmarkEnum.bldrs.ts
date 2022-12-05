@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcbenchmarkenum.htm
-export enum IfcBenchmarkEnum 
+enum IfcBenchmarkEnum 
 {
 	GREATERTHAN=".GREATERTHAN.",
 	GREATERTHANOREQUALTO=".GREATERTHANOREQUALTO.",
@@ -8,4 +8,6 @@ export enum IfcBenchmarkEnum
 	LESSTHANOREQUALTO=".LESSTHANOREQUALTO.",
 	EQUALTO=".EQUALTO.",
 	NOTEQUALTO=".NOTEQUALTO."
-}
+};
+
+export default IfcBenchmarkEnum;

@@ -3,11 +3,11 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcDimensionCount} from "./IfcDimensionCount.bldrs"
-import {IfcAxis2Placement2D} from "./IfcAxis2Placement2D.bldrs"
-import {IfcAxis2Placement3D} from "./IfcAxis2Placement3D.bldrs"
-import {IfcDirection} from "./IfcDirection.bldrs"
-import {IfcGeometricRepresentationSubContext} from "./IfcGeometricRepresentationSubContext.bldrs"
+import IfcDimensionCount from "./IfcDimensionCount.bldrs"
+import IfcAxis2Placement2D from "./IfcAxis2Placement2D.bldrs"
+import IfcAxis2Placement3D from "./IfcAxis2Placement3D.bldrs"
+import IfcDirection from "./IfcDirection.bldrs"
+import IfcGeometricRepresentationSubContext from "./IfcGeometricRepresentationSubContext.bldrs"
 
 
 /**
@@ -19,11 +19,7 @@ export default class IfcGeometricRepresentationContext implements Component< Sch
 
     public readonly __version__: number = 0;
 
-	CoordinateSpaceDimension : IfcDimensionCount;
-	Precision? : number;
-	WorldCoordinateSystem : IfcAxis2Placement2D|IfcAxis2Placement3D;
-	TrueNorth? : IfcDirection;
-
+    constructor( public readonly CoordinateSpaceDimension : IfcDimensionCount , public readonly Precision : number  | undefined, public readonly WorldCoordinateSystem : IfcAxis2Placement2D|IfcAxis2Placement3D , public readonly TrueNorth : IfcDirection  | undefined ) {}
 }
 
 export class IfcGeometricRepresentationContextSpecification implements ComponentSpecification

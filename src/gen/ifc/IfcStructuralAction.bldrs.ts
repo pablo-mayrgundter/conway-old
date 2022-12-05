@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcStructuralReaction} from "./IfcStructuralReaction.bldrs"
+import IfcStructuralReaction from "./IfcStructuralReaction.bldrs"
 
 
 /**
@@ -15,9 +15,7 @@ export default class IfcStructuralAction implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
-	DestabilizingLoad : boolean;
-	CausedBy? : IfcStructuralReaction;
-
+    constructor( public readonly DestabilizingLoad : boolean , public readonly CausedBy : IfcStructuralReaction  | undefined ) {}
 }
 
 export class IfcStructuralActionSpecification implements ComponentSpecification

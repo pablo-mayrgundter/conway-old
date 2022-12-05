@@ -3,15 +3,15 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcRatioMeasure} from "./IfcRatioMeasure.bldrs"
-import {IfcLengthMeasure} from "./IfcLengthMeasure.bldrs"
-import {IfcDescriptiveMeasure} from "./IfcDescriptiveMeasure.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
-import {IfcNormalisedRatioMeasure} from "./IfcNormalisedRatioMeasure.bldrs"
-import {IfcPositiveRatioMeasure} from "./IfcPositiveRatioMeasure.bldrs"
-import {IfcTextAlignment} from "./IfcTextAlignment.bldrs"
-import {IfcTextDecoration} from "./IfcTextDecoration.bldrs"
-import {IfcTextTransformation} from "./IfcTextTransformation.bldrs"
+import IfcRatioMeasure from "./IfcRatioMeasure.bldrs"
+import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
+import IfcDescriptiveMeasure from "./IfcDescriptiveMeasure.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
+import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
+import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
+import IfcTextAlignment from "./IfcTextAlignment.bldrs"
+import IfcTextDecoration from "./IfcTextDecoration.bldrs"
+import IfcTextTransformation from "./IfcTextTransformation.bldrs"
 
 
 /**
@@ -23,14 +23,7 @@ export default class IfcTextStyleTextModel implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
-	TextIndent? : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure;
-	TextAlign? : IfcTextAlignment;
-	TextDecoration? : IfcTextDecoration;
-	LetterSpacing? : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure;
-	WordSpacing? : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure;
-	TextTransform? : IfcTextTransformation;
-	LineHeight? : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure;
-
+    constructor( public readonly TextIndent : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure  | undefined, public readonly TextAlign : IfcTextAlignment  | undefined, public readonly TextDecoration : IfcTextDecoration  | undefined, public readonly LetterSpacing : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure  | undefined, public readonly WordSpacing : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure  | undefined, public readonly TextTransform : IfcTextTransformation  | undefined, public readonly LineHeight : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure  | undefined ) {}
 }
 
 export class IfcTextStyleTextModelSpecification implements ComponentSpecification

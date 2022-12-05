@@ -14,7 +14,7 @@ export default class IfcBuildingElementPart implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcBuildingElementPartSpecification implements ComponentSpecification

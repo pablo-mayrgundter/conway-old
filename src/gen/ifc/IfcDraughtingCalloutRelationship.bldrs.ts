@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcText} from "./IfcText.bldrs"
-import {IfcDraughtingCallout} from "./IfcDraughtingCallout.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcText from "./IfcText.bldrs"
+import IfcDraughtingCallout from "./IfcDraughtingCallout.bldrs"
 
 
 /**
@@ -17,11 +17,7 @@ export default class IfcDraughtingCalloutRelationship implements Component< Sche
 
     public readonly __version__: number = 0;
 
-	Name? : IfcLabel;
-	Description? : IfcText;
-	RelatingDraughtingCallout : IfcDraughtingCallout;
-	RelatedDraughtingCallout : IfcDraughtingCallout;
-
+    constructor( public readonly Name : IfcLabel  | undefined, public readonly Description : IfcText  | undefined, public readonly RelatingDraughtingCallout : IfcDraughtingCallout , public readonly RelatedDraughtingCallout : IfcDraughtingCallout  ) {}
 }
 
 export class IfcDraughtingCalloutRelationshipSpecification implements ComponentSpecification

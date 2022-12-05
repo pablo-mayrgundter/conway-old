@@ -14,7 +14,7 @@ export default class IfcRelAggregates implements Component< SchemaSpecificationI
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcRelAggregatesSpecification implements ComponentSpecification

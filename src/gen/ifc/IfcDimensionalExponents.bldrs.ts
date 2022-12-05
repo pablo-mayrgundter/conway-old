@@ -14,14 +14,7 @@ export default class IfcDimensionalExponents implements Component< SchemaSpecifi
 
     public readonly __version__: number = 0;
 
-	LengthExponent : number;
-	MassExponent : number;
-	TimeExponent : number;
-	ElectricCurrentExponent : number;
-	ThermodynamicTemperatureExponent : number;
-	AmountOfSubstanceExponent : number;
-	LuminousIntensityExponent : number;
-
+    constructor( public readonly LengthExponent : number , public readonly MassExponent : number , public readonly TimeExponent : number , public readonly ElectricCurrentExponent : number , public readonly ThermodynamicTemperatureExponent : number , public readonly AmountOfSubstanceExponent : number , public readonly LuminousIntensityExponent : number  ) {}
 }
 
 export class IfcDimensionalExponentsSpecification implements ComponentSpecification

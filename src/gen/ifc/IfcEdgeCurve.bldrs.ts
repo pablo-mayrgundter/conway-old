@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCurve} from "./IfcCurve.bldrs"
+import IfcCurve from "./IfcCurve.bldrs"
 
 
 /**
@@ -15,9 +15,7 @@ export default class IfcEdgeCurve implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	EdgeGeometry : IfcCurve;
-	SameSense : boolean;
-
+    constructor( public readonly EdgeGeometry : IfcCurve , public readonly SameSense : boolean  ) {}
 }
 
 export class IfcEdgeCurveSpecification implements ComponentSpecification

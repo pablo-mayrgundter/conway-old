@@ -14,7 +14,7 @@ export default class IfcPreDefinedPointMarkerSymbol implements Component< Schema
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcPreDefinedPointMarkerSymbolSpecification implements ComponentSpecification

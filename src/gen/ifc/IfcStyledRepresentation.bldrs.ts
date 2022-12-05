@@ -14,7 +14,7 @@ export default class IfcStyledRepresentation implements Component< SchemaSpecifi
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcStyledRepresentationSpecification implements ComponentSpecification

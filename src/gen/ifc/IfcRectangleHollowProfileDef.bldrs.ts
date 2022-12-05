@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 
 
 /**
@@ -15,10 +15,7 @@ export default class IfcRectangleHollowProfileDef implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
-	WallThickness : IfcPositiveLengthMeasure;
-	InnerFilletRadius? : IfcPositiveLengthMeasure;
-	OuterFilletRadius? : IfcPositiveLengthMeasure;
-
+    constructor( public readonly WallThickness : IfcPositiveLengthMeasure , public readonly InnerFilletRadius : IfcPositiveLengthMeasure  | undefined, public readonly OuterFilletRadius : IfcPositiveLengthMeasure  | undefined ) {}
 }
 
 export class IfcRectangleHollowProfileDefSpecification implements ComponentSpecification

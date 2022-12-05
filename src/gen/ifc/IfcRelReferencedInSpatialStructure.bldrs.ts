@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcProduct} from "./IfcProduct.bldrs"
-import {IfcSpatialStructureElement} from "./IfcSpatialStructureElement.bldrs"
+import IfcProduct from "./IfcProduct.bldrs"
+import IfcSpatialStructureElement from "./IfcSpatialStructureElement.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcRelReferencedInSpatialStructure implements Component< Sc
 
     public readonly __version__: number = 0;
 
-	RelatedElements : Array<IfcProduct>;
-	RelatingStructure : IfcSpatialStructureElement;
-
+    constructor( public readonly RelatedElements : Array<IfcProduct> , public readonly RelatingStructure : IfcSpatialStructureElement  ) {}
 }
 
 export class IfcRelReferencedInSpatialStructureSpecification implements ComponentSpecification

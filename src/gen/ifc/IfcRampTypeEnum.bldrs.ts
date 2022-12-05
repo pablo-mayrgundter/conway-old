@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcramptypeenum.htm
-export enum IfcRampTypeEnum 
+enum IfcRampTypeEnum 
 {
 	STRAIGHT_RUN_RAMP=".STRAIGHT_RUN_RAMP.",
 	TWO_STRAIGHT_RUN_RAMP=".TWO_STRAIGHT_RUN_RAMP.",
@@ -10,4 +10,6 @@ export enum IfcRampTypeEnum
 	SPIRAL_RAMP=".SPIRAL_RAMP.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcRampTypeEnum;

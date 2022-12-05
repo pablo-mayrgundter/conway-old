@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcanalysistheorytypeenum.htm
-export enum IfcAnalysisTheoryTypeEnum 
+enum IfcAnalysisTheoryTypeEnum 
 {
 	FIRST_ORDER_THEORY=".FIRST_ORDER_THEORY.",
 	SECOND_ORDER_THEORY=".SECOND_ORDER_THEORY.",
@@ -8,4 +8,6 @@ export enum IfcAnalysisTheoryTypeEnum
 	FULL_NONLINEAR_THEORY=".FULL_NONLINEAR_THEORY.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcAnalysisTheoryTypeEnum;

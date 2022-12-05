@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcDuctSegmentTypeEnum} from "./IfcDuctSegmentTypeEnum.bldrs"
+import IfcDuctSegmentTypeEnum from "./IfcDuctSegmentTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcDuctSegmentType implements Component< SchemaSpecificatio
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcDuctSegmentTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcDuctSegmentTypeEnum  ) {}
 }
 
 export class IfcDuctSegmentTypeSpecification implements ComponentSpecification

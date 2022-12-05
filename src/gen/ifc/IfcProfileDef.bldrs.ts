@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcProfileTypeEnum} from "./IfcProfileTypeEnum.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
+import IfcProfileTypeEnum from "./IfcProfileTypeEnum.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcProfileDef implements Component< SchemaSpecificationIFC 
 
     public readonly __version__: number = 0;
 
-	ProfileType : IfcProfileTypeEnum;
-	ProfileName? : IfcLabel;
-
+    constructor( public readonly ProfileType : IfcProfileTypeEnum , public readonly ProfileName : IfcLabel  | undefined ) {}
 }
 
 export class IfcProfileDefSpecification implements ComponentSpecification

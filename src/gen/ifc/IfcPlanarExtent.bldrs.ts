@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLengthMeasure} from "./IfcLengthMeasure.bldrs"
+import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 
 
 /**
@@ -15,9 +15,7 @@ export default class IfcPlanarExtent implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
-	SizeInX : IfcLengthMeasure;
-	SizeInY : IfcLengthMeasure;
-
+    constructor( public readonly SizeInX : IfcLengthMeasure , public readonly SizeInY : IfcLengthMeasure  ) {}
 }
 
 export class IfcPlanarExtentSpecification implements ComponentSpecification

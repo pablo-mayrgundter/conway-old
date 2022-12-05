@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcchangeactionenum.htm
-export enum IfcChangeActionEnum 
+enum IfcChangeActionEnum 
 {
 	NOCHANGE=".NOCHANGE.",
 	MODIFIED=".MODIFIED.",
@@ -8,4 +8,6 @@ export enum IfcChangeActionEnum
 	DELETED=".DELETED.",
 	MODIFIEDADDED=".MODIFIEDADDED.",
 	MODIFIEDDELETED=".MODIFIEDDELETED."
-}
+};
+
+export default IfcChangeActionEnum;

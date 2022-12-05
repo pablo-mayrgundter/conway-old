@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcControllerTypeEnum} from "./IfcControllerTypeEnum.bldrs"
+import IfcControllerTypeEnum from "./IfcControllerTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcControllerType implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcControllerTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcControllerTypeEnum  ) {}
 }
 
 export class IfcControllerTypeSpecification implements ComponentSpecification

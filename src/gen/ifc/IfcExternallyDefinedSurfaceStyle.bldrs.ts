@@ -14,7 +14,7 @@ export default class IfcExternallyDefinedSurfaceStyle implements Component< Sche
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcExternallyDefinedSurfaceStyleSpecification implements ComponentSpecification

@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcAxis2Placement2D} from "./IfcAxis2Placement2D.bldrs"
-import {IfcAxis2Placement3D} from "./IfcAxis2Placement3D.bldrs"
-import {IfcRepresentation} from "./IfcRepresentation.bldrs"
-import {IfcMappedItem} from "./IfcMappedItem.bldrs"
+import IfcAxis2Placement2D from "./IfcAxis2Placement2D.bldrs"
+import IfcAxis2Placement3D from "./IfcAxis2Placement3D.bldrs"
+import IfcRepresentation from "./IfcRepresentation.bldrs"
+import IfcMappedItem from "./IfcMappedItem.bldrs"
 
 
 /**
@@ -18,9 +18,7 @@ export default class IfcRepresentationMap implements Component< SchemaSpecificat
 
     public readonly __version__: number = 0;
 
-	MappingOrigin : IfcAxis2Placement2D|IfcAxis2Placement3D;
-	MappedRepresentation : IfcRepresentation;
-
+    constructor( public readonly MappingOrigin : IfcAxis2Placement2D|IfcAxis2Placement3D , public readonly MappedRepresentation : IfcRepresentation  ) {}
 }
 
 export class IfcRepresentationMapSpecification implements ComponentSpecification

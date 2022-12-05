@@ -1,6 +1,7 @@
 
-import {BaseIfc} from "./BaseIfc"
 
 
 // http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifctextfontname.htm
-export type IfcTextFontName = string
+type IfcTextFontName = string;
+
+export default IfcTextFontName;

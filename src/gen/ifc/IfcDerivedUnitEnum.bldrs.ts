@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcderivedunitenum.htm
-export enum IfcDerivedUnitEnum 
+enum IfcDerivedUnitEnum 
 {
 	ANGULARVELOCITYUNIT=".ANGULARVELOCITYUNIT.",
 	COMPOUNDPLANEANGLEUNIT=".COMPOUNDPLANEANGLEUNIT.",
@@ -51,4 +51,6 @@ export enum IfcDerivedUnitEnum
 	WARPINGCONSTANTUNIT=".WARPINGCONSTANTUNIT.",
 	WARPINGMOMENTUNIT=".WARPINGMOMENTUNIT.",
 	USERDEFINED=".USERDEFINED."
-}
+};
+
+export default IfcDerivedUnitEnum;

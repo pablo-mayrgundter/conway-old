@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCartesianPoint} from "./IfcCartesianPoint.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
-import {IfcReal} from "./IfcReal.bldrs"
+import IfcCartesianPoint from "./IfcCartesianPoint.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
+import IfcReal from "./IfcReal.bldrs"
 
 
 /**
@@ -17,12 +17,7 @@ export default class IfcLightSourcePositional implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	Position : IfcCartesianPoint;
-	Radius : IfcPositiveLengthMeasure;
-	ConstantAttenuation : IfcReal;
-	DistanceAttenuation : IfcReal;
-	QuadricAttenuation : IfcReal;
-
+    constructor( public readonly Position : IfcCartesianPoint , public readonly Radius : IfcPositiveLengthMeasure , public readonly ConstantAttenuation : IfcReal , public readonly DistanceAttenuation : IfcReal , public readonly QuadricAttenuation : IfcReal  ) {}
 }
 
 export class IfcLightSourcePositionalSpecification implements ComponentSpecification

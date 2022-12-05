@@ -14,7 +14,7 @@ export default class IfcPreDefinedDimensionSymbol implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcPreDefinedDimensionSymbolSpecification implements ComponentSpecification

@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcBuildingElementProxyTypeEnum} from "./IfcBuildingElementProxyTypeEnum.bldrs"
+import IfcBuildingElementProxyTypeEnum from "./IfcBuildingElementProxyTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcBuildingElementProxyType implements Component< SchemaSpe
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcBuildingElementProxyTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcBuildingElementProxyTypeEnum  ) {}
 }
 
 export class IfcBuildingElementProxyTypeSpecification implements ComponentSpecification

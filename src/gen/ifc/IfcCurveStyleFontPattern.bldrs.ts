@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLengthMeasure} from "./IfcLengthMeasure.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
+import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcCurveStyleFontPattern implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	VisibleSegmentLength : IfcLengthMeasure;
-	InvisibleSegmentLength : IfcPositiveLengthMeasure;
-
+    constructor( public readonly VisibleSegmentLength : IfcLengthMeasure , public readonly InvisibleSegmentLength : IfcPositiveLengthMeasure  ) {}
 }
 
 export class IfcCurveStyleFontPatternSpecification implements ComponentSpecification

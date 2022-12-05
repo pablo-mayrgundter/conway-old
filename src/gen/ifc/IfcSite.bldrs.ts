@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCompoundPlaneAngleMeasure} from "./IfcCompoundPlaneAngleMeasure.bldrs"
-import {IfcLengthMeasure} from "./IfcLengthMeasure.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcPostalAddress} from "./IfcPostalAddress.bldrs"
+import IfcCompoundPlaneAngleMeasure from "./IfcCompoundPlaneAngleMeasure.bldrs"
+import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcPostalAddress from "./IfcPostalAddress.bldrs"
 
 
 /**
@@ -18,12 +18,7 @@ export default class IfcSite implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	RefLatitude? : IfcCompoundPlaneAngleMeasure;
-	RefLongitude? : IfcCompoundPlaneAngleMeasure;
-	RefElevation? : IfcLengthMeasure;
-	LandTitleNumber? : IfcLabel;
-	SiteAddress? : IfcPostalAddress;
-
+    constructor( public readonly RefLatitude : IfcCompoundPlaneAngleMeasure  | undefined, public readonly RefLongitude : IfcCompoundPlaneAngleMeasure  | undefined, public readonly RefElevation : IfcLengthMeasure  | undefined, public readonly LandTitleNumber : IfcLabel  | undefined, public readonly SiteAddress : IfcPostalAddress  | undefined ) {}
 }
 
 export class IfcSiteSpecification implements ComponentSpecification

@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcOrganization} from "./IfcOrganization.bldrs"
-import {IfcPerson} from "./IfcPerson.bldrs"
-import {IfcPersonAndOrganization} from "./IfcPersonAndOrganization.bldrs"
-import {IfcText} from "./IfcText.bldrs"
+import IfcOrganization from "./IfcOrganization.bldrs"
+import IfcPerson from "./IfcPerson.bldrs"
+import IfcPersonAndOrganization from "./IfcPersonAndOrganization.bldrs"
+import IfcText from "./IfcText.bldrs"
 
 
 /**
@@ -18,9 +18,7 @@ export default class IfcSubContractResource implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
-	SubContractor? : IfcOrganization|IfcPerson|IfcPersonAndOrganization;
-	JobDescription? : IfcText;
-
+    constructor( public readonly SubContractor : IfcOrganization|IfcPerson|IfcPersonAndOrganization  | undefined, public readonly JobDescription : IfcText  | undefined ) {}
 }
 
 export class IfcSubContractResourceSpecification implements ComponentSpecification

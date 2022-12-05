@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcRepresentationMap} from "./IfcRepresentationMap.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
+import IfcRepresentationMap from "./IfcRepresentationMap.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcTypeProduct implements Component< SchemaSpecificationIFC
 
     public readonly __version__: number = 0;
 
-	RepresentationMaps? : Array<IfcRepresentationMap>;
-	Tag? : IfcLabel;
-
+    constructor( public readonly RepresentationMaps : Array<IfcRepresentationMap>  | undefined, public readonly Tag : IfcLabel  | undefined ) {}
 }
 
 export class IfcTypeProductSpecification implements ComponentSpecification

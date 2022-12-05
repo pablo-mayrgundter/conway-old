@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcNamedUnit} from "./IfcNamedUnit.bldrs"
+import IfcNamedUnit from "./IfcNamedUnit.bldrs"
 
 
 /**
@@ -15,9 +15,7 @@ export default class IfcDerivedUnitElement implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
-	Unit : IfcNamedUnit;
-	Exponent : number;
-
+    constructor( public readonly Unit : IfcNamedUnit , public readonly Exponent : number  ) {}
 }
 
 export class IfcDerivedUnitElementSpecification implements ComponentSpecification

@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcactionsourcetypeenum.htm
-export enum IfcActionSourceTypeEnum 
+enum IfcActionSourceTypeEnum 
 {
 	DEAD_LOAD_G=".DEAD_LOAD_G.",
 	COMPLETION_G1=".COMPLETION_G1.",
@@ -29,4 +29,6 @@ export enum IfcActionSourceTypeEnum
 	BRAKES=".BRAKES.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcActionSourceTypeEnum;

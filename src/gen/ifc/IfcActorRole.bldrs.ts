@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcRoleEnum} from "./IfcRoleEnum.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcText} from "./IfcText.bldrs"
+import IfcRoleEnum from "./IfcRoleEnum.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcText from "./IfcText.bldrs"
 
 
 /**
@@ -17,10 +17,7 @@ export default class IfcActorRole implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	Role : IfcRoleEnum;
-	UserDefinedRole? : IfcLabel;
-	Description? : IfcText;
-
+    constructor( public readonly Role : IfcRoleEnum , public readonly UserDefinedRole : IfcLabel  | undefined, public readonly Description : IfcText  | undefined ) {}
 }
 
 export class IfcActorRoleSpecification implements ComponentSpecification

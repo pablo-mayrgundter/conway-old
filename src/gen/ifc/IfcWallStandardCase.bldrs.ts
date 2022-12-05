@@ -14,7 +14,7 @@ export default class IfcWallStandardCase implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcWallStandardCaseSpecification implements ComponentSpecification

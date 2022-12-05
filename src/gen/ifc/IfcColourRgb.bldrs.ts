@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcNormalisedRatioMeasure} from "./IfcNormalisedRatioMeasure.bldrs"
+import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
 
 
 /**
@@ -15,10 +15,7 @@ export default class IfcColourRgb implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	Red : IfcNormalisedRatioMeasure;
-	Green : IfcNormalisedRatioMeasure;
-	Blue : IfcNormalisedRatioMeasure;
-
+    constructor( public readonly Red : IfcNormalisedRatioMeasure , public readonly Green : IfcNormalisedRatioMeasure , public readonly Blue : IfcNormalisedRatioMeasure  ) {}
 }
 
 export class IfcColourRgbSpecification implements ComponentSpecification

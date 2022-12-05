@@ -1,6 +1,7 @@
 
-import {BaseIfc} from "./BaseIfc"
-import {IfcLabel} from "./IfcLabel.g"
+import IfcLabel from "./IfcLabel.bldrs"
 
 // http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcboxalignment.htm
-export type IfcBoxAlignment = IfcLabel
+type IfcBoxAlignment = IfcLabel;
+
+export default IfcBoxAlignment;

@@ -14,7 +14,7 @@ export default class IfcSimpleProperty implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcSimplePropertySpecification implements ComponentSpecification

@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccontrollertypeenum.htm
-export enum IfcControllerTypeEnum 
+enum IfcControllerTypeEnum 
 {
 	FLOATING=".FLOATING.",
 	PROPORTIONAL=".PROPORTIONAL.",
@@ -10,4 +10,6 @@ export enum IfcControllerTypeEnum
 	TWOPOSITION=".TWOPOSITION.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcControllerTypeEnum;

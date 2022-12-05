@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcThermodynamicTemperatureMeasure} from "./IfcThermodynamicTemperatureMeasure.bldrs"
-import {IfcPositiveRatioMeasure} from "./IfcPositiveRatioMeasure.bldrs"
-import {IfcHeatingValueMeasure} from "./IfcHeatingValueMeasure.bldrs"
+import IfcThermodynamicTemperatureMeasure from "./IfcThermodynamicTemperatureMeasure.bldrs"
+import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
+import IfcHeatingValueMeasure from "./IfcHeatingValueMeasure.bldrs"
 
 
 /**
@@ -17,11 +17,7 @@ export default class IfcFuelProperties implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-	CombustionTemperature? : IfcThermodynamicTemperatureMeasure;
-	CarbonContent? : IfcPositiveRatioMeasure;
-	LowerHeatingValue? : IfcHeatingValueMeasure;
-	HigherHeatingValue? : IfcHeatingValueMeasure;
-
+    constructor( public readonly CombustionTemperature : IfcThermodynamicTemperatureMeasure  | undefined, public readonly CarbonContent : IfcPositiveRatioMeasure  | undefined, public readonly LowerHeatingValue : IfcHeatingValueMeasure  | undefined, public readonly HigherHeatingValue : IfcHeatingValueMeasure  | undefined ) {}
 }
 
 export class IfcFuelPropertiesSpecification implements ComponentSpecification

@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcresourceconsumptionenum.htm
-export enum IfcResourceConsumptionEnum 
+enum IfcResourceConsumptionEnum 
 {
 	CONSUMED=".CONSUMED.",
 	PARTIALLYCONSUMED=".PARTIALLYCONSUMED.",
@@ -10,4 +10,6 @@ export enum IfcResourceConsumptionEnum
 	NOTOCCUPIED=".NOTOCCUPIED.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcResourceConsumptionEnum;

@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrooftypeenum.htm
-export enum IfcRoofTypeEnum 
+enum IfcRoofTypeEnum 
 {
 	FLAT_ROOF=".FLAT_ROOF.",
 	SHED_ROOF=".SHED_ROOF.",
@@ -16,4 +16,6 @@ export enum IfcRoofTypeEnum
 	DOME_ROOF=".DOME_ROOF.",
 	FREEFORM=".FREEFORM.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcRoofTypeEnum;

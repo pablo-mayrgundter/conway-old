@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifctanktypeenum.htm
-export enum IfcTankTypeEnum 
+enum IfcTankTypeEnum 
 {
 	PREFORMED=".PREFORMED.",
 	SECTIONAL=".SECTIONAL.",
@@ -8,4 +8,6 @@ export enum IfcTankTypeEnum
 	PRESSUREVESSEL=".PRESSUREVESSEL.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcTankTypeEnum;

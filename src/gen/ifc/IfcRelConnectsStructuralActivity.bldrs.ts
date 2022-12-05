@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcStructuralItem} from "./IfcStructuralItem.bldrs"
-import {IfcElement} from "./IfcElement.bldrs"
-import {IfcStructuralActivity} from "./IfcStructuralActivity.bldrs"
+import IfcStructuralItem from "./IfcStructuralItem.bldrs"
+import IfcElement from "./IfcElement.bldrs"
+import IfcStructuralActivity from "./IfcStructuralActivity.bldrs"
 
 
 /**
@@ -17,9 +17,7 @@ export default class IfcRelConnectsStructuralActivity implements Component< Sche
 
     public readonly __version__: number = 0;
 
-	RelatingElement : IfcStructuralItem|IfcElement;
-	RelatedStructuralActivity : IfcStructuralActivity;
-
+    constructor( public readonly RelatingElement : IfcStructuralItem|IfcElement , public readonly RelatedStructuralActivity : IfcStructuralActivity  ) {}
 }
 
 export class IfcRelConnectsStructuralActivitySpecification implements ComponentSpecification

@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcStructuralCurveTypeEnum} from "./IfcStructuralCurveTypeEnum.bldrs"
+import IfcStructuralCurveTypeEnum from "./IfcStructuralCurveTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcStructuralCurveMember implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcStructuralCurveTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcStructuralCurveTypeEnum  ) {}
 }
 
 export class IfcStructuralCurveMemberSpecification implements ComponentSpecification

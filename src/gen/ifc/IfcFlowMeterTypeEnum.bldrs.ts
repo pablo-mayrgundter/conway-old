@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcflowmetertypeenum.htm
-export enum IfcFlowMeterTypeEnum 
+enum IfcFlowMeterTypeEnum 
 {
 	ELECTRICMETER=".ELECTRICMETER.",
 	ENERGYMETER=".ENERGYMETER.",
@@ -10,4 +10,6 @@ export enum IfcFlowMeterTypeEnum
 	WATERMETER=".WATERMETER.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcFlowMeterTypeEnum;

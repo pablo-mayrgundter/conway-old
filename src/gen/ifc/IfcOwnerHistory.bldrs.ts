@@ -3,11 +3,11 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPersonAndOrganization} from "./IfcPersonAndOrganization.bldrs"
-import {IfcApplication} from "./IfcApplication.bldrs"
-import {IfcStateEnum} from "./IfcStateEnum.bldrs"
-import {IfcChangeActionEnum} from "./IfcChangeActionEnum.bldrs"
-import {IfcTimeStamp} from "./IfcTimeStamp.bldrs"
+import IfcPersonAndOrganization from "./IfcPersonAndOrganization.bldrs"
+import IfcApplication from "./IfcApplication.bldrs"
+import IfcStateEnum from "./IfcStateEnum.bldrs"
+import IfcChangeActionEnum from "./IfcChangeActionEnum.bldrs"
+import IfcTimeStamp from "./IfcTimeStamp.bldrs"
 
 
 /**
@@ -19,15 +19,7 @@ export default class IfcOwnerHistory implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
-	OwningUser : IfcPersonAndOrganization;
-	OwningApplication : IfcApplication;
-	State? : IfcStateEnum;
-	ChangeAction : IfcChangeActionEnum;
-	LastModifiedDate? : IfcTimeStamp;
-	LastModifyingUser? : IfcPersonAndOrganization;
-	LastModifyingApplication? : IfcApplication;
-	CreationDate : IfcTimeStamp;
-
+    constructor( public readonly OwningUser : IfcPersonAndOrganization , public readonly OwningApplication : IfcApplication , public readonly State : IfcStateEnum  | undefined, public readonly ChangeAction : IfcChangeActionEnum , public readonly LastModifiedDate : IfcTimeStamp  | undefined, public readonly LastModifyingUser : IfcPersonAndOrganization  | undefined, public readonly LastModifyingApplication : IfcApplication  | undefined, public readonly CreationDate : IfcTimeStamp  ) {}
 }
 
 export class IfcOwnerHistorySpecification implements ComponentSpecification

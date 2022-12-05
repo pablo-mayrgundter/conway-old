@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcStructuralLoad} from "./IfcStructuralLoad.bldrs"
-import {IfcGlobalOrLocalEnum} from "./IfcGlobalOrLocalEnum.bldrs"
-import {IfcRelConnectsStructuralActivity} from "./IfcRelConnectsStructuralActivity.bldrs"
+import IfcStructuralLoad from "./IfcStructuralLoad.bldrs"
+import IfcGlobalOrLocalEnum from "./IfcGlobalOrLocalEnum.bldrs"
+import IfcRelConnectsStructuralActivity from "./IfcRelConnectsStructuralActivity.bldrs"
 
 
 /**
@@ -17,9 +17,7 @@ export default class IfcStructuralActivity implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
-	AppliedLoad : IfcStructuralLoad;
-	GlobalOrLocal : IfcGlobalOrLocalEnum;
-
+    constructor( public readonly AppliedLoad : IfcStructuralLoad , public readonly GlobalOrLocal : IfcGlobalOrLocalEnum  ) {}
 }
 
 export class IfcStructuralActivitySpecification implements ComponentSpecification

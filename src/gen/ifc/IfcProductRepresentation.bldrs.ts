@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcText} from "./IfcText.bldrs"
-import {IfcRepresentation} from "./IfcRepresentation.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcText from "./IfcText.bldrs"
+import IfcRepresentation from "./IfcRepresentation.bldrs"
 
 
 /**
@@ -17,10 +17,7 @@ export default class IfcProductRepresentation implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	Name? : IfcLabel;
-	Description? : IfcText;
-	Representations : Array<IfcRepresentation>;
-
+    constructor( public readonly Name : IfcLabel  | undefined, public readonly Description : IfcText  | undefined, public readonly Representations : Array<IfcRepresentation>  ) {}
 }
 
 export class IfcProductRepresentationSpecification implements ComponentSpecification

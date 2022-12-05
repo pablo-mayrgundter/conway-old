@@ -14,7 +14,7 @@ export default class IfcDistributionControlElementType implements Component< Sch
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcDistributionControlElementTypeSpecification implements ComponentSpecification

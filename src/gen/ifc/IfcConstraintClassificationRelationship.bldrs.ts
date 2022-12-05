@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcConstraint} from "./IfcConstraint.bldrs"
-import {IfcClassificationNotation} from "./IfcClassificationNotation.bldrs"
-import {IfcClassificationReference} from "./IfcClassificationReference.bldrs"
+import IfcConstraint from "./IfcConstraint.bldrs"
+import IfcClassificationNotation from "./IfcClassificationNotation.bldrs"
+import IfcClassificationReference from "./IfcClassificationReference.bldrs"
 
 
 /**
@@ -17,9 +17,7 @@ export default class IfcConstraintClassificationRelationship implements Componen
 
     public readonly __version__: number = 0;
 
-	ClassifiedConstraint : IfcConstraint;
-	RelatedClassifications : Array<IfcClassificationNotation|IfcClassificationReference>;
-
+    constructor( public readonly ClassifiedConstraint : IfcConstraint , public readonly RelatedClassifications : Array<IfcClassificationNotation|IfcClassificationReference>  ) {}
 }
 
 export class IfcConstraintClassificationRelationshipSpecification implements ComponentSpecification

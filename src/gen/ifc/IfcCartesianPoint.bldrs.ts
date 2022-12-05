@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLengthMeasure} from "./IfcLengthMeasure.bldrs"
-import {IfcDimensionCount} from "./IfcDimensionCount.bldrs"
+import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
+import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 
 
 /**
@@ -16,8 +16,7 @@ export default class IfcCartesianPoint implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-	Coordinates : Array<IfcLengthMeasure>;
-
+    constructor( public readonly Coordinates : Array<IfcLengthMeasure>  ) {}
 }
 
 export class IfcCartesianPointSpecification implements ComponentSpecification

@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcPhysicalQuantity} from "./IfcPhysicalQuantity.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcPhysicalQuantity from "./IfcPhysicalQuantity.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcElementQuantity implements Component< SchemaSpecificatio
 
     public readonly __version__: number = 0;
 
-	MethodOfMeasurement? : IfcLabel;
-	Quantities : Array<IfcPhysicalQuantity>;
-
+    constructor( public readonly MethodOfMeasurement : IfcLabel  | undefined, public readonly Quantities : Array<IfcPhysicalQuantity>  ) {}
 }
 
 export class IfcElementQuantitySpecification implements ComponentSpecification

@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCurve} from "./IfcCurve.bldrs"
-import {IfcParameterValue} from "./IfcParameterValue.bldrs"
-import {IfcSurface} from "./IfcSurface.bldrs"
+import IfcCurve from "./IfcCurve.bldrs"
+import IfcParameterValue from "./IfcParameterValue.bldrs"
+import IfcSurface from "./IfcSurface.bldrs"
 
 
 /**
@@ -17,11 +17,7 @@ export default class IfcSurfaceCurveSweptAreaSolid implements Component< SchemaS
 
     public readonly __version__: number = 0;
 
-	Directrix : IfcCurve;
-	StartParam : IfcParameterValue;
-	EndParam : IfcParameterValue;
-	ReferenceSurface : IfcSurface;
-
+    constructor( public readonly Directrix : IfcCurve , public readonly StartParam : IfcParameterValue , public readonly EndParam : IfcParameterValue , public readonly ReferenceSurface : IfcSurface  ) {}
 }
 
 export class IfcSurfaceCurveSweptAreaSolidSpecification implements ComponentSpecification

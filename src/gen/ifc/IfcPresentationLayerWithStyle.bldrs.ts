@@ -3,12 +3,12 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcNullStyle} from "./IfcNullStyle.bldrs"
-import {IfcCurveStyle} from "./IfcCurveStyle.bldrs"
-import {IfcSymbolStyle} from "./IfcSymbolStyle.bldrs"
-import {IfcFillAreaStyle} from "./IfcFillAreaStyle.bldrs"
-import {IfcTextStyle} from "./IfcTextStyle.bldrs"
-import {IfcSurfaceStyle} from "./IfcSurfaceStyle.bldrs"
+import IfcNullStyle from "./IfcNullStyle.bldrs"
+import IfcCurveStyle from "./IfcCurveStyle.bldrs"
+import IfcSymbolStyle from "./IfcSymbolStyle.bldrs"
+import IfcFillAreaStyle from "./IfcFillAreaStyle.bldrs"
+import IfcTextStyle from "./IfcTextStyle.bldrs"
+import IfcSurfaceStyle from "./IfcSurfaceStyle.bldrs"
 
 
 /**
@@ -20,11 +20,7 @@ export default class IfcPresentationLayerWithStyle implements Component< SchemaS
 
     public readonly __version__: number = 0;
 
-	LayerOn : boolean;
-	LayerFrozen : boolean;
-	LayerBlocked : boolean;
-	LayerStyles : Array<IfcNullStyle|IfcCurveStyle|IfcSymbolStyle|IfcFillAreaStyle|IfcTextStyle|IfcSurfaceStyle>;
-
+    constructor( public readonly LayerOn : boolean , public readonly LayerFrozen : boolean , public readonly LayerBlocked : boolean , public readonly LayerStyles : Array<IfcNullStyle|IfcCurveStyle|IfcSymbolStyle|IfcFillAreaStyle|IfcTextStyle|IfcSurfaceStyle>  ) {}
 }
 
 export class IfcPresentationLayerWithStyleSpecification implements ComponentSpecification

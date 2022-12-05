@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 
 
 /**
@@ -15,10 +15,7 @@ export default class IfcRectangularPyramid implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
-	XLength : IfcPositiveLengthMeasure;
-	YLength : IfcPositiveLengthMeasure;
-	Height : IfcPositiveLengthMeasure;
-
+    constructor( public readonly XLength : IfcPositiveLengthMeasure , public readonly YLength : IfcPositiveLengthMeasure , public readonly Height : IfcPositiveLengthMeasure  ) {}
 }
 
 export class IfcRectangularPyramidSpecification implements ComponentSpecification

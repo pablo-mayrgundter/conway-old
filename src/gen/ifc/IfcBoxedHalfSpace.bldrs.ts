@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcBoundingBox} from "./IfcBoundingBox.bldrs"
+import IfcBoundingBox from "./IfcBoundingBox.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcBoxedHalfSpace implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-	Enclosure : IfcBoundingBox;
-
+    constructor( public readonly Enclosure : IfcBoundingBox  ) {}
 }
 
 export class IfcBoxedHalfSpaceSpecification implements ComponentSpecification

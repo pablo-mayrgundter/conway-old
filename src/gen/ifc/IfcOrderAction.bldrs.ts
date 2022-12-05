@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcIdentifier} from "./IfcIdentifier.bldrs"
+import IfcIdentifier from "./IfcIdentifier.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcOrderAction implements Component< SchemaSpecificationIFC
 
     public readonly __version__: number = 0;
 
-	ActionID : IfcIdentifier;
-
+    constructor( public readonly ActionID : IfcIdentifier  ) {}
 }
 
 export class IfcOrderActionSpecification implements ComponentSpecification

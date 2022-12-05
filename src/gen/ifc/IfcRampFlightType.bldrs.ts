@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcRampFlightTypeEnum} from "./IfcRampFlightTypeEnum.bldrs"
+import IfcRampFlightTypeEnum from "./IfcRampFlightTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcRampFlightType implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcRampFlightTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcRampFlightTypeEnum  ) {}
 }
 
 export class IfcRampFlightTypeSpecification implements ComponentSpecification

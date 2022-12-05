@@ -1,10 +1,12 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcairterminalboxtypeenum.htm
-export enum IfcAirTerminalBoxTypeEnum 
+enum IfcAirTerminalBoxTypeEnum 
 {
 	CONSTANTFLOW=".CONSTANTFLOW.",
 	VARIABLEFLOWPRESSUREDEPENDANT=".VARIABLEFLOWPRESSUREDEPENDANT.",
 	VARIABLEFLOWPRESSUREINDEPENDANT=".VARIABLEFLOWPRESSUREINDEPENDANT.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcAirTerminalBoxTypeEnum;

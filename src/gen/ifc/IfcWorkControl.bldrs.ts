@@ -3,14 +3,14 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcIdentifier} from "./IfcIdentifier.bldrs"
-import {IfcCalendarDate} from "./IfcCalendarDate.bldrs"
-import {IfcLocalTime} from "./IfcLocalTime.bldrs"
-import {IfcDateAndTime} from "./IfcDateAndTime.bldrs"
-import {IfcPerson} from "./IfcPerson.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcTimeMeasure} from "./IfcTimeMeasure.bldrs"
-import {IfcWorkControlTypeEnum} from "./IfcWorkControlTypeEnum.bldrs"
+import IfcIdentifier from "./IfcIdentifier.bldrs"
+import IfcCalendarDate from "./IfcCalendarDate.bldrs"
+import IfcLocalTime from "./IfcLocalTime.bldrs"
+import IfcDateAndTime from "./IfcDateAndTime.bldrs"
+import IfcPerson from "./IfcPerson.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcTimeMeasure from "./IfcTimeMeasure.bldrs"
+import IfcWorkControlTypeEnum from "./IfcWorkControlTypeEnum.bldrs"
 
 
 /**
@@ -22,17 +22,7 @@ export default class IfcWorkControl implements Component< SchemaSpecificationIFC
 
     public readonly __version__: number = 0;
 
-	Identifier : IfcIdentifier;
-	CreationDate : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-	Creators? : Array<IfcPerson>;
-	Purpose? : IfcLabel;
-	Duration? : IfcTimeMeasure;
-	TotalFloat? : IfcTimeMeasure;
-	StartTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-	FinishTime? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-	WorkControlType? : IfcWorkControlTypeEnum;
-	UserDefinedControlType? : IfcLabel;
-
+    constructor( public readonly Identifier : IfcIdentifier , public readonly CreationDate : IfcCalendarDate|IfcLocalTime|IfcDateAndTime , public readonly Creators : Array<IfcPerson>  | undefined, public readonly Purpose : IfcLabel  | undefined, public readonly Duration : IfcTimeMeasure  | undefined, public readonly TotalFloat : IfcTimeMeasure  | undefined, public readonly StartTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime , public readonly FinishTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly WorkControlType : IfcWorkControlTypeEnum  | undefined, public readonly UserDefinedControlType : IfcLabel  | undefined ) {}
 }
 
 export class IfcWorkControlSpecification implements ComponentSpecification

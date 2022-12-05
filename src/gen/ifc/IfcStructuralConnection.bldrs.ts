@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcBoundaryCondition} from "./IfcBoundaryCondition.bldrs"
-import {IfcRelConnectsStructuralMember} from "./IfcRelConnectsStructuralMember.bldrs"
+import IfcBoundaryCondition from "./IfcBoundaryCondition.bldrs"
+import IfcRelConnectsStructuralMember from "./IfcRelConnectsStructuralMember.bldrs"
 
 
 /**
@@ -16,8 +16,7 @@ export default class IfcStructuralConnection implements Component< SchemaSpecifi
 
     public readonly __version__: number = 0;
 
-	AppliedCondition? : IfcBoundaryCondition;
-
+    constructor( public readonly AppliedCondition : IfcBoundaryCondition  | undefined ) {}
 }
 
 export class IfcStructuralConnectionSpecification implements ComponentSpecification

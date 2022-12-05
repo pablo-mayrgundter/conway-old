@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcParameterValue} from "./IfcParameterValue.bldrs"
+import IfcParameterValue from "./IfcParameterValue.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcTextureVertex implements Component< SchemaSpecificationI
 
     public readonly __version__: number = 0;
 
-	Coordinates : Array<IfcParameterValue>;
-
+    constructor( public readonly Coordinates : Array<IfcParameterValue>  ) {}
 }
 
 export class IfcTextureVertexSpecification implements ComponentSpecification

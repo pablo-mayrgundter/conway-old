@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcwindowpaneloperationenum.htm
-export enum IfcWindowPanelOperationEnum 
+enum IfcWindowPanelOperationEnum 
 {
 	SIDEHUNGRIGHTHAND=".SIDEHUNGRIGHTHAND.",
 	SIDEHUNGLEFTHAND=".SIDEHUNGLEFTHAND.",
@@ -16,4 +16,6 @@ export enum IfcWindowPanelOperationEnum
 	FIXEDCASEMENT=".FIXEDCASEMENT.",
 	OTHEROPERATION=".OTHEROPERATION.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcWindowPanelOperationEnum;

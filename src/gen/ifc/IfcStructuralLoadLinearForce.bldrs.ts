@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLinearForceMeasure} from "./IfcLinearForceMeasure.bldrs"
-import {IfcLinearMomentMeasure} from "./IfcLinearMomentMeasure.bldrs"
+import IfcLinearForceMeasure from "./IfcLinearForceMeasure.bldrs"
+import IfcLinearMomentMeasure from "./IfcLinearMomentMeasure.bldrs"
 
 
 /**
@@ -16,13 +16,7 @@ export default class IfcStructuralLoadLinearForce implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
-	LinearForceX? : IfcLinearForceMeasure;
-	LinearForceY? : IfcLinearForceMeasure;
-	LinearForceZ? : IfcLinearForceMeasure;
-	LinearMomentX? : IfcLinearMomentMeasure;
-	LinearMomentY? : IfcLinearMomentMeasure;
-	LinearMomentZ? : IfcLinearMomentMeasure;
-
+    constructor( public readonly LinearForceX : IfcLinearForceMeasure  | undefined, public readonly LinearForceY : IfcLinearForceMeasure  | undefined, public readonly LinearForceZ : IfcLinearForceMeasure  | undefined, public readonly LinearMomentX : IfcLinearMomentMeasure  | undefined, public readonly LinearMomentY : IfcLinearMomentMeasure  | undefined, public readonly LinearMomentZ : IfcLinearMomentMeasure  | undefined ) {}
 }
 
 export class IfcStructuralLoadLinearForceSpecification implements ComponentSpecification

@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcelectricappliancetypeenum.htm
-export enum IfcElectricApplianceTypeEnum 
+enum IfcElectricApplianceTypeEnum 
 {
 	COMPUTER=".COMPUTER.",
 	DIRECTWATERHEATER=".DIRECTWATERHEATER.",
@@ -28,4 +28,6 @@ export enum IfcElectricApplianceTypeEnum
 	WATERCOOLER=".WATERCOOLER.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcElectricApplianceTypeEnum;

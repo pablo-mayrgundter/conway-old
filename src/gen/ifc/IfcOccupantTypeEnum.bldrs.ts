@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcoccupanttypeenum.htm
-export enum IfcOccupantTypeEnum 
+enum IfcOccupantTypeEnum 
 {
 	ASSIGNEE=".ASSIGNEE.",
 	ASSIGNOR=".ASSIGNOR.",
@@ -11,4 +11,6 @@ export enum IfcOccupantTypeEnum
 	TENANT=".TENANT.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcOccupantTypeEnum;

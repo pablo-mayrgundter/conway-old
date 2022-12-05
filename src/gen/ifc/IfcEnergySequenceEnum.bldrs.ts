@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcenergysequenceenum.htm
-export enum IfcEnergySequenceEnum 
+enum IfcEnergySequenceEnum 
 {
 	PRIMARY=".PRIMARY.",
 	SECONDARY=".SECONDARY.",
@@ -8,4 +8,6 @@ export enum IfcEnergySequenceEnum
 	AUXILIARY=".AUXILIARY.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcEnergySequenceEnum;

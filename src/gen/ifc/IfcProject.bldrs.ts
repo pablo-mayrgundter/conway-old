@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcRepresentationContext} from "./IfcRepresentationContext.bldrs"
-import {IfcUnitAssignment} from "./IfcUnitAssignment.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcRepresentationContext from "./IfcRepresentationContext.bldrs"
+import IfcUnitAssignment from "./IfcUnitAssignment.bldrs"
 
 
 /**
@@ -17,11 +17,7 @@ export default class IfcProject implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	LongName? : IfcLabel;
-	Phase? : IfcLabel;
-	RepresentationContexts : Array<IfcRepresentationContext>;
-	UnitsInContext : IfcUnitAssignment;
-
+    constructor( public readonly LongName : IfcLabel  | undefined, public readonly Phase : IfcLabel  | undefined, public readonly RepresentationContexts : Array<IfcRepresentationContext> , public readonly UnitsInContext : IfcUnitAssignment  ) {}
 }
 
 export class IfcProjectSpecification implements ComponentSpecification

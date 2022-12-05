@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcVector} from "./IfcVector.bldrs"
+import IfcVector from "./IfcVector.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcTwoDirectionRepeatFactor implements Component< SchemaSpe
 
     public readonly __version__: number = 0;
 
-	SecondRepeatFactor : IfcVector;
-
+    constructor( public readonly SecondRepeatFactor : IfcVector  ) {}
 }
 
 export class IfcTwoDirectionRepeatFactorSpecification implements ComponentSpecification

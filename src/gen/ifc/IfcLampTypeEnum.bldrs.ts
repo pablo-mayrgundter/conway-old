@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifclamptypeenum.htm
-export enum IfcLampTypeEnum 
+enum IfcLampTypeEnum 
 {
 	COMPACTFLUORESCENT=".COMPACTFLUORESCENT.",
 	FLUORESCENT=".FLUORESCENT.",
@@ -10,4 +10,6 @@ export enum IfcLampTypeEnum
 	TUNGSTENFILAMENT=".TUNGSTENFILAMENT.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcLampTypeEnum;

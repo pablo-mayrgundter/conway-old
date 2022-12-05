@@ -14,7 +14,7 @@ export default class IfcGeometricRepresentationItem implements Component< Schema
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcGeometricRepresentationItemSpecification implements ComponentSpecification

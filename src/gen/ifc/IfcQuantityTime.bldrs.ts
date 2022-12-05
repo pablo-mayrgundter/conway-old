@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcTimeMeasure} from "./IfcTimeMeasure.bldrs"
+import IfcTimeMeasure from "./IfcTimeMeasure.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcQuantityTime implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
-	TimeValue : IfcTimeMeasure;
-
+    constructor( public readonly TimeValue : IfcTimeMeasure  ) {}
 }
 
 export class IfcQuantityTimeSpecification implements ComponentSpecification

@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcalarmtypeenum.htm
-export enum IfcAlarmTypeEnum 
+enum IfcAlarmTypeEnum 
 {
 	BELL=".BELL.",
 	BREAKGLASSBUTTON=".BREAKGLASSBUTTON.",
@@ -10,4 +10,6 @@ export enum IfcAlarmTypeEnum
 	WHISTLE=".WHISTLE.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcAlarmTypeEnum;

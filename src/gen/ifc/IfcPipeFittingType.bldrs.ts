@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPipeFittingTypeEnum} from "./IfcPipeFittingTypeEnum.bldrs"
+import IfcPipeFittingTypeEnum from "./IfcPipeFittingTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcPipeFittingType implements Component< SchemaSpecificatio
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcPipeFittingTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcPipeFittingTypeEnum  ) {}
 }
 
 export class IfcPipeFittingTypeSpecification implements ComponentSpecification

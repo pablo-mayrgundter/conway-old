@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcfantypeenum.htm
-export enum IfcFanTypeEnum 
+enum IfcFanTypeEnum 
 {
 	CENTRIFUGALFORWARDCURVED=".CENTRIFUGALFORWARDCURVED.",
 	CENTRIFUGALRADIAL=".CENTRIFUGALRADIAL.",
@@ -11,4 +11,6 @@ export enum IfcFanTypeEnum
 	PROPELLORAXIAL=".PROPELLORAXIAL.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcFanTypeEnum;

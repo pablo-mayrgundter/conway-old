@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcCircleHollowProfileDef implements Component< SchemaSpeci
 
     public readonly __version__: number = 0;
 
-	WallThickness : IfcPositiveLengthMeasure;
-
+    constructor( public readonly WallThickness : IfcPositiveLengthMeasure  ) {}
 }
 
 export class IfcCircleHollowProfileDefSpecification implements ComponentSpecification

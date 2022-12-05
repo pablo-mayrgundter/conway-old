@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcTransportElementTypeEnum} from "./IfcTransportElementTypeEnum.bldrs"
-import {IfcMassMeasure} from "./IfcMassMeasure.bldrs"
-import {IfcCountMeasure} from "./IfcCountMeasure.bldrs"
+import IfcTransportElementTypeEnum from "./IfcTransportElementTypeEnum.bldrs"
+import IfcMassMeasure from "./IfcMassMeasure.bldrs"
+import IfcCountMeasure from "./IfcCountMeasure.bldrs"
 
 
 /**
@@ -17,10 +17,7 @@ export default class IfcTransportElement implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
-	OperationType? : IfcTransportElementTypeEnum;
-	CapacityByWeight? : IfcMassMeasure;
-	CapacityByNumber? : IfcCountMeasure;
-
+    constructor( public readonly OperationType : IfcTransportElementTypeEnum  | undefined, public readonly CapacityByWeight : IfcMassMeasure  | undefined, public readonly CapacityByNumber : IfcCountMeasure  | undefined ) {}
 }
 
 export class IfcTransportElementSpecification implements ComponentSpecification

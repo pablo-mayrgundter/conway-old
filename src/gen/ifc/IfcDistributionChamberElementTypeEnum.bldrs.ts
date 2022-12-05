@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcdistributionchamberelementtypeenum.htm
-export enum IfcDistributionChamberElementTypeEnum 
+enum IfcDistributionChamberElementTypeEnum 
 {
 	FORMEDDUCT=".FORMEDDUCT.",
 	INSPECTIONCHAMBER=".INSPECTIONCHAMBER.",
@@ -12,4 +12,6 @@ export enum IfcDistributionChamberElementTypeEnum
 	VALVECHAMBER=".VALVECHAMBER.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcDistributionChamberElementTypeEnum;

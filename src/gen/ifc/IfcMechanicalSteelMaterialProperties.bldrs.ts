@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPressureMeasure} from "./IfcPressureMeasure.bldrs"
-import {IfcPositiveRatioMeasure} from "./IfcPositiveRatioMeasure.bldrs"
-import {IfcModulusOfElasticityMeasure} from "./IfcModulusOfElasticityMeasure.bldrs"
-import {IfcRelaxation} from "./IfcRelaxation.bldrs"
+import IfcPressureMeasure from "./IfcPressureMeasure.bldrs"
+import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
+import IfcModulusOfElasticityMeasure from "./IfcModulusOfElasticityMeasure.bldrs"
+import IfcRelaxation from "./IfcRelaxation.bldrs"
 
 
 /**
@@ -18,14 +18,7 @@ export default class IfcMechanicalSteelMaterialProperties implements Component< 
 
     public readonly __version__: number = 0;
 
-	YieldStress? : IfcPressureMeasure;
-	UltimateStress? : IfcPressureMeasure;
-	UltimateStrain? : IfcPositiveRatioMeasure;
-	HardeningModule? : IfcModulusOfElasticityMeasure;
-	ProportionalStress? : IfcPressureMeasure;
-	PlasticStrain? : IfcPositiveRatioMeasure;
-	Relaxations? : Array<IfcRelaxation>;
-
+    constructor( public readonly YieldStress : IfcPressureMeasure  | undefined, public readonly UltimateStress : IfcPressureMeasure  | undefined, public readonly UltimateStrain : IfcPositiveRatioMeasure  | undefined, public readonly HardeningModule : IfcModulusOfElasticityMeasure  | undefined, public readonly ProportionalStress : IfcPressureMeasure  | undefined, public readonly PlasticStrain : IfcPositiveRatioMeasure  | undefined, public readonly Relaxations : Array<IfcRelaxation>  | undefined ) {}
 }
 
 export class IfcMechanicalSteelMaterialPropertiesSpecification implements ComponentSpecification

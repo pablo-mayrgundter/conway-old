@@ -14,7 +14,7 @@ export default class IfcBoundedSurface implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcBoundedSurfaceSpecification implements ComponentSpecification

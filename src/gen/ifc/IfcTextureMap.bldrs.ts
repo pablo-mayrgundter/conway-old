@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcVertexBasedTextureMap} from "./IfcVertexBasedTextureMap.bldrs"
+import IfcVertexBasedTextureMap from "./IfcVertexBasedTextureMap.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcTextureMap implements Component< SchemaSpecificationIFC 
 
     public readonly __version__: number = 0;
 
-	TextureMaps : Array<IfcVertexBasedTextureMap>;
-
+    constructor( public readonly TextureMaps : Array<IfcVertexBasedTextureMap>  ) {}
 }
 
 export class IfcTextureMapSpecification implements ComponentSpecification

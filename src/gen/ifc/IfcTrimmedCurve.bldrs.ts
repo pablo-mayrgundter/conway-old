@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCurve} from "./IfcCurve.bldrs"
-import {IfcCartesianPoint} from "./IfcCartesianPoint.bldrs"
-import {IfcParameterValue} from "./IfcParameterValue.bldrs"
-import {IfcTrimmingPreference} from "./IfcTrimmingPreference.bldrs"
+import IfcCurve from "./IfcCurve.bldrs"
+import IfcCartesianPoint from "./IfcCartesianPoint.bldrs"
+import IfcParameterValue from "./IfcParameterValue.bldrs"
+import IfcTrimmingPreference from "./IfcTrimmingPreference.bldrs"
 
 
 /**
@@ -18,12 +18,7 @@ export default class IfcTrimmedCurve implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
-	BasisCurve : IfcCurve;
-	Trim1 : Array<IfcCartesianPoint|IfcParameterValue>;
-	Trim2 : Array<IfcCartesianPoint|IfcParameterValue>;
-	SenseAgreement : boolean;
-	MasterRepresentation : IfcTrimmingPreference;
-
+    constructor( public readonly BasisCurve : IfcCurve , public readonly Trim1 : Array<IfcCartesianPoint|IfcParameterValue> , public readonly Trim2 : Array<IfcCartesianPoint|IfcParameterValue> , public readonly SenseAgreement : boolean , public readonly MasterRepresentation : IfcTrimmingPreference  ) {}
 }
 
 export class IfcTrimmedCurveSpecification implements ComponentSpecification

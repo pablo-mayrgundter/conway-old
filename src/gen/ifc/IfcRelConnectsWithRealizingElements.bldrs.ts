@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcElement} from "./IfcElement.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
+import IfcElement from "./IfcElement.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
 
 
 /**
@@ -16,9 +16,7 @@ export default class IfcRelConnectsWithRealizingElements implements Component< S
 
     public readonly __version__: number = 0;
 
-	RealizingElements : Array<IfcElement>;
-	ConnectionType? : IfcLabel;
-
+    constructor( public readonly RealizingElements : Array<IfcElement> , public readonly ConnectionType : IfcLabel  | undefined ) {}
 }
 
 export class IfcRelConnectsWithRealizingElementsSpecification implements ComponentSpecification

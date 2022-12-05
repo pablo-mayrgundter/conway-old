@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
-import {IfcAreaMeasure} from "./IfcAreaMeasure.bldrs"
-import {IfcReinforcingBarRoleEnum} from "./IfcReinforcingBarRoleEnum.bldrs"
-import {IfcReinforcingBarSurfaceEnum} from "./IfcReinforcingBarSurfaceEnum.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
+import IfcAreaMeasure from "./IfcAreaMeasure.bldrs"
+import IfcReinforcingBarRoleEnum from "./IfcReinforcingBarRoleEnum.bldrs"
+import IfcReinforcingBarSurfaceEnum from "./IfcReinforcingBarSurfaceEnum.bldrs"
 
 
 /**
@@ -18,12 +18,7 @@ export default class IfcReinforcingBar implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-	NominalDiameter : IfcPositiveLengthMeasure;
-	CrossSectionArea : IfcAreaMeasure;
-	BarLength? : IfcPositiveLengthMeasure;
-	BarRole : IfcReinforcingBarRoleEnum;
-	BarSurface? : IfcReinforcingBarSurfaceEnum;
-
+    constructor( public readonly NominalDiameter : IfcPositiveLengthMeasure , public readonly CrossSectionArea : IfcAreaMeasure , public readonly BarLength : IfcPositiveLengthMeasure  | undefined, public readonly BarRole : IfcReinforcingBarRoleEnum , public readonly BarSurface : IfcReinforcingBarSurfaceEnum  | undefined ) {}
 }
 
 export class IfcReinforcingBarSpecification implements ComponentSpecification

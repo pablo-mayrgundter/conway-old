@@ -5,7 +5,7 @@ import Entity from './entity';
 
 export type Components< K extends (string | number), T extends SchemaSpecification > = { [ key in ComponentTypeNames< T > ]: Map< K, Component< T > > };
 
-export interface Model< K extends (string | number) >
+export interface Model< K extends (string | number), T extends SchemaSpecification >
 {
     id : K;
 
@@ -13,7 +13,7 @@ export interface Model< K extends (string | number) >
 
     components : Components< K, T >;
 
-    entities : ReadonlyMap< K, Entity< K, T > >; 
+    entities : ReadonlyMap< K, Entity< K > >; 
 
     schemas: SchemaSpecification[];
 };

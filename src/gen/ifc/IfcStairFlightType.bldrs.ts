@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcStairFlightTypeEnum} from "./IfcStairFlightTypeEnum.bldrs"
+import IfcStairFlightTypeEnum from "./IfcStairFlightTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcStairFlightType implements Component< SchemaSpecificatio
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcStairFlightTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcStairFlightTypeEnum  ) {}
 }
 
 export class IfcStairFlightTypeSpecification implements ComponentSpecification

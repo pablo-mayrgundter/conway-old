@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcColourRgb} from "./IfcColourRgb.bldrs"
-import {IfcNormalisedRatioMeasure} from "./IfcNormalisedRatioMeasure.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcColourRgb from "./IfcColourRgb.bldrs"
+import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
 
 
 /**
@@ -17,11 +17,7 @@ export default class IfcLightSource implements Component< SchemaSpecificationIFC
 
     public readonly __version__: number = 0;
 
-	Name? : IfcLabel;
-	LightColour : IfcColourRgb;
-	AmbientIntensity? : IfcNormalisedRatioMeasure;
-	Intensity? : IfcNormalisedRatioMeasure;
-
+    constructor( public readonly Name : IfcLabel  | undefined, public readonly LightColour : IfcColourRgb , public readonly AmbientIntensity : IfcNormalisedRatioMeasure  | undefined, public readonly Intensity : IfcNormalisedRatioMeasure  | undefined ) {}
 }
 
 export class IfcLightSourceSpecification implements ComponentSpecification

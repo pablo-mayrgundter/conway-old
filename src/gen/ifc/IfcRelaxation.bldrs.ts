@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcNormalisedRatioMeasure} from "./IfcNormalisedRatioMeasure.bldrs"
+import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
 
 
 /**
@@ -15,9 +15,7 @@ export default class IfcRelaxation implements Component< SchemaSpecificationIFC 
 
     public readonly __version__: number = 0;
 
-	RelaxationValue : IfcNormalisedRatioMeasure;
-	InitialStress : IfcNormalisedRatioMeasure;
-
+    constructor( public readonly RelaxationValue : IfcNormalisedRatioMeasure , public readonly InitialStress : IfcNormalisedRatioMeasure  ) {}
 }
 
 export class IfcRelaxationSpecification implements ComponentSpecification

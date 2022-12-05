@@ -1,6 +1,7 @@
 
-import {BaseIfc} from "./BaseIfc"
 
 
 // http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcmagneticfluxmeasure.htm
-export type IfcMagneticFluxMeasure = number
+type IfcMagneticFluxMeasure = number;
+
+export default IfcMagneticFluxMeasure;

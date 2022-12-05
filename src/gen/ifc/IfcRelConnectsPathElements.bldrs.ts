@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcConnectionTypeEnum} from "./IfcConnectionTypeEnum.bldrs"
+import IfcConnectionTypeEnum from "./IfcConnectionTypeEnum.bldrs"
 
 
 /**
@@ -15,11 +15,7 @@ export default class IfcRelConnectsPathElements implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
-	RelatingPriorities : Array<number>;
-	RelatedPriorities : Array<number>;
-	RelatedConnectionType : IfcConnectionTypeEnum;
-	RelatingConnectionType : IfcConnectionTypeEnum;
-
+    constructor( public readonly RelatingPriorities : Array<number> , public readonly RelatedPriorities : Array<number> , public readonly RelatedConnectionType : IfcConnectionTypeEnum , public readonly RelatingConnectionType : IfcConnectionTypeEnum  ) {}
 }
 
 export class IfcRelConnectsPathElementsSpecification implements ComponentSpecification

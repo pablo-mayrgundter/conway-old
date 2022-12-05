@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcClassificationItem} from "./IfcClassificationItem.bldrs"
+import IfcClassificationItem from "./IfcClassificationItem.bldrs"
 
 
 /**
@@ -15,9 +15,7 @@ export default class IfcClassificationItemRelationship implements Component< Sch
 
     public readonly __version__: number = 0;
 
-	RelatingItem : IfcClassificationItem;
-	RelatedItems : Array<IfcClassificationItem>;
-
+    constructor( public readonly RelatingItem : IfcClassificationItem , public readonly RelatedItems : Array<IfcClassificationItem>  ) {}
 }
 
 export class IfcClassificationItemRelationshipSpecification implements ComponentSpecification

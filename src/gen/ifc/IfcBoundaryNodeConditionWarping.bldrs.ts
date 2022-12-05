@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcWarpingMomentMeasure} from "./IfcWarpingMomentMeasure.bldrs"
+import IfcWarpingMomentMeasure from "./IfcWarpingMomentMeasure.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcBoundaryNodeConditionWarping implements Component< Schem
 
     public readonly __version__: number = 0;
 
-	WarpingStiffness? : IfcWarpingMomentMeasure;
-
+    constructor( public readonly WarpingStiffness : IfcWarpingMomentMeasure  | undefined ) {}
 }
 
 export class IfcBoundaryNodeConditionWarpingSpecification implements ComponentSpecification

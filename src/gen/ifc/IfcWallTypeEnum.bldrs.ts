@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcwalltypeenum.htm
-export enum IfcWallTypeEnum 
+enum IfcWallTypeEnum 
 {
 	STANDARD=".STANDARD.",
 	POLYGONAL=".POLYGONAL.",
@@ -9,4 +9,6 @@ export enum IfcWallTypeEnum
 	PLUMBINGWALL=".PLUMBINGWALL.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcWallTypeEnum;

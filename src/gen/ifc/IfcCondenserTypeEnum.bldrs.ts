@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccondensertypeenum.htm
-export enum IfcCondenserTypeEnum 
+enum IfcCondenserTypeEnum 
 {
 	WATERCOOLEDSHELLTUBE=".WATERCOOLEDSHELLTUBE.",
 	WATERCOOLEDSHELLCOIL=".WATERCOOLEDSHELLCOIL.",
@@ -10,4 +10,6 @@ export enum IfcCondenserTypeEnum
 	EVAPORATIVECOOLED=".EVAPORATIVECOOLED.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcCondenserTypeEnum;

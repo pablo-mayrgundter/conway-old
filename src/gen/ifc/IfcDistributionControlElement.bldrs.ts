@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcIdentifier} from "./IfcIdentifier.bldrs"
-import {IfcRelFlowControlElements} from "./IfcRelFlowControlElements.bldrs"
+import IfcIdentifier from "./IfcIdentifier.bldrs"
+import IfcRelFlowControlElements from "./IfcRelFlowControlElements.bldrs"
 
 
 /**
@@ -16,8 +16,7 @@ export default class IfcDistributionControlElement implements Component< SchemaS
 
     public readonly __version__: number = 0;
 
-	ControlElementId? : IfcIdentifier;
-
+    constructor( public readonly ControlElementId : IfcIdentifier  | undefined ) {}
 }
 
 export class IfcDistributionControlElementSpecification implements ComponentSpecification

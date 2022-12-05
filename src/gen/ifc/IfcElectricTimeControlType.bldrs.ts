@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcElectricTimeControlTypeEnum} from "./IfcElectricTimeControlTypeEnum.bldrs"
+import IfcElectricTimeControlTypeEnum from "./IfcElectricTimeControlTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcElectricTimeControlType implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcElectricTimeControlTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcElectricTimeControlTypeEnum  ) {}
 }
 
 export class IfcElectricTimeControlTypeSpecification implements ComponentSpecification

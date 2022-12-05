@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcdoorstyleoperationenum.htm
-export enum IfcDoorStyleOperationEnum 
+enum IfcDoorStyleOperationEnum 
 {
 	SINGLE_SWING_LEFT=".SINGLE_SWING_LEFT.",
 	SINGLE_SWING_RIGHT=".SINGLE_SWING_RIGHT.",
@@ -20,4 +20,6 @@ export enum IfcDoorStyleOperationEnum
 	ROLLINGUP=".ROLLINGUP.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcDoorStyleOperationEnum;

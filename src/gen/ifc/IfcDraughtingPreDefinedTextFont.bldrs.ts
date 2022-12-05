@@ -14,7 +14,7 @@ export default class IfcDraughtingPreDefinedTextFont implements Component< Schem
 
     public readonly __version__: number = 0;
 
-
+    constructor(  ) {}
 }
 
 export class IfcDraughtingPreDefinedTextFontSpecification implements ComponentSpecification

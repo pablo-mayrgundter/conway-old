@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcAxis1Placement} from "./IfcAxis1Placement.bldrs"
-import {IfcLine} from "./IfcLine.bldrs"
+import IfcAxis1Placement from "./IfcAxis1Placement.bldrs"
+import IfcLine from "./IfcLine.bldrs"
 
 
 /**
@@ -16,8 +16,7 @@ export default class IfcSurfaceOfRevolution implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
-	AxisPosition : IfcAxis1Placement;
-
+    constructor( public readonly AxisPosition : IfcAxis1Placement  ) {}
 }
 
 export class IfcSurfaceOfRevolutionSpecification implements ComponentSpecification

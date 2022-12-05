@@ -3,11 +3,11 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcElectricCurrentEnum} from "./IfcElectricCurrentEnum.bldrs"
-import {IfcElectricVoltageMeasure} from "./IfcElectricVoltageMeasure.bldrs"
-import {IfcFrequencyMeasure} from "./IfcFrequencyMeasure.bldrs"
-import {IfcElectricCurrentMeasure} from "./IfcElectricCurrentMeasure.bldrs"
-import {IfcPowerMeasure} from "./IfcPowerMeasure.bldrs"
+import IfcElectricCurrentEnum from "./IfcElectricCurrentEnum.bldrs"
+import IfcElectricVoltageMeasure from "./IfcElectricVoltageMeasure.bldrs"
+import IfcFrequencyMeasure from "./IfcFrequencyMeasure.bldrs"
+import IfcElectricCurrentMeasure from "./IfcElectricCurrentMeasure.bldrs"
+import IfcPowerMeasure from "./IfcPowerMeasure.bldrs"
 
 
 /**
@@ -19,15 +19,7 @@ export default class IfcElectricalBaseProperties implements Component< SchemaSpe
 
     public readonly __version__: number = 0;
 
-	ElectricCurrentType? : IfcElectricCurrentEnum;
-	InputVoltage : IfcElectricVoltageMeasure;
-	InputFrequency : IfcFrequencyMeasure;
-	FullLoadCurrent? : IfcElectricCurrentMeasure;
-	MinimumCircuitCurrent? : IfcElectricCurrentMeasure;
-	MaximumPowerInput? : IfcPowerMeasure;
-	RatedPowerInput? : IfcPowerMeasure;
-	InputPhase : number;
-
+    constructor( public readonly ElectricCurrentType : IfcElectricCurrentEnum  | undefined, public readonly InputVoltage : IfcElectricVoltageMeasure , public readonly InputFrequency : IfcFrequencyMeasure , public readonly FullLoadCurrent : IfcElectricCurrentMeasure  | undefined, public readonly MinimumCircuitCurrent : IfcElectricCurrentMeasure  | undefined, public readonly MaximumPowerInput : IfcPowerMeasure  | undefined, public readonly RatedPowerInput : IfcPowerMeasure  | undefined, public readonly InputPhase : number  ) {}
 }
 
 export class IfcElectricalBasePropertiesSpecification implements ComponentSpecification

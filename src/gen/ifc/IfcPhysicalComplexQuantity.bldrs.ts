@@ -3,8 +3,8 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPhysicalQuantity} from "./IfcPhysicalQuantity.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
+import IfcPhysicalQuantity from "./IfcPhysicalQuantity.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
 
 
 /**
@@ -16,11 +16,7 @@ export default class IfcPhysicalComplexQuantity implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
-	HasQuantities : Array<IfcPhysicalQuantity>;
-	Discrimination : IfcLabel;
-	Quality? : IfcLabel;
-	Usage? : IfcLabel;
-
+    constructor( public readonly HasQuantities : Array<IfcPhysicalQuantity> , public readonly Discrimination : IfcLabel , public readonly Quality : IfcLabel  | undefined, public readonly Usage : IfcLabel  | undefined ) {}
 }
 
 export class IfcPhysicalComplexQuantitySpecification implements ComponentSpecification

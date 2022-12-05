@@ -3,14 +3,14 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcPositiveRatioMeasure} from "./IfcPositiveRatioMeasure.bldrs"
-import {IfcThermalLoadSourceEnum} from "./IfcThermalLoadSourceEnum.bldrs"
-import {IfcPropertySourceEnum} from "./IfcPropertySourceEnum.bldrs"
-import {IfcText} from "./IfcText.bldrs"
-import {IfcPowerMeasure} from "./IfcPowerMeasure.bldrs"
-import {IfcTimeSeries} from "./IfcTimeSeries.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcThermalLoadTypeEnum} from "./IfcThermalLoadTypeEnum.bldrs"
+import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
+import IfcThermalLoadSourceEnum from "./IfcThermalLoadSourceEnum.bldrs"
+import IfcPropertySourceEnum from "./IfcPropertySourceEnum.bldrs"
+import IfcText from "./IfcText.bldrs"
+import IfcPowerMeasure from "./IfcPowerMeasure.bldrs"
+import IfcTimeSeries from "./IfcTimeSeries.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcThermalLoadTypeEnum from "./IfcThermalLoadTypeEnum.bldrs"
 
 
 /**
@@ -22,17 +22,7 @@ export default class IfcSpaceThermalLoadProperties implements Component< SchemaS
 
     public readonly __version__: number = 0;
 
-	ApplicableValueRatio? : IfcPositiveRatioMeasure;
-	ThermalLoadSource : IfcThermalLoadSourceEnum;
-	PropertySource : IfcPropertySourceEnum;
-	SourceDescription? : IfcText;
-	MaximumValue : IfcPowerMeasure;
-	MinimumValue? : IfcPowerMeasure;
-	ThermalLoadTimeSeriesValues? : IfcTimeSeries;
-	UserDefinedThermalLoadSource? : IfcLabel;
-	UserDefinedPropertySource? : IfcLabel;
-	ThermalLoadType : IfcThermalLoadTypeEnum;
-
+    constructor( public readonly ApplicableValueRatio : IfcPositiveRatioMeasure  | undefined, public readonly ThermalLoadSource : IfcThermalLoadSourceEnum , public readonly PropertySource : IfcPropertySourceEnum , public readonly SourceDescription : IfcText  | undefined, public readonly MaximumValue : IfcPowerMeasure , public readonly MinimumValue : IfcPowerMeasure  | undefined, public readonly ThermalLoadTimeSeriesValues : IfcTimeSeries  | undefined, public readonly UserDefinedThermalLoadSource : IfcLabel  | undefined, public readonly UserDefinedPropertySource : IfcLabel  | undefined, public readonly ThermalLoadType : IfcThermalLoadTypeEnum  ) {}
 }
 
 export class IfcSpaceThermalLoadPropertiesSpecification implements ComponentSpecification

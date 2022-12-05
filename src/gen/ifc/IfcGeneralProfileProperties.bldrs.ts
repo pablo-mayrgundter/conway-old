@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcMassPerLengthMeasure} from "./IfcMassPerLengthMeasure.bldrs"
-import {IfcPositiveLengthMeasure} from "./IfcPositiveLengthMeasure.bldrs"
-import {IfcAreaMeasure} from "./IfcAreaMeasure.bldrs"
+import IfcMassPerLengthMeasure from "./IfcMassPerLengthMeasure.bldrs"
+import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
+import IfcAreaMeasure from "./IfcAreaMeasure.bldrs"
 
 
 /**
@@ -17,12 +17,7 @@ export default class IfcGeneralProfileProperties implements Component< SchemaSpe
 
     public readonly __version__: number = 0;
 
-	PhysicalWeight? : IfcMassPerLengthMeasure;
-	Perimeter? : IfcPositiveLengthMeasure;
-	MinimumPlateThickness? : IfcPositiveLengthMeasure;
-	MaximumPlateThickness? : IfcPositiveLengthMeasure;
-	CrossSectionArea? : IfcAreaMeasure;
-
+    constructor( public readonly PhysicalWeight : IfcMassPerLengthMeasure  | undefined, public readonly Perimeter : IfcPositiveLengthMeasure  | undefined, public readonly MinimumPlateThickness : IfcPositiveLengthMeasure  | undefined, public readonly MaximumPlateThickness : IfcPositiveLengthMeasure  | undefined, public readonly CrossSectionArea : IfcAreaMeasure  | undefined ) {}
 }
 
 export class IfcGeneralProfilePropertiesSpecification implements ComponentSpecification

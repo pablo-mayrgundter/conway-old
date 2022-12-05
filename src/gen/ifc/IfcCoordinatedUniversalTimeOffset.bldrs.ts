@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcHourInDay} from "./IfcHourInDay.bldrs"
-import {IfcMinuteInHour} from "./IfcMinuteInHour.bldrs"
-import {IfcAheadOrBehind} from "./IfcAheadOrBehind.bldrs"
+import IfcHourInDay from "./IfcHourInDay.bldrs"
+import IfcMinuteInHour from "./IfcMinuteInHour.bldrs"
+import IfcAheadOrBehind from "./IfcAheadOrBehind.bldrs"
 
 
 /**
@@ -17,10 +17,7 @@ export default class IfcCoordinatedUniversalTimeOffset implements Component< Sch
 
     public readonly __version__: number = 0;
 
-	HourOffset : IfcHourInDay;
-	MinuteOffset? : IfcMinuteInHour;
-	Sense : IfcAheadOrBehind;
-
+    constructor( public readonly HourOffset : IfcHourInDay , public readonly MinuteOffset : IfcMinuteInHour  | undefined, public readonly Sense : IfcAheadOrBehind  ) {}
 }
 
 export class IfcCoordinatedUniversalTimeOffsetSpecification implements ComponentSpecification

@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcVolumeMeasure} from "./IfcVolumeMeasure.bldrs"
+import IfcVolumeMeasure from "./IfcVolumeMeasure.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcQuantityVolume implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-	VolumeValue : IfcVolumeMeasure;
-
+    constructor( public readonly VolumeValue : IfcVolumeMeasure  ) {}
 }
 
 export class IfcQuantityVolumeSpecification implements ComponentSpecification

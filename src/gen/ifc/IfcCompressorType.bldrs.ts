@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCompressorTypeEnum} from "./IfcCompressorTypeEnum.bldrs"
+import IfcCompressorTypeEnum from "./IfcCompressorTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcCompressorType implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcCompressorTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcCompressorTypeEnum  ) {}
 }
 
 export class IfcCompressorTypeSpecification implements ComponentSpecification

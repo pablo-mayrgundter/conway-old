@@ -1,6 +1,6 @@
 
 //http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcflowinstrumenttypeenum.htm
-export enum IfcFlowInstrumentTypeEnum 
+enum IfcFlowInstrumentTypeEnum 
 {
 	PRESSUREGAUGE=".PRESSUREGAUGE.",
 	THERMOMETER=".THERMOMETER.",
@@ -12,4 +12,6 @@ export enum IfcFlowInstrumentTypeEnum
 	VOLTMETER_RMS=".VOLTMETER_RMS.",
 	USERDEFINED=".USERDEFINED.",
 	NOTDEFINED=".NOTDEFINED."
-}
+};
+
+export default IfcFlowInstrumentTypeEnum;

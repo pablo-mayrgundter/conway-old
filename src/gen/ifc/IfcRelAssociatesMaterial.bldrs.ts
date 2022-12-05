@@ -3,11 +3,11 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcMaterial} from "./IfcMaterial.bldrs"
-import {IfcMaterialList} from "./IfcMaterialList.bldrs"
-import {IfcMaterialLayerSetUsage} from "./IfcMaterialLayerSetUsage.bldrs"
-import {IfcMaterialLayerSet} from "./IfcMaterialLayerSet.bldrs"
-import {IfcMaterialLayer} from "./IfcMaterialLayer.bldrs"
+import IfcMaterial from "./IfcMaterial.bldrs"
+import IfcMaterialList from "./IfcMaterialList.bldrs"
+import IfcMaterialLayerSetUsage from "./IfcMaterialLayerSetUsage.bldrs"
+import IfcMaterialLayerSet from "./IfcMaterialLayerSet.bldrs"
+import IfcMaterialLayer from "./IfcMaterialLayer.bldrs"
 
 
 /**
@@ -19,8 +19,7 @@ export default class IfcRelAssociatesMaterial implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
-	RelatingMaterial : IfcMaterial|IfcMaterialList|IfcMaterialLayerSetUsage|IfcMaterialLayerSet|IfcMaterialLayer;
-
+    constructor( public readonly RelatingMaterial : IfcMaterial|IfcMaterialList|IfcMaterialLayerSetUsage|IfcMaterialLayerSet|IfcMaterialLayer  ) {}
 }
 
 export class IfcRelAssociatesMaterialSpecification implements ComponentSpecification

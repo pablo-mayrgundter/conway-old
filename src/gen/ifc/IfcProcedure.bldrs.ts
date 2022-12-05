@@ -3,9 +3,9 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcIdentifier} from "./IfcIdentifier.bldrs"
-import {IfcProcedureTypeEnum} from "./IfcProcedureTypeEnum.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
+import IfcIdentifier from "./IfcIdentifier.bldrs"
+import IfcProcedureTypeEnum from "./IfcProcedureTypeEnum.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
 
 
 /**
@@ -17,10 +17,7 @@ export default class IfcProcedure implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
-	ProcedureID : IfcIdentifier;
-	ProcedureType : IfcProcedureTypeEnum;
-	UserDefinedProcedureType? : IfcLabel;
-
+    constructor( public readonly ProcedureID : IfcIdentifier , public readonly ProcedureType : IfcProcedureTypeEnum , public readonly UserDefinedProcedureType : IfcLabel  | undefined ) {}
 }
 
 export class IfcProcedureSpecification implements ComponentSpecification

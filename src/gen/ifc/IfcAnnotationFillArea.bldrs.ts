@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcCurve} from "./IfcCurve.bldrs"
+import IfcCurve from "./IfcCurve.bldrs"
 
 
 /**
@@ -15,9 +15,7 @@ export default class IfcAnnotationFillArea implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
-	OuterBoundary : IfcCurve;
-	InnerBoundaries? : Array<IfcCurve>;
-
+    constructor( public readonly OuterBoundary : IfcCurve , public readonly InnerBoundaries : Array<IfcCurve>  | undefined ) {}
 }
 
 export class IfcAnnotationFillAreaSpecification implements ComponentSpecification

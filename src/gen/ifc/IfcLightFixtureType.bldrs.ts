@@ -3,7 +3,7 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcLightFixtureTypeEnum} from "./IfcLightFixtureTypeEnum.bldrs"
+import IfcLightFixtureTypeEnum from "./IfcLightFixtureTypeEnum.bldrs"
 
 
 /**
@@ -15,8 +15,7 @@ export default class IfcLightFixtureType implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
-	PredefinedType : IfcLightFixtureTypeEnum;
-
+    constructor( public readonly PredefinedType : IfcLightFixtureTypeEnum  ) {}
 }
 
 export class IfcLightFixtureTypeSpecification implements ComponentSpecification

@@ -3,11 +3,11 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcOrganization} from "./IfcOrganization.bldrs"
-import {IfcPerson} from "./IfcPerson.bldrs"
-import {IfcPersonAndOrganization} from "./IfcPersonAndOrganization.bldrs"
-import {IfcApproval} from "./IfcApproval.bldrs"
-import {IfcActorRole} from "./IfcActorRole.bldrs"
+import IfcOrganization from "./IfcOrganization.bldrs"
+import IfcPerson from "./IfcPerson.bldrs"
+import IfcPersonAndOrganization from "./IfcPersonAndOrganization.bldrs"
+import IfcApproval from "./IfcApproval.bldrs"
+import IfcActorRole from "./IfcActorRole.bldrs"
 
 
 /**
@@ -19,10 +19,7 @@ export default class IfcApprovalActorRelationship implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
-	Actor : IfcOrganization|IfcPerson|IfcPersonAndOrganization;
-	Approval : IfcApproval;
-	Role : IfcActorRole;
-
+    constructor( public readonly Actor : IfcOrganization|IfcPerson|IfcPersonAndOrganization , public readonly Approval : IfcApproval , public readonly Role : IfcActorRole  ) {}
 }
 
 export class IfcApprovalActorRelationshipSpecification implements ComponentSpecification

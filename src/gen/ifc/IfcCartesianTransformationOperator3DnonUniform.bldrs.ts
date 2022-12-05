@@ -14,9 +14,7 @@ export default class IfcCartesianTransformationOperator3DnonUniform implements C
 
     public readonly __version__: number = 0;
 
-	Scale2? : number;
-	Scale3? : number;
-
+    constructor( public readonly Scale2 : number  | undefined, public readonly Scale3 : number  | undefined ) {}
 }
 
 export class IfcCartesianTransformationOperator3DnonUniformSpecification implements ComponentSpecification

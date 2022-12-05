@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcConstraint} from "./IfcConstraint.bldrs"
-import {IfcProperty} from "./IfcProperty.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcText} from "./IfcText.bldrs"
+import IfcConstraint from "./IfcConstraint.bldrs"
+import IfcProperty from "./IfcProperty.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcText from "./IfcText.bldrs"
 
 
 /**
@@ -18,11 +18,7 @@ export default class IfcPropertyConstraintRelationship implements Component< Sch
 
     public readonly __version__: number = 0;
 
-	RelatingConstraint : IfcConstraint;
-	RelatedProperties : Array<IfcProperty>;
-	Name? : IfcLabel;
-	Description? : IfcText;
-
+    constructor( public readonly RelatingConstraint : IfcConstraint , public readonly RelatedProperties : Array<IfcProperty> , public readonly Name : IfcLabel  | undefined, public readonly Description : IfcText  | undefined ) {}
 }
 
 export class IfcPropertyConstraintRelationshipSpecification implements ComponentSpecification

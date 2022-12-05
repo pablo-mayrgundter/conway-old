@@ -3,10 +3,10 @@ import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
-import {IfcClassificationNotationFacet} from "./IfcClassificationNotationFacet.bldrs"
-import {IfcClassification} from "./IfcClassification.bldrs"
-import {IfcLabel} from "./IfcLabel.bldrs"
-import {IfcClassificationItemRelationship} from "./IfcClassificationItemRelationship.bldrs"
+import IfcClassificationNotationFacet from "./IfcClassificationNotationFacet.bldrs"
+import IfcClassification from "./IfcClassification.bldrs"
+import IfcLabel from "./IfcLabel.bldrs"
+import IfcClassificationItemRelationship from "./IfcClassificationItemRelationship.bldrs"
 
 
 /**
@@ -18,10 +18,7 @@ export default class IfcClassificationItem implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
-	Notation : IfcClassificationNotationFacet;
-	ItemOf? : IfcClassification;
-	Title : IfcLabel;
-
+    constructor( public readonly Notation : IfcClassificationNotationFacet , public readonly ItemOf : IfcClassification  | undefined, public readonly Title : IfcLabel  ) {}
 }
 
 export class IfcClassificationItemSpecification implements ComponentSpecification
