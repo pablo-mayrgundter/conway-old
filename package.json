@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build-incremental-watch-test": "yarn build-incremental && concurrently \"yarn test-watch\"",
+    "build-test-watch": "yarn build-incremental && concurrently \"yarn build-watch\" \"yarn test-watch\"",
     "build-watch": "tsc --build --watch",
     "build-incremental": "tsc --build",
     "build-rebuild": "yarn build-clean && yarn code-gen && yarn build-incremental",
