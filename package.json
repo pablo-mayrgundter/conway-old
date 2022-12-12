@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "build-test-watch": "yarn build-incremental && concurrently \"yarn build-watch\" \"yarn test-watch\"",
     "build-watch": "tsc --build --watch",
@@ -10,11 +11,11 @@
     "build-rebuild": "yarn build-clean && yarn code-gen && yarn build-incremental",
     "build-clean": "tsc --build --clean",
     "test-watch": "jest --watchAll  --notify",
-    "test": "jest",
+    "test": "yarn node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "lint": "yarn eslint src",
     "precommit": "yarn build-rebuild && yarn lint && yarn test",
     "dist": "tsc --project tsconfig.dist.json",
-    "code-gen": "cd ./external/IFC-gen && ./make \"OUTDIR=../../src/gen/ifc\" && cd ../..",
+    "code-gen": "cd ./external/IFC-gen && make \"OUTDIR=../../src/gen/ifc\" && cd ../..",
     "submodule-update": "git submodule update --init --recursive"
   },
   "author": "",
