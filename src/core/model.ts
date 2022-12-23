@@ -1,19 +1,25 @@
-import Component from './component';
 import SchemaSpecification from './schema_specification';
 import {ComponentTypeNames} from './schema_specification';
 import Entity from './entity';
+import ComponentSet from './component_set';
+import Snapshot, { SnapshotBuffer } from './snapshot';
+import Transaction from './transaction';
 
-export type Components< K extends (string | number), T extends SchemaSpecification > = { [ key in ComponentTypeNames< T > ]: Map< K, Component< T > > };
+export type Components< T extends SchemaSpecification > = { [ key in ComponentTypeNames< T > ]: ComponentSet< key, T > };
 
-export interface Model< K extends (string | number), T extends SchemaSpecification >
+export default interface Model< T extends SchemaSpecification >
 {
-    id : K;
+    id : string;
 
-    maxSeenFileId?: number;
+    latest(): Snapshot< T >;
 
-    components : Components< K, T >;
+    createTransaction(): Transaction< T >;
 
-    entities : ReadonlyMap< K, Entity< K > >; 
+    createFromBuffer( buffer: SnapshotBuffer< T > ): Entity< T >;
 
-    schemas: SchemaSpecification[];
+    lastCommitID: number;
+
+    maxSeenId?: number;
+
+    entities : ReadonlyMap< number, Entity< T > >; 
 };
