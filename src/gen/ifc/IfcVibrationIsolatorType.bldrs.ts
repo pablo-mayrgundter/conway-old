@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcVibrationIsolatorTypeEnum from "./IfcVibrationIsolatorTypeEnum.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcVibrationIsolatorType implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcVibrationIsolatorTypeSpecification = IfcVibrationIsolatorTypeSpecification.instance;
+
     constructor( public readonly PredefinedType : IfcVibrationIsolatorTypeEnum  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcVibrationIsolatorTypeSpecification implements ComponentSpecifica
 {
     public readonly name: string = 'IfcVibrationIsolatorType';
 
-    public readonly required: string[] = [ 'IfcDiscreteAccessoryType', 'IfcElementComponentType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcDiscreteAccessoryType', 'IfcElementComponentType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'PredefinedType',
@@ -35,4 +38,8 @@ export class IfcVibrationIsolatorTypeSpecification implements ComponentSpecifica
 			baseType: 'IfcVibrationIsolatorTypeEnum'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcVibrationIsolatorTypeSpecification = new IfcVibrationIsolatorTypeSpecification();
 }

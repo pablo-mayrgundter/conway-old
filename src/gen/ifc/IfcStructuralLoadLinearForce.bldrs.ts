@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLinearForceMeasure from "./IfcLinearForceMeasure.bldrs"
 import IfcLinearMomentMeasure from "./IfcLinearMomentMeasure.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcStructuralLoadLinearForce implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcStructuralLoadLinearForceSpecification = IfcStructuralLoadLinearForceSpecification.instance;
+
     constructor( public readonly LinearForceX : IfcLinearForceMeasure  | undefined, public readonly LinearForceY : IfcLinearForceMeasure  | undefined, public readonly LinearForceZ : IfcLinearForceMeasure  | undefined, public readonly LinearMomentX : IfcLinearMomentMeasure  | undefined, public readonly LinearMomentY : IfcLinearMomentMeasure  | undefined, public readonly LinearMomentZ : IfcLinearMomentMeasure  | undefined ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcStructuralLoadLinearForceSpecification implements ComponentSpeci
 {
     public readonly name: string = 'IfcStructuralLoadLinearForce';
 
-    public readonly required: string[] = [ 'IfcStructuralLoadStatic', 'IfcStructuralLoad' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralLoadStatic', 'IfcStructuralLoad' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'LinearForceX',
@@ -66,4 +69,8 @@ export class IfcStructuralLoadLinearForceSpecification implements ComponentSpeci
 			baseType: 'IfcLinearMomentMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcStructuralLoadLinearForceSpecification = new IfcStructuralLoadLinearForceSpecification();
 }

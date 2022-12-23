@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcDocumentReference from "./IfcDocumentReference.bldrs"
 import IfcDocumentInformation from "./IfcDocumentInformation.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcRelAssociatesDocument implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcRelAssociatesDocumentSpecification = IfcRelAssociatesDocumentSpecification.instance;
+
     constructor( public readonly RelatingDocument : IfcDocumentReference|IfcDocumentInformation  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcRelAssociatesDocumentSpecification implements ComponentSpecifica
 {
     public readonly name: string = 'IfcRelAssociatesDocument';
 
-    public readonly required: string[] = [ 'IfcRelAssociates', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssociates', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'RelatingDocument',
@@ -36,4 +39,8 @@ export class IfcRelAssociatesDocumentSpecification implements ComponentSpecifica
 			baseType: 'IfcDocumentReference|IfcDocumentInformation'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcRelAssociatesDocumentSpecification = new IfcRelAssociatesDocumentSpecification();
 }

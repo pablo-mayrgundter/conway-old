@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcPressureMeasure from "./IfcPressureMeasure.bldrs"
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 import IfcText from "./IfcText.bldrs"
@@ -18,6 +19,8 @@ export default class IfcMechanicalConcreteMaterialProperties implements Componen
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcMechanicalConcreteMaterialPropertiesSpecification = IfcMechanicalConcreteMaterialPropertiesSpecification.instance;
+
     constructor( public readonly CompressiveStrength : IfcPressureMeasure  | undefined, public readonly MaxAggregateSize : IfcPositiveLengthMeasure  | undefined, public readonly AdmixturesDescription : IfcText  | undefined, public readonly Workability : IfcText  | undefined, public readonly ProtectivePoreRatio : IfcNormalisedRatioMeasure  | undefined, public readonly WaterImpermeability : IfcText  | undefined ) {}
 }
 
@@ -25,11 +28,11 @@ export class IfcMechanicalConcreteMaterialPropertiesSpecification implements Com
 {
     public readonly name: string = 'IfcMechanicalConcreteMaterialProperties';
 
-    public readonly required: string[] = [ 'IfcMechanicalMaterialProperties', 'IfcMaterialProperties' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcMechanicalMaterialProperties', 'IfcMaterialProperties' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'CompressiveStrength',
@@ -68,4 +71,8 @@ export class IfcMechanicalConcreteMaterialPropertiesSpecification implements Com
 			baseType: 'IfcText'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcMechanicalConcreteMaterialPropertiesSpecification = new IfcMechanicalConcreteMaterialPropertiesSpecification();
 }

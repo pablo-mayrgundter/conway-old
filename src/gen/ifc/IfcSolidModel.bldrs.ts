@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcSolidModel implements Component< SchemaSpecificationIFC 
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcSolidModelSpecification = IfcSolidModelSpecification.instance;
+
     constructor(  ) {}
 }
 
@@ -22,11 +25,15 @@ export class IfcSolidModelSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSolidModel';
 
-    public readonly required: string[] = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = true;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcSolidModelSpecification = new IfcSolidModelSpecification();
 }

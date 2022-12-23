@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcIdentifier from "./IfcIdentifier.bldrs"
 import IfcCostValue from "./IfcCostValue.bldrs"
 import IfcOrganization from "./IfcOrganization.bldrs"
@@ -20,6 +21,8 @@ export default class IfcAsset implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcAssetSpecification = IfcAssetSpecification.instance;
+
     constructor( public readonly AssetID : IfcIdentifier , public readonly OriginalValue : IfcCostValue , public readonly CurrentValue : IfcCostValue , public readonly TotalReplacementCost : IfcCostValue , public readonly Owner : IfcOrganization|IfcPerson|IfcPersonAndOrganization , public readonly User : IfcOrganization|IfcPerson|IfcPersonAndOrganization , public readonly ResponsiblePerson : IfcPerson , public readonly IncorporationDate : IfcCalendarDate , public readonly DepreciatedValue : IfcCostValue  ) {}
 }
 
@@ -27,11 +30,11 @@ export class IfcAssetSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcAsset';
 
-    public readonly required: string[] = [ 'IfcGroup', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcGroup', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'AssetID',
@@ -88,4 +91,8 @@ export class IfcAssetSpecification implements ComponentSpecification
 			baseType: 'IfcCostValue'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcAssetSpecification = new IfcAssetSpecification();
 }

@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcIdentifier from "./IfcIdentifier.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcTask implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcTaskSpecification = IfcTaskSpecification.instance;
+
     constructor( public readonly TaskId : IfcIdentifier , public readonly Status : IfcLabel  | undefined, public readonly WorkMethod : IfcLabel  | undefined, public readonly IsMilestone : boolean , public readonly Priority : number  | undefined ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcTaskSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcTask';
 
-    public readonly required: string[] = [ 'IfcProcess', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcProcess', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'TaskId',
@@ -60,4 +63,8 @@ export class IfcTaskSpecification implements ComponentSpecification
 			baseType: 'number'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcTaskSpecification = new IfcTaskSpecification();
 }

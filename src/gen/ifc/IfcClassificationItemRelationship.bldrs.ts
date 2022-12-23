@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcClassificationItem from "./IfcClassificationItem.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcClassificationItemRelationship implements Component< Sch
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcClassificationItemRelationshipSpecification = IfcClassificationItemRelationshipSpecification.instance;
+
     constructor( public readonly RelatingItem : IfcClassificationItem , public readonly RelatedItems : Array<IfcClassificationItem>  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcClassificationItemRelationshipSpecification implements Component
 {
     public readonly name: string = 'IfcClassificationItemRelationship';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'RelatingItem',
@@ -41,4 +44,8 @@ export class IfcClassificationItemRelationshipSpecification implements Component
 			baseType: 'Array<IfcClassificationItem>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcClassificationItemRelationshipSpecification = new IfcClassificationItemRelationshipSpecification();
 }

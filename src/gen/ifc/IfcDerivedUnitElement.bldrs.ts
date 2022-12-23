@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcNamedUnit from "./IfcNamedUnit.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcDerivedUnitElement implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcDerivedUnitElementSpecification = IfcDerivedUnitElementSpecification.instance;
+
     constructor( public readonly Unit : IfcNamedUnit , public readonly Exponent : number  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcDerivedUnitElementSpecification implements ComponentSpecificatio
 {
     public readonly name: string = 'IfcDerivedUnitElement';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Unit',
@@ -41,4 +44,8 @@ export class IfcDerivedUnitElementSpecification implements ComponentSpecificatio
 			baseType: 'number'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcDerivedUnitElementSpecification = new IfcDerivedUnitElementSpecification();
 }

@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 import IfcPlaneAngleMeasure from "./IfcPlaneAngleMeasure.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcStructuralLoadSingleDisplacement implements Component< S
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcStructuralLoadSingleDisplacementSpecification = IfcStructuralLoadSingleDisplacementSpecification.instance;
+
     constructor( public readonly DisplacementX : IfcLengthMeasure  | undefined, public readonly DisplacementY : IfcLengthMeasure  | undefined, public readonly DisplacementZ : IfcLengthMeasure  | undefined, public readonly RotationalDisplacementRX : IfcPlaneAngleMeasure  | undefined, public readonly RotationalDisplacementRY : IfcPlaneAngleMeasure  | undefined, public readonly RotationalDisplacementRZ : IfcPlaneAngleMeasure  | undefined ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcStructuralLoadSingleDisplacementSpecification implements Compone
 {
     public readonly name: string = 'IfcStructuralLoadSingleDisplacement';
 
-    public readonly required: string[] = [ 'IfcStructuralLoadStatic', 'IfcStructuralLoad' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralLoadStatic', 'IfcStructuralLoad' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'DisplacementX',
@@ -66,4 +69,8 @@ export class IfcStructuralLoadSingleDisplacementSpecification implements Compone
 			baseType: 'IfcPlaneAngleMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcStructuralLoadSingleDisplacementSpecification = new IfcStructuralLoadSingleDisplacementSpecification();
 }

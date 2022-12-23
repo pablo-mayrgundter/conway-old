@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcBoundaryCondition from "./IfcBoundaryCondition.bldrs"
 import IfcRelConnectsStructuralMember from "./IfcRelConnectsStructuralMember.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcStructuralConnection implements Component< SchemaSpecifi
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcStructuralConnectionSpecification = IfcStructuralConnectionSpecification.instance;
+
     constructor( public readonly AppliedCondition : IfcBoundaryCondition  | undefined ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcStructuralConnectionSpecification implements ComponentSpecificat
 {
     public readonly name: string = 'IfcStructuralConnection';
 
-    public readonly required: string[] = [ 'IfcStructuralItem', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralItem', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = true;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'AppliedCondition',
@@ -36,4 +39,8 @@ export class IfcStructuralConnectionSpecification implements ComponentSpecificat
 			baseType: 'IfcBoundaryCondition'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcStructuralConnectionSpecification = new IfcStructuralConnectionSpecification();
 }

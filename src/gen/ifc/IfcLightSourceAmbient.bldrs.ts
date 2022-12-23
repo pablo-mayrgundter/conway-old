@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 
 
 /**
@@ -14,6 +15,8 @@ export default class IfcLightSourceAmbient implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcLightSourceAmbientSpecification = IfcLightSourceAmbientSpecification.instance;
+
     constructor(  ) {}
 }
 
@@ -21,11 +24,15 @@ export class IfcLightSourceAmbientSpecification implements ComponentSpecificatio
 {
     public readonly name: string = 'IfcLightSourceAmbient';
 
-    public readonly required: string[] = [ 'IfcLightSource', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcLightSource', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcLightSourceAmbientSpecification = new IfcLightSourceAmbientSpecification();
 }

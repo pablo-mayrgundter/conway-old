@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcIdentifier from "./IfcIdentifier.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcResourceConsumptionEnum from "./IfcResourceConsumptionEnum.bldrs"
@@ -18,6 +19,8 @@ export default class IfcConstructionResource implements Component< SchemaSpecifi
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcConstructionResourceSpecification = IfcConstructionResourceSpecification.instance;
+
     constructor( public readonly ResourceIdentifier : IfcIdentifier  | undefined, public readonly ResourceGroup : IfcLabel  | undefined, public readonly ResourceConsumption : IfcResourceConsumptionEnum  | undefined, public readonly BaseQuantity : IfcMeasureWithUnit  | undefined ) {}
 }
 
@@ -25,11 +28,11 @@ export class IfcConstructionResourceSpecification implements ComponentSpecificat
 {
     public readonly name: string = 'IfcConstructionResource';
 
-    public readonly required: string[] = [ 'IfcResource', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcResource', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = true;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'ResourceIdentifier',
@@ -56,4 +59,8 @@ export class IfcConstructionResourceSpecification implements ComponentSpecificat
 			baseType: 'IfcMeasureWithUnit'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcConstructionResourceSpecification = new IfcConstructionResourceSpecification();
 }

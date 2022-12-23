@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcElectricCurrentEnum from "./IfcElectricCurrentEnum.bldrs"
 import IfcElectricVoltageMeasure from "./IfcElectricVoltageMeasure.bldrs"
 import IfcFrequencyMeasure from "./IfcFrequencyMeasure.bldrs"
@@ -19,6 +20,8 @@ export default class IfcElectricalBaseProperties implements Component< SchemaSpe
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcElectricalBasePropertiesSpecification = IfcElectricalBasePropertiesSpecification.instance;
+
     constructor( public readonly ElectricCurrentType : IfcElectricCurrentEnum  | undefined, public readonly InputVoltage : IfcElectricVoltageMeasure , public readonly InputFrequency : IfcFrequencyMeasure , public readonly FullLoadCurrent : IfcElectricCurrentMeasure  | undefined, public readonly MinimumCircuitCurrent : IfcElectricCurrentMeasure  | undefined, public readonly MaximumPowerInput : IfcPowerMeasure  | undefined, public readonly RatedPowerInput : IfcPowerMeasure  | undefined, public readonly InputPhase : number  ) {}
 }
 
@@ -26,11 +29,11 @@ export class IfcElectricalBasePropertiesSpecification implements ComponentSpecif
 {
     public readonly name: string = 'IfcElectricalBaseProperties';
 
-    public readonly required: string[] = [ 'IfcEnergyProperties', 'IfcPropertySetDefinition', 'IfcPropertyDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcEnergyProperties', 'IfcPropertySetDefinition', 'IfcPropertyDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'ElectricCurrentType',
@@ -81,4 +84,8 @@ export class IfcElectricalBasePropertiesSpecification implements ComponentSpecif
 			baseType: 'number'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcElectricalBasePropertiesSpecification = new IfcElectricalBasePropertiesSpecification();
 }

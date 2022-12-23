@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcBoolean from "./IfcBoolean.bldrs"
 import IfcSoundScaleEnum from "./IfcSoundScaleEnum.bldrs"
 import IfcSoundValue from "./IfcSoundValue.bldrs"
@@ -17,6 +18,8 @@ export default class IfcSoundProperties implements Component< SchemaSpecificatio
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcSoundPropertiesSpecification = IfcSoundPropertiesSpecification.instance;
+
     constructor( public readonly IsAttenuating : IfcBoolean , public readonly SoundScale : IfcSoundScaleEnum  | undefined, public readonly SoundValues : Array<IfcSoundValue>  ) {}
 }
 
@@ -24,11 +27,11 @@ export class IfcSoundPropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSoundProperties';
 
-    public readonly required: string[] = [ 'IfcPropertySetDefinition', 'IfcPropertyDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPropertySetDefinition', 'IfcPropertyDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'IsAttenuating',
@@ -49,4 +52,8 @@ export class IfcSoundPropertiesSpecification implements ComponentSpecification
 			baseType: 'Array<IfcSoundValue>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcSoundPropertiesSpecification = new IfcSoundPropertiesSpecification();
 }

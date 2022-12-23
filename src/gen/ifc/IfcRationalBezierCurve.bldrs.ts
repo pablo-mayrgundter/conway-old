@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 
 
 /**
@@ -14,6 +15,8 @@ export default class IfcRationalBezierCurve implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcRationalBezierCurveSpecification = IfcRationalBezierCurveSpecification.instance;
+
     constructor( public readonly WeightsData : Array<number>  ) {}
 }
 
@@ -21,11 +24,11 @@ export class IfcRationalBezierCurveSpecification implements ComponentSpecificati
 {
     public readonly name: string = 'IfcRationalBezierCurve';
 
-    public readonly required: string[] = [ 'IfcBezierCurve', 'IfcBSplineCurve', 'IfcBoundedCurve', 'IfcCurve', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcBezierCurve', 'IfcBSplineCurve', 'IfcBoundedCurve', 'IfcCurve', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'WeightsData',
@@ -34,4 +37,8 @@ export class IfcRationalBezierCurveSpecification implements ComponentSpecificati
 			baseType: 'Array<number>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcRationalBezierCurveSpecification = new IfcRationalBezierCurveSpecification();
 }

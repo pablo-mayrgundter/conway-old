@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 import IfcPlaneAngleMeasure from "./IfcPlaneAngleMeasure.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcUShapeProfileDef implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcUShapeProfileDefSpecification = IfcUShapeProfileDefSpecification.instance;
+
     constructor( public readonly Depth : IfcPositiveLengthMeasure , public readonly FlangeWidth : IfcPositiveLengthMeasure , public readonly WebThickness : IfcPositiveLengthMeasure , public readonly FlangeThickness : IfcPositiveLengthMeasure , public readonly FilletRadius : IfcPositiveLengthMeasure  | undefined, public readonly EdgeRadius : IfcPositiveLengthMeasure  | undefined, public readonly FlangeSlope : IfcPlaneAngleMeasure  | undefined, public readonly CentreOfGravityInX : IfcPositiveLengthMeasure  | undefined ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcUShapeProfileDefSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcUShapeProfileDef';
 
-    public readonly required: string[] = [ 'IfcParameterizedProfileDef', 'IfcProfileDef' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcParameterizedProfileDef', 'IfcProfileDef' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Depth',
@@ -78,4 +81,8 @@ export class IfcUShapeProfileDefSpecification implements ComponentSpecification
 			baseType: 'IfcPositiveLengthMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcUShapeProfileDefSpecification = new IfcUShapeProfileDefSpecification();
 }

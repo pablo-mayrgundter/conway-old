@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcProtectiveDeviceTypeEnum from "./IfcProtectiveDeviceTypeEnum.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcProtectiveDeviceType implements Component< SchemaSpecifi
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcProtectiveDeviceTypeSpecification = IfcProtectiveDeviceTypeSpecification.instance;
+
     constructor( public readonly PredefinedType : IfcProtectiveDeviceTypeEnum  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcProtectiveDeviceTypeSpecification implements ComponentSpecificat
 {
     public readonly name: string = 'IfcProtectiveDeviceType';
 
-    public readonly required: string[] = [ 'IfcFlowControllerType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcFlowControllerType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'PredefinedType',
@@ -35,4 +38,8 @@ export class IfcProtectiveDeviceTypeSpecification implements ComponentSpecificat
 			baseType: 'IfcProtectiveDeviceTypeEnum'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcProtectiveDeviceTypeSpecification = new IfcProtectiveDeviceTypeSpecification();
 }

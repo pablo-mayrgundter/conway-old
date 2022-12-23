@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcElectricMotorTypeEnum from "./IfcElectricMotorTypeEnum.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcElectricMotorType implements Component< SchemaSpecificat
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcElectricMotorTypeSpecification = IfcElectricMotorTypeSpecification.instance;
+
     constructor( public readonly PredefinedType : IfcElectricMotorTypeEnum  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcElectricMotorTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcElectricMotorType';
 
-    public readonly required: string[] = [ 'IfcEnergyConversionDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcEnergyConversionDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'PredefinedType',
@@ -35,4 +38,8 @@ export class IfcElectricMotorTypeSpecification implements ComponentSpecification
 			baseType: 'IfcElectricMotorTypeEnum'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcElectricMotorTypeSpecification = new IfcElectricMotorTypeSpecification();
 }

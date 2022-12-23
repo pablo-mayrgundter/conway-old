@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcGridAxis from "./IfcGridAxis.bldrs"
 import IfcRelContainedInSpatialStructure from "./IfcRelContainedInSpatialStructure.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcGrid implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcGridSpecification = IfcGridSpecification.instance;
+
     constructor( public readonly UAxes : Array<IfcGridAxis> , public readonly VAxes : Array<IfcGridAxis> , public readonly WAxes : Array<IfcGridAxis>  | undefined ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcGridSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcGrid';
 
-    public readonly required: string[] = [ 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'UAxes',
@@ -48,4 +51,8 @@ export class IfcGridSpecification implements ComponentSpecification
 			baseType: 'Array<IfcGridAxis>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcGridSpecification = new IfcGridSpecification();
 }

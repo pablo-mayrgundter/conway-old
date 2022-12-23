@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcMeasureWithUnit from "./IfcMeasureWithUnit.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcConversionBasedUnit implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcConversionBasedUnitSpecification = IfcConversionBasedUnitSpecification.instance;
+
     constructor( public readonly Name : IfcLabel , public readonly ConversionFactor : IfcMeasureWithUnit  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcConversionBasedUnitSpecification implements ComponentSpecificati
 {
     public readonly name: string = 'IfcConversionBasedUnit';
 
-    public readonly required: string[] = [ 'IfcNamedUnit' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcNamedUnit' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Name',
@@ -42,4 +45,8 @@ export class IfcConversionBasedUnitSpecification implements ComponentSpecificati
 			baseType: 'IfcMeasureWithUnit'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcConversionBasedUnitSpecification = new IfcConversionBasedUnitSpecification();
 }

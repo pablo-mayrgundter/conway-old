@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcCartesianPoint from "./IfcCartesianPoint.bldrs"
 import IfcBSplineCurveForm from "./IfcBSplineCurveForm.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcBSplineCurve implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcBSplineCurveSpecification = IfcBSplineCurveSpecification.instance;
+
     constructor( public readonly Degree : number , public readonly ControlPointsList : Array<IfcCartesianPoint> , public readonly CurveForm : IfcBSplineCurveForm , public readonly ClosedCurve : boolean , public readonly SelfIntersect : boolean  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcBSplineCurveSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcBSplineCurve';
 
-    public readonly required: string[] = [ 'IfcBoundedCurve', 'IfcCurve', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcBoundedCurve', 'IfcCurve', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = true;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Degree',
@@ -60,4 +63,8 @@ export class IfcBSplineCurveSpecification implements ComponentSpecification
 			baseType: 'boolean'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcBSplineCurveSpecification = new IfcBSplineCurveSpecification();
 }

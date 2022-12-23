@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcTimeMeasure from "./IfcTimeMeasure.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcQuantityTime implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcQuantityTimeSpecification = IfcQuantityTimeSpecification.instance;
+
     constructor( public readonly TimeValue : IfcTimeMeasure  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcQuantityTimeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcQuantityTime';
 
-    public readonly required: string[] = [ 'IfcPhysicalSimpleQuantity', 'IfcPhysicalQuantity' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPhysicalSimpleQuantity', 'IfcPhysicalQuantity' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'TimeValue',
@@ -35,4 +38,8 @@ export class IfcQuantityTimeSpecification implements ComponentSpecification
 			baseType: 'IfcTimeMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcQuantityTimeSpecification = new IfcQuantityTimeSpecification();
 }

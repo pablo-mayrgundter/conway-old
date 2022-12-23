@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
 import IfcIsothermalMoistureCapacityMeasure from "./IfcIsothermalMoistureCapacityMeasure.bldrs"
 import IfcVaporPermeabilityMeasure from "./IfcVaporPermeabilityMeasure.bldrs"
@@ -18,6 +19,8 @@ export default class IfcHygroscopicMaterialProperties implements Component< Sche
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcHygroscopicMaterialPropertiesSpecification = IfcHygroscopicMaterialPropertiesSpecification.instance;
+
     constructor( public readonly UpperVaporResistanceFactor : IfcPositiveRatioMeasure  | undefined, public readonly LowerVaporResistanceFactor : IfcPositiveRatioMeasure  | undefined, public readonly IsothermalMoistureCapacity : IfcIsothermalMoistureCapacityMeasure  | undefined, public readonly VaporPermeability : IfcVaporPermeabilityMeasure  | undefined, public readonly MoistureDiffusivity : IfcMoistureDiffusivityMeasure  | undefined ) {}
 }
 
@@ -25,11 +28,11 @@ export class IfcHygroscopicMaterialPropertiesSpecification implements ComponentS
 {
     public readonly name: string = 'IfcHygroscopicMaterialProperties';
 
-    public readonly required: string[] = [ 'IfcMaterialProperties' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcMaterialProperties' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'UpperVaporResistanceFactor',
@@ -62,4 +65,8 @@ export class IfcHygroscopicMaterialPropertiesSpecification implements ComponentS
 			baseType: 'IfcMoistureDiffusivityMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcHygroscopicMaterialPropertiesSpecification = new IfcHygroscopicMaterialPropertiesSpecification();
 }

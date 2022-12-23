@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcPreDefinedItem implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcPreDefinedItemSpecification = IfcPreDefinedItemSpecification.instance;
+
     constructor( public readonly Name : IfcLabel  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcPreDefinedItemSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcPreDefinedItem';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = true;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Name',
@@ -35,4 +38,8 @@ export class IfcPreDefinedItemSpecification implements ComponentSpecification
 			baseType: 'IfcLabel'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcPreDefinedItemSpecification = new IfcPreDefinedItemSpecification();
 }

@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcText from "./IfcText.bldrs"
 import IfcRepresentationItem from "./IfcRepresentationItem.bldrs"
@@ -19,6 +20,8 @@ export default class IfcPresentationLayerAssignment implements Component< Schema
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcPresentationLayerAssignmentSpecification = IfcPresentationLayerAssignmentSpecification.instance;
+
     constructor( public readonly Name : IfcLabel , public readonly Description : IfcText  | undefined, public readonly AssignedItems : Array<IfcRepresentationItem|IfcRepresentation> , public readonly Identifier : IfcIdentifier  | undefined ) {}
 }
 
@@ -26,11 +29,11 @@ export class IfcPresentationLayerAssignmentSpecification implements ComponentSpe
 {
     public readonly name: string = 'IfcPresentationLayerAssignment';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Name',
@@ -57,4 +60,8 @@ export class IfcPresentationLayerAssignmentSpecification implements ComponentSpe
 			baseType: 'IfcIdentifier'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcPresentationLayerAssignmentSpecification = new IfcPresentationLayerAssignmentSpecification();
 }

@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcModulusOfLinearSubgradeReactionMeasure from "./IfcModulusOfLinearSubgradeReactionMeasure.bldrs"
 import IfcModulusOfRotationalSubgradeReactionMeasure from "./IfcModulusOfRotationalSubgradeReactionMeasure.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcBoundaryEdgeCondition implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcBoundaryEdgeConditionSpecification = IfcBoundaryEdgeConditionSpecification.instance;
+
     constructor( public readonly LinearStiffnessByLengthX : IfcModulusOfLinearSubgradeReactionMeasure  | undefined, public readonly LinearStiffnessByLengthY : IfcModulusOfLinearSubgradeReactionMeasure  | undefined, public readonly LinearStiffnessByLengthZ : IfcModulusOfLinearSubgradeReactionMeasure  | undefined, public readonly RotationalStiffnessByLengthX : IfcModulusOfRotationalSubgradeReactionMeasure  | undefined, public readonly RotationalStiffnessByLengthY : IfcModulusOfRotationalSubgradeReactionMeasure  | undefined, public readonly RotationalStiffnessByLengthZ : IfcModulusOfRotationalSubgradeReactionMeasure  | undefined ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcBoundaryEdgeConditionSpecification implements ComponentSpecifica
 {
     public readonly name: string = 'IfcBoundaryEdgeCondition';
 
-    public readonly required: string[] = [ 'IfcBoundaryCondition' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcBoundaryCondition' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'LinearStiffnessByLengthX',
@@ -66,4 +69,8 @@ export class IfcBoundaryEdgeConditionSpecification implements ComponentSpecifica
 			baseType: 'IfcModulusOfRotationalSubgradeReactionMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcBoundaryEdgeConditionSpecification = new IfcBoundaryEdgeConditionSpecification();
 }

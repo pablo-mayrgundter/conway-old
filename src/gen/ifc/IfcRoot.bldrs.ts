@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcGloballyUniqueId from "./IfcGloballyUniqueId.bldrs"
 import IfcOwnerHistory from "./IfcOwnerHistory.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
@@ -18,6 +19,8 @@ export default class IfcRoot implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcRootSpecification = IfcRootSpecification.instance;
+
     constructor( public readonly GlobalId : IfcGloballyUniqueId , public readonly OwnerHistory : IfcOwnerHistory , public readonly Name : IfcLabel  | undefined, public readonly Description : IfcText  | undefined ) {}
 }
 
@@ -25,11 +28,11 @@ export class IfcRootSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRoot';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = true;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'GlobalId',
@@ -56,4 +59,8 @@ export class IfcRootSpecification implements ComponentSpecification
 			baseType: 'IfcText'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcRootSpecification = new IfcRootSpecification();
 }

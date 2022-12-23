@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcIdentifier from "./IfcIdentifier.bldrs"
 import IfcRelFlowControlElements from "./IfcRelFlowControlElements.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcDistributionControlElement implements Component< SchemaS
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcDistributionControlElementSpecification = IfcDistributionControlElementSpecification.instance;
+
     constructor( public readonly ControlElementId : IfcIdentifier  | undefined ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcDistributionControlElementSpecification implements ComponentSpec
 {
     public readonly name: string = 'IfcDistributionControlElement';
 
-    public readonly required: string[] = [ 'IfcDistributionElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcDistributionElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'ControlElementId',
@@ -36,4 +39,8 @@ export class IfcDistributionControlElementSpecification implements ComponentSpec
 			baseType: 'IfcIdentifier'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcDistributionControlElementSpecification = new IfcDistributionControlElementSpecification();
 }

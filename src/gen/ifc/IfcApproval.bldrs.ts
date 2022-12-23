@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcText from "./IfcText.bldrs"
 import IfcCalendarDate from "./IfcCalendarDate.bldrs"
 import IfcLocalTime from "./IfcLocalTime.bldrs"
@@ -22,6 +23,8 @@ export default class IfcApproval implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcApprovalSpecification = IfcApprovalSpecification.instance;
+
     constructor( public readonly Description : IfcText  | undefined, public readonly ApprovalDateTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime , public readonly ApprovalStatus : IfcLabel  | undefined, public readonly ApprovalLevel : IfcLabel  | undefined, public readonly ApprovalQualifier : IfcText  | undefined, public readonly Name : IfcLabel , public readonly Identifier : IfcIdentifier  ) {}
 }
 
@@ -29,11 +32,11 @@ export class IfcApprovalSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcApproval';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Description',
@@ -78,4 +81,8 @@ export class IfcApprovalSpecification implements ComponentSpecification
 			baseType: 'IfcIdentifier'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcApprovalSpecification = new IfcApprovalSpecification();
 }

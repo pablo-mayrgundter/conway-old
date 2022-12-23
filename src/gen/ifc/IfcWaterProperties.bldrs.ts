@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcIonConcentrationMeasure from "./IfcIonConcentrationMeasure.bldrs"
 import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
 import IfcPHMeasure from "./IfcPHMeasure.bldrs"
@@ -17,6 +18,8 @@ export default class IfcWaterProperties implements Component< SchemaSpecificatio
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcWaterPropertiesSpecification = IfcWaterPropertiesSpecification.instance;
+
     constructor( public readonly IsPotable : boolean  | undefined, public readonly Hardness : IfcIonConcentrationMeasure  | undefined, public readonly AlkalinityConcentration : IfcIonConcentrationMeasure  | undefined, public readonly AcidityConcentration : IfcIonConcentrationMeasure  | undefined, public readonly ImpuritiesContent : IfcNormalisedRatioMeasure  | undefined, public readonly PHLevel : IfcPHMeasure  | undefined, public readonly DissolvedSolidsContent : IfcNormalisedRatioMeasure  | undefined ) {}
 }
 
@@ -24,11 +27,11 @@ export class IfcWaterPropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcWaterProperties';
 
-    public readonly required: string[] = [ 'IfcMaterialProperties' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcMaterialProperties' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'IsPotable',
@@ -73,4 +76,8 @@ export class IfcWaterPropertiesSpecification implements ComponentSpecification
 			baseType: 'IfcNormalisedRatioMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcWaterPropertiesSpecification = new IfcWaterPropertiesSpecification();
 }

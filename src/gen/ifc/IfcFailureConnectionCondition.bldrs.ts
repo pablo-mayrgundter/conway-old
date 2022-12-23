@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcForceMeasure from "./IfcForceMeasure.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcFailureConnectionCondition implements Component< SchemaS
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcFailureConnectionConditionSpecification = IfcFailureConnectionConditionSpecification.instance;
+
     constructor( public readonly TensionFailureX : IfcForceMeasure  | undefined, public readonly TensionFailureY : IfcForceMeasure  | undefined, public readonly TensionFailureZ : IfcForceMeasure  | undefined, public readonly CompressionFailureX : IfcForceMeasure  | undefined, public readonly CompressionFailureY : IfcForceMeasure  | undefined, public readonly CompressionFailureZ : IfcForceMeasure  | undefined ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcFailureConnectionConditionSpecification implements ComponentSpec
 {
     public readonly name: string = 'IfcFailureConnectionCondition';
 
-    public readonly required: string[] = [ 'IfcStructuralConnectionCondition' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralConnectionCondition' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'TensionFailureX',
@@ -65,4 +68,8 @@ export class IfcFailureConnectionConditionSpecification implements ComponentSpec
 			baseType: 'IfcForceMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcFailureConnectionConditionSpecification = new IfcFailureConnectionConditionSpecification();
 }

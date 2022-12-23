@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcHourInDay from "./IfcHourInDay.bldrs"
 import IfcMinuteInHour from "./IfcMinuteInHour.bldrs"
 import IfcSecondInMinute from "./IfcSecondInMinute.bldrs"
@@ -19,6 +20,8 @@ export default class IfcLocalTime implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcLocalTimeSpecification = IfcLocalTimeSpecification.instance;
+
     constructor( public readonly HourComponent : IfcHourInDay , public readonly MinuteComponent : IfcMinuteInHour  | undefined, public readonly SecondComponent : IfcSecondInMinute  | undefined, public readonly Zone : IfcCoordinatedUniversalTimeOffset  | undefined, public readonly DaylightSavingOffset : IfcDaylightSavingHour  | undefined ) {}
 }
 
@@ -26,11 +29,11 @@ export class IfcLocalTimeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcLocalTime';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'HourComponent',
@@ -63,4 +66,8 @@ export class IfcLocalTimeSpecification implements ComponentSpecification
 			baseType: 'IfcDaylightSavingHour'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcLocalTimeSpecification = new IfcLocalTimeSpecification();
 }

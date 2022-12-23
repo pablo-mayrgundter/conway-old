@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcAxis1Placement from "./IfcAxis1Placement.bldrs"
 import IfcLine from "./IfcLine.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcSurfaceOfRevolution implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcSurfaceOfRevolutionSpecification = IfcSurfaceOfRevolutionSpecification.instance;
+
     constructor( public readonly AxisPosition : IfcAxis1Placement  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcSurfaceOfRevolutionSpecification implements ComponentSpecificati
 {
     public readonly name: string = 'IfcSurfaceOfRevolution';
 
-    public readonly required: string[] = [ 'IfcSweptSurface', 'IfcSurface', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSweptSurface', 'IfcSurface', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'AxisPosition',
@@ -36,4 +39,8 @@ export class IfcSurfaceOfRevolutionSpecification implements ComponentSpecificati
 			baseType: 'IfcAxis1Placement'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcSurfaceOfRevolutionSpecification = new IfcSurfaceOfRevolutionSpecification();
 }

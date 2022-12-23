@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcSurfaceTextureEnum from "./IfcSurfaceTextureEnum.bldrs"
 import IfcCartesianTransformationOperator2D from "./IfcCartesianTransformationOperator2D.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcSurfaceTexture implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcSurfaceTextureSpecification = IfcSurfaceTextureSpecification.instance;
+
     constructor( public readonly RepeatS : boolean , public readonly RepeatT : boolean , public readonly TextureType : IfcSurfaceTextureEnum , public readonly TextureTransform : IfcCartesianTransformationOperator2D  | undefined ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcSurfaceTextureSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSurfaceTexture';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = true;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'RepeatS',
@@ -54,4 +57,8 @@ export class IfcSurfaceTextureSpecification implements ComponentSpecification
 			baseType: 'IfcCartesianTransformationOperator2D'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcSurfaceTextureSpecification = new IfcSurfaceTextureSpecification();
 }

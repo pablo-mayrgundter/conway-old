@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 import IfcReinforcingBarRoleEnum from "./IfcReinforcingBarRoleEnum.bldrs"
 import IfcSectionProperties from "./IfcSectionProperties.bldrs"
@@ -18,6 +19,8 @@ export default class IfcSectionReinforcementProperties implements Component< Sch
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcSectionReinforcementPropertiesSpecification = IfcSectionReinforcementPropertiesSpecification.instance;
+
     constructor( public readonly LongitudinalStartPosition : IfcLengthMeasure , public readonly LongitudinalEndPosition : IfcLengthMeasure , public readonly TransversePosition : IfcLengthMeasure  | undefined, public readonly ReinforcementRole : IfcReinforcingBarRoleEnum , public readonly SectionDefinition : IfcSectionProperties , public readonly CrossSectionReinforcementDefinitions : Array<IfcReinforcementBarProperties>  ) {}
 }
 
@@ -25,11 +28,11 @@ export class IfcSectionReinforcementPropertiesSpecification implements Component
 {
     public readonly name: string = 'IfcSectionReinforcementProperties';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'LongitudinalStartPosition',
@@ -68,4 +71,8 @@ export class IfcSectionReinforcementPropertiesSpecification implements Component
 			baseType: 'Array<IfcReinforcementBarProperties>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcSectionReinforcementPropertiesSpecification = new IfcSectionReinforcementPropertiesSpecification();
 }

@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcPlanarExtent from "./IfcPlanarExtent.bldrs"
 import IfcBoxAlignment from "./IfcBoxAlignment.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcTextLiteralWithExtent implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcTextLiteralWithExtentSpecification = IfcTextLiteralWithExtentSpecification.instance;
+
     constructor( public readonly Extent : IfcPlanarExtent , public readonly BoxAlignment : IfcBoxAlignment  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcTextLiteralWithExtentSpecification implements ComponentSpecifica
 {
     public readonly name: string = 'IfcTextLiteralWithExtent';
 
-    public readonly required: string[] = [ 'IfcTextLiteral', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcTextLiteral', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Extent',
@@ -42,4 +45,8 @@ export class IfcTextLiteralWithExtentSpecification implements ComponentSpecifica
 			baseType: 'IfcBoxAlignment'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcTextLiteralWithExtentSpecification = new IfcTextLiteralWithExtentSpecification();
 }

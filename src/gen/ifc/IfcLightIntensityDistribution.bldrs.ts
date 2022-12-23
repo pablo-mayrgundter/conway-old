@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLightDistributionCurveEnum from "./IfcLightDistributionCurveEnum.bldrs"
 import IfcLightDistributionData from "./IfcLightDistributionData.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcLightIntensityDistribution implements Component< SchemaS
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcLightIntensityDistributionSpecification = IfcLightIntensityDistributionSpecification.instance;
+
     constructor( public readonly LightDistributionCurve : IfcLightDistributionCurveEnum , public readonly DistributionData : Array<IfcLightDistributionData>  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcLightIntensityDistributionSpecification implements ComponentSpec
 {
     public readonly name: string = 'IfcLightIntensityDistribution';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'LightDistributionCurve',
@@ -42,4 +45,8 @@ export class IfcLightIntensityDistributionSpecification implements ComponentSpec
 			baseType: 'Array<IfcLightDistributionData>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcLightIntensityDistributionSpecification = new IfcLightIntensityDistributionSpecification();
 }

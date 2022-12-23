@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcDuctSilencerTypeEnum from "./IfcDuctSilencerTypeEnum.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcDuctSilencerType implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcDuctSilencerTypeSpecification = IfcDuctSilencerTypeSpecification.instance;
+
     constructor( public readonly PredefinedType : IfcDuctSilencerTypeEnum  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcDuctSilencerTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcDuctSilencerType';
 
-    public readonly required: string[] = [ 'IfcFlowTreatmentDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcFlowTreatmentDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'PredefinedType',
@@ -35,4 +38,8 @@ export class IfcDuctSilencerTypeSpecification implements ComponentSpecification
 			baseType: 'IfcDuctSilencerTypeEnum'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcDuctSilencerTypeSpecification = new IfcDuctSilencerTypeSpecification();
 }

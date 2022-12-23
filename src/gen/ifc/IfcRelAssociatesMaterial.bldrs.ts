@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcMaterial from "./IfcMaterial.bldrs"
 import IfcMaterialList from "./IfcMaterialList.bldrs"
 import IfcMaterialLayerSetUsage from "./IfcMaterialLayerSetUsage.bldrs"
@@ -19,6 +20,8 @@ export default class IfcRelAssociatesMaterial implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcRelAssociatesMaterialSpecification = IfcRelAssociatesMaterialSpecification.instance;
+
     constructor( public readonly RelatingMaterial : IfcMaterial|IfcMaterialList|IfcMaterialLayerSetUsage|IfcMaterialLayerSet|IfcMaterialLayer  ) {}
 }
 
@@ -26,11 +29,11 @@ export class IfcRelAssociatesMaterialSpecification implements ComponentSpecifica
 {
     public readonly name: string = 'IfcRelAssociatesMaterial';
 
-    public readonly required: string[] = [ 'IfcRelAssociates', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssociates', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'RelatingMaterial',
@@ -39,4 +42,8 @@ export class IfcRelAssociatesMaterialSpecification implements ComponentSpecifica
 			baseType: 'IfcMaterial|IfcMaterialList|IfcMaterialLayerSetUsage|IfcMaterialLayerSet|IfcMaterialLayer'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcRelAssociatesMaterialSpecification = new IfcRelAssociatesMaterialSpecification();
 }

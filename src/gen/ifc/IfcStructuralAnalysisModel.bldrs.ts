@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcAnalysisModelTypeEnum from "./IfcAnalysisModelTypeEnum.bldrs"
 import IfcAxis2Placement3D from "./IfcAxis2Placement3D.bldrs"
 import IfcStructuralLoadGroup from "./IfcStructuralLoadGroup.bldrs"
@@ -18,6 +19,8 @@ export default class IfcStructuralAnalysisModel implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcStructuralAnalysisModelSpecification = IfcStructuralAnalysisModelSpecification.instance;
+
     constructor( public readonly PredefinedType : IfcAnalysisModelTypeEnum , public readonly OrientationOf2DPlane : IfcAxis2Placement3D  | undefined, public readonly LoadedBy : Array<IfcStructuralLoadGroup>  | undefined, public readonly HasResults : Array<IfcStructuralResultGroup>  | undefined ) {}
 }
 
@@ -25,11 +28,11 @@ export class IfcStructuralAnalysisModelSpecification implements ComponentSpecifi
 {
     public readonly name: string = 'IfcStructuralAnalysisModel';
 
-    public readonly required: string[] = [ 'IfcSystem', 'IfcGroup', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSystem', 'IfcGroup', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'PredefinedType',
@@ -56,4 +59,8 @@ export class IfcStructuralAnalysisModelSpecification implements ComponentSpecifi
 			baseType: 'Array<IfcStructuralResultGroup>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcStructuralAnalysisModelSpecification = new IfcStructuralAnalysisModelSpecification();
 }

@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcAssemblyPlaceEnum from "./IfcAssemblyPlaceEnum.bldrs"
 import IfcElementAssemblyTypeEnum from "./IfcElementAssemblyTypeEnum.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcElementAssembly implements Component< SchemaSpecificatio
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcElementAssemblySpecification = IfcElementAssemblySpecification.instance;
+
     constructor( public readonly AssemblyPlace : IfcAssemblyPlaceEnum  | undefined, public readonly PredefinedType : IfcElementAssemblyTypeEnum  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcElementAssemblySpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcElementAssembly';
 
-    public readonly required: string[] = [ 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'AssemblyPlace',
@@ -42,4 +45,8 @@ export class IfcElementAssemblySpecification implements ComponentSpecification
 			baseType: 'IfcElementAssemblyTypeEnum'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcElementAssemblySpecification = new IfcElementAssemblySpecification();
 }

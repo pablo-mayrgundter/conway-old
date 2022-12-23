@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcPoint from "./IfcPoint.bldrs"
 import IfcVertexPoint from "./IfcVertexPoint.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcConnectionPointGeometry implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcConnectionPointGeometrySpecification = IfcConnectionPointGeometrySpecification.instance;
+
     constructor( public readonly PointOnRelatingElement : IfcPoint|IfcVertexPoint , public readonly PointOnRelatedElement : IfcPoint|IfcVertexPoint  | undefined ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcConnectionPointGeometrySpecification implements ComponentSpecifi
 {
     public readonly name: string = 'IfcConnectionPointGeometry';
 
-    public readonly required: string[] = [ 'IfcConnectionGeometry' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcConnectionGeometry' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'PointOnRelatingElement',
@@ -42,4 +45,8 @@ export class IfcConnectionPointGeometrySpecification implements ComponentSpecifi
 			baseType: 'IfcPoint|IfcVertexPoint'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcConnectionPointGeometrySpecification = new IfcConnectionPointGeometrySpecification();
 }

@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcText from "./IfcText.bldrs"
 import IfcRepresentation from "./IfcRepresentation.bldrs"
@@ -17,6 +18,8 @@ export default class IfcProductRepresentation implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcProductRepresentationSpecification = IfcProductRepresentationSpecification.instance;
+
     constructor( public readonly Name : IfcLabel  | undefined, public readonly Description : IfcText  | undefined, public readonly Representations : Array<IfcRepresentation>  ) {}
 }
 
@@ -24,11 +27,11 @@ export class IfcProductRepresentationSpecification implements ComponentSpecifica
 {
     public readonly name: string = 'IfcProductRepresentation';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Name',
@@ -49,4 +52,8 @@ export class IfcProductRepresentationSpecification implements ComponentSpecifica
 			baseType: 'Array<IfcRepresentation>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcProductRepresentationSpecification = new IfcProductRepresentationSpecification();
 }

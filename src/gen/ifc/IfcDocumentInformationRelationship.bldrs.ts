@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcDocumentInformation from "./IfcDocumentInformation.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcDocumentInformationRelationship implements Component< Sc
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcDocumentInformationRelationshipSpecification = IfcDocumentInformationRelationshipSpecification.instance;
+
     constructor( public readonly RelatingDocument : IfcDocumentInformation , public readonly RelatedDocuments : Array<IfcDocumentInformation> , public readonly RelationshipType : IfcLabel  | undefined ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcDocumentInformationRelationshipSpecification implements Componen
 {
     public readonly name: string = 'IfcDocumentInformationRelationship';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'RelatingDocument',
@@ -48,4 +51,8 @@ export class IfcDocumentInformationRelationshipSpecification implements Componen
 			baseType: 'IfcLabel'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcDocumentInformationRelationshipSpecification = new IfcDocumentInformationRelationshipSpecification();
 }

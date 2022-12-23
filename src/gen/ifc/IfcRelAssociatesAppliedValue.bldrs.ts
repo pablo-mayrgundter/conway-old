@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcAppliedValue from "./IfcAppliedValue.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcRelAssociatesAppliedValue implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcRelAssociatesAppliedValueSpecification = IfcRelAssociatesAppliedValueSpecification.instance;
+
     constructor( public readonly RelatingAppliedValue : IfcAppliedValue  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcRelAssociatesAppliedValueSpecification implements ComponentSpeci
 {
     public readonly name: string = 'IfcRelAssociatesAppliedValue';
 
-    public readonly required: string[] = [ 'IfcRelAssociates', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssociates', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'RelatingAppliedValue',
@@ -35,4 +38,8 @@ export class IfcRelAssociatesAppliedValueSpecification implements ComponentSpeci
 			baseType: 'IfcAppliedValue'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcRelAssociatesAppliedValueSpecification = new IfcRelAssociatesAppliedValueSpecification();
 }

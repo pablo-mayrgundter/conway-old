@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcStructuralSurfaceTypeEnum from "./IfcStructuralSurfaceTypeEnum.bldrs"
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcStructuralSurfaceMember implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcStructuralSurfaceMemberSpecification = IfcStructuralSurfaceMemberSpecification.instance;
+
     constructor( public readonly PredefinedType : IfcStructuralSurfaceTypeEnum , public readonly Thickness : IfcPositiveLengthMeasure  | undefined ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcStructuralSurfaceMemberSpecification implements ComponentSpecifi
 {
     public readonly name: string = 'IfcStructuralSurfaceMember';
 
-    public readonly required: string[] = [ 'IfcStructuralMember', 'IfcStructuralItem', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralMember', 'IfcStructuralItem', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'PredefinedType',
@@ -42,4 +45,8 @@ export class IfcStructuralSurfaceMemberSpecification implements ComponentSpecifi
 			baseType: 'IfcPositiveLengthMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcStructuralSurfaceMemberSpecification = new IfcStructuralSurfaceMemberSpecification();
 }

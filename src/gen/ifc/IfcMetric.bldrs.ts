@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcBenchmarkEnum from "./IfcBenchmarkEnum.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcCalendarDate from "./IfcCalendarDate.bldrs"
@@ -24,6 +25,8 @@ export default class IfcMetric implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcMetricSpecification = IfcMetricSpecification.instance;
+
     constructor( public readonly Benchmark : IfcBenchmarkEnum , public readonly ValueSource : IfcLabel  | undefined, public readonly DataValue : IfcCalendarDate|IfcLocalTime|IfcDateAndTime|IfcMeasureWithUnit|IfcTable|IfcText|IfcTimeSeries|IfcCostValue  ) {}
 }
 
@@ -31,11 +34,11 @@ export class IfcMetricSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcMetric';
 
-    public readonly required: string[] = [ 'IfcConstraint' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcConstraint' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Benchmark',
@@ -56,4 +59,8 @@ export class IfcMetricSpecification implements ComponentSpecification
 			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime|IfcMeasureWithUnit|IfcTable|IfcText|IfcTimeSeries|IfcCostValue'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcMetricSpecification = new IfcMetricSpecification();
 }

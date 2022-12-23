@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcPreDefinedCurveFont from "./IfcPreDefinedCurveFont.bldrs"
 import IfcCurveStyleFont from "./IfcCurveStyleFont.bldrs"
 import IfcCurveStyleFontAndScaling from "./IfcCurveStyleFontAndScaling.bldrs"
@@ -25,6 +26,8 @@ export default class IfcCurveStyle implements Component< SchemaSpecificationIFC 
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcCurveStyleSpecification = IfcCurveStyleSpecification.instance;
+
     constructor( public readonly CurveFont : IfcPreDefinedCurveFont|IfcCurveStyleFont|IfcCurveStyleFontAndScaling  | undefined, public readonly CurveWidth : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure  | undefined, public readonly CurveColour : IfcColourSpecification|IfcPreDefinedColour  | undefined ) {}
 }
 
@@ -32,11 +35,11 @@ export class IfcCurveStyleSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCurveStyle';
 
-    public readonly required: string[] = [ 'IfcPresentationStyle' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPresentationStyle' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'CurveFont',
@@ -57,4 +60,8 @@ export class IfcCurveStyleSpecification implements ComponentSpecification
 			baseType: 'IfcColourSpecification|IfcPreDefinedColour'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcCurveStyleSpecification = new IfcCurveStyleSpecification();
 }

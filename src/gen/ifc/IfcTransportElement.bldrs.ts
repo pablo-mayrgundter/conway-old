@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcTransportElementTypeEnum from "./IfcTransportElementTypeEnum.bldrs"
 import IfcMassMeasure from "./IfcMassMeasure.bldrs"
 import IfcCountMeasure from "./IfcCountMeasure.bldrs"
@@ -17,6 +18,8 @@ export default class IfcTransportElement implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcTransportElementSpecification = IfcTransportElementSpecification.instance;
+
     constructor( public readonly OperationType : IfcTransportElementTypeEnum  | undefined, public readonly CapacityByWeight : IfcMassMeasure  | undefined, public readonly CapacityByNumber : IfcCountMeasure  | undefined ) {}
 }
 
@@ -24,11 +27,11 @@ export class IfcTransportElementSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcTransportElement';
 
-    public readonly required: string[] = [ 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'OperationType',
@@ -49,4 +52,8 @@ export class IfcTransportElementSpecification implements ComponentSpecification
 			baseType: 'IfcCountMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcTransportElementSpecification = new IfcTransportElementSpecification();
 }

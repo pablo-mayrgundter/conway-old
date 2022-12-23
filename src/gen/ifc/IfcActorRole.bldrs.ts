@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcRoleEnum from "./IfcRoleEnum.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcText from "./IfcText.bldrs"
@@ -17,6 +18,8 @@ export default class IfcActorRole implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcActorRoleSpecification = IfcActorRoleSpecification.instance;
+
     constructor( public readonly Role : IfcRoleEnum , public readonly UserDefinedRole : IfcLabel  | undefined, public readonly Description : IfcText  | undefined ) {}
 }
 
@@ -24,11 +27,11 @@ export class IfcActorRoleSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcActorRole';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Role',
@@ -49,4 +52,8 @@ export class IfcActorRoleSpecification implements ComponentSpecification
 			baseType: 'IfcText'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcActorRoleSpecification = new IfcActorRoleSpecification();
 }

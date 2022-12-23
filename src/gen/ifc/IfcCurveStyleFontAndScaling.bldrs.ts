@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcPreDefinedCurveFont from "./IfcPreDefinedCurveFont.bldrs"
 import IfcCurveStyleFont from "./IfcCurveStyleFont.bldrs"
@@ -18,6 +19,8 @@ export default class IfcCurveStyleFontAndScaling implements Component< SchemaSpe
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcCurveStyleFontAndScalingSpecification = IfcCurveStyleFontAndScalingSpecification.instance;
+
     constructor( public readonly Name : IfcLabel  | undefined, public readonly CurveFont : IfcPreDefinedCurveFont|IfcCurveStyleFont , public readonly CurveFontScaling : IfcPositiveRatioMeasure  ) {}
 }
 
@@ -25,11 +28,11 @@ export class IfcCurveStyleFontAndScalingSpecification implements ComponentSpecif
 {
     public readonly name: string = 'IfcCurveStyleFontAndScaling';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Name',
@@ -50,4 +53,8 @@ export class IfcCurveStyleFontAndScalingSpecification implements ComponentSpecif
 			baseType: 'IfcPositiveRatioMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcCurveStyleFontAndScalingSpecification = new IfcCurveStyleFontAndScalingSpecification();
 }

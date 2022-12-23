@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcAreaMeasure from "./IfcAreaMeasure.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcReinforcingBarSurfaceEnum from "./IfcReinforcingBarSurfaceEnum.bldrs"
@@ -20,6 +21,8 @@ export default class IfcReinforcementBarProperties implements Component< SchemaS
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcReinforcementBarPropertiesSpecification = IfcReinforcementBarPropertiesSpecification.instance;
+
     constructor( public readonly TotalCrossSectionArea : IfcAreaMeasure , public readonly SteelGrade : IfcLabel , public readonly BarSurface : IfcReinforcingBarSurfaceEnum  | undefined, public readonly EffectiveDepth : IfcLengthMeasure  | undefined, public readonly NominalBarDiameter : IfcPositiveLengthMeasure  | undefined, public readonly BarCount : IfcCountMeasure  | undefined ) {}
 }
 
@@ -27,11 +30,11 @@ export class IfcReinforcementBarPropertiesSpecification implements ComponentSpec
 {
     public readonly name: string = 'IfcReinforcementBarProperties';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'TotalCrossSectionArea',
@@ -70,4 +73,8 @@ export class IfcReinforcementBarPropertiesSpecification implements ComponentSpec
 			baseType: 'IfcCountMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcReinforcementBarPropertiesSpecification = new IfcReinforcementBarPropertiesSpecification();
 }

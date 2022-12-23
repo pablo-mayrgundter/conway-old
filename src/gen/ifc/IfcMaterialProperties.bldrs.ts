@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcMaterial from "./IfcMaterial.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcMaterialProperties implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcMaterialPropertiesSpecification = IfcMaterialPropertiesSpecification.instance;
+
     constructor( public readonly Material : IfcMaterial  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcMaterialPropertiesSpecification implements ComponentSpecificatio
 {
     public readonly name: string = 'IfcMaterialProperties';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = true;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Material',
@@ -35,4 +38,8 @@ export class IfcMaterialPropertiesSpecification implements ComponentSpecificatio
 			baseType: 'IfcMaterial'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcMaterialPropertiesSpecification = new IfcMaterialPropertiesSpecification();
 }

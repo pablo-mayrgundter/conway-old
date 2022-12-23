@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcMaterial from "./IfcMaterial.bldrs"
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 import IfcLogical from "./IfcLogical.bldrs"
@@ -18,6 +19,8 @@ export default class IfcMaterialLayer implements Component< SchemaSpecificationI
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcMaterialLayerSpecification = IfcMaterialLayerSpecification.instance;
+
     constructor( public readonly Material : IfcMaterial  | undefined, public readonly LayerThickness : IfcPositiveLengthMeasure , public readonly IsVentilated : IfcLogical  | undefined ) {}
 }
 
@@ -25,11 +28,11 @@ export class IfcMaterialLayerSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcMaterialLayer';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Material',
@@ -50,4 +53,8 @@ export class IfcMaterialLayerSpecification implements ComponentSpecification
 			baseType: 'IfcLogical'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcMaterialLayerSpecification = new IfcMaterialLayerSpecification();
 }

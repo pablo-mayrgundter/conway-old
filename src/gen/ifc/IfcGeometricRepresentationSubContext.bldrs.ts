@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcGeometricRepresentationContext from "./IfcGeometricRepresentationContext.bldrs"
 import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
 import IfcGeometricProjectionEnum from "./IfcGeometricProjectionEnum.bldrs"
@@ -22,6 +23,8 @@ export default class IfcGeometricRepresentationSubContext implements Component< 
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcGeometricRepresentationSubContextSpecification = IfcGeometricRepresentationSubContextSpecification.instance;
+
     constructor( public readonly ParentContext : IfcGeometricRepresentationContext , public readonly TargetScale : IfcPositiveRatioMeasure  | undefined, public readonly TargetView : IfcGeometricProjectionEnum , public readonly UserDefinedTargetView : IfcLabel  | undefined ) {}
 }
 
@@ -29,11 +32,11 @@ export class IfcGeometricRepresentationSubContextSpecification implements Compon
 {
     public readonly name: string = 'IfcGeometricRepresentationSubContext';
 
-    public readonly required: string[] = [ 'IfcGeometricRepresentationContext', 'IfcRepresentationContext' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationContext', 'IfcRepresentationContext' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'ParentContext',
@@ -60,4 +63,8 @@ export class IfcGeometricRepresentationSubContextSpecification implements Compon
 			baseType: 'IfcLabel'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcGeometricRepresentationSubContextSpecification = new IfcGeometricRepresentationSubContextSpecification();
 }

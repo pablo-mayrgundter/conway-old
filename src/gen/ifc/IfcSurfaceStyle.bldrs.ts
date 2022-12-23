@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcSurfaceSide from "./IfcSurfaceSide.bldrs"
 import IfcSurfaceStyleShading from "./IfcSurfaceStyleShading.bldrs"
 import IfcSurfaceStyleLighting from "./IfcSurfaceStyleLighting.bldrs"
@@ -20,6 +21,8 @@ export default class IfcSurfaceStyle implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcSurfaceStyleSpecification = IfcSurfaceStyleSpecification.instance;
+
     constructor( public readonly Side : IfcSurfaceSide , public readonly Styles : Array<IfcSurfaceStyleShading|IfcSurfaceStyleLighting|IfcSurfaceStyleWithTextures|IfcExternallyDefinedSurfaceStyle|IfcSurfaceStyleRefraction>  ) {}
 }
 
@@ -27,11 +30,11 @@ export class IfcSurfaceStyleSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSurfaceStyle';
 
-    public readonly required: string[] = [ 'IfcPresentationStyle' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPresentationStyle' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Side',
@@ -46,4 +49,8 @@ export class IfcSurfaceStyleSpecification implements ComponentSpecification
 			baseType: 'Array<IfcSurfaceStyleShading|IfcSurfaceStyleLighting|IfcSurfaceStyleWithTextures|IfcExternallyDefinedSurfaceStyle|IfcSurfaceStyleRefraction>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcSurfaceStyleSpecification = new IfcSurfaceStyleSpecification();
 }

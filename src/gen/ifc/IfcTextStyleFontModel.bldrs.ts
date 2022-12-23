@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcTextFontName from "./IfcTextFontName.bldrs"
 import IfcFontStyle from "./IfcFontStyle.bldrs"
 import IfcFontVariant from "./IfcFontVariant.bldrs"
@@ -24,6 +25,8 @@ export default class IfcTextStyleFontModel implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcTextStyleFontModelSpecification = IfcTextStyleFontModelSpecification.instance;
+
     constructor( public readonly FontFamily : Array<IfcTextFontName>  | undefined, public readonly FontStyle : IfcFontStyle  | undefined, public readonly FontVariant : IfcFontVariant  | undefined, public readonly FontWeight : IfcFontWeight  | undefined, public readonly FontSize : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure  ) {}
 }
 
@@ -31,11 +34,11 @@ export class IfcTextStyleFontModelSpecification implements ComponentSpecificatio
 {
     public readonly name: string = 'IfcTextStyleFontModel';
 
-    public readonly required: string[] = [ 'IfcPreDefinedTextFont', 'IfcPreDefinedItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPreDefinedTextFont', 'IfcPreDefinedItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'FontFamily',
@@ -68,4 +71,8 @@ export class IfcTextStyleFontModelSpecification implements ComponentSpecificatio
 			baseType: 'IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcTextStyleFontModelSpecification = new IfcTextStyleFontModelSpecification();
 }

@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcPersonAndOrganization from "./IfcPersonAndOrganization.bldrs"
 import IfcApplication from "./IfcApplication.bldrs"
 import IfcStateEnum from "./IfcStateEnum.bldrs"
@@ -19,6 +20,8 @@ export default class IfcOwnerHistory implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcOwnerHistorySpecification = IfcOwnerHistorySpecification.instance;
+
     constructor( public readonly OwningUser : IfcPersonAndOrganization , public readonly OwningApplication : IfcApplication , public readonly State : IfcStateEnum  | undefined, public readonly ChangeAction : IfcChangeActionEnum , public readonly LastModifiedDate : IfcTimeStamp  | undefined, public readonly LastModifyingUser : IfcPersonAndOrganization  | undefined, public readonly LastModifyingApplication : IfcApplication  | undefined, public readonly CreationDate : IfcTimeStamp  ) {}
 }
 
@@ -26,11 +29,11 @@ export class IfcOwnerHistorySpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcOwnerHistory';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'OwningUser',
@@ -81,4 +84,8 @@ export class IfcOwnerHistorySpecification implements ComponentSpecification
 			baseType: 'IfcTimeStamp'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcOwnerHistorySpecification = new IfcOwnerHistorySpecification();
 }

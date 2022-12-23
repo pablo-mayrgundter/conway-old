@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
 import IfcThermalLoadSourceEnum from "./IfcThermalLoadSourceEnum.bldrs"
 import IfcPropertySourceEnum from "./IfcPropertySourceEnum.bldrs"
@@ -22,6 +23,8 @@ export default class IfcSpaceThermalLoadProperties implements Component< SchemaS
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcSpaceThermalLoadPropertiesSpecification = IfcSpaceThermalLoadPropertiesSpecification.instance;
+
     constructor( public readonly ApplicableValueRatio : IfcPositiveRatioMeasure  | undefined, public readonly ThermalLoadSource : IfcThermalLoadSourceEnum , public readonly PropertySource : IfcPropertySourceEnum , public readonly SourceDescription : IfcText  | undefined, public readonly MaximumValue : IfcPowerMeasure , public readonly MinimumValue : IfcPowerMeasure  | undefined, public readonly ThermalLoadTimeSeriesValues : IfcTimeSeries  | undefined, public readonly UserDefinedThermalLoadSource : IfcLabel  | undefined, public readonly UserDefinedPropertySource : IfcLabel  | undefined, public readonly ThermalLoadType : IfcThermalLoadTypeEnum  ) {}
 }
 
@@ -29,11 +32,11 @@ export class IfcSpaceThermalLoadPropertiesSpecification implements ComponentSpec
 {
     public readonly name: string = 'IfcSpaceThermalLoadProperties';
 
-    public readonly required: string[] = [ 'IfcPropertySetDefinition', 'IfcPropertyDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPropertySetDefinition', 'IfcPropertyDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'ApplicableValueRatio',
@@ -96,4 +99,8 @@ export class IfcSpaceThermalLoadPropertiesSpecification implements ComponentSpec
 			baseType: 'IfcThermalLoadTypeEnum'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcSpaceThermalLoadPropertiesSpecification = new IfcSpaceThermalLoadPropertiesSpecification();
 }

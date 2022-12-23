@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcCalendarDate from "./IfcCalendarDate.bldrs"
 import IfcLocalTime from "./IfcLocalTime.bldrs"
 import IfcDateAndTime from "./IfcDateAndTime.bldrs"
@@ -19,6 +20,8 @@ export default class IfcTimeSeriesSchedule implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcTimeSeriesScheduleSpecification = IfcTimeSeriesScheduleSpecification.instance;
+
     constructor( public readonly ApplicableDates : Array<IfcCalendarDate|IfcLocalTime|IfcDateAndTime>  | undefined, public readonly TimeSeriesScheduleType : IfcTimeSeriesScheduleTypeEnum , public readonly TimeSeries : IfcTimeSeries  ) {}
 }
 
@@ -26,11 +29,11 @@ export class IfcTimeSeriesScheduleSpecification implements ComponentSpecificatio
 {
     public readonly name: string = 'IfcTimeSeriesSchedule';
 
-    public readonly required: string[] = [ 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'ApplicableDates',
@@ -51,4 +54,8 @@ export class IfcTimeSeriesScheduleSpecification implements ComponentSpecificatio
 			baseType: 'IfcTimeSeries'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcTimeSeriesScheduleSpecification = new IfcTimeSeriesScheduleSpecification();
 }

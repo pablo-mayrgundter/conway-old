@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcMomentOfInertiaMeasure from "./IfcMomentOfInertiaMeasure.bldrs"
 import IfcWarpingConstantMeasure from "./IfcWarpingConstantMeasure.bldrs"
 import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
@@ -19,6 +20,8 @@ export default class IfcStructuralProfileProperties implements Component< Schema
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcStructuralProfilePropertiesSpecification = IfcStructuralProfilePropertiesSpecification.instance;
+
     constructor( public readonly TorsionalConstantX : IfcMomentOfInertiaMeasure  | undefined, public readonly MomentOfInertiaYZ : IfcMomentOfInertiaMeasure  | undefined, public readonly MomentOfInertiaY : IfcMomentOfInertiaMeasure  | undefined, public readonly MomentOfInertiaZ : IfcMomentOfInertiaMeasure  | undefined, public readonly WarpingConstant : IfcWarpingConstantMeasure  | undefined, public readonly ShearCentreZ : IfcLengthMeasure  | undefined, public readonly ShearCentreY : IfcLengthMeasure  | undefined, public readonly ShearDeformationAreaZ : IfcAreaMeasure  | undefined, public readonly ShearDeformationAreaY : IfcAreaMeasure  | undefined, public readonly MaximumSectionModulusY : IfcSectionModulusMeasure  | undefined, public readonly MinimumSectionModulusY : IfcSectionModulusMeasure  | undefined, public readonly MaximumSectionModulusZ : IfcSectionModulusMeasure  | undefined, public readonly MinimumSectionModulusZ : IfcSectionModulusMeasure  | undefined, public readonly TorsionalSectionModulus : IfcSectionModulusMeasure  | undefined, public readonly CentreOfGravityInX : IfcLengthMeasure  | undefined, public readonly CentreOfGravityInY : IfcLengthMeasure  | undefined ) {}
 }
 
@@ -26,11 +29,11 @@ export class IfcStructuralProfilePropertiesSpecification implements ComponentSpe
 {
     public readonly name: string = 'IfcStructuralProfileProperties';
 
-    public readonly required: string[] = [ 'IfcGeneralProfileProperties', 'IfcProfileProperties' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcGeneralProfileProperties', 'IfcProfileProperties' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'TorsionalConstantX',
@@ -129,4 +132,8 @@ export class IfcStructuralProfilePropertiesSpecification implements ComponentSpe
 			baseType: 'IfcLengthMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcStructuralProfilePropertiesSpecification = new IfcStructuralProfilePropertiesSpecification();
 }

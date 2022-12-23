@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcCompressorTypeEnum from "./IfcCompressorTypeEnum.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcCompressorType implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcCompressorTypeSpecification = IfcCompressorTypeSpecification.instance;
+
     constructor( public readonly PredefinedType : IfcCompressorTypeEnum  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcCompressorTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCompressorType';
 
-    public readonly required: string[] = [ 'IfcFlowMovingDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcFlowMovingDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'PredefinedType',
@@ -35,4 +38,8 @@ export class IfcCompressorTypeSpecification implements ComponentSpecification
 			baseType: 'IfcCompressorTypeEnum'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcCompressorTypeSpecification = new IfcCompressorTypeSpecification();
 }

@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcColumnTypeEnum from "./IfcColumnTypeEnum.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcColumnType implements Component< SchemaSpecificationIFC 
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcColumnTypeSpecification = IfcColumnTypeSpecification.instance;
+
     constructor( public readonly PredefinedType : IfcColumnTypeEnum  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcColumnTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcColumnType';
 
-    public readonly required: string[] = [ 'IfcBuildingElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcBuildingElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'PredefinedType',
@@ -35,4 +38,8 @@ export class IfcColumnTypeSpecification implements ComponentSpecification
 			baseType: 'IfcColumnTypeEnum'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcColumnTypeSpecification = new IfcColumnTypeSpecification();
 }

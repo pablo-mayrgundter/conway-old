@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcRectangularPyramid implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcRectangularPyramidSpecification = IfcRectangularPyramidSpecification.instance;
+
     constructor( public readonly XLength : IfcPositiveLengthMeasure , public readonly YLength : IfcPositiveLengthMeasure , public readonly Height : IfcPositiveLengthMeasure  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcRectangularPyramidSpecification implements ComponentSpecificatio
 {
     public readonly name: string = 'IfcRectangularPyramid';
 
-    public readonly required: string[] = [ 'IfcCsgPrimitive3D', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcCsgPrimitive3D', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'XLength',
@@ -47,4 +50,8 @@ export class IfcRectangularPyramidSpecification implements ComponentSpecificatio
 			baseType: 'IfcPositiveLengthMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcRectangularPyramidSpecification = new IfcRectangularPyramidSpecification();
 }

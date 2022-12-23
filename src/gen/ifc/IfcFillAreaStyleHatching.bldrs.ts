@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcCurveStyle from "./IfcCurveStyle.bldrs"
 import IfcOneDirectionRepeatFactor from "./IfcOneDirectionRepeatFactor.bldrs"
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
@@ -19,6 +20,8 @@ export default class IfcFillAreaStyleHatching implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcFillAreaStyleHatchingSpecification = IfcFillAreaStyleHatchingSpecification.instance;
+
     constructor( public readonly HatchLineAppearance : IfcCurveStyle , public readonly StartOfNextHatchLine : IfcOneDirectionRepeatFactor|IfcPositiveLengthMeasure , public readonly PointOfReferenceHatchLine : IfcCartesianPoint  | undefined, public readonly PatternStart : IfcCartesianPoint  | undefined, public readonly HatchLineAngle : IfcPlaneAngleMeasure  ) {}
 }
 
@@ -26,11 +29,11 @@ export class IfcFillAreaStyleHatchingSpecification implements ComponentSpecifica
 {
     public readonly name: string = 'IfcFillAreaStyleHatching';
 
-    public readonly required: string[] = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'HatchLineAppearance',
@@ -63,4 +66,8 @@ export class IfcFillAreaStyleHatchingSpecification implements ComponentSpecifica
 			baseType: 'IfcPlaneAngleMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcFillAreaStyleHatchingSpecification = new IfcFillAreaStyleHatchingSpecification();
 }

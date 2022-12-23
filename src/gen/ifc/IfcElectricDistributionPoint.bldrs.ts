@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcElectricDistributionPointFunctionEnum from "./IfcElectricDistributionPointFunctionEnum.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcElectricDistributionPoint implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcElectricDistributionPointSpecification = IfcElectricDistributionPointSpecification.instance;
+
     constructor( public readonly DistributionPointFunction : IfcElectricDistributionPointFunctionEnum , public readonly UserDefinedFunction : IfcLabel  | undefined ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcElectricDistributionPointSpecification implements ComponentSpeci
 {
     public readonly name: string = 'IfcElectricDistributionPoint';
 
-    public readonly required: string[] = [ 'IfcFlowController', 'IfcDistributionFlowElement', 'IfcDistributionElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcFlowController', 'IfcDistributionFlowElement', 'IfcDistributionElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'DistributionPointFunction',
@@ -42,4 +45,8 @@ export class IfcElectricDistributionPointSpecification implements ComponentSpeci
 			baseType: 'IfcLabel'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcElectricDistributionPointSpecification = new IfcElectricDistributionPointSpecification();
 }

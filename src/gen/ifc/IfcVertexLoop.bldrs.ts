@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcVertex from "./IfcVertex.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcVertexLoop implements Component< SchemaSpecificationIFC 
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcVertexLoopSpecification = IfcVertexLoopSpecification.instance;
+
     constructor( public readonly LoopVertex : IfcVertex  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcVertexLoopSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcVertexLoop';
 
-    public readonly required: string[] = [ 'IfcLoop', 'IfcTopologicalRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcLoop', 'IfcTopologicalRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'LoopVertex',
@@ -35,4 +38,8 @@ export class IfcVertexLoopSpecification implements ComponentSpecification
 			baseType: 'IfcVertex'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcVertexLoopSpecification = new IfcVertexLoopSpecification();
 }

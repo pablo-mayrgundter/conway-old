@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcPostalAddress implements Component< SchemaSpecificationI
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcPostalAddressSpecification = IfcPostalAddressSpecification.instance;
+
     constructor( public readonly InternalLocation : IfcLabel  | undefined, public readonly AddressLines : Array<IfcLabel>  | undefined, public readonly PostalBox : IfcLabel  | undefined, public readonly Town : IfcLabel  | undefined, public readonly Region : IfcLabel  | undefined, public readonly PostalCode : IfcLabel  | undefined, public readonly Country : IfcLabel  | undefined ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcPostalAddressSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcPostalAddress';
 
-    public readonly required: string[] = [ 'IfcAddress' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcAddress' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'InternalLocation',
@@ -71,4 +74,8 @@ export class IfcPostalAddressSpecification implements ComponentSpecification
 			baseType: 'IfcLabel'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcPostalAddressSpecification = new IfcPostalAddressSpecification();
 }

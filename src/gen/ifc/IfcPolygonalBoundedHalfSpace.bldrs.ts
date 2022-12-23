@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcAxis2Placement3D from "./IfcAxis2Placement3D.bldrs"
 import IfcBoundedCurve from "./IfcBoundedCurve.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcPolygonalBoundedHalfSpace implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcPolygonalBoundedHalfSpaceSpecification = IfcPolygonalBoundedHalfSpaceSpecification.instance;
+
     constructor( public readonly Position : IfcAxis2Placement3D , public readonly PolygonalBoundary : IfcBoundedCurve  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcPolygonalBoundedHalfSpaceSpecification implements ComponentSpeci
 {
     public readonly name: string = 'IfcPolygonalBoundedHalfSpace';
 
-    public readonly required: string[] = [ 'IfcHalfSpaceSolid', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcHalfSpaceSolid', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Position',
@@ -42,4 +45,8 @@ export class IfcPolygonalBoundedHalfSpaceSpecification implements ComponentSpeci
 			baseType: 'IfcBoundedCurve'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcPolygonalBoundedHalfSpaceSpecification = new IfcPolygonalBoundedHalfSpaceSpecification();
 }

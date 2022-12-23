@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcGeometricRepresentationItem from "./IfcGeometricRepresentationItem.bldrs"
 import IfcTextureCoordinate from "./IfcTextureCoordinate.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcAnnotationSurface implements Component< SchemaSpecificat
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcAnnotationSurfaceSpecification = IfcAnnotationSurfaceSpecification.instance;
+
     constructor( public readonly Item : IfcGeometricRepresentationItem , public readonly TextureCoordinates : IfcTextureCoordinate  | undefined ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcAnnotationSurfaceSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcAnnotationSurface';
 
-    public readonly required: string[] = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Item',
@@ -42,4 +45,8 @@ export class IfcAnnotationSurfaceSpecification implements ComponentSpecification
 			baseType: 'IfcTextureCoordinate'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcAnnotationSurfaceSpecification = new IfcAnnotationSurfaceSpecification();
 }

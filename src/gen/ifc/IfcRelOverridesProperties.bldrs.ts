@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcProperty from "./IfcProperty.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcRelOverridesProperties implements Component< SchemaSpeci
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcRelOverridesPropertiesSpecification = IfcRelOverridesPropertiesSpecification.instance;
+
     constructor( public readonly OverridingProperties : Array<IfcProperty>  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcRelOverridesPropertiesSpecification implements ComponentSpecific
 {
     public readonly name: string = 'IfcRelOverridesProperties';
 
-    public readonly required: string[] = [ 'IfcRelDefinesByProperties', 'IfcRelDefines', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelDefinesByProperties', 'IfcRelDefines', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'OverridingProperties',
@@ -35,4 +38,8 @@ export class IfcRelOverridesPropertiesSpecification implements ComponentSpecific
 			baseType: 'Array<IfcProperty>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcRelOverridesPropertiesSpecification = new IfcRelOverridesPropertiesSpecification();
 }

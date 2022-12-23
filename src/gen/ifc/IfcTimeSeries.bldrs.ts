@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcText from "./IfcText.bldrs"
 import IfcCalendarDate from "./IfcCalendarDate.bldrs"
@@ -25,6 +26,8 @@ export default class IfcTimeSeries implements Component< SchemaSpecificationIFC 
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcTimeSeriesSpecification = IfcTimeSeriesSpecification.instance;
+
     constructor( public readonly Name : IfcLabel , public readonly Description : IfcText  | undefined, public readonly StartTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime , public readonly EndTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime , public readonly TimeSeriesDataType : IfcTimeSeriesDataTypeEnum , public readonly DataOrigin : IfcDataOriginEnum , public readonly UserDefinedDataOrigin : IfcLabel  | undefined, public readonly Unit : IfcDerivedUnit|IfcNamedUnit|IfcMonetaryUnit  | undefined ) {}
 }
 
@@ -32,11 +35,11 @@ export class IfcTimeSeriesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcTimeSeries';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = true;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Name',
@@ -87,4 +90,8 @@ export class IfcTimeSeriesSpecification implements ComponentSpecification
 			baseType: 'IfcDerivedUnit|IfcNamedUnit|IfcMonetaryUnit'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcTimeSeriesSpecification = new IfcTimeSeriesSpecification();
 }

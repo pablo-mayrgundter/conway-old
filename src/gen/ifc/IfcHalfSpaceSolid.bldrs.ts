@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcSurface from "./IfcSurface.bldrs"
 import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcHalfSpaceSolid implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcHalfSpaceSolidSpecification = IfcHalfSpaceSolidSpecification.instance;
+
     constructor( public readonly BaseSurface : IfcSurface , public readonly AgreementFlag : boolean  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcHalfSpaceSolidSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcHalfSpaceSolid';
 
-    public readonly required: string[] = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'BaseSurface',
@@ -42,4 +45,8 @@ export class IfcHalfSpaceSolidSpecification implements ComponentSpecification
 			baseType: 'boolean'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcHalfSpaceSolidSpecification = new IfcHalfSpaceSolidSpecification();
 }

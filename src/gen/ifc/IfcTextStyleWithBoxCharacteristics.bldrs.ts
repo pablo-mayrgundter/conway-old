@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 import IfcPlaneAngleMeasure from "./IfcPlaneAngleMeasure.bldrs"
 import IfcRatioMeasure from "./IfcRatioMeasure.bldrs"
@@ -21,6 +22,8 @@ export default class IfcTextStyleWithBoxCharacteristics implements Component< Sc
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcTextStyleWithBoxCharacteristicsSpecification = IfcTextStyleWithBoxCharacteristicsSpecification.instance;
+
     constructor( public readonly BoxHeight : IfcPositiveLengthMeasure  | undefined, public readonly BoxWidth : IfcPositiveLengthMeasure  | undefined, public readonly BoxSlantAngle : IfcPlaneAngleMeasure  | undefined, public readonly BoxRotateAngle : IfcPlaneAngleMeasure  | undefined, public readonly CharacterSpacing : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure  | undefined ) {}
 }
 
@@ -28,11 +31,11 @@ export class IfcTextStyleWithBoxCharacteristicsSpecification implements Componen
 {
     public readonly name: string = 'IfcTextStyleWithBoxCharacteristics';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'BoxHeight',
@@ -65,4 +68,8 @@ export class IfcTextStyleWithBoxCharacteristicsSpecification implements Componen
 			baseType: 'IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcTextStyleWithBoxCharacteristicsSpecification = new IfcTextStyleWithBoxCharacteristicsSpecification();
 }

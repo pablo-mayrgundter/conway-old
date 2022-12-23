@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 import IfcPostalAddress from "./IfcPostalAddress.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcBuilding implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcBuildingSpecification = IfcBuildingSpecification.instance;
+
     constructor( public readonly ElevationOfRefHeight : IfcLengthMeasure  | undefined, public readonly ElevationOfTerrain : IfcLengthMeasure  | undefined, public readonly BuildingAddress : IfcPostalAddress  | undefined ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcBuildingSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcBuilding';
 
-    public readonly required: string[] = [ 'IfcSpatialStructureElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSpatialStructureElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'ElevationOfRefHeight',
@@ -48,4 +51,8 @@ export class IfcBuildingSpecification implements ComponentSpecification
 			baseType: 'IfcPostalAddress'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcBuildingSpecification = new IfcBuildingSpecification();
 }

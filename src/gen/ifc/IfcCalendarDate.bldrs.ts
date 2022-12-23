@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcDayInMonthNumber from "./IfcDayInMonthNumber.bldrs"
 import IfcMonthInYearNumber from "./IfcMonthInYearNumber.bldrs"
 import IfcYearNumber from "./IfcYearNumber.bldrs"
@@ -17,6 +18,8 @@ export default class IfcCalendarDate implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcCalendarDateSpecification = IfcCalendarDateSpecification.instance;
+
     constructor( public readonly DayComponent : IfcDayInMonthNumber , public readonly MonthComponent : IfcMonthInYearNumber , public readonly YearComponent : IfcYearNumber  ) {}
 }
 
@@ -24,11 +27,11 @@ export class IfcCalendarDateSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCalendarDate';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'DayComponent',
@@ -49,4 +52,8 @@ export class IfcCalendarDateSpecification implements ComponentSpecification
 			baseType: 'IfcYearNumber'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcCalendarDateSpecification = new IfcCalendarDateSpecification();
 }

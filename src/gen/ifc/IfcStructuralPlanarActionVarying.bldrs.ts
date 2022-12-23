@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcShapeAspect from "./IfcShapeAspect.bldrs"
 import IfcStructuralLoad from "./IfcStructuralLoad.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcStructuralPlanarActionVarying implements Component< Sche
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcStructuralPlanarActionVaryingSpecification = IfcStructuralPlanarActionVaryingSpecification.instance;
+
     constructor( public readonly VaryingAppliedLoadLocation : IfcShapeAspect , public readonly SubsequentAppliedLoads : Array<IfcStructuralLoad>  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcStructuralPlanarActionVaryingSpecification implements ComponentS
 {
     public readonly name: string = 'IfcStructuralPlanarActionVarying';
 
-    public readonly required: string[] = [ 'IfcStructuralPlanarAction', 'IfcStructuralAction', 'IfcStructuralActivity', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralPlanarAction', 'IfcStructuralAction', 'IfcStructuralActivity', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'VaryingAppliedLoadLocation',
@@ -42,4 +45,8 @@ export class IfcStructuralPlanarActionVaryingSpecification implements ComponentS
 			baseType: 'Array<IfcStructuralLoad>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcStructuralPlanarActionVaryingSpecification = new IfcStructuralPlanarActionVaryingSpecification();
 }

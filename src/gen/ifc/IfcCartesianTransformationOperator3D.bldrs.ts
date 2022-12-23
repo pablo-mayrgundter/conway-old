@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcDirection from "./IfcDirection.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcCartesianTransformationOperator3D implements Component< 
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcCartesianTransformationOperator3DSpecification = IfcCartesianTransformationOperator3DSpecification.instance;
+
     constructor( public readonly Axis3 : IfcDirection  | undefined ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcCartesianTransformationOperator3DSpecification implements Compon
 {
     public readonly name: string = 'IfcCartesianTransformationOperator3D';
 
-    public readonly required: string[] = [ 'IfcCartesianTransformationOperator', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcCartesianTransformationOperator', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Axis3',
@@ -35,4 +38,8 @@ export class IfcCartesianTransformationOperator3DSpecification implements Compon
 			baseType: 'IfcDirection'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcCartesianTransformationOperator3DSpecification = new IfcCartesianTransformationOperator3DSpecification();
 }

@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcDoorStyleOperationEnum from "./IfcDoorStyleOperationEnum.bldrs"
 import IfcDoorStyleConstructionEnum from "./IfcDoorStyleConstructionEnum.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcDoorStyle implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcDoorStyleSpecification = IfcDoorStyleSpecification.instance;
+
     constructor( public readonly OperationType : IfcDoorStyleOperationEnum , public readonly ConstructionType : IfcDoorStyleConstructionEnum , public readonly ParameterTakesPrecedence : boolean , public readonly Sizeable : boolean  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcDoorStyleSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcDoorStyle';
 
-    public readonly required: string[] = [ 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'OperationType',
@@ -54,4 +57,8 @@ export class IfcDoorStyleSpecification implements ComponentSpecification
 			baseType: 'boolean'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcDoorStyleSpecification = new IfcDoorStyleSpecification();
 }

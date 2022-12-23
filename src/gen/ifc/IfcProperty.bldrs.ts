@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcIdentifier from "./IfcIdentifier.bldrs"
 import IfcText from "./IfcText.bldrs"
 import IfcPropertyDependencyRelationship from "./IfcPropertyDependencyRelationship.bldrs"
@@ -18,6 +19,8 @@ export default class IfcProperty implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcPropertySpecification = IfcPropertySpecification.instance;
+
     constructor( public readonly Name : IfcIdentifier , public readonly Description : IfcText  | undefined ) {}
 }
 
@@ -25,11 +28,11 @@ export class IfcPropertySpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcProperty';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = true;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Name',
@@ -44,4 +47,8 @@ export class IfcPropertySpecification implements ComponentSpecification
 			baseType: 'IfcText'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcPropertySpecification = new IfcPropertySpecification();
 }

@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcText from "./IfcText.bldrs"
 import IfcConstraintEnum from "./IfcConstraintEnum.bldrs"
@@ -27,6 +28,8 @@ export default class IfcConstraint implements Component< SchemaSpecificationIFC 
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcConstraintSpecification = IfcConstraintSpecification.instance;
+
     constructor( public readonly Name : IfcLabel , public readonly Description : IfcText  | undefined, public readonly ConstraintGrade : IfcConstraintEnum , public readonly ConstraintSource : IfcLabel  | undefined, public readonly CreatingActor : IfcOrganization|IfcPerson|IfcPersonAndOrganization  | undefined, public readonly CreationTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly UserDefinedGrade : IfcLabel  | undefined ) {}
 }
 
@@ -34,11 +37,11 @@ export class IfcConstraintSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcConstraint';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = true;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Name',
@@ -83,4 +86,8 @@ export class IfcConstraintSpecification implements ComponentSpecification
 			baseType: 'IfcLabel'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcConstraintSpecification = new IfcConstraintSpecification();
 }

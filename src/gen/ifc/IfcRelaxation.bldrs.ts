@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcRelaxation implements Component< SchemaSpecificationIFC 
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcRelaxationSpecification = IfcRelaxationSpecification.instance;
+
     constructor( public readonly RelaxationValue : IfcNormalisedRatioMeasure , public readonly InitialStress : IfcNormalisedRatioMeasure  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcRelaxationSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelaxation';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'RelaxationValue',
@@ -41,4 +44,8 @@ export class IfcRelaxationSpecification implements ComponentSpecification
 			baseType: 'IfcNormalisedRatioMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcRelaxationSpecification = new IfcRelaxationSpecification();
 }

@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
 import IfcColourRgb from "./IfcColourRgb.bldrs"
 import IfcSpecularExponent from "./IfcSpecularExponent.bldrs"
@@ -19,6 +20,8 @@ export default class IfcSurfaceStyleRendering implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcSurfaceStyleRenderingSpecification = IfcSurfaceStyleRenderingSpecification.instance;
+
     constructor( public readonly Transparency : IfcNormalisedRatioMeasure  | undefined, public readonly DiffuseColour : IfcColourRgb|IfcNormalisedRatioMeasure  | undefined, public readonly TransmissionColour : IfcColourRgb|IfcNormalisedRatioMeasure  | undefined, public readonly DiffuseTransmissionColour : IfcColourRgb|IfcNormalisedRatioMeasure  | undefined, public readonly ReflectionColour : IfcColourRgb|IfcNormalisedRatioMeasure  | undefined, public readonly SpecularColour : IfcColourRgb|IfcNormalisedRatioMeasure  | undefined, public readonly SpecularHighlight : IfcSpecularExponent|IfcSpecularRoughness  | undefined, public readonly ReflectanceMethod : IfcReflectanceMethodEnum  ) {}
 }
 
@@ -26,11 +29,11 @@ export class IfcSurfaceStyleRenderingSpecification implements ComponentSpecifica
 {
     public readonly name: string = 'IfcSurfaceStyleRendering';
 
-    public readonly required: string[] = [ 'IfcSurfaceStyleShading' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSurfaceStyleShading' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Transparency',
@@ -81,4 +84,8 @@ export class IfcSurfaceStyleRenderingSpecification implements ComponentSpecifica
 			baseType: 'IfcReflectanceMethodEnum'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcSurfaceStyleRenderingSpecification = new IfcSurfaceStyleRenderingSpecification();
 }

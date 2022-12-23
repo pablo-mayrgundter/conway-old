@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcMaterialLayerSet from "./IfcMaterialLayerSet.bldrs"
 import IfcLayerSetDirectionEnum from "./IfcLayerSetDirectionEnum.bldrs"
 import IfcDirectionSenseEnum from "./IfcDirectionSenseEnum.bldrs"
@@ -18,6 +19,8 @@ export default class IfcMaterialLayerSetUsage implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcMaterialLayerSetUsageSpecification = IfcMaterialLayerSetUsageSpecification.instance;
+
     constructor( public readonly ForLayerSet : IfcMaterialLayerSet , public readonly LayerSetDirection : IfcLayerSetDirectionEnum , public readonly DirectionSense : IfcDirectionSenseEnum , public readonly OffsetFromReferenceLine : IfcLengthMeasure  ) {}
 }
 
@@ -25,11 +28,11 @@ export class IfcMaterialLayerSetUsageSpecification implements ComponentSpecifica
 {
     public readonly name: string = 'IfcMaterialLayerSetUsage';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'ForLayerSet',
@@ -56,4 +59,8 @@ export class IfcMaterialLayerSetUsageSpecification implements ComponentSpecifica
 			baseType: 'IfcLengthMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcMaterialLayerSetUsageSpecification = new IfcMaterialLayerSetUsageSpecification();
 }

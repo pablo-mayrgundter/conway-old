@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcDirection from "./IfcDirection.bldrs"
 import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 import IfcVector from "./IfcVector.bldrs"
@@ -17,6 +18,8 @@ export default class IfcSurfaceOfLinearExtrusion implements Component< SchemaSpe
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcSurfaceOfLinearExtrusionSpecification = IfcSurfaceOfLinearExtrusionSpecification.instance;
+
     constructor( public readonly ExtrudedDirection : IfcDirection , public readonly Depth : IfcLengthMeasure  ) {}
 }
 
@@ -24,11 +27,11 @@ export class IfcSurfaceOfLinearExtrusionSpecification implements ComponentSpecif
 {
     public readonly name: string = 'IfcSurfaceOfLinearExtrusion';
 
-    public readonly required: string[] = [ 'IfcSweptSurface', 'IfcSurface', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSweptSurface', 'IfcSurface', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'ExtrudedDirection',
@@ -43,4 +46,8 @@ export class IfcSurfaceOfLinearExtrusionSpecification implements ComponentSpecif
 			baseType: 'IfcLengthMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcSurfaceOfLinearExtrusionSpecification = new IfcSurfaceOfLinearExtrusionSpecification();
 }

@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcConnectionGeometry from "./IfcConnectionGeometry.bldrs"
 import IfcElement from "./IfcElement.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcRelConnectsElements implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcRelConnectsElementsSpecification = IfcRelConnectsElementsSpecification.instance;
+
     constructor( public readonly ConnectionGeometry : IfcConnectionGeometry  | undefined, public readonly RelatingElement : IfcElement , public readonly RelatedElement : IfcElement  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcRelConnectsElementsSpecification implements ComponentSpecificati
 {
     public readonly name: string = 'IfcRelConnectsElements';
 
-    public readonly required: string[] = [ 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'ConnectionGeometry',
@@ -48,4 +51,8 @@ export class IfcRelConnectsElementsSpecification implements ComponentSpecificati
 			baseType: 'IfcElement'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcRelConnectsElementsSpecification = new IfcRelConnectsElementsSpecification();
 }

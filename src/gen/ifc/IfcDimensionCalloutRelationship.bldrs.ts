@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 
 
 /**
@@ -14,6 +15,8 @@ export default class IfcDimensionCalloutRelationship implements Component< Schem
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcDimensionCalloutRelationshipSpecification = IfcDimensionCalloutRelationshipSpecification.instance;
+
     constructor(  ) {}
 }
 
@@ -21,11 +24,15 @@ export class IfcDimensionCalloutRelationshipSpecification implements ComponentSp
 {
     public readonly name: string = 'IfcDimensionCalloutRelationship';
 
-    public readonly required: string[] = [ 'IfcDraughtingCalloutRelationship' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcDraughtingCalloutRelationship' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcDimensionCalloutRelationshipSpecification = new IfcDimensionCalloutRelationshipSpecification();
 }

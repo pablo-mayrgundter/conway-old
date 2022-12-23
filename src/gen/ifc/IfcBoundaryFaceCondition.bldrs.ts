@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcModulusOfSubgradeReactionMeasure from "./IfcModulusOfSubgradeReactionMeasure.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcBoundaryFaceCondition implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcBoundaryFaceConditionSpecification = IfcBoundaryFaceConditionSpecification.instance;
+
     constructor( public readonly LinearStiffnessByAreaX : IfcModulusOfSubgradeReactionMeasure  | undefined, public readonly LinearStiffnessByAreaY : IfcModulusOfSubgradeReactionMeasure  | undefined, public readonly LinearStiffnessByAreaZ : IfcModulusOfSubgradeReactionMeasure  | undefined ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcBoundaryFaceConditionSpecification implements ComponentSpecifica
 {
     public readonly name: string = 'IfcBoundaryFaceCondition';
 
-    public readonly required: string[] = [ 'IfcBoundaryCondition' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcBoundaryCondition' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'LinearStiffnessByAreaX',
@@ -47,4 +50,8 @@ export class IfcBoundaryFaceConditionSpecification implements ComponentSpecifica
 			baseType: 'IfcModulusOfSubgradeReactionMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcBoundaryFaceConditionSpecification = new IfcBoundaryFaceConditionSpecification();
 }

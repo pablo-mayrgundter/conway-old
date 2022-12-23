@@ -5,9 +5,11 @@ export default interface ComponentSpecification
     readonly name: string;
 
     // Other required component types for this one (can be used to enforce inheritence hierarchy)
-    readonly required: string[];
+    readonly required: ReadonlyArray< string >;
 
     readonly isAbstract: boolean;
 
-    readonly attributes: AttributeSpecification[];
+    readonly attributes: ReadonlyArray< AttributeSpecification >;
+
+    readonly schema: string;
 }

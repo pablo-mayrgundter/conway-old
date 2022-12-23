@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 
 
 /**
@@ -14,6 +15,8 @@ export default class IfcFurnitureStandard implements Component< SchemaSpecificat
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcFurnitureStandardSpecification = IfcFurnitureStandardSpecification.instance;
+
     constructor(  ) {}
 }
 
@@ -21,11 +24,15 @@ export class IfcFurnitureStandardSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcFurnitureStandard';
 
-    public readonly required: string[] = [ 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcFurnitureStandardSpecification = new IfcFurnitureStandardSpecification();
 }

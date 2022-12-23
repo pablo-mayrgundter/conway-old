@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcRelAssociates from "./IfcRelAssociates.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcPropertyDefinition implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcPropertyDefinitionSpecification = IfcPropertyDefinitionSpecification.instance;
+
     constructor(  ) {}
 }
 
@@ -22,11 +25,15 @@ export class IfcPropertyDefinitionSpecification implements ComponentSpecificatio
 {
     public readonly name: string = 'IfcPropertyDefinition';
 
-    public readonly required: string[] = [ 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRoot' ];
 
     public readonly isAbstract: boolean = true;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcPropertyDefinitionSpecification = new IfcPropertyDefinitionSpecification();
 }

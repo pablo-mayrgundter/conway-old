@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcConstraint from "./IfcConstraint.bldrs"
 import IfcProperty from "./IfcProperty.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
@@ -18,6 +19,8 @@ export default class IfcPropertyConstraintRelationship implements Component< Sch
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcPropertyConstraintRelationshipSpecification = IfcPropertyConstraintRelationshipSpecification.instance;
+
     constructor( public readonly RelatingConstraint : IfcConstraint , public readonly RelatedProperties : Array<IfcProperty> , public readonly Name : IfcLabel  | undefined, public readonly Description : IfcText  | undefined ) {}
 }
 
@@ -25,11 +28,11 @@ export class IfcPropertyConstraintRelationshipSpecification implements Component
 {
     public readonly name: string = 'IfcPropertyConstraintRelationship';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'RelatingConstraint',
@@ -56,4 +59,8 @@ export class IfcPropertyConstraintRelationshipSpecification implements Component
 			baseType: 'IfcText'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcPropertyConstraintRelationshipSpecification = new IfcPropertyConstraintRelationshipSpecification();
 }

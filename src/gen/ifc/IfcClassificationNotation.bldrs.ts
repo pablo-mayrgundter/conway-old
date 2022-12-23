@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcClassificationNotationFacet from "./IfcClassificationNotationFacet.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcClassificationNotation implements Component< SchemaSpeci
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcClassificationNotationSpecification = IfcClassificationNotationSpecification.instance;
+
     constructor( public readonly NotationFacets : Array<IfcClassificationNotationFacet>  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcClassificationNotationSpecification implements ComponentSpecific
 {
     public readonly name: string = 'IfcClassificationNotation';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'NotationFacets',
@@ -35,4 +38,8 @@ export class IfcClassificationNotationSpecification implements ComponentSpecific
 			baseType: 'Array<IfcClassificationNotationFacet>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcClassificationNotationSpecification = new IfcClassificationNotationSpecification();
 }

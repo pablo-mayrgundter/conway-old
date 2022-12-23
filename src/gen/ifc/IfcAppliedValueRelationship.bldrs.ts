@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcAppliedValue from "./IfcAppliedValue.bldrs"
 import IfcArithmeticOperatorEnum from "./IfcArithmeticOperatorEnum.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
@@ -18,6 +19,8 @@ export default class IfcAppliedValueRelationship implements Component< SchemaSpe
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcAppliedValueRelationshipSpecification = IfcAppliedValueRelationshipSpecification.instance;
+
     constructor( public readonly ComponentOfTotal : IfcAppliedValue , public readonly Components : Array<IfcAppliedValue> , public readonly ArithmeticOperator : IfcArithmeticOperatorEnum , public readonly Name : IfcLabel  | undefined, public readonly Description : IfcText  | undefined ) {}
 }
 
@@ -25,11 +28,11 @@ export class IfcAppliedValueRelationshipSpecification implements ComponentSpecif
 {
     public readonly name: string = 'IfcAppliedValueRelationship';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'ComponentOfTotal',
@@ -62,4 +65,8 @@ export class IfcAppliedValueRelationshipSpecification implements ComponentSpecif
 			baseType: 'IfcText'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcAppliedValueRelationshipSpecification = new IfcAppliedValueRelationshipSpecification();
 }

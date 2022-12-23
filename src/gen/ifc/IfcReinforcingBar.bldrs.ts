@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 import IfcAreaMeasure from "./IfcAreaMeasure.bldrs"
 import IfcReinforcingBarRoleEnum from "./IfcReinforcingBarRoleEnum.bldrs"
@@ -18,6 +19,8 @@ export default class IfcReinforcingBar implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcReinforcingBarSpecification = IfcReinforcingBarSpecification.instance;
+
     constructor( public readonly NominalDiameter : IfcPositiveLengthMeasure , public readonly CrossSectionArea : IfcAreaMeasure , public readonly BarLength : IfcPositiveLengthMeasure  | undefined, public readonly BarRole : IfcReinforcingBarRoleEnum , public readonly BarSurface : IfcReinforcingBarSurfaceEnum  | undefined ) {}
 }
 
@@ -25,11 +28,11 @@ export class IfcReinforcingBarSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcReinforcingBar';
 
-    public readonly required: string[] = [ 'IfcReinforcingElement', 'IfcBuildingElementComponent', 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcReinforcingElement', 'IfcBuildingElementComponent', 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'NominalDiameter',
@@ -62,4 +65,8 @@ export class IfcReinforcingBarSpecification implements ComponentSpecification
 			baseType: 'IfcReinforcingBarSurfaceEnum'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcReinforcingBarSpecification = new IfcReinforcingBarSpecification();
 }

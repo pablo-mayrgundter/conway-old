@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcColourRgb from "./IfcColourRgb.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcSurfaceStyleLighting implements Component< SchemaSpecifi
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcSurfaceStyleLightingSpecification = IfcSurfaceStyleLightingSpecification.instance;
+
     constructor( public readonly DiffuseTransmissionColour : IfcColourRgb , public readonly DiffuseReflectionColour : IfcColourRgb , public readonly TransmissionColour : IfcColourRgb , public readonly ReflectanceColour : IfcColourRgb  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcSurfaceStyleLightingSpecification implements ComponentSpecificat
 {
     public readonly name: string = 'IfcSurfaceStyleLighting';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'DiffuseTransmissionColour',
@@ -53,4 +56,8 @@ export class IfcSurfaceStyleLightingSpecification implements ComponentSpecificat
 			baseType: 'IfcColourRgb'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcSurfaceStyleLightingSpecification = new IfcSurfaceStyleLightingSpecification();
 }

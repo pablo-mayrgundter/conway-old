@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcBooleanOperator from "./IfcBooleanOperator.bldrs"
 import IfcSolidModel from "./IfcSolidModel.bldrs"
 import IfcHalfSpaceSolid from "./IfcHalfSpaceSolid.bldrs"
@@ -19,6 +20,8 @@ export default class IfcBooleanResult implements Component< SchemaSpecificationI
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcBooleanResultSpecification = IfcBooleanResultSpecification.instance;
+
     constructor( public readonly Operator : IfcBooleanOperator , public readonly FirstOperand : IfcSolidModel|IfcHalfSpaceSolid|IfcBooleanResult|IfcCsgPrimitive3D , public readonly SecondOperand : IfcSolidModel|IfcHalfSpaceSolid|IfcBooleanResult|IfcCsgPrimitive3D  ) {}
 }
 
@@ -26,11 +29,11 @@ export class IfcBooleanResultSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcBooleanResult';
 
-    public readonly required: string[] = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Operator',
@@ -51,4 +54,8 @@ export class IfcBooleanResultSpecification implements ComponentSpecification
 			baseType: 'IfcSolidModel|IfcHalfSpaceSolid|IfcBooleanResult|IfcCsgPrimitive3D'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcBooleanResultSpecification = new IfcBooleanResultSpecification();
 }

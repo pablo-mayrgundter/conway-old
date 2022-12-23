@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcSpecificHeatCapacityMeasure from "./IfcSpecificHeatCapacityMeasure.bldrs"
 import IfcThermodynamicTemperatureMeasure from "./IfcThermodynamicTemperatureMeasure.bldrs"
 import IfcThermalConductivityMeasure from "./IfcThermalConductivityMeasure.bldrs"
@@ -17,6 +18,8 @@ export default class IfcThermalMaterialProperties implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcThermalMaterialPropertiesSpecification = IfcThermalMaterialPropertiesSpecification.instance;
+
     constructor( public readonly SpecificHeatCapacity : IfcSpecificHeatCapacityMeasure  | undefined, public readonly BoilingPoint : IfcThermodynamicTemperatureMeasure  | undefined, public readonly FreezingPoint : IfcThermodynamicTemperatureMeasure  | undefined, public readonly ThermalConductivity : IfcThermalConductivityMeasure  | undefined ) {}
 }
 
@@ -24,11 +27,11 @@ export class IfcThermalMaterialPropertiesSpecification implements ComponentSpeci
 {
     public readonly name: string = 'IfcThermalMaterialProperties';
 
-    public readonly required: string[] = [ 'IfcMaterialProperties' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcMaterialProperties' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'SpecificHeatCapacity',
@@ -55,4 +58,8 @@ export class IfcThermalMaterialPropertiesSpecification implements ComponentSpeci
 			baseType: 'IfcThermalConductivityMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcThermalMaterialPropertiesSpecification = new IfcThermalMaterialPropertiesSpecification();
 }

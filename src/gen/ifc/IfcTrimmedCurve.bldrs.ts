@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcCurve from "./IfcCurve.bldrs"
 import IfcCartesianPoint from "./IfcCartesianPoint.bldrs"
 import IfcParameterValue from "./IfcParameterValue.bldrs"
@@ -18,6 +19,8 @@ export default class IfcTrimmedCurve implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcTrimmedCurveSpecification = IfcTrimmedCurveSpecification.instance;
+
     constructor( public readonly BasisCurve : IfcCurve , public readonly Trim1 : Array<IfcCartesianPoint|IfcParameterValue> , public readonly Trim2 : Array<IfcCartesianPoint|IfcParameterValue> , public readonly SenseAgreement : boolean , public readonly MasterRepresentation : IfcTrimmingPreference  ) {}
 }
 
@@ -25,11 +28,11 @@ export class IfcTrimmedCurveSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcTrimmedCurve';
 
-    public readonly required: string[] = [ 'IfcBoundedCurve', 'IfcCurve', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcBoundedCurve', 'IfcCurve', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'BasisCurve',
@@ -62,4 +65,8 @@ export class IfcTrimmedCurveSpecification implements ComponentSpecification
 			baseType: 'IfcTrimmingPreference'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcTrimmedCurveSpecification = new IfcTrimmedCurveSpecification();
 }

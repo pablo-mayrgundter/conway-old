@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcEdge from "./IfcEdge.bldrs"
 import IfcVertex from "./IfcVertex.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcOrientedEdge implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcOrientedEdgeSpecification = IfcOrientedEdgeSpecification.instance;
+
     constructor( public readonly EdgeElement : IfcEdge , public readonly Orientation : boolean  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcOrientedEdgeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcOrientedEdge';
 
-    public readonly required: string[] = [ 'IfcEdge', 'IfcTopologicalRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcEdge', 'IfcTopologicalRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'EdgeElement',
@@ -42,4 +45,8 @@ export class IfcOrientedEdgeSpecification implements ComponentSpecification
 			baseType: 'boolean'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcOrientedEdgeSpecification = new IfcOrientedEdgeSpecification();
 }

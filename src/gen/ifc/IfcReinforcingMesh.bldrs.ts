@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 import IfcAreaMeasure from "./IfcAreaMeasure.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcReinforcingMesh implements Component< SchemaSpecificatio
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcReinforcingMeshSpecification = IfcReinforcingMeshSpecification.instance;
+
     constructor( public readonly MeshLength : IfcPositiveLengthMeasure  | undefined, public readonly MeshWidth : IfcPositiveLengthMeasure  | undefined, public readonly LongitudinalBarNominalDiameter : IfcPositiveLengthMeasure , public readonly TransverseBarNominalDiameter : IfcPositiveLengthMeasure , public readonly LongitudinalBarCrossSectionArea : IfcAreaMeasure , public readonly TransverseBarCrossSectionArea : IfcAreaMeasure , public readonly LongitudinalBarSpacing : IfcPositiveLengthMeasure , public readonly TransverseBarSpacing : IfcPositiveLengthMeasure  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcReinforcingMeshSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcReinforcingMesh';
 
-    public readonly required: string[] = [ 'IfcReinforcingElement', 'IfcBuildingElementComponent', 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcReinforcingElement', 'IfcBuildingElementComponent', 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'MeshLength',
@@ -78,4 +81,8 @@ export class IfcReinforcingMeshSpecification implements ComponentSpecification
 			baseType: 'IfcPositiveLengthMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcReinforcingMeshSpecification = new IfcReinforcingMeshSpecification();
 }

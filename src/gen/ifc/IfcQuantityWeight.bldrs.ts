@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcMassMeasure from "./IfcMassMeasure.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcQuantityWeight implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcQuantityWeightSpecification = IfcQuantityWeightSpecification.instance;
+
     constructor( public readonly WeightValue : IfcMassMeasure  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcQuantityWeightSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcQuantityWeight';
 
-    public readonly required: string[] = [ 'IfcPhysicalSimpleQuantity', 'IfcPhysicalQuantity' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPhysicalSimpleQuantity', 'IfcPhysicalQuantity' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'WeightValue',
@@ -35,4 +38,8 @@ export class IfcQuantityWeightSpecification implements ComponentSpecification
 			baseType: 'IfcMassMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcQuantityWeightSpecification = new IfcQuantityWeightSpecification();
 }

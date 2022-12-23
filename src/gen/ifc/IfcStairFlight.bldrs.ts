@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcStairFlight implements Component< SchemaSpecificationIFC
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcStairFlightSpecification = IfcStairFlightSpecification.instance;
+
     constructor( public readonly NumberOfRiser : number  | undefined, public readonly NumberOfTreads : number  | undefined, public readonly RiserHeight : IfcPositiveLengthMeasure  | undefined, public readonly TreadLength : IfcPositiveLengthMeasure  | undefined ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcStairFlightSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStairFlight';
 
-    public readonly required: string[] = [ 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'NumberOfRiser',
@@ -53,4 +56,8 @@ export class IfcStairFlightSpecification implements ComponentSpecification
 			baseType: 'IfcPositiveLengthMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcStairFlightSpecification = new IfcStairFlightSpecification();
 }

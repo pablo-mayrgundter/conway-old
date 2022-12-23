@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcElement from "./IfcElement.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcRelConnectsWithRealizingElements implements Component< S
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcRelConnectsWithRealizingElementsSpecification = IfcRelConnectsWithRealizingElementsSpecification.instance;
+
     constructor( public readonly RealizingElements : Array<IfcElement> , public readonly ConnectionType : IfcLabel  | undefined ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcRelConnectsWithRealizingElementsSpecification implements Compone
 {
     public readonly name: string = 'IfcRelConnectsWithRealizingElements';
 
-    public readonly required: string[] = [ 'IfcRelConnectsElements', 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelConnectsElements', 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'RealizingElements',
@@ -42,4 +45,8 @@ export class IfcRelConnectsWithRealizingElementsSpecification implements Compone
 			baseType: 'IfcLabel'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcRelConnectsWithRealizingElementsSpecification = new IfcRelConnectsWithRealizingElementsSpecification();
 }

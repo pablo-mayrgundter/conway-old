@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcSlippageConnectionCondition implements Component< Schema
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcSlippageConnectionConditionSpecification = IfcSlippageConnectionConditionSpecification.instance;
+
     constructor( public readonly SlippageX : IfcLengthMeasure  | undefined, public readonly SlippageY : IfcLengthMeasure  | undefined, public readonly SlippageZ : IfcLengthMeasure  | undefined ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcSlippageConnectionConditionSpecification implements ComponentSpe
 {
     public readonly name: string = 'IfcSlippageConnectionCondition';
 
-    public readonly required: string[] = [ 'IfcStructuralConnectionCondition' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralConnectionCondition' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'SlippageX',
@@ -47,4 +50,8 @@ export class IfcSlippageConnectionConditionSpecification implements ComponentSpe
 			baseType: 'IfcLengthMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcSlippageConnectionConditionSpecification = new IfcSlippageConnectionConditionSpecification();
 }

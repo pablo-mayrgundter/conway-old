@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcIdentifier from "./IfcIdentifier.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcActionRequest implements Component< SchemaSpecificationI
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcActionRequestSpecification = IfcActionRequestSpecification.instance;
+
     constructor( public readonly RequestID : IfcIdentifier  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcActionRequestSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcActionRequest';
 
-    public readonly required: string[] = [ 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'RequestID',
@@ -35,4 +38,8 @@ export class IfcActionRequestSpecification implements ComponentSpecification
 			baseType: 'IfcIdentifier'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcActionRequestSpecification = new IfcActionRequestSpecification();
 }

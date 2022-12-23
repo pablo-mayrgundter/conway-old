@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcText from "./IfcText.bldrs"
 import IfcOrganization from "./IfcOrganization.bldrs"
@@ -17,6 +18,8 @@ export default class IfcOrganizationRelationship implements Component< SchemaSpe
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcOrganizationRelationshipSpecification = IfcOrganizationRelationshipSpecification.instance;
+
     constructor( public readonly Name : IfcLabel , public readonly Description : IfcText  | undefined, public readonly RelatingOrganization : IfcOrganization , public readonly RelatedOrganizations : Array<IfcOrganization>  ) {}
 }
 
@@ -24,11 +27,11 @@ export class IfcOrganizationRelationshipSpecification implements ComponentSpecif
 {
     public readonly name: string = 'IfcOrganizationRelationship';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Name',
@@ -55,4 +58,8 @@ export class IfcOrganizationRelationshipSpecification implements ComponentSpecif
 			baseType: 'Array<IfcOrganization>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcOrganizationRelationshipSpecification = new IfcOrganizationRelationshipSpecification();
 }

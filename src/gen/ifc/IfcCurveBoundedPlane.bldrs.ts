@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcPlane from "./IfcPlane.bldrs"
 import IfcCurve from "./IfcCurve.bldrs"
 import IfcDimensionCount from "./IfcDimensionCount.bldrs"
@@ -17,6 +18,8 @@ export default class IfcCurveBoundedPlane implements Component< SchemaSpecificat
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcCurveBoundedPlaneSpecification = IfcCurveBoundedPlaneSpecification.instance;
+
     constructor( public readonly BasisSurface : IfcPlane , public readonly OuterBoundary : IfcCurve , public readonly InnerBoundaries : Array<IfcCurve>  ) {}
 }
 
@@ -24,11 +27,11 @@ export class IfcCurveBoundedPlaneSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCurveBoundedPlane';
 
-    public readonly required: string[] = [ 'IfcBoundedSurface', 'IfcSurface', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcBoundedSurface', 'IfcSurface', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'BasisSurface',
@@ -49,4 +52,8 @@ export class IfcCurveBoundedPlaneSpecification implements ComponentSpecification
 			baseType: 'Array<IfcCurve>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcCurveBoundedPlaneSpecification = new IfcCurveBoundedPlaneSpecification();
 }

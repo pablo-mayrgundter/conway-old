@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcTypeObject from "./IfcTypeObject.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcRelDefinesByType implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcRelDefinesByTypeSpecification = IfcRelDefinesByTypeSpecification.instance;
+
     constructor( public readonly RelatingType : IfcTypeObject  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcRelDefinesByTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelDefinesByType';
 
-    public readonly required: string[] = [ 'IfcRelDefines', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelDefines', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'RelatingType',
@@ -35,4 +38,8 @@ export class IfcRelDefinesByTypeSpecification implements ComponentSpecification
 			baseType: 'IfcTypeObject'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcRelDefinesByTypeSpecification = new IfcRelDefinesByTypeSpecification();
 }

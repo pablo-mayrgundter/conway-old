@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcWarpingMomentMeasure from "./IfcWarpingMomentMeasure.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcStructuralLoadSingleForceWarping implements Component< S
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcStructuralLoadSingleForceWarpingSpecification = IfcStructuralLoadSingleForceWarpingSpecification.instance;
+
     constructor( public readonly WarpingMoment : IfcWarpingMomentMeasure  | undefined ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcStructuralLoadSingleForceWarpingSpecification implements Compone
 {
     public readonly name: string = 'IfcStructuralLoadSingleForceWarping';
 
-    public readonly required: string[] = [ 'IfcStructuralLoadSingleForce', 'IfcStructuralLoadStatic', 'IfcStructuralLoad' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralLoadSingleForce', 'IfcStructuralLoadStatic', 'IfcStructuralLoad' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'WarpingMoment',
@@ -35,4 +38,8 @@ export class IfcStructuralLoadSingleForceWarpingSpecification implements Compone
 			baseType: 'IfcWarpingMomentMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcStructuralLoadSingleForceWarpingSpecification = new IfcStructuralLoadSingleForceWarpingSpecification();
 }

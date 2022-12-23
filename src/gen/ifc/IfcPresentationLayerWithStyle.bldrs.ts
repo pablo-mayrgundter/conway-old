@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcNullStyle from "./IfcNullStyle.bldrs"
 import IfcCurveStyle from "./IfcCurveStyle.bldrs"
 import IfcSymbolStyle from "./IfcSymbolStyle.bldrs"
@@ -20,6 +21,8 @@ export default class IfcPresentationLayerWithStyle implements Component< SchemaS
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcPresentationLayerWithStyleSpecification = IfcPresentationLayerWithStyleSpecification.instance;
+
     constructor( public readonly LayerOn : boolean , public readonly LayerFrozen : boolean , public readonly LayerBlocked : boolean , public readonly LayerStyles : Array<IfcNullStyle|IfcCurveStyle|IfcSymbolStyle|IfcFillAreaStyle|IfcTextStyle|IfcSurfaceStyle>  ) {}
 }
 
@@ -27,11 +30,11 @@ export class IfcPresentationLayerWithStyleSpecification implements ComponentSpec
 {
     public readonly name: string = 'IfcPresentationLayerWithStyle';
 
-    public readonly required: string[] = [ 'IfcPresentationLayerAssignment' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPresentationLayerAssignment' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'LayerOn',
@@ -58,4 +61,8 @@ export class IfcPresentationLayerWithStyleSpecification implements ComponentSpec
 			baseType: 'Array<IfcNullStyle|IfcCurveStyle|IfcSymbolStyle|IfcFillAreaStyle|IfcTextStyle|IfcSurfaceStyle>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcPresentationLayerWithStyleSpecification = new IfcPresentationLayerWithStyleSpecification();
 }

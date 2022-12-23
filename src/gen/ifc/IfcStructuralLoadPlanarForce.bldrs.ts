@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcPlanarForceMeasure from "./IfcPlanarForceMeasure.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcStructuralLoadPlanarForce implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcStructuralLoadPlanarForceSpecification = IfcStructuralLoadPlanarForceSpecification.instance;
+
     constructor( public readonly PlanarForceX : IfcPlanarForceMeasure  | undefined, public readonly PlanarForceY : IfcPlanarForceMeasure  | undefined, public readonly PlanarForceZ : IfcPlanarForceMeasure  | undefined ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcStructuralLoadPlanarForceSpecification implements ComponentSpeci
 {
     public readonly name: string = 'IfcStructuralLoadPlanarForce';
 
-    public readonly required: string[] = [ 'IfcStructuralLoadStatic', 'IfcStructuralLoad' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralLoadStatic', 'IfcStructuralLoad' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'PlanarForceX',
@@ -47,4 +50,8 @@ export class IfcStructuralLoadPlanarForceSpecification implements ComponentSpeci
 			baseType: 'IfcPlanarForceMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcStructuralLoadPlanarForceSpecification = new IfcStructuralLoadPlanarForceSpecification();
 }

@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcBuildingElementProxyTypeEnum from "./IfcBuildingElementProxyTypeEnum.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcBuildingElementProxyType implements Component< SchemaSpe
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcBuildingElementProxyTypeSpecification = IfcBuildingElementProxyTypeSpecification.instance;
+
     constructor( public readonly PredefinedType : IfcBuildingElementProxyTypeEnum  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcBuildingElementProxyTypeSpecification implements ComponentSpecif
 {
     public readonly name: string = 'IfcBuildingElementProxyType';
 
-    public readonly required: string[] = [ 'IfcBuildingElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcBuildingElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'PredefinedType',
@@ -35,4 +38,8 @@ export class IfcBuildingElementProxyTypeSpecification implements ComponentSpecif
 			baseType: 'IfcBuildingElementProxyTypeEnum'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcBuildingElementProxyTypeSpecification = new IfcBuildingElementProxyTypeSpecification();
 }

@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcDirection from "./IfcDirection.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcAxis1Placement implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcAxis1PlacementSpecification = IfcAxis1PlacementSpecification.instance;
+
     constructor( public readonly Axis : IfcDirection  | undefined ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcAxis1PlacementSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcAxis1Placement';
 
-    public readonly required: string[] = [ 'IfcPlacement', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPlacement', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Axis',
@@ -35,4 +38,8 @@ export class IfcAxis1PlacementSpecification implements ComponentSpecification
 			baseType: 'IfcDirection'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcAxis1PlacementSpecification = new IfcAxis1PlacementSpecification();
 }

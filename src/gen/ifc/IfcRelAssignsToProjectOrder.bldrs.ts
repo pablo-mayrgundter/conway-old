@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 
 
 /**
@@ -14,6 +15,8 @@ export default class IfcRelAssignsToProjectOrder implements Component< SchemaSpe
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcRelAssignsToProjectOrderSpecification = IfcRelAssignsToProjectOrderSpecification.instance;
+
     constructor(  ) {}
 }
 
@@ -21,11 +24,15 @@ export class IfcRelAssignsToProjectOrderSpecification implements ComponentSpecif
 {
     public readonly name: string = 'IfcRelAssignsToProjectOrder';
 
-    public readonly required: string[] = [ 'IfcRelAssignsToControl', 'IfcRelAssigns', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssignsToControl', 'IfcRelAssigns', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcRelAssignsToProjectOrderSpecification = new IfcRelAssignsToProjectOrderSpecification();
 }

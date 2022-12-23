@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcCircleProfileDef implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcCircleProfileDefSpecification = IfcCircleProfileDefSpecification.instance;
+
     constructor( public readonly Radius : IfcPositiveLengthMeasure  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcCircleProfileDefSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCircleProfileDef';
 
-    public readonly required: string[] = [ 'IfcParameterizedProfileDef', 'IfcProfileDef' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcParameterizedProfileDef', 'IfcProfileDef' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Radius',
@@ -35,4 +38,8 @@ export class IfcCircleProfileDefSpecification implements ComponentSpecification
 			baseType: 'IfcPositiveLengthMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcCircleProfileDefSpecification = new IfcCircleProfileDefSpecification();
 }

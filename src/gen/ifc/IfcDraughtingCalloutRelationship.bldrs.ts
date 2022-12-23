@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcText from "./IfcText.bldrs"
 import IfcDraughtingCallout from "./IfcDraughtingCallout.bldrs"
@@ -17,6 +18,8 @@ export default class IfcDraughtingCalloutRelationship implements Component< Sche
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcDraughtingCalloutRelationshipSpecification = IfcDraughtingCalloutRelationshipSpecification.instance;
+
     constructor( public readonly Name : IfcLabel  | undefined, public readonly Description : IfcText  | undefined, public readonly RelatingDraughtingCallout : IfcDraughtingCallout , public readonly RelatedDraughtingCallout : IfcDraughtingCallout  ) {}
 }
 
@@ -24,11 +27,11 @@ export class IfcDraughtingCalloutRelationshipSpecification implements ComponentS
 {
     public readonly name: string = 'IfcDraughtingCalloutRelationship';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Name',
@@ -55,4 +58,8 @@ export class IfcDraughtingCalloutRelationshipSpecification implements ComponentS
 			baseType: 'IfcDraughtingCallout'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcDraughtingCalloutRelationshipSpecification = new IfcDraughtingCalloutRelationshipSpecification();
 }

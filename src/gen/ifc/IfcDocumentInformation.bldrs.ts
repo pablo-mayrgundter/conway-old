@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcIdentifier from "./IfcIdentifier.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcText from "./IfcText.bldrs"
@@ -27,6 +28,8 @@ export default class IfcDocumentInformation implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcDocumentInformationSpecification = IfcDocumentInformationSpecification.instance;
+
     constructor( public readonly DocumentId : IfcIdentifier , public readonly Name : IfcLabel , public readonly Description : IfcText  | undefined, public readonly DocumentReferences : Array<IfcDocumentReference>  | undefined, public readonly Purpose : IfcText  | undefined, public readonly IntendedUse : IfcText  | undefined, public readonly Scope : IfcText  | undefined, public readonly Revision : IfcLabel  | undefined, public readonly DocumentOwner : IfcOrganization|IfcPerson|IfcPersonAndOrganization  | undefined, public readonly Editors : Array<IfcOrganization|IfcPerson|IfcPersonAndOrganization>  | undefined, public readonly CreationTime : IfcDateAndTime  | undefined, public readonly LastRevisionTime : IfcDateAndTime  | undefined, public readonly ElectronicFormat : IfcDocumentElectronicFormat  | undefined, public readonly ValidFrom : IfcCalendarDate  | undefined, public readonly ValidUntil : IfcCalendarDate  | undefined, public readonly Confidentiality : IfcDocumentConfidentialityEnum  | undefined, public readonly Status : IfcDocumentStatusEnum  | undefined ) {}
 }
 
@@ -34,11 +37,11 @@ export class IfcDocumentInformationSpecification implements ComponentSpecificati
 {
     public readonly name: string = 'IfcDocumentInformation';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'DocumentId',
@@ -143,4 +146,8 @@ export class IfcDocumentInformationSpecification implements ComponentSpecificati
 			baseType: 'IfcDocumentStatusEnum'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcDocumentInformationSpecification = new IfcDocumentInformationSpecification();
 }

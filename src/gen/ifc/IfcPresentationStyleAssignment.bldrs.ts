@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcNullStyle from "./IfcNullStyle.bldrs"
 import IfcCurveStyle from "./IfcCurveStyle.bldrs"
 import IfcSymbolStyle from "./IfcSymbolStyle.bldrs"
@@ -20,6 +21,8 @@ export default class IfcPresentationStyleAssignment implements Component< Schema
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcPresentationStyleAssignmentSpecification = IfcPresentationStyleAssignmentSpecification.instance;
+
     constructor( public readonly Styles : Array<IfcNullStyle|IfcCurveStyle|IfcSymbolStyle|IfcFillAreaStyle|IfcTextStyle|IfcSurfaceStyle>  ) {}
 }
 
@@ -27,11 +30,11 @@ export class IfcPresentationStyleAssignmentSpecification implements ComponentSpe
 {
     public readonly name: string = 'IfcPresentationStyleAssignment';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Styles',
@@ -40,4 +43,8 @@ export class IfcPresentationStyleAssignmentSpecification implements ComponentSpe
 			baseType: 'Array<IfcNullStyle|IfcCurveStyle|IfcSymbolStyle|IfcFillAreaStyle|IfcTextStyle|IfcSurfaceStyle>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcPresentationStyleAssignmentSpecification = new IfcPresentationStyleAssignmentSpecification();
 }

@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcVector from "./IfcVector.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcOneDirectionRepeatFactor implements Component< SchemaSpe
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcOneDirectionRepeatFactorSpecification = IfcOneDirectionRepeatFactorSpecification.instance;
+
     constructor( public readonly RepeatFactor : IfcVector  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcOneDirectionRepeatFactorSpecification implements ComponentSpecif
 {
     public readonly name: string = 'IfcOneDirectionRepeatFactor';
 
-    public readonly required: string[] = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'RepeatFactor',
@@ -35,4 +38,8 @@ export class IfcOneDirectionRepeatFactorSpecification implements ComponentSpecif
 			baseType: 'IfcVector'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcOneDirectionRepeatFactorSpecification = new IfcOneDirectionRepeatFactorSpecification();
 }

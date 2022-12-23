@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcIdentifier from "./IfcIdentifier.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcExternalReference implements Component< SchemaSpecificat
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcExternalReferenceSpecification = IfcExternalReferenceSpecification.instance;
+
     constructor( public readonly Location : IfcLabel  | undefined, public readonly ItemReference : IfcIdentifier  | undefined, public readonly Name : IfcLabel  | undefined ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcExternalReferenceSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcExternalReference';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = true;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Location',
@@ -48,4 +51,8 @@ export class IfcExternalReferenceSpecification implements ComponentSpecification
 			baseType: 'IfcLabel'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcExternalReferenceSpecification = new IfcExternalReferenceSpecification();
 }

@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcDocumentReference from "./IfcDocumentReference.bldrs"
 import IfcDocumentInformation from "./IfcDocumentInformation.bldrs"
 import IfcAppliedValue from "./IfcAppliedValue.bldrs"
@@ -19,6 +20,8 @@ export default class IfcReferencesValueDocument implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcReferencesValueDocumentSpecification = IfcReferencesValueDocumentSpecification.instance;
+
     constructor( public readonly ReferencedDocument : IfcDocumentReference|IfcDocumentInformation , public readonly ReferencingValues : Array<IfcAppliedValue> , public readonly Name : IfcLabel  | undefined, public readonly Description : IfcText  | undefined ) {}
 }
 
@@ -26,11 +29,11 @@ export class IfcReferencesValueDocumentSpecification implements ComponentSpecifi
 {
     public readonly name: string = 'IfcReferencesValueDocument';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'ReferencedDocument',
@@ -57,4 +60,8 @@ export class IfcReferencesValueDocumentSpecification implements ComponentSpecifi
 			baseType: 'IfcText'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcReferencesValueDocumentSpecification = new IfcReferencesValueDocumentSpecification();
 }

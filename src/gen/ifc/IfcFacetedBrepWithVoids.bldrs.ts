@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcClosedShell from "./IfcClosedShell.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcFacetedBrepWithVoids implements Component< SchemaSpecifi
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcFacetedBrepWithVoidsSpecification = IfcFacetedBrepWithVoidsSpecification.instance;
+
     constructor( public readonly Voids : Array<IfcClosedShell>  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcFacetedBrepWithVoidsSpecification implements ComponentSpecificat
 {
     public readonly name: string = 'IfcFacetedBrepWithVoids';
 
-    public readonly required: string[] = [ 'IfcManifoldSolidBrep', 'IfcSolidModel', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcManifoldSolidBrep', 'IfcSolidModel', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Voids',
@@ -35,4 +38,8 @@ export class IfcFacetedBrepWithVoidsSpecification implements ComponentSpecificat
 			baseType: 'Array<IfcClosedShell>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcFacetedBrepWithVoidsSpecification = new IfcFacetedBrepWithVoidsSpecification();
 }

@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcDocumentElectronicFormat implements Component< SchemaSpe
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcDocumentElectronicFormatSpecification = IfcDocumentElectronicFormatSpecification.instance;
+
     constructor( public readonly FileExtension : IfcLabel  | undefined, public readonly MimeContentType : IfcLabel  | undefined, public readonly MimeSubtype : IfcLabel  | undefined ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcDocumentElectronicFormatSpecification implements ComponentSpecif
 {
     public readonly name: string = 'IfcDocumentElectronicFormat';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'FileExtension',
@@ -47,4 +50,8 @@ export class IfcDocumentElectronicFormatSpecification implements ComponentSpecif
 			baseType: 'IfcLabel'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcDocumentElectronicFormatSpecification = new IfcDocumentElectronicFormatSpecification();
 }

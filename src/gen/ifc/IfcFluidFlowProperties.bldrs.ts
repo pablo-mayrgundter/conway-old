@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcPropertySourceEnum from "./IfcPropertySourceEnum.bldrs"
 import IfcTimeSeries from "./IfcTimeSeries.bldrs"
 import IfcMaterial from "./IfcMaterial.bldrs"
@@ -88,6 +89,8 @@ export default class IfcFluidFlowProperties implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcFluidFlowPropertiesSpecification = IfcFluidFlowPropertiesSpecification.instance;
+
     constructor( public readonly PropertySource : IfcPropertySourceEnum , public readonly FlowConditionTimeSeries : IfcTimeSeries  | undefined, public readonly VelocityTimeSeries : IfcTimeSeries  | undefined, public readonly FlowrateTimeSeries : IfcTimeSeries  | undefined, public readonly Fluid : IfcMaterial , public readonly PressureTimeSeries : IfcTimeSeries  | undefined, public readonly UserDefinedPropertySource : IfcLabel  | undefined, public readonly TemperatureSingleValue : IfcThermodynamicTemperatureMeasure  | undefined, public readonly WetBulbTemperatureSingleValue : IfcThermodynamicTemperatureMeasure  | undefined, public readonly WetBulbTemperatureTimeSeries : IfcTimeSeries  | undefined, public readonly TemperatureTimeSeries : IfcTimeSeries  | undefined, public readonly FlowrateSingleValue : IfcVolumetricFlowRateMeasure|IfcTimeStamp|IfcThermalTransmittanceMeasure|IfcThermalResistanceMeasure|IfcThermalAdmittanceMeasure|IfcPressureMeasure|IfcPowerMeasure|IfcMassFlowRateMeasure|IfcMassDensityMeasure|IfcLinearVelocityMeasure|IfcKinematicViscosityMeasure|IfcIntegerCountRateMeasure|IfcHeatFluxDensityMeasure|IfcFrequencyMeasure|IfcEnergyMeasure|IfcElectricVoltageMeasure|IfcDynamicViscosityMeasure|IfcCompoundPlaneAngleMeasure|IfcAngularVelocityMeasure|IfcThermalConductivityMeasure|IfcMolecularWeightMeasure|IfcVaporPermeabilityMeasure|IfcMoistureDiffusivityMeasure|IfcIsothermalMoistureCapacityMeasure|IfcSpecificHeatCapacityMeasure|IfcMonetaryMeasure|IfcMagneticFluxDensityMeasure|IfcMagneticFluxMeasure|IfcLuminousFluxMeasure|IfcForceMeasure|IfcInductanceMeasure|IfcIlluminanceMeasure|IfcElectricResistanceMeasure|IfcElectricConductanceMeasure|IfcElectricChargeMeasure|IfcDoseEquivalentMeasure|IfcElectricCapacitanceMeasure|IfcAbsorbedDoseMeasure|IfcRadioActivityMeasure|IfcRotationalFrequencyMeasure|IfcTorqueMeasure|IfcAccelerationMeasure|IfcLinearForceMeasure|IfcLinearStiffnessMeasure|IfcModulusOfSubgradeReactionMeasure|IfcModulusOfElasticityMeasure|IfcMomentOfInertiaMeasure|IfcPlanarForceMeasure|IfcRotationalStiffnessMeasure|IfcShearModulusMeasure|IfcLinearMomentMeasure|IfcLuminousIntensityDistributionMeasure|IfcCurvatureMeasure|IfcMassPerLengthMeasure|IfcModulusOfLinearSubgradeReactionMeasure|IfcModulusOfRotationalSubgradeReactionMeasure|IfcRotationalMassMeasure|IfcSectionalAreaIntegralMeasure|IfcSectionModulusMeasure|IfcTemperatureGradientMeasure|IfcThermalExpansionCoefficientMeasure|IfcWarpingConstantMeasure|IfcWarpingMomentMeasure|IfcSoundPowerMeasure|IfcSoundPressureMeasure|IfcHeatingValueMeasure|IfcPHMeasure|IfcIonConcentrationMeasure  | undefined, public readonly FlowConditionSingleValue : IfcPositiveRatioMeasure  | undefined, public readonly VelocitySingleValue : IfcLinearVelocityMeasure  | undefined, public readonly PressureSingleValue : IfcPressureMeasure  | undefined ) {}
 }
 
@@ -95,11 +98,11 @@ export class IfcFluidFlowPropertiesSpecification implements ComponentSpecificati
 {
     public readonly name: string = 'IfcFluidFlowProperties';
 
-    public readonly required: string[] = [ 'IfcPropertySetDefinition', 'IfcPropertyDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPropertySetDefinition', 'IfcPropertyDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'PropertySource',
@@ -192,4 +195,8 @@ export class IfcFluidFlowPropertiesSpecification implements ComponentSpecificati
 			baseType: 'IfcPressureMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcFluidFlowPropertiesSpecification = new IfcFluidFlowPropertiesSpecification();
 }

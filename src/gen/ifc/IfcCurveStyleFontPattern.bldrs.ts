@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcCurveStyleFontPattern implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcCurveStyleFontPatternSpecification = IfcCurveStyleFontPatternSpecification.instance;
+
     constructor( public readonly VisibleSegmentLength : IfcLengthMeasure , public readonly InvisibleSegmentLength : IfcPositiveLengthMeasure  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcCurveStyleFontPatternSpecification implements ComponentSpecifica
 {
     public readonly name: string = 'IfcCurveStyleFontPattern';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'VisibleSegmentLength',
@@ -42,4 +45,8 @@ export class IfcCurveStyleFontPatternSpecification implements ComponentSpecifica
 			baseType: 'IfcPositiveLengthMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcCurveStyleFontPatternSpecification = new IfcCurveStyleFontPatternSpecification();
 }

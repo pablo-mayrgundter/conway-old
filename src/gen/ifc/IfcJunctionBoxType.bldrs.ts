@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcJunctionBoxTypeEnum from "./IfcJunctionBoxTypeEnum.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcJunctionBoxType implements Component< SchemaSpecificatio
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcJunctionBoxTypeSpecification = IfcJunctionBoxTypeSpecification.instance;
+
     constructor( public readonly PredefinedType : IfcJunctionBoxTypeEnum  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcJunctionBoxTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcJunctionBoxType';
 
-    public readonly required: string[] = [ 'IfcFlowFittingType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcFlowFittingType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'PredefinedType',
@@ -35,4 +38,8 @@ export class IfcJunctionBoxTypeSpecification implements ComponentSpecification
 			baseType: 'IfcJunctionBoxTypeEnum'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcJunctionBoxTypeSpecification = new IfcJunctionBoxTypeSpecification();
 }

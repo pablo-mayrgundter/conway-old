@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 import IfcRibPlateDirectionEnum from "./IfcRibPlateDirectionEnum.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcRibPlateProfileProperties implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcRibPlateProfilePropertiesSpecification = IfcRibPlateProfilePropertiesSpecification.instance;
+
     constructor( public readonly Thickness : IfcPositiveLengthMeasure  | undefined, public readonly RibHeight : IfcPositiveLengthMeasure  | undefined, public readonly RibWidth : IfcPositiveLengthMeasure  | undefined, public readonly RibSpacing : IfcPositiveLengthMeasure  | undefined, public readonly Direction : IfcRibPlateDirectionEnum  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcRibPlateProfilePropertiesSpecification implements ComponentSpeci
 {
     public readonly name: string = 'IfcRibPlateProfileProperties';
 
-    public readonly required: string[] = [ 'IfcProfileProperties' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcProfileProperties' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Thickness',
@@ -60,4 +63,8 @@ export class IfcRibPlateProfilePropertiesSpecification implements ComponentSpeci
 			baseType: 'IfcRibPlateDirectionEnum'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcRibPlateProfilePropertiesSpecification = new IfcRibPlateProfilePropertiesSpecification();
 }

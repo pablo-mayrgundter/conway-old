@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcElectricFlowStorageDeviceTypeEnum from "./IfcElectricFlowStorageDeviceTypeEnum.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcElectricFlowStorageDeviceType implements Component< Sche
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcElectricFlowStorageDeviceTypeSpecification = IfcElectricFlowStorageDeviceTypeSpecification.instance;
+
     constructor( public readonly PredefinedType : IfcElectricFlowStorageDeviceTypeEnum  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcElectricFlowStorageDeviceTypeSpecification implements ComponentS
 {
     public readonly name: string = 'IfcElectricFlowStorageDeviceType';
 
-    public readonly required: string[] = [ 'IfcFlowStorageDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcFlowStorageDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'PredefinedType',
@@ -35,4 +38,8 @@ export class IfcElectricFlowStorageDeviceTypeSpecification implements ComponentS
 			baseType: 'IfcElectricFlowStorageDeviceTypeEnum'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcElectricFlowStorageDeviceTypeSpecification = new IfcElectricFlowStorageDeviceTypeSpecification();
 }

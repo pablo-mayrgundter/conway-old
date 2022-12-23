@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcDirection from "./IfcDirection.bldrs"
 import IfcReal from "./IfcReal.bldrs"
 import IfcPositivePlaneAngleMeasure from "./IfcPositivePlaneAngleMeasure.bldrs"
@@ -17,6 +18,8 @@ export default class IfcLightSourceSpot implements Component< SchemaSpecificatio
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcLightSourceSpotSpecification = IfcLightSourceSpotSpecification.instance;
+
     constructor( public readonly Orientation : IfcDirection , public readonly ConcentrationExponent : IfcReal  | undefined, public readonly SpreadAngle : IfcPositivePlaneAngleMeasure , public readonly BeamWidthAngle : IfcPositivePlaneAngleMeasure  ) {}
 }
 
@@ -24,11 +27,11 @@ export class IfcLightSourceSpotSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcLightSourceSpot';
 
-    public readonly required: string[] = [ 'IfcLightSourcePositional', 'IfcLightSource', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcLightSourcePositional', 'IfcLightSource', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Orientation',
@@ -55,4 +58,8 @@ export class IfcLightSourceSpotSpecification implements ComponentSpecification
 			baseType: 'IfcPositivePlaneAngleMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcLightSourceSpotSpecification = new IfcLightSourceSpotSpecification();
 }

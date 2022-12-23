@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcProfileProperties from "./IfcProfileProperties.bldrs"
 import IfcShapeAspect from "./IfcShapeAspect.bldrs"
 import IfcPlaneAngleMeasure from "./IfcPlaneAngleMeasure.bldrs"
@@ -18,6 +19,8 @@ export default class IfcRelAssociatesProfileProperties implements Component< Sch
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcRelAssociatesProfilePropertiesSpecification = IfcRelAssociatesProfilePropertiesSpecification.instance;
+
     constructor( public readonly RelatingProfileProperties : IfcProfileProperties , public readonly ProfileSectionLocation : IfcShapeAspect  | undefined, public readonly ProfileOrientation : IfcPlaneAngleMeasure|IfcDirection  | undefined ) {}
 }
 
@@ -25,11 +28,11 @@ export class IfcRelAssociatesProfilePropertiesSpecification implements Component
 {
     public readonly name: string = 'IfcRelAssociatesProfileProperties';
 
-    public readonly required: string[] = [ 'IfcRelAssociates', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssociates', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'RelatingProfileProperties',
@@ -50,4 +53,8 @@ export class IfcRelAssociatesProfilePropertiesSpecification implements Component
 			baseType: 'IfcPlaneAngleMeasure|IfcDirection'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcRelAssociatesProfilePropertiesSpecification = new IfcRelAssociatesProfilePropertiesSpecification();
 }

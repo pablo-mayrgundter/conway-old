@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcOrganization from "./IfcOrganization.bldrs"
 import IfcPerson from "./IfcPerson.bldrs"
 import IfcPersonAndOrganization from "./IfcPersonAndOrganization.bldrs"
@@ -23,6 +24,8 @@ export default class IfcCostSchedule implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcCostScheduleSpecification = IfcCostScheduleSpecification.instance;
+
     constructor( public readonly SubmittedBy : IfcOrganization|IfcPerson|IfcPersonAndOrganization  | undefined, public readonly PreparedBy : IfcOrganization|IfcPerson|IfcPersonAndOrganization  | undefined, public readonly SubmittedOn : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly Status : IfcLabel  | undefined, public readonly TargetUsers : Array<IfcOrganization|IfcPerson|IfcPersonAndOrganization>  | undefined, public readonly UpdateDate : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly ID : IfcIdentifier , public readonly PredefinedType : IfcCostScheduleTypeEnum  ) {}
 }
 
@@ -30,11 +33,11 @@ export class IfcCostScheduleSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCostSchedule';
 
-    public readonly required: string[] = [ 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'SubmittedBy',
@@ -85,4 +88,8 @@ export class IfcCostScheduleSpecification implements ComponentSpecification
 			baseType: 'IfcCostScheduleTypeEnum'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcCostScheduleSpecification = new IfcCostScheduleSpecification();
 }

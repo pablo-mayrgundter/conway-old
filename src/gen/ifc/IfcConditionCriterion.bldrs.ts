@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcMeasureWithUnit from "./IfcMeasureWithUnit.bldrs"
 import IfcCalendarDate from "./IfcCalendarDate.bldrs"
@@ -19,6 +20,8 @@ export default class IfcConditionCriterion implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcConditionCriterionSpecification = IfcConditionCriterionSpecification.instance;
+
     constructor( public readonly Criterion : IfcLabel|IfcMeasureWithUnit , public readonly CriterionDateTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  ) {}
 }
 
@@ -26,11 +29,11 @@ export class IfcConditionCriterionSpecification implements ComponentSpecificatio
 {
     public readonly name: string = 'IfcConditionCriterion';
 
-    public readonly required: string[] = [ 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Criterion',
@@ -45,4 +48,8 @@ export class IfcConditionCriterionSpecification implements ComponentSpecificatio
 			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcConditionCriterionSpecification = new IfcConditionCriterionSpecification();
 }

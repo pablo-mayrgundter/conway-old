@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcCurve from "./IfcCurve.bldrs"
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 import IfcParameterValue from "./IfcParameterValue.bldrs"
@@ -17,6 +18,8 @@ export default class IfcSweptDiskSolid implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcSweptDiskSolidSpecification = IfcSweptDiskSolidSpecification.instance;
+
     constructor( public readonly Directrix : IfcCurve , public readonly Radius : IfcPositiveLengthMeasure , public readonly InnerRadius : IfcPositiveLengthMeasure  | undefined, public readonly StartParam : IfcParameterValue , public readonly EndParam : IfcParameterValue  ) {}
 }
 
@@ -24,11 +27,11 @@ export class IfcSweptDiskSolidSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSweptDiskSolid';
 
-    public readonly required: string[] = [ 'IfcSolidModel', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSolidModel', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Directrix',
@@ -61,4 +64,8 @@ export class IfcSweptDiskSolidSpecification implements ComponentSpecification
 			baseType: 'IfcParameterValue'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcSweptDiskSolidSpecification = new IfcSweptDiskSolidSpecification();
 }

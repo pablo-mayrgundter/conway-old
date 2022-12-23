@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcStructuralMember from "./IfcStructuralMember.bldrs"
 import IfcStructuralConnection from "./IfcStructuralConnection.bldrs"
 import IfcBoundaryCondition from "./IfcBoundaryCondition.bldrs"
@@ -20,6 +21,8 @@ export default class IfcRelConnectsStructuralMember implements Component< Schema
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcRelConnectsStructuralMemberSpecification = IfcRelConnectsStructuralMemberSpecification.instance;
+
     constructor( public readonly RelatingStructuralMember : IfcStructuralMember , public readonly RelatedStructuralConnection : IfcStructuralConnection , public readonly AppliedCondition : IfcBoundaryCondition  | undefined, public readonly AdditionalConditions : IfcStructuralConnectionCondition  | undefined, public readonly SupportedLength : IfcLengthMeasure  | undefined, public readonly ConditionCoordinateSystem : IfcAxis2Placement3D  | undefined ) {}
 }
 
@@ -27,11 +30,11 @@ export class IfcRelConnectsStructuralMemberSpecification implements ComponentSpe
 {
     public readonly name: string = 'IfcRelConnectsStructuralMember';
 
-    public readonly required: string[] = [ 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'RelatingStructuralMember',
@@ -70,4 +73,8 @@ export class IfcRelConnectsStructuralMemberSpecification implements ComponentSpe
 			baseType: 'IfcAxis2Placement3D'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcRelConnectsStructuralMemberSpecification = new IfcRelConnectsStructuralMemberSpecification();
 }

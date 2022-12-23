@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcProduct from "./IfcProduct.bldrs"
 import IfcSpatialStructureElement from "./IfcSpatialStructureElement.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcRelContainedInSpatialStructure implements Component< Sch
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcRelContainedInSpatialStructureSpecification = IfcRelContainedInSpatialStructureSpecification.instance;
+
     constructor( public readonly RelatedElements : Array<IfcProduct> , public readonly RelatingStructure : IfcSpatialStructureElement  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcRelContainedInSpatialStructureSpecification implements Component
 {
     public readonly name: string = 'IfcRelContainedInSpatialStructure';
 
-    public readonly required: string[] = [ 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'RelatedElements',
@@ -42,4 +45,8 @@ export class IfcRelContainedInSpatialStructureSpecification implements Component
 			baseType: 'IfcSpatialStructureElement'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcRelContainedInSpatialStructureSpecification = new IfcRelContainedInSpatialStructureSpecification();
 }

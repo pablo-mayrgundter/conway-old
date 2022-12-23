@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcColourSpecification from "./IfcColourSpecification.bldrs"
 import IfcPreDefinedColour from "./IfcPreDefinedColour.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcTextStyleForDefinedFont implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcTextStyleForDefinedFontSpecification = IfcTextStyleForDefinedFontSpecification.instance;
+
     constructor( public readonly Colour : IfcColourSpecification|IfcPreDefinedColour , public readonly BackgroundColour : IfcColourSpecification|IfcPreDefinedColour  | undefined ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcTextStyleForDefinedFontSpecification implements ComponentSpecifi
 {
     public readonly name: string = 'IfcTextStyleForDefinedFont';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Colour',
@@ -42,4 +45,8 @@ export class IfcTextStyleForDefinedFontSpecification implements ComponentSpecifi
 			baseType: 'IfcColourSpecification|IfcPreDefinedColour'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcTextStyleForDefinedFontSpecification = new IfcTextStyleForDefinedFontSpecification();
 }

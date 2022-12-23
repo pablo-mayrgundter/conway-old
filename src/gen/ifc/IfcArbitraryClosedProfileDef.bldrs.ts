@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcCurve from "./IfcCurve.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcArbitraryClosedProfileDef implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcArbitraryClosedProfileDefSpecification = IfcArbitraryClosedProfileDefSpecification.instance;
+
     constructor( public readonly OuterCurve : IfcCurve  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcArbitraryClosedProfileDefSpecification implements ComponentSpeci
 {
     public readonly name: string = 'IfcArbitraryClosedProfileDef';
 
-    public readonly required: string[] = [ 'IfcProfileDef' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcProfileDef' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'OuterCurve',
@@ -35,4 +38,8 @@ export class IfcArbitraryClosedProfileDefSpecification implements ComponentSpeci
 			baseType: 'IfcCurve'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcArbitraryClosedProfileDefSpecification = new IfcArbitraryClosedProfileDefSpecification();
 }

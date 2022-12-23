@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcElement from "./IfcElement.bldrs"
 import IfcCovering from "./IfcCovering.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcRelCoversBldgElements implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcRelCoversBldgElementsSpecification = IfcRelCoversBldgElementsSpecification.instance;
+
     constructor( public readonly RelatingBuildingElement : IfcElement , public readonly RelatedCoverings : Array<IfcCovering>  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcRelCoversBldgElementsSpecification implements ComponentSpecifica
 {
     public readonly name: string = 'IfcRelCoversBldgElements';
 
-    public readonly required: string[] = [ 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'RelatingBuildingElement',
@@ -42,4 +45,8 @@ export class IfcRelCoversBldgElementsSpecification implements ComponentSpecifica
 			baseType: 'Array<IfcCovering>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcRelCoversBldgElementsSpecification = new IfcRelCoversBldgElementsSpecification();
 }

@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcMolecularWeightMeasure from "./IfcMolecularWeightMeasure.bldrs"
 import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
 import IfcMassDensityMeasure from "./IfcMassDensityMeasure.bldrs"
@@ -17,6 +18,8 @@ export default class IfcGeneralMaterialProperties implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcGeneralMaterialPropertiesSpecification = IfcGeneralMaterialPropertiesSpecification.instance;
+
     constructor( public readonly MolecularWeight : IfcMolecularWeightMeasure  | undefined, public readonly Porosity : IfcNormalisedRatioMeasure  | undefined, public readonly MassDensity : IfcMassDensityMeasure  | undefined ) {}
 }
 
@@ -24,11 +27,11 @@ export class IfcGeneralMaterialPropertiesSpecification implements ComponentSpeci
 {
     public readonly name: string = 'IfcGeneralMaterialProperties';
 
-    public readonly required: string[] = [ 'IfcMaterialProperties' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcMaterialProperties' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'MolecularWeight',
@@ -49,4 +52,8 @@ export class IfcGeneralMaterialPropertiesSpecification implements ComponentSpeci
 			baseType: 'IfcMassDensityMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcGeneralMaterialPropertiesSpecification = new IfcGeneralMaterialPropertiesSpecification();
 }

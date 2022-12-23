@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcTextureVertex from "./IfcTextureVertex.bldrs"
 import IfcCartesianPoint from "./IfcCartesianPoint.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcVertexBasedTextureMap implements Component< SchemaSpecif
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcVertexBasedTextureMapSpecification = IfcVertexBasedTextureMapSpecification.instance;
+
     constructor( public readonly TextureVertices : Array<IfcTextureVertex> , public readonly TexturePoints : Array<IfcCartesianPoint>  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcVertexBasedTextureMapSpecification implements ComponentSpecifica
 {
     public readonly name: string = 'IfcVertexBasedTextureMap';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'TextureVertices',
@@ -42,4 +45,8 @@ export class IfcVertexBasedTextureMapSpecification implements ComponentSpecifica
 			baseType: 'Array<IfcCartesianPoint>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcVertexBasedTextureMapSpecification = new IfcVertexBasedTextureMapSpecification();
 }

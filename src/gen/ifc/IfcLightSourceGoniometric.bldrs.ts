@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcAxis2Placement3D from "./IfcAxis2Placement3D.bldrs"
 import IfcColourRgb from "./IfcColourRgb.bldrs"
 import IfcThermodynamicTemperatureMeasure from "./IfcThermodynamicTemperatureMeasure.bldrs"
@@ -21,6 +22,8 @@ export default class IfcLightSourceGoniometric implements Component< SchemaSpeci
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcLightSourceGoniometricSpecification = IfcLightSourceGoniometricSpecification.instance;
+
     constructor( public readonly Position : IfcAxis2Placement3D , public readonly ColourAppearance : IfcColourRgb  | undefined, public readonly ColourTemperature : IfcThermodynamicTemperatureMeasure , public readonly LuminousFlux : IfcLuminousFluxMeasure , public readonly LightEmissionSource : IfcLightEmissionSourceEnum , public readonly LightDistributionDataSource : IfcExternalReference|IfcLightIntensityDistribution  ) {}
 }
 
@@ -28,11 +31,11 @@ export class IfcLightSourceGoniometricSpecification implements ComponentSpecific
 {
     public readonly name: string = 'IfcLightSourceGoniometric';
 
-    public readonly required: string[] = [ 'IfcLightSource', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcLightSource', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Position',
@@ -71,4 +74,8 @@ export class IfcLightSourceGoniometricSpecification implements ComponentSpecific
 			baseType: 'IfcExternalReference|IfcLightIntensityDistribution'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcLightSourceGoniometricSpecification = new IfcLightSourceGoniometricSpecification();
 }

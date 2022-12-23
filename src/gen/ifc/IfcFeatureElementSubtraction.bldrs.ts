@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcRelVoidsElement from "./IfcRelVoidsElement.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcFeatureElementSubtraction implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcFeatureElementSubtractionSpecification = IfcFeatureElementSubtractionSpecification.instance;
+
     constructor(  ) {}
 }
 
@@ -22,11 +25,15 @@ export class IfcFeatureElementSubtractionSpecification implements ComponentSpeci
 {
     public readonly name: string = 'IfcFeatureElementSubtraction';
 
-    public readonly required: string[] = [ 'IfcFeatureElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcFeatureElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = true;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcFeatureElementSubtractionSpecification = new IfcFeatureElementSubtractionSpecification();
 }

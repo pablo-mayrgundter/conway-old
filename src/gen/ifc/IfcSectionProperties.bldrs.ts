@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcSectionTypeEnum from "./IfcSectionTypeEnum.bldrs"
 import IfcProfileDef from "./IfcProfileDef.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcSectionProperties implements Component< SchemaSpecificat
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcSectionPropertiesSpecification = IfcSectionPropertiesSpecification.instance;
+
     constructor( public readonly SectionType : IfcSectionTypeEnum , public readonly StartProfile : IfcProfileDef , public readonly EndProfile : IfcProfileDef  | undefined ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcSectionPropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSectionProperties';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'SectionType',
@@ -48,4 +51,8 @@ export class IfcSectionPropertiesSpecification implements ComponentSpecification
 			baseType: 'IfcProfileDef'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcSectionPropertiesSpecification = new IfcSectionPropertiesSpecification();
 }

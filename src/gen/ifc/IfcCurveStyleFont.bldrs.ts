@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcCurveStyleFontPattern from "./IfcCurveStyleFontPattern.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcCurveStyleFont implements Component< SchemaSpecification
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcCurveStyleFontSpecification = IfcCurveStyleFontSpecification.instance;
+
     constructor( public readonly Name : IfcLabel  | undefined, public readonly PatternList : Array<IfcCurveStyleFontPattern>  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcCurveStyleFontSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCurveStyleFont';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Name',
@@ -42,4 +45,8 @@ export class IfcCurveStyleFontSpecification implements ComponentSpecification
 			baseType: 'Array<IfcCurveStyleFontPattern>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcCurveStyleFontSpecification = new IfcCurveStyleFontSpecification();
 }

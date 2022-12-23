@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcGridAxis from "./IfcGridAxis.bldrs"
 import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcVirtualGridIntersection implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcVirtualGridIntersectionSpecification = IfcVirtualGridIntersectionSpecification.instance;
+
     constructor( public readonly IntersectingAxes : Array<IfcGridAxis> , public readonly OffsetDistances : Array<IfcLengthMeasure>  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcVirtualGridIntersectionSpecification implements ComponentSpecifi
 {
     public readonly name: string = 'IfcVirtualGridIntersection';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'IntersectingAxes',
@@ -42,4 +45,8 @@ export class IfcVirtualGridIntersectionSpecification implements ComponentSpecifi
 			baseType: 'Array<IfcLengthMeasure>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcVirtualGridIntersectionSpecification = new IfcVirtualGridIntersectionSpecification();
 }

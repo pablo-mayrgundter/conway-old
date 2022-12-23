@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcTransportElementTypeEnum from "./IfcTransportElementTypeEnum.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcTransportElementType implements Component< SchemaSpecifi
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcTransportElementTypeSpecification = IfcTransportElementTypeSpecification.instance;
+
     constructor( public readonly PredefinedType : IfcTransportElementTypeEnum  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcTransportElementTypeSpecification implements ComponentSpecificat
 {
     public readonly name: string = 'IfcTransportElementType';
 
-    public readonly required: string[] = [ 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'PredefinedType',
@@ -35,4 +38,8 @@ export class IfcTransportElementTypeSpecification implements ComponentSpecificat
 			baseType: 'IfcTransportElementTypeEnum'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcTransportElementTypeSpecification = new IfcTransportElementTypeSpecification();
 }

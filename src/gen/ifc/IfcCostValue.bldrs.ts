@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcText from "./IfcText.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcCostValue implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcCostValueSpecification = IfcCostValueSpecification.instance;
+
     constructor( public readonly CostType : IfcLabel , public readonly Condition : IfcText  | undefined ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcCostValueSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCostValue';
 
-    public readonly required: string[] = [ 'IfcAppliedValue' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcAppliedValue' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'CostType',
@@ -42,4 +45,8 @@ export class IfcCostValueSpecification implements ComponentSpecification
 			baseType: 'IfcText'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcCostValueSpecification = new IfcCostValueSpecification();
 }

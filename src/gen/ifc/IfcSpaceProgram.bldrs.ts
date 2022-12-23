@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcIdentifier from "./IfcIdentifier.bldrs"
 import IfcAreaMeasure from "./IfcAreaMeasure.bldrs"
 import IfcSpatialStructureElement from "./IfcSpatialStructureElement.bldrs"
@@ -18,6 +19,8 @@ export default class IfcSpaceProgram implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcSpaceProgramSpecification = IfcSpaceProgramSpecification.instance;
+
     constructor( public readonly SpaceProgramIdentifier : IfcIdentifier , public readonly MaxRequiredArea : IfcAreaMeasure  | undefined, public readonly MinRequiredArea : IfcAreaMeasure  | undefined, public readonly RequestedLocation : IfcSpatialStructureElement  | undefined, public readonly StandardRequiredArea : IfcAreaMeasure  ) {}
 }
 
@@ -25,11 +28,11 @@ export class IfcSpaceProgramSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSpaceProgram';
 
-    public readonly required: string[] = [ 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'SpaceProgramIdentifier',
@@ -62,4 +65,8 @@ export class IfcSpaceProgramSpecification implements ComponentSpecification
 			baseType: 'IfcAreaMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcSpaceProgramSpecification = new IfcSpaceProgramSpecification();
 }

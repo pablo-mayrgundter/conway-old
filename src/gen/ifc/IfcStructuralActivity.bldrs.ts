@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcStructuralLoad from "./IfcStructuralLoad.bldrs"
 import IfcGlobalOrLocalEnum from "./IfcGlobalOrLocalEnum.bldrs"
 import IfcRelConnectsStructuralActivity from "./IfcRelConnectsStructuralActivity.bldrs"
@@ -17,6 +18,8 @@ export default class IfcStructuralActivity implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcStructuralActivitySpecification = IfcStructuralActivitySpecification.instance;
+
     constructor( public readonly AppliedLoad : IfcStructuralLoad , public readonly GlobalOrLocal : IfcGlobalOrLocalEnum  ) {}
 }
 
@@ -24,11 +27,11 @@ export class IfcStructuralActivitySpecification implements ComponentSpecificatio
 {
     public readonly name: string = 'IfcStructuralActivity';
 
-    public readonly required: string[] = [ 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = true;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'AppliedLoad',
@@ -43,4 +46,8 @@ export class IfcStructuralActivitySpecification implements ComponentSpecificatio
 			baseType: 'IfcGlobalOrLocalEnum'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcStructuralActivitySpecification = new IfcStructuralActivitySpecification();
 }

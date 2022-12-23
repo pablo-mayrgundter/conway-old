@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcInventoryTypeEnum from "./IfcInventoryTypeEnum.bldrs"
 import IfcOrganization from "./IfcOrganization.bldrs"
 import IfcPerson from "./IfcPerson.bldrs"
@@ -20,6 +21,8 @@ export default class IfcInventory implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcInventorySpecification = IfcInventorySpecification.instance;
+
     constructor( public readonly InventoryType : IfcInventoryTypeEnum , public readonly Jurisdiction : IfcOrganization|IfcPerson|IfcPersonAndOrganization , public readonly ResponsiblePersons : Array<IfcPerson> , public readonly LastUpdateDate : IfcCalendarDate , public readonly CurrentValue : IfcCostValue  | undefined, public readonly OriginalValue : IfcCostValue  | undefined ) {}
 }
 
@@ -27,11 +30,11 @@ export class IfcInventorySpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcInventory';
 
-    public readonly required: string[] = [ 'IfcGroup', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcGroup', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'InventoryType',
@@ -70,4 +73,8 @@ export class IfcInventorySpecification implements ComponentSpecification
 			baseType: 'IfcCostValue'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcInventorySpecification = new IfcInventorySpecification();
 }

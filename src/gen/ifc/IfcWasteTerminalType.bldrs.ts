@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcWasteTerminalTypeEnum from "./IfcWasteTerminalTypeEnum.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcWasteTerminalType implements Component< SchemaSpecificat
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcWasteTerminalTypeSpecification = IfcWasteTerminalTypeSpecification.instance;
+
     constructor( public readonly PredefinedType : IfcWasteTerminalTypeEnum  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcWasteTerminalTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcWasteTerminalType';
 
-    public readonly required: string[] = [ 'IfcFlowTerminalType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcFlowTerminalType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'PredefinedType',
@@ -35,4 +38,8 @@ export class IfcWasteTerminalTypeSpecification implements ComponentSpecification
 			baseType: 'IfcWasteTerminalTypeEnum'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcWasteTerminalTypeSpecification = new IfcWasteTerminalTypeSpecification();
 }

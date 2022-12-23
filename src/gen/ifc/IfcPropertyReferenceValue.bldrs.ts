@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcMaterial from "./IfcMaterial.bldrs"
 import IfcPerson from "./IfcPerson.bldrs"
@@ -28,6 +29,8 @@ export default class IfcPropertyReferenceValue implements Component< SchemaSpeci
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcPropertyReferenceValueSpecification = IfcPropertyReferenceValueSpecification.instance;
+
     constructor( public readonly UsageName : IfcLabel  | undefined, public readonly PropertyReference : IfcMaterial|IfcPerson|IfcDateAndTime|IfcMaterialList|IfcOrganization|IfcCalendarDate|IfcLocalTime|IfcPersonAndOrganization|IfcMaterialLayer|IfcExternalReference|IfcTimeSeries|IfcAddress|IfcAppliedValue  ) {}
 }
 
@@ -35,11 +38,11 @@ export class IfcPropertyReferenceValueSpecification implements ComponentSpecific
 {
     public readonly name: string = 'IfcPropertyReferenceValue';
 
-    public readonly required: string[] = [ 'IfcSimpleProperty', 'IfcProperty' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSimpleProperty', 'IfcProperty' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'UsageName',
@@ -54,4 +57,8 @@ export class IfcPropertyReferenceValueSpecification implements ComponentSpecific
 			baseType: 'IfcMaterial|IfcPerson|IfcDateAndTime|IfcMaterialList|IfcOrganization|IfcCalendarDate|IfcLocalTime|IfcPersonAndOrganization|IfcMaterialLayer|IfcExternalReference|IfcTimeSeries|IfcAddress|IfcAppliedValue'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcPropertyReferenceValueSpecification = new IfcPropertyReferenceValueSpecification();
 }

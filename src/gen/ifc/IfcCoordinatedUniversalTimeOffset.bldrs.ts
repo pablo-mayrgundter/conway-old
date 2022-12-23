@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcHourInDay from "./IfcHourInDay.bldrs"
 import IfcMinuteInHour from "./IfcMinuteInHour.bldrs"
 import IfcAheadOrBehind from "./IfcAheadOrBehind.bldrs"
@@ -17,6 +18,8 @@ export default class IfcCoordinatedUniversalTimeOffset implements Component< Sch
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcCoordinatedUniversalTimeOffsetSpecification = IfcCoordinatedUniversalTimeOffsetSpecification.instance;
+
     constructor( public readonly HourOffset : IfcHourInDay , public readonly MinuteOffset : IfcMinuteInHour  | undefined, public readonly Sense : IfcAheadOrBehind  ) {}
 }
 
@@ -24,11 +27,11 @@ export class IfcCoordinatedUniversalTimeOffsetSpecification implements Component
 {
     public readonly name: string = 'IfcCoordinatedUniversalTimeOffset';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'HourOffset',
@@ -49,4 +52,8 @@ export class IfcCoordinatedUniversalTimeOffsetSpecification implements Component
 			baseType: 'IfcAheadOrBehind'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcCoordinatedUniversalTimeOffsetSpecification = new IfcCoordinatedUniversalTimeOffsetSpecification();
 }

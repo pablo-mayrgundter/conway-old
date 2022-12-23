@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcNamedUnit from "./IfcNamedUnit.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcPhysicalSimpleQuantity implements Component< SchemaSpeci
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcPhysicalSimpleQuantitySpecification = IfcPhysicalSimpleQuantitySpecification.instance;
+
     constructor( public readonly Unit : IfcNamedUnit  | undefined ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcPhysicalSimpleQuantitySpecification implements ComponentSpecific
 {
     public readonly name: string = 'IfcPhysicalSimpleQuantity';
 
-    public readonly required: string[] = [ 'IfcPhysicalQuantity' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPhysicalQuantity' ];
 
     public readonly isAbstract: boolean = true;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Unit',
@@ -35,4 +38,8 @@ export class IfcPhysicalSimpleQuantitySpecification implements ComponentSpecific
 			baseType: 'IfcNamedUnit'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcPhysicalSimpleQuantitySpecification = new IfcPhysicalSimpleQuantitySpecification();
 }

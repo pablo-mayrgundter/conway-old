@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcTrapeziumProfileDef implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcTrapeziumProfileDefSpecification = IfcTrapeziumProfileDefSpecification.instance;
+
     constructor( public readonly BottomXDim : IfcPositiveLengthMeasure , public readonly TopXDim : IfcPositiveLengthMeasure , public readonly YDim : IfcPositiveLengthMeasure , public readonly TopXOffset : IfcLengthMeasure  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcTrapeziumProfileDefSpecification implements ComponentSpecificati
 {
     public readonly name: string = 'IfcTrapeziumProfileDef';
 
-    public readonly required: string[] = [ 'IfcParameterizedProfileDef', 'IfcProfileDef' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcParameterizedProfileDef', 'IfcProfileDef' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'BottomXDim',
@@ -54,4 +57,8 @@ export class IfcTrapeziumProfileDefSpecification implements ComponentSpecificati
 			baseType: 'IfcLengthMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcTrapeziumProfileDefSpecification = new IfcTrapeziumProfileDefSpecification();
 }

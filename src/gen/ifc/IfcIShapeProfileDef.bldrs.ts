@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcIShapeProfileDef implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcIShapeProfileDefSpecification = IfcIShapeProfileDefSpecification.instance;
+
     constructor( public readonly OverallWidth : IfcPositiveLengthMeasure , public readonly OverallDepth : IfcPositiveLengthMeasure , public readonly WebThickness : IfcPositiveLengthMeasure , public readonly FlangeThickness : IfcPositiveLengthMeasure , public readonly FilletRadius : IfcPositiveLengthMeasure  | undefined ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcIShapeProfileDefSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcIShapeProfileDef';
 
-    public readonly required: string[] = [ 'IfcParameterizedProfileDef', 'IfcProfileDef' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcParameterizedProfileDef', 'IfcProfileDef' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'OverallWidth',
@@ -59,4 +62,8 @@ export class IfcIShapeProfileDefSpecification implements ComponentSpecification
 			baseType: 'IfcPositiveLengthMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcIShapeProfileDefSpecification = new IfcIShapeProfileDefSpecification();
 }

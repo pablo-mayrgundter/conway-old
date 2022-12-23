@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcProfileDef from "./IfcProfileDef.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcCompositeProfileDef implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcCompositeProfileDefSpecification = IfcCompositeProfileDefSpecification.instance;
+
     constructor( public readonly Profiles : Array<IfcProfileDef> , public readonly Label : IfcLabel  | undefined ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcCompositeProfileDefSpecification implements ComponentSpecificati
 {
     public readonly name: string = 'IfcCompositeProfileDef';
 
-    public readonly required: string[] = [ 'IfcProfileDef' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcProfileDef' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Profiles',
@@ -42,4 +45,8 @@ export class IfcCompositeProfileDefSpecification implements ComponentSpecificati
 			baseType: 'IfcLabel'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcCompositeProfileDefSpecification = new IfcCompositeProfileDefSpecification();
 }

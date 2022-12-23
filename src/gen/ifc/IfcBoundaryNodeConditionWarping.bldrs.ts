@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcWarpingMomentMeasure from "./IfcWarpingMomentMeasure.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcBoundaryNodeConditionWarping implements Component< Schem
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcBoundaryNodeConditionWarpingSpecification = IfcBoundaryNodeConditionWarpingSpecification.instance;
+
     constructor( public readonly WarpingStiffness : IfcWarpingMomentMeasure  | undefined ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcBoundaryNodeConditionWarpingSpecification implements ComponentSp
 {
     public readonly name: string = 'IfcBoundaryNodeConditionWarping';
 
-    public readonly required: string[] = [ 'IfcBoundaryNodeCondition', 'IfcBoundaryCondition' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcBoundaryNodeCondition', 'IfcBoundaryCondition' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'WarpingStiffness',
@@ -35,4 +38,8 @@ export class IfcBoundaryNodeConditionWarpingSpecification implements ComponentSp
 			baseType: 'IfcWarpingMomentMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcBoundaryNodeConditionWarpingSpecification = new IfcBoundaryNodeConditionWarpingSpecification();
 }

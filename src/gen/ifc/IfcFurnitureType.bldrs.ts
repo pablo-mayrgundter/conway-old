@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcAssemblyPlaceEnum from "./IfcAssemblyPlaceEnum.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcFurnitureType implements Component< SchemaSpecificationI
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcFurnitureTypeSpecification = IfcFurnitureTypeSpecification.instance;
+
     constructor( public readonly AssemblyPlace : IfcAssemblyPlaceEnum  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcFurnitureTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcFurnitureType';
 
-    public readonly required: string[] = [ 'IfcFurnishingElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcFurnishingElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'AssemblyPlace',
@@ -35,4 +38,8 @@ export class IfcFurnitureTypeSpecification implements ComponentSpecification
 			baseType: 'IfcAssemblyPlaceEnum'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcFurnitureTypeSpecification = new IfcFurnitureTypeSpecification();
 }

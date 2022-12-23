@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcClassification from "./IfcClassification.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcClassificationReference implements Component< SchemaSpec
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcClassificationReferenceSpecification = IfcClassificationReferenceSpecification.instance;
+
     constructor( public readonly ReferencedSource : IfcClassification  | undefined ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcClassificationReferenceSpecification implements ComponentSpecifi
 {
     public readonly name: string = 'IfcClassificationReference';
 
-    public readonly required: string[] = [ 'IfcExternalReference' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcExternalReference' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'ReferencedSource',
@@ -35,4 +38,8 @@ export class IfcClassificationReferenceSpecification implements ComponentSpecifi
 			baseType: 'IfcClassification'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcClassificationReferenceSpecification = new IfcClassificationReferenceSpecification();
 }

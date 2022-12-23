@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcMonetaryUnit from "./IfcMonetaryUnit.bldrs"
 import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
 import IfcDateAndTime from "./IfcDateAndTime.bldrs"
@@ -18,6 +19,8 @@ export default class IfcCurrencyRelationship implements Component< SchemaSpecifi
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcCurrencyRelationshipSpecification = IfcCurrencyRelationshipSpecification.instance;
+
     constructor( public readonly RelatingMonetaryUnit : IfcMonetaryUnit , public readonly RelatedMonetaryUnit : IfcMonetaryUnit , public readonly ExchangeRate : IfcPositiveRatioMeasure , public readonly RateDateTime : IfcDateAndTime , public readonly RateSource : IfcLibraryInformation  | undefined ) {}
 }
 
@@ -25,11 +28,11 @@ export class IfcCurrencyRelationshipSpecification implements ComponentSpecificat
 {
     public readonly name: string = 'IfcCurrencyRelationship';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'RelatingMonetaryUnit',
@@ -62,4 +65,8 @@ export class IfcCurrencyRelationshipSpecification implements ComponentSpecificat
 			baseType: 'IfcLibraryInformation'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcCurrencyRelationshipSpecification = new IfcCurrencyRelationshipSpecification();
 }

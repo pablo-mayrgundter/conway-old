@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcColourRgb implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcColourRgbSpecification = IfcColourRgbSpecification.instance;
+
     constructor( public readonly Red : IfcNormalisedRatioMeasure , public readonly Green : IfcNormalisedRatioMeasure , public readonly Blue : IfcNormalisedRatioMeasure  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcColourRgbSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcColourRgb';
 
-    public readonly required: string[] = [ 'IfcColourSpecification' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcColourSpecification' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Red',
@@ -47,4 +50,8 @@ export class IfcColourRgbSpecification implements ComponentSpecification
 			baseType: 'IfcNormalisedRatioMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcColourRgbSpecification = new IfcColourRgbSpecification();
 }

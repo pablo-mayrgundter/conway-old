@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcSurface from "./IfcSurface.bldrs"
 import IfcParameterValue from "./IfcParameterValue.bldrs"
 import IfcDimensionCount from "./IfcDimensionCount.bldrs"
@@ -17,6 +18,8 @@ export default class IfcRectangularTrimmedSurface implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcRectangularTrimmedSurfaceSpecification = IfcRectangularTrimmedSurfaceSpecification.instance;
+
     constructor( public readonly BasisSurface : IfcSurface , public readonly U1 : IfcParameterValue , public readonly V1 : IfcParameterValue , public readonly U2 : IfcParameterValue , public readonly V2 : IfcParameterValue , public readonly Usense : boolean , public readonly Vsense : boolean  ) {}
 }
 
@@ -24,11 +27,11 @@ export class IfcRectangularTrimmedSurfaceSpecification implements ComponentSpeci
 {
     public readonly name: string = 'IfcRectangularTrimmedSurface';
 
-    public readonly required: string[] = [ 'IfcBoundedSurface', 'IfcSurface', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcBoundedSurface', 'IfcSurface', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'BasisSurface',
@@ -73,4 +76,8 @@ export class IfcRectangularTrimmedSurfaceSpecification implements ComponentSpeci
 			baseType: 'boolean'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcRectangularTrimmedSurfaceSpecification = new IfcRectangularTrimmedSurfaceSpecification();
 }

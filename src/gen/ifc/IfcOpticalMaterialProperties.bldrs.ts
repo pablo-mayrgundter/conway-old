@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcOpticalMaterialProperties implements Component< SchemaSp
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcOpticalMaterialPropertiesSpecification = IfcOpticalMaterialPropertiesSpecification.instance;
+
     constructor( public readonly VisibleTransmittance : IfcPositiveRatioMeasure  | undefined, public readonly SolarTransmittance : IfcPositiveRatioMeasure  | undefined, public readonly ThermalIrTransmittance : IfcPositiveRatioMeasure  | undefined, public readonly ThermalIrEmissivityBack : IfcPositiveRatioMeasure  | undefined, public readonly ThermalIrEmissivityFront : IfcPositiveRatioMeasure  | undefined, public readonly VisibleReflectanceBack : IfcPositiveRatioMeasure  | undefined, public readonly VisibleReflectanceFront : IfcPositiveRatioMeasure  | undefined, public readonly SolarReflectanceFront : IfcPositiveRatioMeasure  | undefined, public readonly SolarReflectanceBack : IfcPositiveRatioMeasure  | undefined ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcOpticalMaterialPropertiesSpecification implements ComponentSpeci
 {
     public readonly name: string = 'IfcOpticalMaterialProperties';
 
-    public readonly required: string[] = [ 'IfcMaterialProperties' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcMaterialProperties' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'VisibleTransmittance',
@@ -83,4 +86,8 @@ export class IfcOpticalMaterialPropertiesSpecification implements ComponentSpeci
 			baseType: 'IfcPositiveRatioMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcOpticalMaterialPropertiesSpecification = new IfcOpticalMaterialPropertiesSpecification();
 }

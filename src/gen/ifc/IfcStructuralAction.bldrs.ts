@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcStructuralReaction from "./IfcStructuralReaction.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcStructuralAction implements Component< SchemaSpecificati
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcStructuralActionSpecification = IfcStructuralActionSpecification.instance;
+
     constructor( public readonly DestabilizingLoad : boolean , public readonly CausedBy : IfcStructuralReaction  | undefined ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcStructuralActionSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStructuralAction';
 
-    public readonly required: string[] = [ 'IfcStructuralActivity', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralActivity', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = true;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'DestabilizingLoad',
@@ -41,4 +44,8 @@ export class IfcStructuralActionSpecification implements ComponentSpecification
 			baseType: 'IfcStructuralReaction'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcStructuralActionSpecification = new IfcStructuralActionSpecification();
 }

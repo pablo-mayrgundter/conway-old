@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcMaterial from "./IfcMaterial.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcMaterialDefinitionRepresentation implements Component< S
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcMaterialDefinitionRepresentationSpecification = IfcMaterialDefinitionRepresentationSpecification.instance;
+
     constructor( public readonly RepresentedMaterial : IfcMaterial  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcMaterialDefinitionRepresentationSpecification implements Compone
 {
     public readonly name: string = 'IfcMaterialDefinitionRepresentation';
 
-    public readonly required: string[] = [ 'IfcProductRepresentation' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcProductRepresentation' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'RepresentedMaterial',
@@ -35,4 +38,8 @@ export class IfcMaterialDefinitionRepresentationSpecification implements Compone
 			baseType: 'IfcMaterial'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcMaterialDefinitionRepresentationSpecification = new IfcMaterialDefinitionRepresentationSpecification();
 }

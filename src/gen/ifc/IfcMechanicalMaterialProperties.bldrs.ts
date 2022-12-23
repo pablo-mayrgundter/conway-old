@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcDynamicViscosityMeasure from "./IfcDynamicViscosityMeasure.bldrs"
 import IfcModulusOfElasticityMeasure from "./IfcModulusOfElasticityMeasure.bldrs"
 import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
@@ -18,6 +19,8 @@ export default class IfcMechanicalMaterialProperties implements Component< Schem
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcMechanicalMaterialPropertiesSpecification = IfcMechanicalMaterialPropertiesSpecification.instance;
+
     constructor( public readonly DynamicViscosity : IfcDynamicViscosityMeasure  | undefined, public readonly YoungModulus : IfcModulusOfElasticityMeasure  | undefined, public readonly ShearModulus : IfcModulusOfElasticityMeasure  | undefined, public readonly PoissonRatio : IfcPositiveRatioMeasure  | undefined, public readonly ThermalExpansionCoefficient : IfcThermalExpansionCoefficientMeasure  | undefined ) {}
 }
 
@@ -25,11 +28,11 @@ export class IfcMechanicalMaterialPropertiesSpecification implements ComponentSp
 {
     public readonly name: string = 'IfcMechanicalMaterialProperties';
 
-    public readonly required: string[] = [ 'IfcMaterialProperties' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcMaterialProperties' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'DynamicViscosity',
@@ -62,4 +65,8 @@ export class IfcMechanicalMaterialPropertiesSpecification implements ComponentSp
 			baseType: 'IfcThermalExpansionCoefficientMeasure'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcMechanicalMaterialPropertiesSpecification = new IfcMechanicalMaterialPropertiesSpecification();
 }

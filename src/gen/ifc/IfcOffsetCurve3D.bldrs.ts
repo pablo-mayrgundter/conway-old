@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcCurve from "./IfcCurve.bldrs"
 import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 import IfcDirection from "./IfcDirection.bldrs"
@@ -17,6 +18,8 @@ export default class IfcOffsetCurve3D implements Component< SchemaSpecificationI
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcOffsetCurve3DSpecification = IfcOffsetCurve3DSpecification.instance;
+
     constructor( public readonly BasisCurve : IfcCurve , public readonly Distance : IfcLengthMeasure , public readonly SelfIntersect : boolean , public readonly RefDirection : IfcDirection  ) {}
 }
 
@@ -24,11 +27,11 @@ export class IfcOffsetCurve3DSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcOffsetCurve3D';
 
-    public readonly required: string[] = [ 'IfcCurve', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcCurve', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'BasisCurve',
@@ -55,4 +58,8 @@ export class IfcOffsetCurve3DSpecification implements ComponentSpecification
 			baseType: 'IfcDirection'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcOffsetCurve3DSpecification = new IfcOffsetCurve3DSpecification();
 }

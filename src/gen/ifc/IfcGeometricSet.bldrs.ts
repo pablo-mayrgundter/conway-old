@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcPoint from "./IfcPoint.bldrs"
 import IfcCurve from "./IfcCurve.bldrs"
 import IfcSurface from "./IfcSurface.bldrs"
@@ -18,6 +19,8 @@ export default class IfcGeometricSet implements Component< SchemaSpecificationIF
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcGeometricSetSpecification = IfcGeometricSetSpecification.instance;
+
     constructor( public readonly Elements : Array<IfcPoint|IfcCurve|IfcSurface>  ) {}
 }
 
@@ -25,11 +28,11 @@ export class IfcGeometricSetSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcGeometricSet';
 
-    public readonly required: string[] = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Elements',
@@ -38,4 +41,8 @@ export class IfcGeometricSetSpecification implements ComponentSpecification
 			baseType: 'Array<IfcPoint|IfcCurve|IfcSurface>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcGeometricSetSpecification = new IfcGeometricSetSpecification();
 }

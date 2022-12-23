@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcCurve from "./IfcCurve.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcAnnotationFillArea implements Component< SchemaSpecifica
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcAnnotationFillAreaSpecification = IfcAnnotationFillAreaSpecification.instance;
+
     constructor( public readonly OuterBoundary : IfcCurve , public readonly InnerBoundaries : Array<IfcCurve>  | undefined ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcAnnotationFillAreaSpecification implements ComponentSpecificatio
 {
     public readonly name: string = 'IfcAnnotationFillArea';
 
-    public readonly required: string[] = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'OuterBoundary',
@@ -41,4 +44,8 @@ export class IfcAnnotationFillAreaSpecification implements ComponentSpecificatio
 			baseType: 'Array<IfcCurve>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcAnnotationFillAreaSpecification = new IfcAnnotationFillAreaSpecification();
 }

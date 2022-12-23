@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcAxis2Placement2D from "./IfcAxis2Placement2D.bldrs"
 import IfcAxis2Placement3D from "./IfcAxis2Placement3D.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcPlanarBox implements Component< SchemaSpecificationIFC >
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcPlanarBoxSpecification = IfcPlanarBoxSpecification.instance;
+
     constructor( public readonly Placement : IfcAxis2Placement2D|IfcAxis2Placement3D  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcPlanarBoxSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcPlanarBox';
 
-    public readonly required: string[] = [ 'IfcPlanarExtent', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPlanarExtent', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Placement',
@@ -36,4 +39,8 @@ export class IfcPlanarBoxSpecification implements ComponentSpecification
 			baseType: 'IfcAxis2Placement2D|IfcAxis2Placement3D'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcPlanarBoxSpecification = new IfcPlanarBoxSpecification();
 }

@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcAxis2Placement3D from "./IfcAxis2Placement3D.bldrs"
 import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 
@@ -16,6 +17,8 @@ export default class IfcElementarySurface implements Component< SchemaSpecificat
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcElementarySurfaceSpecification = IfcElementarySurfaceSpecification.instance;
+
     constructor( public readonly Position : IfcAxis2Placement3D  ) {}
 }
 
@@ -23,11 +26,11 @@ export class IfcElementarySurfaceSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcElementarySurface';
 
-    public readonly required: string[] = [ 'IfcSurface', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSurface', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = true;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Position',
@@ -36,4 +39,8 @@ export class IfcElementarySurfaceSpecification implements ComponentSpecification
 			baseType: 'IfcAxis2Placement3D'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcElementarySurfaceSpecification = new IfcElementarySurfaceSpecification();
 }

@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcSurfaceTexture from "./IfcSurfaceTexture.bldrs"
 
 
@@ -15,6 +16,8 @@ export default class IfcSurfaceStyleWithTextures implements Component< SchemaSpe
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcSurfaceStyleWithTexturesSpecification = IfcSurfaceStyleWithTexturesSpecification.instance;
+
     constructor( public readonly Textures : Array<IfcSurfaceTexture>  ) {}
 }
 
@@ -22,11 +25,11 @@ export class IfcSurfaceStyleWithTexturesSpecification implements ComponentSpecif
 {
     public readonly name: string = 'IfcSurfaceStyleWithTextures';
 
-    public readonly required: string[] = [  ];
+    public readonly required: ReadonlyArray< string > = [  ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'Textures',
@@ -35,4 +38,8 @@ export class IfcSurfaceStyleWithTexturesSpecification implements ComponentSpecif
 			baseType: 'Array<IfcSurfaceTexture>'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcSurfaceStyleWithTexturesSpecification = new IfcSurfaceStyleWithTexturesSpecification();
 }

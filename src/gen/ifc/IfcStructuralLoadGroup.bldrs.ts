@@ -1,8 +1,9 @@
 
-import Component from "../../core/component"
+import Component from "../../core/components"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
+import { IFCSchema } from "./schema_ifc.bldrs"
 import IfcLoadGroupTypeEnum from "./IfcLoadGroupTypeEnum.bldrs"
 import IfcActionTypeEnum from "./IfcActionTypeEnum.bldrs"
 import IfcActionSourceTypeEnum from "./IfcActionSourceTypeEnum.bldrs"
@@ -21,6 +22,8 @@ export default class IfcStructuralLoadGroup implements Component< SchemaSpecific
 
     public readonly __version__: number = 0;
 
+    public readonly __specification__: IfcStructuralLoadGroupSpecification = IfcStructuralLoadGroupSpecification.instance;
+
     constructor( public readonly PredefinedType : IfcLoadGroupTypeEnum , public readonly ActionType : IfcActionTypeEnum , public readonly ActionSource : IfcActionSourceTypeEnum , public readonly Coefficient : IfcPositiveRatioMeasure  | undefined, public readonly Purpose : IfcLabel  | undefined ) {}
 }
 
@@ -28,11 +31,11 @@ export class IfcStructuralLoadGroupSpecification implements ComponentSpecificati
 {
     public readonly name: string = 'IfcStructuralLoadGroup';
 
-    public readonly required: string[] = [ 'IfcGroup', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcGroup', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
-    public readonly attributes: AttributeSpecification[] = 
+    public readonly attributes: ReadonlyArray< AttributeSpecification > = 
     [
 		{
 			name: 'PredefinedType',
@@ -65,4 +68,8 @@ export class IfcStructuralLoadGroupSpecification implements ComponentSpecificati
 			baseType: 'IfcLabel'
 		}
     ];
+
+    public readonly schema: IFCSchema = 'IFC';
+
+    public static readonly instance: IfcStructuralLoadGroupSpecification = new IfcStructuralLoadGroupSpecification();
 }
