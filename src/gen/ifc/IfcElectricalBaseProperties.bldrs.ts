@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -14,22 +14,33 @@ import IfcPowerMeasure from "./IfcPowerMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcelectricalbaseproperties.htm
  */
-export default class IfcElectricalBaseProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcElectricalBaseProperties';
+export default  class IfcElectricalBaseProperties extends IfcEnergyProperties 
+{    
+    public readonly specification: IfcElectricalBasePropertiesSpecification = IfcElectricalBasePropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private ElectricCurrentType_? : IfcElectricCurrentEnum
+    private InputVoltage_? : IfcElectricVoltageMeasure
+    private InputFrequency_? : IfcFrequencyMeasure
+    private FullLoadCurrent_? : IfcElectricCurrentMeasure
+    private MinimumCircuitCurrent_? : IfcElectricCurrentMeasure
+    private MaximumPowerInput_? : IfcPowerMeasure
+    private RatedPowerInput_? : IfcPowerMeasure
+    private InputPhase_? : number
 
-    public readonly __specification__: IfcElectricalBasePropertiesSpecification = IfcElectricalBasePropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly ElectricCurrentType : IfcElectricCurrentEnum  | undefined, public readonly InputVoltage : IfcElectricVoltageMeasure , public readonly InputFrequency : IfcFrequencyMeasure , public readonly FullLoadCurrent : IfcElectricCurrentMeasure  | undefined, public readonly MinimumCircuitCurrent : IfcElectricCurrentMeasure  | undefined, public readonly MaximumPowerInput : IfcPowerMeasure  | undefined, public readonly RatedPowerInput : IfcPowerMeasure  | undefined, public readonly InputPhase : number  ) {}
 }
 
 export class IfcElectricalBasePropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcElectricalBaseProperties';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcEnergyProperties', 'IfcPropertySetDefinition', 'IfcPropertyDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcElectricalBaseProperties', 'IfcEnergyProperties', 'IfcPropertySetDefinition', 'IfcPropertyDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -39,49 +50,57 @@ export class IfcElectricalBasePropertiesSpecification implements ComponentSpecif
 			name: 'ElectricCurrentType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcElectricCurrentEnum'
+			baseType: 'IfcElectricCurrentEnum',
+			optional: true
 		}, 
 		{
 			name: 'InputVoltage',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcElectricVoltageMeasure'
+			baseType: 'IfcElectricVoltageMeasure',
+			optional: false
 		}, 
 		{
 			name: 'InputFrequency',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcFrequencyMeasure'
+			baseType: 'IfcFrequencyMeasure',
+			optional: false
 		}, 
 		{
 			name: 'FullLoadCurrent',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcElectricCurrentMeasure'
+			baseType: 'IfcElectricCurrentMeasure',
+			optional: true
 		}, 
 		{
 			name: 'MinimumCircuitCurrent',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcElectricCurrentMeasure'
+			baseType: 'IfcElectricCurrentMeasure',
+			optional: true
 		}, 
 		{
 			name: 'MaximumPowerInput',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPowerMeasure'
+			baseType: 'IfcPowerMeasure',
+			optional: true
 		}, 
 		{
 			name: 'RatedPowerInput',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPowerMeasure'
+			baseType: 'IfcPowerMeasure',
+			optional: true
 		}, 
 		{
 			name: 'InputPhase',
 			isCollection: false,
 			rank: 0,
-			baseType: 'number'
+			baseType: 'number',
+			optional: false
 		}
     ];
 

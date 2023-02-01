@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcBoundedCurve from "./IfcBoundedCurve.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcpolygonalboundedhalfspace.htm
  */
-export default class IfcPolygonalBoundedHalfSpace implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcPolygonalBoundedHalfSpace';
+export default  class IfcPolygonalBoundedHalfSpace extends IfcHalfSpaceSolid 
+{    
+    public readonly specification: IfcPolygonalBoundedHalfSpaceSpecification = IfcPolygonalBoundedHalfSpaceSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Position_? : IfcAxis2Placement3D
+    private PolygonalBoundary_? : IfcBoundedCurve
 
-    public readonly __specification__: IfcPolygonalBoundedHalfSpaceSpecification = IfcPolygonalBoundedHalfSpaceSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Position : IfcAxis2Placement3D , public readonly PolygonalBoundary : IfcBoundedCurve  ) {}
 }
 
 export class IfcPolygonalBoundedHalfSpaceSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcPolygonalBoundedHalfSpace';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcHalfSpaceSolid', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPolygonalBoundedHalfSpace', 'IfcHalfSpaceSolid', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcPolygonalBoundedHalfSpaceSpecification implements ComponentSpeci
 			name: 'Position',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAxis2Placement3D'
+			baseType: 'IfcAxis2Placement3D',
+			optional: false
 		}, 
 		{
 			name: 'PolygonalBoundary',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcBoundedCurve'
+			baseType: 'IfcBoundedCurve',
+			optional: false
 		}
     ];
 

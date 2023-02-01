@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -16,22 +16,27 @@ import IfcLogical from "./IfcLogical.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifctexturecoordinategenerator.htm
  */
-export default class IfcTextureCoordinateGenerator implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcTextureCoordinateGenerator';
+export default  class IfcTextureCoordinateGenerator extends IfcTextureCoordinate 
+{    
+    public readonly specification: IfcTextureCoordinateGeneratorSpecification = IfcTextureCoordinateGeneratorSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Mode_? : IfcLabel
+    private Parameter_? : Array<IfcInteger|IfcReal|IfcBoolean|IfcIdentifier|IfcText|IfcLabel|IfcLogical>
 
-    public readonly __specification__: IfcTextureCoordinateGeneratorSpecification = IfcTextureCoordinateGeneratorSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Mode : IfcLabel , public readonly Parameter : Array<IfcInteger|IfcReal|IfcBoolean|IfcIdentifier|IfcText|IfcLabel|IfcLogical>  ) {}
 }
 
 export class IfcTextureCoordinateGeneratorSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcTextureCoordinateGenerator';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcTextureCoordinate' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcTextureCoordinateGenerator', 'IfcTextureCoordinate' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -41,13 +46,15 @@ export class IfcTextureCoordinateGeneratorSpecification implements ComponentSpec
 			name: 'Mode',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: false
 		}, 
 		{
 			name: 'Parameter',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcInteger|IfcReal|IfcBoolean|IfcIdentifier|IfcText|IfcLabel|IfcLogical>'
+			baseType: 'Array<IfcInteger|IfcReal|IfcBoolean|IfcIdentifier|IfcText|IfcLabel|IfcLogical>',
+			optional: false
 		}
     ];
 

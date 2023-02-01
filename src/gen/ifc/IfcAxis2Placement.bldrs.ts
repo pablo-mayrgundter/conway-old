@@ -9,8 +9,6 @@ import IfcAxis2Placement3D from "./IfcAxis2Placement3D.bldrs"
 
 export default class IfcAxis2Placement
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcAxis2PlacementVariant ) {}
 }
 
@@ -20,3 +18,8 @@ export type IfcAxis2PlacementChoices = IfcAxis2Placement2D|IfcAxis2Placement3D;
 
 export type IfcAxis2PlacementVariant = ({ type: 'IfcAxis2Placement2D'; value: IfcAxis2Placement2D }|{ type: 'IfcAxis2Placement3D'; value: IfcAxis2Placement3D }) & { type: IfcAxis2PlacementType; value: IfcAxis2PlacementChoices };
 
+export function IfcAxis2PlacementSerializer( value?: IfcAxis2Placement, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

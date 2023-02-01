@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcRampTypeEnum from "./IfcRampTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcramp.htm
  */
-export default class IfcRamp implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRamp';
+export default  class IfcRamp extends IfcBuildingElement 
+{    
+    public readonly specification: IfcRampSpecification = IfcRampSpecification.instance;
 
-    public readonly __version__: number = 0;
+private ShapeType_? : IfcRampTypeEnum
 
-    public readonly __specification__: IfcRampSpecification = IfcRampSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly ShapeType : IfcRampTypeEnum  ) {}
 }
 
 export class IfcRampSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRamp';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRamp', 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcRampSpecification implements ComponentSpecification
 			name: 'ShapeType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcRampTypeEnum'
+			baseType: 'IfcRampTypeEnum',
+			optional: false
 		}
     ];
 

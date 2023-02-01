@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcElectricTimeControlTypeEnum from "./IfcElectricTimeControlTypeEnum.bld
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcelectrictimecontroltype.htm
  */
-export default class IfcElectricTimeControlType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcElectricTimeControlType';
+export default  class IfcElectricTimeControlType extends IfcFlowControllerType 
+{    
+    public readonly specification: IfcElectricTimeControlTypeSpecification = IfcElectricTimeControlTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcElectricTimeControlTypeEnum
 
-    public readonly __specification__: IfcElectricTimeControlTypeSpecification = IfcElectricTimeControlTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcElectricTimeControlTypeEnum  ) {}
 }
 
 export class IfcElectricTimeControlTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcElectricTimeControlType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFlowControllerType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcElectricTimeControlType', 'IfcFlowControllerType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcElectricTimeControlTypeSpecification implements ComponentSpecifi
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcElectricTimeControlTypeEnum'
+			baseType: 'IfcElectricTimeControlTypeEnum',
+			optional: false
 		}
     ];
 

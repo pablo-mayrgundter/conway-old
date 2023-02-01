@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcSlabTypeEnum from "./IfcSlabTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcslab.htm
  */
-export default class IfcSlab implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcSlab';
+export default  class IfcSlab extends IfcBuildingElement 
+{    
+    public readonly specification: IfcSlabSpecification = IfcSlabSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcSlabTypeEnum
 
-    public readonly __specification__: IfcSlabSpecification = IfcSlabSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcSlabTypeEnum  | undefined ) {}
 }
 
 export class IfcSlabSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSlab';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSlab', 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcSlabSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSlabTypeEnum'
+			baseType: 'IfcSlabTypeEnum',
+			optional: true
 		}
     ];
 

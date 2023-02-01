@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcOutletTypeEnum from "./IfcOutletTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcoutlettype.htm
  */
-export default class IfcOutletType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcOutletType';
+export default  class IfcOutletType extends IfcFlowTerminalType 
+{    
+    public readonly specification: IfcOutletTypeSpecification = IfcOutletTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcOutletTypeEnum
 
-    public readonly __specification__: IfcOutletTypeSpecification = IfcOutletTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcOutletTypeEnum  ) {}
 }
 
 export class IfcOutletTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcOutletType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFlowTerminalType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcOutletType', 'IfcFlowTerminalType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcOutletTypeSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcOutletTypeEnum'
+			baseType: 'IfcOutletTypeEnum',
+			optional: false
 		}
     ];
 

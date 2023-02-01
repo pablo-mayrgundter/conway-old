@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,29 @@ import IfcCartesianTransformationOperator2D from "./IfcCartesianTransformationOp
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcsurfacetexture.htm
  */
-export default class IfcSurfaceTexture implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcSurfaceTexture';
+export default abstract class IfcSurfaceTexture extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcSurfaceTextureSpecification = IfcSurfaceTextureSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RepeatS_? : boolean
+    private RepeatT_? : boolean
+    private TextureType_? : IfcSurfaceTextureEnum
+    private TextureTransform_? : IfcCartesianTransformationOperator2D
 
-    public readonly __specification__: IfcSurfaceTextureSpecification = IfcSurfaceTextureSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RepeatS : boolean , public readonly RepeatT : boolean , public readonly TextureType : IfcSurfaceTextureEnum , public readonly TextureTransform : IfcCartesianTransformationOperator2D  | undefined ) {}
 }
 
 export class IfcSurfaceTextureSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSurfaceTexture';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSurfaceTexture' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -36,25 +43,29 @@ export class IfcSurfaceTextureSpecification implements ComponentSpecification
 			name: 'RepeatS',
 			isCollection: false,
 			rank: 0,
-			baseType: 'boolean'
+			baseType: 'boolean',
+			optional: false
 		}, 
 		{
 			name: 'RepeatT',
 			isCollection: false,
 			rank: 0,
-			baseType: 'boolean'
+			baseType: 'boolean',
+			optional: false
 		}, 
 		{
 			name: 'TextureType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSurfaceTextureEnum'
+			baseType: 'IfcSurfaceTextureEnum',
+			optional: false
 		}, 
 		{
 			name: 'TextureTransform',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCartesianTransformationOperator2D'
+			baseType: 'IfcCartesianTransformationOperator2D',
+			optional: true
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcColumnTypeEnum from "./IfcColumnTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccolumntype.htm
  */
-export default class IfcColumnType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcColumnType';
+export default  class IfcColumnType extends IfcBuildingElementType 
+{    
+    public readonly specification: IfcColumnTypeSpecification = IfcColumnTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcColumnTypeEnum
 
-    public readonly __specification__: IfcColumnTypeSpecification = IfcColumnTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcColumnTypeEnum  ) {}
 }
 
 export class IfcColumnTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcColumnType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcBuildingElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcColumnType', 'IfcBuildingElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcColumnTypeSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcColumnTypeEnum'
+			baseType: 'IfcColumnTypeEnum',
+			optional: false
 		}
     ];
 

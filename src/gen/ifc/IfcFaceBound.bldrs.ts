@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,27 @@ import IfcLoop from "./IfcLoop.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcfacebound.htm
  */
-export default class IfcFaceBound implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcFaceBound';
+export default  class IfcFaceBound extends IfcTopologicalRepresentationItem 
+{    
+    public readonly specification: IfcFaceBoundSpecification = IfcFaceBoundSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Bound_? : IfcLoop
+    private Orientation_? : boolean
 
-    public readonly __specification__: IfcFaceBoundSpecification = IfcFaceBoundSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Bound : IfcLoop , public readonly Orientation : boolean  ) {}
 }
 
 export class IfcFaceBoundSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcFaceBound';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcTopologicalRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcFaceBound', 'IfcTopologicalRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,13 +40,15 @@ export class IfcFaceBoundSpecification implements ComponentSpecification
 			name: 'Bound',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLoop'
+			baseType: 'IfcLoop',
+			optional: false
 		}, 
 		{
 			name: 'Orientation',
 			isCollection: false,
 			rank: 0,
-			baseType: 'boolean'
+			baseType: 'boolean',
+			optional: false
 		}
     ];
 

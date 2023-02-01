@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,28 @@ import IfcLabel from "./IfcLabel.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcprocedure.htm
  */
-export default class IfcProcedure implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcProcedure';
+export default  class IfcProcedure extends IfcProcess 
+{    
+    public readonly specification: IfcProcedureSpecification = IfcProcedureSpecification.instance;
 
-    public readonly __version__: number = 0;
+private ProcedureID_? : IfcIdentifier
+    private ProcedureType_? : IfcProcedureTypeEnum
+    private UserDefinedProcedureType_? : IfcLabel
 
-    public readonly __specification__: IfcProcedureSpecification = IfcProcedureSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly ProcedureID : IfcIdentifier , public readonly ProcedureType : IfcProcedureTypeEnum , public readonly UserDefinedProcedureType : IfcLabel  | undefined ) {}
 }
 
 export class IfcProcedureSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcProcedure';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcProcess', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcProcedure', 'IfcProcess', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,19 +43,22 @@ export class IfcProcedureSpecification implements ComponentSpecification
 			name: 'ProcedureID',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcIdentifier'
+			baseType: 'IfcIdentifier',
+			optional: false
 		}, 
 		{
 			name: 'ProcedureType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcProcedureTypeEnum'
+			baseType: 'IfcProcedureTypeEnum',
+			optional: false
 		}, 
 		{
 			name: 'UserDefinedProcedureType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}
     ];
 

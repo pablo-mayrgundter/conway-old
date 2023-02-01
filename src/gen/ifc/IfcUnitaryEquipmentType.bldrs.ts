@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcUnitaryEquipmentTypeEnum from "./IfcUnitaryEquipmentTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcunitaryequipmenttype.htm
  */
-export default class IfcUnitaryEquipmentType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcUnitaryEquipmentType';
+export default  class IfcUnitaryEquipmentType extends IfcEnergyConversionDeviceType 
+{    
+    public readonly specification: IfcUnitaryEquipmentTypeSpecification = IfcUnitaryEquipmentTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcUnitaryEquipmentTypeEnum
 
-    public readonly __specification__: IfcUnitaryEquipmentTypeSpecification = IfcUnitaryEquipmentTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcUnitaryEquipmentTypeEnum  ) {}
 }
 
 export class IfcUnitaryEquipmentTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcUnitaryEquipmentType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcEnergyConversionDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcUnitaryEquipmentType', 'IfcEnergyConversionDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcUnitaryEquipmentTypeSpecification implements ComponentSpecificat
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcUnitaryEquipmentTypeEnum'
+			baseType: 'IfcUnitaryEquipmentTypeEnum',
+			optional: false
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcAxis2Placement3D from "./IfcAxis2Placement3D.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcsweptareasolid.htm
  */
-export default class IfcSweptAreaSolid implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcSweptAreaSolid';
+export default abstract class IfcSweptAreaSolid extends IfcSolidModel 
+{    
+    public readonly specification: IfcSweptAreaSolidSpecification = IfcSweptAreaSolidSpecification.instance;
 
-    public readonly __version__: number = 0;
+private SweptArea_? : IfcProfileDef
+    private Position_? : IfcAxis2Placement3D
 
-    public readonly __specification__: IfcSweptAreaSolidSpecification = IfcSweptAreaSolidSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly SweptArea : IfcProfileDef , public readonly Position : IfcAxis2Placement3D  ) {}
 }
 
 export class IfcSweptAreaSolidSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSweptAreaSolid';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcSolidModel', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSweptAreaSolid', 'IfcSolidModel', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -36,13 +41,15 @@ export class IfcSweptAreaSolidSpecification implements ComponentSpecification
 			name: 'SweptArea',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcProfileDef'
+			baseType: 'IfcProfileDef',
+			optional: false
 		}, 
 		{
 			name: 'Position',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAxis2Placement3D'
+			baseType: 'IfcAxis2Placement3D',
+			optional: false
 		}
     ];
 

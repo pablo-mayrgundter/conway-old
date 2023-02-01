@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -15,22 +15,34 @@ import IfcCalendarDate from "./IfcCalendarDate.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcasset.htm
  */
-export default class IfcAsset implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcAsset';
+export default  class IfcAsset extends IfcGroup 
+{    
+    public readonly specification: IfcAssetSpecification = IfcAssetSpecification.instance;
 
-    public readonly __version__: number = 0;
+private AssetID_? : IfcIdentifier
+    private OriginalValue_? : IfcCostValue
+    private CurrentValue_? : IfcCostValue
+    private TotalReplacementCost_? : IfcCostValue
+    private Owner_? : IfcOrganization|IfcPerson|IfcPersonAndOrganization
+    private User_? : IfcOrganization|IfcPerson|IfcPersonAndOrganization
+    private ResponsiblePerson_? : IfcPerson
+    private IncorporationDate_? : IfcCalendarDate
+    private DepreciatedValue_? : IfcCostValue
 
-    public readonly __specification__: IfcAssetSpecification = IfcAssetSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly AssetID : IfcIdentifier , public readonly OriginalValue : IfcCostValue , public readonly CurrentValue : IfcCostValue , public readonly TotalReplacementCost : IfcCostValue , public readonly Owner : IfcOrganization|IfcPerson|IfcPersonAndOrganization , public readonly User : IfcOrganization|IfcPerson|IfcPersonAndOrganization , public readonly ResponsiblePerson : IfcPerson , public readonly IncorporationDate : IfcCalendarDate , public readonly DepreciatedValue : IfcCostValue  ) {}
 }
 
 export class IfcAssetSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcAsset';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcGroup', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcAsset', 'IfcGroup', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -40,55 +52,64 @@ export class IfcAssetSpecification implements ComponentSpecification
 			name: 'AssetID',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcIdentifier'
+			baseType: 'IfcIdentifier',
+			optional: false
 		}, 
 		{
 			name: 'OriginalValue',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCostValue'
+			baseType: 'IfcCostValue',
+			optional: false
 		}, 
 		{
 			name: 'CurrentValue',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCostValue'
+			baseType: 'IfcCostValue',
+			optional: false
 		}, 
 		{
 			name: 'TotalReplacementCost',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCostValue'
+			baseType: 'IfcCostValue',
+			optional: false
 		}, 
 		{
 			name: 'Owner',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcOrganization|IfcPerson|IfcPersonAndOrganization'
+			baseType: 'IfcOrganization|IfcPerson|IfcPersonAndOrganization',
+			optional: false
 		}, 
 		{
 			name: 'User',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcOrganization|IfcPerson|IfcPersonAndOrganization'
+			baseType: 'IfcOrganization|IfcPerson|IfcPersonAndOrganization',
+			optional: false
 		}, 
 		{
 			name: 'ResponsiblePerson',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPerson'
+			baseType: 'IfcPerson',
+			optional: false
 		}, 
 		{
 			name: 'IncorporationDate',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate'
+			baseType: 'IfcCalendarDate',
+			optional: false
 		}, 
 		{
 			name: 'DepreciatedValue',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCostValue'
+			baseType: 'IfcCostValue',
+			optional: false
 		}
     ];
 

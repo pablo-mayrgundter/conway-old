@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -18,22 +18,33 @@ import IfcCostScheduleTypeEnum from "./IfcCostScheduleTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccostschedule.htm
  */
-export default class IfcCostSchedule implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcCostSchedule';
+export default  class IfcCostSchedule extends IfcControl 
+{    
+    public readonly specification: IfcCostScheduleSpecification = IfcCostScheduleSpecification.instance;
 
-    public readonly __version__: number = 0;
+private SubmittedBy_? : IfcOrganization|IfcPerson|IfcPersonAndOrganization
+    private PreparedBy_? : IfcOrganization|IfcPerson|IfcPersonAndOrganization
+    private SubmittedOn_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
+    private Status_? : IfcLabel
+    private TargetUsers_? : Array<IfcOrganization|IfcPerson|IfcPersonAndOrganization>
+    private UpdateDate_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
+    private ID_? : IfcIdentifier
+    private PredefinedType_? : IfcCostScheduleTypeEnum
 
-    public readonly __specification__: IfcCostScheduleSpecification = IfcCostScheduleSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly SubmittedBy : IfcOrganization|IfcPerson|IfcPersonAndOrganization  | undefined, public readonly PreparedBy : IfcOrganization|IfcPerson|IfcPersonAndOrganization  | undefined, public readonly SubmittedOn : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly Status : IfcLabel  | undefined, public readonly TargetUsers : Array<IfcOrganization|IfcPerson|IfcPersonAndOrganization>  | undefined, public readonly UpdateDate : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly ID : IfcIdentifier , public readonly PredefinedType : IfcCostScheduleTypeEnum  ) {}
 }
 
 export class IfcCostScheduleSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCostSchedule';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcCostSchedule', 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -43,49 +54,57 @@ export class IfcCostScheduleSpecification implements ComponentSpecification
 			name: 'SubmittedBy',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcOrganization|IfcPerson|IfcPersonAndOrganization'
+			baseType: 'IfcOrganization|IfcPerson|IfcPersonAndOrganization',
+			optional: true
 		}, 
 		{
 			name: 'PreparedBy',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcOrganization|IfcPerson|IfcPersonAndOrganization'
+			baseType: 'IfcOrganization|IfcPerson|IfcPersonAndOrganization',
+			optional: true
 		}, 
 		{
 			name: 'SubmittedOn',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime'
+			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime',
+			optional: true
 		}, 
 		{
 			name: 'Status',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'TargetUsers',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcOrganization|IfcPerson|IfcPersonAndOrganization>'
+			baseType: 'Array<IfcOrganization|IfcPerson|IfcPersonAndOrganization>',
+			optional: true
 		}, 
 		{
 			name: 'UpdateDate',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime'
+			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime',
+			optional: true
 		}, 
 		{
 			name: 'ID',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcIdentifier'
+			baseType: 'IfcIdentifier',
+			optional: false
 		}, 
 		{
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCostScheduleTypeEnum'
+			baseType: 'IfcCostScheduleTypeEnum',
+			optional: false
 		}
     ];
 

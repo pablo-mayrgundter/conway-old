@@ -9,8 +9,6 @@ import IfcLibraryInformation from "./IfcLibraryInformation.bldrs"
 
 export default class IfcLibrarySelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcLibrarySelectVariant ) {}
 }
 
@@ -20,3 +18,8 @@ export type IfcLibrarySelectChoices = IfcLibraryReference|IfcLibraryInformation;
 
 export type IfcLibrarySelectVariant = ({ type: 'IfcLibraryReference'; value: IfcLibraryReference }|{ type: 'IfcLibraryInformation'; value: IfcLibraryInformation }) & { type: IfcLibrarySelectType; value: IfcLibrarySelectChoices };
 
+export function IfcLibrarySelectSerializer( value?: IfcLibrarySelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

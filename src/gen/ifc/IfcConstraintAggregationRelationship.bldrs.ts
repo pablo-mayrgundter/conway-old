@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,30 @@ import IfcLogicalOperatorEnum from "./IfcLogicalOperatorEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcconstraintaggregationrelationship.htm
  */
-export default class IfcConstraintAggregationRelationship implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcConstraintAggregationRelationship';
+export default  class IfcConstraintAggregationRelationship extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcConstraintAggregationRelationshipSpecification = IfcConstraintAggregationRelationshipSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Name_? : IfcLabel
+    private Description_? : IfcText
+    private RelatingConstraint_? : IfcConstraint
+    private RelatedConstraints_? : Array<IfcConstraint>
+    private LogicalAggregator_? : IfcLogicalOperatorEnum
 
-    public readonly __specification__: IfcConstraintAggregationRelationshipSpecification = IfcConstraintAggregationRelationshipSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Name : IfcLabel  | undefined, public readonly Description : IfcText  | undefined, public readonly RelatingConstraint : IfcConstraint , public readonly RelatedConstraints : Array<IfcConstraint> , public readonly LogicalAggregator : IfcLogicalOperatorEnum  ) {}
 }
 
 export class IfcConstraintAggregationRelationshipSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcConstraintAggregationRelationship';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcConstraintAggregationRelationship' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -38,31 +46,36 @@ export class IfcConstraintAggregationRelationshipSpecification implements Compon
 			name: 'Name',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'Description',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcText'
+			baseType: 'IfcText',
+			optional: true
 		}, 
 		{
 			name: 'RelatingConstraint',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcConstraint'
+			baseType: 'IfcConstraint',
+			optional: false
 		}, 
 		{
 			name: 'RelatedConstraints',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcConstraint>'
+			baseType: 'Array<IfcConstraint>',
+			optional: false
 		}, 
 		{
 			name: 'LogicalAggregator',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLogicalOperatorEnum'
+			baseType: 'IfcLogicalOperatorEnum',
+			optional: false
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -9,22 +9,26 @@ import { IFCSchema } from "./schema_ifc.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcfaceouterbound.htm
  */
-export default class IfcFaceOuterBound implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcFaceOuterBound';
+export default  class IfcFaceOuterBound extends IfcFaceBound 
+{    
+    public readonly specification: IfcFaceOuterBoundSpecification = IfcFaceOuterBoundSpecification.instance;
 
-    public readonly __version__: number = 0;
 
-    public readonly __specification__: IfcFaceOuterBoundSpecification = IfcFaceOuterBoundSpecification.instance;
 
-    constructor(  ) {}
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
+
 }
 
 export class IfcFaceOuterBoundSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcFaceOuterBound';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFaceBound', 'IfcTopologicalRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcFaceOuterBound', 'IfcFaceBound', 'IfcTopologicalRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 

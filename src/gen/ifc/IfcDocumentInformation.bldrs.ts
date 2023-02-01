@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -22,22 +22,42 @@ import IfcDocumentInformationRelationship from "./IfcDocumentInformationRelation
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcdocumentinformation.htm
  */
-export default class IfcDocumentInformation implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcDocumentInformation';
+export default  class IfcDocumentInformation extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcDocumentInformationSpecification = IfcDocumentInformationSpecification.instance;
 
-    public readonly __version__: number = 0;
+private DocumentId_? : IfcIdentifier
+    private Name_? : IfcLabel
+    private Description_? : IfcText
+    private DocumentReferences_? : Array<IfcDocumentReference>
+    private Purpose_? : IfcText
+    private IntendedUse_? : IfcText
+    private Scope_? : IfcText
+    private Revision_? : IfcLabel
+    private DocumentOwner_? : IfcOrganization|IfcPerson|IfcPersonAndOrganization
+    private Editors_? : Array<IfcOrganization|IfcPerson|IfcPersonAndOrganization>
+    private CreationTime_? : IfcDateAndTime
+    private LastRevisionTime_? : IfcDateAndTime
+    private ElectronicFormat_? : IfcDocumentElectronicFormat
+    private ValidFrom_? : IfcCalendarDate
+    private ValidUntil_? : IfcCalendarDate
+    private Confidentiality_? : IfcDocumentConfidentialityEnum
+    private Status_? : IfcDocumentStatusEnum
 
-    public readonly __specification__: IfcDocumentInformationSpecification = IfcDocumentInformationSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly DocumentId : IfcIdentifier , public readonly Name : IfcLabel , public readonly Description : IfcText  | undefined, public readonly DocumentReferences : Array<IfcDocumentReference>  | undefined, public readonly Purpose : IfcText  | undefined, public readonly IntendedUse : IfcText  | undefined, public readonly Scope : IfcText  | undefined, public readonly Revision : IfcLabel  | undefined, public readonly DocumentOwner : IfcOrganization|IfcPerson|IfcPersonAndOrganization  | undefined, public readonly Editors : Array<IfcOrganization|IfcPerson|IfcPersonAndOrganization>  | undefined, public readonly CreationTime : IfcDateAndTime  | undefined, public readonly LastRevisionTime : IfcDateAndTime  | undefined, public readonly ElectronicFormat : IfcDocumentElectronicFormat  | undefined, public readonly ValidFrom : IfcCalendarDate  | undefined, public readonly ValidUntil : IfcCalendarDate  | undefined, public readonly Confidentiality : IfcDocumentConfidentialityEnum  | undefined, public readonly Status : IfcDocumentStatusEnum  | undefined ) {}
 }
 
 export class IfcDocumentInformationSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcDocumentInformation';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcDocumentInformation' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -47,103 +67,120 @@ export class IfcDocumentInformationSpecification implements ComponentSpecificati
 			name: 'DocumentId',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcIdentifier'
+			baseType: 'IfcIdentifier',
+			optional: false
 		}, 
 		{
 			name: 'Name',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: false
 		}, 
 		{
 			name: 'Description',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcText'
+			baseType: 'IfcText',
+			optional: true
 		}, 
 		{
 			name: 'DocumentReferences',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcDocumentReference>'
+			baseType: 'Array<IfcDocumentReference>',
+			optional: true
 		}, 
 		{
 			name: 'Purpose',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcText'
+			baseType: 'IfcText',
+			optional: true
 		}, 
 		{
 			name: 'IntendedUse',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcText'
+			baseType: 'IfcText',
+			optional: true
 		}, 
 		{
 			name: 'Scope',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcText'
+			baseType: 'IfcText',
+			optional: true
 		}, 
 		{
 			name: 'Revision',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'DocumentOwner',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcOrganization|IfcPerson|IfcPersonAndOrganization'
+			baseType: 'IfcOrganization|IfcPerson|IfcPersonAndOrganization',
+			optional: true
 		}, 
 		{
 			name: 'Editors',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcOrganization|IfcPerson|IfcPersonAndOrganization>'
+			baseType: 'Array<IfcOrganization|IfcPerson|IfcPersonAndOrganization>',
+			optional: true
 		}, 
 		{
 			name: 'CreationTime',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDateAndTime'
+			baseType: 'IfcDateAndTime',
+			optional: true
 		}, 
 		{
 			name: 'LastRevisionTime',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDateAndTime'
+			baseType: 'IfcDateAndTime',
+			optional: true
 		}, 
 		{
 			name: 'ElectronicFormat',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDocumentElectronicFormat'
+			baseType: 'IfcDocumentElectronicFormat',
+			optional: true
 		}, 
 		{
 			name: 'ValidFrom',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate'
+			baseType: 'IfcCalendarDate',
+			optional: true
 		}, 
 		{
 			name: 'ValidUntil',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate'
+			baseType: 'IfcCalendarDate',
+			optional: true
 		}, 
 		{
 			name: 'Confidentiality',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDocumentConfidentialityEnum'
+			baseType: 'IfcDocumentConfidentialityEnum',
+			optional: true
 		}, 
 		{
 			name: 'Status',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDocumentStatusEnum'
+			baseType: 'IfcDocumentStatusEnum',
+			optional: true
 		}
     ];
 

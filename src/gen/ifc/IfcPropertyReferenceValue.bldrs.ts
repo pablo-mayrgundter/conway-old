@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -23,22 +23,27 @@ import IfcAppliedValue from "./IfcAppliedValue.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcpropertyreferencevalue.htm
  */
-export default class IfcPropertyReferenceValue implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcPropertyReferenceValue';
+export default  class IfcPropertyReferenceValue extends IfcSimpleProperty 
+{    
+    public readonly specification: IfcPropertyReferenceValueSpecification = IfcPropertyReferenceValueSpecification.instance;
 
-    public readonly __version__: number = 0;
+private UsageName_? : IfcLabel
+    private PropertyReference_? : IfcMaterial|IfcPerson|IfcDateAndTime|IfcMaterialList|IfcOrganization|IfcCalendarDate|IfcLocalTime|IfcPersonAndOrganization|IfcMaterialLayer|IfcExternalReference|IfcTimeSeries|IfcAddress|IfcAppliedValue
 
-    public readonly __specification__: IfcPropertyReferenceValueSpecification = IfcPropertyReferenceValueSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly UsageName : IfcLabel  | undefined, public readonly PropertyReference : IfcMaterial|IfcPerson|IfcDateAndTime|IfcMaterialList|IfcOrganization|IfcCalendarDate|IfcLocalTime|IfcPersonAndOrganization|IfcMaterialLayer|IfcExternalReference|IfcTimeSeries|IfcAddress|IfcAppliedValue  ) {}
 }
 
 export class IfcPropertyReferenceValueSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcPropertyReferenceValue';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcSimpleProperty', 'IfcProperty' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPropertyReferenceValue', 'IfcSimpleProperty', 'IfcProperty' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -48,13 +53,15 @@ export class IfcPropertyReferenceValueSpecification implements ComponentSpecific
 			name: 'UsageName',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'PropertyReference',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcMaterial|IfcPerson|IfcDateAndTime|IfcMaterialList|IfcOrganization|IfcCalendarDate|IfcLocalTime|IfcPersonAndOrganization|IfcMaterialLayer|IfcExternalReference|IfcTimeSeries|IfcAddress|IfcAppliedValue'
+			baseType: 'IfcMaterial|IfcPerson|IfcDateAndTime|IfcMaterialList|IfcOrganization|IfcCalendarDate|IfcLocalTime|IfcPersonAndOrganization|IfcMaterialLayer|IfcExternalReference|IfcTimeSeries|IfcAddress|IfcAppliedValue',
+			optional: false
 		}
     ];
 

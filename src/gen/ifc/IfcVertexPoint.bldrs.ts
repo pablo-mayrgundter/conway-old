@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcPoint from "./IfcPoint.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcvertexpoint.htm
  */
-export default class IfcVertexPoint implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcVertexPoint';
+export default  class IfcVertexPoint extends IfcVertex 
+{    
+    public readonly specification: IfcVertexPointSpecification = IfcVertexPointSpecification.instance;
 
-    public readonly __version__: number = 0;
+private VertexGeometry_? : IfcPoint
 
-    public readonly __specification__: IfcVertexPointSpecification = IfcVertexPointSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly VertexGeometry : IfcPoint  ) {}
 }
 
 export class IfcVertexPointSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcVertexPoint';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcVertex', 'IfcTopologicalRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcVertexPoint', 'IfcVertex', 'IfcTopologicalRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcVertexPointSpecification implements ComponentSpecification
 			name: 'VertexGeometry',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPoint'
+			baseType: 'IfcPoint',
+			optional: false
 		}
     ];
 

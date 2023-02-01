@@ -14,8 +14,6 @@ import IfcLogical from "./IfcLogical.bldrs"
 
 export default class IfcSimpleValue
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcSimpleValueVariant ) {}
 }
 
@@ -25,3 +23,8 @@ export type IfcSimpleValueChoices = IfcInteger|IfcReal|IfcBoolean|IfcIdentifier|
 
 export type IfcSimpleValueVariant = ({ type: 'IfcInteger'; value: IfcInteger }|{ type: 'IfcReal'; value: IfcReal }|{ type: 'IfcBoolean'; value: IfcBoolean }|{ type: 'IfcIdentifier'; value: IfcIdentifier }|{ type: 'IfcText'; value: IfcText }|{ type: 'IfcLabel'; value: IfcLabel }|{ type: 'IfcLogical'; value: IfcLogical }) & { type: IfcSimpleValueType; value: IfcSimpleValueChoices };
 
+export function IfcSimpleValueSerializer( value?: IfcSimpleValue, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

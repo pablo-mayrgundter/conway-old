@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,27 @@ import IfcDocumentInformation from "./IfcDocumentInformation.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifctimeseriesreferencerelationship.htm
  */
-export default class IfcTimeSeriesReferenceRelationship implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcTimeSeriesReferenceRelationship';
+export default  class IfcTimeSeriesReferenceRelationship extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcTimeSeriesReferenceRelationshipSpecification = IfcTimeSeriesReferenceRelationshipSpecification.instance;
 
-    public readonly __version__: number = 0;
+private ReferencedTimeSeries_? : IfcTimeSeries
+    private TimeSeriesReferences_? : Array<IfcDocumentReference|IfcDocumentInformation>
 
-    public readonly __specification__: IfcTimeSeriesReferenceRelationshipSpecification = IfcTimeSeriesReferenceRelationshipSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly ReferencedTimeSeries : IfcTimeSeries , public readonly TimeSeriesReferences : Array<IfcDocumentReference|IfcDocumentInformation>  ) {}
 }
 
 export class IfcTimeSeriesReferenceRelationshipSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcTimeSeriesReferenceRelationship';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcTimeSeriesReferenceRelationship' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,13 +42,15 @@ export class IfcTimeSeriesReferenceRelationshipSpecification implements Componen
 			name: 'ReferencedTimeSeries',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTimeSeries'
+			baseType: 'IfcTimeSeries',
+			optional: false
 		}, 
 		{
 			name: 'TimeSeriesReferences',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcDocumentReference|IfcDocumentInformation>'
+			baseType: 'Array<IfcDocumentReference|IfcDocumentInformation>',
+			optional: false
 		}
     ];
 

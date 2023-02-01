@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,28 @@ import IfcElement from "./IfcElement.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrelconnectselements.htm
  */
-export default class IfcRelConnectsElements implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRelConnectsElements';
+export default  class IfcRelConnectsElements extends IfcRelConnects 
+{    
+    public readonly specification: IfcRelConnectsElementsSpecification = IfcRelConnectsElementsSpecification.instance;
 
-    public readonly __version__: number = 0;
+private ConnectionGeometry_? : IfcConnectionGeometry
+    private RelatingElement_? : IfcElement
+    private RelatedElement_? : IfcElement
 
-    public readonly __specification__: IfcRelConnectsElementsSpecification = IfcRelConnectsElementsSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly ConnectionGeometry : IfcConnectionGeometry  | undefined, public readonly RelatingElement : IfcElement , public readonly RelatedElement : IfcElement  ) {}
 }
 
 export class IfcRelConnectsElementsSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelConnectsElements';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelConnectsElements', 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,19 +42,22 @@ export class IfcRelConnectsElementsSpecification implements ComponentSpecificati
 			name: 'ConnectionGeometry',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcConnectionGeometry'
+			baseType: 'IfcConnectionGeometry',
+			optional: true
 		}, 
 		{
 			name: 'RelatingElement',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcElement'
+			baseType: 'IfcElement',
+			optional: false
 		}, 
 		{
 			name: 'RelatedElement',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcElement'
+			baseType: 'IfcElement',
+			optional: false
 		}
     ];
 

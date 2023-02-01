@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcControl from "./IfcControl.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrelassignstocontrol.htm
  */
-export default class IfcRelAssignsToControl implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRelAssignsToControl';
+export default  class IfcRelAssignsToControl extends IfcRelAssigns 
+{    
+    public readonly specification: IfcRelAssignsToControlSpecification = IfcRelAssignsToControlSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RelatingControl_? : IfcControl
 
-    public readonly __specification__: IfcRelAssignsToControlSpecification = IfcRelAssignsToControlSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RelatingControl : IfcControl  ) {}
 }
 
 export class IfcRelAssignsToControlSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelAssignsToControl';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssigns', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssignsToControl', 'IfcRelAssigns', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcRelAssignsToControlSpecification implements ComponentSpecificati
 			name: 'RelatingControl',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcControl'
+			baseType: 'IfcControl',
+			optional: false
 		}
     ];
 

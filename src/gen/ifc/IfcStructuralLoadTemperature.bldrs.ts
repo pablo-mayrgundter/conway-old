@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,28 @@ import IfcThermodynamicTemperatureMeasure from "./IfcThermodynamicTemperatureMea
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstructuralloadtemperature.htm
  */
-export default class IfcStructuralLoadTemperature implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcStructuralLoadTemperature';
+export default  class IfcStructuralLoadTemperature extends IfcStructuralLoadStatic 
+{    
+    public readonly specification: IfcStructuralLoadTemperatureSpecification = IfcStructuralLoadTemperatureSpecification.instance;
 
-    public readonly __version__: number = 0;
+private DeltaT_Constant_? : IfcThermodynamicTemperatureMeasure
+    private DeltaT_Y_? : IfcThermodynamicTemperatureMeasure
+    private DeltaT_Z_? : IfcThermodynamicTemperatureMeasure
 
-    public readonly __specification__: IfcStructuralLoadTemperatureSpecification = IfcStructuralLoadTemperatureSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly DeltaT_Constant : IfcThermodynamicTemperatureMeasure  | undefined, public readonly DeltaT_Y : IfcThermodynamicTemperatureMeasure  | undefined, public readonly DeltaT_Z : IfcThermodynamicTemperatureMeasure  | undefined ) {}
 }
 
 export class IfcStructuralLoadTemperatureSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStructuralLoadTemperature';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralLoadStatic', 'IfcStructuralLoad' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralLoadTemperature', 'IfcStructuralLoadStatic', 'IfcStructuralLoad' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,19 +41,22 @@ export class IfcStructuralLoadTemperatureSpecification implements ComponentSpeci
 			name: 'DeltaT_Constant',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcThermodynamicTemperatureMeasure'
+			baseType: 'IfcThermodynamicTemperatureMeasure',
+			optional: true
 		}, 
 		{
 			name: 'DeltaT_Y',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcThermodynamicTemperatureMeasure'
+			baseType: 'IfcThermodynamicTemperatureMeasure',
+			optional: true
 		}, 
 		{
 			name: 'DeltaT_Z',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcThermodynamicTemperatureMeasure'
+			baseType: 'IfcThermodynamicTemperatureMeasure',
+			optional: true
 		}
     ];
 

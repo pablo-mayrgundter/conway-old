@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcActorRole from "./IfcActorRole.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrelassignstoactor.htm
  */
-export default class IfcRelAssignsToActor implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRelAssignsToActor';
+export default  class IfcRelAssignsToActor extends IfcRelAssigns 
+{    
+    public readonly specification: IfcRelAssignsToActorSpecification = IfcRelAssignsToActorSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RelatingActor_? : IfcActor
+    private ActingRole_? : IfcActorRole
 
-    public readonly __specification__: IfcRelAssignsToActorSpecification = IfcRelAssignsToActorSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RelatingActor : IfcActor , public readonly ActingRole : IfcActorRole  | undefined ) {}
 }
 
 export class IfcRelAssignsToActorSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelAssignsToActor';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssigns', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssignsToActor', 'IfcRelAssigns', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcRelAssignsToActorSpecification implements ComponentSpecification
 			name: 'RelatingActor',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcActor'
+			baseType: 'IfcActor',
+			optional: false
 		}, 
 		{
 			name: 'ActingRole',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcActorRole'
+			baseType: 'IfcActorRole',
+			optional: true
 		}
     ];
 

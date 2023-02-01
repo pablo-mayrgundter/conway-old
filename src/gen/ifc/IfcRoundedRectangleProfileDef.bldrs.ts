@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcroundedrectangleprofiledef.htm
  */
-export default class IfcRoundedRectangleProfileDef implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRoundedRectangleProfileDef';
+export default  class IfcRoundedRectangleProfileDef extends IfcRectangleProfileDef 
+{    
+    public readonly specification: IfcRoundedRectangleProfileDefSpecification = IfcRoundedRectangleProfileDefSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RoundingRadius_? : IfcPositiveLengthMeasure
 
-    public readonly __specification__: IfcRoundedRectangleProfileDefSpecification = IfcRoundedRectangleProfileDefSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RoundingRadius : IfcPositiveLengthMeasure  ) {}
 }
 
 export class IfcRoundedRectangleProfileDefSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRoundedRectangleProfileDef';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRectangleProfileDef', 'IfcParameterizedProfileDef', 'IfcProfileDef' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRoundedRectangleProfileDef', 'IfcRectangleProfileDef', 'IfcParameterizedProfileDef', 'IfcProfileDef' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcRoundedRectangleProfileDefSpecification implements ComponentSpec
 			name: 'RoundingRadius',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}
     ];
 

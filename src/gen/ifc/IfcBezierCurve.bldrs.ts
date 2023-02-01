@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -9,22 +9,26 @@ import { IFCSchema } from "./schema_ifc.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcbeziercurve.htm
  */
-export default class IfcBezierCurve implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcBezierCurve';
+export default  class IfcBezierCurve extends IfcBSplineCurve 
+{    
+    public readonly specification: IfcBezierCurveSpecification = IfcBezierCurveSpecification.instance;
 
-    public readonly __version__: number = 0;
 
-    public readonly __specification__: IfcBezierCurveSpecification = IfcBezierCurveSpecification.instance;
 
-    constructor(  ) {}
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
+
 }
 
 export class IfcBezierCurveSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcBezierCurve';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcBSplineCurve', 'IfcBoundedCurve', 'IfcCurve', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcBezierCurve', 'IfcBSplineCurve', 'IfcBoundedCurve', 'IfcCurve', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 

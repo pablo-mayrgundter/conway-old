@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -14,22 +14,28 @@ import IfcExternallyDefinedTextFont from "./IfcExternallyDefinedTextFont.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifctextstyle.htm
  */
-export default class IfcTextStyle implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcTextStyle';
+export default  class IfcTextStyle extends IfcPresentationStyle 
+{    
+    public readonly specification: IfcTextStyleSpecification = IfcTextStyleSpecification.instance;
 
-    public readonly __version__: number = 0;
+private TextCharacterAppearance_? : IfcTextStyleForDefinedFont
+    private TextStyle_? : IfcTextStyleWithBoxCharacteristics|IfcTextStyleTextModel
+    private TextFontStyle_? : IfcPreDefinedTextFont|IfcExternallyDefinedTextFont
 
-    public readonly __specification__: IfcTextStyleSpecification = IfcTextStyleSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly TextCharacterAppearance : IfcTextStyleForDefinedFont  | undefined, public readonly TextStyle : IfcTextStyleWithBoxCharacteristics|IfcTextStyleTextModel  | undefined, public readonly TextFontStyle : IfcPreDefinedTextFont|IfcExternallyDefinedTextFont  ) {}
 }
 
 export class IfcTextStyleSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcTextStyle';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcPresentationStyle' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcTextStyle', 'IfcPresentationStyle' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -39,19 +45,22 @@ export class IfcTextStyleSpecification implements ComponentSpecification
 			name: 'TextCharacterAppearance',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTextStyleForDefinedFont'
+			baseType: 'IfcTextStyleForDefinedFont',
+			optional: true
 		}, 
 		{
 			name: 'TextStyle',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTextStyleWithBoxCharacteristics|IfcTextStyleTextModel'
+			baseType: 'IfcTextStyleWithBoxCharacteristics|IfcTextStyleTextModel',
+			optional: true
 		}, 
 		{
 			name: 'TextFontStyle',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPreDefinedTextFont|IfcExternallyDefinedTextFont'
+			baseType: 'IfcPreDefinedTextFont|IfcExternallyDefinedTextFont',
+			optional: false
 		}
     ];
 

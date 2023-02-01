@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcStructuralMember from "./IfcStructuralMember.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrelconnectsstructuralelement.htm
  */
-export default class IfcRelConnectsStructuralElement implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRelConnectsStructuralElement';
+export default  class IfcRelConnectsStructuralElement extends IfcRelConnects 
+{    
+    public readonly specification: IfcRelConnectsStructuralElementSpecification = IfcRelConnectsStructuralElementSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RelatingElement_? : IfcElement
+    private RelatedStructuralMember_? : IfcStructuralMember
 
-    public readonly __specification__: IfcRelConnectsStructuralElementSpecification = IfcRelConnectsStructuralElementSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RelatingElement : IfcElement , public readonly RelatedStructuralMember : IfcStructuralMember  ) {}
 }
 
 export class IfcRelConnectsStructuralElementSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelConnectsStructuralElement';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelConnectsStructuralElement', 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcRelConnectsStructuralElementSpecification implements ComponentSp
 			name: 'RelatingElement',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcElement'
+			baseType: 'IfcElement',
+			optional: false
 		}, 
 		{
 			name: 'RelatedStructuralMember',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcStructuralMember'
+			baseType: 'IfcStructuralMember',
+			optional: false
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,26 @@ import IfcLine from "./IfcLine.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcsurfaceofrevolution.htm
  */
-export default class IfcSurfaceOfRevolution implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcSurfaceOfRevolution';
+export default  class IfcSurfaceOfRevolution extends IfcSweptSurface 
+{    
+    public readonly specification: IfcSurfaceOfRevolutionSpecification = IfcSurfaceOfRevolutionSpecification.instance;
 
-    public readonly __version__: number = 0;
+private AxisPosition_? : IfcAxis1Placement
 
-    public readonly __specification__: IfcSurfaceOfRevolutionSpecification = IfcSurfaceOfRevolutionSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly AxisPosition : IfcAxis1Placement  ) {}
 }
 
 export class IfcSurfaceOfRevolutionSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSurfaceOfRevolution';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcSweptSurface', 'IfcSurface', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSurfaceOfRevolution', 'IfcSweptSurface', 'IfcSurface', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,7 +40,8 @@ export class IfcSurfaceOfRevolutionSpecification implements ComponentSpecificati
 			name: 'AxisPosition',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAxis1Placement'
+			baseType: 'IfcAxis1Placement',
+			optional: false
 		}
     ];
 

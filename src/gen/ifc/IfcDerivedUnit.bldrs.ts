@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,28 @@ import IfcDimensionalExponents from "./IfcDimensionalExponents.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcderivedunit.htm
  */
-export default class IfcDerivedUnit implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcDerivedUnit';
+export default  class IfcDerivedUnit extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcDerivedUnitSpecification = IfcDerivedUnitSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Elements_? : Array<IfcDerivedUnitElement>
+    private UnitType_? : IfcDerivedUnitEnum
+    private UserDefinedType_? : IfcLabel
 
-    public readonly __specification__: IfcDerivedUnitSpecification = IfcDerivedUnitSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Elements : Array<IfcDerivedUnitElement> , public readonly UnitType : IfcDerivedUnitEnum , public readonly UserDefinedType : IfcLabel  | undefined ) {}
 }
 
 export class IfcDerivedUnitSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcDerivedUnit';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcDerivedUnit' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -38,19 +44,22 @@ export class IfcDerivedUnitSpecification implements ComponentSpecification
 			name: 'Elements',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcDerivedUnitElement>'
+			baseType: 'Array<IfcDerivedUnitElement>',
+			optional: false
 		}, 
 		{
 			name: 'UnitType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDerivedUnitEnum'
+			baseType: 'IfcDerivedUnitEnum',
+			optional: false
 		}, 
 		{
 			name: 'UserDefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}
     ];
 

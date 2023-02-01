@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcActuatorTypeEnum from "./IfcActuatorTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcactuatortype.htm
  */
-export default class IfcActuatorType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcActuatorType';
+export default  class IfcActuatorType extends IfcDistributionControlElementType 
+{    
+    public readonly specification: IfcActuatorTypeSpecification = IfcActuatorTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcActuatorTypeEnum
 
-    public readonly __specification__: IfcActuatorTypeSpecification = IfcActuatorTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcActuatorTypeEnum  ) {}
 }
 
 export class IfcActuatorTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcActuatorType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcDistributionControlElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcActuatorType', 'IfcDistributionControlElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcActuatorTypeSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcActuatorTypeEnum'
+			baseType: 'IfcActuatorTypeEnum',
+			optional: false
 		}
     ];
 

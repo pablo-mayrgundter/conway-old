@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,28 @@ import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcconnectionpointeccentricity.htm
  */
-export default class IfcConnectionPointEccentricity implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcConnectionPointEccentricity';
+export default  class IfcConnectionPointEccentricity extends IfcConnectionPointGeometry 
+{    
+    public readonly specification: IfcConnectionPointEccentricitySpecification = IfcConnectionPointEccentricitySpecification.instance;
 
-    public readonly __version__: number = 0;
+private EccentricityInX_? : IfcLengthMeasure
+    private EccentricityInY_? : IfcLengthMeasure
+    private EccentricityInZ_? : IfcLengthMeasure
 
-    public readonly __specification__: IfcConnectionPointEccentricitySpecification = IfcConnectionPointEccentricitySpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly EccentricityInX : IfcLengthMeasure  | undefined, public readonly EccentricityInY : IfcLengthMeasure  | undefined, public readonly EccentricityInZ : IfcLengthMeasure  | undefined ) {}
 }
 
 export class IfcConnectionPointEccentricitySpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcConnectionPointEccentricity';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcConnectionPointGeometry', 'IfcConnectionGeometry' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcConnectionPointEccentricity', 'IfcConnectionPointGeometry', 'IfcConnectionGeometry' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,19 +41,22 @@ export class IfcConnectionPointEccentricitySpecification implements ComponentSpe
 			name: 'EccentricityInX',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'EccentricityInY',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'EccentricityInZ',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: true
 		}
     ];
 

@@ -1,6 +1,7 @@
 compiled
 dist
-node_modules
+node_modules/
+/node_modules
 coverage
 external/src
 yarn-error.log

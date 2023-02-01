@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -14,22 +14,33 @@ import IfcTimeStamp from "./IfcTimeStamp.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcownerhistory.htm
  */
-export default class IfcOwnerHistory implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcOwnerHistory';
+export default  class IfcOwnerHistory extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcOwnerHistorySpecification = IfcOwnerHistorySpecification.instance;
 
-    public readonly __version__: number = 0;
+private OwningUser_? : IfcPersonAndOrganization
+    private OwningApplication_? : IfcApplication
+    private State_? : IfcStateEnum
+    private ChangeAction_? : IfcChangeActionEnum
+    private LastModifiedDate_? : IfcTimeStamp
+    private LastModifyingUser_? : IfcPersonAndOrganization
+    private LastModifyingApplication_? : IfcApplication
+    private CreationDate_? : IfcTimeStamp
 
-    public readonly __specification__: IfcOwnerHistorySpecification = IfcOwnerHistorySpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly OwningUser : IfcPersonAndOrganization , public readonly OwningApplication : IfcApplication , public readonly State : IfcStateEnum  | undefined, public readonly ChangeAction : IfcChangeActionEnum , public readonly LastModifiedDate : IfcTimeStamp  | undefined, public readonly LastModifyingUser : IfcPersonAndOrganization  | undefined, public readonly LastModifyingApplication : IfcApplication  | undefined, public readonly CreationDate : IfcTimeStamp  ) {}
 }
 
 export class IfcOwnerHistorySpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcOwnerHistory';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcOwnerHistory' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -39,49 +50,57 @@ export class IfcOwnerHistorySpecification implements ComponentSpecification
 			name: 'OwningUser',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPersonAndOrganization'
+			baseType: 'IfcPersonAndOrganization',
+			optional: false
 		}, 
 		{
 			name: 'OwningApplication',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcApplication'
+			baseType: 'IfcApplication',
+			optional: false
 		}, 
 		{
 			name: 'State',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcStateEnum'
+			baseType: 'IfcStateEnum',
+			optional: true
 		}, 
 		{
 			name: 'ChangeAction',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcChangeActionEnum'
+			baseType: 'IfcChangeActionEnum',
+			optional: false
 		}, 
 		{
 			name: 'LastModifiedDate',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTimeStamp'
+			baseType: 'IfcTimeStamp',
+			optional: true
 		}, 
 		{
 			name: 'LastModifyingUser',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPersonAndOrganization'
+			baseType: 'IfcPersonAndOrganization',
+			optional: true
 		}, 
 		{
 			name: 'LastModifyingApplication',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcApplication'
+			baseType: 'IfcApplication',
+			optional: true
 		}, 
 		{
 			name: 'CreationDate',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTimeStamp'
+			baseType: 'IfcTimeStamp',
+			optional: false
 		}
     ];
 

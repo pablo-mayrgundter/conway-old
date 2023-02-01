@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcCurve from "./IfcCurve.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcarbitraryclosedprofiledef.htm
  */
-export default class IfcArbitraryClosedProfileDef implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcArbitraryClosedProfileDef';
+export default  class IfcArbitraryClosedProfileDef extends IfcProfileDef 
+{    
+    public readonly specification: IfcArbitraryClosedProfileDefSpecification = IfcArbitraryClosedProfileDefSpecification.instance;
 
-    public readonly __version__: number = 0;
+private OuterCurve_? : IfcCurve
 
-    public readonly __specification__: IfcArbitraryClosedProfileDefSpecification = IfcArbitraryClosedProfileDefSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly OuterCurve : IfcCurve  ) {}
 }
 
 export class IfcArbitraryClosedProfileDefSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcArbitraryClosedProfileDef';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcProfileDef' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcArbitraryClosedProfileDef', 'IfcProfileDef' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcArbitraryClosedProfileDefSpecification implements ComponentSpeci
 			name: 'OuterCurve',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCurve'
+			baseType: 'IfcCurve',
+			optional: false
 		}
     ];
 

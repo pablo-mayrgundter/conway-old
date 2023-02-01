@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,28 @@ import IfcYearNumber from "./IfcYearNumber.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccalendardate.htm
  */
-export default class IfcCalendarDate implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcCalendarDate';
+export default  class IfcCalendarDate extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcCalendarDateSpecification = IfcCalendarDateSpecification.instance;
 
-    public readonly __version__: number = 0;
+private DayComponent_? : IfcDayInMonthNumber
+    private MonthComponent_? : IfcMonthInYearNumber
+    private YearComponent_? : IfcYearNumber
 
-    public readonly __specification__: IfcCalendarDateSpecification = IfcCalendarDateSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly DayComponent : IfcDayInMonthNumber , public readonly MonthComponent : IfcMonthInYearNumber , public readonly YearComponent : IfcYearNumber  ) {}
 }
 
 export class IfcCalendarDateSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCalendarDate';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcCalendarDate' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,19 +43,22 @@ export class IfcCalendarDateSpecification implements ComponentSpecification
 			name: 'DayComponent',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDayInMonthNumber'
+			baseType: 'IfcDayInMonthNumber',
+			optional: false
 		}, 
 		{
 			name: 'MonthComponent',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcMonthInYearNumber'
+			baseType: 'IfcMonthInYearNumber',
+			optional: false
 		}, 
 		{
 			name: 'YearComponent',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcYearNumber'
+			baseType: 'IfcYearNumber',
+			optional: false
 		}
     ];
 

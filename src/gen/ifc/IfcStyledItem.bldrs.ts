@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,28 @@ import IfcLabel from "./IfcLabel.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstyleditem.htm
  */
-export default class IfcStyledItem implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcStyledItem';
+export default  class IfcStyledItem extends IfcRepresentationItem 
+{    
+    public readonly specification: IfcStyledItemSpecification = IfcStyledItemSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Item_? : IfcRepresentationItem
+    private Styles_? : Array<IfcPresentationStyleAssignment>
+    private Name_? : IfcLabel
 
-    public readonly __specification__: IfcStyledItemSpecification = IfcStyledItemSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Item : IfcRepresentationItem  | undefined, public readonly Styles : Array<IfcPresentationStyleAssignment> , public readonly Name : IfcLabel  | undefined ) {}
 }
 
 export class IfcStyledItemSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStyledItem';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStyledItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,19 +43,22 @@ export class IfcStyledItemSpecification implements ComponentSpecification
 			name: 'Item',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcRepresentationItem'
+			baseType: 'IfcRepresentationItem',
+			optional: true
 		}, 
 		{
 			name: 'Styles',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcPresentationStyleAssignment>'
+			baseType: 'Array<IfcPresentationStyleAssignment>',
+			optional: false
 		}, 
 		{
 			name: 'Name',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}
     ];
 

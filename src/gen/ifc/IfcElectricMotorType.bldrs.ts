@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcElectricMotorTypeEnum from "./IfcElectricMotorTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcelectricmotortype.htm
  */
-export default class IfcElectricMotorType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcElectricMotorType';
+export default  class IfcElectricMotorType extends IfcEnergyConversionDeviceType 
+{    
+    public readonly specification: IfcElectricMotorTypeSpecification = IfcElectricMotorTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcElectricMotorTypeEnum
 
-    public readonly __specification__: IfcElectricMotorTypeSpecification = IfcElectricMotorTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcElectricMotorTypeEnum  ) {}
 }
 
 export class IfcElectricMotorTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcElectricMotorType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcEnergyConversionDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcElectricMotorType', 'IfcEnergyConversionDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcElectricMotorTypeSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcElectricMotorTypeEnum'
+			baseType: 'IfcElectricMotorTypeEnum',
+			optional: false
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcCurrencyEnum from "./IfcCurrencyEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcmonetaryunit.htm
  */
-export default class IfcMonetaryUnit implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcMonetaryUnit';
+export default  class IfcMonetaryUnit extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcMonetaryUnitSpecification = IfcMonetaryUnitSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Currency_? : IfcCurrencyEnum
 
-    public readonly __specification__: IfcMonetaryUnitSpecification = IfcMonetaryUnitSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Currency : IfcCurrencyEnum  ) {}
 }
 
 export class IfcMonetaryUnitSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcMonetaryUnit';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcMonetaryUnit' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcMonetaryUnitSpecification implements ComponentSpecification
 			name: 'Currency',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCurrencyEnum'
+			baseType: 'IfcCurrencyEnum',
+			optional: false
 		}
     ];
 

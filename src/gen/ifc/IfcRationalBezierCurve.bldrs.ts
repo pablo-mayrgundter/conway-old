@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -9,22 +9,26 @@ import { IFCSchema } from "./schema_ifc.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrationalbeziercurve.htm
  */
-export default class IfcRationalBezierCurve implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRationalBezierCurve';
+export default  class IfcRationalBezierCurve extends IfcBezierCurve 
+{    
+    public readonly specification: IfcRationalBezierCurveSpecification = IfcRationalBezierCurveSpecification.instance;
 
-    public readonly __version__: number = 0;
+private WeightsData_? : Array<number>
 
-    public readonly __specification__: IfcRationalBezierCurveSpecification = IfcRationalBezierCurveSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly WeightsData : Array<number>  ) {}
 }
 
 export class IfcRationalBezierCurveSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRationalBezierCurve';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcBezierCurve', 'IfcBSplineCurve', 'IfcBoundedCurve', 'IfcCurve', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRationalBezierCurve', 'IfcBezierCurve', 'IfcBSplineCurve', 'IfcBoundedCurve', 'IfcCurve', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -34,7 +38,8 @@ export class IfcRationalBezierCurveSpecification implements ComponentSpecificati
 			name: 'WeightsData',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<number>'
+			baseType: 'Array<number>',
+			optional: false
 		}
     ];
 

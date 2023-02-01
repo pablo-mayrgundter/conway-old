@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccircleprofiledef.htm
  */
-export default class IfcCircleProfileDef implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcCircleProfileDef';
+export default  class IfcCircleProfileDef extends IfcParameterizedProfileDef 
+{    
+    public readonly specification: IfcCircleProfileDefSpecification = IfcCircleProfileDefSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Radius_? : IfcPositiveLengthMeasure
 
-    public readonly __specification__: IfcCircleProfileDefSpecification = IfcCircleProfileDefSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Radius : IfcPositiveLengthMeasure  ) {}
 }
 
 export class IfcCircleProfileDefSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCircleProfileDef';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcParameterizedProfileDef', 'IfcProfileDef' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcCircleProfileDef', 'IfcParameterizedProfileDef', 'IfcProfileDef' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcCircleProfileDefSpecification implements ComponentSpecification
 			name: 'Radius',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}
     ];
 

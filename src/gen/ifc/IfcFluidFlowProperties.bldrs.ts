@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -83,22 +83,40 @@ import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcfluidflowproperties.htm
  */
-export default class IfcFluidFlowProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcFluidFlowProperties';
+export default  class IfcFluidFlowProperties extends IfcPropertySetDefinition 
+{    
+    public readonly specification: IfcFluidFlowPropertiesSpecification = IfcFluidFlowPropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PropertySource_? : IfcPropertySourceEnum
+    private FlowConditionTimeSeries_? : IfcTimeSeries
+    private VelocityTimeSeries_? : IfcTimeSeries
+    private FlowrateTimeSeries_? : IfcTimeSeries
+    private Fluid_? : IfcMaterial
+    private PressureTimeSeries_? : IfcTimeSeries
+    private UserDefinedPropertySource_? : IfcLabel
+    private TemperatureSingleValue_? : IfcThermodynamicTemperatureMeasure
+    private WetBulbTemperatureSingleValue_? : IfcThermodynamicTemperatureMeasure
+    private WetBulbTemperatureTimeSeries_? : IfcTimeSeries
+    private TemperatureTimeSeries_? : IfcTimeSeries
+    private FlowrateSingleValue_? : IfcVolumetricFlowRateMeasure|IfcTimeStamp|IfcThermalTransmittanceMeasure|IfcThermalResistanceMeasure|IfcThermalAdmittanceMeasure|IfcPressureMeasure|IfcPowerMeasure|IfcMassFlowRateMeasure|IfcMassDensityMeasure|IfcLinearVelocityMeasure|IfcKinematicViscosityMeasure|IfcIntegerCountRateMeasure|IfcHeatFluxDensityMeasure|IfcFrequencyMeasure|IfcEnergyMeasure|IfcElectricVoltageMeasure|IfcDynamicViscosityMeasure|IfcCompoundPlaneAngleMeasure|IfcAngularVelocityMeasure|IfcThermalConductivityMeasure|IfcMolecularWeightMeasure|IfcVaporPermeabilityMeasure|IfcMoistureDiffusivityMeasure|IfcIsothermalMoistureCapacityMeasure|IfcSpecificHeatCapacityMeasure|IfcMonetaryMeasure|IfcMagneticFluxDensityMeasure|IfcMagneticFluxMeasure|IfcLuminousFluxMeasure|IfcForceMeasure|IfcInductanceMeasure|IfcIlluminanceMeasure|IfcElectricResistanceMeasure|IfcElectricConductanceMeasure|IfcElectricChargeMeasure|IfcDoseEquivalentMeasure|IfcElectricCapacitanceMeasure|IfcAbsorbedDoseMeasure|IfcRadioActivityMeasure|IfcRotationalFrequencyMeasure|IfcTorqueMeasure|IfcAccelerationMeasure|IfcLinearForceMeasure|IfcLinearStiffnessMeasure|IfcModulusOfSubgradeReactionMeasure|IfcModulusOfElasticityMeasure|IfcMomentOfInertiaMeasure|IfcPlanarForceMeasure|IfcRotationalStiffnessMeasure|IfcShearModulusMeasure|IfcLinearMomentMeasure|IfcLuminousIntensityDistributionMeasure|IfcCurvatureMeasure|IfcMassPerLengthMeasure|IfcModulusOfLinearSubgradeReactionMeasure|IfcModulusOfRotationalSubgradeReactionMeasure|IfcRotationalMassMeasure|IfcSectionalAreaIntegralMeasure|IfcSectionModulusMeasure|IfcTemperatureGradientMeasure|IfcThermalExpansionCoefficientMeasure|IfcWarpingConstantMeasure|IfcWarpingMomentMeasure|IfcSoundPowerMeasure|IfcSoundPressureMeasure|IfcHeatingValueMeasure|IfcPHMeasure|IfcIonConcentrationMeasure
+    private FlowConditionSingleValue_? : IfcPositiveRatioMeasure
+    private VelocitySingleValue_? : IfcLinearVelocityMeasure
+    private PressureSingleValue_? : IfcPressureMeasure
 
-    public readonly __specification__: IfcFluidFlowPropertiesSpecification = IfcFluidFlowPropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PropertySource : IfcPropertySourceEnum , public readonly FlowConditionTimeSeries : IfcTimeSeries  | undefined, public readonly VelocityTimeSeries : IfcTimeSeries  | undefined, public readonly FlowrateTimeSeries : IfcTimeSeries  | undefined, public readonly Fluid : IfcMaterial , public readonly PressureTimeSeries : IfcTimeSeries  | undefined, public readonly UserDefinedPropertySource : IfcLabel  | undefined, public readonly TemperatureSingleValue : IfcThermodynamicTemperatureMeasure  | undefined, public readonly WetBulbTemperatureSingleValue : IfcThermodynamicTemperatureMeasure  | undefined, public readonly WetBulbTemperatureTimeSeries : IfcTimeSeries  | undefined, public readonly TemperatureTimeSeries : IfcTimeSeries  | undefined, public readonly FlowrateSingleValue : IfcVolumetricFlowRateMeasure|IfcTimeStamp|IfcThermalTransmittanceMeasure|IfcThermalResistanceMeasure|IfcThermalAdmittanceMeasure|IfcPressureMeasure|IfcPowerMeasure|IfcMassFlowRateMeasure|IfcMassDensityMeasure|IfcLinearVelocityMeasure|IfcKinematicViscosityMeasure|IfcIntegerCountRateMeasure|IfcHeatFluxDensityMeasure|IfcFrequencyMeasure|IfcEnergyMeasure|IfcElectricVoltageMeasure|IfcDynamicViscosityMeasure|IfcCompoundPlaneAngleMeasure|IfcAngularVelocityMeasure|IfcThermalConductivityMeasure|IfcMolecularWeightMeasure|IfcVaporPermeabilityMeasure|IfcMoistureDiffusivityMeasure|IfcIsothermalMoistureCapacityMeasure|IfcSpecificHeatCapacityMeasure|IfcMonetaryMeasure|IfcMagneticFluxDensityMeasure|IfcMagneticFluxMeasure|IfcLuminousFluxMeasure|IfcForceMeasure|IfcInductanceMeasure|IfcIlluminanceMeasure|IfcElectricResistanceMeasure|IfcElectricConductanceMeasure|IfcElectricChargeMeasure|IfcDoseEquivalentMeasure|IfcElectricCapacitanceMeasure|IfcAbsorbedDoseMeasure|IfcRadioActivityMeasure|IfcRotationalFrequencyMeasure|IfcTorqueMeasure|IfcAccelerationMeasure|IfcLinearForceMeasure|IfcLinearStiffnessMeasure|IfcModulusOfSubgradeReactionMeasure|IfcModulusOfElasticityMeasure|IfcMomentOfInertiaMeasure|IfcPlanarForceMeasure|IfcRotationalStiffnessMeasure|IfcShearModulusMeasure|IfcLinearMomentMeasure|IfcLuminousIntensityDistributionMeasure|IfcCurvatureMeasure|IfcMassPerLengthMeasure|IfcModulusOfLinearSubgradeReactionMeasure|IfcModulusOfRotationalSubgradeReactionMeasure|IfcRotationalMassMeasure|IfcSectionalAreaIntegralMeasure|IfcSectionModulusMeasure|IfcTemperatureGradientMeasure|IfcThermalExpansionCoefficientMeasure|IfcWarpingConstantMeasure|IfcWarpingMomentMeasure|IfcSoundPowerMeasure|IfcSoundPressureMeasure|IfcHeatingValueMeasure|IfcPHMeasure|IfcIonConcentrationMeasure  | undefined, public readonly FlowConditionSingleValue : IfcPositiveRatioMeasure  | undefined, public readonly VelocitySingleValue : IfcLinearVelocityMeasure  | undefined, public readonly PressureSingleValue : IfcPressureMeasure  | undefined ) {}
 }
 
 export class IfcFluidFlowPropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcFluidFlowProperties';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcPropertySetDefinition', 'IfcPropertyDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcFluidFlowProperties', 'IfcPropertySetDefinition', 'IfcPropertyDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -108,91 +126,106 @@ export class IfcFluidFlowPropertiesSpecification implements ComponentSpecificati
 			name: 'PropertySource',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPropertySourceEnum'
+			baseType: 'IfcPropertySourceEnum',
+			optional: false
 		}, 
 		{
 			name: 'FlowConditionTimeSeries',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTimeSeries'
+			baseType: 'IfcTimeSeries',
+			optional: true
 		}, 
 		{
 			name: 'VelocityTimeSeries',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTimeSeries'
+			baseType: 'IfcTimeSeries',
+			optional: true
 		}, 
 		{
 			name: 'FlowrateTimeSeries',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTimeSeries'
+			baseType: 'IfcTimeSeries',
+			optional: true
 		}, 
 		{
 			name: 'Fluid',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcMaterial'
+			baseType: 'IfcMaterial',
+			optional: false
 		}, 
 		{
 			name: 'PressureTimeSeries',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTimeSeries'
+			baseType: 'IfcTimeSeries',
+			optional: true
 		}, 
 		{
 			name: 'UserDefinedPropertySource',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'TemperatureSingleValue',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcThermodynamicTemperatureMeasure'
+			baseType: 'IfcThermodynamicTemperatureMeasure',
+			optional: true
 		}, 
 		{
 			name: 'WetBulbTemperatureSingleValue',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcThermodynamicTemperatureMeasure'
+			baseType: 'IfcThermodynamicTemperatureMeasure',
+			optional: true
 		}, 
 		{
 			name: 'WetBulbTemperatureTimeSeries',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTimeSeries'
+			baseType: 'IfcTimeSeries',
+			optional: true
 		}, 
 		{
 			name: 'TemperatureTimeSeries',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTimeSeries'
+			baseType: 'IfcTimeSeries',
+			optional: true
 		}, 
 		{
 			name: 'FlowrateSingleValue',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcVolumetricFlowRateMeasure|IfcTimeStamp|IfcThermalTransmittanceMeasure|IfcThermalResistanceMeasure|IfcThermalAdmittanceMeasure|IfcPressureMeasure|IfcPowerMeasure|IfcMassFlowRateMeasure|IfcMassDensityMeasure|IfcLinearVelocityMeasure|IfcKinematicViscosityMeasure|IfcIntegerCountRateMeasure|IfcHeatFluxDensityMeasure|IfcFrequencyMeasure|IfcEnergyMeasure|IfcElectricVoltageMeasure|IfcDynamicViscosityMeasure|IfcCompoundPlaneAngleMeasure|IfcAngularVelocityMeasure|IfcThermalConductivityMeasure|IfcMolecularWeightMeasure|IfcVaporPermeabilityMeasure|IfcMoistureDiffusivityMeasure|IfcIsothermalMoistureCapacityMeasure|IfcSpecificHeatCapacityMeasure|IfcMonetaryMeasure|IfcMagneticFluxDensityMeasure|IfcMagneticFluxMeasure|IfcLuminousFluxMeasure|IfcForceMeasure|IfcInductanceMeasure|IfcIlluminanceMeasure|IfcElectricResistanceMeasure|IfcElectricConductanceMeasure|IfcElectricChargeMeasure|IfcDoseEquivalentMeasure|IfcElectricCapacitanceMeasure|IfcAbsorbedDoseMeasure|IfcRadioActivityMeasure|IfcRotationalFrequencyMeasure|IfcTorqueMeasure|IfcAccelerationMeasure|IfcLinearForceMeasure|IfcLinearStiffnessMeasure|IfcModulusOfSubgradeReactionMeasure|IfcModulusOfElasticityMeasure|IfcMomentOfInertiaMeasure|IfcPlanarForceMeasure|IfcRotationalStiffnessMeasure|IfcShearModulusMeasure|IfcLinearMomentMeasure|IfcLuminousIntensityDistributionMeasure|IfcCurvatureMeasure|IfcMassPerLengthMeasure|IfcModulusOfLinearSubgradeReactionMeasure|IfcModulusOfRotationalSubgradeReactionMeasure|IfcRotationalMassMeasure|IfcSectionalAreaIntegralMeasure|IfcSectionModulusMeasure|IfcTemperatureGradientMeasure|IfcThermalExpansionCoefficientMeasure|IfcWarpingConstantMeasure|IfcWarpingMomentMeasure|IfcSoundPowerMeasure|IfcSoundPressureMeasure|IfcHeatingValueMeasure|IfcPHMeasure|IfcIonConcentrationMeasure'
+			baseType: 'IfcVolumetricFlowRateMeasure|IfcTimeStamp|IfcThermalTransmittanceMeasure|IfcThermalResistanceMeasure|IfcThermalAdmittanceMeasure|IfcPressureMeasure|IfcPowerMeasure|IfcMassFlowRateMeasure|IfcMassDensityMeasure|IfcLinearVelocityMeasure|IfcKinematicViscosityMeasure|IfcIntegerCountRateMeasure|IfcHeatFluxDensityMeasure|IfcFrequencyMeasure|IfcEnergyMeasure|IfcElectricVoltageMeasure|IfcDynamicViscosityMeasure|IfcCompoundPlaneAngleMeasure|IfcAngularVelocityMeasure|IfcThermalConductivityMeasure|IfcMolecularWeightMeasure|IfcVaporPermeabilityMeasure|IfcMoistureDiffusivityMeasure|IfcIsothermalMoistureCapacityMeasure|IfcSpecificHeatCapacityMeasure|IfcMonetaryMeasure|IfcMagneticFluxDensityMeasure|IfcMagneticFluxMeasure|IfcLuminousFluxMeasure|IfcForceMeasure|IfcInductanceMeasure|IfcIlluminanceMeasure|IfcElectricResistanceMeasure|IfcElectricConductanceMeasure|IfcElectricChargeMeasure|IfcDoseEquivalentMeasure|IfcElectricCapacitanceMeasure|IfcAbsorbedDoseMeasure|IfcRadioActivityMeasure|IfcRotationalFrequencyMeasure|IfcTorqueMeasure|IfcAccelerationMeasure|IfcLinearForceMeasure|IfcLinearStiffnessMeasure|IfcModulusOfSubgradeReactionMeasure|IfcModulusOfElasticityMeasure|IfcMomentOfInertiaMeasure|IfcPlanarForceMeasure|IfcRotationalStiffnessMeasure|IfcShearModulusMeasure|IfcLinearMomentMeasure|IfcLuminousIntensityDistributionMeasure|IfcCurvatureMeasure|IfcMassPerLengthMeasure|IfcModulusOfLinearSubgradeReactionMeasure|IfcModulusOfRotationalSubgradeReactionMeasure|IfcRotationalMassMeasure|IfcSectionalAreaIntegralMeasure|IfcSectionModulusMeasure|IfcTemperatureGradientMeasure|IfcThermalExpansionCoefficientMeasure|IfcWarpingConstantMeasure|IfcWarpingMomentMeasure|IfcSoundPowerMeasure|IfcSoundPressureMeasure|IfcHeatingValueMeasure|IfcPHMeasure|IfcIonConcentrationMeasure',
+			optional: true
 		}, 
 		{
 			name: 'FlowConditionSingleValue',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveRatioMeasure'
+			baseType: 'IfcPositiveRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'VelocitySingleValue',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLinearVelocityMeasure'
+			baseType: 'IfcLinearVelocityMeasure',
+			optional: true
 		}, 
 		{
 			name: 'PressureSingleValue',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPressureMeasure'
+			baseType: 'IfcPressureMeasure',
+			optional: true
 		}
     ];
 

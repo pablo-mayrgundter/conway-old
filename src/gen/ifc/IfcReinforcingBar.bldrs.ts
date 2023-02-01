@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,30 @@ import IfcReinforcingBarSurfaceEnum from "./IfcReinforcingBarSurfaceEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcreinforcingbar.htm
  */
-export default class IfcReinforcingBar implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcReinforcingBar';
+export default  class IfcReinforcingBar extends IfcReinforcingElement 
+{    
+    public readonly specification: IfcReinforcingBarSpecification = IfcReinforcingBarSpecification.instance;
 
-    public readonly __version__: number = 0;
+private NominalDiameter_? : IfcPositiveLengthMeasure
+    private CrossSectionArea_? : IfcAreaMeasure
+    private BarLength_? : IfcPositiveLengthMeasure
+    private BarRole_? : IfcReinforcingBarRoleEnum
+    private BarSurface_? : IfcReinforcingBarSurfaceEnum
 
-    public readonly __specification__: IfcReinforcingBarSpecification = IfcReinforcingBarSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly NominalDiameter : IfcPositiveLengthMeasure , public readonly CrossSectionArea : IfcAreaMeasure , public readonly BarLength : IfcPositiveLengthMeasure  | undefined, public readonly BarRole : IfcReinforcingBarRoleEnum , public readonly BarSurface : IfcReinforcingBarSurfaceEnum  | undefined ) {}
 }
 
 export class IfcReinforcingBarSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcReinforcingBar';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcReinforcingElement', 'IfcBuildingElementComponent', 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcReinforcingBar', 'IfcReinforcingElement', 'IfcBuildingElementComponent', 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -38,31 +46,36 @@ export class IfcReinforcingBarSpecification implements ComponentSpecification
 			name: 'NominalDiameter',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'CrossSectionArea',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAreaMeasure'
+			baseType: 'IfcAreaMeasure',
+			optional: false
 		}, 
 		{
 			name: 'BarLength',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'BarRole',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcReinforcingBarRoleEnum'
+			baseType: 'IfcReinforcingBarRoleEnum',
+			optional: false
 		}, 
 		{
 			name: 'BarSurface',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcReinforcingBarSurfaceEnum'
+			baseType: 'IfcReinforcingBarSurfaceEnum',
+			optional: true
 		}
     ];
 

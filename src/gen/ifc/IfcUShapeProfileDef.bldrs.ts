@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,33 @@ import IfcPlaneAngleMeasure from "./IfcPlaneAngleMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcushapeprofiledef.htm
  */
-export default class IfcUShapeProfileDef implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcUShapeProfileDef';
+export default  class IfcUShapeProfileDef extends IfcParameterizedProfileDef 
+{    
+    public readonly specification: IfcUShapeProfileDefSpecification = IfcUShapeProfileDefSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Depth_? : IfcPositiveLengthMeasure
+    private FlangeWidth_? : IfcPositiveLengthMeasure
+    private WebThickness_? : IfcPositiveLengthMeasure
+    private FlangeThickness_? : IfcPositiveLengthMeasure
+    private FilletRadius_? : IfcPositiveLengthMeasure
+    private EdgeRadius_? : IfcPositiveLengthMeasure
+    private FlangeSlope_? : IfcPlaneAngleMeasure
+    private CentreOfGravityInX_? : IfcPositiveLengthMeasure
 
-    public readonly __specification__: IfcUShapeProfileDefSpecification = IfcUShapeProfileDefSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Depth : IfcPositiveLengthMeasure , public readonly FlangeWidth : IfcPositiveLengthMeasure , public readonly WebThickness : IfcPositiveLengthMeasure , public readonly FlangeThickness : IfcPositiveLengthMeasure , public readonly FilletRadius : IfcPositiveLengthMeasure  | undefined, public readonly EdgeRadius : IfcPositiveLengthMeasure  | undefined, public readonly FlangeSlope : IfcPlaneAngleMeasure  | undefined, public readonly CentreOfGravityInX : IfcPositiveLengthMeasure  | undefined ) {}
 }
 
 export class IfcUShapeProfileDefSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcUShapeProfileDef';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcParameterizedProfileDef', 'IfcProfileDef' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcUShapeProfileDef', 'IfcParameterizedProfileDef', 'IfcProfileDef' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,49 +47,57 @@ export class IfcUShapeProfileDefSpecification implements ComponentSpecification
 			name: 'Depth',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'FlangeWidth',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'WebThickness',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'FlangeThickness',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'FilletRadius',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'EdgeRadius',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'FlangeSlope',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPlaneAngleMeasure'
+			baseType: 'IfcPlaneAngleMeasure',
+			optional: true
 		}, 
 		{
 			name: 'CentreOfGravityInX',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}
     ];
 

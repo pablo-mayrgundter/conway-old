@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,28 @@ import IfcLabel from "./IfcLabel.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcderivedprofiledef.htm
  */
-export default class IfcDerivedProfileDef implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcDerivedProfileDef';
+export default  class IfcDerivedProfileDef extends IfcProfileDef 
+{    
+    public readonly specification: IfcDerivedProfileDefSpecification = IfcDerivedProfileDefSpecification.instance;
 
-    public readonly __version__: number = 0;
+private ParentProfile_? : IfcProfileDef
+    private Operator_? : IfcCartesianTransformationOperator2D
+    private Label_? : IfcLabel
 
-    public readonly __specification__: IfcDerivedProfileDefSpecification = IfcDerivedProfileDefSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly ParentProfile : IfcProfileDef , public readonly Operator : IfcCartesianTransformationOperator2D , public readonly Label : IfcLabel  | undefined ) {}
 }
 
 export class IfcDerivedProfileDefSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcDerivedProfileDef';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcProfileDef' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcDerivedProfileDef', 'IfcProfileDef' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,19 +43,22 @@ export class IfcDerivedProfileDefSpecification implements ComponentSpecification
 			name: 'ParentProfile',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcProfileDef'
+			baseType: 'IfcProfileDef',
+			optional: false
 		}, 
 		{
 			name: 'Operator',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCartesianTransformationOperator2D'
+			baseType: 'IfcCartesianTransformationOperator2D',
+			optional: false
 		}, 
 		{
 			name: 'Label',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}
     ];
 

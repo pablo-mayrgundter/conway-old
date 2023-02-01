@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,31 @@ import IfcLinearMomentMeasure from "./IfcLinearMomentMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstructuralloadlinearforce.htm
  */
-export default class IfcStructuralLoadLinearForce implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcStructuralLoadLinearForce';
+export default  class IfcStructuralLoadLinearForce extends IfcStructuralLoadStatic 
+{    
+    public readonly specification: IfcStructuralLoadLinearForceSpecification = IfcStructuralLoadLinearForceSpecification.instance;
 
-    public readonly __version__: number = 0;
+private LinearForceX_? : IfcLinearForceMeasure
+    private LinearForceY_? : IfcLinearForceMeasure
+    private LinearForceZ_? : IfcLinearForceMeasure
+    private LinearMomentX_? : IfcLinearMomentMeasure
+    private LinearMomentY_? : IfcLinearMomentMeasure
+    private LinearMomentZ_? : IfcLinearMomentMeasure
 
-    public readonly __specification__: IfcStructuralLoadLinearForceSpecification = IfcStructuralLoadLinearForceSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly LinearForceX : IfcLinearForceMeasure  | undefined, public readonly LinearForceY : IfcLinearForceMeasure  | undefined, public readonly LinearForceZ : IfcLinearForceMeasure  | undefined, public readonly LinearMomentX : IfcLinearMomentMeasure  | undefined, public readonly LinearMomentY : IfcLinearMomentMeasure  | undefined, public readonly LinearMomentZ : IfcLinearMomentMeasure  | undefined ) {}
 }
 
 export class IfcStructuralLoadLinearForceSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStructuralLoadLinearForce';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralLoadStatic', 'IfcStructuralLoad' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralLoadLinearForce', 'IfcStructuralLoadStatic', 'IfcStructuralLoad' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,37 +45,43 @@ export class IfcStructuralLoadLinearForceSpecification implements ComponentSpeci
 			name: 'LinearForceX',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLinearForceMeasure'
+			baseType: 'IfcLinearForceMeasure',
+			optional: true
 		}, 
 		{
 			name: 'LinearForceY',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLinearForceMeasure'
+			baseType: 'IfcLinearForceMeasure',
+			optional: true
 		}, 
 		{
 			name: 'LinearForceZ',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLinearForceMeasure'
+			baseType: 'IfcLinearForceMeasure',
+			optional: true
 		}, 
 		{
 			name: 'LinearMomentX',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLinearMomentMeasure'
+			baseType: 'IfcLinearMomentMeasure',
+			optional: true
 		}, 
 		{
 			name: 'LinearMomentY',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLinearMomentMeasure'
+			baseType: 'IfcLinearMomentMeasure',
+			optional: true
 		}, 
 		{
 			name: 'LinearMomentZ',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLinearMomentMeasure'
+			baseType: 'IfcLinearMomentMeasure',
+			optional: true
 		}
     ];
 

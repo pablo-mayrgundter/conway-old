@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,30 @@ import IfcRelInteractionRequirements from "./IfcRelInteractionRequirements.bldrs
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcspaceprogram.htm
  */
-export default class IfcSpaceProgram implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcSpaceProgram';
+export default  class IfcSpaceProgram extends IfcControl 
+{    
+    public readonly specification: IfcSpaceProgramSpecification = IfcSpaceProgramSpecification.instance;
 
-    public readonly __version__: number = 0;
+private SpaceProgramIdentifier_? : IfcIdentifier
+    private MaxRequiredArea_? : IfcAreaMeasure
+    private MinRequiredArea_? : IfcAreaMeasure
+    private RequestedLocation_? : IfcSpatialStructureElement
+    private StandardRequiredArea_? : IfcAreaMeasure
 
-    public readonly __specification__: IfcSpaceProgramSpecification = IfcSpaceProgramSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly SpaceProgramIdentifier : IfcIdentifier , public readonly MaxRequiredArea : IfcAreaMeasure  | undefined, public readonly MinRequiredArea : IfcAreaMeasure  | undefined, public readonly RequestedLocation : IfcSpatialStructureElement  | undefined, public readonly StandardRequiredArea : IfcAreaMeasure  ) {}
 }
 
 export class IfcSpaceProgramSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSpaceProgram';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSpaceProgram', 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -38,31 +46,36 @@ export class IfcSpaceProgramSpecification implements ComponentSpecification
 			name: 'SpaceProgramIdentifier',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcIdentifier'
+			baseType: 'IfcIdentifier',
+			optional: false
 		}, 
 		{
 			name: 'MaxRequiredArea',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAreaMeasure'
+			baseType: 'IfcAreaMeasure',
+			optional: true
 		}, 
 		{
 			name: 'MinRequiredArea',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAreaMeasure'
+			baseType: 'IfcAreaMeasure',
+			optional: true
 		}, 
 		{
 			name: 'RequestedLocation',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSpatialStructureElement'
+			baseType: 'IfcSpatialStructureElement',
+			optional: true
 		}, 
 		{
 			name: 'StandardRequiredArea',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAreaMeasure'
+			baseType: 'IfcAreaMeasure',
+			optional: false
 		}
     ];
 

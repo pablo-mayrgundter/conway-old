@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,27 @@ import IfcNamedUnit from "./IfcNamedUnit.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcderivedunitelement.htm
  */
-export default class IfcDerivedUnitElement implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcDerivedUnitElement';
+export default  class IfcDerivedUnitElement extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcDerivedUnitElementSpecification = IfcDerivedUnitElementSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Unit_? : IfcNamedUnit
+    private Exponent_? : number
 
-    public readonly __specification__: IfcDerivedUnitElementSpecification = IfcDerivedUnitElementSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Unit : IfcNamedUnit , public readonly Exponent : number  ) {}
 }
 
 export class IfcDerivedUnitElementSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcDerivedUnitElement';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcDerivedUnitElement' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,13 +40,15 @@ export class IfcDerivedUnitElementSpecification implements ComponentSpecificatio
 			name: 'Unit',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcNamedUnit'
+			baseType: 'IfcNamedUnit',
+			optional: false
 		}, 
 		{
 			name: 'Exponent',
 			isCollection: false,
 			rank: 0,
-			baseType: 'number'
+			baseType: 'number',
+			optional: false
 		}
     ];
 

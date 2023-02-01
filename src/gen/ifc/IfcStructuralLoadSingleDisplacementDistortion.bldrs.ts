@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcCurvatureMeasure from "./IfcCurvatureMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstructuralloadsingledisplacementdistortion.htm
  */
-export default class IfcStructuralLoadSingleDisplacementDistortion implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcStructuralLoadSingleDisplacementDistortion';
+export default  class IfcStructuralLoadSingleDisplacementDistortion extends IfcStructuralLoadSingleDisplacement 
+{    
+    public readonly specification: IfcStructuralLoadSingleDisplacementDistortionSpecification = IfcStructuralLoadSingleDisplacementDistortionSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Distortion_? : IfcCurvatureMeasure
 
-    public readonly __specification__: IfcStructuralLoadSingleDisplacementDistortionSpecification = IfcStructuralLoadSingleDisplacementDistortionSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Distortion : IfcCurvatureMeasure  | undefined ) {}
 }
 
 export class IfcStructuralLoadSingleDisplacementDistortionSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStructuralLoadSingleDisplacementDistortion';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralLoadSingleDisplacement', 'IfcStructuralLoadStatic', 'IfcStructuralLoad' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralLoadSingleDisplacementDistortion', 'IfcStructuralLoadSingleDisplacement', 'IfcStructuralLoadStatic', 'IfcStructuralLoad' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcStructuralLoadSingleDisplacementDistortionSpecification implemen
 			name: 'Distortion',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCurvatureMeasure'
+			baseType: 'IfcCurvatureMeasure',
+			optional: true
 		}
     ];
 

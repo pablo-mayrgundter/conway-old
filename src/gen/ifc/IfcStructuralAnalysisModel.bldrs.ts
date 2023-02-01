@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,29 @@ import IfcStructuralResultGroup from "./IfcStructuralResultGroup.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstructuralanalysismodel.htm
  */
-export default class IfcStructuralAnalysisModel implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcStructuralAnalysisModel';
+export default  class IfcStructuralAnalysisModel extends IfcSystem 
+{    
+    public readonly specification: IfcStructuralAnalysisModelSpecification = IfcStructuralAnalysisModelSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcAnalysisModelTypeEnum
+    private OrientationOf2DPlane_? : IfcAxis2Placement3D
+    private LoadedBy_? : Array<IfcStructuralLoadGroup>
+    private HasResults_? : Array<IfcStructuralResultGroup>
 
-    public readonly __specification__: IfcStructuralAnalysisModelSpecification = IfcStructuralAnalysisModelSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcAnalysisModelTypeEnum , public readonly OrientationOf2DPlane : IfcAxis2Placement3D  | undefined, public readonly LoadedBy : Array<IfcStructuralLoadGroup>  | undefined, public readonly HasResults : Array<IfcStructuralResultGroup>  | undefined ) {}
 }
 
 export class IfcStructuralAnalysisModelSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStructuralAnalysisModel';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcSystem', 'IfcGroup', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralAnalysisModel', 'IfcSystem', 'IfcGroup', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -38,25 +45,29 @@ export class IfcStructuralAnalysisModelSpecification implements ComponentSpecifi
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAnalysisModelTypeEnum'
+			baseType: 'IfcAnalysisModelTypeEnum',
+			optional: false
 		}, 
 		{
 			name: 'OrientationOf2DPlane',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAxis2Placement3D'
+			baseType: 'IfcAxis2Placement3D',
+			optional: true
 		}, 
 		{
 			name: 'LoadedBy',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcStructuralLoadGroup>'
+			baseType: 'Array<IfcStructuralLoadGroup>',
+			optional: true
 		}, 
 		{
 			name: 'HasResults',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcStructuralResultGroup>'
+			baseType: 'Array<IfcStructuralResultGroup>',
+			optional: true
 		}
     ];
 

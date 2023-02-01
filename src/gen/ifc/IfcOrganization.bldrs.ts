@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -16,22 +16,30 @@ import IfcPersonAndOrganization from "./IfcPersonAndOrganization.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcorganization.htm
  */
-export default class IfcOrganization implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcOrganization';
+export default  class IfcOrganization extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcOrganizationSpecification = IfcOrganizationSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Id_? : IfcIdentifier
+    private Name_? : IfcLabel
+    private Description_? : IfcText
+    private Roles_? : Array<IfcActorRole>
+    private Addresses_? : Array<IfcAddress>
 
-    public readonly __specification__: IfcOrganizationSpecification = IfcOrganizationSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Id : IfcIdentifier  | undefined, public readonly Name : IfcLabel , public readonly Description : IfcText  | undefined, public readonly Roles : Array<IfcActorRole>  | undefined, public readonly Addresses : Array<IfcAddress>  | undefined ) {}
 }
 
 export class IfcOrganizationSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcOrganization';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcOrganization' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -41,31 +49,36 @@ export class IfcOrganizationSpecification implements ComponentSpecification
 			name: 'Id',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcIdentifier'
+			baseType: 'IfcIdentifier',
+			optional: true
 		}, 
 		{
 			name: 'Name',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: false
 		}, 
 		{
 			name: 'Description',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcText'
+			baseType: 'IfcText',
+			optional: true
 		}, 
 		{
 			name: 'Roles',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcActorRole>'
+			baseType: 'Array<IfcActorRole>',
+			optional: true
 		}, 
 		{
 			name: 'Addresses',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcAddress>'
+			baseType: 'Array<IfcAddress>',
+			optional: true
 		}
     ];
 

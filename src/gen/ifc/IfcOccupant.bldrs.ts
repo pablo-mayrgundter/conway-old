@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcOccupantTypeEnum from "./IfcOccupantTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcoccupant.htm
  */
-export default class IfcOccupant implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcOccupant';
+export default  class IfcOccupant extends IfcActor 
+{    
+    public readonly specification: IfcOccupantSpecification = IfcOccupantSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcOccupantTypeEnum
 
-    public readonly __specification__: IfcOccupantSpecification = IfcOccupantSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcOccupantTypeEnum  ) {}
 }
 
 export class IfcOccupantSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcOccupant';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcActor', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcOccupant', 'IfcActor', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcOccupantSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcOccupantTypeEnum'
+			baseType: 'IfcOccupantTypeEnum',
+			optional: false
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcFlowDirectionEnum from "./IfcFlowDirectionEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcdistributionport.htm
  */
-export default class IfcDistributionPort implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcDistributionPort';
+export default  class IfcDistributionPort extends IfcPort 
+{    
+    public readonly specification: IfcDistributionPortSpecification = IfcDistributionPortSpecification.instance;
 
-    public readonly __version__: number = 0;
+private FlowDirection_? : IfcFlowDirectionEnum
 
-    public readonly __specification__: IfcDistributionPortSpecification = IfcDistributionPortSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly FlowDirection : IfcFlowDirectionEnum  | undefined ) {}
 }
 
 export class IfcDistributionPortSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcDistributionPort';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcPort', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcDistributionPort', 'IfcPort', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcDistributionPortSpecification implements ComponentSpecification
 			name: 'FlowDirection',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcFlowDirectionEnum'
+			baseType: 'IfcFlowDirectionEnum',
+			optional: true
 		}
     ];
 

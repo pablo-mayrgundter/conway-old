@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcRailingTypeEnum from "./IfcRailingTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrailing.htm
  */
-export default class IfcRailing implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRailing';
+export default  class IfcRailing extends IfcBuildingElement 
+{    
+    public readonly specification: IfcRailingSpecification = IfcRailingSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcRailingTypeEnum
 
-    public readonly __specification__: IfcRailingSpecification = IfcRailingSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcRailingTypeEnum  | undefined ) {}
 }
 
 export class IfcRailingSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRailing';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRailing', 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcRailingSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcRailingTypeEnum'
+			baseType: 'IfcRailingTypeEnum',
+			optional: true
 		}
     ];
 

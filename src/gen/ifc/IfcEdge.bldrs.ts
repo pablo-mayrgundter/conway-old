@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,27 @@ import IfcVertex from "./IfcVertex.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcedge.htm
  */
-export default class IfcEdge implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcEdge';
+export default  class IfcEdge extends IfcTopologicalRepresentationItem 
+{    
+    public readonly specification: IfcEdgeSpecification = IfcEdgeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private EdgeStart_? : IfcVertex
+    private EdgeEnd_? : IfcVertex
 
-    public readonly __specification__: IfcEdgeSpecification = IfcEdgeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly EdgeStart : IfcVertex , public readonly EdgeEnd : IfcVertex  ) {}
 }
 
 export class IfcEdgeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcEdge';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcTopologicalRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcEdge', 'IfcTopologicalRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,13 +40,15 @@ export class IfcEdgeSpecification implements ComponentSpecification
 			name: 'EdgeStart',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcVertex'
+			baseType: 'IfcVertex',
+			optional: false
 		}, 
 		{
 			name: 'EdgeEnd',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcVertex'
+			baseType: 'IfcVertex',
+			optional: false
 		}
     ];
 

@@ -9,8 +9,6 @@ import IfcOpenShell from "./IfcOpenShell.bldrs"
 
 export default class IfcShell
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcShellVariant ) {}
 }
 
@@ -20,3 +18,8 @@ export type IfcShellChoices = IfcClosedShell|IfcOpenShell;
 
 export type IfcShellVariant = ({ type: 'IfcClosedShell'; value: IfcClosedShell }|{ type: 'IfcOpenShell'; value: IfcOpenShell }) & { type: IfcShellType; value: IfcShellChoices };
 
+export function IfcShellSerializer( value?: IfcShell, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -9,22 +9,26 @@ import { IFCSchema } from "./schema_ifc.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcdraughtingpredefinedcurvefont.htm
  */
-export default class IfcDraughtingPreDefinedCurveFont implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcDraughtingPreDefinedCurveFont';
+export default  class IfcDraughtingPreDefinedCurveFont extends IfcPreDefinedCurveFont 
+{    
+    public readonly specification: IfcDraughtingPreDefinedCurveFontSpecification = IfcDraughtingPreDefinedCurveFontSpecification.instance;
 
-    public readonly __version__: number = 0;
 
-    public readonly __specification__: IfcDraughtingPreDefinedCurveFontSpecification = IfcDraughtingPreDefinedCurveFontSpecification.instance;
 
-    constructor(  ) {}
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
+
 }
 
 export class IfcDraughtingPreDefinedCurveFontSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcDraughtingPreDefinedCurveFont';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcPreDefinedCurveFont', 'IfcPreDefinedItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcDraughtingPreDefinedCurveFont', 'IfcPreDefinedCurveFont', 'IfcPreDefinedItem' ];
 
     public readonly isAbstract: boolean = false;
 

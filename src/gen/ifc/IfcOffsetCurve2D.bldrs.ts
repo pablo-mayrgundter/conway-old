@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,28 @@ import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcoffsetcurve2d.htm
  */
-export default class IfcOffsetCurve2D implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcOffsetCurve2D';
+export default  class IfcOffsetCurve2D extends IfcCurve 
+{    
+    public readonly specification: IfcOffsetCurve2DSpecification = IfcOffsetCurve2DSpecification.instance;
 
-    public readonly __version__: number = 0;
+private BasisCurve_? : IfcCurve
+    private Distance_? : IfcLengthMeasure
+    private SelfIntersect_? : boolean
 
-    public readonly __specification__: IfcOffsetCurve2DSpecification = IfcOffsetCurve2DSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly BasisCurve : IfcCurve , public readonly Distance : IfcLengthMeasure , public readonly SelfIntersect : boolean  ) {}
 }
 
 export class IfcOffsetCurve2DSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcOffsetCurve2D';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcCurve', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcOffsetCurve2D', 'IfcCurve', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,19 +42,22 @@ export class IfcOffsetCurve2DSpecification implements ComponentSpecification
 			name: 'BasisCurve',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCurve'
+			baseType: 'IfcCurve',
+			optional: false
 		}, 
 		{
 			name: 'Distance',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'SelfIntersect',
 			isCollection: false,
 			rank: 0,
-			baseType: 'boolean'
+			baseType: 'boolean',
+			optional: false
 		}
     ];
 

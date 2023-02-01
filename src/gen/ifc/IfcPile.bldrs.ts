@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcPileConstructionEnum from "./IfcPileConstructionEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcpile.htm
  */
-export default class IfcPile implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcPile';
+export default  class IfcPile extends IfcBuildingElement 
+{    
+    public readonly specification: IfcPileSpecification = IfcPileSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcPileTypeEnum
+    private ConstructionType_? : IfcPileConstructionEnum
 
-    public readonly __specification__: IfcPileSpecification = IfcPileSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcPileTypeEnum , public readonly ConstructionType : IfcPileConstructionEnum  | undefined ) {}
 }
 
 export class IfcPileSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcPile';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPile', 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcPileSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPileTypeEnum'
+			baseType: 'IfcPileTypeEnum',
+			optional: false
 		}, 
 		{
 			name: 'ConstructionType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPileConstructionEnum'
+			baseType: 'IfcPileConstructionEnum',
+			optional: true
 		}
     ];
 

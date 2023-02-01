@@ -8,8 +8,6 @@ import IfcFillAreaStyleTileSymbolWithStyle from "./IfcFillAreaStyleTileSymbolWit
 
 export default class IfcFillAreaStyleTileShapeSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcFillAreaStyleTileShapeSelectVariant ) {}
 }
 
@@ -19,3 +17,8 @@ export type IfcFillAreaStyleTileShapeSelectChoices = IfcFillAreaStyleTileSymbolW
 
 export type IfcFillAreaStyleTileShapeSelectVariant = ({ type: 'IfcFillAreaStyleTileSymbolWithStyle'; value: IfcFillAreaStyleTileSymbolWithStyle }) & { type: IfcFillAreaStyleTileShapeSelectType; value: IfcFillAreaStyleTileShapeSelectChoices };
 
+export function IfcFillAreaStyleTileShapeSelectSerializer( value?: IfcFillAreaStyleTileShapeSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

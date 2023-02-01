@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,27 @@ import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcwindow.htm
  */
-export default class IfcWindow implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcWindow';
+export default  class IfcWindow extends IfcBuildingElement 
+{    
+    public readonly specification: IfcWindowSpecification = IfcWindowSpecification.instance;
 
-    public readonly __version__: number = 0;
+private OverallHeight_? : IfcPositiveLengthMeasure
+    private OverallWidth_? : IfcPositiveLengthMeasure
 
-    public readonly __specification__: IfcWindowSpecification = IfcWindowSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly OverallHeight : IfcPositiveLengthMeasure  | undefined, public readonly OverallWidth : IfcPositiveLengthMeasure  | undefined ) {}
 }
 
 export class IfcWindowSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcWindow';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcWindow', 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,13 +40,15 @@ export class IfcWindowSpecification implements ComponentSpecification
 			name: 'OverallHeight',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'OverallWidth',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}
     ];
 

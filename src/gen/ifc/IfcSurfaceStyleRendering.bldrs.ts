@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -14,22 +14,33 @@ import IfcReflectanceMethodEnum from "./IfcReflectanceMethodEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcsurfacestylerendering.htm
  */
-export default class IfcSurfaceStyleRendering implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcSurfaceStyleRendering';
+export default  class IfcSurfaceStyleRendering extends IfcSurfaceStyleShading 
+{    
+    public readonly specification: IfcSurfaceStyleRenderingSpecification = IfcSurfaceStyleRenderingSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Transparency_? : IfcNormalisedRatioMeasure
+    private DiffuseColour_? : IfcColourRgb|IfcNormalisedRatioMeasure
+    private TransmissionColour_? : IfcColourRgb|IfcNormalisedRatioMeasure
+    private DiffuseTransmissionColour_? : IfcColourRgb|IfcNormalisedRatioMeasure
+    private ReflectionColour_? : IfcColourRgb|IfcNormalisedRatioMeasure
+    private SpecularColour_? : IfcColourRgb|IfcNormalisedRatioMeasure
+    private SpecularHighlight_? : IfcSpecularExponent|IfcSpecularRoughness
+    private ReflectanceMethod_? : IfcReflectanceMethodEnum
 
-    public readonly __specification__: IfcSurfaceStyleRenderingSpecification = IfcSurfaceStyleRenderingSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Transparency : IfcNormalisedRatioMeasure  | undefined, public readonly DiffuseColour : IfcColourRgb|IfcNormalisedRatioMeasure  | undefined, public readonly TransmissionColour : IfcColourRgb|IfcNormalisedRatioMeasure  | undefined, public readonly DiffuseTransmissionColour : IfcColourRgb|IfcNormalisedRatioMeasure  | undefined, public readonly ReflectionColour : IfcColourRgb|IfcNormalisedRatioMeasure  | undefined, public readonly SpecularColour : IfcColourRgb|IfcNormalisedRatioMeasure  | undefined, public readonly SpecularHighlight : IfcSpecularExponent|IfcSpecularRoughness  | undefined, public readonly ReflectanceMethod : IfcReflectanceMethodEnum  ) {}
 }
 
 export class IfcSurfaceStyleRenderingSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSurfaceStyleRendering';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcSurfaceStyleShading' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSurfaceStyleRendering', 'IfcSurfaceStyleShading' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -39,49 +50,57 @@ export class IfcSurfaceStyleRenderingSpecification implements ComponentSpecifica
 			name: 'Transparency',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcNormalisedRatioMeasure'
+			baseType: 'IfcNormalisedRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'DiffuseColour',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcColourRgb|IfcNormalisedRatioMeasure'
+			baseType: 'IfcColourRgb|IfcNormalisedRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'TransmissionColour',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcColourRgb|IfcNormalisedRatioMeasure'
+			baseType: 'IfcColourRgb|IfcNormalisedRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'DiffuseTransmissionColour',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcColourRgb|IfcNormalisedRatioMeasure'
+			baseType: 'IfcColourRgb|IfcNormalisedRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'ReflectionColour',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcColourRgb|IfcNormalisedRatioMeasure'
+			baseType: 'IfcColourRgb|IfcNormalisedRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'SpecularColour',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcColourRgb|IfcNormalisedRatioMeasure'
+			baseType: 'IfcColourRgb|IfcNormalisedRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'SpecularHighlight',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSpecularExponent|IfcSpecularRoughness'
+			baseType: 'IfcSpecularExponent|IfcSpecularRoughness',
+			optional: true
 		}, 
 		{
 			name: 'ReflectanceMethod',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcReflectanceMethodEnum'
+			baseType: 'IfcReflectanceMethodEnum',
+			optional: false
 		}
     ];
 

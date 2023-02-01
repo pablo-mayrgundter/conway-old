@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -19,22 +19,30 @@ import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifctextstylefontmodel.htm
  */
-export default class IfcTextStyleFontModel implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcTextStyleFontModel';
+export default  class IfcTextStyleFontModel extends IfcPreDefinedTextFont 
+{    
+    public readonly specification: IfcTextStyleFontModelSpecification = IfcTextStyleFontModelSpecification.instance;
 
-    public readonly __version__: number = 0;
+private FontFamily_? : Array<IfcTextFontName>
+    private FontStyle_? : IfcFontStyle
+    private FontVariant_? : IfcFontVariant
+    private FontWeight_? : IfcFontWeight
+    private FontSize_? : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure
 
-    public readonly __specification__: IfcTextStyleFontModelSpecification = IfcTextStyleFontModelSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly FontFamily : Array<IfcTextFontName>  | undefined, public readonly FontStyle : IfcFontStyle  | undefined, public readonly FontVariant : IfcFontVariant  | undefined, public readonly FontWeight : IfcFontWeight  | undefined, public readonly FontSize : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure  ) {}
 }
 
 export class IfcTextStyleFontModelSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcTextStyleFontModel';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcPreDefinedTextFont', 'IfcPreDefinedItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcTextStyleFontModel', 'IfcPreDefinedTextFont', 'IfcPreDefinedItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -44,31 +52,36 @@ export class IfcTextStyleFontModelSpecification implements ComponentSpecificatio
 			name: 'FontFamily',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcTextFontName>'
+			baseType: 'Array<IfcTextFontName>',
+			optional: true
 		}, 
 		{
 			name: 'FontStyle',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcFontStyle'
+			baseType: 'IfcFontStyle',
+			optional: true
 		}, 
 		{
 			name: 'FontVariant',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcFontVariant'
+			baseType: 'IfcFontVariant',
+			optional: true
 		}, 
 		{
 			name: 'FontWeight',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcFontWeight'
+			baseType: 'IfcFontWeight',
+			optional: true
 		}, 
 		{
 			name: 'FontSize',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure'
+			baseType: 'IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure',
+			optional: false
 		}
     ];
 

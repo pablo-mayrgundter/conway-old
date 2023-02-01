@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcEvaporatorTypeEnum from "./IfcEvaporatorTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcevaporatortype.htm
  */
-export default class IfcEvaporatorType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcEvaporatorType';
+export default  class IfcEvaporatorType extends IfcEnergyConversionDeviceType 
+{    
+    public readonly specification: IfcEvaporatorTypeSpecification = IfcEvaporatorTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcEvaporatorTypeEnum
 
-    public readonly __specification__: IfcEvaporatorTypeSpecification = IfcEvaporatorTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcEvaporatorTypeEnum  ) {}
 }
 
 export class IfcEvaporatorTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcEvaporatorType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcEnergyConversionDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcEvaporatorType', 'IfcEnergyConversionDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcEvaporatorTypeSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcEvaporatorTypeEnum'
+			baseType: 'IfcEvaporatorTypeEnum',
+			optional: false
 		}
     ];
 

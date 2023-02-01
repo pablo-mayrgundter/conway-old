@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcObjectTypeEnum from "./IfcObjectTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrelassigns.htm
  */
-export default class IfcRelAssigns implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRelAssigns';
+export default abstract class IfcRelAssigns extends IfcRelationship 
+{    
+    public readonly specification: IfcRelAssignsSpecification = IfcRelAssignsSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RelatedObjects_? : Array<IfcObjectDefinition>
+    private RelatedObjectsType_? : IfcObjectTypeEnum
 
-    public readonly __specification__: IfcRelAssignsSpecification = IfcRelAssignsSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RelatedObjects : Array<IfcObjectDefinition> , public readonly RelatedObjectsType : IfcObjectTypeEnum  | undefined ) {}
 }
 
 export class IfcRelAssignsSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelAssigns';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssigns', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -36,13 +41,15 @@ export class IfcRelAssignsSpecification implements ComponentSpecification
 			name: 'RelatedObjects',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcObjectDefinition>'
+			baseType: 'Array<IfcObjectDefinition>',
+			optional: false
 		}, 
 		{
 			name: 'RelatedObjectsType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcObjectTypeEnum'
+			baseType: 'IfcObjectTypeEnum',
+			optional: true
 		}
     ];
 

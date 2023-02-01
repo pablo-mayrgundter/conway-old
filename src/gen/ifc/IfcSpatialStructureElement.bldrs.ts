@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -14,22 +14,27 @@ import IfcRelContainedInSpatialStructure from "./IfcRelContainedInSpatialStructu
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcspatialstructureelement.htm
  */
-export default class IfcSpatialStructureElement implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcSpatialStructureElement';
+export default abstract class IfcSpatialStructureElement extends IfcProduct 
+{    
+    public readonly specification: IfcSpatialStructureElementSpecification = IfcSpatialStructureElementSpecification.instance;
 
-    public readonly __version__: number = 0;
+private LongName_? : IfcLabel
+    private CompositionType_? : IfcElementCompositionEnum
 
-    public readonly __specification__: IfcSpatialStructureElementSpecification = IfcSpatialStructureElementSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly LongName : IfcLabel  | undefined, public readonly CompositionType : IfcElementCompositionEnum  ) {}
 }
 
 export class IfcSpatialStructureElementSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSpatialStructureElement';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSpatialStructureElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -39,13 +44,15 @@ export class IfcSpatialStructureElementSpecification implements ComponentSpecifi
 			name: 'LongName',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'CompositionType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcElementCompositionEnum'
+			baseType: 'IfcElementCompositionEnum',
+			optional: false
 		}
     ];
 

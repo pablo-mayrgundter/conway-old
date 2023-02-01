@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,29 @@ import IfcConstraint from "./IfcConstraint.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcconstraintrelationship.htm
  */
-export default class IfcConstraintRelationship implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcConstraintRelationship';
+export default  class IfcConstraintRelationship extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcConstraintRelationshipSpecification = IfcConstraintRelationshipSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Name_? : IfcLabel
+    private Description_? : IfcText
+    private RelatingConstraint_? : IfcConstraint
+    private RelatedConstraints_? : Array<IfcConstraint>
 
-    public readonly __specification__: IfcConstraintRelationshipSpecification = IfcConstraintRelationshipSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Name : IfcLabel  | undefined, public readonly Description : IfcText  | undefined, public readonly RelatingConstraint : IfcConstraint , public readonly RelatedConstraints : Array<IfcConstraint>  ) {}
 }
 
 export class IfcConstraintRelationshipSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcConstraintRelationship';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcConstraintRelationship' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,25 +44,29 @@ export class IfcConstraintRelationshipSpecification implements ComponentSpecific
 			name: 'Name',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'Description',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcText'
+			baseType: 'IfcText',
+			optional: true
 		}, 
 		{
 			name: 'RelatingConstraint',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcConstraint'
+			baseType: 'IfcConstraint',
+			optional: false
 		}, 
 		{
 			name: 'RelatedConstraints',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcConstraint>'
+			baseType: 'Array<IfcConstraint>',
+			optional: false
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,26 @@ import IfcDocumentInformation from "./IfcDocumentInformation.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrelassociatesdocument.htm
  */
-export default class IfcRelAssociatesDocument implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRelAssociatesDocument';
+export default  class IfcRelAssociatesDocument extends IfcRelAssociates 
+{    
+    public readonly specification: IfcRelAssociatesDocumentSpecification = IfcRelAssociatesDocumentSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RelatingDocument_? : IfcDocumentReference|IfcDocumentInformation
 
-    public readonly __specification__: IfcRelAssociatesDocumentSpecification = IfcRelAssociatesDocumentSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RelatingDocument : IfcDocumentReference|IfcDocumentInformation  ) {}
 }
 
 export class IfcRelAssociatesDocumentSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelAssociatesDocument';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssociates', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssociatesDocument', 'IfcRelAssociates', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,7 +40,8 @@ export class IfcRelAssociatesDocumentSpecification implements ComponentSpecifica
 			name: 'RelatingDocument',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDocumentReference|IfcDocumentInformation'
+			baseType: 'IfcDocumentReference|IfcDocumentInformation',
+			optional: false
 		}
     ];
 

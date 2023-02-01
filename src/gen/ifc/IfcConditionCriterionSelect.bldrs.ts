@@ -9,8 +9,6 @@ import IfcMeasureWithUnit from "./IfcMeasureWithUnit.bldrs"
 
 export default class IfcConditionCriterionSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcConditionCriterionSelectVariant ) {}
 }
 
@@ -20,3 +18,8 @@ export type IfcConditionCriterionSelectChoices = IfcLabel|IfcMeasureWithUnit;
 
 export type IfcConditionCriterionSelectVariant = ({ type: 'IfcLabel'; value: IfcLabel }|{ type: 'IfcMeasureWithUnit'; value: IfcMeasureWithUnit }) & { type: IfcConditionCriterionSelectType; value: IfcConditionCriterionSelectChoices };
 
+export function IfcConditionCriterionSelectSerializer( value?: IfcConditionCriterionSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

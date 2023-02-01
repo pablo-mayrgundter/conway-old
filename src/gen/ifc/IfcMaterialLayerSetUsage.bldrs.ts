@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,29 @@ import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcmateriallayersetusage.htm
  */
-export default class IfcMaterialLayerSetUsage implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcMaterialLayerSetUsage';
+export default  class IfcMaterialLayerSetUsage extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcMaterialLayerSetUsageSpecification = IfcMaterialLayerSetUsageSpecification.instance;
 
-    public readonly __version__: number = 0;
+private ForLayerSet_? : IfcMaterialLayerSet
+    private LayerSetDirection_? : IfcLayerSetDirectionEnum
+    private DirectionSense_? : IfcDirectionSenseEnum
+    private OffsetFromReferenceLine_? : IfcLengthMeasure
 
-    public readonly __specification__: IfcMaterialLayerSetUsageSpecification = IfcMaterialLayerSetUsageSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly ForLayerSet : IfcMaterialLayerSet , public readonly LayerSetDirection : IfcLayerSetDirectionEnum , public readonly DirectionSense : IfcDirectionSenseEnum , public readonly OffsetFromReferenceLine : IfcLengthMeasure  ) {}
 }
 
 export class IfcMaterialLayerSetUsageSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcMaterialLayerSetUsage';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcMaterialLayerSetUsage' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -38,25 +45,29 @@ export class IfcMaterialLayerSetUsageSpecification implements ComponentSpecifica
 			name: 'ForLayerSet',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcMaterialLayerSet'
+			baseType: 'IfcMaterialLayerSet',
+			optional: false
 		}, 
 		{
 			name: 'LayerSetDirection',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLayerSetDirectionEnum'
+			baseType: 'IfcLayerSetDirectionEnum',
+			optional: false
 		}, 
 		{
 			name: 'DirectionSense',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDirectionSenseEnum'
+			baseType: 'IfcDirectionSenseEnum',
+			optional: false
 		}, 
 		{
 			name: 'OffsetFromReferenceLine',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: false
 		}
     ];
 

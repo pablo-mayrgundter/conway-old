@@ -10,8 +10,6 @@ import IfcAnnotationSymbolOccurrence from "./IfcAnnotationSymbolOccurrence.bldrs
 
 export default class IfcDraughtingCalloutElement
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcDraughtingCalloutElementVariant ) {}
 }
 
@@ -21,3 +19,8 @@ export type IfcDraughtingCalloutElementChoices = IfcAnnotationCurveOccurrence|If
 
 export type IfcDraughtingCalloutElementVariant = ({ type: 'IfcAnnotationCurveOccurrence'; value: IfcAnnotationCurveOccurrence }|{ type: 'IfcAnnotationTextOccurrence'; value: IfcAnnotationTextOccurrence }|{ type: 'IfcAnnotationSymbolOccurrence'; value: IfcAnnotationSymbolOccurrence }) & { type: IfcDraughtingCalloutElementType; value: IfcDraughtingCalloutElementChoices };
 
+export function IfcDraughtingCalloutElementSerializer( value?: IfcDraughtingCalloutElement, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

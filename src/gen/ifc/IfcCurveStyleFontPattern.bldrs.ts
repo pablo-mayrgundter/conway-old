@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccurvestylefontpattern.htm
  */
-export default class IfcCurveStyleFontPattern implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcCurveStyleFontPattern';
+export default  class IfcCurveStyleFontPattern extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcCurveStyleFontPatternSpecification = IfcCurveStyleFontPatternSpecification.instance;
 
-    public readonly __version__: number = 0;
+private VisibleSegmentLength_? : IfcLengthMeasure
+    private InvisibleSegmentLength_? : IfcPositiveLengthMeasure
 
-    public readonly __specification__: IfcCurveStyleFontPatternSpecification = IfcCurveStyleFontPatternSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly VisibleSegmentLength : IfcLengthMeasure , public readonly InvisibleSegmentLength : IfcPositiveLengthMeasure  ) {}
 }
 
 export class IfcCurveStyleFontPatternSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCurveStyleFontPattern';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcCurveStyleFontPattern' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcCurveStyleFontPatternSpecification implements ComponentSpecifica
 			name: 'VisibleSegmentLength',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'InvisibleSegmentLength',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}
     ];
 

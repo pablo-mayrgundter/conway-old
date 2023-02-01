@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcAirTerminalTypeEnum from "./IfcAirTerminalTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcairterminaltype.htm
  */
-export default class IfcAirTerminalType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcAirTerminalType';
+export default  class IfcAirTerminalType extends IfcFlowTerminalType 
+{    
+    public readonly specification: IfcAirTerminalTypeSpecification = IfcAirTerminalTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcAirTerminalTypeEnum
 
-    public readonly __specification__: IfcAirTerminalTypeSpecification = IfcAirTerminalTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcAirTerminalTypeEnum  ) {}
 }
 
 export class IfcAirTerminalTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcAirTerminalType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFlowTerminalType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcAirTerminalType', 'IfcFlowTerminalType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcAirTerminalTypeSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAirTerminalTypeEnum'
+			baseType: 'IfcAirTerminalTypeEnum',
+			optional: false
 		}
     ];
 

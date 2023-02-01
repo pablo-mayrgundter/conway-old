@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,27 @@ import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcpointoncurve.htm
  */
-export default class IfcPointOnCurve implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcPointOnCurve';
+export default  class IfcPointOnCurve extends IfcPoint 
+{    
+    public readonly specification: IfcPointOnCurveSpecification = IfcPointOnCurveSpecification.instance;
 
-    public readonly __version__: number = 0;
+private BasisCurve_? : IfcCurve
+    private PointParameter_? : IfcParameterValue
 
-    public readonly __specification__: IfcPointOnCurveSpecification = IfcPointOnCurveSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly BasisCurve : IfcCurve , public readonly PointParameter : IfcParameterValue  ) {}
 }
 
 export class IfcPointOnCurveSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcPointOnCurve';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcPoint', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPointOnCurve', 'IfcPoint', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,13 +42,15 @@ export class IfcPointOnCurveSpecification implements ComponentSpecification
 			name: 'BasisCurve',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCurve'
+			baseType: 'IfcCurve',
+			optional: false
 		}, 
 		{
 			name: 'PointParameter',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcParameterValue'
+			baseType: 'IfcParameterValue',
+			optional: false
 		}
     ];
 

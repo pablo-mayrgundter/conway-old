@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcShapeAspect from "./IfcShapeAspect.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstructuralsurfacemembervarying.htm
  */
-export default class IfcStructuralSurfaceMemberVarying implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcStructuralSurfaceMemberVarying';
+export default  class IfcStructuralSurfaceMemberVarying extends IfcStructuralSurfaceMember 
+{    
+    public readonly specification: IfcStructuralSurfaceMemberVaryingSpecification = IfcStructuralSurfaceMemberVaryingSpecification.instance;
 
-    public readonly __version__: number = 0;
+private SubsequentThickness_? : Array<IfcPositiveLengthMeasure>
+    private VaryingThicknessLocation_? : IfcShapeAspect
 
-    public readonly __specification__: IfcStructuralSurfaceMemberVaryingSpecification = IfcStructuralSurfaceMemberVaryingSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly SubsequentThickness : Array<IfcPositiveLengthMeasure> , public readonly VaryingThicknessLocation : IfcShapeAspect  ) {}
 }
 
 export class IfcStructuralSurfaceMemberVaryingSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStructuralSurfaceMemberVarying';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralSurfaceMember', 'IfcStructuralMember', 'IfcStructuralItem', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralSurfaceMemberVarying', 'IfcStructuralSurfaceMember', 'IfcStructuralMember', 'IfcStructuralItem', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcStructuralSurfaceMemberVaryingSpecification implements Component
 			name: 'SubsequentThickness',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcPositiveLengthMeasure>'
+			baseType: 'Array<IfcPositiveLengthMeasure>',
+			optional: false
 		}, 
 		{
 			name: 'VaryingThicknessLocation',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcShapeAspect'
+			baseType: 'IfcShapeAspect',
+			optional: false
 		}
     ];
 

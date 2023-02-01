@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,27 @@ import IfcRelConnectsStructuralActivity from "./IfcRelConnectsStructuralActivity
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstructuralactivity.htm
  */
-export default class IfcStructuralActivity implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcStructuralActivity';
+export default abstract class IfcStructuralActivity extends IfcProduct 
+{    
+    public readonly specification: IfcStructuralActivitySpecification = IfcStructuralActivitySpecification.instance;
 
-    public readonly __version__: number = 0;
+private AppliedLoad_? : IfcStructuralLoad
+    private GlobalOrLocal_? : IfcGlobalOrLocalEnum
 
-    public readonly __specification__: IfcStructuralActivitySpecification = IfcStructuralActivitySpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly AppliedLoad : IfcStructuralLoad , public readonly GlobalOrLocal : IfcGlobalOrLocalEnum  ) {}
 }
 
 export class IfcStructuralActivitySpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStructuralActivity';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralActivity', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -37,13 +42,15 @@ export class IfcStructuralActivitySpecification implements ComponentSpecificatio
 			name: 'AppliedLoad',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcStructuralLoad'
+			baseType: 'IfcStructuralLoad',
+			optional: false
 		}, 
 		{
 			name: 'GlobalOrLocal',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcGlobalOrLocalEnum'
+			baseType: 'IfcGlobalOrLocalEnum',
+			optional: false
 		}
     ];
 

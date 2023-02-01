@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcTimeMeasure from "./IfcTimeMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcquantitytime.htm
  */
-export default class IfcQuantityTime implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcQuantityTime';
+export default  class IfcQuantityTime extends IfcPhysicalSimpleQuantity 
+{    
+    public readonly specification: IfcQuantityTimeSpecification = IfcQuantityTimeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private TimeValue_? : IfcTimeMeasure
 
-    public readonly __specification__: IfcQuantityTimeSpecification = IfcQuantityTimeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly TimeValue : IfcTimeMeasure  ) {}
 }
 
 export class IfcQuantityTimeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcQuantityTime';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcPhysicalSimpleQuantity', 'IfcPhysicalQuantity' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcQuantityTime', 'IfcPhysicalSimpleQuantity', 'IfcPhysicalQuantity' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcQuantityTimeSpecification implements ComponentSpecification
 			name: 'TimeValue',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTimeMeasure'
+			baseType: 'IfcTimeMeasure',
+			optional: false
 		}
     ];
 

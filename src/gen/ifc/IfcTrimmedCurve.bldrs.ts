@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,30 @@ import IfcTrimmingPreference from "./IfcTrimmingPreference.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifctrimmedcurve.htm
  */
-export default class IfcTrimmedCurve implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcTrimmedCurve';
+export default  class IfcTrimmedCurve extends IfcBoundedCurve 
+{    
+    public readonly specification: IfcTrimmedCurveSpecification = IfcTrimmedCurveSpecification.instance;
 
-    public readonly __version__: number = 0;
+private BasisCurve_? : IfcCurve
+    private Trim1_? : Array<IfcCartesianPoint|IfcParameterValue>
+    private Trim2_? : Array<IfcCartesianPoint|IfcParameterValue>
+    private SenseAgreement_? : boolean
+    private MasterRepresentation_? : IfcTrimmingPreference
 
-    public readonly __specification__: IfcTrimmedCurveSpecification = IfcTrimmedCurveSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly BasisCurve : IfcCurve , public readonly Trim1 : Array<IfcCartesianPoint|IfcParameterValue> , public readonly Trim2 : Array<IfcCartesianPoint|IfcParameterValue> , public readonly SenseAgreement : boolean , public readonly MasterRepresentation : IfcTrimmingPreference  ) {}
 }
 
 export class IfcTrimmedCurveSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcTrimmedCurve';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcBoundedCurve', 'IfcCurve', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcTrimmedCurve', 'IfcBoundedCurve', 'IfcCurve', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -38,31 +46,36 @@ export class IfcTrimmedCurveSpecification implements ComponentSpecification
 			name: 'BasisCurve',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCurve'
+			baseType: 'IfcCurve',
+			optional: false
 		}, 
 		{
 			name: 'Trim1',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcCartesianPoint|IfcParameterValue>'
+			baseType: 'Array<IfcCartesianPoint|IfcParameterValue>',
+			optional: false
 		}, 
 		{
 			name: 'Trim2',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcCartesianPoint|IfcParameterValue>'
+			baseType: 'Array<IfcCartesianPoint|IfcParameterValue>',
+			optional: false
 		}, 
 		{
 			name: 'SenseAgreement',
 			isCollection: false,
 			rank: 0,
-			baseType: 'boolean'
+			baseType: 'boolean',
+			optional: false
 		}, 
 		{
 			name: 'MasterRepresentation',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTrimmingPreference'
+			baseType: 'IfcTrimmingPreference',
+			optional: false
 		}
     ];
 

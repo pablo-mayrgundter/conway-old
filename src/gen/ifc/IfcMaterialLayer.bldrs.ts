@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,28 @@ import IfcMaterialLayerSet from "./IfcMaterialLayerSet.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcmateriallayer.htm
  */
-export default class IfcMaterialLayer implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcMaterialLayer';
+export default  class IfcMaterialLayer extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcMaterialLayerSpecification = IfcMaterialLayerSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Material_? : IfcMaterial
+    private LayerThickness_? : IfcPositiveLengthMeasure
+    private IsVentilated_? : IfcLogical
 
-    public readonly __specification__: IfcMaterialLayerSpecification = IfcMaterialLayerSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Material : IfcMaterial  | undefined, public readonly LayerThickness : IfcPositiveLengthMeasure , public readonly IsVentilated : IfcLogical  | undefined ) {}
 }
 
 export class IfcMaterialLayerSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcMaterialLayer';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcMaterialLayer' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -38,19 +44,22 @@ export class IfcMaterialLayerSpecification implements ComponentSpecification
 			name: 'Material',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcMaterial'
+			baseType: 'IfcMaterial',
+			optional: true
 		}, 
 		{
 			name: 'LayerThickness',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'IsVentilated',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLogical'
+			baseType: 'IfcLogical',
+			optional: true
 		}
     ];
 

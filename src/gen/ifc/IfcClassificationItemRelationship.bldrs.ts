@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,27 @@ import IfcClassificationItem from "./IfcClassificationItem.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcclassificationitemrelationship.htm
  */
-export default class IfcClassificationItemRelationship implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcClassificationItemRelationship';
+export default  class IfcClassificationItemRelationship extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcClassificationItemRelationshipSpecification = IfcClassificationItemRelationshipSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RelatingItem_? : IfcClassificationItem
+    private RelatedItems_? : Array<IfcClassificationItem>
 
-    public readonly __specification__: IfcClassificationItemRelationshipSpecification = IfcClassificationItemRelationshipSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RelatingItem : IfcClassificationItem , public readonly RelatedItems : Array<IfcClassificationItem>  ) {}
 }
 
 export class IfcClassificationItemRelationshipSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcClassificationItemRelationship';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcClassificationItemRelationship' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,13 +40,15 @@ export class IfcClassificationItemRelationshipSpecification implements Component
 			name: 'RelatingItem',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcClassificationItem'
+			baseType: 'IfcClassificationItem',
+			optional: false
 		}, 
 		{
 			name: 'RelatedItems',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcClassificationItem>'
+			baseType: 'Array<IfcClassificationItem>',
+			optional: false
 		}
     ];
 

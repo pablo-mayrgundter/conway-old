@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,32 @@ import IfcPHMeasure from "./IfcPHMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcwaterproperties.htm
  */
-export default class IfcWaterProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcWaterProperties';
+export default  class IfcWaterProperties extends IfcMaterialProperties 
+{    
+    public readonly specification: IfcWaterPropertiesSpecification = IfcWaterPropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private IsPotable_? : boolean
+    private Hardness_? : IfcIonConcentrationMeasure
+    private AlkalinityConcentration_? : IfcIonConcentrationMeasure
+    private AcidityConcentration_? : IfcIonConcentrationMeasure
+    private ImpuritiesContent_? : IfcNormalisedRatioMeasure
+    private PHLevel_? : IfcPHMeasure
+    private DissolvedSolidsContent_? : IfcNormalisedRatioMeasure
 
-    public readonly __specification__: IfcWaterPropertiesSpecification = IfcWaterPropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly IsPotable : boolean  | undefined, public readonly Hardness : IfcIonConcentrationMeasure  | undefined, public readonly AlkalinityConcentration : IfcIonConcentrationMeasure  | undefined, public readonly AcidityConcentration : IfcIonConcentrationMeasure  | undefined, public readonly ImpuritiesContent : IfcNormalisedRatioMeasure  | undefined, public readonly PHLevel : IfcPHMeasure  | undefined, public readonly DissolvedSolidsContent : IfcNormalisedRatioMeasure  | undefined ) {}
 }
 
 export class IfcWaterPropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcWaterProperties';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcMaterialProperties' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcWaterProperties', 'IfcMaterialProperties' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,43 +47,50 @@ export class IfcWaterPropertiesSpecification implements ComponentSpecification
 			name: 'IsPotable',
 			isCollection: false,
 			rank: 0,
-			baseType: 'boolean'
+			baseType: 'boolean',
+			optional: true
 		}, 
 		{
 			name: 'Hardness',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcIonConcentrationMeasure'
+			baseType: 'IfcIonConcentrationMeasure',
+			optional: true
 		}, 
 		{
 			name: 'AlkalinityConcentration',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcIonConcentrationMeasure'
+			baseType: 'IfcIonConcentrationMeasure',
+			optional: true
 		}, 
 		{
 			name: 'AcidityConcentration',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcIonConcentrationMeasure'
+			baseType: 'IfcIonConcentrationMeasure',
+			optional: true
 		}, 
 		{
 			name: 'ImpuritiesContent',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcNormalisedRatioMeasure'
+			baseType: 'IfcNormalisedRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'PHLevel',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPHMeasure'
+			baseType: 'IfcPHMeasure',
+			optional: true
 		}, 
 		{
 			name: 'DissolvedSolidsContent',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcNormalisedRatioMeasure'
+			baseType: 'IfcNormalisedRatioMeasure',
+			optional: true
 		}
     ];
 

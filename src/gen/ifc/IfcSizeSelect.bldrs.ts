@@ -13,8 +13,6 @@ import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
 
 export default class IfcSizeSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcSizeSelectVariant ) {}
 }
 
@@ -24,3 +22,8 @@ export type IfcSizeSelectChoices = IfcRatioMeasure|IfcLengthMeasure|IfcDescripti
 
 export type IfcSizeSelectVariant = ({ type: 'IfcRatioMeasure'; value: IfcRatioMeasure }|{ type: 'IfcLengthMeasure'; value: IfcLengthMeasure }|{ type: 'IfcDescriptiveMeasure'; value: IfcDescriptiveMeasure }|{ type: 'IfcPositiveLengthMeasure'; value: IfcPositiveLengthMeasure }|{ type: 'IfcNormalisedRatioMeasure'; value: IfcNormalisedRatioMeasure }|{ type: 'IfcPositiveRatioMeasure'; value: IfcPositiveRatioMeasure }) & { type: IfcSizeSelectType; value: IfcSizeSelectChoices };
 
+export function IfcSizeSelectSerializer( value?: IfcSizeSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

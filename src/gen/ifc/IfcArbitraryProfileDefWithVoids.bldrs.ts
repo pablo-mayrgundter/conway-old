@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcCurve from "./IfcCurve.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcarbitraryprofiledefwithvoids.htm
  */
-export default class IfcArbitraryProfileDefWithVoids implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcArbitraryProfileDefWithVoids';
+export default  class IfcArbitraryProfileDefWithVoids extends IfcArbitraryClosedProfileDef 
+{    
+    public readonly specification: IfcArbitraryProfileDefWithVoidsSpecification = IfcArbitraryProfileDefWithVoidsSpecification.instance;
 
-    public readonly __version__: number = 0;
+private InnerCurves_? : Array<IfcCurve>
 
-    public readonly __specification__: IfcArbitraryProfileDefWithVoidsSpecification = IfcArbitraryProfileDefWithVoidsSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly InnerCurves : Array<IfcCurve>  ) {}
 }
 
 export class IfcArbitraryProfileDefWithVoidsSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcArbitraryProfileDefWithVoids';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcArbitraryClosedProfileDef', 'IfcProfileDef' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcArbitraryProfileDefWithVoids', 'IfcArbitraryClosedProfileDef', 'IfcProfileDef' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcArbitraryProfileDefWithVoidsSpecification implements ComponentSp
 			name: 'InnerCurves',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcCurve>'
+			baseType: 'Array<IfcCurve>',
+			optional: false
 		}
     ];
 

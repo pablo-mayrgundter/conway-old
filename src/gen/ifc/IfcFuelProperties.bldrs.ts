@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,29 @@ import IfcHeatingValueMeasure from "./IfcHeatingValueMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcfuelproperties.htm
  */
-export default class IfcFuelProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcFuelProperties';
+export default  class IfcFuelProperties extends IfcMaterialProperties 
+{    
+    public readonly specification: IfcFuelPropertiesSpecification = IfcFuelPropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private CombustionTemperature_? : IfcThermodynamicTemperatureMeasure
+    private CarbonContent_? : IfcPositiveRatioMeasure
+    private LowerHeatingValue_? : IfcHeatingValueMeasure
+    private HigherHeatingValue_? : IfcHeatingValueMeasure
 
-    public readonly __specification__: IfcFuelPropertiesSpecification = IfcFuelPropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly CombustionTemperature : IfcThermodynamicTemperatureMeasure  | undefined, public readonly CarbonContent : IfcPositiveRatioMeasure  | undefined, public readonly LowerHeatingValue : IfcHeatingValueMeasure  | undefined, public readonly HigherHeatingValue : IfcHeatingValueMeasure  | undefined ) {}
 }
 
 export class IfcFuelPropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcFuelProperties';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcMaterialProperties' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcFuelProperties', 'IfcMaterialProperties' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,25 +44,29 @@ export class IfcFuelPropertiesSpecification implements ComponentSpecification
 			name: 'CombustionTemperature',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcThermodynamicTemperatureMeasure'
+			baseType: 'IfcThermodynamicTemperatureMeasure',
+			optional: true
 		}, 
 		{
 			name: 'CarbonContent',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveRatioMeasure'
+			baseType: 'IfcPositiveRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'LowerHeatingValue',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcHeatingValueMeasure'
+			baseType: 'IfcHeatingValueMeasure',
+			optional: true
 		}, 
 		{
 			name: 'HigherHeatingValue',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcHeatingValueMeasure'
+			baseType: 'IfcHeatingValueMeasure',
+			optional: true
 		}
     ];
 

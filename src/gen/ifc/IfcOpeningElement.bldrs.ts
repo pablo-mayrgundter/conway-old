@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcRelFillsElement from "./IfcRelFillsElement.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcopeningelement.htm
  */
-export default class IfcOpeningElement implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcOpeningElement';
+export default  class IfcOpeningElement extends IfcFeatureElementSubtraction 
+{    
+    public readonly specification: IfcOpeningElementSpecification = IfcOpeningElementSpecification.instance;
 
-    public readonly __version__: number = 0;
 
-    public readonly __specification__: IfcOpeningElementSpecification = IfcOpeningElementSpecification.instance;
 
-    constructor(  ) {}
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
+
 }
 
 export class IfcOpeningElementSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcOpeningElement';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFeatureElementSubtraction', 'IfcFeatureElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcOpeningElement', 'IfcFeatureElementSubtraction', 'IfcFeatureElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 

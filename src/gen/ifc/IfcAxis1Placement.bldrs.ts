@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcDirection from "./IfcDirection.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcaxis1placement.htm
  */
-export default class IfcAxis1Placement implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcAxis1Placement';
+export default  class IfcAxis1Placement extends IfcPlacement 
+{    
+    public readonly specification: IfcAxis1PlacementSpecification = IfcAxis1PlacementSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Axis_? : IfcDirection
 
-    public readonly __specification__: IfcAxis1PlacementSpecification = IfcAxis1PlacementSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Axis : IfcDirection  | undefined ) {}
 }
 
 export class IfcAxis1PlacementSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcAxis1Placement';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcPlacement', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcAxis1Placement', 'IfcPlacement', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcAxis1PlacementSpecification implements ComponentSpecification
 			name: 'Axis',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDirection'
+			baseType: 'IfcDirection',
+			optional: true
 		}
     ];
 

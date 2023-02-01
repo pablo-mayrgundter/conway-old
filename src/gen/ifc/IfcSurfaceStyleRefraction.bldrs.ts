@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,27 @@ import IfcReal from "./IfcReal.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcsurfacestylerefraction.htm
  */
-export default class IfcSurfaceStyleRefraction implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcSurfaceStyleRefraction';
+export default  class IfcSurfaceStyleRefraction extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcSurfaceStyleRefractionSpecification = IfcSurfaceStyleRefractionSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RefractionIndex_? : IfcReal
+    private DispersionFactor_? : IfcReal
 
-    public readonly __specification__: IfcSurfaceStyleRefractionSpecification = IfcSurfaceStyleRefractionSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RefractionIndex : IfcReal  | undefined, public readonly DispersionFactor : IfcReal  | undefined ) {}
 }
 
 export class IfcSurfaceStyleRefractionSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSurfaceStyleRefraction';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSurfaceStyleRefraction' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,13 +40,15 @@ export class IfcSurfaceStyleRefractionSpecification implements ComponentSpecific
 			name: 'RefractionIndex',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcReal'
+			baseType: 'IfcReal',
+			optional: true
 		}, 
 		{
 			name: 'DispersionFactor',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcReal'
+			baseType: 'IfcReal',
+			optional: true
 		}
     ];
 

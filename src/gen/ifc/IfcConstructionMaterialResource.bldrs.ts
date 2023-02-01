@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,27 @@ import IfcRatioMeasure from "./IfcRatioMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcconstructionmaterialresource.htm
  */
-export default class IfcConstructionMaterialResource implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcConstructionMaterialResource';
+export default  class IfcConstructionMaterialResource extends IfcConstructionResource 
+{    
+    public readonly specification: IfcConstructionMaterialResourceSpecification = IfcConstructionMaterialResourceSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Suppliers_? : Array<IfcOrganization|IfcPerson|IfcPersonAndOrganization>
+    private UsageRatio_? : IfcRatioMeasure
 
-    public readonly __specification__: IfcConstructionMaterialResourceSpecification = IfcConstructionMaterialResourceSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Suppliers : Array<IfcOrganization|IfcPerson|IfcPersonAndOrganization>  | undefined, public readonly UsageRatio : IfcRatioMeasure  | undefined ) {}
 }
 
 export class IfcConstructionMaterialResourceSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcConstructionMaterialResource';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcConstructionResource', 'IfcResource', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcConstructionMaterialResource', 'IfcConstructionResource', 'IfcResource', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -38,13 +43,15 @@ export class IfcConstructionMaterialResourceSpecification implements ComponentSp
 			name: 'Suppliers',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcOrganization|IfcPerson|IfcPersonAndOrganization>'
+			baseType: 'Array<IfcOrganization|IfcPerson|IfcPersonAndOrganization>',
+			optional: true
 		}, 
 		{
 			name: 'UsageRatio',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcRatioMeasure'
+			baseType: 'IfcRatioMeasure',
+			optional: true
 		}
     ];
 

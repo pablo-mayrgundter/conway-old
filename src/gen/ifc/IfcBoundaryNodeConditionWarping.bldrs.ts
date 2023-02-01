@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcWarpingMomentMeasure from "./IfcWarpingMomentMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcboundarynodeconditionwarping.htm
  */
-export default class IfcBoundaryNodeConditionWarping implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcBoundaryNodeConditionWarping';
+export default  class IfcBoundaryNodeConditionWarping extends IfcBoundaryNodeCondition 
+{    
+    public readonly specification: IfcBoundaryNodeConditionWarpingSpecification = IfcBoundaryNodeConditionWarpingSpecification.instance;
 
-    public readonly __version__: number = 0;
+private WarpingStiffness_? : IfcWarpingMomentMeasure
 
-    public readonly __specification__: IfcBoundaryNodeConditionWarpingSpecification = IfcBoundaryNodeConditionWarpingSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly WarpingStiffness : IfcWarpingMomentMeasure  | undefined ) {}
 }
 
 export class IfcBoundaryNodeConditionWarpingSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcBoundaryNodeConditionWarping';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcBoundaryNodeCondition', 'IfcBoundaryCondition' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcBoundaryNodeConditionWarping', 'IfcBoundaryNodeCondition', 'IfcBoundaryCondition' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcBoundaryNodeConditionWarpingSpecification implements ComponentSp
 			name: 'WarpingStiffness',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcWarpingMomentMeasure'
+			baseType: 'IfcWarpingMomentMeasure',
+			optional: true
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcMotorConnectionTypeEnum from "./IfcMotorConnectionTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcmotorconnectiontype.htm
  */
-export default class IfcMotorConnectionType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcMotorConnectionType';
+export default  class IfcMotorConnectionType extends IfcEnergyConversionDeviceType 
+{    
+    public readonly specification: IfcMotorConnectionTypeSpecification = IfcMotorConnectionTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcMotorConnectionTypeEnum
 
-    public readonly __specification__: IfcMotorConnectionTypeSpecification = IfcMotorConnectionTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcMotorConnectionTypeEnum  ) {}
 }
 
 export class IfcMotorConnectionTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcMotorConnectionType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcEnergyConversionDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcMotorConnectionType', 'IfcEnergyConversionDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcMotorConnectionTypeSpecification implements ComponentSpecificati
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcMotorConnectionTypeEnum'
+			baseType: 'IfcMotorConnectionTypeEnum',
+			optional: false
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,26 @@ import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcshellbasedsurfacemodel.htm
  */
-export default class IfcShellBasedSurfaceModel implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcShellBasedSurfaceModel';
+export default  class IfcShellBasedSurfaceModel extends IfcGeometricRepresentationItem 
+{    
+    public readonly specification: IfcShellBasedSurfaceModelSpecification = IfcShellBasedSurfaceModelSpecification.instance;
 
-    public readonly __version__: number = 0;
+private SbsmBoundary_? : Array<IfcClosedShell|IfcOpenShell>
 
-    public readonly __specification__: IfcShellBasedSurfaceModelSpecification = IfcShellBasedSurfaceModelSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly SbsmBoundary : Array<IfcClosedShell|IfcOpenShell>  ) {}
 }
 
 export class IfcShellBasedSurfaceModelSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcShellBasedSurfaceModel';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcShellBasedSurfaceModel', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,7 +41,8 @@ export class IfcShellBasedSurfaceModelSpecification implements ComponentSpecific
 			name: 'SbsmBoundary',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcClosedShell|IfcOpenShell>'
+			baseType: 'Array<IfcClosedShell|IfcOpenShell>',
+			optional: false
 		}
     ];
 

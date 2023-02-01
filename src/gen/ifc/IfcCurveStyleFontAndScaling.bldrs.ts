@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,28 @@ import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccurvestylefontandscaling.htm
  */
-export default class IfcCurveStyleFontAndScaling implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcCurveStyleFontAndScaling';
+export default  class IfcCurveStyleFontAndScaling extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcCurveStyleFontAndScalingSpecification = IfcCurveStyleFontAndScalingSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Name_? : IfcLabel
+    private CurveFont_? : IfcPreDefinedCurveFont|IfcCurveStyleFont
+    private CurveFontScaling_? : IfcPositiveRatioMeasure
 
-    public readonly __specification__: IfcCurveStyleFontAndScalingSpecification = IfcCurveStyleFontAndScalingSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Name : IfcLabel  | undefined, public readonly CurveFont : IfcPreDefinedCurveFont|IfcCurveStyleFont , public readonly CurveFontScaling : IfcPositiveRatioMeasure  ) {}
 }
 
 export class IfcCurveStyleFontAndScalingSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCurveStyleFontAndScaling';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcCurveStyleFontAndScaling' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -38,19 +44,22 @@ export class IfcCurveStyleFontAndScalingSpecification implements ComponentSpecif
 			name: 'Name',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'CurveFont',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPreDefinedCurveFont|IfcCurveStyleFont'
+			baseType: 'IfcPreDefinedCurveFont|IfcCurveStyleFont',
+			optional: false
 		}, 
 		{
 			name: 'CurveFontScaling',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveRatioMeasure'
+			baseType: 'IfcPositiveRatioMeasure',
+			optional: false
 		}
     ];
 

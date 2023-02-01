@@ -12,8 +12,6 @@ import IfcSurfaceStyleRefraction from "./IfcSurfaceStyleRefraction.bldrs"
 
 export default class IfcSurfaceStyleElementSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcSurfaceStyleElementSelectVariant ) {}
 }
 
@@ -23,3 +21,8 @@ export type IfcSurfaceStyleElementSelectChoices = IfcSurfaceStyleShading|IfcSurf
 
 export type IfcSurfaceStyleElementSelectVariant = ({ type: 'IfcSurfaceStyleShading'; value: IfcSurfaceStyleShading }|{ type: 'IfcSurfaceStyleLighting'; value: IfcSurfaceStyleLighting }|{ type: 'IfcSurfaceStyleWithTextures'; value: IfcSurfaceStyleWithTextures }|{ type: 'IfcExternallyDefinedSurfaceStyle'; value: IfcExternallyDefinedSurfaceStyle }|{ type: 'IfcSurfaceStyleRefraction'; value: IfcSurfaceStyleRefraction }) & { type: IfcSurfaceStyleElementSelectType; value: IfcSurfaceStyleElementSelectChoices };
 
+export function IfcSurfaceStyleElementSelectSerializer( value?: IfcSurfaceStyleElementSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcedgefeature.htm
  */
-export default class IfcEdgeFeature implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcEdgeFeature';
+export default abstract class IfcEdgeFeature extends IfcFeatureElementSubtraction 
+{    
+    public readonly specification: IfcEdgeFeatureSpecification = IfcEdgeFeatureSpecification.instance;
 
-    public readonly __version__: number = 0;
+private FeatureLength_? : IfcPositiveLengthMeasure
 
-    public readonly __specification__: IfcEdgeFeatureSpecification = IfcEdgeFeatureSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly FeatureLength : IfcPositiveLengthMeasure  | undefined ) {}
 }
 
 export class IfcEdgeFeatureSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcEdgeFeature';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFeatureElementSubtraction', 'IfcFeatureElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcEdgeFeature', 'IfcFeatureElementSubtraction', 'IfcFeatureElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -35,7 +39,8 @@ export class IfcEdgeFeatureSpecification implements ComponentSpecification
 			name: 'FeatureLength',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}
     ];
 

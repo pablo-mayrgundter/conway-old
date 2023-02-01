@@ -9,8 +9,6 @@ import IfcRepresentation from "./IfcRepresentation.bldrs"
 
 export default class IfcLayeredItem
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcLayeredItemVariant ) {}
 }
 
@@ -20,3 +18,8 @@ export type IfcLayeredItemChoices = IfcRepresentationItem|IfcRepresentation;
 
 export type IfcLayeredItemVariant = ({ type: 'IfcRepresentationItem'; value: IfcRepresentationItem }|{ type: 'IfcRepresentation'; value: IfcRepresentation }) & { type: IfcLayeredItemType; value: IfcLayeredItemChoices };
 
+export function IfcLayeredItemSerializer( value?: IfcLayeredItem, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

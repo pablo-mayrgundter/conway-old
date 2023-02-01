@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,28 @@ import IfcTextPath from "./IfcTextPath.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifctextliteral.htm
  */
-export default class IfcTextLiteral implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcTextLiteral';
+export default  class IfcTextLiteral extends IfcGeometricRepresentationItem 
+{    
+    public readonly specification: IfcTextLiteralSpecification = IfcTextLiteralSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Literal_? : IfcPresentableText
+    private Placement_? : IfcAxis2Placement2D|IfcAxis2Placement3D
+    private Path_? : IfcTextPath
 
-    public readonly __specification__: IfcTextLiteralSpecification = IfcTextLiteralSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Literal : IfcPresentableText , public readonly Placement : IfcAxis2Placement2D|IfcAxis2Placement3D , public readonly Path : IfcTextPath  ) {}
 }
 
 export class IfcTextLiteralSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcTextLiteral';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcTextLiteral', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -38,19 +44,22 @@ export class IfcTextLiteralSpecification implements ComponentSpecification
 			name: 'Literal',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPresentableText'
+			baseType: 'IfcPresentableText',
+			optional: false
 		}, 
 		{
 			name: 'Placement',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAxis2Placement2D|IfcAxis2Placement3D'
+			baseType: 'IfcAxis2Placement2D|IfcAxis2Placement3D',
+			optional: false
 		}, 
 		{
 			name: 'Path',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTextPath'
+			baseType: 'IfcTextPath',
+			optional: false
 		}
     ];
 

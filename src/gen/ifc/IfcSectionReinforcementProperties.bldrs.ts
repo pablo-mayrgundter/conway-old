@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,31 @@ import IfcReinforcementBarProperties from "./IfcReinforcementBarProperties.bldrs
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcsectionreinforcementproperties.htm
  */
-export default class IfcSectionReinforcementProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcSectionReinforcementProperties';
+export default  class IfcSectionReinforcementProperties extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcSectionReinforcementPropertiesSpecification = IfcSectionReinforcementPropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private LongitudinalStartPosition_? : IfcLengthMeasure
+    private LongitudinalEndPosition_? : IfcLengthMeasure
+    private TransversePosition_? : IfcLengthMeasure
+    private ReinforcementRole_? : IfcReinforcingBarRoleEnum
+    private SectionDefinition_? : IfcSectionProperties
+    private CrossSectionReinforcementDefinitions_? : Array<IfcReinforcementBarProperties>
 
-    public readonly __specification__: IfcSectionReinforcementPropertiesSpecification = IfcSectionReinforcementPropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly LongitudinalStartPosition : IfcLengthMeasure , public readonly LongitudinalEndPosition : IfcLengthMeasure , public readonly TransversePosition : IfcLengthMeasure  | undefined, public readonly ReinforcementRole : IfcReinforcingBarRoleEnum , public readonly SectionDefinition : IfcSectionProperties , public readonly CrossSectionReinforcementDefinitions : Array<IfcReinforcementBarProperties>  ) {}
 }
 
 export class IfcSectionReinforcementPropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSectionReinforcementProperties';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSectionReinforcementProperties' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -38,37 +47,43 @@ export class IfcSectionReinforcementPropertiesSpecification implements Component
 			name: 'LongitudinalStartPosition',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'LongitudinalEndPosition',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'TransversePosition',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'ReinforcementRole',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcReinforcingBarRoleEnum'
+			baseType: 'IfcReinforcingBarRoleEnum',
+			optional: false
 		}, 
 		{
 			name: 'SectionDefinition',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSectionProperties'
+			baseType: 'IfcSectionProperties',
+			optional: false
 		}, 
 		{
 			name: 'CrossSectionReinforcementDefinitions',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcReinforcementBarProperties>'
+			baseType: 'Array<IfcReinforcementBarProperties>',
+			optional: false
 		}
     ];
 

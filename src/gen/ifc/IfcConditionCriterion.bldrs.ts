@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -14,22 +14,27 @@ import IfcDateAndTime from "./IfcDateAndTime.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcconditioncriterion.htm
  */
-export default class IfcConditionCriterion implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcConditionCriterion';
+export default  class IfcConditionCriterion extends IfcControl 
+{    
+    public readonly specification: IfcConditionCriterionSpecification = IfcConditionCriterionSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Criterion_? : IfcLabel|IfcMeasureWithUnit
+    private CriterionDateTime_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
 
-    public readonly __specification__: IfcConditionCriterionSpecification = IfcConditionCriterionSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Criterion : IfcLabel|IfcMeasureWithUnit , public readonly CriterionDateTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  ) {}
 }
 
 export class IfcConditionCriterionSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcConditionCriterion';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcConditionCriterion', 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -39,13 +44,15 @@ export class IfcConditionCriterionSpecification implements ComponentSpecificatio
 			name: 'Criterion',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel|IfcMeasureWithUnit'
+			baseType: 'IfcLabel|IfcMeasureWithUnit',
+			optional: false
 		}, 
 		{
 			name: 'CriterionDateTime',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime'
+			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime',
+			optional: false
 		}
     ];
 

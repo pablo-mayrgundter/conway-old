@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -15,22 +15,31 @@ import IfcCountMeasure from "./IfcCountMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcreinforcementbarproperties.htm
  */
-export default class IfcReinforcementBarProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcReinforcementBarProperties';
+export default  class IfcReinforcementBarProperties extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcReinforcementBarPropertiesSpecification = IfcReinforcementBarPropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private TotalCrossSectionArea_? : IfcAreaMeasure
+    private SteelGrade_? : IfcLabel
+    private BarSurface_? : IfcReinforcingBarSurfaceEnum
+    private EffectiveDepth_? : IfcLengthMeasure
+    private NominalBarDiameter_? : IfcPositiveLengthMeasure
+    private BarCount_? : IfcCountMeasure
 
-    public readonly __specification__: IfcReinforcementBarPropertiesSpecification = IfcReinforcementBarPropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly TotalCrossSectionArea : IfcAreaMeasure , public readonly SteelGrade : IfcLabel , public readonly BarSurface : IfcReinforcingBarSurfaceEnum  | undefined, public readonly EffectiveDepth : IfcLengthMeasure  | undefined, public readonly NominalBarDiameter : IfcPositiveLengthMeasure  | undefined, public readonly BarCount : IfcCountMeasure  | undefined ) {}
 }
 
 export class IfcReinforcementBarPropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcReinforcementBarProperties';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcReinforcementBarProperties' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -40,37 +49,43 @@ export class IfcReinforcementBarPropertiesSpecification implements ComponentSpec
 			name: 'TotalCrossSectionArea',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAreaMeasure'
+			baseType: 'IfcAreaMeasure',
+			optional: false
 		}, 
 		{
 			name: 'SteelGrade',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: false
 		}, 
 		{
 			name: 'BarSurface',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcReinforcingBarSurfaceEnum'
+			baseType: 'IfcReinforcingBarSurfaceEnum',
+			optional: true
 		}, 
 		{
 			name: 'EffectiveDepth',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'NominalBarDiameter',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'BarCount',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCountMeasure'
+			baseType: 'IfcCountMeasure',
+			optional: true
 		}
     ];
 

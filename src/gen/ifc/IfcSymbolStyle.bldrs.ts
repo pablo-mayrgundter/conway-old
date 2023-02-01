@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,26 @@ import IfcPreDefinedColour from "./IfcPreDefinedColour.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcsymbolstyle.htm
  */
-export default class IfcSymbolStyle implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcSymbolStyle';
+export default  class IfcSymbolStyle extends IfcPresentationStyle 
+{    
+    public readonly specification: IfcSymbolStyleSpecification = IfcSymbolStyleSpecification.instance;
 
-    public readonly __version__: number = 0;
+private StyleOfSymbol_? : IfcColourSpecification|IfcPreDefinedColour
 
-    public readonly __specification__: IfcSymbolStyleSpecification = IfcSymbolStyleSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly StyleOfSymbol : IfcColourSpecification|IfcPreDefinedColour  ) {}
 }
 
 export class IfcSymbolStyleSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSymbolStyle';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcPresentationStyle' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSymbolStyle', 'IfcPresentationStyle' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,7 +40,8 @@ export class IfcSymbolStyleSpecification implements ComponentSpecification
 			name: 'StyleOfSymbol',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcColourSpecification|IfcPreDefinedColour'
+			baseType: 'IfcColourSpecification|IfcPreDefinedColour',
+			optional: false
 		}
     ];
 

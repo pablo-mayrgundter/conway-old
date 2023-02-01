@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcTextureCoordinate from "./IfcTextureCoordinate.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcannotationsurface.htm
  */
-export default class IfcAnnotationSurface implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcAnnotationSurface';
+export default  class IfcAnnotationSurface extends IfcGeometricRepresentationItem 
+{    
+    public readonly specification: IfcAnnotationSurfaceSpecification = IfcAnnotationSurfaceSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Item_? : IfcGeometricRepresentationItem
+    private TextureCoordinates_? : IfcTextureCoordinate
 
-    public readonly __specification__: IfcAnnotationSurfaceSpecification = IfcAnnotationSurfaceSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Item : IfcGeometricRepresentationItem , public readonly TextureCoordinates : IfcTextureCoordinate  | undefined ) {}
 }
 
 export class IfcAnnotationSurfaceSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcAnnotationSurface';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcAnnotationSurface', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcAnnotationSurfaceSpecification implements ComponentSpecification
 			name: 'Item',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcGeometricRepresentationItem'
+			baseType: 'IfcGeometricRepresentationItem',
+			optional: false
 		}, 
 		{
 			name: 'TextureCoordinates',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTextureCoordinate'
+			baseType: 'IfcTextureCoordinate',
+			optional: true
 		}
     ];
 

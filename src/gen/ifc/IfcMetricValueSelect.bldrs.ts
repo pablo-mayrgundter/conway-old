@@ -13,8 +13,6 @@ import IfcCostValue from "./IfcCostValue.bldrs"
 
 export default class IfcMetricValueSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcMetricValueSelectVariant ) {}
 }
 
@@ -24,3 +22,8 @@ export type IfcMetricValueSelectChoices = IfcDateTimeSelect|IfcMeasureWithUnit|I
 
 export type IfcMetricValueSelectVariant = ({ type: 'IfcDateTimeSelect'; value: IfcDateTimeSelect }|{ type: 'IfcMeasureWithUnit'; value: IfcMeasureWithUnit }|{ type: 'IfcTable'; value: IfcTable }|{ type: 'IfcText'; value: IfcText }|{ type: 'IfcTimeSeries'; value: IfcTimeSeries }|{ type: 'IfcCostValue'; value: IfcCostValue }) & { type: IfcMetricValueSelectType; value: IfcMetricValueSelectChoices };
 
+export function IfcMetricValueSelectSerializer( value?: IfcMetricValueSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

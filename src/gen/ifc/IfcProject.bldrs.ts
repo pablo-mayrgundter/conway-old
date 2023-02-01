@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,29 @@ import IfcUnitAssignment from "./IfcUnitAssignment.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcproject.htm
  */
-export default class IfcProject implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcProject';
+export default  class IfcProject extends IfcObject 
+{    
+    public readonly specification: IfcProjectSpecification = IfcProjectSpecification.instance;
 
-    public readonly __version__: number = 0;
+private LongName_? : IfcLabel
+    private Phase_? : IfcLabel
+    private RepresentationContexts_? : Array<IfcRepresentationContext>
+    private UnitsInContext_? : IfcUnitAssignment
 
-    public readonly __specification__: IfcProjectSpecification = IfcProjectSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly LongName : IfcLabel  | undefined, public readonly Phase : IfcLabel  | undefined, public readonly RepresentationContexts : Array<IfcRepresentationContext> , public readonly UnitsInContext : IfcUnitAssignment  ) {}
 }
 
 export class IfcProjectSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcProject';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcProject', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,25 +44,29 @@ export class IfcProjectSpecification implements ComponentSpecification
 			name: 'LongName',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'Phase',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'RepresentationContexts',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcRepresentationContext>'
+			baseType: 'Array<IfcRepresentationContext>',
+			optional: false
 		}, 
 		{
 			name: 'UnitsInContext',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcUnitAssignment'
+			baseType: 'IfcUnitAssignment',
+			optional: false
 		}
     ];
 

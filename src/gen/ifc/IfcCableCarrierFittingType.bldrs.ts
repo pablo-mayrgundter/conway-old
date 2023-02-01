@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcCableCarrierFittingTypeEnum from "./IfcCableCarrierFittingTypeEnum.bld
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccablecarrierfittingtype.htm
  */
-export default class IfcCableCarrierFittingType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcCableCarrierFittingType';
+export default  class IfcCableCarrierFittingType extends IfcFlowFittingType 
+{    
+    public readonly specification: IfcCableCarrierFittingTypeSpecification = IfcCableCarrierFittingTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcCableCarrierFittingTypeEnum
 
-    public readonly __specification__: IfcCableCarrierFittingTypeSpecification = IfcCableCarrierFittingTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcCableCarrierFittingTypeEnum  ) {}
 }
 
 export class IfcCableCarrierFittingTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCableCarrierFittingType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFlowFittingType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcCableCarrierFittingType', 'IfcFlowFittingType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcCableCarrierFittingTypeSpecification implements ComponentSpecifi
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCableCarrierFittingTypeEnum'
+			baseType: 'IfcCableCarrierFittingTypeEnum',
+			optional: false
 		}
     ];
 

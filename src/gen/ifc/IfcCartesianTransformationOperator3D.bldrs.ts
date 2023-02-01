@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcDirection from "./IfcDirection.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccartesiantransformationoperator3d.htm
  */
-export default class IfcCartesianTransformationOperator3D implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcCartesianTransformationOperator3D';
+export default  class IfcCartesianTransformationOperator3D extends IfcCartesianTransformationOperator 
+{    
+    public readonly specification: IfcCartesianTransformationOperator3DSpecification = IfcCartesianTransformationOperator3DSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Axis3_? : IfcDirection
 
-    public readonly __specification__: IfcCartesianTransformationOperator3DSpecification = IfcCartesianTransformationOperator3DSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Axis3 : IfcDirection  | undefined ) {}
 }
 
 export class IfcCartesianTransformationOperator3DSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCartesianTransformationOperator3D';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcCartesianTransformationOperator', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcCartesianTransformationOperator3D', 'IfcCartesianTransformationOperator', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcCartesianTransformationOperator3DSpecification implements Compon
 			name: 'Axis3',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDirection'
+			baseType: 'IfcDirection',
+			optional: true
 		}
     ];
 

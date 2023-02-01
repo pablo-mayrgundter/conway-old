@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcTransportElementTypeEnum from "./IfcTransportElementTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifctransportelementtype.htm
  */
-export default class IfcTransportElementType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcTransportElementType';
+export default  class IfcTransportElementType extends IfcElementType 
+{    
+    public readonly specification: IfcTransportElementTypeSpecification = IfcTransportElementTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcTransportElementTypeEnum
 
-    public readonly __specification__: IfcTransportElementTypeSpecification = IfcTransportElementTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcTransportElementTypeEnum  ) {}
 }
 
 export class IfcTransportElementTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcTransportElementType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcTransportElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcTransportElementTypeSpecification implements ComponentSpecificat
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTransportElementTypeEnum'
+			baseType: 'IfcTransportElementTypeEnum',
+			optional: false
 		}
     ];
 

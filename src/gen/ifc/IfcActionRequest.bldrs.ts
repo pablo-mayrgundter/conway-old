@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcIdentifier from "./IfcIdentifier.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcactionrequest.htm
  */
-export default class IfcActionRequest implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcActionRequest';
+export default  class IfcActionRequest extends IfcControl 
+{    
+    public readonly specification: IfcActionRequestSpecification = IfcActionRequestSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RequestID_? : IfcIdentifier
 
-    public readonly __specification__: IfcActionRequestSpecification = IfcActionRequestSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RequestID : IfcIdentifier  ) {}
 }
 
 export class IfcActionRequestSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcActionRequest';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcActionRequest', 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcActionRequestSpecification implements ComponentSpecification
 			name: 'RequestID',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcIdentifier'
+			baseType: 'IfcIdentifier',
+			optional: false
 		}
     ];
 

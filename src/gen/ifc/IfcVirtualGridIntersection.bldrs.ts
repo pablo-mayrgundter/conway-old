@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcvirtualgridintersection.htm
  */
-export default class IfcVirtualGridIntersection implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcVirtualGridIntersection';
+export default  class IfcVirtualGridIntersection extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcVirtualGridIntersectionSpecification = IfcVirtualGridIntersectionSpecification.instance;
 
-    public readonly __version__: number = 0;
+private IntersectingAxes_? : Array<IfcGridAxis>
+    private OffsetDistances_? : Array<IfcLengthMeasure>
 
-    public readonly __specification__: IfcVirtualGridIntersectionSpecification = IfcVirtualGridIntersectionSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly IntersectingAxes : Array<IfcGridAxis> , public readonly OffsetDistances : Array<IfcLengthMeasure>  ) {}
 }
 
 export class IfcVirtualGridIntersectionSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcVirtualGridIntersection';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcVirtualGridIntersection' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcVirtualGridIntersectionSpecification implements ComponentSpecifi
 			name: 'IntersectingAxes',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcGridAxis>'
+			baseType: 'Array<IfcGridAxis>',
+			optional: false
 		}, 
 		{
 			name: 'OffsetDistances',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcLengthMeasure>'
+			baseType: 'Array<IfcLengthMeasure>',
+			optional: false
 		}
     ];
 

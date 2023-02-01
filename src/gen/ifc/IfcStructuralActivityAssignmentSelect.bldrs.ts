@@ -9,8 +9,6 @@ import IfcElement from "./IfcElement.bldrs"
 
 export default class IfcStructuralActivityAssignmentSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcStructuralActivityAssignmentSelectVariant ) {}
 }
 
@@ -20,3 +18,8 @@ export type IfcStructuralActivityAssignmentSelectChoices = IfcStructuralItem|Ifc
 
 export type IfcStructuralActivityAssignmentSelectVariant = ({ type: 'IfcStructuralItem'; value: IfcStructuralItem }|{ type: 'IfcElement'; value: IfcElement }) & { type: IfcStructuralActivityAssignmentSelectType; value: IfcStructuralActivityAssignmentSelectChoices };
 
+export function IfcStructuralActivityAssignmentSelectSerializer( value?: IfcStructuralActivityAssignmentSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

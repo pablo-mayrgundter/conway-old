@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,27 @@ import IfcVector from "./IfcVector.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcsurfaceoflinearextrusion.htm
  */
-export default class IfcSurfaceOfLinearExtrusion implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcSurfaceOfLinearExtrusion';
+export default  class IfcSurfaceOfLinearExtrusion extends IfcSweptSurface 
+{    
+    public readonly specification: IfcSurfaceOfLinearExtrusionSpecification = IfcSurfaceOfLinearExtrusionSpecification.instance;
 
-    public readonly __version__: number = 0;
+private ExtrudedDirection_? : IfcDirection
+    private Depth_? : IfcLengthMeasure
 
-    public readonly __specification__: IfcSurfaceOfLinearExtrusionSpecification = IfcSurfaceOfLinearExtrusionSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly ExtrudedDirection : IfcDirection , public readonly Depth : IfcLengthMeasure  ) {}
 }
 
 export class IfcSurfaceOfLinearExtrusionSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSurfaceOfLinearExtrusion';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcSweptSurface', 'IfcSurface', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSurfaceOfLinearExtrusion', 'IfcSweptSurface', 'IfcSurface', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,13 +42,15 @@ export class IfcSurfaceOfLinearExtrusionSpecification implements ComponentSpecif
 			name: 'ExtrudedDirection',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDirection'
+			baseType: 'IfcDirection',
+			optional: false
 		}, 
 		{
 			name: 'Depth',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: false
 		}
     ];
 

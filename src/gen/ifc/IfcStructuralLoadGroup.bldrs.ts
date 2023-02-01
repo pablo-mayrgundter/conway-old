@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -16,22 +16,30 @@ import IfcStructuralAnalysisModel from "./IfcStructuralAnalysisModel.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstructuralloadgroup.htm
  */
-export default class IfcStructuralLoadGroup implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcStructuralLoadGroup';
+export default  class IfcStructuralLoadGroup extends IfcGroup 
+{    
+    public readonly specification: IfcStructuralLoadGroupSpecification = IfcStructuralLoadGroupSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcLoadGroupTypeEnum
+    private ActionType_? : IfcActionTypeEnum
+    private ActionSource_? : IfcActionSourceTypeEnum
+    private Coefficient_? : IfcPositiveRatioMeasure
+    private Purpose_? : IfcLabel
 
-    public readonly __specification__: IfcStructuralLoadGroupSpecification = IfcStructuralLoadGroupSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcLoadGroupTypeEnum , public readonly ActionType : IfcActionTypeEnum , public readonly ActionSource : IfcActionSourceTypeEnum , public readonly Coefficient : IfcPositiveRatioMeasure  | undefined, public readonly Purpose : IfcLabel  | undefined ) {}
 }
 
 export class IfcStructuralLoadGroupSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStructuralLoadGroup';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcGroup', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralLoadGroup', 'IfcGroup', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -41,31 +49,36 @@ export class IfcStructuralLoadGroupSpecification implements ComponentSpecificati
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLoadGroupTypeEnum'
+			baseType: 'IfcLoadGroupTypeEnum',
+			optional: false
 		}, 
 		{
 			name: 'ActionType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcActionTypeEnum'
+			baseType: 'IfcActionTypeEnum',
+			optional: false
 		}, 
 		{
 			name: 'ActionSource',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcActionSourceTypeEnum'
+			baseType: 'IfcActionSourceTypeEnum',
+			optional: false
 		}, 
 		{
 			name: 'Coefficient',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveRatioMeasure'
+			baseType: 'IfcPositiveRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'Purpose',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}
     ];
 

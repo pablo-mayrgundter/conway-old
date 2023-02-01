@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcProperty from "./IfcProperty.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcreloverridesproperties.htm
  */
-export default class IfcRelOverridesProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRelOverridesProperties';
+export default  class IfcRelOverridesProperties extends IfcRelDefinesByProperties 
+{    
+    public readonly specification: IfcRelOverridesPropertiesSpecification = IfcRelOverridesPropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private OverridingProperties_? : Array<IfcProperty>
 
-    public readonly __specification__: IfcRelOverridesPropertiesSpecification = IfcRelOverridesPropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly OverridingProperties : Array<IfcProperty>  ) {}
 }
 
 export class IfcRelOverridesPropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelOverridesProperties';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRelDefinesByProperties', 'IfcRelDefines', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelOverridesProperties', 'IfcRelDefinesByProperties', 'IfcRelDefines', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcRelOverridesPropertiesSpecification implements ComponentSpecific
 			name: 'OverridingProperties',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcProperty>'
+			baseType: 'Array<IfcProperty>',
+			optional: false
 		}
     ];
 

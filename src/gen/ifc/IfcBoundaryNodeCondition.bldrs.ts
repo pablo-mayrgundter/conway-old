@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,31 @@ import IfcRotationalStiffnessMeasure from "./IfcRotationalStiffnessMeasure.bldrs
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcboundarynodecondition.htm
  */
-export default class IfcBoundaryNodeCondition implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcBoundaryNodeCondition';
+export default  class IfcBoundaryNodeCondition extends IfcBoundaryCondition 
+{    
+    public readonly specification: IfcBoundaryNodeConditionSpecification = IfcBoundaryNodeConditionSpecification.instance;
 
-    public readonly __version__: number = 0;
+private LinearStiffnessX_? : IfcLinearStiffnessMeasure
+    private LinearStiffnessY_? : IfcLinearStiffnessMeasure
+    private LinearStiffnessZ_? : IfcLinearStiffnessMeasure
+    private RotationalStiffnessX_? : IfcRotationalStiffnessMeasure
+    private RotationalStiffnessY_? : IfcRotationalStiffnessMeasure
+    private RotationalStiffnessZ_? : IfcRotationalStiffnessMeasure
 
-    public readonly __specification__: IfcBoundaryNodeConditionSpecification = IfcBoundaryNodeConditionSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly LinearStiffnessX : IfcLinearStiffnessMeasure  | undefined, public readonly LinearStiffnessY : IfcLinearStiffnessMeasure  | undefined, public readonly LinearStiffnessZ : IfcLinearStiffnessMeasure  | undefined, public readonly RotationalStiffnessX : IfcRotationalStiffnessMeasure  | undefined, public readonly RotationalStiffnessY : IfcRotationalStiffnessMeasure  | undefined, public readonly RotationalStiffnessZ : IfcRotationalStiffnessMeasure  | undefined ) {}
 }
 
 export class IfcBoundaryNodeConditionSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcBoundaryNodeCondition';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcBoundaryCondition' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcBoundaryNodeCondition', 'IfcBoundaryCondition' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,37 +45,43 @@ export class IfcBoundaryNodeConditionSpecification implements ComponentSpecifica
 			name: 'LinearStiffnessX',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLinearStiffnessMeasure'
+			baseType: 'IfcLinearStiffnessMeasure',
+			optional: true
 		}, 
 		{
 			name: 'LinearStiffnessY',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLinearStiffnessMeasure'
+			baseType: 'IfcLinearStiffnessMeasure',
+			optional: true
 		}, 
 		{
 			name: 'LinearStiffnessZ',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLinearStiffnessMeasure'
+			baseType: 'IfcLinearStiffnessMeasure',
+			optional: true
 		}, 
 		{
 			name: 'RotationalStiffnessX',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcRotationalStiffnessMeasure'
+			baseType: 'IfcRotationalStiffnessMeasure',
+			optional: true
 		}, 
 		{
 			name: 'RotationalStiffnessY',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcRotationalStiffnessMeasure'
+			baseType: 'IfcRotationalStiffnessMeasure',
+			optional: true
 		}, 
 		{
 			name: 'RotationalStiffnessZ',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcRotationalStiffnessMeasure'
+			baseType: 'IfcRotationalStiffnessMeasure',
+			optional: true
 		}
     ];
 

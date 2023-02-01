@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,28 @@ import IfcDirection from "./IfcDirection.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrelassociatesprofileproperties.htm
  */
-export default class IfcRelAssociatesProfileProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRelAssociatesProfileProperties';
+export default  class IfcRelAssociatesProfileProperties extends IfcRelAssociates 
+{    
+    public readonly specification: IfcRelAssociatesProfilePropertiesSpecification = IfcRelAssociatesProfilePropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RelatingProfileProperties_? : IfcProfileProperties
+    private ProfileSectionLocation_? : IfcShapeAspect
+    private ProfileOrientation_? : IfcPlaneAngleMeasure|IfcDirection
 
-    public readonly __specification__: IfcRelAssociatesProfilePropertiesSpecification = IfcRelAssociatesProfilePropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RelatingProfileProperties : IfcProfileProperties , public readonly ProfileSectionLocation : IfcShapeAspect  | undefined, public readonly ProfileOrientation : IfcPlaneAngleMeasure|IfcDirection  | undefined ) {}
 }
 
 export class IfcRelAssociatesProfilePropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelAssociatesProfileProperties';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssociates', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssociatesProfileProperties', 'IfcRelAssociates', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -38,19 +44,22 @@ export class IfcRelAssociatesProfilePropertiesSpecification implements Component
 			name: 'RelatingProfileProperties',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcProfileProperties'
+			baseType: 'IfcProfileProperties',
+			optional: false
 		}, 
 		{
 			name: 'ProfileSectionLocation',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcShapeAspect'
+			baseType: 'IfcShapeAspect',
+			optional: true
 		}, 
 		{
 			name: 'ProfileOrientation',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPlaneAngleMeasure|IfcDirection'
+			baseType: 'IfcPlaneAngleMeasure|IfcDirection',
+			optional: true
 		}
     ];
 

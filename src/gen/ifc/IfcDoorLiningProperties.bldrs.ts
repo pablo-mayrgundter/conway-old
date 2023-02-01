@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,36 @@ import IfcShapeAspect from "./IfcShapeAspect.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcdoorliningproperties.htm
  */
-export default class IfcDoorLiningProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcDoorLiningProperties';
+export default  class IfcDoorLiningProperties extends IfcPropertySetDefinition 
+{    
+    public readonly specification: IfcDoorLiningPropertiesSpecification = IfcDoorLiningPropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private LiningDepth_? : IfcPositiveLengthMeasure
+    private LiningThickness_? : IfcPositiveLengthMeasure
+    private ThresholdDepth_? : IfcPositiveLengthMeasure
+    private ThresholdThickness_? : IfcPositiveLengthMeasure
+    private TransomThickness_? : IfcPositiveLengthMeasure
+    private TransomOffset_? : IfcLengthMeasure
+    private LiningOffset_? : IfcLengthMeasure
+    private ThresholdOffset_? : IfcLengthMeasure
+    private CasingThickness_? : IfcPositiveLengthMeasure
+    private CasingDepth_? : IfcPositiveLengthMeasure
+    private ShapeAspectStyle_? : IfcShapeAspect
 
-    public readonly __specification__: IfcDoorLiningPropertiesSpecification = IfcDoorLiningPropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly LiningDepth : IfcPositiveLengthMeasure  | undefined, public readonly LiningThickness : IfcPositiveLengthMeasure  | undefined, public readonly ThresholdDepth : IfcPositiveLengthMeasure  | undefined, public readonly ThresholdThickness : IfcPositiveLengthMeasure  | undefined, public readonly TransomThickness : IfcPositiveLengthMeasure  | undefined, public readonly TransomOffset : IfcLengthMeasure  | undefined, public readonly LiningOffset : IfcLengthMeasure  | undefined, public readonly ThresholdOffset : IfcLengthMeasure  | undefined, public readonly CasingThickness : IfcPositiveLengthMeasure  | undefined, public readonly CasingDepth : IfcPositiveLengthMeasure  | undefined, public readonly ShapeAspectStyle : IfcShapeAspect  | undefined ) {}
 }
 
 export class IfcDoorLiningPropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcDoorLiningProperties';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcPropertySetDefinition', 'IfcPropertyDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcDoorLiningProperties', 'IfcPropertySetDefinition', 'IfcPropertyDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,67 +51,78 @@ export class IfcDoorLiningPropertiesSpecification implements ComponentSpecificat
 			name: 'LiningDepth',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'LiningThickness',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'ThresholdDepth',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'ThresholdThickness',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'TransomThickness',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'TransomOffset',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'LiningOffset',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'ThresholdOffset',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'CasingThickness',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'CasingDepth',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'ShapeAspectStyle',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcShapeAspect'
+			baseType: 'IfcShapeAspect',
+			optional: true
 		}
     ];
 

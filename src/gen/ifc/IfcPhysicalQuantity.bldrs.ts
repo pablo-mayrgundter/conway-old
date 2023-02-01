@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,27 @@ import IfcPhysicalComplexQuantity from "./IfcPhysicalComplexQuantity.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcphysicalquantity.htm
  */
-export default class IfcPhysicalQuantity implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcPhysicalQuantity';
+export default abstract class IfcPhysicalQuantity extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcPhysicalQuantitySpecification = IfcPhysicalQuantitySpecification.instance;
 
-    public readonly __version__: number = 0;
+private Name_? : IfcLabel
+    private Description_? : IfcText
 
-    public readonly __specification__: IfcPhysicalQuantitySpecification = IfcPhysicalQuantitySpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Name : IfcLabel , public readonly Description : IfcText  | undefined ) {}
 }
 
 export class IfcPhysicalQuantitySpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcPhysicalQuantity';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPhysicalQuantity' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -37,13 +42,15 @@ export class IfcPhysicalQuantitySpecification implements ComponentSpecification
 			name: 'Name',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: false
 		}, 
 		{
 			name: 'Description',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcText'
+			baseType: 'IfcText',
+			optional: true
 		}
     ];
 

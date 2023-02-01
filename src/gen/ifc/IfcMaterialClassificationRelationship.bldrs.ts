@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,27 @@ import IfcMaterial from "./IfcMaterial.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcmaterialclassificationrelationship.htm
  */
-export default class IfcMaterialClassificationRelationship implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcMaterialClassificationRelationship';
+export default  class IfcMaterialClassificationRelationship extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcMaterialClassificationRelationshipSpecification = IfcMaterialClassificationRelationshipSpecification.instance;
 
-    public readonly __version__: number = 0;
+private MaterialClassifications_? : Array<IfcClassificationNotation|IfcClassificationReference>
+    private ClassifiedMaterial_? : IfcMaterial
 
-    public readonly __specification__: IfcMaterialClassificationRelationshipSpecification = IfcMaterialClassificationRelationshipSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly MaterialClassifications : Array<IfcClassificationNotation|IfcClassificationReference> , public readonly ClassifiedMaterial : IfcMaterial  ) {}
 }
 
 export class IfcMaterialClassificationRelationshipSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcMaterialClassificationRelationship';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcMaterialClassificationRelationship' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,13 +42,15 @@ export class IfcMaterialClassificationRelationshipSpecification implements Compo
 			name: 'MaterialClassifications',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcClassificationNotation|IfcClassificationReference>'
+			baseType: 'Array<IfcClassificationNotation|IfcClassificationReference>',
+			optional: false
 		}, 
 		{
 			name: 'ClassifiedMaterial',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcMaterial'
+			baseType: 'IfcMaterial',
+			optional: false
 		}
     ];
 

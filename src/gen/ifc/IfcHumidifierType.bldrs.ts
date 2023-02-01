@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcHumidifierTypeEnum from "./IfcHumidifierTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifchumidifiertype.htm
  */
-export default class IfcHumidifierType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcHumidifierType';
+export default  class IfcHumidifierType extends IfcEnergyConversionDeviceType 
+{    
+    public readonly specification: IfcHumidifierTypeSpecification = IfcHumidifierTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcHumidifierTypeEnum
 
-    public readonly __specification__: IfcHumidifierTypeSpecification = IfcHumidifierTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcHumidifierTypeEnum  ) {}
 }
 
 export class IfcHumidifierTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcHumidifierType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcEnergyConversionDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcHumidifierType', 'IfcEnergyConversionDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcHumidifierTypeSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcHumidifierTypeEnum'
+			baseType: 'IfcHumidifierTypeEnum',
+			optional: false
 		}
     ];
 

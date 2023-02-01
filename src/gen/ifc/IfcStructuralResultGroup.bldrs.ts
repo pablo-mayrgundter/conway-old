@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,28 @@ import IfcStructuralAnalysisModel from "./IfcStructuralAnalysisModel.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstructuralresultgroup.htm
  */
-export default class IfcStructuralResultGroup implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcStructuralResultGroup';
+export default  class IfcStructuralResultGroup extends IfcGroup 
+{    
+    public readonly specification: IfcStructuralResultGroupSpecification = IfcStructuralResultGroupSpecification.instance;
 
-    public readonly __version__: number = 0;
+private TheoryType_? : IfcAnalysisTheoryTypeEnum
+    private ResultForLoadGroup_? : IfcStructuralLoadGroup
+    private IsLinear_? : boolean
 
-    public readonly __specification__: IfcStructuralResultGroupSpecification = IfcStructuralResultGroupSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly TheoryType : IfcAnalysisTheoryTypeEnum , public readonly ResultForLoadGroup : IfcStructuralLoadGroup  | undefined, public readonly IsLinear : boolean  ) {}
 }
 
 export class IfcStructuralResultGroupSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStructuralResultGroup';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcGroup', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralResultGroup', 'IfcGroup', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,19 +43,22 @@ export class IfcStructuralResultGroupSpecification implements ComponentSpecifica
 			name: 'TheoryType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAnalysisTheoryTypeEnum'
+			baseType: 'IfcAnalysisTheoryTypeEnum',
+			optional: false
 		}, 
 		{
 			name: 'ResultForLoadGroup',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcStructuralLoadGroup'
+			baseType: 'IfcStructuralLoadGroup',
+			optional: true
 		}, 
 		{
 			name: 'IsLinear',
 			isCollection: false,
 			rank: 0,
-			baseType: 'boolean'
+			baseType: 'boolean',
+			optional: false
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,30 @@ import IfcLibraryInformation from "./IfcLibraryInformation.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccurrencyrelationship.htm
  */
-export default class IfcCurrencyRelationship implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcCurrencyRelationship';
+export default  class IfcCurrencyRelationship extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcCurrencyRelationshipSpecification = IfcCurrencyRelationshipSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RelatingMonetaryUnit_? : IfcMonetaryUnit
+    private RelatedMonetaryUnit_? : IfcMonetaryUnit
+    private ExchangeRate_? : IfcPositiveRatioMeasure
+    private RateDateTime_? : IfcDateAndTime
+    private RateSource_? : IfcLibraryInformation
 
-    public readonly __specification__: IfcCurrencyRelationshipSpecification = IfcCurrencyRelationshipSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RelatingMonetaryUnit : IfcMonetaryUnit , public readonly RelatedMonetaryUnit : IfcMonetaryUnit , public readonly ExchangeRate : IfcPositiveRatioMeasure , public readonly RateDateTime : IfcDateAndTime , public readonly RateSource : IfcLibraryInformation  | undefined ) {}
 }
 
 export class IfcCurrencyRelationshipSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCurrencyRelationship';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcCurrencyRelationship' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -38,31 +46,36 @@ export class IfcCurrencyRelationshipSpecification implements ComponentSpecificat
 			name: 'RelatingMonetaryUnit',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcMonetaryUnit'
+			baseType: 'IfcMonetaryUnit',
+			optional: false
 		}, 
 		{
 			name: 'RelatedMonetaryUnit',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcMonetaryUnit'
+			baseType: 'IfcMonetaryUnit',
+			optional: false
 		}, 
 		{
 			name: 'ExchangeRate',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveRatioMeasure'
+			baseType: 'IfcPositiveRatioMeasure',
+			optional: false
 		}, 
 		{
 			name: 'RateDateTime',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDateAndTime'
+			baseType: 'IfcDateAndTime',
+			optional: false
 		}, 
 		{
 			name: 'RateSource',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLibraryInformation'
+			baseType: 'IfcLibraryInformation',
+			optional: true
 		}
     ];
 

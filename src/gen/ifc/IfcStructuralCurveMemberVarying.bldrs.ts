@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -9,22 +9,26 @@ import { IFCSchema } from "./schema_ifc.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstructuralcurvemembervarying.htm
  */
-export default class IfcStructuralCurveMemberVarying implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcStructuralCurveMemberVarying';
+export default  class IfcStructuralCurveMemberVarying extends IfcStructuralCurveMember 
+{    
+    public readonly specification: IfcStructuralCurveMemberVaryingSpecification = IfcStructuralCurveMemberVaryingSpecification.instance;
 
-    public readonly __version__: number = 0;
 
-    public readonly __specification__: IfcStructuralCurveMemberVaryingSpecification = IfcStructuralCurveMemberVaryingSpecification.instance;
 
-    constructor(  ) {}
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
+
 }
 
 export class IfcStructuralCurveMemberVaryingSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStructuralCurveMemberVarying';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralCurveMember', 'IfcStructuralMember', 'IfcStructuralItem', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralCurveMemberVarying', 'IfcStructuralCurveMember', 'IfcStructuralMember', 'IfcStructuralItem', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 

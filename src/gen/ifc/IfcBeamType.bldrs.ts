@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcBeamTypeEnum from "./IfcBeamTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcbeamtype.htm
  */
-export default class IfcBeamType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcBeamType';
+export default  class IfcBeamType extends IfcBuildingElementType 
+{    
+    public readonly specification: IfcBeamTypeSpecification = IfcBeamTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcBeamTypeEnum
 
-    public readonly __specification__: IfcBeamTypeSpecification = IfcBeamTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcBeamTypeEnum  ) {}
 }
 
 export class IfcBeamTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcBeamType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcBuildingElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcBeamType', 'IfcBuildingElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcBeamTypeSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcBeamTypeEnum'
+			baseType: 'IfcBeamTypeEnum',
+			optional: false
 		}
     ];
 

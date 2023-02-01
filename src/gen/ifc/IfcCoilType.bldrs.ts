@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcCoilTypeEnum from "./IfcCoilTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccoiltype.htm
  */
-export default class IfcCoilType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcCoilType';
+export default  class IfcCoilType extends IfcEnergyConversionDeviceType 
+{    
+    public readonly specification: IfcCoilTypeSpecification = IfcCoilTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcCoilTypeEnum
 
-    public readonly __specification__: IfcCoilTypeSpecification = IfcCoilTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcCoilTypeEnum  ) {}
 }
 
 export class IfcCoilTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCoilType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcEnergyConversionDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcCoilType', 'IfcEnergyConversionDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcCoilTypeSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCoilTypeEnum'
+			baseType: 'IfcCoilTypeEnum',
+			optional: false
 		}
     ];
 

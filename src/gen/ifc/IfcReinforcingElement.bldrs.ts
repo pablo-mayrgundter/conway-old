@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcLabel from "./IfcLabel.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcreinforcingelement.htm
  */
-export default class IfcReinforcingElement implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcReinforcingElement';
+export default abstract class IfcReinforcingElement extends IfcBuildingElementComponent 
+{    
+    public readonly specification: IfcReinforcingElementSpecification = IfcReinforcingElementSpecification.instance;
 
-    public readonly __version__: number = 0;
+private SteelGrade_? : IfcLabel
 
-    public readonly __specification__: IfcReinforcingElementSpecification = IfcReinforcingElementSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly SteelGrade : IfcLabel  | undefined ) {}
 }
 
 export class IfcReinforcingElementSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcReinforcingElement';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcBuildingElementComponent', 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcReinforcingElement', 'IfcBuildingElementComponent', 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -35,7 +39,8 @@ export class IfcReinforcingElementSpecification implements ComponentSpecificatio
 			name: 'SteelGrade',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}
     ];
 

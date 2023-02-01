@@ -9,8 +9,6 @@ import IfcSpecularRoughness from "./IfcSpecularRoughness.bldrs"
 
 export default class IfcSpecularHighlightSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcSpecularHighlightSelectVariant ) {}
 }
 
@@ -20,3 +18,8 @@ export type IfcSpecularHighlightSelectChoices = IfcSpecularExponent|IfcSpecularR
 
 export type IfcSpecularHighlightSelectVariant = ({ type: 'IfcSpecularExponent'; value: IfcSpecularExponent }|{ type: 'IfcSpecularRoughness'; value: IfcSpecularRoughness }) & { type: IfcSpecularHighlightSelectType; value: IfcSpecularHighlightSelectChoices };
 
+export function IfcSpecularHighlightSelectSerializer( value?: IfcSpecularHighlightSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

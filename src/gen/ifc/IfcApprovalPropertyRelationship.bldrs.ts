@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcApproval from "./IfcApproval.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcapprovalpropertyrelationship.htm
  */
-export default class IfcApprovalPropertyRelationship implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcApprovalPropertyRelationship';
+export default  class IfcApprovalPropertyRelationship extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcApprovalPropertyRelationshipSpecification = IfcApprovalPropertyRelationshipSpecification.instance;
 
-    public readonly __version__: number = 0;
+private ApprovedProperties_? : Array<IfcProperty>
+    private Approval_? : IfcApproval
 
-    public readonly __specification__: IfcApprovalPropertyRelationshipSpecification = IfcApprovalPropertyRelationshipSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly ApprovedProperties : Array<IfcProperty> , public readonly Approval : IfcApproval  ) {}
 }
 
 export class IfcApprovalPropertyRelationshipSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcApprovalPropertyRelationship';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcApprovalPropertyRelationship' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcApprovalPropertyRelationshipSpecification implements ComponentSp
 			name: 'ApprovedProperties',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcProperty>'
+			baseType: 'Array<IfcProperty>',
+			optional: false
 		}, 
 		{
 			name: 'Approval',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcApproval'
+			baseType: 'IfcApproval',
+			optional: false
 		}
     ];
 

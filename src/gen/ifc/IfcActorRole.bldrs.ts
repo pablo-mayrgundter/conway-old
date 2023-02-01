@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,28 @@ import IfcText from "./IfcText.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcactorrole.htm
  */
-export default class IfcActorRole implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcActorRole';
+export default  class IfcActorRole extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcActorRoleSpecification = IfcActorRoleSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Role_? : IfcRoleEnum
+    private UserDefinedRole_? : IfcLabel
+    private Description_? : IfcText
 
-    public readonly __specification__: IfcActorRoleSpecification = IfcActorRoleSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Role : IfcRoleEnum , public readonly UserDefinedRole : IfcLabel  | undefined, public readonly Description : IfcText  | undefined ) {}
 }
 
 export class IfcActorRoleSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcActorRole';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcActorRole' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,19 +43,22 @@ export class IfcActorRoleSpecification implements ComponentSpecification
 			name: 'Role',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcRoleEnum'
+			baseType: 'IfcRoleEnum',
+			optional: false
 		}, 
 		{
 			name: 'UserDefinedRole',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'Description',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcText'
+			baseType: 'IfcText',
+			optional: true
 		}
     ];
 

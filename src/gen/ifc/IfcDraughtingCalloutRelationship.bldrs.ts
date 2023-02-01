@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,29 @@ import IfcDraughtingCallout from "./IfcDraughtingCallout.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcdraughtingcalloutrelationship.htm
  */
-export default class IfcDraughtingCalloutRelationship implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcDraughtingCalloutRelationship';
+export default  class IfcDraughtingCalloutRelationship extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcDraughtingCalloutRelationshipSpecification = IfcDraughtingCalloutRelationshipSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Name_? : IfcLabel
+    private Description_? : IfcText
+    private RelatingDraughtingCallout_? : IfcDraughtingCallout
+    private RelatedDraughtingCallout_? : IfcDraughtingCallout
 
-    public readonly __specification__: IfcDraughtingCalloutRelationshipSpecification = IfcDraughtingCalloutRelationshipSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Name : IfcLabel  | undefined, public readonly Description : IfcText  | undefined, public readonly RelatingDraughtingCallout : IfcDraughtingCallout , public readonly RelatedDraughtingCallout : IfcDraughtingCallout  ) {}
 }
 
 export class IfcDraughtingCalloutRelationshipSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcDraughtingCalloutRelationship';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcDraughtingCalloutRelationship' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,25 +44,29 @@ export class IfcDraughtingCalloutRelationshipSpecification implements ComponentS
 			name: 'Name',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'Description',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcText'
+			baseType: 'IfcText',
+			optional: true
 		}, 
 		{
 			name: 'RelatingDraughtingCallout',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDraughtingCallout'
+			baseType: 'IfcDraughtingCallout',
+			optional: false
 		}, 
 		{
 			name: 'RelatedDraughtingCallout',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDraughtingCallout'
+			baseType: 'IfcDraughtingCallout',
+			optional: false
 		}
     ];
 

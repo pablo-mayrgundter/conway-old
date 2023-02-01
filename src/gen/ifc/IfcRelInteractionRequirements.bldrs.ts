@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,30 @@ import IfcSpaceProgram from "./IfcSpaceProgram.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrelinteractionrequirements.htm
  */
-export default class IfcRelInteractionRequirements implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRelInteractionRequirements';
+export default  class IfcRelInteractionRequirements extends IfcRelConnects 
+{    
+    public readonly specification: IfcRelInteractionRequirementsSpecification = IfcRelInteractionRequirementsSpecification.instance;
 
-    public readonly __version__: number = 0;
+private DailyInteraction_? : IfcCountMeasure
+    private ImportanceRating_? : IfcNormalisedRatioMeasure
+    private LocationOfInteraction_? : IfcSpatialStructureElement
+    private RelatedSpaceProgram_? : IfcSpaceProgram
+    private RelatingSpaceProgram_? : IfcSpaceProgram
 
-    public readonly __specification__: IfcRelInteractionRequirementsSpecification = IfcRelInteractionRequirementsSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly DailyInteraction : IfcCountMeasure  | undefined, public readonly ImportanceRating : IfcNormalisedRatioMeasure  | undefined, public readonly LocationOfInteraction : IfcSpatialStructureElement  | undefined, public readonly RelatedSpaceProgram : IfcSpaceProgram , public readonly RelatingSpaceProgram : IfcSpaceProgram  ) {}
 }
 
 export class IfcRelInteractionRequirementsSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelInteractionRequirements';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelInteractionRequirements', 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -38,31 +46,36 @@ export class IfcRelInteractionRequirementsSpecification implements ComponentSpec
 			name: 'DailyInteraction',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCountMeasure'
+			baseType: 'IfcCountMeasure',
+			optional: true
 		}, 
 		{
 			name: 'ImportanceRating',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcNormalisedRatioMeasure'
+			baseType: 'IfcNormalisedRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'LocationOfInteraction',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSpatialStructureElement'
+			baseType: 'IfcSpatialStructureElement',
+			optional: true
 		}, 
 		{
 			name: 'RelatedSpaceProgram',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSpaceProgram'
+			baseType: 'IfcSpaceProgram',
+			optional: false
 		}, 
 		{
 			name: 'RelatingSpaceProgram',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSpaceProgram'
+			baseType: 'IfcSpaceProgram',
+			optional: false
 		}
     ];
 

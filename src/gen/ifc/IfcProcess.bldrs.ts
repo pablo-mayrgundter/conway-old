@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,26 @@ import IfcRelSequence from "./IfcRelSequence.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcprocess.htm
  */
-export default class IfcProcess implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcProcess';
+export default abstract class IfcProcess extends IfcObject 
+{    
+    public readonly specification: IfcProcessSpecification = IfcProcessSpecification.instance;
 
-    public readonly __version__: number = 0;
 
-    public readonly __specification__: IfcProcessSpecification = IfcProcessSpecification.instance;
 
-    constructor(  ) {}
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
+
 }
 
 export class IfcProcessSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcProcess';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcProcess', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = true;
 

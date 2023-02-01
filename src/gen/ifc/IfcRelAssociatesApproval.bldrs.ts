@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcApproval from "./IfcApproval.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrelassociatesapproval.htm
  */
-export default class IfcRelAssociatesApproval implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRelAssociatesApproval';
+export default  class IfcRelAssociatesApproval extends IfcRelAssociates 
+{    
+    public readonly specification: IfcRelAssociatesApprovalSpecification = IfcRelAssociatesApprovalSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RelatingApproval_? : IfcApproval
 
-    public readonly __specification__: IfcRelAssociatesApprovalSpecification = IfcRelAssociatesApprovalSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RelatingApproval : IfcApproval  ) {}
 }
 
 export class IfcRelAssociatesApprovalSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelAssociatesApproval';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssociates', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssociatesApproval', 'IfcRelAssociates', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcRelAssociatesApprovalSpecification implements ComponentSpecifica
 			name: 'RelatingApproval',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcApproval'
+			baseType: 'IfcApproval',
+			optional: false
 		}
     ];
 

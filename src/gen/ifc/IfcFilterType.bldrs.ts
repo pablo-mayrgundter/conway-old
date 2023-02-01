@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcFilterTypeEnum from "./IfcFilterTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcfiltertype.htm
  */
-export default class IfcFilterType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcFilterType';
+export default  class IfcFilterType extends IfcFlowTreatmentDeviceType 
+{    
+    public readonly specification: IfcFilterTypeSpecification = IfcFilterTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcFilterTypeEnum
 
-    public readonly __specification__: IfcFilterTypeSpecification = IfcFilterTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcFilterTypeEnum  ) {}
 }
 
 export class IfcFilterTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcFilterType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFlowTreatmentDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcFilterType', 'IfcFlowTreatmentDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcFilterTypeSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcFilterTypeEnum'
+			baseType: 'IfcFilterTypeEnum',
+			optional: false
 		}
     ];
 

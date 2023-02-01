@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcVector from "./IfcVector.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifconedirectionrepeatfactor.htm
  */
-export default class IfcOneDirectionRepeatFactor implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcOneDirectionRepeatFactor';
+export default  class IfcOneDirectionRepeatFactor extends IfcGeometricRepresentationItem 
+{    
+    public readonly specification: IfcOneDirectionRepeatFactorSpecification = IfcOneDirectionRepeatFactorSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RepeatFactor_? : IfcVector
 
-    public readonly __specification__: IfcOneDirectionRepeatFactorSpecification = IfcOneDirectionRepeatFactorSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RepeatFactor : IfcVector  ) {}
 }
 
 export class IfcOneDirectionRepeatFactorSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcOneDirectionRepeatFactor';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcOneDirectionRepeatFactor', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcOneDirectionRepeatFactorSpecification implements ComponentSpecif
 			name: 'RepeatFactor',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcVector'
+			baseType: 'IfcVector',
+			optional: false
 		}
     ];
 

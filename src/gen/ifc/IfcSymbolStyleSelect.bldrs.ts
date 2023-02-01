@@ -8,8 +8,6 @@ import IfcColour from "./IfcColour.bldrs"
 
 export default class IfcSymbolStyleSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcSymbolStyleSelectVariant ) {}
 }
 
@@ -19,3 +17,8 @@ export type IfcSymbolStyleSelectChoices = IfcColour;
 
 export type IfcSymbolStyleSelectVariant = ({ type: 'IfcColour'; value: IfcColour }) & { type: IfcSymbolStyleSelectType; value: IfcSymbolStyleSelectChoices };
 
+export function IfcSymbolStyleSelectSerializer( value?: IfcSymbolStyleSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

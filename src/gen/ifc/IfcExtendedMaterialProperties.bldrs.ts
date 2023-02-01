@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,28 @@ import IfcLabel from "./IfcLabel.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcextendedmaterialproperties.htm
  */
-export default class IfcExtendedMaterialProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcExtendedMaterialProperties';
+export default  class IfcExtendedMaterialProperties extends IfcMaterialProperties 
+{    
+    public readonly specification: IfcExtendedMaterialPropertiesSpecification = IfcExtendedMaterialPropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private ExtendedProperties_? : Array<IfcProperty>
+    private Description_? : IfcText
+    private Name_? : IfcLabel
 
-    public readonly __specification__: IfcExtendedMaterialPropertiesSpecification = IfcExtendedMaterialPropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly ExtendedProperties : Array<IfcProperty> , public readonly Description : IfcText  | undefined, public readonly Name : IfcLabel  ) {}
 }
 
 export class IfcExtendedMaterialPropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcExtendedMaterialProperties';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcMaterialProperties' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcExtendedMaterialProperties', 'IfcMaterialProperties' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,19 +43,22 @@ export class IfcExtendedMaterialPropertiesSpecification implements ComponentSpec
 			name: 'ExtendedProperties',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcProperty>'
+			baseType: 'Array<IfcProperty>',
+			optional: false
 		}, 
 		{
 			name: 'Description',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcText'
+			baseType: 'IfcText',
+			optional: true
 		}, 
 		{
 			name: 'Name',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: false
 		}
     ];
 

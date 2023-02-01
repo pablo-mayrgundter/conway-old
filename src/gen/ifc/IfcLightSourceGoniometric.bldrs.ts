@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -16,22 +16,31 @@ import IfcLightIntensityDistribution from "./IfcLightIntensityDistribution.bldrs
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifclightsourcegoniometric.htm
  */
-export default class IfcLightSourceGoniometric implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcLightSourceGoniometric';
+export default  class IfcLightSourceGoniometric extends IfcLightSource 
+{    
+    public readonly specification: IfcLightSourceGoniometricSpecification = IfcLightSourceGoniometricSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Position_? : IfcAxis2Placement3D
+    private ColourAppearance_? : IfcColourRgb
+    private ColourTemperature_? : IfcThermodynamicTemperatureMeasure
+    private LuminousFlux_? : IfcLuminousFluxMeasure
+    private LightEmissionSource_? : IfcLightEmissionSourceEnum
+    private LightDistributionDataSource_? : IfcExternalReference|IfcLightIntensityDistribution
 
-    public readonly __specification__: IfcLightSourceGoniometricSpecification = IfcLightSourceGoniometricSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Position : IfcAxis2Placement3D , public readonly ColourAppearance : IfcColourRgb  | undefined, public readonly ColourTemperature : IfcThermodynamicTemperatureMeasure , public readonly LuminousFlux : IfcLuminousFluxMeasure , public readonly LightEmissionSource : IfcLightEmissionSourceEnum , public readonly LightDistributionDataSource : IfcExternalReference|IfcLightIntensityDistribution  ) {}
 }
 
 export class IfcLightSourceGoniometricSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcLightSourceGoniometric';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcLightSource', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcLightSourceGoniometric', 'IfcLightSource', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -41,37 +50,43 @@ export class IfcLightSourceGoniometricSpecification implements ComponentSpecific
 			name: 'Position',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAxis2Placement3D'
+			baseType: 'IfcAxis2Placement3D',
+			optional: false
 		}, 
 		{
 			name: 'ColourAppearance',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcColourRgb'
+			baseType: 'IfcColourRgb',
+			optional: true
 		}, 
 		{
 			name: 'ColourTemperature',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcThermodynamicTemperatureMeasure'
+			baseType: 'IfcThermodynamicTemperatureMeasure',
+			optional: false
 		}, 
 		{
 			name: 'LuminousFlux',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLuminousFluxMeasure'
+			baseType: 'IfcLuminousFluxMeasure',
+			optional: false
 		}, 
 		{
 			name: 'LightEmissionSource',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLightEmissionSourceEnum'
+			baseType: 'IfcLightEmissionSourceEnum',
+			optional: false
 		}, 
 		{
 			name: 'LightDistributionDataSource',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcExternalReference|IfcLightIntensityDistribution'
+			baseType: 'IfcExternalReference|IfcLightIntensityDistribution',
+			optional: false
 		}
     ];
 

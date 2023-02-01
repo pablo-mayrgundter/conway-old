@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -19,22 +19,28 @@ import IfcCostValue from "./IfcCostValue.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcmetric.htm
  */
-export default class IfcMetric implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcMetric';
+export default  class IfcMetric extends IfcConstraint 
+{    
+    public readonly specification: IfcMetricSpecification = IfcMetricSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Benchmark_? : IfcBenchmarkEnum
+    private ValueSource_? : IfcLabel
+    private DataValue_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime|IfcMeasureWithUnit|IfcTable|IfcText|IfcTimeSeries|IfcCostValue
 
-    public readonly __specification__: IfcMetricSpecification = IfcMetricSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Benchmark : IfcBenchmarkEnum , public readonly ValueSource : IfcLabel  | undefined, public readonly DataValue : IfcCalendarDate|IfcLocalTime|IfcDateAndTime|IfcMeasureWithUnit|IfcTable|IfcText|IfcTimeSeries|IfcCostValue  ) {}
 }
 
 export class IfcMetricSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcMetric';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcConstraint' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcMetric', 'IfcConstraint' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -44,19 +50,22 @@ export class IfcMetricSpecification implements ComponentSpecification
 			name: 'Benchmark',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcBenchmarkEnum'
+			baseType: 'IfcBenchmarkEnum',
+			optional: false
 		}, 
 		{
 			name: 'ValueSource',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'DataValue',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime|IfcMeasureWithUnit|IfcTable|IfcText|IfcTimeSeries|IfcCostValue'
+			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime|IfcMeasureWithUnit|IfcTable|IfcText|IfcTimeSeries|IfcCostValue',
+			optional: false
 		}
     ];
 

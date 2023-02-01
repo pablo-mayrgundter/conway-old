@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcVertex from "./IfcVertex.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcorientededge.htm
  */
-export default class IfcOrientedEdge implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcOrientedEdge';
+export default  class IfcOrientedEdge extends IfcEdge 
+{    
+    public readonly specification: IfcOrientedEdgeSpecification = IfcOrientedEdgeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private EdgeElement_? : IfcEdge
+    private Orientation_? : boolean
 
-    public readonly __specification__: IfcOrientedEdgeSpecification = IfcOrientedEdgeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly EdgeElement : IfcEdge , public readonly Orientation : boolean  ) {}
 }
 
 export class IfcOrientedEdgeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcOrientedEdge';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcEdge', 'IfcTopologicalRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcOrientedEdge', 'IfcEdge', 'IfcTopologicalRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcOrientedEdgeSpecification implements ComponentSpecification
 			name: 'EdgeElement',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcEdge'
+			baseType: 'IfcEdge',
+			optional: false
 		}, 
 		{
 			name: 'Orientation',
 			isCollection: false,
 			rank: 0,
-			baseType: 'boolean'
+			baseType: 'boolean',
+			optional: false
 		}
     ];
 

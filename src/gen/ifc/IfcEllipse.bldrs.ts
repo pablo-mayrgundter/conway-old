@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,27 @@ import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcellipse.htm
  */
-export default class IfcEllipse implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcEllipse';
+export default  class IfcEllipse extends IfcConic 
+{    
+    public readonly specification: IfcEllipseSpecification = IfcEllipseSpecification.instance;
 
-    public readonly __version__: number = 0;
+private SemiAxis1_? : IfcPositiveLengthMeasure
+    private SemiAxis2_? : IfcPositiveLengthMeasure
 
-    public readonly __specification__: IfcEllipseSpecification = IfcEllipseSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly SemiAxis1 : IfcPositiveLengthMeasure , public readonly SemiAxis2 : IfcPositiveLengthMeasure  ) {}
 }
 
 export class IfcEllipseSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcEllipse';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcConic', 'IfcCurve', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcEllipse', 'IfcConic', 'IfcCurve', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,13 +40,15 @@ export class IfcEllipseSpecification implements ComponentSpecification
 			name: 'SemiAxis1',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'SemiAxis2',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}
     ];
 

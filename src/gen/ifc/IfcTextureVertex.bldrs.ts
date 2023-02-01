@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcParameterValue from "./IfcParameterValue.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifctexturevertex.htm
  */
-export default class IfcTextureVertex implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcTextureVertex';
+export default  class IfcTextureVertex extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcTextureVertexSpecification = IfcTextureVertexSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Coordinates_? : Array<IfcParameterValue>
 
-    public readonly __specification__: IfcTextureVertexSpecification = IfcTextureVertexSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Coordinates : Array<IfcParameterValue>  ) {}
 }
 
 export class IfcTextureVertexSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcTextureVertex';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcTextureVertex' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcTextureVertexSpecification implements ComponentSpecification
 			name: 'Coordinates',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcParameterValue>'
+			baseType: 'Array<IfcParameterValue>',
+			optional: false
 		}
     ];
 

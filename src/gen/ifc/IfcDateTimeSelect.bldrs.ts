@@ -10,8 +10,6 @@ import IfcDateAndTime from "./IfcDateAndTime.bldrs"
 
 export default class IfcDateTimeSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcDateTimeSelectVariant ) {}
 }
 
@@ -21,3 +19,8 @@ export type IfcDateTimeSelectChoices = IfcCalendarDate|IfcLocalTime|IfcDateAndTi
 
 export type IfcDateTimeSelectVariant = ({ type: 'IfcCalendarDate'; value: IfcCalendarDate }|{ type: 'IfcLocalTime'; value: IfcLocalTime }|{ type: 'IfcDateAndTime'; value: IfcDateAndTime }) & { type: IfcDateTimeSelectType; value: IfcDateTimeSelectChoices };
 
+export function IfcDateTimeSelectSerializer( value?: IfcDateTimeSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

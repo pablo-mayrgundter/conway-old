@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -17,22 +17,29 @@ import IfcDirection from "./IfcDirection.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcgeometricrepresentationsubcontext.htm
  */
-export default class IfcGeometricRepresentationSubContext implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcGeometricRepresentationSubContext';
+export default  class IfcGeometricRepresentationSubContext extends IfcGeometricRepresentationContext 
+{    
+    public readonly specification: IfcGeometricRepresentationSubContextSpecification = IfcGeometricRepresentationSubContextSpecification.instance;
 
-    public readonly __version__: number = 0;
+private ParentContext_? : IfcGeometricRepresentationContext
+    private TargetScale_? : IfcPositiveRatioMeasure
+    private TargetView_? : IfcGeometricProjectionEnum
+    private UserDefinedTargetView_? : IfcLabel
 
-    public readonly __specification__: IfcGeometricRepresentationSubContextSpecification = IfcGeometricRepresentationSubContextSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly ParentContext : IfcGeometricRepresentationContext , public readonly TargetScale : IfcPositiveRatioMeasure  | undefined, public readonly TargetView : IfcGeometricProjectionEnum , public readonly UserDefinedTargetView : IfcLabel  | undefined ) {}
 }
 
 export class IfcGeometricRepresentationSubContextSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcGeometricRepresentationSubContext';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationContext', 'IfcRepresentationContext' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationSubContext', 'IfcGeometricRepresentationContext', 'IfcRepresentationContext' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -42,25 +49,29 @@ export class IfcGeometricRepresentationSubContextSpecification implements Compon
 			name: 'ParentContext',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcGeometricRepresentationContext'
+			baseType: 'IfcGeometricRepresentationContext',
+			optional: false
 		}, 
 		{
 			name: 'TargetScale',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveRatioMeasure'
+			baseType: 'IfcPositiveRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'TargetView',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcGeometricProjectionEnum'
+			baseType: 'IfcGeometricProjectionEnum',
+			optional: false
 		}, 
 		{
 			name: 'UserDefinedTargetView',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}
     ];
 

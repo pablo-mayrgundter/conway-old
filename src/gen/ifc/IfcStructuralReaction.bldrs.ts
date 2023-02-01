@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcStructuralAction from "./IfcStructuralAction.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstructuralreaction.htm
  */
-export default class IfcStructuralReaction implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcStructuralReaction';
+export default abstract class IfcStructuralReaction extends IfcStructuralActivity 
+{    
+    public readonly specification: IfcStructuralReactionSpecification = IfcStructuralReactionSpecification.instance;
 
-    public readonly __version__: number = 0;
 
-    public readonly __specification__: IfcStructuralReactionSpecification = IfcStructuralReactionSpecification.instance;
 
-    constructor(  ) {}
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
+
 }
 
 export class IfcStructuralReactionSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStructuralReaction';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralActivity', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralReaction', 'IfcStructuralActivity', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = true;
 

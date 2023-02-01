@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifchalfspacesolid.htm
  */
-export default class IfcHalfSpaceSolid implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcHalfSpaceSolid';
+export default  class IfcHalfSpaceSolid extends IfcGeometricRepresentationItem 
+{    
+    public readonly specification: IfcHalfSpaceSolidSpecification = IfcHalfSpaceSolidSpecification.instance;
 
-    public readonly __version__: number = 0;
+private BaseSurface_? : IfcSurface
+    private AgreementFlag_? : boolean
 
-    public readonly __specification__: IfcHalfSpaceSolidSpecification = IfcHalfSpaceSolidSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly BaseSurface : IfcSurface , public readonly AgreementFlag : boolean  ) {}
 }
 
 export class IfcHalfSpaceSolidSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcHalfSpaceSolid';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcHalfSpaceSolid', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcHalfSpaceSolidSpecification implements ComponentSpecification
 			name: 'BaseSurface',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSurface'
+			baseType: 'IfcSurface',
+			optional: false
 		}, 
 		{
 			name: 'AgreementFlag',
 			isCollection: false,
 			rank: 0,
-			baseType: 'boolean'
+			baseType: 'boolean',
+			optional: false
 		}
     ];
 

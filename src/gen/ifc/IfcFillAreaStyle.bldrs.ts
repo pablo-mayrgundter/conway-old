@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -14,22 +14,26 @@ import IfcExternallyDefinedHatchStyle from "./IfcExternallyDefinedHatchStyle.bld
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcfillareastyle.htm
  */
-export default class IfcFillAreaStyle implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcFillAreaStyle';
+export default  class IfcFillAreaStyle extends IfcPresentationStyle 
+{    
+    public readonly specification: IfcFillAreaStyleSpecification = IfcFillAreaStyleSpecification.instance;
 
-    public readonly __version__: number = 0;
+private FillStyles_? : Array<IfcFillAreaStyleHatching|IfcFillAreaStyleTiles|IfcColourSpecification|IfcPreDefinedColour|IfcExternallyDefinedHatchStyle>
 
-    public readonly __specification__: IfcFillAreaStyleSpecification = IfcFillAreaStyleSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly FillStyles : Array<IfcFillAreaStyleHatching|IfcFillAreaStyleTiles|IfcColourSpecification|IfcPreDefinedColour|IfcExternallyDefinedHatchStyle>  ) {}
 }
 
 export class IfcFillAreaStyleSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcFillAreaStyle';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcPresentationStyle' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcFillAreaStyle', 'IfcPresentationStyle' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -39,7 +43,8 @@ export class IfcFillAreaStyleSpecification implements ComponentSpecification
 			name: 'FillStyles',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcFillAreaStyleHatching|IfcFillAreaStyleTiles|IfcColourSpecification|IfcPreDefinedColour|IfcExternallyDefinedHatchStyle>'
+			baseType: 'Array<IfcFillAreaStyleHatching|IfcFillAreaStyleTiles|IfcColourSpecification|IfcPreDefinedColour|IfcExternallyDefinedHatchStyle>',
+			optional: false
 		}
     ];
 

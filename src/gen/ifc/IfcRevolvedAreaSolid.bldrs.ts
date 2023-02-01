@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,27 @@ import IfcLine from "./IfcLine.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrevolvedareasolid.htm
  */
-export default class IfcRevolvedAreaSolid implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRevolvedAreaSolid';
+export default  class IfcRevolvedAreaSolid extends IfcSweptAreaSolid 
+{    
+    public readonly specification: IfcRevolvedAreaSolidSpecification = IfcRevolvedAreaSolidSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Axis_? : IfcAxis1Placement
+    private Angle_? : IfcPlaneAngleMeasure
 
-    public readonly __specification__: IfcRevolvedAreaSolidSpecification = IfcRevolvedAreaSolidSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Axis : IfcAxis1Placement , public readonly Angle : IfcPlaneAngleMeasure  ) {}
 }
 
 export class IfcRevolvedAreaSolidSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRevolvedAreaSolid';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcSweptAreaSolid', 'IfcSolidModel', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRevolvedAreaSolid', 'IfcSweptAreaSolid', 'IfcSolidModel', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,13 +42,15 @@ export class IfcRevolvedAreaSolidSpecification implements ComponentSpecification
 			name: 'Axis',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAxis1Placement'
+			baseType: 'IfcAxis1Placement',
+			optional: false
 		}, 
 		{
 			name: 'Angle',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPlaneAngleMeasure'
+			baseType: 'IfcPlaneAngleMeasure',
+			optional: false
 		}
     ];
 

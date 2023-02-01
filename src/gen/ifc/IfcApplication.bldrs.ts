@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,29 @@ import IfcIdentifier from "./IfcIdentifier.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcapplication.htm
  */
-export default class IfcApplication implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcApplication';
+export default  class IfcApplication extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcApplicationSpecification = IfcApplicationSpecification.instance;
 
-    public readonly __version__: number = 0;
+private ApplicationDeveloper_? : IfcOrganization
+    private Version_? : IfcLabel
+    private ApplicationFullName_? : IfcLabel
+    private ApplicationIdentifier_? : IfcIdentifier
 
-    public readonly __specification__: IfcApplicationSpecification = IfcApplicationSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly ApplicationDeveloper : IfcOrganization , public readonly Version : IfcLabel , public readonly ApplicationFullName : IfcLabel , public readonly ApplicationIdentifier : IfcIdentifier  ) {}
 }
 
 export class IfcApplicationSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcApplication';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcApplication' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,25 +44,29 @@ export class IfcApplicationSpecification implements ComponentSpecification
 			name: 'ApplicationDeveloper',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcOrganization'
+			baseType: 'IfcOrganization',
+			optional: false
 		}, 
 		{
 			name: 'Version',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: false
 		}, 
 		{
 			name: 'ApplicationFullName',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: false
 		}, 
 		{
 			name: 'ApplicationIdentifier',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcIdentifier'
+			baseType: 'IfcIdentifier',
+			optional: false
 		}
     ];
 

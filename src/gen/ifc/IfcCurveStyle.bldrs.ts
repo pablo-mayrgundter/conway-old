@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -20,22 +20,28 @@ import IfcPreDefinedColour from "./IfcPreDefinedColour.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccurvestyle.htm
  */
-export default class IfcCurveStyle implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcCurveStyle';
+export default  class IfcCurveStyle extends IfcPresentationStyle 
+{    
+    public readonly specification: IfcCurveStyleSpecification = IfcCurveStyleSpecification.instance;
 
-    public readonly __version__: number = 0;
+private CurveFont_? : IfcPreDefinedCurveFont|IfcCurveStyleFont|IfcCurveStyleFontAndScaling
+    private CurveWidth_? : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure
+    private CurveColour_? : IfcColourSpecification|IfcPreDefinedColour
 
-    public readonly __specification__: IfcCurveStyleSpecification = IfcCurveStyleSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly CurveFont : IfcPreDefinedCurveFont|IfcCurveStyleFont|IfcCurveStyleFontAndScaling  | undefined, public readonly CurveWidth : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure  | undefined, public readonly CurveColour : IfcColourSpecification|IfcPreDefinedColour  | undefined ) {}
 }
 
 export class IfcCurveStyleSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCurveStyle';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcPresentationStyle' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcCurveStyle', 'IfcPresentationStyle' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -45,19 +51,22 @@ export class IfcCurveStyleSpecification implements ComponentSpecification
 			name: 'CurveFont',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPreDefinedCurveFont|IfcCurveStyleFont|IfcCurveStyleFontAndScaling'
+			baseType: 'IfcPreDefinedCurveFont|IfcCurveStyleFont|IfcCurveStyleFontAndScaling',
+			optional: true
 		}, 
 		{
 			name: 'CurveWidth',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure'
+			baseType: 'IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'CurveColour',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcColourSpecification|IfcPreDefinedColour'
+			baseType: 'IfcColourSpecification|IfcPreDefinedColour',
+			optional: true
 		}
     ];
 

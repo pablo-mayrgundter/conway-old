@@ -9,8 +9,6 @@ import IfcExternallyDefinedTextFont from "./IfcExternallyDefinedTextFont.bldrs"
 
 export default class IfcTextFontSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcTextFontSelectVariant ) {}
 }
 
@@ -20,3 +18,8 @@ export type IfcTextFontSelectChoices = IfcPreDefinedTextFont|IfcExternallyDefine
 
 export type IfcTextFontSelectVariant = ({ type: 'IfcPreDefinedTextFont'; value: IfcPreDefinedTextFont }|{ type: 'IfcExternallyDefinedTextFont'; value: IfcExternallyDefinedTextFont }) & { type: IfcTextFontSelectType; value: IfcTextFontSelectChoices };
 
+export function IfcTextFontSelectSerializer( value?: IfcTextFontSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

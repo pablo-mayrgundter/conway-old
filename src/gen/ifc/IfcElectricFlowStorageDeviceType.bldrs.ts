@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcElectricFlowStorageDeviceTypeEnum from "./IfcElectricFlowStorageDevice
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcelectricflowstoragedevicetype.htm
  */
-export default class IfcElectricFlowStorageDeviceType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcElectricFlowStorageDeviceType';
+export default  class IfcElectricFlowStorageDeviceType extends IfcFlowStorageDeviceType 
+{    
+    public readonly specification: IfcElectricFlowStorageDeviceTypeSpecification = IfcElectricFlowStorageDeviceTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcElectricFlowStorageDeviceTypeEnum
 
-    public readonly __specification__: IfcElectricFlowStorageDeviceTypeSpecification = IfcElectricFlowStorageDeviceTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcElectricFlowStorageDeviceTypeEnum  ) {}
 }
 
 export class IfcElectricFlowStorageDeviceTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcElectricFlowStorageDeviceType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFlowStorageDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcElectricFlowStorageDeviceType', 'IfcFlowStorageDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcElectricFlowStorageDeviceTypeSpecification implements ComponentS
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcElectricFlowStorageDeviceTypeEnum'
+			baseType: 'IfcElectricFlowStorageDeviceTypeEnum',
+			optional: false
 		}
     ];
 

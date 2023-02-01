@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,28 @@ import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccurveboundedplane.htm
  */
-export default class IfcCurveBoundedPlane implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcCurveBoundedPlane';
+export default  class IfcCurveBoundedPlane extends IfcBoundedSurface 
+{    
+    public readonly specification: IfcCurveBoundedPlaneSpecification = IfcCurveBoundedPlaneSpecification.instance;
 
-    public readonly __version__: number = 0;
+private BasisSurface_? : IfcPlane
+    private OuterBoundary_? : IfcCurve
+    private InnerBoundaries_? : Array<IfcCurve>
 
-    public readonly __specification__: IfcCurveBoundedPlaneSpecification = IfcCurveBoundedPlaneSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly BasisSurface : IfcPlane , public readonly OuterBoundary : IfcCurve , public readonly InnerBoundaries : Array<IfcCurve>  ) {}
 }
 
 export class IfcCurveBoundedPlaneSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCurveBoundedPlane';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcBoundedSurface', 'IfcSurface', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcCurveBoundedPlane', 'IfcBoundedSurface', 'IfcSurface', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,19 +43,22 @@ export class IfcCurveBoundedPlaneSpecification implements ComponentSpecification
 			name: 'BasisSurface',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPlane'
+			baseType: 'IfcPlane',
+			optional: false
 		}, 
 		{
 			name: 'OuterBoundary',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCurve'
+			baseType: 'IfcCurve',
+			optional: false
 		}, 
 		{
 			name: 'InnerBoundaries',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcCurve>'
+			baseType: 'Array<IfcCurve>',
+			optional: false
 		}
     ];
 

@@ -9,8 +9,6 @@ import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
 
 export default class IfcColourOrFactor
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcColourOrFactorVariant ) {}
 }
 
@@ -20,3 +18,8 @@ export type IfcColourOrFactorChoices = IfcColourRgb|IfcNormalisedRatioMeasure;
 
 export type IfcColourOrFactorVariant = ({ type: 'IfcColourRgb'; value: IfcColourRgb }|{ type: 'IfcNormalisedRatioMeasure'; value: IfcNormalisedRatioMeasure }) & { type: IfcColourOrFactorType; value: IfcColourOrFactorChoices };
 
+export function IfcColourOrFactorSerializer( value?: IfcColourOrFactor, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

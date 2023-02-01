@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcVolumeMeasure from "./IfcVolumeMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcquantityvolume.htm
  */
-export default class IfcQuantityVolume implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcQuantityVolume';
+export default  class IfcQuantityVolume extends IfcPhysicalSimpleQuantity 
+{    
+    public readonly specification: IfcQuantityVolumeSpecification = IfcQuantityVolumeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private VolumeValue_? : IfcVolumeMeasure
 
-    public readonly __specification__: IfcQuantityVolumeSpecification = IfcQuantityVolumeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly VolumeValue : IfcVolumeMeasure  ) {}
 }
 
 export class IfcQuantityVolumeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcQuantityVolume';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcPhysicalSimpleQuantity', 'IfcPhysicalQuantity' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcQuantityVolume', 'IfcPhysicalSimpleQuantity', 'IfcPhysicalQuantity' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcQuantityVolumeSpecification implements ComponentSpecification
 			name: 'VolumeValue',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcVolumeMeasure'
+			baseType: 'IfcVolumeMeasure',
+			optional: false
 		}
     ];
 

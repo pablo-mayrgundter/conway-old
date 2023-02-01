@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcProtectiveDeviceTypeEnum from "./IfcProtectiveDeviceTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcprotectivedevicetype.htm
  */
-export default class IfcProtectiveDeviceType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcProtectiveDeviceType';
+export default  class IfcProtectiveDeviceType extends IfcFlowControllerType 
+{    
+    public readonly specification: IfcProtectiveDeviceTypeSpecification = IfcProtectiveDeviceTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcProtectiveDeviceTypeEnum
 
-    public readonly __specification__: IfcProtectiveDeviceTypeSpecification = IfcProtectiveDeviceTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcProtectiveDeviceTypeEnum  ) {}
 }
 
 export class IfcProtectiveDeviceTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcProtectiveDeviceType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFlowControllerType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcProtectiveDeviceType', 'IfcFlowControllerType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcProtectiveDeviceTypeSpecification implements ComponentSpecificat
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcProtectiveDeviceTypeEnum'
+			baseType: 'IfcProtectiveDeviceTypeEnum',
+			optional: false
 		}
     ];
 

@@ -9,8 +9,6 @@ import IfcCurveStyleFont from "./IfcCurveStyleFont.bldrs"
 
 export default class IfcCurveStyleFontSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcCurveStyleFontSelectVariant ) {}
 }
 
@@ -20,3 +18,8 @@ export type IfcCurveStyleFontSelectChoices = IfcPreDefinedCurveFont|IfcCurveStyl
 
 export type IfcCurveStyleFontSelectVariant = ({ type: 'IfcPreDefinedCurveFont'; value: IfcPreDefinedCurveFont }|{ type: 'IfcCurveStyleFont'; value: IfcCurveStyleFont }) & { type: IfcCurveStyleFontSelectType; value: IfcCurveStyleFontSelectChoices };
 
+export function IfcCurveStyleFontSelectSerializer( value?: IfcCurveStyleFontSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

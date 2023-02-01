@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcCartesianPoint from "./IfcCartesianPoint.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcpolyline.htm
  */
-export default class IfcPolyline implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcPolyline';
+export default  class IfcPolyline extends IfcBoundedCurve 
+{    
+    public readonly specification: IfcPolylineSpecification = IfcPolylineSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Points_? : Array<IfcCartesianPoint>
 
-    public readonly __specification__: IfcPolylineSpecification = IfcPolylineSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Points : Array<IfcCartesianPoint>  ) {}
 }
 
 export class IfcPolylineSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcPolyline';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcBoundedCurve', 'IfcCurve', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPolyline', 'IfcBoundedCurve', 'IfcCurve', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcPolylineSpecification implements ComponentSpecification
 			name: 'Points',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcCartesianPoint>'
+			baseType: 'Array<IfcCartesianPoint>',
+			optional: false
 		}
     ];
 

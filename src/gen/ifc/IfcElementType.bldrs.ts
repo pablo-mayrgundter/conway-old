@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcLabel from "./IfcLabel.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcelementtype.htm
  */
-export default class IfcElementType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcElementType';
+export default abstract class IfcElementType extends IfcTypeProduct 
+{    
+    public readonly specification: IfcElementTypeSpecification = IfcElementTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private ElementType_? : IfcLabel
 
-    public readonly __specification__: IfcElementTypeSpecification = IfcElementTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly ElementType : IfcLabel  | undefined ) {}
 }
 
 export class IfcElementTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcElementType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -35,7 +39,8 @@ export class IfcElementTypeSpecification implements ComponentSpecification
 			name: 'ElementType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}
     ];
 

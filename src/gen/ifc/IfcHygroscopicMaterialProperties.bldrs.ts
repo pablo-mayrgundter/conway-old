@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,30 @@ import IfcMoistureDiffusivityMeasure from "./IfcMoistureDiffusivityMeasure.bldrs
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifchygroscopicmaterialproperties.htm
  */
-export default class IfcHygroscopicMaterialProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcHygroscopicMaterialProperties';
+export default  class IfcHygroscopicMaterialProperties extends IfcMaterialProperties 
+{    
+    public readonly specification: IfcHygroscopicMaterialPropertiesSpecification = IfcHygroscopicMaterialPropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private UpperVaporResistanceFactor_? : IfcPositiveRatioMeasure
+    private LowerVaporResistanceFactor_? : IfcPositiveRatioMeasure
+    private IsothermalMoistureCapacity_? : IfcIsothermalMoistureCapacityMeasure
+    private VaporPermeability_? : IfcVaporPermeabilityMeasure
+    private MoistureDiffusivity_? : IfcMoistureDiffusivityMeasure
 
-    public readonly __specification__: IfcHygroscopicMaterialPropertiesSpecification = IfcHygroscopicMaterialPropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly UpperVaporResistanceFactor : IfcPositiveRatioMeasure  | undefined, public readonly LowerVaporResistanceFactor : IfcPositiveRatioMeasure  | undefined, public readonly IsothermalMoistureCapacity : IfcIsothermalMoistureCapacityMeasure  | undefined, public readonly VaporPermeability : IfcVaporPermeabilityMeasure  | undefined, public readonly MoistureDiffusivity : IfcMoistureDiffusivityMeasure  | undefined ) {}
 }
 
 export class IfcHygroscopicMaterialPropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcHygroscopicMaterialProperties';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcMaterialProperties' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcHygroscopicMaterialProperties', 'IfcMaterialProperties' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -38,31 +46,36 @@ export class IfcHygroscopicMaterialPropertiesSpecification implements ComponentS
 			name: 'UpperVaporResistanceFactor',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveRatioMeasure'
+			baseType: 'IfcPositiveRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'LowerVaporResistanceFactor',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveRatioMeasure'
+			baseType: 'IfcPositiveRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'IsothermalMoistureCapacity',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcIsothermalMoistureCapacityMeasure'
+			baseType: 'IfcIsothermalMoistureCapacityMeasure',
+			optional: true
 		}, 
 		{
 			name: 'VaporPermeability',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcVaporPermeabilityMeasure'
+			baseType: 'IfcVaporPermeabilityMeasure',
+			optional: true
 		}, 
 		{
 			name: 'MoistureDiffusivity',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcMoistureDiffusivityMeasure'
+			baseType: 'IfcMoistureDiffusivityMeasure',
+			optional: true
 		}
     ];
 

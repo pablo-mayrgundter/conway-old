@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,28 @@ import IfcLabel from "./IfcLabel.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcdocumentelectronicformat.htm
  */
-export default class IfcDocumentElectronicFormat implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcDocumentElectronicFormat';
+export default  class IfcDocumentElectronicFormat extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcDocumentElectronicFormatSpecification = IfcDocumentElectronicFormatSpecification.instance;
 
-    public readonly __version__: number = 0;
+private FileExtension_? : IfcLabel
+    private MimeContentType_? : IfcLabel
+    private MimeSubtype_? : IfcLabel
 
-    public readonly __specification__: IfcDocumentElectronicFormatSpecification = IfcDocumentElectronicFormatSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly FileExtension : IfcLabel  | undefined, public readonly MimeContentType : IfcLabel  | undefined, public readonly MimeSubtype : IfcLabel  | undefined ) {}
 }
 
 export class IfcDocumentElectronicFormatSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcDocumentElectronicFormat';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcDocumentElectronicFormat' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,19 +41,22 @@ export class IfcDocumentElectronicFormatSpecification implements ComponentSpecif
 			name: 'FileExtension',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'MimeContentType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'MimeSubtype',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}
     ];
 

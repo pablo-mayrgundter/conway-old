@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcVertex from "./IfcVertex.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcvertexloop.htm
  */
-export default class IfcVertexLoop implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcVertexLoop';
+export default  class IfcVertexLoop extends IfcLoop 
+{    
+    public readonly specification: IfcVertexLoopSpecification = IfcVertexLoopSpecification.instance;
 
-    public readonly __version__: number = 0;
+private LoopVertex_? : IfcVertex
 
-    public readonly __specification__: IfcVertexLoopSpecification = IfcVertexLoopSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly LoopVertex : IfcVertex  ) {}
 }
 
 export class IfcVertexLoopSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcVertexLoop';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcLoop', 'IfcTopologicalRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcVertexLoop', 'IfcLoop', 'IfcTopologicalRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcVertexLoopSpecification implements ComponentSpecification
 			name: 'LoopVertex',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcVertex'
+			baseType: 'IfcVertex',
+			optional: false
 		}
     ];
 

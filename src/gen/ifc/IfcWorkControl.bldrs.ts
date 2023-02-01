@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -17,22 +17,35 @@ import IfcWorkControlTypeEnum from "./IfcWorkControlTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcworkcontrol.htm
  */
-export default class IfcWorkControl implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcWorkControl';
+export default abstract class IfcWorkControl extends IfcControl 
+{    
+    public readonly specification: IfcWorkControlSpecification = IfcWorkControlSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Identifier_? : IfcIdentifier
+    private CreationDate_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
+    private Creators_? : Array<IfcPerson>
+    private Purpose_? : IfcLabel
+    private Duration_? : IfcTimeMeasure
+    private TotalFloat_? : IfcTimeMeasure
+    private StartTime_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
+    private FinishTime_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
+    private WorkControlType_? : IfcWorkControlTypeEnum
+    private UserDefinedControlType_? : IfcLabel
 
-    public readonly __specification__: IfcWorkControlSpecification = IfcWorkControlSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Identifier : IfcIdentifier , public readonly CreationDate : IfcCalendarDate|IfcLocalTime|IfcDateAndTime , public readonly Creators : Array<IfcPerson>  | undefined, public readonly Purpose : IfcLabel  | undefined, public readonly Duration : IfcTimeMeasure  | undefined, public readonly TotalFloat : IfcTimeMeasure  | undefined, public readonly StartTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime , public readonly FinishTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly WorkControlType : IfcWorkControlTypeEnum  | undefined, public readonly UserDefinedControlType : IfcLabel  | undefined ) {}
 }
 
 export class IfcWorkControlSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcWorkControl';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcWorkControl', 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -42,61 +55,71 @@ export class IfcWorkControlSpecification implements ComponentSpecification
 			name: 'Identifier',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcIdentifier'
+			baseType: 'IfcIdentifier',
+			optional: false
 		}, 
 		{
 			name: 'CreationDate',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime'
+			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime',
+			optional: false
 		}, 
 		{
 			name: 'Creators',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcPerson>'
+			baseType: 'Array<IfcPerson>',
+			optional: true
 		}, 
 		{
 			name: 'Purpose',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'Duration',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTimeMeasure'
+			baseType: 'IfcTimeMeasure',
+			optional: true
 		}, 
 		{
 			name: 'TotalFloat',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTimeMeasure'
+			baseType: 'IfcTimeMeasure',
+			optional: true
 		}, 
 		{
 			name: 'StartTime',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime'
+			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime',
+			optional: false
 		}, 
 		{
 			name: 'FinishTime',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime'
+			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime',
+			optional: true
 		}, 
 		{
 			name: 'WorkControlType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcWorkControlTypeEnum'
+			baseType: 'IfcWorkControlTypeEnum',
+			optional: true
 		}, 
 		{
 			name: 'UserDefinedControlType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}
     ];
 

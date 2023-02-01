@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -14,22 +14,30 @@ import IfcInternalOrExternalEnum from "./IfcInternalOrExternalEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrelspaceboundary.htm
  */
-export default class IfcRelSpaceBoundary implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRelSpaceBoundary';
+export default  class IfcRelSpaceBoundary extends IfcRelConnects 
+{    
+    public readonly specification: IfcRelSpaceBoundarySpecification = IfcRelSpaceBoundarySpecification.instance;
 
-    public readonly __version__: number = 0;
+private RelatingSpace_? : IfcSpace
+    private RelatedBuildingElement_? : IfcElement
+    private ConnectionGeometry_? : IfcConnectionGeometry
+    private PhysicalOrVirtualBoundary_? : IfcPhysicalOrVirtualEnum
+    private InternalOrExternalBoundary_? : IfcInternalOrExternalEnum
 
-    public readonly __specification__: IfcRelSpaceBoundarySpecification = IfcRelSpaceBoundarySpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RelatingSpace : IfcSpace , public readonly RelatedBuildingElement : IfcElement  | undefined, public readonly ConnectionGeometry : IfcConnectionGeometry  | undefined, public readonly PhysicalOrVirtualBoundary : IfcPhysicalOrVirtualEnum , public readonly InternalOrExternalBoundary : IfcInternalOrExternalEnum  ) {}
 }
 
 export class IfcRelSpaceBoundarySpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelSpaceBoundary';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelSpaceBoundary', 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -39,31 +47,36 @@ export class IfcRelSpaceBoundarySpecification implements ComponentSpecification
 			name: 'RelatingSpace',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSpace'
+			baseType: 'IfcSpace',
+			optional: false
 		}, 
 		{
 			name: 'RelatedBuildingElement',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcElement'
+			baseType: 'IfcElement',
+			optional: true
 		}, 
 		{
 			name: 'ConnectionGeometry',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcConnectionGeometry'
+			baseType: 'IfcConnectionGeometry',
+			optional: true
 		}, 
 		{
 			name: 'PhysicalOrVirtualBoundary',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPhysicalOrVirtualEnum'
+			baseType: 'IfcPhysicalOrVirtualEnum',
+			optional: false
 		}, 
 		{
 			name: 'InternalOrExternalBoundary',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcInternalOrExternalEnum'
+			baseType: 'IfcInternalOrExternalEnum',
+			optional: false
 		}
     ];
 

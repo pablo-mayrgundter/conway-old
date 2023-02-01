@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcProjectOrderRecordTypeEnum from "./IfcProjectOrderRecordTypeEnum.bldrs
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcprojectorderrecord.htm
  */
-export default class IfcProjectOrderRecord implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcProjectOrderRecord';
+export default  class IfcProjectOrderRecord extends IfcControl 
+{    
+    public readonly specification: IfcProjectOrderRecordSpecification = IfcProjectOrderRecordSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Records_? : Array<IfcRelAssignsToProjectOrder>
+    private PredefinedType_? : IfcProjectOrderRecordTypeEnum
 
-    public readonly __specification__: IfcProjectOrderRecordSpecification = IfcProjectOrderRecordSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Records : Array<IfcRelAssignsToProjectOrder> , public readonly PredefinedType : IfcProjectOrderRecordTypeEnum  ) {}
 }
 
 export class IfcProjectOrderRecordSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcProjectOrderRecord';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcProjectOrderRecord', 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcProjectOrderRecordSpecification implements ComponentSpecificatio
 			name: 'Records',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcRelAssignsToProjectOrder>'
+			baseType: 'Array<IfcRelAssignsToProjectOrder>',
+			optional: false
 		}, 
 		{
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcProjectOrderRecordTypeEnum'
+			baseType: 'IfcProjectOrderRecordTypeEnum',
+			optional: false
 		}
     ];
 

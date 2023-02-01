@@ -9,8 +9,6 @@ import IfcClassificationReference from "./IfcClassificationReference.bldrs"
 
 export default class IfcClassificationNotationSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcClassificationNotationSelectVariant ) {}
 }
 
@@ -20,3 +18,8 @@ export type IfcClassificationNotationSelectChoices = IfcClassificationNotation|I
 
 export type IfcClassificationNotationSelectVariant = ({ type: 'IfcClassificationNotation'; value: IfcClassificationNotation }|{ type: 'IfcClassificationReference'; value: IfcClassificationReference }) & { type: IfcClassificationNotationSelectType; value: IfcClassificationNotationSelectChoices };
 
+export function IfcClassificationNotationSelectSerializer( value?: IfcClassificationNotationSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

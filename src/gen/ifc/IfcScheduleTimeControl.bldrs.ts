@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -15,22 +15,43 @@ import IfcRelAssignsTasks from "./IfcRelAssignsTasks.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcscheduletimecontrol.htm
  */
-export default class IfcScheduleTimeControl implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcScheduleTimeControl';
+export default  class IfcScheduleTimeControl extends IfcControl 
+{    
+    public readonly specification: IfcScheduleTimeControlSpecification = IfcScheduleTimeControlSpecification.instance;
 
-    public readonly __version__: number = 0;
+private ActualStart_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
+    private EarlyStart_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
+    private LateStart_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
+    private ScheduleStart_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
+    private ActualFinish_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
+    private EarlyFinish_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
+    private LateFinish_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
+    private ScheduleFinish_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
+    private ScheduleDuration_? : IfcTimeMeasure
+    private ActualDuration_? : IfcTimeMeasure
+    private RemainingTime_? : IfcTimeMeasure
+    private FreeFloat_? : IfcTimeMeasure
+    private TotalFloat_? : IfcTimeMeasure
+    private IsCritical_? : boolean
+    private StatusTime_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
+    private StartFloat_? : IfcTimeMeasure
+    private FinishFloat_? : IfcTimeMeasure
+    private Completion_? : IfcPositiveRatioMeasure
 
-    public readonly __specification__: IfcScheduleTimeControlSpecification = IfcScheduleTimeControlSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly ActualStart : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly EarlyStart : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly LateStart : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly ScheduleStart : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly ActualFinish : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly EarlyFinish : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly LateFinish : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly ScheduleFinish : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly ScheduleDuration : IfcTimeMeasure  | undefined, public readonly ActualDuration : IfcTimeMeasure  | undefined, public readonly RemainingTime : IfcTimeMeasure  | undefined, public readonly FreeFloat : IfcTimeMeasure  | undefined, public readonly TotalFloat : IfcTimeMeasure  | undefined, public readonly IsCritical : boolean  | undefined, public readonly StatusTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly StartFloat : IfcTimeMeasure  | undefined, public readonly FinishFloat : IfcTimeMeasure  | undefined, public readonly Completion : IfcPositiveRatioMeasure  | undefined ) {}
 }
 
 export class IfcScheduleTimeControlSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcScheduleTimeControl';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcScheduleTimeControl', 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -40,109 +61,127 @@ export class IfcScheduleTimeControlSpecification implements ComponentSpecificati
 			name: 'ActualStart',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime'
+			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime',
+			optional: true
 		}, 
 		{
 			name: 'EarlyStart',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime'
+			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime',
+			optional: true
 		}, 
 		{
 			name: 'LateStart',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime'
+			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime',
+			optional: true
 		}, 
 		{
 			name: 'ScheduleStart',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime'
+			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime',
+			optional: true
 		}, 
 		{
 			name: 'ActualFinish',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime'
+			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime',
+			optional: true
 		}, 
 		{
 			name: 'EarlyFinish',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime'
+			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime',
+			optional: true
 		}, 
 		{
 			name: 'LateFinish',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime'
+			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime',
+			optional: true
 		}, 
 		{
 			name: 'ScheduleFinish',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime'
+			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime',
+			optional: true
 		}, 
 		{
 			name: 'ScheduleDuration',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTimeMeasure'
+			baseType: 'IfcTimeMeasure',
+			optional: true
 		}, 
 		{
 			name: 'ActualDuration',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTimeMeasure'
+			baseType: 'IfcTimeMeasure',
+			optional: true
 		}, 
 		{
 			name: 'RemainingTime',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTimeMeasure'
+			baseType: 'IfcTimeMeasure',
+			optional: true
 		}, 
 		{
 			name: 'FreeFloat',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTimeMeasure'
+			baseType: 'IfcTimeMeasure',
+			optional: true
 		}, 
 		{
 			name: 'TotalFloat',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTimeMeasure'
+			baseType: 'IfcTimeMeasure',
+			optional: true
 		}, 
 		{
 			name: 'IsCritical',
 			isCollection: false,
 			rank: 0,
-			baseType: 'boolean'
+			baseType: 'boolean',
+			optional: true
 		}, 
 		{
 			name: 'StatusTime',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime'
+			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime',
+			optional: true
 		}, 
 		{
 			name: 'StartFloat',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTimeMeasure'
+			baseType: 'IfcTimeMeasure',
+			optional: true
 		}, 
 		{
 			name: 'FinishFloat',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTimeMeasure'
+			baseType: 'IfcTimeMeasure',
+			optional: true
 		}, 
 		{
 			name: 'Completion',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveRatioMeasure'
+			baseType: 'IfcPositiveRatioMeasure',
+			optional: true
 		}
     ];
 

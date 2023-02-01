@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcElectricGeneratorTypeEnum from "./IfcElectricGeneratorTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcelectricgeneratortype.htm
  */
-export default class IfcElectricGeneratorType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcElectricGeneratorType';
+export default  class IfcElectricGeneratorType extends IfcEnergyConversionDeviceType 
+{    
+    public readonly specification: IfcElectricGeneratorTypeSpecification = IfcElectricGeneratorTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcElectricGeneratorTypeEnum
 
-    public readonly __specification__: IfcElectricGeneratorTypeSpecification = IfcElectricGeneratorTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcElectricGeneratorTypeEnum  ) {}
 }
 
 export class IfcElectricGeneratorTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcElectricGeneratorType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcEnergyConversionDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcElectricGeneratorType', 'IfcEnergyConversionDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcElectricGeneratorTypeSpecification implements ComponentSpecifica
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcElectricGeneratorTypeEnum'
+			baseType: 'IfcElectricGeneratorTypeEnum',
+			optional: false
 		}
     ];
 

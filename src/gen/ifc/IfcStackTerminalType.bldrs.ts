@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcStackTerminalTypeEnum from "./IfcStackTerminalTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstackterminaltype.htm
  */
-export default class IfcStackTerminalType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcStackTerminalType';
+export default  class IfcStackTerminalType extends IfcFlowTerminalType 
+{    
+    public readonly specification: IfcStackTerminalTypeSpecification = IfcStackTerminalTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcStackTerminalTypeEnum
 
-    public readonly __specification__: IfcStackTerminalTypeSpecification = IfcStackTerminalTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcStackTerminalTypeEnum  ) {}
 }
 
 export class IfcStackTerminalTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStackTerminalType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFlowTerminalType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStackTerminalType', 'IfcFlowTerminalType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcStackTerminalTypeSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcStackTerminalTypeEnum'
+			baseType: 'IfcStackTerminalTypeEnum',
+			optional: false
 		}
     ];
 

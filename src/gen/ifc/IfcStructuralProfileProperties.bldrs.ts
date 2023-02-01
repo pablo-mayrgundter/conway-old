@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -14,22 +14,41 @@ import IfcSectionModulusMeasure from "./IfcSectionModulusMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstructuralprofileproperties.htm
  */
-export default class IfcStructuralProfileProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcStructuralProfileProperties';
+export default  class IfcStructuralProfileProperties extends IfcGeneralProfileProperties 
+{    
+    public readonly specification: IfcStructuralProfilePropertiesSpecification = IfcStructuralProfilePropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private TorsionalConstantX_? : IfcMomentOfInertiaMeasure
+    private MomentOfInertiaYZ_? : IfcMomentOfInertiaMeasure
+    private MomentOfInertiaY_? : IfcMomentOfInertiaMeasure
+    private MomentOfInertiaZ_? : IfcMomentOfInertiaMeasure
+    private WarpingConstant_? : IfcWarpingConstantMeasure
+    private ShearCentreZ_? : IfcLengthMeasure
+    private ShearCentreY_? : IfcLengthMeasure
+    private ShearDeformationAreaZ_? : IfcAreaMeasure
+    private ShearDeformationAreaY_? : IfcAreaMeasure
+    private MaximumSectionModulusY_? : IfcSectionModulusMeasure
+    private MinimumSectionModulusY_? : IfcSectionModulusMeasure
+    private MaximumSectionModulusZ_? : IfcSectionModulusMeasure
+    private MinimumSectionModulusZ_? : IfcSectionModulusMeasure
+    private TorsionalSectionModulus_? : IfcSectionModulusMeasure
+    private CentreOfGravityInX_? : IfcLengthMeasure
+    private CentreOfGravityInY_? : IfcLengthMeasure
 
-    public readonly __specification__: IfcStructuralProfilePropertiesSpecification = IfcStructuralProfilePropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly TorsionalConstantX : IfcMomentOfInertiaMeasure  | undefined, public readonly MomentOfInertiaYZ : IfcMomentOfInertiaMeasure  | undefined, public readonly MomentOfInertiaY : IfcMomentOfInertiaMeasure  | undefined, public readonly MomentOfInertiaZ : IfcMomentOfInertiaMeasure  | undefined, public readonly WarpingConstant : IfcWarpingConstantMeasure  | undefined, public readonly ShearCentreZ : IfcLengthMeasure  | undefined, public readonly ShearCentreY : IfcLengthMeasure  | undefined, public readonly ShearDeformationAreaZ : IfcAreaMeasure  | undefined, public readonly ShearDeformationAreaY : IfcAreaMeasure  | undefined, public readonly MaximumSectionModulusY : IfcSectionModulusMeasure  | undefined, public readonly MinimumSectionModulusY : IfcSectionModulusMeasure  | undefined, public readonly MaximumSectionModulusZ : IfcSectionModulusMeasure  | undefined, public readonly MinimumSectionModulusZ : IfcSectionModulusMeasure  | undefined, public readonly TorsionalSectionModulus : IfcSectionModulusMeasure  | undefined, public readonly CentreOfGravityInX : IfcLengthMeasure  | undefined, public readonly CentreOfGravityInY : IfcLengthMeasure  | undefined ) {}
 }
 
 export class IfcStructuralProfilePropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStructuralProfileProperties';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcGeneralProfileProperties', 'IfcProfileProperties' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralProfileProperties', 'IfcGeneralProfileProperties', 'IfcProfileProperties' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -39,97 +58,113 @@ export class IfcStructuralProfilePropertiesSpecification implements ComponentSpe
 			name: 'TorsionalConstantX',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcMomentOfInertiaMeasure'
+			baseType: 'IfcMomentOfInertiaMeasure',
+			optional: true
 		}, 
 		{
 			name: 'MomentOfInertiaYZ',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcMomentOfInertiaMeasure'
+			baseType: 'IfcMomentOfInertiaMeasure',
+			optional: true
 		}, 
 		{
 			name: 'MomentOfInertiaY',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcMomentOfInertiaMeasure'
+			baseType: 'IfcMomentOfInertiaMeasure',
+			optional: true
 		}, 
 		{
 			name: 'MomentOfInertiaZ',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcMomentOfInertiaMeasure'
+			baseType: 'IfcMomentOfInertiaMeasure',
+			optional: true
 		}, 
 		{
 			name: 'WarpingConstant',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcWarpingConstantMeasure'
+			baseType: 'IfcWarpingConstantMeasure',
+			optional: true
 		}, 
 		{
 			name: 'ShearCentreZ',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'ShearCentreY',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'ShearDeformationAreaZ',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAreaMeasure'
+			baseType: 'IfcAreaMeasure',
+			optional: true
 		}, 
 		{
 			name: 'ShearDeformationAreaY',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAreaMeasure'
+			baseType: 'IfcAreaMeasure',
+			optional: true
 		}, 
 		{
 			name: 'MaximumSectionModulusY',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSectionModulusMeasure'
+			baseType: 'IfcSectionModulusMeasure',
+			optional: true
 		}, 
 		{
 			name: 'MinimumSectionModulusY',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSectionModulusMeasure'
+			baseType: 'IfcSectionModulusMeasure',
+			optional: true
 		}, 
 		{
 			name: 'MaximumSectionModulusZ',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSectionModulusMeasure'
+			baseType: 'IfcSectionModulusMeasure',
+			optional: true
 		}, 
 		{
 			name: 'MinimumSectionModulusZ',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSectionModulusMeasure'
+			baseType: 'IfcSectionModulusMeasure',
+			optional: true
 		}, 
 		{
 			name: 'TorsionalSectionModulus',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSectionModulusMeasure'
+			baseType: 'IfcSectionModulusMeasure',
+			optional: true
 		}, 
 		{
 			name: 'CentreOfGravityInX',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'CentreOfGravityInY',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: true
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcCountMeasure from "./IfcCountMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcquantitycount.htm
  */
-export default class IfcQuantityCount implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcQuantityCount';
+export default  class IfcQuantityCount extends IfcPhysicalSimpleQuantity 
+{    
+    public readonly specification: IfcQuantityCountSpecification = IfcQuantityCountSpecification.instance;
 
-    public readonly __version__: number = 0;
+private CountValue_? : IfcCountMeasure
 
-    public readonly __specification__: IfcQuantityCountSpecification = IfcQuantityCountSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly CountValue : IfcCountMeasure  ) {}
 }
 
 export class IfcQuantityCountSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcQuantityCount';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcPhysicalSimpleQuantity', 'IfcPhysicalQuantity' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcQuantityCount', 'IfcPhysicalSimpleQuantity', 'IfcPhysicalQuantity' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcQuantityCountSpecification implements ComponentSpecification
 			name: 'CountValue',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCountMeasure'
+			baseType: 'IfcCountMeasure',
+			optional: false
 		}
     ];
 

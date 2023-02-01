@@ -10,8 +10,6 @@ import IfcFaceBasedSurfaceModel from "./IfcFaceBasedSurfaceModel.bldrs"
 
 export default class IfcSurfaceOrFaceSurface
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcSurfaceOrFaceSurfaceVariant ) {}
 }
 
@@ -21,3 +19,8 @@ export type IfcSurfaceOrFaceSurfaceChoices = IfcSurface|IfcFaceSurface|IfcFaceBa
 
 export type IfcSurfaceOrFaceSurfaceVariant = ({ type: 'IfcSurface'; value: IfcSurface }|{ type: 'IfcFaceSurface'; value: IfcFaceSurface }|{ type: 'IfcFaceBasedSurfaceModel'; value: IfcFaceBasedSurfaceModel }) & { type: IfcSurfaceOrFaceSurfaceType; value: IfcSurfaceOrFaceSurfaceChoices };
 
+export function IfcSurfaceOrFaceSurfaceSerializer( value?: IfcSurfaceOrFaceSurface, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

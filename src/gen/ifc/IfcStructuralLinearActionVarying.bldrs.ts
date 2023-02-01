@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcStructuralLoad from "./IfcStructuralLoad.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstructurallinearactionvarying.htm
  */
-export default class IfcStructuralLinearActionVarying implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcStructuralLinearActionVarying';
+export default  class IfcStructuralLinearActionVarying extends IfcStructuralLinearAction 
+{    
+    public readonly specification: IfcStructuralLinearActionVaryingSpecification = IfcStructuralLinearActionVaryingSpecification.instance;
 
-    public readonly __version__: number = 0;
+private VaryingAppliedLoadLocation_? : IfcShapeAspect
+    private SubsequentAppliedLoads_? : Array<IfcStructuralLoad>
 
-    public readonly __specification__: IfcStructuralLinearActionVaryingSpecification = IfcStructuralLinearActionVaryingSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly VaryingAppliedLoadLocation : IfcShapeAspect , public readonly SubsequentAppliedLoads : Array<IfcStructuralLoad>  ) {}
 }
 
 export class IfcStructuralLinearActionVaryingSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStructuralLinearActionVarying';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralLinearAction', 'IfcStructuralAction', 'IfcStructuralActivity', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralLinearActionVarying', 'IfcStructuralLinearAction', 'IfcStructuralAction', 'IfcStructuralActivity', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcStructuralLinearActionVaryingSpecification implements ComponentS
 			name: 'VaryingAppliedLoadLocation',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcShapeAspect'
+			baseType: 'IfcShapeAspect',
+			optional: false
 		}, 
 		{
 			name: 'SubsequentAppliedLoads',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcStructuralLoad>'
+			baseType: 'Array<IfcStructuralLoad>',
+			optional: false
 		}
     ];
 

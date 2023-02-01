@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcLabel from "./IfcLabel.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccontextdependentunit.htm
  */
-export default class IfcContextDependentUnit implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcContextDependentUnit';
+export default  class IfcContextDependentUnit extends IfcNamedUnit 
+{    
+    public readonly specification: IfcContextDependentUnitSpecification = IfcContextDependentUnitSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Name_? : IfcLabel
 
-    public readonly __specification__: IfcContextDependentUnitSpecification = IfcContextDependentUnitSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Name : IfcLabel  ) {}
 }
 
 export class IfcContextDependentUnitSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcContextDependentUnit';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcNamedUnit' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcContextDependentUnit', 'IfcNamedUnit' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcContextDependentUnitSpecification implements ComponentSpecificat
 			name: 'Name',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: false
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,28 @@ import IfcProfileDef from "./IfcProfileDef.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcconnectionportgeometry.htm
  */
-export default class IfcConnectionPortGeometry implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcConnectionPortGeometry';
+export default  class IfcConnectionPortGeometry extends IfcConnectionGeometry 
+{    
+    public readonly specification: IfcConnectionPortGeometrySpecification = IfcConnectionPortGeometrySpecification.instance;
 
-    public readonly __version__: number = 0;
+private LocationAtRelatingElement_? : IfcAxis2Placement2D|IfcAxis2Placement3D
+    private LocationAtRelatedElement_? : IfcAxis2Placement2D|IfcAxis2Placement3D
+    private ProfileOfPort_? : IfcProfileDef
 
-    public readonly __specification__: IfcConnectionPortGeometrySpecification = IfcConnectionPortGeometrySpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly LocationAtRelatingElement : IfcAxis2Placement2D|IfcAxis2Placement3D , public readonly LocationAtRelatedElement : IfcAxis2Placement2D|IfcAxis2Placement3D  | undefined, public readonly ProfileOfPort : IfcProfileDef  ) {}
 }
 
 export class IfcConnectionPortGeometrySpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcConnectionPortGeometry';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcConnectionGeometry' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcConnectionPortGeometry', 'IfcConnectionGeometry' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,19 +43,22 @@ export class IfcConnectionPortGeometrySpecification implements ComponentSpecific
 			name: 'LocationAtRelatingElement',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAxis2Placement2D|IfcAxis2Placement3D'
+			baseType: 'IfcAxis2Placement2D|IfcAxis2Placement3D',
+			optional: false
 		}, 
 		{
 			name: 'LocationAtRelatedElement',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAxis2Placement2D|IfcAxis2Placement3D'
+			baseType: 'IfcAxis2Placement2D|IfcAxis2Placement3D',
+			optional: true
 		}, 
 		{
 			name: 'ProfileOfPort',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcProfileDef'
+			baseType: 'IfcProfileDef',
+			optional: false
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,29 @@ import IfcColourRgb from "./IfcColourRgb.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcsurfacestylelighting.htm
  */
-export default class IfcSurfaceStyleLighting implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcSurfaceStyleLighting';
+export default  class IfcSurfaceStyleLighting extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcSurfaceStyleLightingSpecification = IfcSurfaceStyleLightingSpecification.instance;
 
-    public readonly __version__: number = 0;
+private DiffuseTransmissionColour_? : IfcColourRgb
+    private DiffuseReflectionColour_? : IfcColourRgb
+    private TransmissionColour_? : IfcColourRgb
+    private ReflectanceColour_? : IfcColourRgb
 
-    public readonly __specification__: IfcSurfaceStyleLightingSpecification = IfcSurfaceStyleLightingSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly DiffuseTransmissionColour : IfcColourRgb , public readonly DiffuseReflectionColour : IfcColourRgb , public readonly TransmissionColour : IfcColourRgb , public readonly ReflectanceColour : IfcColourRgb  ) {}
 }
 
 export class IfcSurfaceStyleLightingSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSurfaceStyleLighting';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSurfaceStyleLighting' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,25 +42,29 @@ export class IfcSurfaceStyleLightingSpecification implements ComponentSpecificat
 			name: 'DiffuseTransmissionColour',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcColourRgb'
+			baseType: 'IfcColourRgb',
+			optional: false
 		}, 
 		{
 			name: 'DiffuseReflectionColour',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcColourRgb'
+			baseType: 'IfcColourRgb',
+			optional: false
 		}, 
 		{
 			name: 'TransmissionColour',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcColourRgb'
+			baseType: 'IfcColourRgb',
+			optional: false
 		}, 
 		{
 			name: 'ReflectanceColour',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcColourRgb'
+			baseType: 'IfcColourRgb',
+			optional: false
 		}
     ];
 

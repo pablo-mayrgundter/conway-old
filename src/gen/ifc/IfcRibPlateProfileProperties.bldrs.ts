@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,30 @@ import IfcRibPlateDirectionEnum from "./IfcRibPlateDirectionEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcribplateprofileproperties.htm
  */
-export default class IfcRibPlateProfileProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRibPlateProfileProperties';
+export default  class IfcRibPlateProfileProperties extends IfcProfileProperties 
+{    
+    public readonly specification: IfcRibPlateProfilePropertiesSpecification = IfcRibPlateProfilePropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Thickness_? : IfcPositiveLengthMeasure
+    private RibHeight_? : IfcPositiveLengthMeasure
+    private RibWidth_? : IfcPositiveLengthMeasure
+    private RibSpacing_? : IfcPositiveLengthMeasure
+    private Direction_? : IfcRibPlateDirectionEnum
 
-    public readonly __specification__: IfcRibPlateProfilePropertiesSpecification = IfcRibPlateProfilePropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Thickness : IfcPositiveLengthMeasure  | undefined, public readonly RibHeight : IfcPositiveLengthMeasure  | undefined, public readonly RibWidth : IfcPositiveLengthMeasure  | undefined, public readonly RibSpacing : IfcPositiveLengthMeasure  | undefined, public readonly Direction : IfcRibPlateDirectionEnum  ) {}
 }
 
 export class IfcRibPlateProfilePropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRibPlateProfileProperties';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcProfileProperties' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRibPlateProfileProperties', 'IfcProfileProperties' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,31 +44,36 @@ export class IfcRibPlateProfilePropertiesSpecification implements ComponentSpeci
 			name: 'Thickness',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'RibHeight',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'RibWidth',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'RibSpacing',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'Direction',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcRibPlateDirectionEnum'
+			baseType: 'IfcRibPlateDirectionEnum',
+			optional: false
 		}
     ];
 

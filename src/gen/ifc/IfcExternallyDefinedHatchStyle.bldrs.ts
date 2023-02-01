@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -9,22 +9,26 @@ import { IFCSchema } from "./schema_ifc.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcexternallydefinedhatchstyle.htm
  */
-export default class IfcExternallyDefinedHatchStyle implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcExternallyDefinedHatchStyle';
+export default  class IfcExternallyDefinedHatchStyle extends IfcExternalReference 
+{    
+    public readonly specification: IfcExternallyDefinedHatchStyleSpecification = IfcExternallyDefinedHatchStyleSpecification.instance;
 
-    public readonly __version__: number = 0;
 
-    public readonly __specification__: IfcExternallyDefinedHatchStyleSpecification = IfcExternallyDefinedHatchStyleSpecification.instance;
 
-    constructor(  ) {}
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
+
 }
 
 export class IfcExternallyDefinedHatchStyleSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcExternallyDefinedHatchStyle';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcExternalReference' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcExternallyDefinedHatchStyle', 'IfcExternalReference' ];
 
     public readonly isAbstract: boolean = false;
 

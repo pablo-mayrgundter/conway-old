@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcCovering from "./IfcCovering.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrelcoversbldgelements.htm
  */
-export default class IfcRelCoversBldgElements implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRelCoversBldgElements';
+export default  class IfcRelCoversBldgElements extends IfcRelConnects 
+{    
+    public readonly specification: IfcRelCoversBldgElementsSpecification = IfcRelCoversBldgElementsSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RelatingBuildingElement_? : IfcElement
+    private RelatedCoverings_? : Array<IfcCovering>
 
-    public readonly __specification__: IfcRelCoversBldgElementsSpecification = IfcRelCoversBldgElementsSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RelatingBuildingElement : IfcElement , public readonly RelatedCoverings : Array<IfcCovering>  ) {}
 }
 
 export class IfcRelCoversBldgElementsSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelCoversBldgElements';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelCoversBldgElements', 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcRelCoversBldgElementsSpecification implements ComponentSpecifica
 			name: 'RelatingBuildingElement',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcElement'
+			baseType: 'IfcElement',
+			optional: false
 		}, 
 		{
 			name: 'RelatedCoverings',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcCovering>'
+			baseType: 'Array<IfcCovering>',
+			optional: false
 		}
     ];
 

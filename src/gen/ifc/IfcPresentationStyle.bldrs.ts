@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcLabel from "./IfcLabel.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcpresentationstyle.htm
  */
-export default class IfcPresentationStyle implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcPresentationStyle';
+export default abstract class IfcPresentationStyle extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcPresentationStyleSpecification = IfcPresentationStyleSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Name_? : IfcLabel
 
-    public readonly __specification__: IfcPresentationStyleSpecification = IfcPresentationStyleSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Name : IfcLabel  | undefined ) {}
 }
 
 export class IfcPresentationStyleSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcPresentationStyle';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPresentationStyle' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -35,7 +39,8 @@ export class IfcPresentationStyleSpecification implements ComponentSpecification
 			name: 'Name',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}
     ];
 

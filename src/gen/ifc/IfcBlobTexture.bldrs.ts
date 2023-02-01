@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,27 @@ import IfcIdentifier from "./IfcIdentifier.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcblobtexture.htm
  */
-export default class IfcBlobTexture implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcBlobTexture';
+export default  class IfcBlobTexture extends IfcSurfaceTexture 
+{    
+    public readonly specification: IfcBlobTextureSpecification = IfcBlobTextureSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RasterFormat_? : IfcIdentifier
+    private RasterCode_? : boolean
 
-    public readonly __specification__: IfcBlobTextureSpecification = IfcBlobTextureSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RasterFormat : IfcIdentifier , public readonly RasterCode : boolean  ) {}
 }
 
 export class IfcBlobTextureSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcBlobTexture';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcSurfaceTexture' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcBlobTexture', 'IfcSurfaceTexture' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,13 +40,15 @@ export class IfcBlobTextureSpecification implements ComponentSpecification
 			name: 'RasterFormat',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcIdentifier'
+			baseType: 'IfcIdentifier',
+			optional: false
 		}, 
 		{
 			name: 'RasterCode',
 			isCollection: false,
 			rank: 0,
-			baseType: 'boolean'
+			baseType: 'boolean',
+			optional: false
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -18,22 +18,32 @@ import IfcTextTransformation from "./IfcTextTransformation.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifctextstyletextmodel.htm
  */
-export default class IfcTextStyleTextModel implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcTextStyleTextModel';
+export default  class IfcTextStyleTextModel extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcTextStyleTextModelSpecification = IfcTextStyleTextModelSpecification.instance;
 
-    public readonly __version__: number = 0;
+private TextIndent_? : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure
+    private TextAlign_? : IfcTextAlignment
+    private TextDecoration_? : IfcTextDecoration
+    private LetterSpacing_? : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure
+    private WordSpacing_? : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure
+    private TextTransform_? : IfcTextTransformation
+    private LineHeight_? : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure
 
-    public readonly __specification__: IfcTextStyleTextModelSpecification = IfcTextStyleTextModelSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly TextIndent : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure  | undefined, public readonly TextAlign : IfcTextAlignment  | undefined, public readonly TextDecoration : IfcTextDecoration  | undefined, public readonly LetterSpacing : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure  | undefined, public readonly WordSpacing : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure  | undefined, public readonly TextTransform : IfcTextTransformation  | undefined, public readonly LineHeight : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure  | undefined ) {}
 }
 
 export class IfcTextStyleTextModelSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcTextStyleTextModel';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcTextStyleTextModel' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -43,43 +53,50 @@ export class IfcTextStyleTextModelSpecification implements ComponentSpecificatio
 			name: 'TextIndent',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure'
+			baseType: 'IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'TextAlign',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTextAlignment'
+			baseType: 'IfcTextAlignment',
+			optional: true
 		}, 
 		{
 			name: 'TextDecoration',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTextDecoration'
+			baseType: 'IfcTextDecoration',
+			optional: true
 		}, 
 		{
 			name: 'LetterSpacing',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure'
+			baseType: 'IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'WordSpacing',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure'
+			baseType: 'IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'TextTransform',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTextTransformation'
+			baseType: 'IfcTextTransformation',
+			optional: true
 		}, 
 		{
 			name: 'LineHeight',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure'
+			baseType: 'IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure',
+			optional: true
 		}
     ];
 

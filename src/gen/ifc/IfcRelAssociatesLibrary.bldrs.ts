@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,26 @@ import IfcLibraryInformation from "./IfcLibraryInformation.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrelassociateslibrary.htm
  */
-export default class IfcRelAssociatesLibrary implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRelAssociatesLibrary';
+export default  class IfcRelAssociatesLibrary extends IfcRelAssociates 
+{    
+    public readonly specification: IfcRelAssociatesLibrarySpecification = IfcRelAssociatesLibrarySpecification.instance;
 
-    public readonly __version__: number = 0;
+private RelatingLibrary_? : IfcLibraryReference|IfcLibraryInformation
 
-    public readonly __specification__: IfcRelAssociatesLibrarySpecification = IfcRelAssociatesLibrarySpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RelatingLibrary : IfcLibraryReference|IfcLibraryInformation  ) {}
 }
 
 export class IfcRelAssociatesLibrarySpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelAssociatesLibrary';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssociates', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssociatesLibrary', 'IfcRelAssociates', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,7 +40,8 @@ export class IfcRelAssociatesLibrarySpecification implements ComponentSpecificat
 			name: 'RelatingLibrary',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLibraryReference|IfcLibraryInformation'
+			baseType: 'IfcLibraryReference|IfcLibraryInformation',
+			optional: false
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcWasteTerminalTypeEnum from "./IfcWasteTerminalTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcwasteterminaltype.htm
  */
-export default class IfcWasteTerminalType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcWasteTerminalType';
+export default  class IfcWasteTerminalType extends IfcFlowTerminalType 
+{    
+    public readonly specification: IfcWasteTerminalTypeSpecification = IfcWasteTerminalTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcWasteTerminalTypeEnum
 
-    public readonly __specification__: IfcWasteTerminalTypeSpecification = IfcWasteTerminalTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcWasteTerminalTypeEnum  ) {}
 }
 
 export class IfcWasteTerminalTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcWasteTerminalType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFlowTerminalType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcWasteTerminalType', 'IfcFlowTerminalType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcWasteTerminalTypeSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcWasteTerminalTypeEnum'
+			baseType: 'IfcWasteTerminalTypeEnum',
+			optional: false
 		}
     ];
 

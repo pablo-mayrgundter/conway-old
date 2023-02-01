@@ -9,8 +9,6 @@ import IfcExternallyDefinedSymbol from "./IfcExternallyDefinedSymbol.bldrs"
 
 export default class IfcDefinedSymbolSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcDefinedSymbolSelectVariant ) {}
 }
 
@@ -20,3 +18,8 @@ export type IfcDefinedSymbolSelectChoices = IfcPreDefinedSymbol|IfcExternallyDef
 
 export type IfcDefinedSymbolSelectVariant = ({ type: 'IfcPreDefinedSymbol'; value: IfcPreDefinedSymbol }|{ type: 'IfcExternallyDefinedSymbol'; value: IfcExternallyDefinedSymbol }) & { type: IfcDefinedSymbolSelectType; value: IfcDefinedSymbolSelectChoices };
 
+export function IfcDefinedSymbolSelectSerializer( value?: IfcDefinedSymbolSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

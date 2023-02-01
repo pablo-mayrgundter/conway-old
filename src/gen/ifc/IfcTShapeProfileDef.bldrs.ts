@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,35 @@ import IfcPlaneAngleMeasure from "./IfcPlaneAngleMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifctshapeprofiledef.htm
  */
-export default class IfcTShapeProfileDef implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcTShapeProfileDef';
+export default  class IfcTShapeProfileDef extends IfcParameterizedProfileDef 
+{    
+    public readonly specification: IfcTShapeProfileDefSpecification = IfcTShapeProfileDefSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Depth_? : IfcPositiveLengthMeasure
+    private FlangeWidth_? : IfcPositiveLengthMeasure
+    private WebThickness_? : IfcPositiveLengthMeasure
+    private FlangeThickness_? : IfcPositiveLengthMeasure
+    private FilletRadius_? : IfcPositiveLengthMeasure
+    private FlangeEdgeRadius_? : IfcPositiveLengthMeasure
+    private WebEdgeRadius_? : IfcPositiveLengthMeasure
+    private WebSlope_? : IfcPlaneAngleMeasure
+    private FlangeSlope_? : IfcPlaneAngleMeasure
+    private CentreOfGravityInY_? : IfcPositiveLengthMeasure
 
-    public readonly __specification__: IfcTShapeProfileDefSpecification = IfcTShapeProfileDefSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Depth : IfcPositiveLengthMeasure , public readonly FlangeWidth : IfcPositiveLengthMeasure , public readonly WebThickness : IfcPositiveLengthMeasure , public readonly FlangeThickness : IfcPositiveLengthMeasure , public readonly FilletRadius : IfcPositiveLengthMeasure  | undefined, public readonly FlangeEdgeRadius : IfcPositiveLengthMeasure  | undefined, public readonly WebEdgeRadius : IfcPositiveLengthMeasure  | undefined, public readonly WebSlope : IfcPlaneAngleMeasure  | undefined, public readonly FlangeSlope : IfcPlaneAngleMeasure  | undefined, public readonly CentreOfGravityInY : IfcPositiveLengthMeasure  | undefined ) {}
 }
 
 export class IfcTShapeProfileDefSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcTShapeProfileDef';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcParameterizedProfileDef', 'IfcProfileDef' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcTShapeProfileDef', 'IfcParameterizedProfileDef', 'IfcProfileDef' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,61 +49,71 @@ export class IfcTShapeProfileDefSpecification implements ComponentSpecification
 			name: 'Depth',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'FlangeWidth',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'WebThickness',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'FlangeThickness',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'FilletRadius',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'FlangeEdgeRadius',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'WebEdgeRadius',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'WebSlope',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPlaneAngleMeasure'
+			baseType: 'IfcPlaneAngleMeasure',
+			optional: true
 		}, 
 		{
 			name: 'FlangeSlope',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPlaneAngleMeasure'
+			baseType: 'IfcPlaneAngleMeasure',
+			optional: true
 		}, 
 		{
 			name: 'CentreOfGravityInY',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}
     ];
 

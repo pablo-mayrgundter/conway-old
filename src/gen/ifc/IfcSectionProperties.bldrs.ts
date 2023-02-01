@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,28 @@ import IfcProfileDef from "./IfcProfileDef.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcsectionproperties.htm
  */
-export default class IfcSectionProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcSectionProperties';
+export default  class IfcSectionProperties extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcSectionPropertiesSpecification = IfcSectionPropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private SectionType_? : IfcSectionTypeEnum
+    private StartProfile_? : IfcProfileDef
+    private EndProfile_? : IfcProfileDef
 
-    public readonly __specification__: IfcSectionPropertiesSpecification = IfcSectionPropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly SectionType : IfcSectionTypeEnum , public readonly StartProfile : IfcProfileDef , public readonly EndProfile : IfcProfileDef  | undefined ) {}
 }
 
 export class IfcSectionPropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSectionProperties';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSectionProperties' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,19 +42,22 @@ export class IfcSectionPropertiesSpecification implements ComponentSpecification
 			name: 'SectionType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSectionTypeEnum'
+			baseType: 'IfcSectionTypeEnum',
+			optional: false
 		}, 
 		{
 			name: 'StartProfile',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcProfileDef'
+			baseType: 'IfcProfileDef',
+			optional: false
 		}, 
 		{
 			name: 'EndProfile',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcProfileDef'
+			baseType: 'IfcProfileDef',
+			optional: true
 		}
     ];
 

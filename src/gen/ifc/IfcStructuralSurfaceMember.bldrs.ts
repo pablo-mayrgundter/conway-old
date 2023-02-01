@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstructuralsurfacemember.htm
  */
-export default class IfcStructuralSurfaceMember implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcStructuralSurfaceMember';
+export default  class IfcStructuralSurfaceMember extends IfcStructuralMember 
+{    
+    public readonly specification: IfcStructuralSurfaceMemberSpecification = IfcStructuralSurfaceMemberSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcStructuralSurfaceTypeEnum
+    private Thickness_? : IfcPositiveLengthMeasure
 
-    public readonly __specification__: IfcStructuralSurfaceMemberSpecification = IfcStructuralSurfaceMemberSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcStructuralSurfaceTypeEnum , public readonly Thickness : IfcPositiveLengthMeasure  | undefined ) {}
 }
 
 export class IfcStructuralSurfaceMemberSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStructuralSurfaceMember';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralMember', 'IfcStructuralItem', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralSurfaceMember', 'IfcStructuralMember', 'IfcStructuralItem', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcStructuralSurfaceMemberSpecification implements ComponentSpecifi
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcStructuralSurfaceTypeEnum'
+			baseType: 'IfcStructuralSurfaceTypeEnum',
+			optional: false
 		}, 
 		{
 			name: 'Thickness',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcLabel from "./IfcLabel.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcperformancehistory.htm
  */
-export default class IfcPerformanceHistory implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcPerformanceHistory';
+export default  class IfcPerformanceHistory extends IfcControl 
+{    
+    public readonly specification: IfcPerformanceHistorySpecification = IfcPerformanceHistorySpecification.instance;
 
-    public readonly __version__: number = 0;
+private LifeCyclePhase_? : IfcLabel
 
-    public readonly __specification__: IfcPerformanceHistorySpecification = IfcPerformanceHistorySpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly LifeCyclePhase : IfcLabel  ) {}
 }
 
 export class IfcPerformanceHistorySpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcPerformanceHistory';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPerformanceHistory', 'IfcControl', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcPerformanceHistorySpecification implements ComponentSpecificatio
 			name: 'LifeCyclePhase',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: false
 		}
     ];
 

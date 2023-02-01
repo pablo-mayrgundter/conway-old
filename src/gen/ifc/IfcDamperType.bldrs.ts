@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcDamperTypeEnum from "./IfcDamperTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcdampertype.htm
  */
-export default class IfcDamperType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcDamperType';
+export default  class IfcDamperType extends IfcFlowControllerType 
+{    
+    public readonly specification: IfcDamperTypeSpecification = IfcDamperTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcDamperTypeEnum
 
-    public readonly __specification__: IfcDamperTypeSpecification = IfcDamperTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcDamperTypeEnum  ) {}
 }
 
 export class IfcDamperTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcDamperType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFlowControllerType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcDamperType', 'IfcFlowControllerType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcDamperTypeSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDamperTypeEnum'
+			baseType: 'IfcDamperTypeEnum',
+			optional: false
 		}
     ];
 

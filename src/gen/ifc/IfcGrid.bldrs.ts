@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,28 @@ import IfcRelContainedInSpatialStructure from "./IfcRelContainedInSpatialStructu
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcgrid.htm
  */
-export default class IfcGrid implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcGrid';
+export default  class IfcGrid extends IfcProduct 
+{    
+    public readonly specification: IfcGridSpecification = IfcGridSpecification.instance;
 
-    public readonly __version__: number = 0;
+private UAxes_? : Array<IfcGridAxis>
+    private VAxes_? : Array<IfcGridAxis>
+    private WAxes_? : Array<IfcGridAxis>
 
-    public readonly __specification__: IfcGridSpecification = IfcGridSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly UAxes : Array<IfcGridAxis> , public readonly VAxes : Array<IfcGridAxis> , public readonly WAxes : Array<IfcGridAxis>  | undefined ) {}
 }
 
 export class IfcGridSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcGrid';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcGrid', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,19 +42,22 @@ export class IfcGridSpecification implements ComponentSpecification
 			name: 'UAxes',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcGridAxis>'
+			baseType: 'Array<IfcGridAxis>',
+			optional: false
 		}, 
 		{
 			name: 'VAxes',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcGridAxis>'
+			baseType: 'Array<IfcGridAxis>',
+			optional: false
 		}, 
 		{
 			name: 'WAxes',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcGridAxis>'
+			baseType: 'Array<IfcGridAxis>',
+			optional: true
 		}
     ];
 

@@ -9,8 +9,6 @@ import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 
 export default class IfcHatchLineDistanceSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcHatchLineDistanceSelectVariant ) {}
 }
 
@@ -20,3 +18,8 @@ export type IfcHatchLineDistanceSelectChoices = IfcOneDirectionRepeatFactor|IfcP
 
 export type IfcHatchLineDistanceSelectVariant = ({ type: 'IfcOneDirectionRepeatFactor'; value: IfcOneDirectionRepeatFactor }|{ type: 'IfcPositiveLengthMeasure'; value: IfcPositiveLengthMeasure }) & { type: IfcHatchLineDistanceSelectType; value: IfcHatchLineDistanceSelectChoices };
 
+export function IfcHatchLineDistanceSelectSerializer( value?: IfcHatchLineDistanceSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

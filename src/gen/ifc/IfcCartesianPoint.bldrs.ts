@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,26 @@ import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccartesianpoint.htm
  */
-export default class IfcCartesianPoint implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcCartesianPoint';
+export default  class IfcCartesianPoint extends IfcPoint 
+{    
+    public readonly specification: IfcCartesianPointSpecification = IfcCartesianPointSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Coordinates_? : Array<IfcLengthMeasure>
 
-    public readonly __specification__: IfcCartesianPointSpecification = IfcCartesianPointSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Coordinates : Array<IfcLengthMeasure>  ) {}
 }
 
 export class IfcCartesianPointSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCartesianPoint';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcPoint', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcCartesianPoint', 'IfcPoint', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,7 +40,8 @@ export class IfcCartesianPointSpecification implements ComponentSpecification
 			name: 'Coordinates',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcLengthMeasure>'
+			baseType: 'Array<IfcLengthMeasure>',
+			optional: false
 		}
     ];
 

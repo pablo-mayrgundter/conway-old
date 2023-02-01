@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcVertexPoint from "./IfcVertexPoint.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcconnectionpointgeometry.htm
  */
-export default class IfcConnectionPointGeometry implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcConnectionPointGeometry';
+export default  class IfcConnectionPointGeometry extends IfcConnectionGeometry 
+{    
+    public readonly specification: IfcConnectionPointGeometrySpecification = IfcConnectionPointGeometrySpecification.instance;
 
-    public readonly __version__: number = 0;
+private PointOnRelatingElement_? : IfcPoint|IfcVertexPoint
+    private PointOnRelatedElement_? : IfcPoint|IfcVertexPoint
 
-    public readonly __specification__: IfcConnectionPointGeometrySpecification = IfcConnectionPointGeometrySpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PointOnRelatingElement : IfcPoint|IfcVertexPoint , public readonly PointOnRelatedElement : IfcPoint|IfcVertexPoint  | undefined ) {}
 }
 
 export class IfcConnectionPointGeometrySpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcConnectionPointGeometry';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcConnectionGeometry' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcConnectionPointGeometry', 'IfcConnectionGeometry' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcConnectionPointGeometrySpecification implements ComponentSpecifi
 			name: 'PointOnRelatingElement',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPoint|IfcVertexPoint'
+			baseType: 'IfcPoint|IfcVertexPoint',
+			optional: false
 		}, 
 		{
 			name: 'PointOnRelatedElement',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPoint|IfcVertexPoint'
+			baseType: 'IfcPoint|IfcVertexPoint',
+			optional: true
 		}
     ];
 

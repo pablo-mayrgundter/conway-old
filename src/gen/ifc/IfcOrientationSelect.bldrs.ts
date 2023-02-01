@@ -9,8 +9,6 @@ import IfcDirection from "./IfcDirection.bldrs"
 
 export default class IfcOrientationSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcOrientationSelectVariant ) {}
 }
 
@@ -20,3 +18,8 @@ export type IfcOrientationSelectChoices = IfcPlaneAngleMeasure|IfcDirection;
 
 export type IfcOrientationSelectVariant = ({ type: 'IfcPlaneAngleMeasure'; value: IfcPlaneAngleMeasure }|{ type: 'IfcDirection'; value: IfcDirection }) & { type: IfcOrientationSelectType; value: IfcOrientationSelectChoices };
 
+export function IfcOrientationSelectSerializer( value?: IfcOrientationSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

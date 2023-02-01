@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcScheduleTimeControl from "./IfcScheduleTimeControl.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrelassignstasks.htm
  */
-export default class IfcRelAssignsTasks implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRelAssignsTasks';
+export default  class IfcRelAssignsTasks extends IfcRelAssignsToControl 
+{    
+    public readonly specification: IfcRelAssignsTasksSpecification = IfcRelAssignsTasksSpecification.instance;
 
-    public readonly __version__: number = 0;
+private TimeForTask_? : IfcScheduleTimeControl
 
-    public readonly __specification__: IfcRelAssignsTasksSpecification = IfcRelAssignsTasksSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly TimeForTask : IfcScheduleTimeControl  | undefined ) {}
 }
 
 export class IfcRelAssignsTasksSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelAssignsTasks';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssignsToControl', 'IfcRelAssigns', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssignsTasks', 'IfcRelAssignsToControl', 'IfcRelAssigns', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcRelAssignsTasksSpecification implements ComponentSpecification
 			name: 'TimeForTask',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcScheduleTimeControl'
+			baseType: 'IfcScheduleTimeControl',
+			optional: true
 		}
     ];
 

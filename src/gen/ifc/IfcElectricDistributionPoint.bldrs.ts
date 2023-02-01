@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcLabel from "./IfcLabel.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcelectricdistributionpoint.htm
  */
-export default class IfcElectricDistributionPoint implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcElectricDistributionPoint';
+export default  class IfcElectricDistributionPoint extends IfcFlowController 
+{    
+    public readonly specification: IfcElectricDistributionPointSpecification = IfcElectricDistributionPointSpecification.instance;
 
-    public readonly __version__: number = 0;
+private DistributionPointFunction_? : IfcElectricDistributionPointFunctionEnum
+    private UserDefinedFunction_? : IfcLabel
 
-    public readonly __specification__: IfcElectricDistributionPointSpecification = IfcElectricDistributionPointSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly DistributionPointFunction : IfcElectricDistributionPointFunctionEnum , public readonly UserDefinedFunction : IfcLabel  | undefined ) {}
 }
 
 export class IfcElectricDistributionPointSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcElectricDistributionPoint';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFlowController', 'IfcDistributionFlowElement', 'IfcDistributionElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcElectricDistributionPoint', 'IfcFlowController', 'IfcDistributionFlowElement', 'IfcDistributionElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcElectricDistributionPointSpecification implements ComponentSpeci
 			name: 'DistributionPointFunction',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcElectricDistributionPointFunctionEnum'
+			baseType: 'IfcElectricDistributionPointFunctionEnum',
+			optional: false
 		}, 
 		{
 			name: 'UserDefinedFunction',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}
     ];
 

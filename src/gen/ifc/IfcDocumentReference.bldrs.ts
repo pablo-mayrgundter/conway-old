@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcDocumentInformation from "./IfcDocumentInformation.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcdocumentreference.htm
  */
-export default class IfcDocumentReference implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcDocumentReference';
+export default  class IfcDocumentReference extends IfcExternalReference 
+{    
+    public readonly specification: IfcDocumentReferenceSpecification = IfcDocumentReferenceSpecification.instance;
 
-    public readonly __version__: number = 0;
 
-    public readonly __specification__: IfcDocumentReferenceSpecification = IfcDocumentReferenceSpecification.instance;
 
-    constructor(  ) {}
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
+
 }
 
 export class IfcDocumentReferenceSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcDocumentReference';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcExternalReference' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcDocumentReference', 'IfcExternalReference' ];
 
     public readonly isAbstract: boolean = false;
 

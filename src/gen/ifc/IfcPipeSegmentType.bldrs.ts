@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcPipeSegmentTypeEnum from "./IfcPipeSegmentTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcpipesegmenttype.htm
  */
-export default class IfcPipeSegmentType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcPipeSegmentType';
+export default  class IfcPipeSegmentType extends IfcFlowSegmentType 
+{    
+    public readonly specification: IfcPipeSegmentTypeSpecification = IfcPipeSegmentTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcPipeSegmentTypeEnum
 
-    public readonly __specification__: IfcPipeSegmentTypeSpecification = IfcPipeSegmentTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcPipeSegmentTypeEnum  ) {}
 }
 
 export class IfcPipeSegmentTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcPipeSegmentType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFlowSegmentType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPipeSegmentType', 'IfcFlowSegmentType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcPipeSegmentTypeSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPipeSegmentTypeEnum'
+			baseType: 'IfcPipeSegmentTypeEnum',
+			optional: false
 		}
     ];
 

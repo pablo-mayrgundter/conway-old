@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -22,22 +22,32 @@ import IfcConstraintAggregationRelationship from "./IfcConstraintAggregationRela
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcconstraint.htm
  */
-export default class IfcConstraint implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcConstraint';
+export default abstract class IfcConstraint extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcConstraintSpecification = IfcConstraintSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Name_? : IfcLabel
+    private Description_? : IfcText
+    private ConstraintGrade_? : IfcConstraintEnum
+    private ConstraintSource_? : IfcLabel
+    private CreatingActor_? : IfcOrganization|IfcPerson|IfcPersonAndOrganization
+    private CreationTime_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
+    private UserDefinedGrade_? : IfcLabel
 
-    public readonly __specification__: IfcConstraintSpecification = IfcConstraintSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Name : IfcLabel , public readonly Description : IfcText  | undefined, public readonly ConstraintGrade : IfcConstraintEnum , public readonly ConstraintSource : IfcLabel  | undefined, public readonly CreatingActor : IfcOrganization|IfcPerson|IfcPersonAndOrganization  | undefined, public readonly CreationTime : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly UserDefinedGrade : IfcLabel  | undefined ) {}
 }
 
 export class IfcConstraintSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcConstraint';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcConstraint' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -47,43 +57,50 @@ export class IfcConstraintSpecification implements ComponentSpecification
 			name: 'Name',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: false
 		}, 
 		{
 			name: 'Description',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcText'
+			baseType: 'IfcText',
+			optional: true
 		}, 
 		{
 			name: 'ConstraintGrade',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcConstraintEnum'
+			baseType: 'IfcConstraintEnum',
+			optional: false
 		}, 
 		{
 			name: 'ConstraintSource',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'CreatingActor',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcOrganization|IfcPerson|IfcPersonAndOrganization'
+			baseType: 'IfcOrganization|IfcPerson|IfcPersonAndOrganization',
+			optional: true
 		}, 
 		{
 			name: 'CreationTime',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime'
+			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime',
+			optional: true
 		}, 
 		{
 			name: 'UserDefinedGrade',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcStructuralLoad from "./IfcStructuralLoad.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstructuralplanaractionvarying.htm
  */
-export default class IfcStructuralPlanarActionVarying implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcStructuralPlanarActionVarying';
+export default  class IfcStructuralPlanarActionVarying extends IfcStructuralPlanarAction 
+{    
+    public readonly specification: IfcStructuralPlanarActionVaryingSpecification = IfcStructuralPlanarActionVaryingSpecification.instance;
 
-    public readonly __version__: number = 0;
+private VaryingAppliedLoadLocation_? : IfcShapeAspect
+    private SubsequentAppliedLoads_? : Array<IfcStructuralLoad>
 
-    public readonly __specification__: IfcStructuralPlanarActionVaryingSpecification = IfcStructuralPlanarActionVaryingSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly VaryingAppliedLoadLocation : IfcShapeAspect , public readonly SubsequentAppliedLoads : Array<IfcStructuralLoad>  ) {}
 }
 
 export class IfcStructuralPlanarActionVaryingSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStructuralPlanarActionVarying';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralPlanarAction', 'IfcStructuralAction', 'IfcStructuralActivity', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralPlanarActionVarying', 'IfcStructuralPlanarAction', 'IfcStructuralAction', 'IfcStructuralActivity', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcStructuralPlanarActionVaryingSpecification implements ComponentS
 			name: 'VaryingAppliedLoadLocation',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcShapeAspect'
+			baseType: 'IfcShapeAspect',
+			optional: false
 		}, 
 		{
 			name: 'SubsequentAppliedLoads',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcStructuralLoad>'
+			baseType: 'Array<IfcStructuralLoad>',
+			optional: false
 		}
     ];
 

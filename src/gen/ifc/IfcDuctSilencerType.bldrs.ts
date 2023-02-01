@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcDuctSilencerTypeEnum from "./IfcDuctSilencerTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcductsilencertype.htm
  */
-export default class IfcDuctSilencerType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcDuctSilencerType';
+export default  class IfcDuctSilencerType extends IfcFlowTreatmentDeviceType 
+{    
+    public readonly specification: IfcDuctSilencerTypeSpecification = IfcDuctSilencerTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcDuctSilencerTypeEnum
 
-    public readonly __specification__: IfcDuctSilencerTypeSpecification = IfcDuctSilencerTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcDuctSilencerTypeEnum  ) {}
 }
 
 export class IfcDuctSilencerTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcDuctSilencerType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFlowTreatmentDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcDuctSilencerType', 'IfcFlowTreatmentDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcDuctSilencerTypeSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDuctSilencerTypeEnum'
+			baseType: 'IfcDuctSilencerTypeEnum',
+			optional: false
 		}
     ];
 

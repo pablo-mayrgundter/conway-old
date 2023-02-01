@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,31 @@ import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcmechanicalconcretematerialproperties.htm
  */
-export default class IfcMechanicalConcreteMaterialProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcMechanicalConcreteMaterialProperties';
+export default  class IfcMechanicalConcreteMaterialProperties extends IfcMechanicalMaterialProperties 
+{    
+    public readonly specification: IfcMechanicalConcreteMaterialPropertiesSpecification = IfcMechanicalConcreteMaterialPropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private CompressiveStrength_? : IfcPressureMeasure
+    private MaxAggregateSize_? : IfcPositiveLengthMeasure
+    private AdmixturesDescription_? : IfcText
+    private Workability_? : IfcText
+    private ProtectivePoreRatio_? : IfcNormalisedRatioMeasure
+    private WaterImpermeability_? : IfcText
 
-    public readonly __specification__: IfcMechanicalConcreteMaterialPropertiesSpecification = IfcMechanicalConcreteMaterialPropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly CompressiveStrength : IfcPressureMeasure  | undefined, public readonly MaxAggregateSize : IfcPositiveLengthMeasure  | undefined, public readonly AdmixturesDescription : IfcText  | undefined, public readonly Workability : IfcText  | undefined, public readonly ProtectivePoreRatio : IfcNormalisedRatioMeasure  | undefined, public readonly WaterImpermeability : IfcText  | undefined ) {}
 }
 
 export class IfcMechanicalConcreteMaterialPropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcMechanicalConcreteMaterialProperties';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcMechanicalMaterialProperties', 'IfcMaterialProperties' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcMechanicalConcreteMaterialProperties', 'IfcMechanicalMaterialProperties', 'IfcMaterialProperties' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -38,37 +47,43 @@ export class IfcMechanicalConcreteMaterialPropertiesSpecification implements Com
 			name: 'CompressiveStrength',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPressureMeasure'
+			baseType: 'IfcPressureMeasure',
+			optional: true
 		}, 
 		{
 			name: 'MaxAggregateSize',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'AdmixturesDescription',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcText'
+			baseType: 'IfcText',
+			optional: true
 		}, 
 		{
 			name: 'Workability',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcText'
+			baseType: 'IfcText',
+			optional: true
 		}, 
 		{
 			name: 'ProtectivePoreRatio',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcNormalisedRatioMeasure'
+			baseType: 'IfcNormalisedRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'WaterImpermeability',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcText'
+			baseType: 'IfcText',
+			optional: true
 		}
     ];
 

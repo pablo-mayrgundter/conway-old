@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,30 @@ import IfcThermalExpansionCoefficientMeasure from "./IfcThermalExpansionCoeffici
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcmechanicalmaterialproperties.htm
  */
-export default class IfcMechanicalMaterialProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcMechanicalMaterialProperties';
+export default  class IfcMechanicalMaterialProperties extends IfcMaterialProperties 
+{    
+    public readonly specification: IfcMechanicalMaterialPropertiesSpecification = IfcMechanicalMaterialPropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private DynamicViscosity_? : IfcDynamicViscosityMeasure
+    private YoungModulus_? : IfcModulusOfElasticityMeasure
+    private ShearModulus_? : IfcModulusOfElasticityMeasure
+    private PoissonRatio_? : IfcPositiveRatioMeasure
+    private ThermalExpansionCoefficient_? : IfcThermalExpansionCoefficientMeasure
 
-    public readonly __specification__: IfcMechanicalMaterialPropertiesSpecification = IfcMechanicalMaterialPropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly DynamicViscosity : IfcDynamicViscosityMeasure  | undefined, public readonly YoungModulus : IfcModulusOfElasticityMeasure  | undefined, public readonly ShearModulus : IfcModulusOfElasticityMeasure  | undefined, public readonly PoissonRatio : IfcPositiveRatioMeasure  | undefined, public readonly ThermalExpansionCoefficient : IfcThermalExpansionCoefficientMeasure  | undefined ) {}
 }
 
 export class IfcMechanicalMaterialPropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcMechanicalMaterialProperties';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcMaterialProperties' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcMechanicalMaterialProperties', 'IfcMaterialProperties' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -38,31 +46,36 @@ export class IfcMechanicalMaterialPropertiesSpecification implements ComponentSp
 			name: 'DynamicViscosity',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDynamicViscosityMeasure'
+			baseType: 'IfcDynamicViscosityMeasure',
+			optional: true
 		}, 
 		{
 			name: 'YoungModulus',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcModulusOfElasticityMeasure'
+			baseType: 'IfcModulusOfElasticityMeasure',
+			optional: true
 		}, 
 		{
 			name: 'ShearModulus',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcModulusOfElasticityMeasure'
+			baseType: 'IfcModulusOfElasticityMeasure',
+			optional: true
 		}, 
 		{
 			name: 'PoissonRatio',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveRatioMeasure'
+			baseType: 'IfcPositiveRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'ThermalExpansionCoefficient',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcThermalExpansionCoefficientMeasure'
+			baseType: 'IfcThermalExpansionCoefficientMeasure',
+			optional: true
 		}
     ];
 

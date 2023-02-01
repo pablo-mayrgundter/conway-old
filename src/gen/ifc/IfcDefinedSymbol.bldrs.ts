@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,27 @@ import IfcCartesianTransformationOperator2D from "./IfcCartesianTransformationOp
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcdefinedsymbol.htm
  */
-export default class IfcDefinedSymbol implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcDefinedSymbol';
+export default  class IfcDefinedSymbol extends IfcGeometricRepresentationItem 
+{    
+    public readonly specification: IfcDefinedSymbolSpecification = IfcDefinedSymbolSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Definition_? : IfcPreDefinedSymbol|IfcExternallyDefinedSymbol
+    private Target_? : IfcCartesianTransformationOperator2D
 
-    public readonly __specification__: IfcDefinedSymbolSpecification = IfcDefinedSymbolSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Definition : IfcPreDefinedSymbol|IfcExternallyDefinedSymbol , public readonly Target : IfcCartesianTransformationOperator2D  ) {}
 }
 
 export class IfcDefinedSymbolSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcDefinedSymbol';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcDefinedSymbol', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,13 +42,15 @@ export class IfcDefinedSymbolSpecification implements ComponentSpecification
 			name: 'Definition',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPreDefinedSymbol|IfcExternallyDefinedSymbol'
+			baseType: 'IfcPreDefinedSymbol|IfcExternallyDefinedSymbol',
+			optional: false
 		}, 
 		{
 			name: 'Target',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCartesianTransformationOperator2D'
+			baseType: 'IfcCartesianTransformationOperator2D',
+			optional: false
 		}
     ];
 

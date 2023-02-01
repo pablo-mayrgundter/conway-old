@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -14,22 +14,30 @@ import IfcDaylightSavingHour from "./IfcDaylightSavingHour.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifclocaltime.htm
  */
-export default class IfcLocalTime implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcLocalTime';
+export default  class IfcLocalTime extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcLocalTimeSpecification = IfcLocalTimeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private HourComponent_? : IfcHourInDay
+    private MinuteComponent_? : IfcMinuteInHour
+    private SecondComponent_? : IfcSecondInMinute
+    private Zone_? : IfcCoordinatedUniversalTimeOffset
+    private DaylightSavingOffset_? : IfcDaylightSavingHour
 
-    public readonly __specification__: IfcLocalTimeSpecification = IfcLocalTimeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly HourComponent : IfcHourInDay , public readonly MinuteComponent : IfcMinuteInHour  | undefined, public readonly SecondComponent : IfcSecondInMinute  | undefined, public readonly Zone : IfcCoordinatedUniversalTimeOffset  | undefined, public readonly DaylightSavingOffset : IfcDaylightSavingHour  | undefined ) {}
 }
 
 export class IfcLocalTimeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcLocalTime';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcLocalTime' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -39,31 +47,36 @@ export class IfcLocalTimeSpecification implements ComponentSpecification
 			name: 'HourComponent',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcHourInDay'
+			baseType: 'IfcHourInDay',
+			optional: false
 		}, 
 		{
 			name: 'MinuteComponent',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcMinuteInHour'
+			baseType: 'IfcMinuteInHour',
+			optional: true
 		}, 
 		{
 			name: 'SecondComponent',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSecondInMinute'
+			baseType: 'IfcSecondInMinute',
+			optional: true
 		}, 
 		{
 			name: 'Zone',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCoordinatedUniversalTimeOffset'
+			baseType: 'IfcCoordinatedUniversalTimeOffset',
+			optional: true
 		}, 
 		{
 			name: 'DaylightSavingOffset',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDaylightSavingHour'
+			baseType: 'IfcDaylightSavingHour',
+			optional: true
 		}
     ];
 

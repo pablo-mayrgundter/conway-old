@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,28 @@ import IfcIdentifier from "./IfcIdentifier.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcexternalreference.htm
  */
-export default class IfcExternalReference implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcExternalReference';
+export default abstract class IfcExternalReference extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcExternalReferenceSpecification = IfcExternalReferenceSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Location_? : IfcLabel
+    private ItemReference_? : IfcIdentifier
+    private Name_? : IfcLabel
 
-    public readonly __specification__: IfcExternalReferenceSpecification = IfcExternalReferenceSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Location : IfcLabel  | undefined, public readonly ItemReference : IfcIdentifier  | undefined, public readonly Name : IfcLabel  | undefined ) {}
 }
 
 export class IfcExternalReferenceSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcExternalReference';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcExternalReference' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -36,19 +42,22 @@ export class IfcExternalReferenceSpecification implements ComponentSpecification
 			name: 'Location',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'ItemReference',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcIdentifier'
+			baseType: 'IfcIdentifier',
+			optional: true
 		}, 
 		{
 			name: 'Name',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}
     ];
 

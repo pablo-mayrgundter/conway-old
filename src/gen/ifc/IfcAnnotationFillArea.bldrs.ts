@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,27 @@ import IfcCurve from "./IfcCurve.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcannotationfillarea.htm
  */
-export default class IfcAnnotationFillArea implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcAnnotationFillArea';
+export default  class IfcAnnotationFillArea extends IfcGeometricRepresentationItem 
+{    
+    public readonly specification: IfcAnnotationFillAreaSpecification = IfcAnnotationFillAreaSpecification.instance;
 
-    public readonly __version__: number = 0;
+private OuterBoundary_? : IfcCurve
+    private InnerBoundaries_? : Array<IfcCurve>
 
-    public readonly __specification__: IfcAnnotationFillAreaSpecification = IfcAnnotationFillAreaSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly OuterBoundary : IfcCurve , public readonly InnerBoundaries : Array<IfcCurve>  | undefined ) {}
 }
 
 export class IfcAnnotationFillAreaSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcAnnotationFillArea';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcAnnotationFillArea', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,13 +40,15 @@ export class IfcAnnotationFillAreaSpecification implements ComponentSpecificatio
 			name: 'OuterBoundary',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCurve'
+			baseType: 'IfcCurve',
+			optional: false
 		}, 
 		{
 			name: 'InnerBoundaries',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcCurve>'
+			baseType: 'Array<IfcCurve>',
+			optional: true
 		}
     ];
 

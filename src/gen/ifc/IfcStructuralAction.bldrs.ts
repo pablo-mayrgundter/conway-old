@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,27 @@ import IfcStructuralReaction from "./IfcStructuralReaction.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstructuralaction.htm
  */
-export default class IfcStructuralAction implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcStructuralAction';
+export default abstract class IfcStructuralAction extends IfcStructuralActivity 
+{    
+    public readonly specification: IfcStructuralActionSpecification = IfcStructuralActionSpecification.instance;
 
-    public readonly __version__: number = 0;
+private DestabilizingLoad_? : boolean
+    private CausedBy_? : IfcStructuralReaction
 
-    public readonly __specification__: IfcStructuralActionSpecification = IfcStructuralActionSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly DestabilizingLoad : boolean , public readonly CausedBy : IfcStructuralReaction  | undefined ) {}
 }
 
 export class IfcStructuralActionSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStructuralAction';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralActivity', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralAction', 'IfcStructuralActivity', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -35,13 +40,15 @@ export class IfcStructuralActionSpecification implements ComponentSpecification
 			name: 'DestabilizingLoad',
 			isCollection: false,
 			rank: 0,
-			baseType: 'boolean'
+			baseType: 'boolean',
+			optional: false
 		}, 
 		{
 			name: 'CausedBy',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcStructuralReaction'
+			baseType: 'IfcStructuralReaction',
+			optional: true
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcSpatialStructureElement from "./IfcSpatialStructureElement.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrelreferencedinspatialstructure.htm
  */
-export default class IfcRelReferencedInSpatialStructure implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRelReferencedInSpatialStructure';
+export default  class IfcRelReferencedInSpatialStructure extends IfcRelConnects 
+{    
+    public readonly specification: IfcRelReferencedInSpatialStructureSpecification = IfcRelReferencedInSpatialStructureSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RelatedElements_? : Array<IfcProduct>
+    private RelatingStructure_? : IfcSpatialStructureElement
 
-    public readonly __specification__: IfcRelReferencedInSpatialStructureSpecification = IfcRelReferencedInSpatialStructureSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RelatedElements : Array<IfcProduct> , public readonly RelatingStructure : IfcSpatialStructureElement  ) {}
 }
 
 export class IfcRelReferencedInSpatialStructureSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelReferencedInSpatialStructure';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelReferencedInSpatialStructure', 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcRelReferencedInSpatialStructureSpecification implements Componen
 			name: 'RelatedElements',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcProduct>'
+			baseType: 'Array<IfcProduct>',
+			optional: false
 		}, 
 		{
 			name: 'RelatingStructure',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSpatialStructureElement'
+			baseType: 'IfcSpatialStructureElement',
+			optional: false
 		}
     ];
 

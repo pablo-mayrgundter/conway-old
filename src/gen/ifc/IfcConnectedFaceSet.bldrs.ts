@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcFace from "./IfcFace.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcconnectedfaceset.htm
  */
-export default class IfcConnectedFaceSet implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcConnectedFaceSet';
+export default  class IfcConnectedFaceSet extends IfcTopologicalRepresentationItem 
+{    
+    public readonly specification: IfcConnectedFaceSetSpecification = IfcConnectedFaceSetSpecification.instance;
 
-    public readonly __version__: number = 0;
+private CfsFaces_? : Array<IfcFace>
 
-    public readonly __specification__: IfcConnectedFaceSetSpecification = IfcConnectedFaceSetSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly CfsFaces : Array<IfcFace>  ) {}
 }
 
 export class IfcConnectedFaceSetSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcConnectedFaceSet';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcTopologicalRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcConnectedFaceSet', 'IfcTopologicalRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcConnectedFaceSetSpecification implements ComponentSpecification
 			name: 'CfsFaces',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcFace>'
+			baseType: 'Array<IfcFace>',
+			optional: false
 		}
     ];
 

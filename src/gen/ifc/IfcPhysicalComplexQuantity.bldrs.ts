@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,29 @@ import IfcLabel from "./IfcLabel.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcphysicalcomplexquantity.htm
  */
-export default class IfcPhysicalComplexQuantity implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcPhysicalComplexQuantity';
+export default  class IfcPhysicalComplexQuantity extends IfcPhysicalQuantity 
+{    
+    public readonly specification: IfcPhysicalComplexQuantitySpecification = IfcPhysicalComplexQuantitySpecification.instance;
 
-    public readonly __version__: number = 0;
+private HasQuantities_? : Array<IfcPhysicalQuantity>
+    private Discrimination_? : IfcLabel
+    private Quality_? : IfcLabel
+    private Usage_? : IfcLabel
 
-    public readonly __specification__: IfcPhysicalComplexQuantitySpecification = IfcPhysicalComplexQuantitySpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly HasQuantities : Array<IfcPhysicalQuantity> , public readonly Discrimination : IfcLabel , public readonly Quality : IfcLabel  | undefined, public readonly Usage : IfcLabel  | undefined ) {}
 }
 
 export class IfcPhysicalComplexQuantitySpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcPhysicalComplexQuantity';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcPhysicalQuantity' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPhysicalComplexQuantity', 'IfcPhysicalQuantity' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,25 +43,29 @@ export class IfcPhysicalComplexQuantitySpecification implements ComponentSpecifi
 			name: 'HasQuantities',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcPhysicalQuantity>'
+			baseType: 'Array<IfcPhysicalQuantity>',
+			optional: false
 		}, 
 		{
 			name: 'Discrimination',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: false
 		}, 
 		{
 			name: 'Quality',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'Usage',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}
     ];
 

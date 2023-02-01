@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -15,22 +15,31 @@ import IfcAxis2Placement3D from "./IfcAxis2Placement3D.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrelconnectsstructuralmember.htm
  */
-export default class IfcRelConnectsStructuralMember implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRelConnectsStructuralMember';
+export default  class IfcRelConnectsStructuralMember extends IfcRelConnects 
+{    
+    public readonly specification: IfcRelConnectsStructuralMemberSpecification = IfcRelConnectsStructuralMemberSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RelatingStructuralMember_? : IfcStructuralMember
+    private RelatedStructuralConnection_? : IfcStructuralConnection
+    private AppliedCondition_? : IfcBoundaryCondition
+    private AdditionalConditions_? : IfcStructuralConnectionCondition
+    private SupportedLength_? : IfcLengthMeasure
+    private ConditionCoordinateSystem_? : IfcAxis2Placement3D
 
-    public readonly __specification__: IfcRelConnectsStructuralMemberSpecification = IfcRelConnectsStructuralMemberSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RelatingStructuralMember : IfcStructuralMember , public readonly RelatedStructuralConnection : IfcStructuralConnection , public readonly AppliedCondition : IfcBoundaryCondition  | undefined, public readonly AdditionalConditions : IfcStructuralConnectionCondition  | undefined, public readonly SupportedLength : IfcLengthMeasure  | undefined, public readonly ConditionCoordinateSystem : IfcAxis2Placement3D  | undefined ) {}
 }
 
 export class IfcRelConnectsStructuralMemberSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelConnectsStructuralMember';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelConnectsStructuralMember', 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -40,37 +49,43 @@ export class IfcRelConnectsStructuralMemberSpecification implements ComponentSpe
 			name: 'RelatingStructuralMember',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcStructuralMember'
+			baseType: 'IfcStructuralMember',
+			optional: false
 		}, 
 		{
 			name: 'RelatedStructuralConnection',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcStructuralConnection'
+			baseType: 'IfcStructuralConnection',
+			optional: false
 		}, 
 		{
 			name: 'AppliedCondition',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcBoundaryCondition'
+			baseType: 'IfcBoundaryCondition',
+			optional: true
 		}, 
 		{
 			name: 'AdditionalConditions',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcStructuralConnectionCondition'
+			baseType: 'IfcStructuralConnectionCondition',
+			optional: true
 		}, 
 		{
 			name: 'SupportedLength',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'ConditionCoordinateSystem',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAxis2Placement3D'
+			baseType: 'IfcAxis2Placement3D',
+			optional: true
 		}
     ];
 

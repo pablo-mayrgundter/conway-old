@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,28 @@ import IfcAheadOrBehind from "./IfcAheadOrBehind.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccoordinateduniversaltimeoffset.htm
  */
-export default class IfcCoordinatedUniversalTimeOffset implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcCoordinatedUniversalTimeOffset';
+export default  class IfcCoordinatedUniversalTimeOffset extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcCoordinatedUniversalTimeOffsetSpecification = IfcCoordinatedUniversalTimeOffsetSpecification.instance;
 
-    public readonly __version__: number = 0;
+private HourOffset_? : IfcHourInDay
+    private MinuteOffset_? : IfcMinuteInHour
+    private Sense_? : IfcAheadOrBehind
 
-    public readonly __specification__: IfcCoordinatedUniversalTimeOffsetSpecification = IfcCoordinatedUniversalTimeOffsetSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly HourOffset : IfcHourInDay , public readonly MinuteOffset : IfcMinuteInHour  | undefined, public readonly Sense : IfcAheadOrBehind  ) {}
 }
 
 export class IfcCoordinatedUniversalTimeOffsetSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCoordinatedUniversalTimeOffset';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcCoordinatedUniversalTimeOffset' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,19 +43,22 @@ export class IfcCoordinatedUniversalTimeOffsetSpecification implements Component
 			name: 'HourOffset',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcHourInDay'
+			baseType: 'IfcHourInDay',
+			optional: false
 		}, 
 		{
 			name: 'MinuteOffset',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcMinuteInHour'
+			baseType: 'IfcMinuteInHour',
+			optional: true
 		}, 
 		{
 			name: 'Sense',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAheadOrBehind'
+			baseType: 'IfcAheadOrBehind',
+			optional: false
 		}
     ];
 

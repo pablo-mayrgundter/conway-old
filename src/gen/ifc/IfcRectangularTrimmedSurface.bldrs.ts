@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,32 @@ import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrectangulartrimmedsurface.htm
  */
-export default class IfcRectangularTrimmedSurface implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRectangularTrimmedSurface';
+export default  class IfcRectangularTrimmedSurface extends IfcBoundedSurface 
+{    
+    public readonly specification: IfcRectangularTrimmedSurfaceSpecification = IfcRectangularTrimmedSurfaceSpecification.instance;
 
-    public readonly __version__: number = 0;
+private BasisSurface_? : IfcSurface
+    private U1_? : IfcParameterValue
+    private V1_? : IfcParameterValue
+    private U2_? : IfcParameterValue
+    private V2_? : IfcParameterValue
+    private Usense_? : boolean
+    private Vsense_? : boolean
 
-    public readonly __specification__: IfcRectangularTrimmedSurfaceSpecification = IfcRectangularTrimmedSurfaceSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly BasisSurface : IfcSurface , public readonly U1 : IfcParameterValue , public readonly V1 : IfcParameterValue , public readonly U2 : IfcParameterValue , public readonly V2 : IfcParameterValue , public readonly Usense : boolean , public readonly Vsense : boolean  ) {}
 }
 
 export class IfcRectangularTrimmedSurfaceSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRectangularTrimmedSurface';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcBoundedSurface', 'IfcSurface', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRectangularTrimmedSurface', 'IfcBoundedSurface', 'IfcSurface', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,43 +47,50 @@ export class IfcRectangularTrimmedSurfaceSpecification implements ComponentSpeci
 			name: 'BasisSurface',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSurface'
+			baseType: 'IfcSurface',
+			optional: false
 		}, 
 		{
 			name: 'U1',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcParameterValue'
+			baseType: 'IfcParameterValue',
+			optional: false
 		}, 
 		{
 			name: 'V1',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcParameterValue'
+			baseType: 'IfcParameterValue',
+			optional: false
 		}, 
 		{
 			name: 'U2',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcParameterValue'
+			baseType: 'IfcParameterValue',
+			optional: false
 		}, 
 		{
 			name: 'V2',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcParameterValue'
+			baseType: 'IfcParameterValue',
+			optional: false
 		}, 
 		{
 			name: 'Usense',
 			isCollection: false,
 			rank: 0,
-			baseType: 'boolean'
+			baseType: 'boolean',
+			optional: false
 		}, 
 		{
 			name: 'Vsense',
 			isCollection: false,
 			rank: 0,
-			baseType: 'boolean'
+			baseType: 'boolean',
+			optional: false
 		}
     ];
 

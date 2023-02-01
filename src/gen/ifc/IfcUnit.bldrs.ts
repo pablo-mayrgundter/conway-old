@@ -10,8 +10,6 @@ import IfcMonetaryUnit from "./IfcMonetaryUnit.bldrs"
 
 export default class IfcUnit
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcUnitVariant ) {}
 }
 
@@ -21,3 +19,8 @@ export type IfcUnitChoices = IfcDerivedUnit|IfcNamedUnit|IfcMonetaryUnit;
 
 export type IfcUnitVariant = ({ type: 'IfcDerivedUnit'; value: IfcDerivedUnit }|{ type: 'IfcNamedUnit'; value: IfcNamedUnit }|{ type: 'IfcMonetaryUnit'; value: IfcMonetaryUnit }) & { type: IfcUnitType; value: IfcUnitChoices };
 
+export function IfcUnitSerializer( value?: IfcUnit, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

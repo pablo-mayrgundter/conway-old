@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcClassification from "./IfcClassification.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcclassificationreference.htm
  */
-export default class IfcClassificationReference implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcClassificationReference';
+export default  class IfcClassificationReference extends IfcExternalReference 
+{    
+    public readonly specification: IfcClassificationReferenceSpecification = IfcClassificationReferenceSpecification.instance;
 
-    public readonly __version__: number = 0;
+private ReferencedSource_? : IfcClassification
 
-    public readonly __specification__: IfcClassificationReferenceSpecification = IfcClassificationReferenceSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly ReferencedSource : IfcClassification  | undefined ) {}
 }
 
 export class IfcClassificationReferenceSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcClassificationReference';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcExternalReference' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcClassificationReference', 'IfcExternalReference' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcClassificationReferenceSpecification implements ComponentSpecifi
 			name: 'ReferencedSource',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcClassification'
+			baseType: 'IfcClassification',
+			optional: true
 		}
     ];
 

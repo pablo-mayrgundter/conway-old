@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,27 @@ import IfcSurface from "./IfcSurface.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcfacesurface.htm
  */
-export default class IfcFaceSurface implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcFaceSurface';
+export default  class IfcFaceSurface extends IfcFace 
+{    
+    public readonly specification: IfcFaceSurfaceSpecification = IfcFaceSurfaceSpecification.instance;
 
-    public readonly __version__: number = 0;
+private FaceSurface_? : IfcSurface
+    private SameSense_? : boolean
 
-    public readonly __specification__: IfcFaceSurfaceSpecification = IfcFaceSurfaceSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly FaceSurface : IfcSurface , public readonly SameSense : boolean  ) {}
 }
 
 export class IfcFaceSurfaceSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcFaceSurface';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFace', 'IfcTopologicalRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcFaceSurface', 'IfcFace', 'IfcTopologicalRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,13 +40,15 @@ export class IfcFaceSurfaceSpecification implements ComponentSpecification
 			name: 'FaceSurface',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSurface'
+			baseType: 'IfcSurface',
+			optional: false
 		}, 
 		{
 			name: 'SameSense',
 			isCollection: false,
 			rank: 0,
-			baseType: 'boolean'
+			baseType: 'boolean',
+			optional: false
 		}
     ];
 

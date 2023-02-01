@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcEdgeCurve from "./IfcEdgeCurve.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcconnectioncurvegeometry.htm
  */
-export default class IfcConnectionCurveGeometry implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcConnectionCurveGeometry';
+export default  class IfcConnectionCurveGeometry extends IfcConnectionGeometry 
+{    
+    public readonly specification: IfcConnectionCurveGeometrySpecification = IfcConnectionCurveGeometrySpecification.instance;
 
-    public readonly __version__: number = 0;
+private CurveOnRelatingElement_? : IfcBoundedCurve|IfcEdgeCurve
+    private CurveOnRelatedElement_? : IfcBoundedCurve|IfcEdgeCurve
 
-    public readonly __specification__: IfcConnectionCurveGeometrySpecification = IfcConnectionCurveGeometrySpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly CurveOnRelatingElement : IfcBoundedCurve|IfcEdgeCurve , public readonly CurveOnRelatedElement : IfcBoundedCurve|IfcEdgeCurve  | undefined ) {}
 }
 
 export class IfcConnectionCurveGeometrySpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcConnectionCurveGeometry';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcConnectionGeometry' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcConnectionCurveGeometry', 'IfcConnectionGeometry' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcConnectionCurveGeometrySpecification implements ComponentSpecifi
 			name: 'CurveOnRelatingElement',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcBoundedCurve|IfcEdgeCurve'
+			baseType: 'IfcBoundedCurve|IfcEdgeCurve',
+			optional: false
 		}, 
 		{
 			name: 'CurveOnRelatedElement',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcBoundedCurve|IfcEdgeCurve'
+			baseType: 'IfcBoundedCurve|IfcEdgeCurve',
+			optional: true
 		}
     ];
 

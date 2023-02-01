@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -9,22 +9,26 @@ import { IFCSchema } from "./schema_ifc.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcpredefinedsymbol.htm
  */
-export default class IfcPreDefinedSymbol implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcPreDefinedSymbol';
+export default abstract class IfcPreDefinedSymbol extends IfcPreDefinedItem 
+{    
+    public readonly specification: IfcPreDefinedSymbolSpecification = IfcPreDefinedSymbolSpecification.instance;
 
-    public readonly __version__: number = 0;
 
-    public readonly __specification__: IfcPreDefinedSymbolSpecification = IfcPreDefinedSymbolSpecification.instance;
 
-    constructor(  ) {}
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
+
 }
 
 export class IfcPreDefinedSymbolSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcPreDefinedSymbol';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcPreDefinedItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPreDefinedSymbol', 'IfcPreDefinedItem' ];
 
     public readonly isAbstract: boolean = true;
 

@@ -10,8 +10,6 @@ import IfcDerivedMeasureValue from "./IfcDerivedMeasureValue.bldrs"
 
 export default class IfcValue
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcValueVariant ) {}
 }
 
@@ -21,3 +19,8 @@ export type IfcValueChoices = IfcMeasureValue|IfcSimpleValue|IfcDerivedMeasureVa
 
 export type IfcValueVariant = ({ type: 'IfcMeasureValue'; value: IfcMeasureValue }|{ type: 'IfcSimpleValue'; value: IfcSimpleValue }|{ type: 'IfcDerivedMeasureValue'; value: IfcDerivedMeasureValue }) & { type: IfcValueType; value: IfcValueChoices };
 
+export function IfcValueSerializer( value?: IfcValue, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

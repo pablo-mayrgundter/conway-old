@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -15,22 +15,27 @@ import IfcSurfaceStyleRefraction from "./IfcSurfaceStyleRefraction.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcsurfacestyle.htm
  */
-export default class IfcSurfaceStyle implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcSurfaceStyle';
+export default  class IfcSurfaceStyle extends IfcPresentationStyle 
+{    
+    public readonly specification: IfcSurfaceStyleSpecification = IfcSurfaceStyleSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Side_? : IfcSurfaceSide
+    private Styles_? : Array<IfcSurfaceStyleShading|IfcSurfaceStyleLighting|IfcSurfaceStyleWithTextures|IfcExternallyDefinedSurfaceStyle|IfcSurfaceStyleRefraction>
 
-    public readonly __specification__: IfcSurfaceStyleSpecification = IfcSurfaceStyleSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Side : IfcSurfaceSide , public readonly Styles : Array<IfcSurfaceStyleShading|IfcSurfaceStyleLighting|IfcSurfaceStyleWithTextures|IfcExternallyDefinedSurfaceStyle|IfcSurfaceStyleRefraction>  ) {}
 }
 
 export class IfcSurfaceStyleSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSurfaceStyle';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcPresentationStyle' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSurfaceStyle', 'IfcPresentationStyle' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -40,13 +45,15 @@ export class IfcSurfaceStyleSpecification implements ComponentSpecification
 			name: 'Side',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSurfaceSide'
+			baseType: 'IfcSurfaceSide',
+			optional: false
 		}, 
 		{
 			name: 'Styles',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcSurfaceStyleShading|IfcSurfaceStyleLighting|IfcSurfaceStyleWithTextures|IfcExternallyDefinedSurfaceStyle|IfcSurfaceStyleRefraction>'
+			baseType: 'Array<IfcSurfaceStyleShading|IfcSurfaceStyleLighting|IfcSurfaceStyleWithTextures|IfcExternallyDefinedSurfaceStyle|IfcSurfaceStyleRefraction>',
+			optional: false
 		}
     ];
 

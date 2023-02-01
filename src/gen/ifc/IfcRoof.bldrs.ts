@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcRoofTypeEnum from "./IfcRoofTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcroof.htm
  */
-export default class IfcRoof implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRoof';
+export default  class IfcRoof extends IfcBuildingElement 
+{    
+    public readonly specification: IfcRoofSpecification = IfcRoofSpecification.instance;
 
-    public readonly __version__: number = 0;
+private ShapeType_? : IfcRoofTypeEnum
 
-    public readonly __specification__: IfcRoofSpecification = IfcRoofSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly ShapeType : IfcRoofTypeEnum  ) {}
 }
 
 export class IfcRoofSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRoof';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRoof', 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcRoofSpecification implements ComponentSpecification
 			name: 'ShapeType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcRoofTypeEnum'
+			baseType: 'IfcRoofTypeEnum',
+			optional: false
 		}
     ];
 

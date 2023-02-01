@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcTankTypeEnum from "./IfcTankTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifctanktype.htm
  */
-export default class IfcTankType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcTankType';
+export default  class IfcTankType extends IfcFlowStorageDeviceType 
+{    
+    public readonly specification: IfcTankTypeSpecification = IfcTankTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcTankTypeEnum
 
-    public readonly __specification__: IfcTankTypeSpecification = IfcTankTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcTankTypeEnum  ) {}
 }
 
 export class IfcTankTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcTankType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFlowStorageDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcTankType', 'IfcFlowStorageDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcTankTypeSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTankTypeEnum'
+			baseType: 'IfcTankTypeEnum',
+			optional: false
 		}
     ];
 

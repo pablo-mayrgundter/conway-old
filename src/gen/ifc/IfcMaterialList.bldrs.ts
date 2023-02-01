@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcMaterial from "./IfcMaterial.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcmateriallist.htm
  */
-export default class IfcMaterialList implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcMaterialList';
+export default  class IfcMaterialList extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcMaterialListSpecification = IfcMaterialListSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Materials_? : Array<IfcMaterial>
 
-    public readonly __specification__: IfcMaterialListSpecification = IfcMaterialListSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Materials : Array<IfcMaterial>  ) {}
 }
 
 export class IfcMaterialListSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcMaterialList';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcMaterialList' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcMaterialListSpecification implements ComponentSpecification
 			name: 'Materials',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcMaterial>'
+			baseType: 'Array<IfcMaterial>',
+			optional: false
 		}
     ];
 

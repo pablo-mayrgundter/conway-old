@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,27 @@ import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcplanarextent.htm
  */
-export default class IfcPlanarExtent implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcPlanarExtent';
+export default  class IfcPlanarExtent extends IfcGeometricRepresentationItem 
+{    
+    public readonly specification: IfcPlanarExtentSpecification = IfcPlanarExtentSpecification.instance;
 
-    public readonly __version__: number = 0;
+private SizeInX_? : IfcLengthMeasure
+    private SizeInY_? : IfcLengthMeasure
 
-    public readonly __specification__: IfcPlanarExtentSpecification = IfcPlanarExtentSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly SizeInX : IfcLengthMeasure , public readonly SizeInY : IfcLengthMeasure  ) {}
 }
 
 export class IfcPlanarExtentSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcPlanarExtent';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPlanarExtent', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,13 +40,15 @@ export class IfcPlanarExtentSpecification implements ComponentSpecification
 			name: 'SizeInX',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'SizeInY',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: false
 		}
     ];
 

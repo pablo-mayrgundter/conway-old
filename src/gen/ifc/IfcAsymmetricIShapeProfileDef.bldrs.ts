@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,29 @@ import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcasymmetricishapeprofiledef.htm
  */
-export default class IfcAsymmetricIShapeProfileDef implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcAsymmetricIShapeProfileDef';
+export default  class IfcAsymmetricIShapeProfileDef extends IfcIShapeProfileDef 
+{    
+    public readonly specification: IfcAsymmetricIShapeProfileDefSpecification = IfcAsymmetricIShapeProfileDefSpecification.instance;
 
-    public readonly __version__: number = 0;
+private TopFlangeWidth_? : IfcPositiveLengthMeasure
+    private TopFlangeThickness_? : IfcPositiveLengthMeasure
+    private TopFlangeFilletRadius_? : IfcPositiveLengthMeasure
+    private CentreOfGravityInY_? : IfcPositiveLengthMeasure
 
-    public readonly __specification__: IfcAsymmetricIShapeProfileDefSpecification = IfcAsymmetricIShapeProfileDefSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly TopFlangeWidth : IfcPositiveLengthMeasure , public readonly TopFlangeThickness : IfcPositiveLengthMeasure  | undefined, public readonly TopFlangeFilletRadius : IfcPositiveLengthMeasure  | undefined, public readonly CentreOfGravityInY : IfcPositiveLengthMeasure  | undefined ) {}
 }
 
 export class IfcAsymmetricIShapeProfileDefSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcAsymmetricIShapeProfileDef';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcIShapeProfileDef', 'IfcParameterizedProfileDef', 'IfcProfileDef' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcAsymmetricIShapeProfileDef', 'IfcIShapeProfileDef', 'IfcParameterizedProfileDef', 'IfcProfileDef' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,25 +42,29 @@ export class IfcAsymmetricIShapeProfileDefSpecification implements ComponentSpec
 			name: 'TopFlangeWidth',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'TopFlangeThickness',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'TopFlangeFilletRadius',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'CentreOfGravityInY',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}
     ];
 

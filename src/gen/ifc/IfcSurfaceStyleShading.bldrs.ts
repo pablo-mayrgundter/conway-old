@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcColourRgb from "./IfcColourRgb.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcsurfacestyleshading.htm
  */
-export default class IfcSurfaceStyleShading implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcSurfaceStyleShading';
+export default  class IfcSurfaceStyleShading extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcSurfaceStyleShadingSpecification = IfcSurfaceStyleShadingSpecification.instance;
 
-    public readonly __version__: number = 0;
+private SurfaceColour_? : IfcColourRgb
 
-    public readonly __specification__: IfcSurfaceStyleShadingSpecification = IfcSurfaceStyleShadingSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly SurfaceColour : IfcColourRgb  ) {}
 }
 
 export class IfcSurfaceStyleShadingSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSurfaceStyleShading';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSurfaceStyleShading' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcSurfaceStyleShadingSpecification implements ComponentSpecificati
 			name: 'SurfaceColour',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcColourRgb'
+			baseType: 'IfcColourRgb',
+			optional: false
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcLocalTime from "./IfcLocalTime.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcdateandtime.htm
  */
-export default class IfcDateAndTime implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcDateAndTime';
+export default  class IfcDateAndTime extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcDateAndTimeSpecification = IfcDateAndTimeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private DateComponent_? : IfcCalendarDate
+    private TimeComponent_? : IfcLocalTime
 
-    public readonly __specification__: IfcDateAndTimeSpecification = IfcDateAndTimeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly DateComponent : IfcCalendarDate , public readonly TimeComponent : IfcLocalTime  ) {}
 }
 
 export class IfcDateAndTimeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcDateAndTime';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcDateAndTime' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcDateAndTimeSpecification implements ComponentSpecification
 			name: 'DateComponent',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate'
+			baseType: 'IfcCalendarDate',
+			optional: false
 		}, 
 		{
 			name: 'TimeComponent',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLocalTime'
+			baseType: 'IfcLocalTime',
+			optional: false
 		}
     ];
 

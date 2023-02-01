@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcNamedUnit from "./IfcNamedUnit.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcphysicalsimplequantity.htm
  */
-export default class IfcPhysicalSimpleQuantity implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcPhysicalSimpleQuantity';
+export default abstract class IfcPhysicalSimpleQuantity extends IfcPhysicalQuantity 
+{    
+    public readonly specification: IfcPhysicalSimpleQuantitySpecification = IfcPhysicalSimpleQuantitySpecification.instance;
 
-    public readonly __version__: number = 0;
+private Unit_? : IfcNamedUnit
 
-    public readonly __specification__: IfcPhysicalSimpleQuantitySpecification = IfcPhysicalSimpleQuantitySpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Unit : IfcNamedUnit  | undefined ) {}
 }
 
 export class IfcPhysicalSimpleQuantitySpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcPhysicalSimpleQuantity';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcPhysicalQuantity' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPhysicalSimpleQuantity', 'IfcPhysicalQuantity' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -35,7 +39,8 @@ export class IfcPhysicalSimpleQuantitySpecification implements ComponentSpecific
 			name: 'Unit',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcNamedUnit'
+			baseType: 'IfcNamedUnit',
+			optional: true
 		}
     ];
 

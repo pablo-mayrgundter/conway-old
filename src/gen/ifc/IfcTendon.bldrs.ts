@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -15,22 +15,33 @@ import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifctendon.htm
  */
-export default class IfcTendon implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcTendon';
+export default  class IfcTendon extends IfcReinforcingElement 
+{    
+    public readonly specification: IfcTendonSpecification = IfcTendonSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcTendonTypeEnum
+    private NominalDiameter_? : IfcPositiveLengthMeasure
+    private CrossSectionArea_? : IfcAreaMeasure
+    private TensionForce_? : IfcForceMeasure
+    private PreStress_? : IfcPressureMeasure
+    private FrictionCoefficient_? : IfcNormalisedRatioMeasure
+    private AnchorageSlip_? : IfcPositiveLengthMeasure
+    private MinCurvatureRadius_? : IfcPositiveLengthMeasure
 
-    public readonly __specification__: IfcTendonSpecification = IfcTendonSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcTendonTypeEnum , public readonly NominalDiameter : IfcPositiveLengthMeasure , public readonly CrossSectionArea : IfcAreaMeasure , public readonly TensionForce : IfcForceMeasure  | undefined, public readonly PreStress : IfcPressureMeasure  | undefined, public readonly FrictionCoefficient : IfcNormalisedRatioMeasure  | undefined, public readonly AnchorageSlip : IfcPositiveLengthMeasure  | undefined, public readonly MinCurvatureRadius : IfcPositiveLengthMeasure  | undefined ) {}
 }
 
 export class IfcTendonSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcTendon';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcReinforcingElement', 'IfcBuildingElementComponent', 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcTendon', 'IfcReinforcingElement', 'IfcBuildingElementComponent', 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -40,49 +51,57 @@ export class IfcTendonSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTendonTypeEnum'
+			baseType: 'IfcTendonTypeEnum',
+			optional: false
 		}, 
 		{
 			name: 'NominalDiameter',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'CrossSectionArea',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAreaMeasure'
+			baseType: 'IfcAreaMeasure',
+			optional: false
 		}, 
 		{
 			name: 'TensionForce',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcForceMeasure'
+			baseType: 'IfcForceMeasure',
+			optional: true
 		}, 
 		{
 			name: 'PreStress',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPressureMeasure'
+			baseType: 'IfcPressureMeasure',
+			optional: true
 		}, 
 		{
 			name: 'FrictionCoefficient',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcNormalisedRatioMeasure'
+			baseType: 'IfcNormalisedRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'AnchorageSlip',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'MinCurvatureRadius',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcCartesianPoint from "./IfcCartesianPoint.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcvertexbasedtexturemap.htm
  */
-export default class IfcVertexBasedTextureMap implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcVertexBasedTextureMap';
+export default  class IfcVertexBasedTextureMap extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcVertexBasedTextureMapSpecification = IfcVertexBasedTextureMapSpecification.instance;
 
-    public readonly __version__: number = 0;
+private TextureVertices_? : Array<IfcTextureVertex>
+    private TexturePoints_? : Array<IfcCartesianPoint>
 
-    public readonly __specification__: IfcVertexBasedTextureMapSpecification = IfcVertexBasedTextureMapSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly TextureVertices : Array<IfcTextureVertex> , public readonly TexturePoints : Array<IfcCartesianPoint>  ) {}
 }
 
 export class IfcVertexBasedTextureMapSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcVertexBasedTextureMap';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcVertexBasedTextureMap' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcVertexBasedTextureMapSpecification implements ComponentSpecifica
 			name: 'TextureVertices',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcTextureVertex>'
+			baseType: 'Array<IfcTextureVertex>',
+			optional: false
 		}, 
 		{
 			name: 'TexturePoints',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcCartesianPoint>'
+			baseType: 'Array<IfcCartesianPoint>',
+			optional: false
 		}
     ];
 

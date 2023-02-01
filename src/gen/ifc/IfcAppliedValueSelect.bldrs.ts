@@ -10,8 +10,6 @@ import IfcMonetaryMeasure from "./IfcMonetaryMeasure.bldrs"
 
 export default class IfcAppliedValueSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcAppliedValueSelectVariant ) {}
 }
 
@@ -21,3 +19,8 @@ export type IfcAppliedValueSelectChoices = IfcRatioMeasure|IfcMeasureWithUnit|If
 
 export type IfcAppliedValueSelectVariant = ({ type: 'IfcRatioMeasure'; value: IfcRatioMeasure }|{ type: 'IfcMeasureWithUnit'; value: IfcMeasureWithUnit }|{ type: 'IfcMonetaryMeasure'; value: IfcMonetaryMeasure }) & { type: IfcAppliedValueSelectType; value: IfcAppliedValueSelectChoices };
 
+export function IfcAppliedValueSelectSerializer( value?: IfcAppliedValueSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

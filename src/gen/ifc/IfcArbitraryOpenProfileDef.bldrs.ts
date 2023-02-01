@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcBoundedCurve from "./IfcBoundedCurve.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcarbitraryopenprofiledef.htm
  */
-export default class IfcArbitraryOpenProfileDef implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcArbitraryOpenProfileDef';
+export default  class IfcArbitraryOpenProfileDef extends IfcProfileDef 
+{    
+    public readonly specification: IfcArbitraryOpenProfileDefSpecification = IfcArbitraryOpenProfileDefSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Curve_? : IfcBoundedCurve
 
-    public readonly __specification__: IfcArbitraryOpenProfileDefSpecification = IfcArbitraryOpenProfileDefSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Curve : IfcBoundedCurve  ) {}
 }
 
 export class IfcArbitraryOpenProfileDefSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcArbitraryOpenProfileDef';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcProfileDef' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcArbitraryOpenProfileDef', 'IfcProfileDef' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcArbitraryOpenProfileDefSpecification implements ComponentSpecifi
 			name: 'Curve',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcBoundedCurve'
+			baseType: 'IfcBoundedCurve',
+			optional: false
 		}
     ];
 

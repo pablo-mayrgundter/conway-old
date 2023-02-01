@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcWarpingMomentMeasure from "./IfcWarpingMomentMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstructuralloadsingleforcewarping.htm
  */
-export default class IfcStructuralLoadSingleForceWarping implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcStructuralLoadSingleForceWarping';
+export default  class IfcStructuralLoadSingleForceWarping extends IfcStructuralLoadSingleForce 
+{    
+    public readonly specification: IfcStructuralLoadSingleForceWarpingSpecification = IfcStructuralLoadSingleForceWarpingSpecification.instance;
 
-    public readonly __version__: number = 0;
+private WarpingMoment_? : IfcWarpingMomentMeasure
 
-    public readonly __specification__: IfcStructuralLoadSingleForceWarpingSpecification = IfcStructuralLoadSingleForceWarpingSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly WarpingMoment : IfcWarpingMomentMeasure  | undefined ) {}
 }
 
 export class IfcStructuralLoadSingleForceWarpingSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStructuralLoadSingleForceWarping';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralLoadSingleForce', 'IfcStructuralLoadStatic', 'IfcStructuralLoad' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralLoadSingleForceWarping', 'IfcStructuralLoadSingleForce', 'IfcStructuralLoadStatic', 'IfcStructuralLoad' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcStructuralLoadSingleForceWarpingSpecification implements Compone
 			name: 'WarpingMoment',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcWarpingMomentMeasure'
+			baseType: 'IfcWarpingMomentMeasure',
+			optional: true
 		}
     ];
 

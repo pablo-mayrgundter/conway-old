@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,27 @@ import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcmechanicalfastener.htm
  */
-export default class IfcMechanicalFastener implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcMechanicalFastener';
+export default  class IfcMechanicalFastener extends IfcFastener 
+{    
+    public readonly specification: IfcMechanicalFastenerSpecification = IfcMechanicalFastenerSpecification.instance;
 
-    public readonly __version__: number = 0;
+private NominalDiameter_? : IfcPositiveLengthMeasure
+    private NominalLength_? : IfcPositiveLengthMeasure
 
-    public readonly __specification__: IfcMechanicalFastenerSpecification = IfcMechanicalFastenerSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly NominalDiameter : IfcPositiveLengthMeasure  | undefined, public readonly NominalLength : IfcPositiveLengthMeasure  | undefined ) {}
 }
 
 export class IfcMechanicalFastenerSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcMechanicalFastener';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFastener', 'IfcElementComponent', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcMechanicalFastener', 'IfcFastener', 'IfcElementComponent', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,13 +40,15 @@ export class IfcMechanicalFastenerSpecification implements ComponentSpecificatio
 			name: 'NominalDiameter',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'NominalLength',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}
     ];
 

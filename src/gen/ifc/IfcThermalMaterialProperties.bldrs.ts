@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,29 @@ import IfcThermalConductivityMeasure from "./IfcThermalConductivityMeasure.bldrs
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcthermalmaterialproperties.htm
  */
-export default class IfcThermalMaterialProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcThermalMaterialProperties';
+export default  class IfcThermalMaterialProperties extends IfcMaterialProperties 
+{    
+    public readonly specification: IfcThermalMaterialPropertiesSpecification = IfcThermalMaterialPropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private SpecificHeatCapacity_? : IfcSpecificHeatCapacityMeasure
+    private BoilingPoint_? : IfcThermodynamicTemperatureMeasure
+    private FreezingPoint_? : IfcThermodynamicTemperatureMeasure
+    private ThermalConductivity_? : IfcThermalConductivityMeasure
 
-    public readonly __specification__: IfcThermalMaterialPropertiesSpecification = IfcThermalMaterialPropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly SpecificHeatCapacity : IfcSpecificHeatCapacityMeasure  | undefined, public readonly BoilingPoint : IfcThermodynamicTemperatureMeasure  | undefined, public readonly FreezingPoint : IfcThermodynamicTemperatureMeasure  | undefined, public readonly ThermalConductivity : IfcThermalConductivityMeasure  | undefined ) {}
 }
 
 export class IfcThermalMaterialPropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcThermalMaterialProperties';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcMaterialProperties' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcThermalMaterialProperties', 'IfcMaterialProperties' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,25 +44,29 @@ export class IfcThermalMaterialPropertiesSpecification implements ComponentSpeci
 			name: 'SpecificHeatCapacity',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSpecificHeatCapacityMeasure'
+			baseType: 'IfcSpecificHeatCapacityMeasure',
+			optional: true
 		}, 
 		{
 			name: 'BoilingPoint',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcThermodynamicTemperatureMeasure'
+			baseType: 'IfcThermodynamicTemperatureMeasure',
+			optional: true
 		}, 
 		{
 			name: 'FreezingPoint',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcThermodynamicTemperatureMeasure'
+			baseType: 'IfcThermodynamicTemperatureMeasure',
+			optional: true
 		}, 
 		{
 			name: 'ThermalConductivity',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcThermalConductivityMeasure'
+			baseType: 'IfcThermalConductivityMeasure',
+			optional: true
 		}
     ];
 

@@ -9,8 +9,6 @@ import IfcParameterValue from "./IfcParameterValue.bldrs"
 
 export default class IfcTrimmingSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcTrimmingSelectVariant ) {}
 }
 
@@ -20,3 +18,8 @@ export type IfcTrimmingSelectChoices = IfcCartesianPoint|IfcParameterValue;
 
 export type IfcTrimmingSelectVariant = ({ type: 'IfcCartesianPoint'; value: IfcCartesianPoint }|{ type: 'IfcParameterValue'; value: IfcParameterValue }) & { type: IfcTrimmingSelectType; value: IfcTrimmingSelectChoices };
 
+export function IfcTrimmingSelectSerializer( value?: IfcTrimmingSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

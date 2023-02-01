@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,32 @@ import IfcLabel from "./IfcLabel.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcpostaladdress.htm
  */
-export default class IfcPostalAddress implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcPostalAddress';
+export default  class IfcPostalAddress extends IfcAddress 
+{    
+    public readonly specification: IfcPostalAddressSpecification = IfcPostalAddressSpecification.instance;
 
-    public readonly __version__: number = 0;
+private InternalLocation_? : IfcLabel
+    private AddressLines_? : Array<IfcLabel>
+    private PostalBox_? : IfcLabel
+    private Town_? : IfcLabel
+    private Region_? : IfcLabel
+    private PostalCode_? : IfcLabel
+    private Country_? : IfcLabel
 
-    public readonly __specification__: IfcPostalAddressSpecification = IfcPostalAddressSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly InternalLocation : IfcLabel  | undefined, public readonly AddressLines : Array<IfcLabel>  | undefined, public readonly PostalBox : IfcLabel  | undefined, public readonly Town : IfcLabel  | undefined, public readonly Region : IfcLabel  | undefined, public readonly PostalCode : IfcLabel  | undefined, public readonly Country : IfcLabel  | undefined ) {}
 }
 
 export class IfcPostalAddressSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcPostalAddress';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcAddress' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPostalAddress', 'IfcAddress' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,43 +45,50 @@ export class IfcPostalAddressSpecification implements ComponentSpecification
 			name: 'InternalLocation',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'AddressLines',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcLabel>'
+			baseType: 'Array<IfcLabel>',
+			optional: true
 		}, 
 		{
 			name: 'PostalBox',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'Town',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'Region',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'PostalCode',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'Country',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}
     ];
 

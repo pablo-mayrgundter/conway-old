@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,27 @@ import IfcVirtualGridIntersection from "./IfcVirtualGridIntersection.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcgridplacement.htm
  */
-export default class IfcGridPlacement implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcGridPlacement';
+export default  class IfcGridPlacement extends IfcObjectPlacement 
+{    
+    public readonly specification: IfcGridPlacementSpecification = IfcGridPlacementSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PlacementLocation_? : IfcVirtualGridIntersection
+    private PlacementRefDirection_? : IfcVirtualGridIntersection
 
-    public readonly __specification__: IfcGridPlacementSpecification = IfcGridPlacementSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PlacementLocation : IfcVirtualGridIntersection , public readonly PlacementRefDirection : IfcVirtualGridIntersection  | undefined ) {}
 }
 
 export class IfcGridPlacementSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcGridPlacement';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcObjectPlacement' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcGridPlacement', 'IfcObjectPlacement' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,13 +40,15 @@ export class IfcGridPlacementSpecification implements ComponentSpecification
 			name: 'PlacementLocation',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcVirtualGridIntersection'
+			baseType: 'IfcVirtualGridIntersection',
+			optional: false
 		}, 
 		{
 			name: 'PlacementRefDirection',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcVirtualGridIntersection'
+			baseType: 'IfcVirtualGridIntersection',
+			optional: true
 		}
     ];
 

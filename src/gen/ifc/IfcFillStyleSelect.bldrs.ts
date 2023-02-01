@@ -11,8 +11,6 @@ import IfcExternallyDefinedHatchStyle from "./IfcExternallyDefinedHatchStyle.bld
 
 export default class IfcFillStyleSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcFillStyleSelectVariant ) {}
 }
 
@@ -22,3 +20,8 @@ export type IfcFillStyleSelectChoices = IfcFillAreaStyleHatching|IfcFillAreaStyl
 
 export type IfcFillStyleSelectVariant = ({ type: 'IfcFillAreaStyleHatching'; value: IfcFillAreaStyleHatching }|{ type: 'IfcFillAreaStyleTiles'; value: IfcFillAreaStyleTiles }|{ type: 'IfcColour'; value: IfcColour }|{ type: 'IfcExternallyDefinedHatchStyle'; value: IfcExternallyDefinedHatchStyle }) & { type: IfcFillStyleSelectType; value: IfcFillStyleSelectChoices };
 
+export function IfcFillStyleSelectSerializer( value?: IfcFillStyleSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

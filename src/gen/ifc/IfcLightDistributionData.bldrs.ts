@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,28 @@ import IfcLuminousIntensityDistributionMeasure from "./IfcLuminousIntensityDistr
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifclightdistributiondata.htm
  */
-export default class IfcLightDistributionData implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcLightDistributionData';
+export default  class IfcLightDistributionData extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcLightDistributionDataSpecification = IfcLightDistributionDataSpecification.instance;
 
-    public readonly __version__: number = 0;
+private MainPlaneAngle_? : IfcPlaneAngleMeasure
+    private SecondaryPlaneAngle_? : Array<IfcPlaneAngleMeasure>
+    private LuminousIntensity_? : Array<IfcLuminousIntensityDistributionMeasure>
 
-    public readonly __specification__: IfcLightDistributionDataSpecification = IfcLightDistributionDataSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly MainPlaneAngle : IfcPlaneAngleMeasure , public readonly SecondaryPlaneAngle : Array<IfcPlaneAngleMeasure> , public readonly LuminousIntensity : Array<IfcLuminousIntensityDistributionMeasure>  ) {}
 }
 
 export class IfcLightDistributionDataSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcLightDistributionData';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcLightDistributionData' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,19 +42,22 @@ export class IfcLightDistributionDataSpecification implements ComponentSpecifica
 			name: 'MainPlaneAngle',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPlaneAngleMeasure'
+			baseType: 'IfcPlaneAngleMeasure',
+			optional: false
 		}, 
 		{
 			name: 'SecondaryPlaneAngle',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcPlaneAngleMeasure>'
+			baseType: 'Array<IfcPlaneAngleMeasure>',
+			optional: false
 		}, 
 		{
 			name: 'LuminousIntensity',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcLuminousIntensityDistributionMeasure>'
+			baseType: 'Array<IfcLuminousIntensityDistributionMeasure>',
+			optional: false
 		}
     ];
 

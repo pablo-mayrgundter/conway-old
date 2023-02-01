@@ -29,8 +29,6 @@ import IfcComplexNumber from "./IfcComplexNumber.bldrs"
 
 export default class IfcMeasureValue
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcMeasureValueVariant ) {}
 }
 
@@ -40,3 +38,8 @@ export type IfcMeasureValueChoices = IfcVolumeMeasure|IfcTimeMeasure|IfcThermody
 
 export type IfcMeasureValueVariant = ({ type: 'IfcVolumeMeasure'; value: IfcVolumeMeasure }|{ type: 'IfcTimeMeasure'; value: IfcTimeMeasure }|{ type: 'IfcThermodynamicTemperatureMeasure'; value: IfcThermodynamicTemperatureMeasure }|{ type: 'IfcSolidAngleMeasure'; value: IfcSolidAngleMeasure }|{ type: 'IfcPositiveRatioMeasure'; value: IfcPositiveRatioMeasure }|{ type: 'IfcRatioMeasure'; value: IfcRatioMeasure }|{ type: 'IfcPositivePlaneAngleMeasure'; value: IfcPositivePlaneAngleMeasure }|{ type: 'IfcPlaneAngleMeasure'; value: IfcPlaneAngleMeasure }|{ type: 'IfcParameterValue'; value: IfcParameterValue }|{ type: 'IfcNumericMeasure'; value: IfcNumericMeasure }|{ type: 'IfcMassMeasure'; value: IfcMassMeasure }|{ type: 'IfcPositiveLengthMeasure'; value: IfcPositiveLengthMeasure }|{ type: 'IfcLengthMeasure'; value: IfcLengthMeasure }|{ type: 'IfcElectricCurrentMeasure'; value: IfcElectricCurrentMeasure }|{ type: 'IfcDescriptiveMeasure'; value: IfcDescriptiveMeasure }|{ type: 'IfcCountMeasure'; value: IfcCountMeasure }|{ type: 'IfcContextDependentMeasure'; value: IfcContextDependentMeasure }|{ type: 'IfcAreaMeasure'; value: IfcAreaMeasure }|{ type: 'IfcAmountOfSubstanceMeasure'; value: IfcAmountOfSubstanceMeasure }|{ type: 'IfcLuminousIntensityMeasure'; value: IfcLuminousIntensityMeasure }|{ type: 'IfcNormalisedRatioMeasure'; value: IfcNormalisedRatioMeasure }|{ type: 'IfcComplexNumber'; value: IfcComplexNumber }) & { type: IfcMeasureValueType; value: IfcMeasureValueChoices };
 
+export function IfcMeasureValueSerializer( value?: IfcMeasureValue, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

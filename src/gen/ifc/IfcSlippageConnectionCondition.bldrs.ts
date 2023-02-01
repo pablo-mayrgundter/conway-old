@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,28 @@ import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcslippageconnectioncondition.htm
  */
-export default class IfcSlippageConnectionCondition implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcSlippageConnectionCondition';
+export default  class IfcSlippageConnectionCondition extends IfcStructuralConnectionCondition 
+{    
+    public readonly specification: IfcSlippageConnectionConditionSpecification = IfcSlippageConnectionConditionSpecification.instance;
 
-    public readonly __version__: number = 0;
+private SlippageX_? : IfcLengthMeasure
+    private SlippageY_? : IfcLengthMeasure
+    private SlippageZ_? : IfcLengthMeasure
 
-    public readonly __specification__: IfcSlippageConnectionConditionSpecification = IfcSlippageConnectionConditionSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly SlippageX : IfcLengthMeasure  | undefined, public readonly SlippageY : IfcLengthMeasure  | undefined, public readonly SlippageZ : IfcLengthMeasure  | undefined ) {}
 }
 
 export class IfcSlippageConnectionConditionSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSlippageConnectionCondition';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralConnectionCondition' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSlippageConnectionCondition', 'IfcStructuralConnectionCondition' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,19 +41,22 @@ export class IfcSlippageConnectionConditionSpecification implements ComponentSpe
 			name: 'SlippageX',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'SlippageY',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'SlippageZ',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: true
 		}
     ];
 

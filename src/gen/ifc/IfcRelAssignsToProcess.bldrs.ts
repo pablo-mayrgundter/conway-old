@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcMeasureWithUnit from "./IfcMeasureWithUnit.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrelassignstoprocess.htm
  */
-export default class IfcRelAssignsToProcess implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRelAssignsToProcess';
+export default  class IfcRelAssignsToProcess extends IfcRelAssigns 
+{    
+    public readonly specification: IfcRelAssignsToProcessSpecification = IfcRelAssignsToProcessSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RelatingProcess_? : IfcProcess
+    private QuantityInProcess_? : IfcMeasureWithUnit
 
-    public readonly __specification__: IfcRelAssignsToProcessSpecification = IfcRelAssignsToProcessSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RelatingProcess : IfcProcess , public readonly QuantityInProcess : IfcMeasureWithUnit  | undefined ) {}
 }
 
 export class IfcRelAssignsToProcessSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelAssignsToProcess';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssigns', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssignsToProcess', 'IfcRelAssigns', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcRelAssignsToProcessSpecification implements ComponentSpecificati
 			name: 'RelatingProcess',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcProcess'
+			baseType: 'IfcProcess',
+			optional: false
 		}, 
 		{
 			name: 'QuantityInProcess',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcMeasureWithUnit'
+			baseType: 'IfcMeasureWithUnit',
+			optional: true
 		}
     ];
 

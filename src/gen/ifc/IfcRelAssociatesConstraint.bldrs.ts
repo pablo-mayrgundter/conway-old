@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcConstraint from "./IfcConstraint.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrelassociatesconstraint.htm
  */
-export default class IfcRelAssociatesConstraint implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRelAssociatesConstraint';
+export default  class IfcRelAssociatesConstraint extends IfcRelAssociates 
+{    
+    public readonly specification: IfcRelAssociatesConstraintSpecification = IfcRelAssociatesConstraintSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Intent_? : IfcLabel
+    private RelatingConstraint_? : IfcConstraint
 
-    public readonly __specification__: IfcRelAssociatesConstraintSpecification = IfcRelAssociatesConstraintSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Intent : IfcLabel , public readonly RelatingConstraint : IfcConstraint  ) {}
 }
 
 export class IfcRelAssociatesConstraintSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelAssociatesConstraint';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssociates', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssociatesConstraint', 'IfcRelAssociates', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcRelAssociatesConstraintSpecification implements ComponentSpecifi
 			name: 'Intent',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: false
 		}, 
 		{
 			name: 'RelatingConstraint',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcConstraint'
+			baseType: 'IfcConstraint',
+			optional: false
 		}
     ];
 

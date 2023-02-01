@@ -9,8 +9,6 @@ import IfcTextStyleTextModel from "./IfcTextStyleTextModel.bldrs"
 
 export default class IfcTextStyleSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcTextStyleSelectVariant ) {}
 }
 
@@ -20,3 +18,8 @@ export type IfcTextStyleSelectChoices = IfcTextStyleWithBoxCharacteristics|IfcTe
 
 export type IfcTextStyleSelectVariant = ({ type: 'IfcTextStyleWithBoxCharacteristics'; value: IfcTextStyleWithBoxCharacteristics }|{ type: 'IfcTextStyleTextModel'; value: IfcTextStyleTextModel }) & { type: IfcTextStyleSelectType; value: IfcTextStyleSelectChoices };
 
+export function IfcTextStyleSelectSerializer( value?: IfcTextStyleSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

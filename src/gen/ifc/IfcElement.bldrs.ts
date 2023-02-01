@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -21,22 +21,26 @@ import IfcRelContainedInSpatialStructure from "./IfcRelContainedInSpatialStructu
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcelement.htm
  */
-export default class IfcElement implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcElement';
+export default abstract class IfcElement extends IfcProduct 
+{    
+    public readonly specification: IfcElementSpecification = IfcElementSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Tag_? : IfcIdentifier
 
-    public readonly __specification__: IfcElementSpecification = IfcElementSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Tag : IfcIdentifier  | undefined ) {}
 }
 
 export class IfcElementSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcElement';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -46,7 +50,8 @@ export class IfcElementSpecification implements ComponentSpecification
 			name: 'Tag',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcIdentifier'
+			baseType: 'IfcIdentifier',
+			optional: true
 		}
     ];
 

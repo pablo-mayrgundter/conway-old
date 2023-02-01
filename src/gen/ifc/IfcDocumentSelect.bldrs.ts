@@ -9,8 +9,6 @@ import IfcDocumentInformation from "./IfcDocumentInformation.bldrs"
 
 export default class IfcDocumentSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcDocumentSelectVariant ) {}
 }
 
@@ -20,3 +18,8 @@ export type IfcDocumentSelectChoices = IfcDocumentReference|IfcDocumentInformati
 
 export type IfcDocumentSelectVariant = ({ type: 'IfcDocumentReference'; value: IfcDocumentReference }|{ type: 'IfcDocumentInformation'; value: IfcDocumentInformation }) & { type: IfcDocumentSelectType; value: IfcDocumentSelectChoices };
 
+export function IfcDocumentSelectSerializer( value?: IfcDocumentSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

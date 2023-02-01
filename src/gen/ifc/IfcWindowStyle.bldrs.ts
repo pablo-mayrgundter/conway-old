@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,29 @@ import IfcWindowStyleOperationEnum from "./IfcWindowStyleOperationEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcwindowstyle.htm
  */
-export default class IfcWindowStyle implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcWindowStyle';
+export default  class IfcWindowStyle extends IfcTypeProduct 
+{    
+    public readonly specification: IfcWindowStyleSpecification = IfcWindowStyleSpecification.instance;
 
-    public readonly __version__: number = 0;
+private ConstructionType_? : IfcWindowStyleConstructionEnum
+    private OperationType_? : IfcWindowStyleOperationEnum
+    private ParameterTakesPrecedence_? : boolean
+    private Sizeable_? : boolean
 
-    public readonly __specification__: IfcWindowStyleSpecification = IfcWindowStyleSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly ConstructionType : IfcWindowStyleConstructionEnum , public readonly OperationType : IfcWindowStyleOperationEnum , public readonly ParameterTakesPrecedence : boolean , public readonly Sizeable : boolean  ) {}
 }
 
 export class IfcWindowStyleSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcWindowStyle';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcWindowStyle', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,25 +43,29 @@ export class IfcWindowStyleSpecification implements ComponentSpecification
 			name: 'ConstructionType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcWindowStyleConstructionEnum'
+			baseType: 'IfcWindowStyleConstructionEnum',
+			optional: false
 		}, 
 		{
 			name: 'OperationType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcWindowStyleOperationEnum'
+			baseType: 'IfcWindowStyleOperationEnum',
+			optional: false
 		}, 
 		{
 			name: 'ParameterTakesPrecedence',
 			isCollection: false,
 			rank: 0,
-			baseType: 'boolean'
+			baseType: 'boolean',
+			optional: false
 		}, 
 		{
 			name: 'Sizeable',
 			isCollection: false,
 			rank: 0,
-			baseType: 'boolean'
+			baseType: 'boolean',
+			optional: false
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcSwitchingDeviceTypeEnum from "./IfcSwitchingDeviceTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcswitchingdevicetype.htm
  */
-export default class IfcSwitchingDeviceType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcSwitchingDeviceType';
+export default  class IfcSwitchingDeviceType extends IfcFlowControllerType 
+{    
+    public readonly specification: IfcSwitchingDeviceTypeSpecification = IfcSwitchingDeviceTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcSwitchingDeviceTypeEnum
 
-    public readonly __specification__: IfcSwitchingDeviceTypeSpecification = IfcSwitchingDeviceTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcSwitchingDeviceTypeEnum  ) {}
 }
 
 export class IfcSwitchingDeviceTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSwitchingDeviceType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFlowControllerType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSwitchingDeviceType', 'IfcFlowControllerType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcSwitchingDeviceTypeSpecification implements ComponentSpecificati
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSwitchingDeviceTypeEnum'
+			baseType: 'IfcSwitchingDeviceTypeEnum',
+			optional: false
 		}
     ];
 

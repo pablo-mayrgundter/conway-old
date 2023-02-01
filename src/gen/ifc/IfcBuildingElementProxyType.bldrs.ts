@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcBuildingElementProxyTypeEnum from "./IfcBuildingElementProxyTypeEnum.b
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcbuildingelementproxytype.htm
  */
-export default class IfcBuildingElementProxyType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcBuildingElementProxyType';
+export default  class IfcBuildingElementProxyType extends IfcBuildingElementType 
+{    
+    public readonly specification: IfcBuildingElementProxyTypeSpecification = IfcBuildingElementProxyTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcBuildingElementProxyTypeEnum
 
-    public readonly __specification__: IfcBuildingElementProxyTypeSpecification = IfcBuildingElementProxyTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcBuildingElementProxyTypeEnum  ) {}
 }
 
 export class IfcBuildingElementProxyTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcBuildingElementProxyType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcBuildingElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcBuildingElementProxyType', 'IfcBuildingElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcBuildingElementProxyTypeSpecification implements ComponentSpecif
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcBuildingElementProxyTypeEnum'
+			baseType: 'IfcBuildingElementProxyTypeEnum',
+			optional: false
 		}
     ];
 

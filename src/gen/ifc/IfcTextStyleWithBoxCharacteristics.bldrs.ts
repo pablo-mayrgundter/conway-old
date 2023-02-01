@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -16,22 +16,30 @@ import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifctextstylewithboxcharacteristics.htm
  */
-export default class IfcTextStyleWithBoxCharacteristics implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcTextStyleWithBoxCharacteristics';
+export default  class IfcTextStyleWithBoxCharacteristics extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcTextStyleWithBoxCharacteristicsSpecification = IfcTextStyleWithBoxCharacteristicsSpecification.instance;
 
-    public readonly __version__: number = 0;
+private BoxHeight_? : IfcPositiveLengthMeasure
+    private BoxWidth_? : IfcPositiveLengthMeasure
+    private BoxSlantAngle_? : IfcPlaneAngleMeasure
+    private BoxRotateAngle_? : IfcPlaneAngleMeasure
+    private CharacterSpacing_? : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure
 
-    public readonly __specification__: IfcTextStyleWithBoxCharacteristicsSpecification = IfcTextStyleWithBoxCharacteristicsSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly BoxHeight : IfcPositiveLengthMeasure  | undefined, public readonly BoxWidth : IfcPositiveLengthMeasure  | undefined, public readonly BoxSlantAngle : IfcPlaneAngleMeasure  | undefined, public readonly BoxRotateAngle : IfcPlaneAngleMeasure  | undefined, public readonly CharacterSpacing : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure  | undefined ) {}
 }
 
 export class IfcTextStyleWithBoxCharacteristicsSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcTextStyleWithBoxCharacteristics';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcTextStyleWithBoxCharacteristics' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -41,31 +49,36 @@ export class IfcTextStyleWithBoxCharacteristicsSpecification implements Componen
 			name: 'BoxHeight',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'BoxWidth',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'BoxSlantAngle',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPlaneAngleMeasure'
+			baseType: 'IfcPlaneAngleMeasure',
+			optional: true
 		}, 
 		{
 			name: 'BoxRotateAngle',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPlaneAngleMeasure'
+			baseType: 'IfcPlaneAngleMeasure',
+			optional: true
 		}, 
 		{
 			name: 'CharacterSpacing',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure'
+			baseType: 'IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure',
+			optional: true
 		}
     ];
 

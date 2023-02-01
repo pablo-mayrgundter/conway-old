@@ -9,8 +9,6 @@ import IfcLightIntensityDistribution from "./IfcLightIntensityDistribution.bldrs
 
 export default class IfcLightDistributionDataSourceSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcLightDistributionDataSourceSelectVariant ) {}
 }
 
@@ -20,3 +18,8 @@ export type IfcLightDistributionDataSourceSelectChoices = IfcExternalReference|I
 
 export type IfcLightDistributionDataSourceSelectVariant = ({ type: 'IfcExternalReference'; value: IfcExternalReference }|{ type: 'IfcLightIntensityDistribution'; value: IfcLightIntensityDistribution }) & { type: IfcLightDistributionDataSourceSelectType; value: IfcLightDistributionDataSourceSelectChoices };
 
+export function IfcLightDistributionDataSourceSelectSerializer( value?: IfcLightDistributionDataSourceSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -9,22 +9,26 @@ import { IFCSchema } from "./schema_ifc.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcgeometricrepresentationitem.htm
  */
-export default class IfcGeometricRepresentationItem implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcGeometricRepresentationItem';
+export default abstract class IfcGeometricRepresentationItem extends IfcRepresentationItem 
+{    
+    public readonly specification: IfcGeometricRepresentationItemSpecification = IfcGeometricRepresentationItemSpecification.instance;
 
-    public readonly __version__: number = 0;
 
-    public readonly __specification__: IfcGeometricRepresentationItemSpecification = IfcGeometricRepresentationItemSpecification.instance;
 
-    constructor(  ) {}
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
+
 }
 
 export class IfcGeometricRepresentationItemSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcGeometricRepresentationItem';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = true;
 

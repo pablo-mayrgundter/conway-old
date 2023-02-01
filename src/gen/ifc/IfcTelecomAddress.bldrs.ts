@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,30 @@ import IfcLabel from "./IfcLabel.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifctelecomaddress.htm
  */
-export default class IfcTelecomAddress implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcTelecomAddress';
+export default  class IfcTelecomAddress extends IfcAddress 
+{    
+    public readonly specification: IfcTelecomAddressSpecification = IfcTelecomAddressSpecification.instance;
 
-    public readonly __version__: number = 0;
+private TelephoneNumbers_? : Array<IfcLabel>
+    private FacsimileNumbers_? : Array<IfcLabel>
+    private PagerNumber_? : IfcLabel
+    private ElectronicMailAddresses_? : Array<IfcLabel>
+    private WWWHomePageURL_? : IfcLabel
 
-    public readonly __specification__: IfcTelecomAddressSpecification = IfcTelecomAddressSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly TelephoneNumbers : Array<IfcLabel>  | undefined, public readonly FacsimileNumbers : Array<IfcLabel>  | undefined, public readonly PagerNumber : IfcLabel  | undefined, public readonly ElectronicMailAddresses : Array<IfcLabel>  | undefined, public readonly WWWHomePageURL : IfcLabel  | undefined ) {}
 }
 
 export class IfcTelecomAddressSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcTelecomAddress';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcAddress' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcTelecomAddress', 'IfcAddress' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,31 +43,36 @@ export class IfcTelecomAddressSpecification implements ComponentSpecification
 			name: 'TelephoneNumbers',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcLabel>'
+			baseType: 'Array<IfcLabel>',
+			optional: true
 		}, 
 		{
 			name: 'FacsimileNumbers',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcLabel>'
+			baseType: 'Array<IfcLabel>',
+			optional: true
 		}, 
 		{
 			name: 'PagerNumber',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'ElectronicMailAddresses',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcLabel>'
+			baseType: 'Array<IfcLabel>',
+			optional: true
 		}, 
 		{
 			name: 'WWWHomePageURL',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}
     ];
 

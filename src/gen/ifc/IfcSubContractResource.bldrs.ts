@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,27 @@ import IfcText from "./IfcText.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcsubcontractresource.htm
  */
-export default class IfcSubContractResource implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcSubContractResource';
+export default  class IfcSubContractResource extends IfcConstructionResource 
+{    
+    public readonly specification: IfcSubContractResourceSpecification = IfcSubContractResourceSpecification.instance;
 
-    public readonly __version__: number = 0;
+private SubContractor_? : IfcOrganization|IfcPerson|IfcPersonAndOrganization
+    private JobDescription_? : IfcText
 
-    public readonly __specification__: IfcSubContractResourceSpecification = IfcSubContractResourceSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly SubContractor : IfcOrganization|IfcPerson|IfcPersonAndOrganization  | undefined, public readonly JobDescription : IfcText  | undefined ) {}
 }
 
 export class IfcSubContractResourceSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSubContractResource';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcConstructionResource', 'IfcResource', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSubContractResource', 'IfcConstructionResource', 'IfcResource', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -38,13 +43,15 @@ export class IfcSubContractResourceSpecification implements ComponentSpecificati
 			name: 'SubContractor',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcOrganization|IfcPerson|IfcPersonAndOrganization'
+			baseType: 'IfcOrganization|IfcPerson|IfcPersonAndOrganization',
+			optional: true
 		}, 
 		{
 			name: 'JobDescription',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcText'
+			baseType: 'IfcText',
+			optional: true
 		}
     ];
 

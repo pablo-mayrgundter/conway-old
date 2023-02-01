@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,27 @@ import IfcFaceBasedSurfaceModel from "./IfcFaceBasedSurfaceModel.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcconnectionsurfacegeometry.htm
  */
-export default class IfcConnectionSurfaceGeometry implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcConnectionSurfaceGeometry';
+export default  class IfcConnectionSurfaceGeometry extends IfcConnectionGeometry 
+{    
+    public readonly specification: IfcConnectionSurfaceGeometrySpecification = IfcConnectionSurfaceGeometrySpecification.instance;
 
-    public readonly __version__: number = 0;
+private SurfaceOnRelatingElement_? : IfcSurface|IfcFaceSurface|IfcFaceBasedSurfaceModel
+    private SurfaceOnRelatedElement_? : IfcSurface|IfcFaceSurface|IfcFaceBasedSurfaceModel
 
-    public readonly __specification__: IfcConnectionSurfaceGeometrySpecification = IfcConnectionSurfaceGeometrySpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly SurfaceOnRelatingElement : IfcSurface|IfcFaceSurface|IfcFaceBasedSurfaceModel , public readonly SurfaceOnRelatedElement : IfcSurface|IfcFaceSurface|IfcFaceBasedSurfaceModel  | undefined ) {}
 }
 
 export class IfcConnectionSurfaceGeometrySpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcConnectionSurfaceGeometry';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcConnectionGeometry' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcConnectionSurfaceGeometry', 'IfcConnectionGeometry' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,13 +42,15 @@ export class IfcConnectionSurfaceGeometrySpecification implements ComponentSpeci
 			name: 'SurfaceOnRelatingElement',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSurface|IfcFaceSurface|IfcFaceBasedSurfaceModel'
+			baseType: 'IfcSurface|IfcFaceSurface|IfcFaceBasedSurfaceModel',
+			optional: false
 		}, 
 		{
 			name: 'SurfaceOnRelatedElement',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSurface|IfcFaceSurface|IfcFaceBasedSurfaceModel'
+			baseType: 'IfcSurface|IfcFaceSurface|IfcFaceBasedSurfaceModel',
+			optional: true
 		}
     ];
 

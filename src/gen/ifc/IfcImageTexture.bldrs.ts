@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcIdentifier from "./IfcIdentifier.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcimagetexture.htm
  */
-export default class IfcImageTexture implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcImageTexture';
+export default  class IfcImageTexture extends IfcSurfaceTexture 
+{    
+    public readonly specification: IfcImageTextureSpecification = IfcImageTextureSpecification.instance;
 
-    public readonly __version__: number = 0;
+private UrlReference_? : IfcIdentifier
 
-    public readonly __specification__: IfcImageTextureSpecification = IfcImageTextureSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly UrlReference : IfcIdentifier  ) {}
 }
 
 export class IfcImageTextureSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcImageTexture';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcSurfaceTexture' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcImageTexture', 'IfcSurfaceTexture' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcImageTextureSpecification implements ComponentSpecification
 			name: 'UrlReference',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcIdentifier'
+			baseType: 'IfcIdentifier',
+			optional: false
 		}
     ];
 

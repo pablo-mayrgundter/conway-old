@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,29 @@ import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstructuralsteelprofileproperties.htm
  */
-export default class IfcStructuralSteelProfileProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcStructuralSteelProfileProperties';
+export default  class IfcStructuralSteelProfileProperties extends IfcStructuralProfileProperties 
+{    
+    public readonly specification: IfcStructuralSteelProfilePropertiesSpecification = IfcStructuralSteelProfilePropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private ShearAreaZ_? : IfcAreaMeasure
+    private ShearAreaY_? : IfcAreaMeasure
+    private PlasticShapeFactorY_? : IfcPositiveRatioMeasure
+    private PlasticShapeFactorZ_? : IfcPositiveRatioMeasure
 
-    public readonly __specification__: IfcStructuralSteelProfilePropertiesSpecification = IfcStructuralSteelProfilePropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly ShearAreaZ : IfcAreaMeasure  | undefined, public readonly ShearAreaY : IfcAreaMeasure  | undefined, public readonly PlasticShapeFactorY : IfcPositiveRatioMeasure  | undefined, public readonly PlasticShapeFactorZ : IfcPositiveRatioMeasure  | undefined ) {}
 }
 
 export class IfcStructuralSteelProfilePropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStructuralSteelProfileProperties';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralProfileProperties', 'IfcGeneralProfileProperties', 'IfcProfileProperties' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralSteelProfileProperties', 'IfcStructuralProfileProperties', 'IfcGeneralProfileProperties', 'IfcProfileProperties' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,25 +43,29 @@ export class IfcStructuralSteelProfilePropertiesSpecification implements Compone
 			name: 'ShearAreaZ',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAreaMeasure'
+			baseType: 'IfcAreaMeasure',
+			optional: true
 		}, 
 		{
 			name: 'ShearAreaY',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAreaMeasure'
+			baseType: 'IfcAreaMeasure',
+			optional: true
 		}, 
 		{
 			name: 'PlasticShapeFactorY',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveRatioMeasure'
+			baseType: 'IfcPositiveRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'PlasticShapeFactorZ',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveRatioMeasure'
+			baseType: 'IfcPositiveRatioMeasure',
+			optional: true
 		}
     ];
 

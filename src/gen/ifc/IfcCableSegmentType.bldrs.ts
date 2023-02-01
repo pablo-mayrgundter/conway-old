@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcCableSegmentTypeEnum from "./IfcCableSegmentTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccablesegmenttype.htm
  */
-export default class IfcCableSegmentType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcCableSegmentType';
+export default  class IfcCableSegmentType extends IfcFlowSegmentType 
+{    
+    public readonly specification: IfcCableSegmentTypeSpecification = IfcCableSegmentTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcCableSegmentTypeEnum
 
-    public readonly __specification__: IfcCableSegmentTypeSpecification = IfcCableSegmentTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcCableSegmentTypeEnum  ) {}
 }
 
 export class IfcCableSegmentTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCableSegmentType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFlowSegmentType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcCableSegmentType', 'IfcFlowSegmentType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcCableSegmentTypeSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCableSegmentTypeEnum'
+			baseType: 'IfcCableSegmentTypeEnum',
+			optional: false
 		}
     ];
 

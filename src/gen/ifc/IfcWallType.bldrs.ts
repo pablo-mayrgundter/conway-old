@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcWallTypeEnum from "./IfcWallTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcwalltype.htm
  */
-export default class IfcWallType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcWallType';
+export default  class IfcWallType extends IfcBuildingElementType 
+{    
+    public readonly specification: IfcWallTypeSpecification = IfcWallTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcWallTypeEnum
 
-    public readonly __specification__: IfcWallTypeSpecification = IfcWallTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcWallTypeEnum  ) {}
 }
 
 export class IfcWallTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcWallType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcBuildingElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcWallType', 'IfcBuildingElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcWallTypeSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcWallTypeEnum'
+			baseType: 'IfcWallTypeEnum',
+			optional: false
 		}
     ];
 

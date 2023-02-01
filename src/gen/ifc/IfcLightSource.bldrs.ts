@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,29 @@ import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifclightsource.htm
  */
-export default class IfcLightSource implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcLightSource';
+export default abstract class IfcLightSource extends IfcGeometricRepresentationItem 
+{    
+    public readonly specification: IfcLightSourceSpecification = IfcLightSourceSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Name_? : IfcLabel
+    private LightColour_? : IfcColourRgb
+    private AmbientIntensity_? : IfcNormalisedRatioMeasure
+    private Intensity_? : IfcNormalisedRatioMeasure
 
-    public readonly __specification__: IfcLightSourceSpecification = IfcLightSourceSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Name : IfcLabel  | undefined, public readonly LightColour : IfcColourRgb , public readonly AmbientIntensity : IfcNormalisedRatioMeasure  | undefined, public readonly Intensity : IfcNormalisedRatioMeasure  | undefined ) {}
 }
 
 export class IfcLightSourceSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcLightSource';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcLightSource', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -37,25 +44,29 @@ export class IfcLightSourceSpecification implements ComponentSpecification
 			name: 'Name',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'LightColour',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcColourRgb'
+			baseType: 'IfcColourRgb',
+			optional: false
 		}, 
 		{
 			name: 'AmbientIntensity',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcNormalisedRatioMeasure'
+			baseType: 'IfcNormalisedRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'Intensity',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcNormalisedRatioMeasure'
+			baseType: 'IfcNormalisedRatioMeasure',
+			optional: true
 		}
     ];
 

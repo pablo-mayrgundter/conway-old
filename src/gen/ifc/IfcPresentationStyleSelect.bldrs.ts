@@ -12,8 +12,6 @@ import IfcSurfaceStyle from "./IfcSurfaceStyle.bldrs"
 
 export default class IfcPresentationStyleSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcPresentationStyleSelectVariant ) {}
 }
 
@@ -23,3 +21,8 @@ export type IfcPresentationStyleSelectChoices = IfcCurveStyle|IfcSymbolStyle|Ifc
 
 export type IfcPresentationStyleSelectVariant = ({ type: 'IfcCurveStyle'; value: IfcCurveStyle }|{ type: 'IfcSymbolStyle'; value: IfcSymbolStyle }|{ type: 'IfcFillAreaStyle'; value: IfcFillAreaStyle }|{ type: 'IfcTextStyle'; value: IfcTextStyle }|{ type: 'IfcSurfaceStyle'; value: IfcSurfaceStyle }) & { type: IfcPresentationStyleSelectType; value: IfcPresentationStyleSelectChoices };
 
+export function IfcPresentationStyleSelectSerializer( value?: IfcPresentationStyleSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

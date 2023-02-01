@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -14,22 +14,29 @@ import IfcGeometricRepresentationSubContext from "./IfcGeometricRepresentationSu
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcgeometricrepresentationcontext.htm
  */
-export default class IfcGeometricRepresentationContext implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcGeometricRepresentationContext';
+export default  class IfcGeometricRepresentationContext extends IfcRepresentationContext 
+{    
+    public readonly specification: IfcGeometricRepresentationContextSpecification = IfcGeometricRepresentationContextSpecification.instance;
 
-    public readonly __version__: number = 0;
+private CoordinateSpaceDimension_? : IfcDimensionCount
+    private Precision_? : number
+    private WorldCoordinateSystem_? : IfcAxis2Placement2D|IfcAxis2Placement3D
+    private TrueNorth_? : IfcDirection
 
-    public readonly __specification__: IfcGeometricRepresentationContextSpecification = IfcGeometricRepresentationContextSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly CoordinateSpaceDimension : IfcDimensionCount , public readonly Precision : number  | undefined, public readonly WorldCoordinateSystem : IfcAxis2Placement2D|IfcAxis2Placement3D , public readonly TrueNorth : IfcDirection  | undefined ) {}
 }
 
 export class IfcGeometricRepresentationContextSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcGeometricRepresentationContext';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRepresentationContext' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationContext', 'IfcRepresentationContext' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -39,25 +46,29 @@ export class IfcGeometricRepresentationContextSpecification implements Component
 			name: 'CoordinateSpaceDimension',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDimensionCount'
+			baseType: 'IfcDimensionCount',
+			optional: false
 		}, 
 		{
 			name: 'Precision',
 			isCollection: false,
 			rank: 0,
-			baseType: 'number'
+			baseType: 'number',
+			optional: true
 		}, 
 		{
 			name: 'WorldCoordinateSystem',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAxis2Placement2D|IfcAxis2Placement3D'
+			baseType: 'IfcAxis2Placement2D|IfcAxis2Placement3D',
+			optional: false
 		}, 
 		{
 			name: 'TrueNorth',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDirection'
+			baseType: 'IfcDirection',
+			optional: true
 		}
     ];
 

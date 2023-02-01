@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcTimeSeriesValue from "./IfcTimeSeriesValue.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcregulartimeseries.htm
  */
-export default class IfcRegularTimeSeries implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRegularTimeSeries';
+export default  class IfcRegularTimeSeries extends IfcTimeSeries 
+{    
+    public readonly specification: IfcRegularTimeSeriesSpecification = IfcRegularTimeSeriesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private TimeStep_? : IfcTimeMeasure
+    private Values_? : Array<IfcTimeSeriesValue>
 
-    public readonly __specification__: IfcRegularTimeSeriesSpecification = IfcRegularTimeSeriesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly TimeStep : IfcTimeMeasure , public readonly Values : Array<IfcTimeSeriesValue>  ) {}
 }
 
 export class IfcRegularTimeSeriesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRegularTimeSeries';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcTimeSeries' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRegularTimeSeries', 'IfcTimeSeries' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcRegularTimeSeriesSpecification implements ComponentSpecification
 			name: 'TimeStep',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcTimeMeasure'
+			baseType: 'IfcTimeMeasure',
+			optional: false
 		}, 
 		{
 			name: 'Values',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcTimeSeriesValue>'
+			baseType: 'Array<IfcTimeSeriesValue>',
+			optional: false
 		}
     ];
 

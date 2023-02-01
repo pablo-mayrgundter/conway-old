@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcStructuralCurveTypeEnum from "./IfcStructuralCurveTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstructuralcurvemember.htm
  */
-export default class IfcStructuralCurveMember implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcStructuralCurveMember';
+export default  class IfcStructuralCurveMember extends IfcStructuralMember 
+{    
+    public readonly specification: IfcStructuralCurveMemberSpecification = IfcStructuralCurveMemberSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcStructuralCurveTypeEnum
 
-    public readonly __specification__: IfcStructuralCurveMemberSpecification = IfcStructuralCurveMemberSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcStructuralCurveTypeEnum  ) {}
 }
 
 export class IfcStructuralCurveMemberSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStructuralCurveMember';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralMember', 'IfcStructuralItem', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralCurveMember', 'IfcStructuralMember', 'IfcStructuralItem', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcStructuralCurveMemberSpecification implements ComponentSpecifica
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcStructuralCurveTypeEnum'
+			baseType: 'IfcStructuralCurveTypeEnum',
+			optional: false
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,29 @@ import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifctrapeziumprofiledef.htm
  */
-export default class IfcTrapeziumProfileDef implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcTrapeziumProfileDef';
+export default  class IfcTrapeziumProfileDef extends IfcParameterizedProfileDef 
+{    
+    public readonly specification: IfcTrapeziumProfileDefSpecification = IfcTrapeziumProfileDefSpecification.instance;
 
-    public readonly __version__: number = 0;
+private BottomXDim_? : IfcPositiveLengthMeasure
+    private TopXDim_? : IfcPositiveLengthMeasure
+    private YDim_? : IfcPositiveLengthMeasure
+    private TopXOffset_? : IfcLengthMeasure
 
-    public readonly __specification__: IfcTrapeziumProfileDefSpecification = IfcTrapeziumProfileDefSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly BottomXDim : IfcPositiveLengthMeasure , public readonly TopXDim : IfcPositiveLengthMeasure , public readonly YDim : IfcPositiveLengthMeasure , public readonly TopXOffset : IfcLengthMeasure  ) {}
 }
 
 export class IfcTrapeziumProfileDefSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcTrapeziumProfileDef';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcParameterizedProfileDef', 'IfcProfileDef' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcTrapeziumProfileDef', 'IfcParameterizedProfileDef', 'IfcProfileDef' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,25 +43,29 @@ export class IfcTrapeziumProfileDefSpecification implements ComponentSpecificati
 			name: 'BottomXDim',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'TopXDim',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'YDim',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'TopXOffset',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: false
 		}
     ];
 

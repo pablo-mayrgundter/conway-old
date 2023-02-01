@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcClassificationNotationFacet from "./IfcClassificationNotationFacet.bld
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcclassificationnotation.htm
  */
-export default class IfcClassificationNotation implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcClassificationNotation';
+export default  class IfcClassificationNotation extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcClassificationNotationSpecification = IfcClassificationNotationSpecification.instance;
 
-    public readonly __version__: number = 0;
+private NotationFacets_? : Array<IfcClassificationNotationFacet>
 
-    public readonly __specification__: IfcClassificationNotationSpecification = IfcClassificationNotationSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly NotationFacets : Array<IfcClassificationNotationFacet>  ) {}
 }
 
 export class IfcClassificationNotationSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcClassificationNotation';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcClassificationNotation' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcClassificationNotationSpecification implements ComponentSpecific
 			name: 'NotationFacets',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcClassificationNotationFacet>'
+			baseType: 'Array<IfcClassificationNotationFacet>',
+			optional: false
 		}
     ];
 

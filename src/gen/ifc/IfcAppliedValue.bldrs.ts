@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -19,22 +19,31 @@ import IfcAppliedValueRelationship from "./IfcAppliedValueRelationship.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcappliedvalue.htm
  */
-export default class IfcAppliedValue implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcAppliedValue';
+export default abstract class IfcAppliedValue extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcAppliedValueSpecification = IfcAppliedValueSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Name_? : IfcLabel
+    private Description_? : IfcText
+    private AppliedValue_? : IfcRatioMeasure|IfcMeasureWithUnit|IfcMonetaryMeasure
+    private UnitBasis_? : IfcMeasureWithUnit
+    private ApplicableDate_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
+    private FixedUntilDate_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
 
-    public readonly __specification__: IfcAppliedValueSpecification = IfcAppliedValueSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Name : IfcLabel  | undefined, public readonly Description : IfcText  | undefined, public readonly AppliedValue : IfcRatioMeasure|IfcMeasureWithUnit|IfcMonetaryMeasure  | undefined, public readonly UnitBasis : IfcMeasureWithUnit  | undefined, public readonly ApplicableDate : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined, public readonly FixedUntilDate : IfcCalendarDate|IfcLocalTime|IfcDateAndTime  | undefined ) {}
 }
 
 export class IfcAppliedValueSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcAppliedValue';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcAppliedValue' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -44,37 +53,43 @@ export class IfcAppliedValueSpecification implements ComponentSpecification
 			name: 'Name',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'Description',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcText'
+			baseType: 'IfcText',
+			optional: true
 		}, 
 		{
 			name: 'AppliedValue',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcRatioMeasure|IfcMeasureWithUnit|IfcMonetaryMeasure'
+			baseType: 'IfcRatioMeasure|IfcMeasureWithUnit|IfcMonetaryMeasure',
+			optional: true
 		}, 
 		{
 			name: 'UnitBasis',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcMeasureWithUnit'
+			baseType: 'IfcMeasureWithUnit',
+			optional: true
 		}, 
 		{
 			name: 'ApplicableDate',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime'
+			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime',
+			optional: true
 		}, 
 		{
 			name: 'FixedUntilDate',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime'
+			baseType: 'IfcCalendarDate|IfcLocalTime|IfcDateAndTime',
+			optional: true
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,29 @@ import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcboundingbox.htm
  */
-export default class IfcBoundingBox implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcBoundingBox';
+export default  class IfcBoundingBox extends IfcGeometricRepresentationItem 
+{    
+    public readonly specification: IfcBoundingBoxSpecification = IfcBoundingBoxSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Corner_? : IfcCartesianPoint
+    private XDim_? : IfcPositiveLengthMeasure
+    private YDim_? : IfcPositiveLengthMeasure
+    private ZDim_? : IfcPositiveLengthMeasure
 
-    public readonly __specification__: IfcBoundingBoxSpecification = IfcBoundingBoxSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Corner : IfcCartesianPoint , public readonly XDim : IfcPositiveLengthMeasure , public readonly YDim : IfcPositiveLengthMeasure , public readonly ZDim : IfcPositiveLengthMeasure  ) {}
 }
 
 export class IfcBoundingBoxSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcBoundingBox';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcBoundingBox', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,25 +44,29 @@ export class IfcBoundingBoxSpecification implements ComponentSpecification
 			name: 'Corner',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCartesianPoint'
+			baseType: 'IfcCartesianPoint',
+			optional: false
 		}, 
 		{
 			name: 'XDim',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'YDim',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'ZDim',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}
     ];
 

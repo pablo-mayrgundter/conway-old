@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,30 @@ import IfcAreaMeasure from "./IfcAreaMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcgeneralprofileproperties.htm
  */
-export default class IfcGeneralProfileProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcGeneralProfileProperties';
+export default  class IfcGeneralProfileProperties extends IfcProfileProperties 
+{    
+    public readonly specification: IfcGeneralProfilePropertiesSpecification = IfcGeneralProfilePropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PhysicalWeight_? : IfcMassPerLengthMeasure
+    private Perimeter_? : IfcPositiveLengthMeasure
+    private MinimumPlateThickness_? : IfcPositiveLengthMeasure
+    private MaximumPlateThickness_? : IfcPositiveLengthMeasure
+    private CrossSectionArea_? : IfcAreaMeasure
 
-    public readonly __specification__: IfcGeneralProfilePropertiesSpecification = IfcGeneralProfilePropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PhysicalWeight : IfcMassPerLengthMeasure  | undefined, public readonly Perimeter : IfcPositiveLengthMeasure  | undefined, public readonly MinimumPlateThickness : IfcPositiveLengthMeasure  | undefined, public readonly MaximumPlateThickness : IfcPositiveLengthMeasure  | undefined, public readonly CrossSectionArea : IfcAreaMeasure  | undefined ) {}
 }
 
 export class IfcGeneralProfilePropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcGeneralProfileProperties';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcProfileProperties' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcGeneralProfileProperties', 'IfcProfileProperties' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,31 +45,36 @@ export class IfcGeneralProfilePropertiesSpecification implements ComponentSpecif
 			name: 'PhysicalWeight',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcMassPerLengthMeasure'
+			baseType: 'IfcMassPerLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'Perimeter',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'MinimumPlateThickness',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'MaximumPlateThickness',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'CrossSectionArea',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAreaMeasure'
+			baseType: 'IfcAreaMeasure',
+			optional: true
 		}
     ];
 

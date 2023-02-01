@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcGroup from "./IfcGroup.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrelassignstogroup.htm
  */
-export default class IfcRelAssignsToGroup implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRelAssignsToGroup';
+export default  class IfcRelAssignsToGroup extends IfcRelAssigns 
+{    
+    public readonly specification: IfcRelAssignsToGroupSpecification = IfcRelAssignsToGroupSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RelatingGroup_? : IfcGroup
 
-    public readonly __specification__: IfcRelAssignsToGroupSpecification = IfcRelAssignsToGroupSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RelatingGroup : IfcGroup  ) {}
 }
 
 export class IfcRelAssignsToGroupSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelAssignsToGroup';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssigns', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelAssignsToGroup', 'IfcRelAssigns', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcRelAssignsToGroupSpecification implements ComponentSpecification
 			name: 'RelatingGroup',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcGroup'
+			baseType: 'IfcGroup',
+			optional: false
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,27 @@ import IfcObjectDefinition from "./IfcObjectDefinition.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcreldecomposes.htm
  */
-export default class IfcRelDecomposes implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRelDecomposes';
+export default abstract class IfcRelDecomposes extends IfcRelationship 
+{    
+    public readonly specification: IfcRelDecomposesSpecification = IfcRelDecomposesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RelatingObject_? : IfcObjectDefinition
+    private RelatedObjects_? : Array<IfcObjectDefinition>
 
-    public readonly __specification__: IfcRelDecomposesSpecification = IfcRelDecomposesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RelatingObject : IfcObjectDefinition , public readonly RelatedObjects : Array<IfcObjectDefinition>  ) {}
 }
 
 export class IfcRelDecomposesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelDecomposes';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelDecomposes', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -35,13 +40,15 @@ export class IfcRelDecomposesSpecification implements ComponentSpecification
 			name: 'RelatingObject',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcObjectDefinition'
+			baseType: 'IfcObjectDefinition',
+			optional: false
 		}, 
 		{
 			name: 'RelatedObjects',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcObjectDefinition>'
+			baseType: 'Array<IfcObjectDefinition>',
+			optional: false
 		}
     ];
 

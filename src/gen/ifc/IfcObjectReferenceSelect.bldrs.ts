@@ -20,8 +20,6 @@ import IfcAppliedValue from "./IfcAppliedValue.bldrs"
 
 export default class IfcObjectReferenceSelect
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcObjectReferenceSelectVariant ) {}
 }
 
@@ -31,3 +29,8 @@ export type IfcObjectReferenceSelectChoices = IfcMaterial|IfcPerson|IfcDateAndTi
 
 export type IfcObjectReferenceSelectVariant = ({ type: 'IfcMaterial'; value: IfcMaterial }|{ type: 'IfcPerson'; value: IfcPerson }|{ type: 'IfcDateAndTime'; value: IfcDateAndTime }|{ type: 'IfcMaterialList'; value: IfcMaterialList }|{ type: 'IfcOrganization'; value: IfcOrganization }|{ type: 'IfcCalendarDate'; value: IfcCalendarDate }|{ type: 'IfcLocalTime'; value: IfcLocalTime }|{ type: 'IfcPersonAndOrganization'; value: IfcPersonAndOrganization }|{ type: 'IfcMaterialLayer'; value: IfcMaterialLayer }|{ type: 'IfcExternalReference'; value: IfcExternalReference }|{ type: 'IfcTimeSeries'; value: IfcTimeSeries }|{ type: 'IfcAddress'; value: IfcAddress }|{ type: 'IfcAppliedValue'; value: IfcAppliedValue }) & { type: IfcObjectReferenceSelectType; value: IfcObjectReferenceSelectChoices };
 
+export function IfcObjectReferenceSelectSerializer( value?: IfcObjectReferenceSelect, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

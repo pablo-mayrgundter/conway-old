@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -15,22 +15,26 @@ import IfcSurfaceStyle from "./IfcSurfaceStyle.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcpresentationstyleassignment.htm
  */
-export default class IfcPresentationStyleAssignment implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcPresentationStyleAssignment';
+export default  class IfcPresentationStyleAssignment extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcPresentationStyleAssignmentSpecification = IfcPresentationStyleAssignmentSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Styles_? : Array<IfcNullStyle|IfcCurveStyle|IfcSymbolStyle|IfcFillAreaStyle|IfcTextStyle|IfcSurfaceStyle>
 
-    public readonly __specification__: IfcPresentationStyleAssignmentSpecification = IfcPresentationStyleAssignmentSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Styles : Array<IfcNullStyle|IfcCurveStyle|IfcSymbolStyle|IfcFillAreaStyle|IfcTextStyle|IfcSurfaceStyle>  ) {}
 }
 
 export class IfcPresentationStyleAssignmentSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcPresentationStyleAssignment';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcPresentationStyleAssignment' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -40,7 +44,8 @@ export class IfcPresentationStyleAssignmentSpecification implements ComponentSpe
 			name: 'Styles',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcNullStyle|IfcCurveStyle|IfcSymbolStyle|IfcFillAreaStyle|IfcTextStyle|IfcSurfaceStyle>'
+			baseType: 'Array<IfcNullStyle|IfcCurveStyle|IfcSymbolStyle|IfcFillAreaStyle|IfcTextStyle|IfcSurfaceStyle>',
+			optional: false
 		}
     ];
 

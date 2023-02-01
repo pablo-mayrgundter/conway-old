@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcProfileDef from "./IfcProfileDef.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcprofileproperties.htm
  */
-export default class IfcProfileProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcProfileProperties';
+export default abstract class IfcProfileProperties extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcProfilePropertiesSpecification = IfcProfilePropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private ProfileName_? : IfcLabel
+    private ProfileDefinition_? : IfcProfileDef
 
-    public readonly __specification__: IfcProfilePropertiesSpecification = IfcProfilePropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly ProfileName : IfcLabel  | undefined, public readonly ProfileDefinition : IfcProfileDef  | undefined ) {}
 }
 
 export class IfcProfilePropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcProfileProperties';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcProfileProperties' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -36,13 +41,15 @@ export class IfcProfilePropertiesSpecification implements ComponentSpecification
 			name: 'ProfileName',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'ProfileDefinition',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcProfileDef'
+			baseType: 'IfcProfileDef',
+			optional: true
 		}
     ];
 

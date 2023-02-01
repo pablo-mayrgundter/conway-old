@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,33 @@ import IfcAreaMeasure from "./IfcAreaMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcreinforcingmesh.htm
  */
-export default class IfcReinforcingMesh implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcReinforcingMesh';
+export default  class IfcReinforcingMesh extends IfcReinforcingElement 
+{    
+    public readonly specification: IfcReinforcingMeshSpecification = IfcReinforcingMeshSpecification.instance;
 
-    public readonly __version__: number = 0;
+private MeshLength_? : IfcPositiveLengthMeasure
+    private MeshWidth_? : IfcPositiveLengthMeasure
+    private LongitudinalBarNominalDiameter_? : IfcPositiveLengthMeasure
+    private TransverseBarNominalDiameter_? : IfcPositiveLengthMeasure
+    private LongitudinalBarCrossSectionArea_? : IfcAreaMeasure
+    private TransverseBarCrossSectionArea_? : IfcAreaMeasure
+    private LongitudinalBarSpacing_? : IfcPositiveLengthMeasure
+    private TransverseBarSpacing_? : IfcPositiveLengthMeasure
 
-    public readonly __specification__: IfcReinforcingMeshSpecification = IfcReinforcingMeshSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly MeshLength : IfcPositiveLengthMeasure  | undefined, public readonly MeshWidth : IfcPositiveLengthMeasure  | undefined, public readonly LongitudinalBarNominalDiameter : IfcPositiveLengthMeasure , public readonly TransverseBarNominalDiameter : IfcPositiveLengthMeasure , public readonly LongitudinalBarCrossSectionArea : IfcAreaMeasure , public readonly TransverseBarCrossSectionArea : IfcAreaMeasure , public readonly LongitudinalBarSpacing : IfcPositiveLengthMeasure , public readonly TransverseBarSpacing : IfcPositiveLengthMeasure  ) {}
 }
 
 export class IfcReinforcingMeshSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcReinforcingMesh';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcReinforcingElement', 'IfcBuildingElementComponent', 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcReinforcingMesh', 'IfcReinforcingElement', 'IfcBuildingElementComponent', 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,49 +47,57 @@ export class IfcReinforcingMeshSpecification implements ComponentSpecification
 			name: 'MeshLength',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'MeshWidth',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'LongitudinalBarNominalDiameter',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'TransverseBarNominalDiameter',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'LongitudinalBarCrossSectionArea',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAreaMeasure'
+			baseType: 'IfcAreaMeasure',
+			optional: false
 		}, 
 		{
 			name: 'TransverseBarCrossSectionArea',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAreaMeasure'
+			baseType: 'IfcAreaMeasure',
+			optional: false
 		}, 
 		{
 			name: 'LongitudinalBarSpacing',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}, 
 		{
 			name: 'TransverseBarSpacing',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: false
 		}
     ];
 

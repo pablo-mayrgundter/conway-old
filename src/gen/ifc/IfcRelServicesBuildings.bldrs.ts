@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcSpatialStructureElement from "./IfcSpatialStructureElement.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrelservicesbuildings.htm
  */
-export default class IfcRelServicesBuildings implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRelServicesBuildings';
+export default  class IfcRelServicesBuildings extends IfcRelConnects 
+{    
+    public readonly specification: IfcRelServicesBuildingsSpecification = IfcRelServicesBuildingsSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RelatingSystem_? : IfcSystem
+    private RelatedBuildings_? : Array<IfcSpatialStructureElement>
 
-    public readonly __specification__: IfcRelServicesBuildingsSpecification = IfcRelServicesBuildingsSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RelatingSystem : IfcSystem , public readonly RelatedBuildings : Array<IfcSpatialStructureElement>  ) {}
 }
 
 export class IfcRelServicesBuildingsSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelServicesBuildings';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelServicesBuildings', 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcRelServicesBuildingsSpecification implements ComponentSpecificat
 			name: 'RelatingSystem',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSystem'
+			baseType: 'IfcSystem',
+			optional: false
 		}, 
 		{
 			name: 'RelatedBuildings',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcSpatialStructureElement>'
+			baseType: 'Array<IfcSpatialStructureElement>',
+			optional: false
 		}
     ];
 

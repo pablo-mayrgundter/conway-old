@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,32 @@ import IfcRelaxation from "./IfcRelaxation.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcmechanicalsteelmaterialproperties.htm
  */
-export default class IfcMechanicalSteelMaterialProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcMechanicalSteelMaterialProperties';
+export default  class IfcMechanicalSteelMaterialProperties extends IfcMechanicalMaterialProperties 
+{    
+    public readonly specification: IfcMechanicalSteelMaterialPropertiesSpecification = IfcMechanicalSteelMaterialPropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private YieldStress_? : IfcPressureMeasure
+    private UltimateStress_? : IfcPressureMeasure
+    private UltimateStrain_? : IfcPositiveRatioMeasure
+    private HardeningModule_? : IfcModulusOfElasticityMeasure
+    private ProportionalStress_? : IfcPressureMeasure
+    private PlasticStrain_? : IfcPositiveRatioMeasure
+    private Relaxations_? : Array<IfcRelaxation>
 
-    public readonly __specification__: IfcMechanicalSteelMaterialPropertiesSpecification = IfcMechanicalSteelMaterialPropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly YieldStress : IfcPressureMeasure  | undefined, public readonly UltimateStress : IfcPressureMeasure  | undefined, public readonly UltimateStrain : IfcPositiveRatioMeasure  | undefined, public readonly HardeningModule : IfcModulusOfElasticityMeasure  | undefined, public readonly ProportionalStress : IfcPressureMeasure  | undefined, public readonly PlasticStrain : IfcPositiveRatioMeasure  | undefined, public readonly Relaxations : Array<IfcRelaxation>  | undefined ) {}
 }
 
 export class IfcMechanicalSteelMaterialPropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcMechanicalSteelMaterialProperties';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcMechanicalMaterialProperties', 'IfcMaterialProperties' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcMechanicalSteelMaterialProperties', 'IfcMechanicalMaterialProperties', 'IfcMaterialProperties' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -38,43 +48,50 @@ export class IfcMechanicalSteelMaterialPropertiesSpecification implements Compon
 			name: 'YieldStress',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPressureMeasure'
+			baseType: 'IfcPressureMeasure',
+			optional: true
 		}, 
 		{
 			name: 'UltimateStress',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPressureMeasure'
+			baseType: 'IfcPressureMeasure',
+			optional: true
 		}, 
 		{
 			name: 'UltimateStrain',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveRatioMeasure'
+			baseType: 'IfcPositiveRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'HardeningModule',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcModulusOfElasticityMeasure'
+			baseType: 'IfcModulusOfElasticityMeasure',
+			optional: true
 		}, 
 		{
 			name: 'ProportionalStress',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPressureMeasure'
+			baseType: 'IfcPressureMeasure',
+			optional: true
 		}, 
 		{
 			name: 'PlasticStrain',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveRatioMeasure'
+			baseType: 'IfcPositiveRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'Relaxations',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcRelaxation>'
+			baseType: 'Array<IfcRelaxation>',
+			optional: true
 		}
     ];
 

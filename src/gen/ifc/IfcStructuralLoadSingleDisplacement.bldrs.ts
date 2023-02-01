@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,31 @@ import IfcPlaneAngleMeasure from "./IfcPlaneAngleMeasure.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcstructuralloadsingledisplacement.htm
  */
-export default class IfcStructuralLoadSingleDisplacement implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcStructuralLoadSingleDisplacement';
+export default  class IfcStructuralLoadSingleDisplacement extends IfcStructuralLoadStatic 
+{    
+    public readonly specification: IfcStructuralLoadSingleDisplacementSpecification = IfcStructuralLoadSingleDisplacementSpecification.instance;
 
-    public readonly __version__: number = 0;
+private DisplacementX_? : IfcLengthMeasure
+    private DisplacementY_? : IfcLengthMeasure
+    private DisplacementZ_? : IfcLengthMeasure
+    private RotationalDisplacementRX_? : IfcPlaneAngleMeasure
+    private RotationalDisplacementRY_? : IfcPlaneAngleMeasure
+    private RotationalDisplacementRZ_? : IfcPlaneAngleMeasure
 
-    public readonly __specification__: IfcStructuralLoadSingleDisplacementSpecification = IfcStructuralLoadSingleDisplacementSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly DisplacementX : IfcLengthMeasure  | undefined, public readonly DisplacementY : IfcLengthMeasure  | undefined, public readonly DisplacementZ : IfcLengthMeasure  | undefined, public readonly RotationalDisplacementRX : IfcPlaneAngleMeasure  | undefined, public readonly RotationalDisplacementRY : IfcPlaneAngleMeasure  | undefined, public readonly RotationalDisplacementRZ : IfcPlaneAngleMeasure  | undefined ) {}
 }
 
 export class IfcStructuralLoadSingleDisplacementSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcStructuralLoadSingleDisplacement';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralLoadStatic', 'IfcStructuralLoad' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcStructuralLoadSingleDisplacement', 'IfcStructuralLoadStatic', 'IfcStructuralLoad' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,37 +45,43 @@ export class IfcStructuralLoadSingleDisplacementSpecification implements Compone
 			name: 'DisplacementX',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'DisplacementY',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'DisplacementZ',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'RotationalDisplacementRX',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPlaneAngleMeasure'
+			baseType: 'IfcPlaneAngleMeasure',
+			optional: true
 		}, 
 		{
 			name: 'RotationalDisplacementRY',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPlaneAngleMeasure'
+			baseType: 'IfcPlaneAngleMeasure',
+			optional: true
 		}, 
 		{
 			name: 'RotationalDisplacementRZ',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPlaneAngleMeasure'
+			baseType: 'IfcPlaneAngleMeasure',
+			optional: true
 		}
     ];
 

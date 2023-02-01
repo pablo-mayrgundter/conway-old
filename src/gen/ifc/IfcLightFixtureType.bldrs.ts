@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcLightFixtureTypeEnum from "./IfcLightFixtureTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifclightfixturetype.htm
  */
-export default class IfcLightFixtureType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcLightFixtureType';
+export default  class IfcLightFixtureType extends IfcFlowTerminalType 
+{    
+    public readonly specification: IfcLightFixtureTypeSpecification = IfcLightFixtureTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcLightFixtureTypeEnum
 
-    public readonly __specification__: IfcLightFixtureTypeSpecification = IfcLightFixtureTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcLightFixtureTypeEnum  ) {}
 }
 
 export class IfcLightFixtureTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcLightFixtureType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFlowTerminalType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcLightFixtureType', 'IfcFlowTerminalType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcLightFixtureTypeSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLightFixtureTypeEnum'
+			baseType: 'IfcLightFixtureTypeEnum',
+			optional: false
 		}
     ];
 

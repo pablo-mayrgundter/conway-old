@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcGlobalOrLocalEnum from "./IfcGlobalOrLocalEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcannotationfillareaoccurrence.htm
  */
-export default class IfcAnnotationFillAreaOccurrence implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcAnnotationFillAreaOccurrence';
+export default  class IfcAnnotationFillAreaOccurrence extends IfcAnnotationOccurrence 
+{    
+    public readonly specification: IfcAnnotationFillAreaOccurrenceSpecification = IfcAnnotationFillAreaOccurrenceSpecification.instance;
 
-    public readonly __version__: number = 0;
+private FillStyleTarget_? : IfcPoint
+    private GlobalOrLocal_? : IfcGlobalOrLocalEnum
 
-    public readonly __specification__: IfcAnnotationFillAreaOccurrenceSpecification = IfcAnnotationFillAreaOccurrenceSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly FillStyleTarget : IfcPoint  | undefined, public readonly GlobalOrLocal : IfcGlobalOrLocalEnum  | undefined ) {}
 }
 
 export class IfcAnnotationFillAreaOccurrenceSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcAnnotationFillAreaOccurrence';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcAnnotationOccurrence', 'IfcStyledItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcAnnotationFillAreaOccurrence', 'IfcAnnotationOccurrence', 'IfcStyledItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcAnnotationFillAreaOccurrenceSpecification implements ComponentSp
 			name: 'FillStyleTarget',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPoint'
+			baseType: 'IfcPoint',
+			optional: true
 		}, 
 		{
 			name: 'GlobalOrLocal',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcGlobalOrLocalEnum'
+			baseType: 'IfcGlobalOrLocalEnum',
+			optional: true
 		}
     ];
 

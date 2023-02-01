@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,27 @@ import IfcComplexProperty from "./IfcComplexProperty.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcproperty.htm
  */
-export default class IfcProperty implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcProperty';
+export default abstract class IfcProperty extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcPropertySpecification = IfcPropertySpecification.instance;
 
-    public readonly __version__: number = 0;
+private Name_? : IfcIdentifier
+    private Description_? : IfcText
 
-    public readonly __specification__: IfcPropertySpecification = IfcPropertySpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Name : IfcIdentifier , public readonly Description : IfcText  | undefined ) {}
 }
 
 export class IfcPropertySpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcProperty';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcProperty' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -38,13 +43,15 @@ export class IfcPropertySpecification implements ComponentSpecification
 			name: 'Name',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcIdentifier'
+			baseType: 'IfcIdentifier',
+			optional: false
 		}, 
 		{
 			name: 'Description',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcText'
+			baseType: 'IfcText',
+			optional: true
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,27 @@ import IfcMappedItem from "./IfcMappedItem.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrepresentationmap.htm
  */
-export default class IfcRepresentationMap implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRepresentationMap';
+export default  class IfcRepresentationMap extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcRepresentationMapSpecification = IfcRepresentationMapSpecification.instance;
 
-    public readonly __version__: number = 0;
+private MappingOrigin_? : IfcAxis2Placement2D|IfcAxis2Placement3D
+    private MappedRepresentation_? : IfcRepresentation
 
-    public readonly __specification__: IfcRepresentationMapSpecification = IfcRepresentationMapSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly MappingOrigin : IfcAxis2Placement2D|IfcAxis2Placement3D , public readonly MappedRepresentation : IfcRepresentation  ) {}
 }
 
 export class IfcRepresentationMapSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRepresentationMap';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRepresentationMap' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -38,13 +43,15 @@ export class IfcRepresentationMapSpecification implements ComponentSpecification
 			name: 'MappingOrigin',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcAxis2Placement2D|IfcAxis2Placement3D'
+			baseType: 'IfcAxis2Placement2D|IfcAxis2Placement3D',
+			optional: false
 		}, 
 		{
 			name: 'MappedRepresentation',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcRepresentation'
+			baseType: 'IfcRepresentation',
+			optional: false
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcMeasureWithUnit from "./IfcMeasureWithUnit.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcconversionbasedunit.htm
  */
-export default class IfcConversionBasedUnit implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcConversionBasedUnit';
+export default  class IfcConversionBasedUnit extends IfcNamedUnit 
+{    
+    public readonly specification: IfcConversionBasedUnitSpecification = IfcConversionBasedUnitSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Name_? : IfcLabel
+    private ConversionFactor_? : IfcMeasureWithUnit
 
-    public readonly __specification__: IfcConversionBasedUnitSpecification = IfcConversionBasedUnitSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Name : IfcLabel , public readonly ConversionFactor : IfcMeasureWithUnit  ) {}
 }
 
 export class IfcConversionBasedUnitSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcConversionBasedUnit';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcNamedUnit' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcConversionBasedUnit', 'IfcNamedUnit' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcConversionBasedUnitSpecification implements ComponentSpecificati
 			name: 'Name',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: false
 		}, 
 		{
 			name: 'ConversionFactor',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcMeasureWithUnit'
+			baseType: 'IfcMeasureWithUnit',
+			optional: false
 		}
     ];
 

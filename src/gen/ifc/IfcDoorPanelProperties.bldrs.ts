@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -14,22 +14,30 @@ import IfcShapeAspect from "./IfcShapeAspect.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcdoorpanelproperties.htm
  */
-export default class IfcDoorPanelProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcDoorPanelProperties';
+export default  class IfcDoorPanelProperties extends IfcPropertySetDefinition 
+{    
+    public readonly specification: IfcDoorPanelPropertiesSpecification = IfcDoorPanelPropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PanelDepth_? : IfcPositiveLengthMeasure
+    private PanelOperation_? : IfcDoorPanelOperationEnum
+    private PanelWidth_? : IfcNormalisedRatioMeasure
+    private PanelPosition_? : IfcDoorPanelPositionEnum
+    private ShapeAspectStyle_? : IfcShapeAspect
 
-    public readonly __specification__: IfcDoorPanelPropertiesSpecification = IfcDoorPanelPropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PanelDepth : IfcPositiveLengthMeasure  | undefined, public readonly PanelOperation : IfcDoorPanelOperationEnum , public readonly PanelWidth : IfcNormalisedRatioMeasure  | undefined, public readonly PanelPosition : IfcDoorPanelPositionEnum , public readonly ShapeAspectStyle : IfcShapeAspect  | undefined ) {}
 }
 
 export class IfcDoorPanelPropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcDoorPanelProperties';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcPropertySetDefinition', 'IfcPropertyDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcDoorPanelProperties', 'IfcPropertySetDefinition', 'IfcPropertyDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -39,31 +47,36 @@ export class IfcDoorPanelPropertiesSpecification implements ComponentSpecificati
 			name: 'PanelDepth',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPositiveLengthMeasure'
+			baseType: 'IfcPositiveLengthMeasure',
+			optional: true
 		}, 
 		{
 			name: 'PanelOperation',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDoorPanelOperationEnum'
+			baseType: 'IfcDoorPanelOperationEnum',
+			optional: false
 		}, 
 		{
 			name: 'PanelWidth',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcNormalisedRatioMeasure'
+			baseType: 'IfcNormalisedRatioMeasure',
+			optional: true
 		}, 
 		{
 			name: 'PanelPosition',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcDoorPanelPositionEnum'
+			baseType: 'IfcDoorPanelPositionEnum',
+			optional: false
 		}, 
 		{
 			name: 'ShapeAspectStyle',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcShapeAspect'
+			baseType: 'IfcShapeAspect',
+			optional: true
 		}
     ];
 

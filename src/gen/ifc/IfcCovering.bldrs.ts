@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,26 @@ import IfcRelCoversBldgElements from "./IfcRelCoversBldgElements.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifccovering.htm
  */
-export default class IfcCovering implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcCovering';
+export default  class IfcCovering extends IfcBuildingElement 
+{    
+    public readonly specification: IfcCoveringSpecification = IfcCoveringSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcCoveringTypeEnum
 
-    public readonly __specification__: IfcCoveringSpecification = IfcCoveringSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcCoveringTypeEnum  | undefined ) {}
 }
 
 export class IfcCoveringSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcCovering';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcCovering', 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,7 +41,8 @@ export class IfcCoveringSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCoveringTypeEnum'
+			baseType: 'IfcCoveringTypeEnum',
+			optional: true
 		}
     ];
 

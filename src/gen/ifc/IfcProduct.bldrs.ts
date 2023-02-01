@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,27 @@ import IfcRelAssignsToProduct from "./IfcRelAssignsToProduct.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcproduct.htm
  */
-export default class IfcProduct implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcProduct';
+export default abstract class IfcProduct extends IfcObject 
+{    
+    public readonly specification: IfcProductSpecification = IfcProductSpecification.instance;
 
-    public readonly __version__: number = 0;
+private ObjectPlacement_? : IfcObjectPlacement
+    private Representation_? : IfcProductRepresentation
 
-    public readonly __specification__: IfcProductSpecification = IfcProductSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly ObjectPlacement : IfcObjectPlacement  | undefined, public readonly Representation : IfcProductRepresentation  | undefined ) {}
 }
 
 export class IfcProductSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcProduct';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -37,13 +42,15 @@ export class IfcProductSpecification implements ComponentSpecification
 			name: 'ObjectPlacement',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcObjectPlacement'
+			baseType: 'IfcObjectPlacement',
+			optional: true
 		}, 
 		{
 			name: 'Representation',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcProductRepresentation'
+			baseType: 'IfcProductRepresentation',
+			optional: true
 		}
     ];
 

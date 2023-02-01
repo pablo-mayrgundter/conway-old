@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcFootingTypeEnum from "./IfcFootingTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcfooting.htm
  */
-export default class IfcFooting implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcFooting';
+export default  class IfcFooting extends IfcBuildingElement 
+{    
+    public readonly specification: IfcFootingSpecification = IfcFootingSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcFootingTypeEnum
 
-    public readonly __specification__: IfcFootingSpecification = IfcFootingSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcFootingTypeEnum  ) {}
 }
 
 export class IfcFootingSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcFooting';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcFooting', 'IfcBuildingElement', 'IfcElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcFootingSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcFootingTypeEnum'
+			baseType: 'IfcFootingTypeEnum',
+			optional: false
 		}
     ];
 

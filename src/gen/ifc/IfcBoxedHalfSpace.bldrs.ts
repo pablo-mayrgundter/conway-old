@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcBoundingBox from "./IfcBoundingBox.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcboxedhalfspace.htm
  */
-export default class IfcBoxedHalfSpace implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcBoxedHalfSpace';
+export default  class IfcBoxedHalfSpace extends IfcHalfSpaceSolid 
+{    
+    public readonly specification: IfcBoxedHalfSpaceSpecification = IfcBoxedHalfSpaceSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Enclosure_? : IfcBoundingBox
 
-    public readonly __specification__: IfcBoxedHalfSpaceSpecification = IfcBoxedHalfSpaceSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Enclosure : IfcBoundingBox  ) {}
 }
 
 export class IfcBoxedHalfSpaceSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcBoxedHalfSpace';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcHalfSpaceSolid', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcBoxedHalfSpace', 'IfcHalfSpaceSolid', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcBoxedHalfSpaceSpecification implements ComponentSpecification
 			name: 'Enclosure',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcBoundingBox'
+			baseType: 'IfcBoundingBox',
+			optional: false
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -14,22 +14,28 @@ import IfcVirtualGridIntersection from "./IfcVirtualGridIntersection.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcgridaxis.htm
  */
-export default class IfcGridAxis implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcGridAxis';
+export default  class IfcGridAxis extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcGridAxisSpecification = IfcGridAxisSpecification.instance;
 
-    public readonly __version__: number = 0;
+private AxisTag_? : IfcLabel
+    private AxisCurve_? : IfcCurve
+    private SameSense_? : IfcBoolean
 
-    public readonly __specification__: IfcGridAxisSpecification = IfcGridAxisSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly AxisTag : IfcLabel  | undefined, public readonly AxisCurve : IfcCurve , public readonly SameSense : IfcBoolean  ) {}
 }
 
 export class IfcGridAxisSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcGridAxis';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcGridAxis' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -39,19 +45,22 @@ export class IfcGridAxisSpecification implements ComponentSpecification
 			name: 'AxisTag',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}, 
 		{
 			name: 'AxisCurve',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCurve'
+			baseType: 'IfcCurve',
+			optional: false
 		}, 
 		{
 			name: 'SameSense',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcBoolean'
+			baseType: 'IfcBoolean',
+			optional: false
 		}
     ];
 

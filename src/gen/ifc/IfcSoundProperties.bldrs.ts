@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,28 @@ import IfcSoundValue from "./IfcSoundValue.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcsoundproperties.htm
  */
-export default class IfcSoundProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcSoundProperties';
+export default  class IfcSoundProperties extends IfcPropertySetDefinition 
+{    
+    public readonly specification: IfcSoundPropertiesSpecification = IfcSoundPropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private IsAttenuating_? : IfcBoolean
+    private SoundScale_? : IfcSoundScaleEnum
+    private SoundValues_? : Array<IfcSoundValue>
 
-    public readonly __specification__: IfcSoundPropertiesSpecification = IfcSoundPropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly IsAttenuating : IfcBoolean , public readonly SoundScale : IfcSoundScaleEnum  | undefined, public readonly SoundValues : Array<IfcSoundValue>  ) {}
 }
 
 export class IfcSoundPropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSoundProperties';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcPropertySetDefinition', 'IfcPropertyDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSoundProperties', 'IfcPropertySetDefinition', 'IfcPropertyDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,19 +43,22 @@ export class IfcSoundPropertiesSpecification implements ComponentSpecification
 			name: 'IsAttenuating',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcBoolean'
+			baseType: 'IfcBoolean',
+			optional: false
 		}, 
 		{
 			name: 'SoundScale',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSoundScaleEnum'
+			baseType: 'IfcSoundScaleEnum',
+			optional: true
 		}, 
 		{
 			name: 'SoundValues',
 			isCollection: true,
 			rank: 1,
-			baseType: 'Array<IfcSoundValue>'
+			baseType: 'Array<IfcSoundValue>',
+			optional: false
 		}
     ];
 

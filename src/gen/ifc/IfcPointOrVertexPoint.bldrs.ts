@@ -9,8 +9,6 @@ import IfcVertexPoint from "./IfcVertexPoint.bldrs"
 
 export default class IfcPointOrVertexPoint
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcPointOrVertexPointVariant ) {}
 }
 
@@ -20,3 +18,8 @@ export type IfcPointOrVertexPointChoices = IfcPoint|IfcVertexPoint;
 
 export type IfcPointOrVertexPointVariant = ({ type: 'IfcPoint'; value: IfcPoint }|{ type: 'IfcVertexPoint'; value: IfcVertexPoint }) & { type: IfcPointOrVertexPointType; value: IfcPointOrVertexPointChoices };
 
+export function IfcPointOrVertexPointSerializer( value?: IfcPointOrVertexPoint, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

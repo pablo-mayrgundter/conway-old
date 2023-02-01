@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -12,22 +12,29 @@ import IfcSurface from "./IfcSurface.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcsurfacecurvesweptareasolid.htm
  */
-export default class IfcSurfaceCurveSweptAreaSolid implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcSurfaceCurveSweptAreaSolid';
+export default  class IfcSurfaceCurveSweptAreaSolid extends IfcSweptAreaSolid 
+{    
+    public readonly specification: IfcSurfaceCurveSweptAreaSolidSpecification = IfcSurfaceCurveSweptAreaSolidSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Directrix_? : IfcCurve
+    private StartParam_? : IfcParameterValue
+    private EndParam_? : IfcParameterValue
+    private ReferenceSurface_? : IfcSurface
 
-    public readonly __specification__: IfcSurfaceCurveSweptAreaSolidSpecification = IfcSurfaceCurveSweptAreaSolidSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Directrix : IfcCurve , public readonly StartParam : IfcParameterValue , public readonly EndParam : IfcParameterValue , public readonly ReferenceSurface : IfcSurface  ) {}
 }
 
 export class IfcSurfaceCurveSweptAreaSolidSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSurfaceCurveSweptAreaSolid';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcSweptAreaSolid', 'IfcSolidModel', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSurfaceCurveSweptAreaSolid', 'IfcSweptAreaSolid', 'IfcSolidModel', 'IfcGeometricRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -37,25 +44,29 @@ export class IfcSurfaceCurveSweptAreaSolidSpecification implements ComponentSpec
 			name: 'Directrix',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcCurve'
+			baseType: 'IfcCurve',
+			optional: false
 		}, 
 		{
 			name: 'StartParam',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcParameterValue'
+			baseType: 'IfcParameterValue',
+			optional: false
 		}, 
 		{
 			name: 'EndParam',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcParameterValue'
+			baseType: 'IfcParameterValue',
+			optional: false
 		}, 
 		{
 			name: 'ReferenceSurface',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcSurface'
+			baseType: 'IfcSurface',
+			optional: false
 		}
     ];
 

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcElement from "./IfcElement.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcrelconnectsporttoelement.htm
  */
-export default class IfcRelConnectsPortToElement implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcRelConnectsPortToElement';
+export default  class IfcRelConnectsPortToElement extends IfcRelConnects 
+{    
+    public readonly specification: IfcRelConnectsPortToElementSpecification = IfcRelConnectsPortToElementSpecification.instance;
 
-    public readonly __version__: number = 0;
+private RelatingPort_? : IfcPort
+    private RelatedElement_? : IfcElement
 
-    public readonly __specification__: IfcRelConnectsPortToElementSpecification = IfcRelConnectsPortToElementSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly RelatingPort : IfcPort , public readonly RelatedElement : IfcElement  ) {}
 }
 
 export class IfcRelConnectsPortToElementSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcRelConnectsPortToElement';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcRelConnectsPortToElement', 'IfcRelConnects', 'IfcRelationship', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcRelConnectsPortToElementSpecification implements ComponentSpecif
 			name: 'RelatingPort',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcPort'
+			baseType: 'IfcPort',
+			optional: false
 		}, 
 		{
 			name: 'RelatedElement',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcElement'
+			baseType: 'IfcElement',
+			optional: false
 		}
     ];
 

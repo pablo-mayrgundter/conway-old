@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -13,22 +13,27 @@ import IfcRelSpaceBoundary from "./IfcRelSpaceBoundary.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcspace.htm
  */
-export default class IfcSpace implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcSpace';
+export default  class IfcSpace extends IfcSpatialStructureElement 
+{    
+    public readonly specification: IfcSpaceSpecification = IfcSpaceSpecification.instance;
 
-    public readonly __version__: number = 0;
+private InteriorOrExteriorSpace_? : IfcInternalOrExternalEnum
+    private ElevationWithFlooring_? : IfcLengthMeasure
 
-    public readonly __specification__: IfcSpaceSpecification = IfcSpaceSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly InteriorOrExteriorSpace : IfcInternalOrExternalEnum , public readonly ElevationWithFlooring : IfcLengthMeasure  | undefined ) {}
 }
 
 export class IfcSpaceSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSpace';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcSpatialStructureElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSpace', 'IfcSpatialStructureElement', 'IfcProduct', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -38,13 +43,15 @@ export class IfcSpaceSpecification implements ComponentSpecification
 			name: 'InteriorOrExteriorSpace',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcInternalOrExternalEnum'
+			baseType: 'IfcInternalOrExternalEnum',
+			optional: false
 		}, 
 		{
 			name: 'ElevationWithFlooring',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLengthMeasure'
+			baseType: 'IfcLengthMeasure',
+			optional: true
 		}
     ];
 

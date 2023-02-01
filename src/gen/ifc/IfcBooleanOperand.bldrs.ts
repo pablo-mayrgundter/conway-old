@@ -11,8 +11,6 @@ import IfcCsgPrimitive3D from "./IfcCsgPrimitive3D.bldrs"
 
 export default class IfcBooleanOperand
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcBooleanOperandVariant ) {}
 }
 
@@ -22,3 +20,8 @@ export type IfcBooleanOperandChoices = IfcSolidModel|IfcHalfSpaceSolid|IfcBoolea
 
 export type IfcBooleanOperandVariant = ({ type: 'IfcSolidModel'; value: IfcSolidModel }|{ type: 'IfcHalfSpaceSolid'; value: IfcHalfSpaceSolid }|{ type: 'IfcBooleanResult'; value: IfcBooleanResult }|{ type: 'IfcCsgPrimitive3D'; value: IfcCsgPrimitive3D }) & { type: IfcBooleanOperandType; value: IfcBooleanOperandChoices };
 
+export function IfcBooleanOperandSerializer( value?: IfcBooleanOperand, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcFanTypeEnum from "./IfcFanTypeEnum.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcfantype.htm
  */
-export default class IfcFanType implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcFanType';
+export default  class IfcFanType extends IfcFlowMovingDeviceType 
+{    
+    public readonly specification: IfcFanTypeSpecification = IfcFanTypeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private PredefinedType_? : IfcFanTypeEnum
 
-    public readonly __specification__: IfcFanTypeSpecification = IfcFanTypeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly PredefinedType : IfcFanTypeEnum  ) {}
 }
 
 export class IfcFanTypeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcFanType';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcFlowMovingDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcFanType', 'IfcFlowMovingDeviceType', 'IfcDistributionFlowElementType', 'IfcDistributionElementType', 'IfcElementType', 'IfcTypeProduct', 'IfcTypeObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcFanTypeSpecification implements ComponentSpecification
 			name: 'PredefinedType',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcFanTypeEnum'
+			baseType: 'IfcFanTypeEnum',
+			optional: false
 		}
     ];
 

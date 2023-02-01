@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcMaterial from "./IfcMaterial.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcmaterialproperties.htm
  */
-export default class IfcMaterialProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcMaterialProperties';
+export default abstract class IfcMaterialProperties extends EntityBase< SchemaSpecificationIFC > 
+{    
+    public readonly specification: IfcMaterialPropertiesSpecification = IfcMaterialPropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private Material_? : IfcMaterial
 
-    public readonly __specification__: IfcMaterialPropertiesSpecification = IfcMaterialPropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly Material : IfcMaterial  ) {}
 }
 
 export class IfcMaterialPropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcMaterialProperties';
 
-    public readonly required: ReadonlyArray< string > = [  ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcMaterialProperties' ];
 
     public readonly isAbstract: boolean = true;
 
@@ -35,7 +39,8 @@ export class IfcMaterialPropertiesSpecification implements ComponentSpecificatio
 			name: 'Material',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcMaterial'
+			baseType: 'IfcMaterial',
+			optional: false
 		}
     ];
 

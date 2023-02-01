@@ -9,8 +9,6 @@ import IfcVector from "./IfcVector.bldrs"
 
 export default class IfcVectorOrDirection
 {
-    public readonly __version__: number = 0;
-
     constructor( public readonly value: IfcVectorOrDirectionVariant ) {}
 }
 
@@ -20,3 +18,8 @@ export type IfcVectorOrDirectionChoices = IfcDirection|IfcVector;
 
 export type IfcVectorOrDirectionVariant = ({ type: 'IfcDirection'; value: IfcDirection }|{ type: 'IfcVector'; value: IfcVector }) & { type: IfcVectorOrDirectionType; value: IfcVectorOrDirectionChoices };
 
+export function IfcVectorOrDirectionSerializer( value?: IfcVectorOrDirection, to: SmartBuffer, offset?: number )
+{
+    switch
+    
+}

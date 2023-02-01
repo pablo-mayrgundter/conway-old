@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcEdge from "./IfcEdge.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcsubedge.htm
  */
-export default class IfcSubedge implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcSubedge';
+export default  class IfcSubedge extends IfcEdge 
+{    
+    public readonly specification: IfcSubedgeSpecification = IfcSubedgeSpecification.instance;
 
-    public readonly __version__: number = 0;
+private ParentEdge_? : IfcEdge
 
-    public readonly __specification__: IfcSubedgeSpecification = IfcSubedgeSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly ParentEdge : IfcEdge  ) {}
 }
 
 export class IfcSubedgeSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcSubedge';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcEdge', 'IfcTopologicalRepresentationItem', 'IfcRepresentationItem' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcSubedge', 'IfcEdge', 'IfcTopologicalRepresentationItem', 'IfcRepresentationItem' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcSubedgeSpecification implements ComponentSpecification
 			name: 'ParentEdge',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcEdge'
+			baseType: 'IfcEdge',
+			optional: false
 		}
     ];
 

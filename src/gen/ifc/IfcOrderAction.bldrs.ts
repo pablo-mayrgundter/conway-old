@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -10,22 +10,26 @@ import IfcIdentifier from "./IfcIdentifier.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcorderaction.htm
  */
-export default class IfcOrderAction implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcOrderAction';
+export default  class IfcOrderAction extends IfcTask 
+{    
+    public readonly specification: IfcOrderActionSpecification = IfcOrderActionSpecification.instance;
 
-    public readonly __version__: number = 0;
+private ActionID_? : IfcIdentifier
 
-    public readonly __specification__: IfcOrderActionSpecification = IfcOrderActionSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly ActionID : IfcIdentifier  ) {}
 }
 
 export class IfcOrderActionSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcOrderAction';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcTask', 'IfcProcess', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcOrderAction', 'IfcTask', 'IfcProcess', 'IfcObject', 'IfcObjectDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -35,7 +39,8 @@ export class IfcOrderActionSpecification implements ComponentSpecification
 			name: 'ActionID',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcIdentifier'
+			baseType: 'IfcIdentifier',
+			optional: false
 		}
     ];
 

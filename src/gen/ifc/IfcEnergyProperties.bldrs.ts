@@ -1,5 +1,5 @@
 
-import Component from "../../core/components"
+import Component from "../../core/component"
 import ComponentSpecification from "../../core/component_specification"
 import AttributeSpecification from "../../core/attribute_specification"
 import SchemaSpecificationIFC from "./schema_ifc.bldrs"
@@ -11,22 +11,27 @@ import IfcLabel from "./IfcLabel.bldrs"
 /**
  * http://www.buildingsmart-tech.org/ifc/IFC4/final/html/link/ifcenergyproperties.htm
  */
-export default class IfcEnergyProperties implements Component< SchemaSpecificationIFC > 
-{
-    public readonly __type__ = 'IfcEnergyProperties';
+export default  class IfcEnergyProperties extends IfcPropertySetDefinition 
+{    
+    public readonly specification: IfcEnergyPropertiesSpecification = IfcEnergyPropertiesSpecification.instance;
 
-    public readonly __version__: number = 0;
+private EnergySequence_? : IfcEnergySequenceEnum
+    private UserDefinedEnergySequence_? : IfcLabel
 
-    public readonly __specification__: IfcEnergyPropertiesSpecification = IfcEnergyPropertiesSpecification.instance;
+    constructor( buffer: SnapshotBuffer< T >, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( fileIDProvider: () => number, dirtyProvider?: ( entity: Entity< T > ) => void )
+    constructor( bufferOrFileIDProvider: SnapshotBuffer< T > | ( () => number ), private readonly dirtyProvider_?: ( entity: Entity< T > ) => void ) 
+    {
+        super( bufferOrFileIDProvider, dirtyProvider_ );
+    }
 
-    constructor( public readonly EnergySequence : IfcEnergySequenceEnum  | undefined, public readonly UserDefinedEnergySequence : IfcLabel  | undefined ) {}
 }
 
 export class IfcEnergyPropertiesSpecification implements ComponentSpecification
 {
     public readonly name: string = 'IfcEnergyProperties';
 
-    public readonly required: ReadonlyArray< string > = [ 'IfcPropertySetDefinition', 'IfcPropertyDefinition', 'IfcRoot' ];
+    public readonly required: ReadonlyArray< string > = [ 'IfcEnergyProperties', 'IfcPropertySetDefinition', 'IfcPropertyDefinition', 'IfcRoot' ];
 
     public readonly isAbstract: boolean = false;
 
@@ -36,13 +41,15 @@ export class IfcEnergyPropertiesSpecification implements ComponentSpecification
 			name: 'EnergySequence',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcEnergySequenceEnum'
+			baseType: 'IfcEnergySequenceEnum',
+			optional: true
 		}, 
 		{
 			name: 'UserDefinedEnergySequence',
 			isCollection: false,
 			rank: 0,
-			baseType: 'IfcLabel'
+			baseType: 'IfcLabel',
+			optional: true
 		}
     ];
 
