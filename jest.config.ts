@@ -180,10 +180,14 @@ const config: Config = {
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   transformIgnorePatterns: [
+   "/node_modules/(?![@autofiy/autofiyable|@autofiy/property]).+\\.js$",
+   "/node_modules/(?![@autofiy/autofiyable|@autofiy/property]).+\\.ts$",
+   "/node_modules/(?![@autofiy/autofiyable|@autofiy/property]).+\\.tsx$",
    `/node_modules/*`,
   ],
 
   transform: {
+   "\\.js$": "<rootDir>/node_modules/babel-jest"
   }
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
