@@ -33,7 +33,7 @@ function parseIndexIfcData()
         return result0;
     }
 
-    let [_, result] = parser.parseDataBlock( bufferInput );
+    let [/* items */ _, result] = parser.parseDataBlock( bufferInput );
 
     // console.log( "IFC Data" );
 
