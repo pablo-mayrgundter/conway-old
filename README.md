@@ -49,3 +49,12 @@ And finally, using the watch functionality, you can also have the code automatic
 	yarn build-test-watch
 
 If you have Visual Studio Code, Conway also comes with a Visual Studio Code workspace to add IDE accessability to these features, and also let you edit the IFC-gen C# code in place.
+
+## IFC Parser Console Test Application
+
+Conway has a test application for parsing IFC step files to see the performance and included entity types at src/core/ifc/ifc_command_line_main.ts. 
+Use an incremental or full build to compile this file from typescript and then it can be run with:
+
+	node --experimental-specifier-resolution=node ./compiled\src\core\ifc\ifc_command_line_main.js [ifc file path]
+
+The included index.ifc in the repo is recommended for testing.
