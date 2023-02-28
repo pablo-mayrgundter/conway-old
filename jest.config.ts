@@ -84,7 +84,7 @@ const config: Config = {
   //   "mjs",
   //   "cjs",
   //   "jsx",
-     "ts",
+  //   "ts",
   //   "tsx",
   //   "json",
   //   "node"
@@ -183,11 +183,11 @@ const config: Config = {
    "/node_modules/(?![@autofiy/autofiyable|@autofiy/property]).+\\.js$",
    "/node_modules/(?![@autofiy/autofiyable|@autofiy/property]).+\\.ts$",
    "/node_modules/(?![@autofiy/autofiyable|@autofiy/property]).+\\.tsx$",
-   `/node_modules/*`,
+   "/node_modules/*"
   ],
 
   transform: {
-   "\\.js$": "<rootDir>/node_modules/babel-jest"
+   "^.+\\.js$": 'babel-jest'
   }
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
