@@ -28,6 +28,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcArithmeticOperatorEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcArithmeticOperatorEnum | undefined
 {
-    return parser.parse< IfcArithmeticOperatorEnum >( IfcArithmeticOperatorEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcArithmeticOperatorEnum >( IfcArithmeticOperatorEnumSearch, input, cursor, endCursor );
 }
 

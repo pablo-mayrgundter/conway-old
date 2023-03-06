@@ -27,6 +27,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcInternalOrExternalEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcInternalOrExternalEnum | undefined
 {
-    return parser.parse< IfcInternalOrExternalEnum >( IfcInternalOrExternalEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcInternalOrExternalEnum >( IfcInternalOrExternalEnumSearch, input, cursor, endCursor );
 }
 

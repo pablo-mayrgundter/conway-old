@@ -33,6 +33,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcReinforcingBarRoleEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcReinforcingBarRoleEnum | undefined
 {
-    return parser.parse< IfcReinforcingBarRoleEnum >( IfcReinforcingBarRoleEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcReinforcingBarRoleEnum >( IfcReinforcingBarRoleEnumSearch, input, cursor, endCursor );
 }
 

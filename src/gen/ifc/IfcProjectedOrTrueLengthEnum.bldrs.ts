@@ -26,6 +26,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcProjectedOrTrueLengthEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcProjectedOrTrueLengthEnum | undefined
 {
-    return parser.parse< IfcProjectedOrTrueLengthEnum >( IfcProjectedOrTrueLengthEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcProjectedOrTrueLengthEnum >( IfcProjectedOrTrueLengthEnumSearch, input, cursor, endCursor );
 }
 

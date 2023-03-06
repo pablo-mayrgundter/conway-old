@@ -32,6 +32,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcEnvironmentalImpactCategoryEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcEnvironmentalImpactCategoryEnum | undefined
 {
-    return parser.parse< IfcEnvironmentalImpactCategoryEnum >( IfcEnvironmentalImpactCategoryEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcEnvironmentalImpactCategoryEnum >( IfcEnvironmentalImpactCategoryEnumSearch, input, cursor, endCursor );
 }
 

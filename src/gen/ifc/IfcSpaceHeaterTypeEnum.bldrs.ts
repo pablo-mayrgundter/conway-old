@@ -33,6 +33,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcSpaceHeaterTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcSpaceHeaterTypeEnum | undefined
 {
-    return parser.parse< IfcSpaceHeaterTypeEnum >( IfcSpaceHeaterTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcSpaceHeaterTypeEnum >( IfcSpaceHeaterTypeEnumSearch, input, cursor, endCursor );
 }
 

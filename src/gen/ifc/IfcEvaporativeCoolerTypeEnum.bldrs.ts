@@ -35,6 +35,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcEvaporativeCoolerTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcEvaporativeCoolerTypeEnum | undefined
 {
-    return parser.parse< IfcEvaporativeCoolerTypeEnum >( IfcEvaporativeCoolerTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcEvaporativeCoolerTypeEnum >( IfcEvaporativeCoolerTypeEnumSearch, input, cursor, endCursor );
 }
 

@@ -34,6 +34,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcCoveringTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcCoveringTypeEnum | undefined
 {
-    return parser.parse< IfcCoveringTypeEnum >( IfcCoveringTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcCoveringTypeEnum >( IfcCoveringTypeEnumSearch, input, cursor, endCursor );
 }
 

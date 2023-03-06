@@ -39,6 +39,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcHumidifierTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcHumidifierTypeEnum | undefined
 {
-    return parser.parse< IfcHumidifierTypeEnum >( IfcHumidifierTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcHumidifierTypeEnum >( IfcHumidifierTypeEnumSearch, input, cursor, endCursor );
 }
 

@@ -33,6 +33,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcServiceLifeFactorTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcServiceLifeFactorTypeEnum | undefined
 {
-    return parser.parse< IfcServiceLifeFactorTypeEnum >( IfcServiceLifeFactorTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcServiceLifeFactorTypeEnum >( IfcServiceLifeFactorTypeEnumSearch, input, cursor, endCursor );
 }
 

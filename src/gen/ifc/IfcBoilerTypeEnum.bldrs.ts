@@ -28,6 +28,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcBoilerTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcBoilerTypeEnum | undefined
 {
-    return parser.parse< IfcBoilerTypeEnum >( IfcBoilerTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcBoilerTypeEnum >( IfcBoilerTypeEnumSearch, input, cursor, endCursor );
 }
 

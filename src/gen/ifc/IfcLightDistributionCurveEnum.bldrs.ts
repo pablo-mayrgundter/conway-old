@@ -28,6 +28,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcLightDistributionCurveEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcLightDistributionCurveEnum | undefined
 {
-    return parser.parse< IfcLightDistributionCurveEnum >( IfcLightDistributionCurveEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcLightDistributionCurveEnum >( IfcLightDistributionCurveEnumSearch, input, cursor, endCursor );
 }
 

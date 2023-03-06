@@ -36,6 +36,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcSanitaryTerminalTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcSanitaryTerminalTypeEnum | undefined
 {
-    return parser.parse< IfcSanitaryTerminalTypeEnum >( IfcSanitaryTerminalTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcSanitaryTerminalTypeEnum >( IfcSanitaryTerminalTypeEnumSearch, input, cursor, endCursor );
 }
 

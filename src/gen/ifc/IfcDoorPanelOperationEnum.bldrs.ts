@@ -32,6 +32,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcDoorPanelOperationEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcDoorPanelOperationEnum | undefined
 {
-    return parser.parse< IfcDoorPanelOperationEnum >( IfcDoorPanelOperationEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcDoorPanelOperationEnum >( IfcDoorPanelOperationEnumSearch, input, cursor, endCursor );
 }
 

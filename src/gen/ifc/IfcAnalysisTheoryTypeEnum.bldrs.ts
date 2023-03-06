@@ -30,6 +30,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcAnalysisTheoryTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcAnalysisTheoryTypeEnum | undefined
 {
-    return parser.parse< IfcAnalysisTheoryTypeEnum >( IfcAnalysisTheoryTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcAnalysisTheoryTypeEnum >( IfcAnalysisTheoryTypeEnumSearch, input, cursor, endCursor );
 }
 

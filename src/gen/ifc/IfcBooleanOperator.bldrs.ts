@@ -27,6 +27,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcBooleanOperatorDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcBooleanOperator | undefined
 {
-    return parser.parse< IfcBooleanOperator >( IfcBooleanOperatorSearch, input, cursor, endCursor );
+    return parser.extract< IfcBooleanOperator >( IfcBooleanOperatorSearch, input, cursor, endCursor );
 }
 

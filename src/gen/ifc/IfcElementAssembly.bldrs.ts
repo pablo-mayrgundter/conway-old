@@ -1,11 +1,12 @@
-
-
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import IfcAssemblyPlaceEnum, { IfcAssemblyPlaceEnumDeserializeStep } from "./IfcAssemblyPlaceEnum.bldrs"
+import IfcElementAssemblyTypeEnum, { IfcElementAssemblyTypeEnumDeserializeStep } from "./IfcElementAssemblyTypeEnum.bldrs"
 import IfcElement from "./IfcElement.bldrs"
 
 
@@ -22,6 +23,83 @@ export default  class IfcElementAssembly extends IfcElement
     {
         return SchemaIfc;
     }
+
+    private AssemblyPlace_? : IfcAssemblyPlaceEnum | null;
+    private PredefinedType_? : IfcElementAssemblyTypeEnum;
+
+
+    public get AssemblyPlace() : IfcAssemblyPlaceEnum | null
+    {
+        if ( this.AssemblyPlace_ === void 0 )
+        {
+            this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 8 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field AssemblyPlace due to too few fields in record" ); 
+            }
+            
+            let vtableSlot = internalReference.vtableIndex + 8;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value = IfcAssemblyPlaceEnumDeserializeStep( buffer, cursor, endCursor );
+
+            if ( value !== void 0 )
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed for field AssemblyPlace' );
+                }
+
+                this.AssemblyPlace_ = null;                
+            }
+            else
+            {
+                this.AssemblyPlace_ = value;
+            }
+        }
+
+        return this.AssemblyPlace_ as IfcAssemblyPlaceEnum | null;
+    }
+
+
+    public get PredefinedType() : IfcElementAssemblyTypeEnum
+    {
+        if ( this.PredefinedType_ === void 0 )
+        {
+            this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 9 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field PredefinedType due to too few fields in record" ); 
+            }
+            
+            let vtableSlot = internalReference.vtableIndex + 9;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value = IfcElementAssemblyTypeEnumDeserializeStep( buffer, cursor, endCursor );
+
+            if ( value === void 0 )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed for field PredefinedType' );
+            };
+
+            this.PredefinedType_ = value;
+        }
+
+        return this.PredefinedType_ as IfcElementAssemblyTypeEnum;
+    }
+
 
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

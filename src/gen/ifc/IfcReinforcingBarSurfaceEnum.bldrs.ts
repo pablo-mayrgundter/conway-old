@@ -26,6 +26,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcReinforcingBarSurfaceEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcReinforcingBarSurfaceEnum | undefined
 {
-    return parser.parse< IfcReinforcingBarSurfaceEnum >( IfcReinforcingBarSurfaceEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcReinforcingBarSurfaceEnum >( IfcReinforcingBarSurfaceEnumSearch, input, cursor, endCursor );
 }
 

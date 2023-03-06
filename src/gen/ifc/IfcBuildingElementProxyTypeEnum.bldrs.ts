@@ -26,6 +26,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcBuildingElementProxyTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcBuildingElementProxyTypeEnum | undefined
 {
-    return parser.parse< IfcBuildingElementProxyTypeEnum >( IfcBuildingElementProxyTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcBuildingElementProxyTypeEnum >( IfcBuildingElementProxyTypeEnumSearch, input, cursor, endCursor );
 }
 

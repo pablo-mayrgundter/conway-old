@@ -28,6 +28,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcVibrationIsolatorTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcVibrationIsolatorTypeEnum | undefined
 {
-    return parser.parse< IfcVibrationIsolatorTypeEnum >( IfcVibrationIsolatorTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcVibrationIsolatorTypeEnum >( IfcVibrationIsolatorTypeEnumSearch, input, cursor, endCursor );
 }
 

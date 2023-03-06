@@ -33,6 +33,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcGeometricProjectionEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcGeometricProjectionEnum | undefined
 {
-    return parser.parse< IfcGeometricProjectionEnum >( IfcGeometricProjectionEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcGeometricProjectionEnum >( IfcGeometricProjectionEnumSearch, input, cursor, endCursor );
 }
 

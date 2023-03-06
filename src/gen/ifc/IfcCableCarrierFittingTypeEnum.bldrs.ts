@@ -30,6 +30,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcCableCarrierFittingTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcCableCarrierFittingTypeEnum | undefined
 {
-    return parser.parse< IfcCableCarrierFittingTypeEnum >( IfcCableCarrierFittingTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcCableCarrierFittingTypeEnum >( IfcCableCarrierFittingTypeEnumSearch, input, cursor, endCursor );
 }
 

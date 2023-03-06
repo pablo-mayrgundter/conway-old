@@ -34,6 +34,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcFlowInstrumentTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcFlowInstrumentTypeEnum | undefined
 {
-    return parser.parse< IfcFlowInstrumentTypeEnum >( IfcFlowInstrumentTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcFlowInstrumentTypeEnum >( IfcFlowInstrumentTypeEnumSearch, input, cursor, endCursor );
 }
 

@@ -30,6 +30,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcLoadGroupTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcLoadGroupTypeEnum | undefined
 {
-    return parser.parse< IfcLoadGroupTypeEnum >( IfcLoadGroupTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcLoadGroupTypeEnum >( IfcLoadGroupTypeEnumSearch, input, cursor, endCursor );
 }
 

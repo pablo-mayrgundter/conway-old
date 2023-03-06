@@ -28,6 +28,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcTransitionCodeDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcTransitionCode | undefined
 {
-    return parser.parse< IfcTransitionCode >( IfcTransitionCodeSearch, input, cursor, endCursor );
+    return parser.extract< IfcTransitionCode >( IfcTransitionCodeSearch, input, cursor, endCursor );
 }
 

@@ -26,6 +26,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcDimensionExtentUsageDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcDimensionExtentUsage | undefined
 {
-    return parser.parse< IfcDimensionExtentUsage >( IfcDimensionExtentUsageSearch, input, cursor, endCursor );
+    return parser.extract< IfcDimensionExtentUsage >( IfcDimensionExtentUsageSearch, input, cursor, endCursor );
 }
 

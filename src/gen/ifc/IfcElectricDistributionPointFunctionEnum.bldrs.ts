@@ -35,6 +35,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcElectricDistributionPointFunctionEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcElectricDistributionPointFunctionEnum | undefined
 {
-    return parser.parse< IfcElectricDistributionPointFunctionEnum >( IfcElectricDistributionPointFunctionEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcElectricDistributionPointFunctionEnum >( IfcElectricDistributionPointFunctionEnumSearch, input, cursor, endCursor );
 }
 

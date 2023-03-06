@@ -26,6 +26,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcRibPlateDirectionEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcRibPlateDirectionEnum | undefined
 {
-    return parser.parse< IfcRibPlateDirectionEnum >( IfcRibPlateDirectionEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcRibPlateDirectionEnum >( IfcRibPlateDirectionEnumSearch, input, cursor, endCursor );
 }
 

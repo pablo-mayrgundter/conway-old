@@ -35,6 +35,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcAirToAirHeatRecoveryTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcAirToAirHeatRecoveryTypeEnum | undefined
 {
-    return parser.parse< IfcAirToAirHeatRecoveryTypeEnum >( IfcAirToAirHeatRecoveryTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcAirToAirHeatRecoveryTypeEnum >( IfcAirToAirHeatRecoveryTypeEnumSearch, input, cursor, endCursor );
 }
 

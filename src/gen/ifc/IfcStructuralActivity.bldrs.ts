@@ -1,11 +1,13 @@
-
-
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import IfcStructuralLoad from "./IfcStructuralLoad.bldrs"
+import IfcGlobalOrLocalEnum, { IfcGlobalOrLocalEnumDeserializeStep } from "./IfcGlobalOrLocalEnum.bldrs"
+import IfcRelConnectsStructuralActivity from "./IfcRelConnectsStructuralActivity.bldrs"
 import IfcProduct from "./IfcProduct.bldrs"
 
 
@@ -22,6 +24,56 @@ export default abstract class IfcStructuralActivity extends IfcProduct
     {
         return SchemaIfc;
     }
+
+    private AppliedLoad_? : IfcStructuralLoad;
+    private GlobalOrLocal_? : IfcGlobalOrLocalEnum;
+
+
+    public get AppliedLoad() : IfcStructuralLoad
+    {
+        if ( this.AppliedLoad_ === void 0 )
+        {
+            
+        }
+
+        return this.AppliedLoad_ as IfcStructuralLoad;
+    }
+
+
+    public get GlobalOrLocal() : IfcGlobalOrLocalEnum
+    {
+        if ( this.GlobalOrLocal_ === void 0 )
+        {
+            this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 8 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field GlobalOrLocal due to too few fields in record" ); 
+            }
+            
+            let vtableSlot = internalReference.vtableIndex + 8;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value = IfcGlobalOrLocalEnumDeserializeStep( buffer, cursor, endCursor );
+
+            if ( value === void 0 )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed for field GlobalOrLocal' );
+            };
+
+            this.GlobalOrLocal_ = value;
+        }
+
+        return this.GlobalOrLocal_ as IfcGlobalOrLocalEnum;
+    }
+
+
+
 
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

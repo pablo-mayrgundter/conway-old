@@ -28,6 +28,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcPlateTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcPlateTypeEnum | undefined
 {
-    return parser.parse< IfcPlateTypeEnum >( IfcPlateTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcPlateTypeEnum >( IfcPlateTypeEnumSearch, input, cursor, endCursor );
 }
 

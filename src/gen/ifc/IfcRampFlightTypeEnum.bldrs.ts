@@ -28,6 +28,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcRampFlightTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcRampFlightTypeEnum | undefined
 {
-    return parser.parse< IfcRampFlightTypeEnum >( IfcRampFlightTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcRampFlightTypeEnum >( IfcRampFlightTypeEnumSearch, input, cursor, endCursor );
 }
 

@@ -33,6 +33,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcPropertySourceEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcPropertySourceEnum | undefined
 {
-    return parser.parse< IfcPropertySourceEnum >( IfcPropertySourceEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcPropertySourceEnum >( IfcPropertySourceEnumSearch, input, cursor, endCursor );
 }
 

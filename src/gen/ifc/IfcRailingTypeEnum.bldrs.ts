@@ -29,6 +29,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcRailingTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcRailingTypeEnum | undefined
 {
-    return parser.parse< IfcRailingTypeEnum >( IfcRailingTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcRailingTypeEnum >( IfcRailingTypeEnumSearch, input, cursor, endCursor );
 }
 

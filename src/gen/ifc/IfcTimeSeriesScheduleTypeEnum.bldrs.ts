@@ -30,6 +30,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcTimeSeriesScheduleTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcTimeSeriesScheduleTypeEnum | undefined
 {
-    return parser.parse< IfcTimeSeriesScheduleTypeEnum >( IfcTimeSeriesScheduleTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcTimeSeriesScheduleTypeEnum >( IfcTimeSeriesScheduleTypeEnumSearch, input, cursor, endCursor );
 }
 

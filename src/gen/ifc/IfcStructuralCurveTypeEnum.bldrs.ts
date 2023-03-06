@@ -31,6 +31,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcStructuralCurveTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcStructuralCurveTypeEnum | undefined
 {
-    return parser.parse< IfcStructuralCurveTypeEnum >( IfcStructuralCurveTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcStructuralCurveTypeEnum >( IfcStructuralCurveTypeEnumSearch, input, cursor, endCursor );
 }
 

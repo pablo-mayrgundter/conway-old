@@ -1,11 +1,16 @@
-
-
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import IfcNullStyle, { IfcNullStyleDeserializeStep } from "./IfcNullStyle.bldrs"
+import IfcCurveStyle from "./IfcCurveStyle.bldrs"
+import IfcSymbolStyle from "./IfcSymbolStyle.bldrs"
+import IfcFillAreaStyle from "./IfcFillAreaStyle.bldrs"
+import IfcTextStyle from "./IfcTextStyle.bldrs"
+import IfcSurfaceStyle from "./IfcSurfaceStyle.bldrs"
 import IfcPresentationLayerAssignment from "./IfcPresentationLayerAssignment.bldrs"
 
 
@@ -22,6 +27,122 @@ export default  class IfcPresentationLayerWithStyle extends IfcPresentationLayer
     {
         return SchemaIfc;
     }
+
+    private LayerOn_? : boolean;
+    private LayerFrozen_? : boolean;
+    private LayerBlocked_? : boolean;
+    private LayerStyles_? : Array<IfcNullStyle|IfcCurveStyle|IfcSymbolStyle|IfcFillAreaStyle|IfcTextStyle|IfcSurfaceStyle>;
+
+
+    public get LayerOn() : boolean
+    {
+        if ( this.LayerOn_ === void 0 )
+        {
+            this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 4 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field LayerOn due to too few fields in record" ); 
+            }
+            
+            let vtableSlot = internalReference.vtableIndex + 4;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value = stepExtractBoolean( buffer, cursor, endCursor );
+
+            if ( value === void 0 )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed for field LayerOn' );
+            };
+
+            this.LayerOn_ = value;
+        }
+
+        return this.LayerOn_ as boolean;
+    }
+
+
+    public get LayerFrozen() : boolean
+    {
+        if ( this.LayerFrozen_ === void 0 )
+        {
+            this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 5 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field LayerFrozen due to too few fields in record" ); 
+            }
+            
+            let vtableSlot = internalReference.vtableIndex + 5;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value = stepExtractBoolean( buffer, cursor, endCursor );
+
+            if ( value === void 0 )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed for field LayerFrozen' );
+            };
+
+            this.LayerFrozen_ = value;
+        }
+
+        return this.LayerFrozen_ as boolean;
+    }
+
+
+    public get LayerBlocked() : boolean
+    {
+        if ( this.LayerBlocked_ === void 0 )
+        {
+            this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 6 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field LayerBlocked due to too few fields in record" ); 
+            }
+            
+            let vtableSlot = internalReference.vtableIndex + 6;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value = stepExtractBoolean( buffer, cursor, endCursor );
+
+            if ( value === void 0 )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed for field LayerBlocked' );
+            };
+
+            this.LayerBlocked_ = value;
+        }
+
+        return this.LayerBlocked_ as boolean;
+    }
+
+
+    public get LayerStyles() : Array<IfcNullStyle|IfcCurveStyle|IfcSymbolStyle|IfcFillAreaStyle|IfcTextStyle|IfcSurfaceStyle>
+    {
+        if ( this.LayerStyles_ === void 0 )
+        {
+            
+        }
+
+        return this.LayerStyles_ as Array<IfcNullStyle|IfcCurveStyle|IfcSymbolStyle|IfcFillAreaStyle|IfcTextStyle|IfcSurfaceStyle>;
+    }
+
 
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

@@ -38,6 +38,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcRoofTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcRoofTypeEnum | undefined
 {
-    return parser.parse< IfcRoofTypeEnum >( IfcRoofTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcRoofTypeEnum >( IfcRoofTypeEnumSearch, input, cursor, endCursor );
 }
 

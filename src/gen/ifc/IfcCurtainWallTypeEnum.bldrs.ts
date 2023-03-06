@@ -26,6 +26,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcCurtainWallTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcCurtainWallTypeEnum | undefined
 {
-    return parser.parse< IfcCurtainWallTypeEnum >( IfcCurtainWallTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcCurtainWallTypeEnum >( IfcCurtainWallTypeEnumSearch, input, cursor, endCursor );
 }
 

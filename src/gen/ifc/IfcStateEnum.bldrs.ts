@@ -29,6 +29,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcStateEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcStateEnum | undefined
 {
-    return parser.parse< IfcStateEnum >( IfcStateEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcStateEnum >( IfcStateEnumSearch, input, cursor, endCursor );
 }
 

@@ -26,6 +26,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcAheadOrBehindDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcAheadOrBehind | undefined
 {
-    return parser.parse< IfcAheadOrBehind >( IfcAheadOrBehindSearch, input, cursor, endCursor );
+    return parser.extract< IfcAheadOrBehind >( IfcAheadOrBehindSearch, input, cursor, endCursor );
 }
 

@@ -32,6 +32,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcCoilTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcCoilTypeEnum | undefined
 {
-    return parser.parse< IfcCoilTypeEnum >( IfcCoilTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcCoilTypeEnum >( IfcCoilTypeEnumSearch, input, cursor, endCursor );
 }
 

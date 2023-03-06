@@ -27,6 +27,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcTubeBundleTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcTubeBundleTypeEnum | undefined
 {
-    return parser.parse< IfcTubeBundleTypeEnum >( IfcTubeBundleTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcTubeBundleTypeEnum >( IfcTubeBundleTypeEnumSearch, input, cursor, endCursor );
 }
 

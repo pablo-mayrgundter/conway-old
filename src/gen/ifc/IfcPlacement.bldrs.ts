@@ -1,11 +1,12 @@
-
-
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import IfcCartesianPoint from "./IfcCartesianPoint.bldrs"
+import IfcDimensionCount from "./IfcDimensionCount.bldrs"
 import IfcGeometricRepresentationItem from "./IfcGeometricRepresentationItem.bldrs"
 
 
@@ -22,6 +23,22 @@ export default abstract class IfcPlacement extends IfcGeometricRepresentationIte
     {
         return SchemaIfc;
     }
+
+    private Location_? : IfcCartesianPoint;
+
+
+    public get Location() : IfcCartesianPoint
+    {
+        if ( this.Location_ === void 0 )
+        {
+            
+        }
+
+        return this.Location_ as IfcCartesianPoint;
+    }
+
+
+
 
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

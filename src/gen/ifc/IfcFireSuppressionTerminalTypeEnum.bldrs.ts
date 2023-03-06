@@ -31,6 +31,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcFireSuppressionTerminalTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcFireSuppressionTerminalTypeEnum | undefined
 {
-    return parser.parse< IfcFireSuppressionTerminalTypeEnum >( IfcFireSuppressionTerminalTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcFireSuppressionTerminalTypeEnum >( IfcFireSuppressionTerminalTypeEnumSearch, input, cursor, endCursor );
 }
 

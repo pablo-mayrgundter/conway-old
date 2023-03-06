@@ -29,6 +29,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcDuctSilencerTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcDuctSilencerTypeEnum | undefined
 {
-    return parser.parse< IfcDuctSilencerTypeEnum >( IfcDuctSilencerTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcDuctSilencerTypeEnum >( IfcDuctSilencerTypeEnumSearch, input, cursor, endCursor );
 }
 

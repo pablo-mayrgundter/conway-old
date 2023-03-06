@@ -30,6 +30,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcDocumentConfidentialityEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcDocumentConfidentialityEnum | undefined
 {
-    return parser.parse< IfcDocumentConfidentialityEnum >( IfcDocumentConfidentialityEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcDocumentConfidentialityEnum >( IfcDocumentConfidentialityEnumSearch, input, cursor, endCursor );
 }
 

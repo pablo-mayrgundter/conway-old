@@ -32,6 +32,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcWindowStyleConstructionEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcWindowStyleConstructionEnum | undefined
 {
-    return parser.parse< IfcWindowStyleConstructionEnum >( IfcWindowStyleConstructionEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcWindowStyleConstructionEnum >( IfcWindowStyleConstructionEnumSearch, input, cursor, endCursor );
 }
 

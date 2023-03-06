@@ -31,6 +31,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcTimeSeriesDataTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcTimeSeriesDataTypeEnum | undefined
 {
-    return parser.parse< IfcTimeSeriesDataTypeEnum >( IfcTimeSeriesDataTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcTimeSeriesDataTypeEnum >( IfcTimeSeriesDataTypeEnumSearch, input, cursor, endCursor );
 }
 

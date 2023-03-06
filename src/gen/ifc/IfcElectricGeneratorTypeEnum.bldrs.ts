@@ -26,6 +26,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcElectricGeneratorTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcElectricGeneratorTypeEnum | undefined
 {
-    return parser.parse< IfcElectricGeneratorTypeEnum >( IfcElectricGeneratorTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcElectricGeneratorTypeEnum >( IfcElectricGeneratorTypeEnumSearch, input, cursor, endCursor );
 }
 

@@ -27,6 +27,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcSurfaceSideDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcSurfaceSide | undefined
 {
-    return parser.parse< IfcSurfaceSide >( IfcSurfaceSideSearch, input, cursor, endCursor );
+    return parser.extract< IfcSurfaceSide >( IfcSurfaceSideSearch, input, cursor, endCursor );
 }
 

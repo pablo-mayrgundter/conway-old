@@ -40,6 +40,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcSIPrefixDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcSIPrefix | undefined
 {
-    return parser.parse< IfcSIPrefix >( IfcSIPrefixSearch, input, cursor, endCursor );
+    return parser.extract< IfcSIPrefix >( IfcSIPrefixSearch, input, cursor, endCursor );
 }
 

@@ -1,11 +1,12 @@
-
-
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import IfcLightDistributionCurveEnum, { IfcLightDistributionCurveEnumDeserializeStep } from "./IfcLightDistributionCurveEnum.bldrs"
+import IfcLightDistributionData from "./IfcLightDistributionData.bldrs"
 
 
 ///**
@@ -21,6 +22,54 @@ export default  class IfcLightIntensityDistribution extends StepEntityBase< Enti
     {
         return SchemaIfc;
     }
+
+    private LightDistributionCurve_? : IfcLightDistributionCurveEnum;
+    private DistributionData_? : Array<IfcLightDistributionData>;
+
+
+    public get LightDistributionCurve() : IfcLightDistributionCurveEnum
+    {
+        if ( this.LightDistributionCurve_ === void 0 )
+        {
+            this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 0 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field LightDistributionCurve due to too few fields in record" ); 
+            }
+            
+            let vtableSlot = internalReference.vtableIndex + 0;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value = IfcLightDistributionCurveEnumDeserializeStep( buffer, cursor, endCursor );
+
+            if ( value === void 0 )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed for field LightDistributionCurve' );
+            };
+
+            this.LightDistributionCurve_ = value;
+        }
+
+        return this.LightDistributionCurve_ as IfcLightDistributionCurveEnum;
+    }
+
+
+    public get DistributionData() : Array<IfcLightDistributionData>
+    {
+        if ( this.DistributionData_ === void 0 )
+        {
+            
+        }
+
+        return this.DistributionData_ as Array<IfcLightDistributionData>;
+    }
+
 
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

@@ -26,6 +26,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcSpaceTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcSpaceTypeEnum | undefined
 {
-    return parser.parse< IfcSpaceTypeEnum >( IfcSpaceTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcSpaceTypeEnum >( IfcSpaceTypeEnumSearch, input, cursor, endCursor );
 }
 

@@ -26,6 +26,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcJunctionBoxTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcJunctionBoxTypeEnum | undefined
 {
-    return parser.parse< IfcJunctionBoxTypeEnum >( IfcJunctionBoxTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcJunctionBoxTypeEnum >( IfcJunctionBoxTypeEnumSearch, input, cursor, endCursor );
 }
 

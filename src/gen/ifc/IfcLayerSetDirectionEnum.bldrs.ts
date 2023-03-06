@@ -27,6 +27,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcLayerSetDirectionEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcLayerSetDirectionEnum | undefined
 {
-    return parser.parse< IfcLayerSetDirectionEnum >( IfcLayerSetDirectionEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcLayerSetDirectionEnum >( IfcLayerSetDirectionEnumSearch, input, cursor, endCursor );
 }
 

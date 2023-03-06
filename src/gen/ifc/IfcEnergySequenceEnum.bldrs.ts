@@ -30,6 +30,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcEnergySequenceEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcEnergySequenceEnum | undefined
 {
-    return parser.parse< IfcEnergySequenceEnum >( IfcEnergySequenceEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcEnergySequenceEnum >( IfcEnergySequenceEnumSearch, input, cursor, endCursor );
 }
 

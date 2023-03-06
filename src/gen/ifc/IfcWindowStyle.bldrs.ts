@@ -1,11 +1,12 @@
-
-
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import IfcWindowStyleConstructionEnum, { IfcWindowStyleConstructionEnumDeserializeStep } from "./IfcWindowStyleConstructionEnum.bldrs"
+import IfcWindowStyleOperationEnum, { IfcWindowStyleOperationEnumDeserializeStep } from "./IfcWindowStyleOperationEnum.bldrs"
 import IfcTypeProduct from "./IfcTypeProduct.bldrs"
 
 
@@ -22,6 +23,144 @@ export default  class IfcWindowStyle extends IfcTypeProduct
     {
         return SchemaIfc;
     }
+
+    private ConstructionType_? : IfcWindowStyleConstructionEnum;
+    private OperationType_? : IfcWindowStyleOperationEnum;
+    private ParameterTakesPrecedence_? : boolean;
+    private Sizeable_? : boolean;
+
+
+    public get ConstructionType() : IfcWindowStyleConstructionEnum
+    {
+        if ( this.ConstructionType_ === void 0 )
+        {
+            this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 8 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field ConstructionType due to too few fields in record" ); 
+            }
+            
+            let vtableSlot = internalReference.vtableIndex + 8;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value = IfcWindowStyleConstructionEnumDeserializeStep( buffer, cursor, endCursor );
+
+            if ( value === void 0 )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed for field ConstructionType' );
+            };
+
+            this.ConstructionType_ = value;
+        }
+
+        return this.ConstructionType_ as IfcWindowStyleConstructionEnum;
+    }
+
+
+    public get OperationType() : IfcWindowStyleOperationEnum
+    {
+        if ( this.OperationType_ === void 0 )
+        {
+            this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 9 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field OperationType due to too few fields in record" ); 
+            }
+            
+            let vtableSlot = internalReference.vtableIndex + 9;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value = IfcWindowStyleOperationEnumDeserializeStep( buffer, cursor, endCursor );
+
+            if ( value === void 0 )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed for field OperationType' );
+            };
+
+            this.OperationType_ = value;
+        }
+
+        return this.OperationType_ as IfcWindowStyleOperationEnum;
+    }
+
+
+    public get ParameterTakesPrecedence() : boolean
+    {
+        if ( this.ParameterTakesPrecedence_ === void 0 )
+        {
+            this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 10 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field ParameterTakesPrecedence due to too few fields in record" ); 
+            }
+            
+            let vtableSlot = internalReference.vtableIndex + 10;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value = stepExtractBoolean( buffer, cursor, endCursor );
+
+            if ( value === void 0 )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed for field ParameterTakesPrecedence' );
+            };
+
+            this.ParameterTakesPrecedence_ = value;
+        }
+
+        return this.ParameterTakesPrecedence_ as boolean;
+    }
+
+
+    public get Sizeable() : boolean
+    {
+        if ( this.Sizeable_ === void 0 )
+        {
+            this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 11 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field Sizeable due to too few fields in record" ); 
+            }
+            
+            let vtableSlot = internalReference.vtableIndex + 11;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value = stepExtractBoolean( buffer, cursor, endCursor );
+
+            if ( value === void 0 )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed for field Sizeable' );
+            };
+
+            this.Sizeable_ = value;
+        }
+
+        return this.Sizeable_ as boolean;
+    }
+
 
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

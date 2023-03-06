@@ -33,6 +33,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcCostScheduleTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcCostScheduleTypeEnum | undefined
 {
-    return parser.parse< IfcCostScheduleTypeEnum >( IfcCostScheduleTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcCostScheduleTypeEnum >( IfcCostScheduleTypeEnumSearch, input, cursor, endCursor );
 }
 

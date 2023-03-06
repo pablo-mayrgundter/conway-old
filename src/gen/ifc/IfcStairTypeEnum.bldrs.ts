@@ -40,6 +40,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcStairTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcStairTypeEnum | undefined
 {
-    return parser.parse< IfcStairTypeEnum >( IfcStairTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcStairTypeEnum >( IfcStairTypeEnumSearch, input, cursor, endCursor );
 }
 

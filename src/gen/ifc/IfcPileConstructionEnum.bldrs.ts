@@ -30,6 +30,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcPileConstructionEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcPileConstructionEnum | undefined
 {
-    return parser.parse< IfcPileConstructionEnum >( IfcPileConstructionEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcPileConstructionEnum >( IfcPileConstructionEnumSearch, input, cursor, endCursor );
 }
 

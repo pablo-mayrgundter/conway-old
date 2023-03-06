@@ -30,6 +30,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcTendonTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcTendonTypeEnum | undefined
 {
-    return parser.parse< IfcTendonTypeEnum >( IfcTendonTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcTendonTypeEnum >( IfcTendonTypeEnumSearch, input, cursor, endCursor );
 }
 

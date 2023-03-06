@@ -30,6 +30,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcBSplineCurveFormDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcBSplineCurveForm | undefined
 {
-    return parser.parse< IfcBSplineCurveForm >( IfcBSplineCurveFormSearch, input, cursor, endCursor );
+    return parser.extract< IfcBSplineCurveForm >( IfcBSplineCurveFormSearch, input, cursor, endCursor );
 }
 

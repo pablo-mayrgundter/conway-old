@@ -34,6 +34,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcDistributionChamberElementTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcDistributionChamberElementTypeEnum | undefined
 {
-    return parser.parse< IfcDistributionChamberElementTypeEnum >( IfcDistributionChamberElementTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcDistributionChamberElementTypeEnum >( IfcDistributionChamberElementTypeEnumSearch, input, cursor, endCursor );
 }
 

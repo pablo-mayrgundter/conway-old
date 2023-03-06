@@ -25,6 +25,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcNullStyleDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcNullStyle | undefined
 {
-    return parser.parse< IfcNullStyle >( IfcNullStyleSearch, input, cursor, endCursor );
+    return parser.extract< IfcNullStyle >( IfcNullStyleSearch, input, cursor, endCursor );
 }
 

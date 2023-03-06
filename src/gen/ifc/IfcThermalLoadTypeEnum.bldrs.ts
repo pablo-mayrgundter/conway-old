@@ -28,6 +28,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcThermalLoadTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcThermalLoadTypeEnum | undefined
 {
-    return parser.parse< IfcThermalLoadTypeEnum >( IfcThermalLoadTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcThermalLoadTypeEnum >( IfcThermalLoadTypeEnumSearch, input, cursor, endCursor );
 }
 

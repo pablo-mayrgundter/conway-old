@@ -28,6 +28,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcLightFixtureTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcLightFixtureTypeEnum | undefined
 {
-    return parser.parse< IfcLightFixtureTypeEnum >( IfcLightFixtureTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcLightFixtureTypeEnum >( IfcLightFixtureTypeEnumSearch, input, cursor, endCursor );
 }
 

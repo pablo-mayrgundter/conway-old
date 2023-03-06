@@ -26,6 +26,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcGlobalOrLocalEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcGlobalOrLocalEnum | undefined
 {
-    return parser.parse< IfcGlobalOrLocalEnum >( IfcGlobalOrLocalEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcGlobalOrLocalEnum >( IfcGlobalOrLocalEnumSearch, input, cursor, endCursor );
 }
 

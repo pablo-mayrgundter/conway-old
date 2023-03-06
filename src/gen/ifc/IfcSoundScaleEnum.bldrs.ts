@@ -31,6 +31,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcSoundScaleEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcSoundScaleEnum | undefined
 {
-    return parser.parse< IfcSoundScaleEnum >( IfcSoundScaleEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcSoundScaleEnum >( IfcSoundScaleEnumSearch, input, cursor, endCursor );
 }
 

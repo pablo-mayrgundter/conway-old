@@ -35,6 +35,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcLightEmissionSourceEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcLightEmissionSourceEnum | undefined
 {
-    return parser.parse< IfcLightEmissionSourceEnum >( IfcLightEmissionSourceEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcLightEmissionSourceEnum >( IfcLightEmissionSourceEnumSearch, input, cursor, endCursor );
 }
 

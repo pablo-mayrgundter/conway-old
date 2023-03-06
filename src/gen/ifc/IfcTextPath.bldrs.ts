@@ -28,6 +28,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcTextPathDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcTextPath | undefined
 {
-    return parser.parse< IfcTextPath >( IfcTextPathSearch, input, cursor, endCursor );
+    return parser.extract< IfcTextPath >( IfcTextPathSearch, input, cursor, endCursor );
 }
 

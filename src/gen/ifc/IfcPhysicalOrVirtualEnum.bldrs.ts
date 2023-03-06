@@ -27,6 +27,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcPhysicalOrVirtualEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcPhysicalOrVirtualEnum | undefined
 {
-    return parser.parse< IfcPhysicalOrVirtualEnum >( IfcPhysicalOrVirtualEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcPhysicalOrVirtualEnum >( IfcPhysicalOrVirtualEnumSearch, input, cursor, endCursor );
 }
 

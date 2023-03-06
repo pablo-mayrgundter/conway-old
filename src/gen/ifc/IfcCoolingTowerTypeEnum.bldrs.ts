@@ -29,6 +29,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcCoolingTowerTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcCoolingTowerTypeEnum | undefined
 {
-    return parser.parse< IfcCoolingTowerTypeEnum >( IfcCoolingTowerTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcCoolingTowerTypeEnum >( IfcCoolingTowerTypeEnumSearch, input, cursor, endCursor );
 }
 

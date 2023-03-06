@@ -29,6 +29,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcElectricTimeControlTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcElectricTimeControlTypeEnum | undefined
 {
-    return parser.parse< IfcElectricTimeControlTypeEnum >( IfcElectricTimeControlTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcElectricTimeControlTypeEnum >( IfcElectricTimeControlTypeEnumSearch, input, cursor, endCursor );
 }
 

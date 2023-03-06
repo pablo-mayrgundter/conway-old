@@ -27,6 +27,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcTrimmingPreferenceDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcTrimmingPreference | undefined
 {
-    return parser.parse< IfcTrimmingPreference >( IfcTrimmingPreferenceSearch, input, cursor, endCursor );
+    return parser.extract< IfcTrimmingPreference >( IfcTrimmingPreferenceSearch, input, cursor, endCursor );
 }
 

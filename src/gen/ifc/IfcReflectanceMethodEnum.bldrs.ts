@@ -34,6 +34,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcReflectanceMethodEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcReflectanceMethodEnum | undefined
 {
-    return parser.parse< IfcReflectanceMethodEnum >( IfcReflectanceMethodEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcReflectanceMethodEnum >( IfcReflectanceMethodEnumSearch, input, cursor, endCursor );
 }
 

@@ -32,6 +32,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcRampTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcRampTypeEnum | undefined
 {
-    return parser.parse< IfcRampTypeEnum >( IfcRampTypeEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcRampTypeEnum >( IfcRampTypeEnumSearch, input, cursor, endCursor );
 }
 

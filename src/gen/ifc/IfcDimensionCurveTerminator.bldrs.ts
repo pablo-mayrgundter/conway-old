@@ -1,11 +1,11 @@
-
-
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import IfcDimensionExtentUsage, { IfcDimensionExtentUsageDeserializeStep } from "./IfcDimensionExtentUsage.bldrs"
 import IfcTerminatorSymbol from "./IfcTerminatorSymbol.bldrs"
 
 
@@ -22,6 +22,42 @@ export default  class IfcDimensionCurveTerminator extends IfcTerminatorSymbol
     {
         return SchemaIfc;
     }
+
+    private Role_? : IfcDimensionExtentUsage;
+
+
+    public get Role() : IfcDimensionExtentUsage
+    {
+        if ( this.Role_ === void 0 )
+        {
+            this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 4 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field Role due to too few fields in record" ); 
+            }
+            
+            let vtableSlot = internalReference.vtableIndex + 4;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value = IfcDimensionExtentUsageDeserializeStep( buffer, cursor, endCursor );
+
+            if ( value === void 0 )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed for field Role' );
+            };
+
+            this.Role_ = value;
+        }
+
+        return this.Role_ as IfcDimensionExtentUsage;
+    }
+
 
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

@@ -29,6 +29,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcPermeableCoveringOperationEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcPermeableCoveringOperationEnum | undefined
 {
-    return parser.parse< IfcPermeableCoveringOperationEnum >( IfcPermeableCoveringOperationEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcPermeableCoveringOperationEnum >( IfcPermeableCoveringOperationEnumSearch, input, cursor, endCursor );
 }
 

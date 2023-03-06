@@ -33,6 +33,6 @@ const parser = StepEnumParser.Instance;
 
 export function IfcSurfaceTextureEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcSurfaceTextureEnum | undefined
 {
-    return parser.parse< IfcSurfaceTextureEnum >( IfcSurfaceTextureEnumSearch, input, cursor, endCursor );
+    return parser.extract< IfcSurfaceTextureEnum >( IfcSurfaceTextureEnumSearch, input, cursor, endCursor );
 }
 
