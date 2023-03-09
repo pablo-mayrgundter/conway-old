@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcInternalOrExternalEnum, { IfcInternalOrExternalEnumDeserializeStep } from "./IfcInternalOrExternalEnum.bldrs"
 import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 import IfcRelCoversSpaces from "./IfcRelCoversSpaces.bldrs"
@@ -29,18 +29,17 @@ export default  class IfcSpace extends IfcSpatialStructureElement
     private InteriorOrExteriorSpace_? : IfcInternalOrExternalEnum;
     private ElevationWithFlooring_? : IfcLengthMeasure | null;
 
-
     public get InteriorOrExteriorSpace() : IfcInternalOrExternalEnum
     {
         if ( this.InteriorOrExteriorSpace_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.InteriorOrExteriorSpace_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 9 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field InteriorOrExteriorSpace due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 9;
@@ -53,27 +52,26 @@ export default  class IfcSpace extends IfcSpatialStructureElement
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field InteriorOrExteriorSpace' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.InteriorOrExteriorSpace_ = value;
+            return value; })();
         }
 
         return this.InteriorOrExteriorSpace_ as IfcInternalOrExternalEnum;
     }
 
-
     public get ElevationWithFlooring() : IfcLengthMeasure | null
     {
         if ( this.ElevationWithFlooring_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ElevationWithFlooring_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 10 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ElevationWithFlooring due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 10;
@@ -84,27 +82,23 @@ export default  class IfcSpace extends IfcSpatialStructureElement
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field ElevationWithFlooring' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.ElevationWithFlooring_ = null;                
+                return null;                
             }
             else
             {
-                this.ElevationWithFlooring_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.ElevationWithFlooring_ as IfcLengthMeasure | null;
     }
-
-
-
-
 
 
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )

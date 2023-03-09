@@ -9,6 +9,19 @@ export default abstract class StepEntityBase< EntityTypeIDs extends number >
 
     public abstract get schema(): StepEntitySchema< EntityTypeIDs >;
 
+    /**
+     * Get the express ID for this, note that if an element is inlined, it will have a 
+     */
+    public get expressID(): number | undefined
+    {
+        return this.internalReference_.expressID;
+    }
+
+    public get isInline(): boolean
+    {        
+        return this.expressID === void 0;
+    }
+
     constructor( public readonly localID: number, protected readonly internalReference_: StepEntityInternalReference< EntityTypeIDs >, public readonly model: StepModelBase< EntityTypeIDs > ) {} 
 
     protected guaranteeVTable(): void

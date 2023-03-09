@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcSIPrefix, { IfcSIPrefixDeserializeStep } from "./IfcSIPrefix.bldrs"
 import IfcSIUnitName, { IfcSIUnitNameDeserializeStep } from "./IfcSIUnitName.bldrs"
 import IfcDimensionalExponents from "./IfcDimensionalExponents.bldrs"
@@ -28,18 +28,17 @@ export default  class IfcSIUnit extends IfcNamedUnit
     private Prefix_? : IfcSIPrefix | null;
     private Name_? : IfcSIUnitName;
 
-
     public get Prefix() : IfcSIPrefix | null
     {
         if ( this.Prefix_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Prefix_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 2 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Prefix due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 2;
@@ -50,36 +49,35 @@ export default  class IfcSIUnit extends IfcNamedUnit
 
             let value = IfcSIPrefixDeserializeStep( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field Prefix' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.Prefix_ = null;                
+                return null;                
             }
             else
             {
-                this.Prefix_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.Prefix_ as IfcSIPrefix | null;
     }
 
-
     public get Name() : IfcSIUnitName
     {
         if ( this.Name_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Name_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 3 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Name due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 3;
@@ -92,17 +90,14 @@ export default  class IfcSIUnit extends IfcNamedUnit
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field Name' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.Name_ = value;
+            return value; })();
         }
 
         return this.Name_ as IfcSIUnitName;
     }
-
-
-
 
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

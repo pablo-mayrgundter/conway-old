@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcThermodynamicTemperatureMeasure from "./IfcThermodynamicTemperatureMeasure.bldrs"
 import IfcStructuralLoadStatic from "./IfcStructuralLoadStatic.bldrs"
 
@@ -27,18 +27,17 @@ export default  class IfcStructuralLoadTemperature extends IfcStructuralLoadStat
     private DeltaT_Y_? : IfcThermodynamicTemperatureMeasure | null;
     private DeltaT_Z_? : IfcThermodynamicTemperatureMeasure | null;
 
-
     public get DeltaT_Constant() : IfcThermodynamicTemperatureMeasure | null
     {
         if ( this.DeltaT_Constant_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.DeltaT_Constant_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 1 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field DeltaT_Constant due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 1;
@@ -49,36 +48,35 @@ export default  class IfcStructuralLoadTemperature extends IfcStructuralLoadStat
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field DeltaT_Constant' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.DeltaT_Constant_ = null;                
+                return null;                
             }
             else
             {
-                this.DeltaT_Constant_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.DeltaT_Constant_ as IfcThermodynamicTemperatureMeasure | null;
     }
 
-
     public get DeltaT_Y() : IfcThermodynamicTemperatureMeasure | null
     {
         if ( this.DeltaT_Y_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.DeltaT_Y_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 2 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field DeltaT_Y due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 2;
@@ -89,36 +87,35 @@ export default  class IfcStructuralLoadTemperature extends IfcStructuralLoadStat
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field DeltaT_Y' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.DeltaT_Y_ = null;                
+                return null;                
             }
             else
             {
-                this.DeltaT_Y_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.DeltaT_Y_ as IfcThermodynamicTemperatureMeasure | null;
     }
 
-
     public get DeltaT_Z() : IfcThermodynamicTemperatureMeasure | null
     {
         if ( this.DeltaT_Z_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.DeltaT_Z_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 3 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field DeltaT_Z due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 3;
@@ -129,25 +126,23 @@ export default  class IfcStructuralLoadTemperature extends IfcStructuralLoadStat
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field DeltaT_Z' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.DeltaT_Z_ = null;                
+                return null;                
             }
             else
             {
-                this.DeltaT_Z_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.DeltaT_Z_ as IfcThermodynamicTemperatureMeasure | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

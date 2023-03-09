@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcIdentifier from "./IfcIdentifier.bldrs"
 import IfcSurfaceTexture from "./IfcSurfaceTexture.bldrs"
 
@@ -26,18 +26,17 @@ export default  class IfcBlobTexture extends IfcSurfaceTexture
     private RasterFormat_? : IfcIdentifier;
     private RasterCode_? : boolean;
 
-
     public get RasterFormat() : IfcIdentifier
     {
         if ( this.RasterFormat_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.RasterFormat_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 4 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field RasterFormat due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 4;
@@ -50,27 +49,26 @@ export default  class IfcBlobTexture extends IfcSurfaceTexture
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field RasterFormat' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.RasterFormat_ = value;
+            return value; })();
         }
 
         return this.RasterFormat_ as IfcIdentifier;
     }
 
-
     public get RasterCode() : boolean
     {
         if ( this.RasterCode_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.RasterCode_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 5 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field RasterCode due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 5;
@@ -83,16 +81,14 @@ export default  class IfcBlobTexture extends IfcSurfaceTexture
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field RasterCode' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.RasterCode_ = value;
+            return value; })();
         }
 
         return this.RasterCode_ as boolean;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

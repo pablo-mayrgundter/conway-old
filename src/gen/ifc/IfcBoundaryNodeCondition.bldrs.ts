@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcLinearStiffnessMeasure from "./IfcLinearStiffnessMeasure.bldrs"
 import IfcRotationalStiffnessMeasure from "./IfcRotationalStiffnessMeasure.bldrs"
 import IfcBoundaryCondition from "./IfcBoundaryCondition.bldrs"
@@ -31,18 +31,17 @@ export default  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
     private RotationalStiffnessY_? : IfcRotationalStiffnessMeasure | null;
     private RotationalStiffnessZ_? : IfcRotationalStiffnessMeasure | null;
 
-
     public get LinearStiffnessX() : IfcLinearStiffnessMeasure | null
     {
         if ( this.LinearStiffnessX_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.LinearStiffnessX_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 1 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field LinearStiffnessX due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 1;
@@ -53,36 +52,35 @@ export default  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field LinearStiffnessX' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.LinearStiffnessX_ = null;                
+                return null;                
             }
             else
             {
-                this.LinearStiffnessX_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.LinearStiffnessX_ as IfcLinearStiffnessMeasure | null;
     }
 
-
     public get LinearStiffnessY() : IfcLinearStiffnessMeasure | null
     {
         if ( this.LinearStiffnessY_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.LinearStiffnessY_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 2 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field LinearStiffnessY due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 2;
@@ -93,36 +91,35 @@ export default  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field LinearStiffnessY' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.LinearStiffnessY_ = null;                
+                return null;                
             }
             else
             {
-                this.LinearStiffnessY_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.LinearStiffnessY_ as IfcLinearStiffnessMeasure | null;
     }
 
-
     public get LinearStiffnessZ() : IfcLinearStiffnessMeasure | null
     {
         if ( this.LinearStiffnessZ_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.LinearStiffnessZ_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 3 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field LinearStiffnessZ due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 3;
@@ -133,36 +130,35 @@ export default  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field LinearStiffnessZ' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.LinearStiffnessZ_ = null;                
+                return null;                
             }
             else
             {
-                this.LinearStiffnessZ_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.LinearStiffnessZ_ as IfcLinearStiffnessMeasure | null;
     }
 
-
     public get RotationalStiffnessX() : IfcRotationalStiffnessMeasure | null
     {
         if ( this.RotationalStiffnessX_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.RotationalStiffnessX_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 4 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field RotationalStiffnessX due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 4;
@@ -173,36 +169,35 @@ export default  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field RotationalStiffnessX' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.RotationalStiffnessX_ = null;                
+                return null;                
             }
             else
             {
-                this.RotationalStiffnessX_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.RotationalStiffnessX_ as IfcRotationalStiffnessMeasure | null;
     }
 
-
     public get RotationalStiffnessY() : IfcRotationalStiffnessMeasure | null
     {
         if ( this.RotationalStiffnessY_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.RotationalStiffnessY_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 5 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field RotationalStiffnessY due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 5;
@@ -213,36 +208,35 @@ export default  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field RotationalStiffnessY' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.RotationalStiffnessY_ = null;                
+                return null;                
             }
             else
             {
-                this.RotationalStiffnessY_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.RotationalStiffnessY_ as IfcRotationalStiffnessMeasure | null;
     }
 
-
     public get RotationalStiffnessZ() : IfcRotationalStiffnessMeasure | null
     {
         if ( this.RotationalStiffnessZ_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.RotationalStiffnessZ_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 6 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field RotationalStiffnessZ due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 6;
@@ -253,25 +247,23 @@ export default  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field RotationalStiffnessZ' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.RotationalStiffnessZ_ = null;                
+                return null;                
             }
             else
             {
-                this.RotationalStiffnessZ_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.RotationalStiffnessZ_ as IfcRotationalStiffnessMeasure | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

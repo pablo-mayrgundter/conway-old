@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcSpace from "./IfcSpace.bldrs"
 import IfcCovering from "./IfcCovering.bldrs"
 import IfcRelConnects from "./IfcRelConnects.bldrs"
@@ -27,29 +27,87 @@ export default  class IfcRelCoversSpaces extends IfcRelConnects
     private RelatedSpace_? : IfcSpace;
     private RelatedCoverings_? : Array<IfcCovering>;
 
-
     public get RelatedSpace() : IfcSpace
     {
         if ( this.RelatedSpace_ === void 0 )
         {
+            this.RelatedSpace_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 4 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 4;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+
+            if ( value === void 0 || !( value instanceof IfcSpace ) )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed for field' );
+            };
+
+            return value; })();
         }
 
         return this.RelatedSpace_ as IfcSpace;
     }
 
-
     public get RelatedCoverings() : Array<IfcCovering>
     {
         if ( this.RelatedCoverings_ === void 0 )
         {
+            this.RelatedCoverings_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 5 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 5;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value : Array<IfcCovering> = [];
+
+            for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
+            {
+                value.push( (() => { 
+                    let cursor = address;
+        
+                    let expressID = stepExtractReference( buffer, cursor, endCursor );
+                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+        
+                    if ( value === void 0 || !( value instanceof IfcCovering ) )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                    };
+        
+                    return value;
+                })() );
+            }
+
+            if ( value === void 0 )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed' );
+            };
+
+            return value; })();
         }
 
         return this.RelatedCoverings_ as Array<IfcCovering>;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

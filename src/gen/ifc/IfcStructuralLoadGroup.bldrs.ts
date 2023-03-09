@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcLoadGroupTypeEnum, { IfcLoadGroupTypeEnumDeserializeStep } from "./IfcLoadGroupTypeEnum.bldrs"
 import IfcActionTypeEnum, { IfcActionTypeEnumDeserializeStep } from "./IfcActionTypeEnum.bldrs"
 import IfcActionSourceTypeEnum, { IfcActionSourceTypeEnumDeserializeStep } from "./IfcActionSourceTypeEnum.bldrs"
@@ -35,18 +35,17 @@ export default  class IfcStructuralLoadGroup extends IfcGroup
     private Coefficient_? : IfcPositiveRatioMeasure | null;
     private Purpose_? : IfcLabel | null;
 
-
     public get PredefinedType() : IfcLoadGroupTypeEnum
     {
         if ( this.PredefinedType_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.PredefinedType_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 5 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field PredefinedType due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 5;
@@ -59,27 +58,26 @@ export default  class IfcStructuralLoadGroup extends IfcGroup
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field PredefinedType' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.PredefinedType_ = value;
+            return value; })();
         }
 
         return this.PredefinedType_ as IfcLoadGroupTypeEnum;
     }
 
-
     public get ActionType() : IfcActionTypeEnum
     {
         if ( this.ActionType_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ActionType_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 6 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ActionType due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 6;
@@ -92,27 +90,26 @@ export default  class IfcStructuralLoadGroup extends IfcGroup
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field ActionType' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.ActionType_ = value;
+            return value; })();
         }
 
         return this.ActionType_ as IfcActionTypeEnum;
     }
 
-
     public get ActionSource() : IfcActionSourceTypeEnum
     {
         if ( this.ActionSource_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ActionSource_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 7 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ActionSource due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 7;
@@ -125,27 +122,26 @@ export default  class IfcStructuralLoadGroup extends IfcGroup
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field ActionSource' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.ActionSource_ = value;
+            return value; })();
         }
 
         return this.ActionSource_ as IfcActionSourceTypeEnum;
     }
 
-
     public get Coefficient() : IfcPositiveRatioMeasure | null
     {
         if ( this.Coefficient_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Coefficient_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 8 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Coefficient due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 8;
@@ -156,36 +152,35 @@ export default  class IfcStructuralLoadGroup extends IfcGroup
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field Coefficient' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.Coefficient_ = null;                
+                return null;                
             }
             else
             {
-                this.Coefficient_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.Coefficient_ as IfcPositiveRatioMeasure | null;
     }
 
-
     public get Purpose() : IfcLabel | null
     {
         if ( this.Purpose_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Purpose_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 9 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Purpose due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 9;
@@ -196,27 +191,23 @@ export default  class IfcStructuralLoadGroup extends IfcGroup
 
             let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field Purpose' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.Purpose_ = null;                
+                return null;                
             }
             else
             {
-                this.Purpose_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.Purpose_ as IfcLabel | null;
     }
-
-
-
-
 
 
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )

@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 
@@ -26,18 +26,17 @@ export default  class IfcCurveStyleFontPattern extends StepEntityBase< EntityTyp
     private VisibleSegmentLength_? : IfcLengthMeasure;
     private InvisibleSegmentLength_? : IfcPositiveLengthMeasure;
 
-
     public get VisibleSegmentLength() : IfcLengthMeasure
     {
         if ( this.VisibleSegmentLength_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.VisibleSegmentLength_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 0 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field VisibleSegmentLength due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 0;
@@ -50,27 +49,26 @@ export default  class IfcCurveStyleFontPattern extends StepEntityBase< EntityTyp
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field VisibleSegmentLength' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.VisibleSegmentLength_ = value;
+            return value; })();
         }
 
         return this.VisibleSegmentLength_ as IfcLengthMeasure;
     }
 
-
     public get InvisibleSegmentLength() : IfcPositiveLengthMeasure
     {
         if ( this.InvisibleSegmentLength_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.InvisibleSegmentLength_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 1 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field InvisibleSegmentLength due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 1;
@@ -83,16 +81,14 @@ export default  class IfcCurveStyleFontPattern extends StepEntityBase< EntityTyp
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field InvisibleSegmentLength' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.InvisibleSegmentLength_ = value;
+            return value; })();
         }
 
         return this.InvisibleSegmentLength_ as IfcPositiveLengthMeasure;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

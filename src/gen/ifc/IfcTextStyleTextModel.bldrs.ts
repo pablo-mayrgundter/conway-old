@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcRatioMeasure from "./IfcRatioMeasure.bldrs"
 import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 import IfcDescriptiveMeasure from "./IfcDescriptiveMeasure.bldrs"
@@ -38,29 +38,104 @@ export default  class IfcTextStyleTextModel extends StepEntityBase< EntityTypesI
     private TextTransform_? : IfcTextTransformation | null;
     private LineHeight_? : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure | null;
 
-
     public get TextIndent() : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure | null
     {
         if ( this.TextIndent_ === void 0 )
         {
+            this.TextIndent_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 0 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 0;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value = ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractString( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )();
+
+            if ( value === void 0 )
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed' );
+                }
+
+                return null;                
+            }
+            else
+            {
+                return value;
+            } })();
         }
 
         return this.TextIndent_ as IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure | null;
     }
 
-
     public get TextAlign() : IfcTextAlignment | null
     {
         if ( this.TextAlign_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.TextAlign_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 1 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field TextAlign due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 1;
@@ -71,36 +146,35 @@ export default  class IfcTextStyleTextModel extends StepEntityBase< EntityTypesI
 
             let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field TextAlign' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.TextAlign_ = null;                
+                return null;                
             }
             else
             {
-                this.TextAlign_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.TextAlign_ as IfcTextAlignment | null;
     }
 
-
     public get TextDecoration() : IfcTextDecoration | null
     {
         if ( this.TextDecoration_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.TextDecoration_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 2 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field TextDecoration due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 2;
@@ -111,58 +185,209 @@ export default  class IfcTextStyleTextModel extends StepEntityBase< EntityTypesI
 
             let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field TextDecoration' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.TextDecoration_ = null;                
+                return null;                
             }
             else
             {
-                this.TextDecoration_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.TextDecoration_ as IfcTextDecoration | null;
     }
 
-
     public get LetterSpacing() : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure | null
     {
         if ( this.LetterSpacing_ === void 0 )
         {
+            this.LetterSpacing_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 3 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 3;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value = ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractString( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )();
+
+            if ( value === void 0 )
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed' );
+                }
+
+                return null;                
+            }
+            else
+            {
+                return value;
+            } })();
         }
 
         return this.LetterSpacing_ as IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure | null;
     }
 
-
     public get WordSpacing() : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure | null
     {
         if ( this.WordSpacing_ === void 0 )
         {
+            this.WordSpacing_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 4 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 4;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value = ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractString( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )();
+
+            if ( value === void 0 )
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed' );
+                }
+
+                return null;                
+            }
+            else
+            {
+                return value;
+            } })();
         }
 
         return this.WordSpacing_ as IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure | null;
     }
 
-
     public get TextTransform() : IfcTextTransformation | null
     {
         if ( this.TextTransform_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.TextTransform_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 5 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field TextTransform due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 5;
@@ -173,36 +398,110 @@ export default  class IfcTextStyleTextModel extends StepEntityBase< EntityTypesI
 
             let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field TextTransform' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.TextTransform_ = null;                
+                return null;                
             }
             else
             {
-                this.TextTransform_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.TextTransform_ as IfcTextTransformation | null;
     }
 
-
     public get LineHeight() : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure | null
     {
         if ( this.LineHeight_ === void 0 )
         {
+            this.LineHeight_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 6 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 6;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value = ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractString( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )();
+
+            if ( value === void 0 )
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed' );
+                }
+
+                return null;                
+            }
+            else
+            {
+                return value;
+            } })();
         }
 
         return this.LineHeight_ as IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

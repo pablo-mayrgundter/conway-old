@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 import IfcReinforcingBarRoleEnum, { IfcReinforcingBarRoleEnumDeserializeStep } from "./IfcReinforcingBarRoleEnum.bldrs"
 import IfcSectionProperties from "./IfcSectionProperties.bldrs"
@@ -32,18 +32,17 @@ export default  class IfcSectionReinforcementProperties extends StepEntityBase< 
     private SectionDefinition_? : IfcSectionProperties;
     private CrossSectionReinforcementDefinitions_? : Array<IfcReinforcementBarProperties>;
 
-
     public get LongitudinalStartPosition() : IfcLengthMeasure
     {
         if ( this.LongitudinalStartPosition_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.LongitudinalStartPosition_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 0 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field LongitudinalStartPosition due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 0;
@@ -56,27 +55,26 @@ export default  class IfcSectionReinforcementProperties extends StepEntityBase< 
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field LongitudinalStartPosition' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.LongitudinalStartPosition_ = value;
+            return value; })();
         }
 
         return this.LongitudinalStartPosition_ as IfcLengthMeasure;
     }
 
-
     public get LongitudinalEndPosition() : IfcLengthMeasure
     {
         if ( this.LongitudinalEndPosition_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.LongitudinalEndPosition_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 1 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field LongitudinalEndPosition due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 1;
@@ -89,27 +87,26 @@ export default  class IfcSectionReinforcementProperties extends StepEntityBase< 
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field LongitudinalEndPosition' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.LongitudinalEndPosition_ = value;
+            return value; })();
         }
 
         return this.LongitudinalEndPosition_ as IfcLengthMeasure;
     }
 
-
     public get TransversePosition() : IfcLengthMeasure | null
     {
         if ( this.TransversePosition_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.TransversePosition_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 2 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field TransversePosition due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 2;
@@ -120,36 +117,35 @@ export default  class IfcSectionReinforcementProperties extends StepEntityBase< 
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field TransversePosition' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.TransversePosition_ = null;                
+                return null;                
             }
             else
             {
-                this.TransversePosition_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.TransversePosition_ as IfcLengthMeasure | null;
     }
 
-
     public get ReinforcementRole() : IfcReinforcingBarRoleEnum
     {
         if ( this.ReinforcementRole_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ReinforcementRole_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 3 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ReinforcementRole due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 3;
@@ -162,38 +158,96 @@ export default  class IfcSectionReinforcementProperties extends StepEntityBase< 
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field ReinforcementRole' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.ReinforcementRole_ = value;
+            return value; })();
         }
 
         return this.ReinforcementRole_ as IfcReinforcingBarRoleEnum;
     }
 
-
     public get SectionDefinition() : IfcSectionProperties
     {
         if ( this.SectionDefinition_ === void 0 )
         {
+            this.SectionDefinition_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 4 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 4;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+
+            if ( value === void 0 || !( value instanceof IfcSectionProperties ) )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed for field' );
+            };
+
+            return value; })();
         }
 
         return this.SectionDefinition_ as IfcSectionProperties;
     }
 
-
     public get CrossSectionReinforcementDefinitions() : Array<IfcReinforcementBarProperties>
     {
         if ( this.CrossSectionReinforcementDefinitions_ === void 0 )
         {
+            this.CrossSectionReinforcementDefinitions_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 5 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 5;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value : Array<IfcReinforcementBarProperties> = [];
+
+            for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
+            {
+                value.push( (() => { 
+                    let cursor = address;
+        
+                    let expressID = stepExtractReference( buffer, cursor, endCursor );
+                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+        
+                    if ( value === void 0 || !( value instanceof IfcReinforcementBarProperties ) )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                    };
+        
+                    return value;
+                })() );
+            }
+
+            if ( value === void 0 )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed' );
+            };
+
+            return value; })();
         }
 
         return this.CrossSectionReinforcementDefinitions_ as Array<IfcReinforcementBarProperties>;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

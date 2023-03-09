@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 import IfcAreaMeasure from "./IfcAreaMeasure.bldrs"
 import IfcReinforcingElement from "./IfcReinforcingElement.bldrs"
@@ -33,18 +33,17 @@ export default  class IfcReinforcingMesh extends IfcReinforcingElement
     private LongitudinalBarSpacing_? : IfcPositiveLengthMeasure;
     private TransverseBarSpacing_? : IfcPositiveLengthMeasure;
 
-
     public get MeshLength() : IfcPositiveLengthMeasure | null
     {
         if ( this.MeshLength_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.MeshLength_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 9 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field MeshLength due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 9;
@@ -55,36 +54,35 @@ export default  class IfcReinforcingMesh extends IfcReinforcingElement
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field MeshLength' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.MeshLength_ = null;                
+                return null;                
             }
             else
             {
-                this.MeshLength_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.MeshLength_ as IfcPositiveLengthMeasure | null;
     }
 
-
     public get MeshWidth() : IfcPositiveLengthMeasure | null
     {
         if ( this.MeshWidth_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.MeshWidth_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 10 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field MeshWidth due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 10;
@@ -95,36 +93,35 @@ export default  class IfcReinforcingMesh extends IfcReinforcingElement
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field MeshWidth' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.MeshWidth_ = null;                
+                return null;                
             }
             else
             {
-                this.MeshWidth_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.MeshWidth_ as IfcPositiveLengthMeasure | null;
     }
 
-
     public get LongitudinalBarNominalDiameter() : IfcPositiveLengthMeasure
     {
         if ( this.LongitudinalBarNominalDiameter_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.LongitudinalBarNominalDiameter_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 11 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field LongitudinalBarNominalDiameter due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 11;
@@ -137,27 +134,26 @@ export default  class IfcReinforcingMesh extends IfcReinforcingElement
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field LongitudinalBarNominalDiameter' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.LongitudinalBarNominalDiameter_ = value;
+            return value; })();
         }
 
         return this.LongitudinalBarNominalDiameter_ as IfcPositiveLengthMeasure;
     }
 
-
     public get TransverseBarNominalDiameter() : IfcPositiveLengthMeasure
     {
         if ( this.TransverseBarNominalDiameter_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.TransverseBarNominalDiameter_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 12 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field TransverseBarNominalDiameter due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 12;
@@ -170,27 +166,26 @@ export default  class IfcReinforcingMesh extends IfcReinforcingElement
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field TransverseBarNominalDiameter' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.TransverseBarNominalDiameter_ = value;
+            return value; })();
         }
 
         return this.TransverseBarNominalDiameter_ as IfcPositiveLengthMeasure;
     }
 
-
     public get LongitudinalBarCrossSectionArea() : IfcAreaMeasure
     {
         if ( this.LongitudinalBarCrossSectionArea_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.LongitudinalBarCrossSectionArea_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 13 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field LongitudinalBarCrossSectionArea due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 13;
@@ -203,27 +198,26 @@ export default  class IfcReinforcingMesh extends IfcReinforcingElement
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field LongitudinalBarCrossSectionArea' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.LongitudinalBarCrossSectionArea_ = value;
+            return value; })();
         }
 
         return this.LongitudinalBarCrossSectionArea_ as IfcAreaMeasure;
     }
 
-
     public get TransverseBarCrossSectionArea() : IfcAreaMeasure
     {
         if ( this.TransverseBarCrossSectionArea_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.TransverseBarCrossSectionArea_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 14 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field TransverseBarCrossSectionArea due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 14;
@@ -236,27 +230,26 @@ export default  class IfcReinforcingMesh extends IfcReinforcingElement
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field TransverseBarCrossSectionArea' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.TransverseBarCrossSectionArea_ = value;
+            return value; })();
         }
 
         return this.TransverseBarCrossSectionArea_ as IfcAreaMeasure;
     }
 
-
     public get LongitudinalBarSpacing() : IfcPositiveLengthMeasure
     {
         if ( this.LongitudinalBarSpacing_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.LongitudinalBarSpacing_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 15 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field LongitudinalBarSpacing due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 15;
@@ -269,27 +262,26 @@ export default  class IfcReinforcingMesh extends IfcReinforcingElement
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field LongitudinalBarSpacing' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.LongitudinalBarSpacing_ = value;
+            return value; })();
         }
 
         return this.LongitudinalBarSpacing_ as IfcPositiveLengthMeasure;
     }
 
-
     public get TransverseBarSpacing() : IfcPositiveLengthMeasure
     {
         if ( this.TransverseBarSpacing_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.TransverseBarSpacing_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 16 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field TransverseBarSpacing due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 16;
@@ -302,16 +294,14 @@ export default  class IfcReinforcingMesh extends IfcReinforcingElement
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field TransverseBarSpacing' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.TransverseBarSpacing_ = value;
+            return value; })();
         }
 
         return this.TransverseBarSpacing_ as IfcPositiveLengthMeasure;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

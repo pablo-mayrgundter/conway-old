@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 import IfcRectangleProfileDef from "./IfcRectangleProfileDef.bldrs"
 
@@ -27,18 +27,17 @@ export default  class IfcRectangleHollowProfileDef extends IfcRectangleProfileDe
     private InnerFilletRadius_? : IfcPositiveLengthMeasure | null;
     private OuterFilletRadius_? : IfcPositiveLengthMeasure | null;
 
-
     public get WallThickness() : IfcPositiveLengthMeasure
     {
         if ( this.WallThickness_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.WallThickness_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 5 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field WallThickness due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 5;
@@ -51,27 +50,26 @@ export default  class IfcRectangleHollowProfileDef extends IfcRectangleProfileDe
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field WallThickness' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.WallThickness_ = value;
+            return value; })();
         }
 
         return this.WallThickness_ as IfcPositiveLengthMeasure;
     }
 
-
     public get InnerFilletRadius() : IfcPositiveLengthMeasure | null
     {
         if ( this.InnerFilletRadius_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.InnerFilletRadius_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 6 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field InnerFilletRadius due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 6;
@@ -82,36 +80,35 @@ export default  class IfcRectangleHollowProfileDef extends IfcRectangleProfileDe
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field InnerFilletRadius' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.InnerFilletRadius_ = null;                
+                return null;                
             }
             else
             {
-                this.InnerFilletRadius_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.InnerFilletRadius_ as IfcPositiveLengthMeasure | null;
     }
 
-
     public get OuterFilletRadius() : IfcPositiveLengthMeasure | null
     {
         if ( this.OuterFilletRadius_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.OuterFilletRadius_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 7 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field OuterFilletRadius due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 7;
@@ -122,25 +119,23 @@ export default  class IfcRectangleHollowProfileDef extends IfcRectangleProfileDe
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field OuterFilletRadius' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.OuterFilletRadius_ = null;                
+                return null;                
             }
             else
             {
-                this.OuterFilletRadius_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.OuterFilletRadius_ as IfcPositiveLengthMeasure | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

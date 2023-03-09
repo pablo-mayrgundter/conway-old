@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 import IfcArbitraryOpenProfileDef from "./IfcArbitraryOpenProfileDef.bldrs"
 
@@ -25,18 +25,17 @@ export default  class IfcCenterLineProfileDef extends IfcArbitraryOpenProfileDef
 
     private Thickness_? : IfcPositiveLengthMeasure;
 
-
     public get Thickness() : IfcPositiveLengthMeasure
     {
         if ( this.Thickness_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Thickness_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 3 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Thickness due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 3;
@@ -49,16 +48,14 @@ export default  class IfcCenterLineProfileDef extends IfcArbitraryOpenProfileDef
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field Thickness' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.Thickness_ = value;
+            return value; })();
         }
 
         return this.Thickness_ as IfcPositiveLengthMeasure;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

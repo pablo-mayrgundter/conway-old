@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcPileTypeEnum, { IfcPileTypeEnumDeserializeStep } from "./IfcPileTypeEnum.bldrs"
 import IfcPileConstructionEnum, { IfcPileConstructionEnumDeserializeStep } from "./IfcPileConstructionEnum.bldrs"
 import IfcBuildingElement from "./IfcBuildingElement.bldrs"
@@ -27,18 +27,17 @@ export default  class IfcPile extends IfcBuildingElement
     private PredefinedType_? : IfcPileTypeEnum;
     private ConstructionType_? : IfcPileConstructionEnum | null;
 
-
     public get PredefinedType() : IfcPileTypeEnum
     {
         if ( this.PredefinedType_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.PredefinedType_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 8 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field PredefinedType due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 8;
@@ -51,27 +50,26 @@ export default  class IfcPile extends IfcBuildingElement
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field PredefinedType' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.PredefinedType_ = value;
+            return value; })();
         }
 
         return this.PredefinedType_ as IfcPileTypeEnum;
     }
 
-
     public get ConstructionType() : IfcPileConstructionEnum | null
     {
         if ( this.ConstructionType_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ConstructionType_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 9 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ConstructionType due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 9;
@@ -82,25 +80,23 @@ export default  class IfcPile extends IfcBuildingElement
 
             let value = IfcPileConstructionEnumDeserializeStep( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field ConstructionType' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.ConstructionType_ = null;                
+                return null;                
             }
             else
             {
-                this.ConstructionType_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.ConstructionType_ as IfcPileConstructionEnum | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

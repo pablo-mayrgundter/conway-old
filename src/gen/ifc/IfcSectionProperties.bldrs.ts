@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcSectionTypeEnum, { IfcSectionTypeEnumDeserializeStep } from "./IfcSectionTypeEnum.bldrs"
 import IfcProfileDef from "./IfcProfileDef.bldrs"
 
@@ -27,18 +27,17 @@ export default  class IfcSectionProperties extends StepEntityBase< EntityTypesIf
     private StartProfile_? : IfcProfileDef;
     private EndProfile_? : IfcProfileDef | null;
 
-
     public get SectionType() : IfcSectionTypeEnum
     {
         if ( this.SectionType_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.SectionType_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 0 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field SectionType due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 0;
@@ -51,38 +50,87 @@ export default  class IfcSectionProperties extends StepEntityBase< EntityTypesIf
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field SectionType' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.SectionType_ = value;
+            return value; })();
         }
 
         return this.SectionType_ as IfcSectionTypeEnum;
     }
 
-
     public get StartProfile() : IfcProfileDef
     {
         if ( this.StartProfile_ === void 0 )
         {
+            this.StartProfile_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 1 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 1;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+
+            if ( value === void 0 || !( value instanceof IfcProfileDef ) )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed for field' );
+            };
+
+            return value; })();
         }
 
         return this.StartProfile_ as IfcProfileDef;
     }
 
-
     public get EndProfile() : IfcProfileDef | null
     {
         if ( this.EndProfile_ === void 0 )
         {
+            this.EndProfile_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 2 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 2;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+
+            if ( value === void 0 || !( value instanceof IfcProfileDef ) )
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
+                }
+
+                return null;                
+            }
+            else
+            {
+                return value;
+            } })();
         }
 
         return this.EndProfile_ as IfcProfileDef | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

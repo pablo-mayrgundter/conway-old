@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcHourInDay from "./IfcHourInDay.bldrs"
 import IfcMinuteInHour from "./IfcMinuteInHour.bldrs"
 import IfcSecondInMinute from "./IfcSecondInMinute.bldrs"
@@ -32,18 +32,17 @@ export default  class IfcLocalTime extends StepEntityBase< EntityTypesIfc >
     private Zone_? : IfcCoordinatedUniversalTimeOffset | null;
     private DaylightSavingOffset_? : IfcDaylightSavingHour | null;
 
-
     public get HourComponent() : IfcHourInDay
     {
         if ( this.HourComponent_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.HourComponent_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 0 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field HourComponent due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 0;
@@ -56,27 +55,26 @@ export default  class IfcLocalTime extends StepEntityBase< EntityTypesIfc >
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field HourComponent' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.HourComponent_ = value;
+            return value; })();
         }
 
         return this.HourComponent_ as IfcHourInDay;
     }
 
-
     public get MinuteComponent() : IfcMinuteInHour | null
     {
         if ( this.MinuteComponent_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.MinuteComponent_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 1 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field MinuteComponent due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 1;
@@ -87,36 +85,35 @@ export default  class IfcLocalTime extends StepEntityBase< EntityTypesIfc >
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field MinuteComponent' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.MinuteComponent_ = null;                
+                return null;                
             }
             else
             {
-                this.MinuteComponent_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.MinuteComponent_ as IfcMinuteInHour | null;
     }
 
-
     public get SecondComponent() : IfcSecondInMinute | null
     {
         if ( this.SecondComponent_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.SecondComponent_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 2 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field SecondComponent due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 2;
@@ -127,47 +124,75 @@ export default  class IfcLocalTime extends StepEntityBase< EntityTypesIfc >
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field SecondComponent' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.SecondComponent_ = null;                
+                return null;                
             }
             else
             {
-                this.SecondComponent_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.SecondComponent_ as IfcSecondInMinute | null;
     }
 
-
     public get Zone() : IfcCoordinatedUniversalTimeOffset | null
     {
         if ( this.Zone_ === void 0 )
         {
+            this.Zone_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 3 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 3;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+
+            if ( value === void 0 || !( value instanceof IfcCoordinatedUniversalTimeOffset ) )
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
+                }
+
+                return null;                
+            }
+            else
+            {
+                return value;
+            } })();
         }
 
         return this.Zone_ as IfcCoordinatedUniversalTimeOffset | null;
     }
 
-
     public get DaylightSavingOffset() : IfcDaylightSavingHour | null
     {
         if ( this.DaylightSavingOffset_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.DaylightSavingOffset_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 4 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field DaylightSavingOffset due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 4;
@@ -178,25 +203,23 @@ export default  class IfcLocalTime extends StepEntityBase< EntityTypesIfc >
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field DaylightSavingOffset' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.DaylightSavingOffset_ = null;                
+                return null;                
             }
             else
             {
-                this.DaylightSavingOffset_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.DaylightSavingOffset_ as IfcDaylightSavingHour | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

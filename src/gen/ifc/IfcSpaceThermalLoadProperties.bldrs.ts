@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
 import IfcThermalLoadSourceEnum, { IfcThermalLoadSourceEnumDeserializeStep } from "./IfcThermalLoadSourceEnum.bldrs"
 import IfcPropertySourceEnum, { IfcPropertySourceEnumDeserializeStep } from "./IfcPropertySourceEnum.bldrs"
@@ -41,18 +41,17 @@ export default  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefini
     private UserDefinedPropertySource_? : IfcLabel | null;
     private ThermalLoadType_? : IfcThermalLoadTypeEnum;
 
-
     public get ApplicableValueRatio() : IfcPositiveRatioMeasure | null
     {
         if ( this.ApplicableValueRatio_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ApplicableValueRatio_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 4 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ApplicableValueRatio due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 4;
@@ -63,36 +62,35 @@ export default  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefini
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field ApplicableValueRatio' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.ApplicableValueRatio_ = null;                
+                return null;                
             }
             else
             {
-                this.ApplicableValueRatio_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.ApplicableValueRatio_ as IfcPositiveRatioMeasure | null;
     }
 
-
     public get ThermalLoadSource() : IfcThermalLoadSourceEnum
     {
         if ( this.ThermalLoadSource_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ThermalLoadSource_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 5 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ThermalLoadSource due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 5;
@@ -105,27 +103,26 @@ export default  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefini
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field ThermalLoadSource' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.ThermalLoadSource_ = value;
+            return value; })();
         }
 
         return this.ThermalLoadSource_ as IfcThermalLoadSourceEnum;
     }
 
-
     public get PropertySource() : IfcPropertySourceEnum
     {
         if ( this.PropertySource_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.PropertySource_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 6 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field PropertySource due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 6;
@@ -138,27 +135,26 @@ export default  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefini
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field PropertySource' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.PropertySource_ = value;
+            return value; })();
         }
 
         return this.PropertySource_ as IfcPropertySourceEnum;
     }
 
-
     public get SourceDescription() : IfcText | null
     {
         if ( this.SourceDescription_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.SourceDescription_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 7 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field SourceDescription due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 7;
@@ -169,36 +165,35 @@ export default  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefini
 
             let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field SourceDescription' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.SourceDescription_ = null;                
+                return null;                
             }
             else
             {
-                this.SourceDescription_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.SourceDescription_ as IfcText | null;
     }
 
-
     public get MaximumValue() : IfcPowerMeasure
     {
         if ( this.MaximumValue_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.MaximumValue_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 8 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field MaximumValue due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 8;
@@ -211,27 +206,26 @@ export default  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefini
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field MaximumValue' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.MaximumValue_ = value;
+            return value; })();
         }
 
         return this.MaximumValue_ as IfcPowerMeasure;
     }
 
-
     public get MinimumValue() : IfcPowerMeasure | null
     {
         if ( this.MinimumValue_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.MinimumValue_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 9 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field MinimumValue due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 9;
@@ -242,47 +236,75 @@ export default  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefini
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field MinimumValue' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.MinimumValue_ = null;                
+                return null;                
             }
             else
             {
-                this.MinimumValue_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.MinimumValue_ as IfcPowerMeasure | null;
     }
 
-
     public get ThermalLoadTimeSeriesValues() : IfcTimeSeries | null
     {
         if ( this.ThermalLoadTimeSeriesValues_ === void 0 )
         {
+            this.ThermalLoadTimeSeriesValues_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 10 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 10;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+
+            if ( value === void 0 || !( value instanceof IfcTimeSeries ) )
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
+                }
+
+                return null;                
+            }
+            else
+            {
+                return value;
+            } })();
         }
 
         return this.ThermalLoadTimeSeriesValues_ as IfcTimeSeries | null;
     }
 
-
     public get UserDefinedThermalLoadSource() : IfcLabel | null
     {
         if ( this.UserDefinedThermalLoadSource_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.UserDefinedThermalLoadSource_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 11 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field UserDefinedThermalLoadSource due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 11;
@@ -293,36 +315,35 @@ export default  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefini
 
             let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field UserDefinedThermalLoadSource' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.UserDefinedThermalLoadSource_ = null;                
+                return null;                
             }
             else
             {
-                this.UserDefinedThermalLoadSource_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.UserDefinedThermalLoadSource_ as IfcLabel | null;
     }
 
-
     public get UserDefinedPropertySource() : IfcLabel | null
     {
         if ( this.UserDefinedPropertySource_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.UserDefinedPropertySource_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 12 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field UserDefinedPropertySource due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 12;
@@ -333,36 +354,35 @@ export default  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefini
 
             let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field UserDefinedPropertySource' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.UserDefinedPropertySource_ = null;                
+                return null;                
             }
             else
             {
-                this.UserDefinedPropertySource_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.UserDefinedPropertySource_ as IfcLabel | null;
     }
 
-
     public get ThermalLoadType() : IfcThermalLoadTypeEnum
     {
         if ( this.ThermalLoadType_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ThermalLoadType_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 13 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ThermalLoadType due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 13;
@@ -375,16 +395,14 @@ export default  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefini
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field ThermalLoadType' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.ThermalLoadType_ = value;
+            return value; })();
         }
 
         return this.ThermalLoadType_ as IfcThermalLoadTypeEnum;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

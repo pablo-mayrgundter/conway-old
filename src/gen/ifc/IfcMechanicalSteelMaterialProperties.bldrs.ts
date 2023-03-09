@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcPressureMeasure from "./IfcPressureMeasure.bldrs"
 import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
 import IfcModulusOfElasticityMeasure from "./IfcModulusOfElasticityMeasure.bldrs"
@@ -34,18 +34,17 @@ export default  class IfcMechanicalSteelMaterialProperties extends IfcMechanical
     private PlasticStrain_? : IfcPositiveRatioMeasure | null;
     private Relaxations_? : Array<IfcRelaxation> | null;
 
-
     public get YieldStress() : IfcPressureMeasure | null
     {
         if ( this.YieldStress_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.YieldStress_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 6 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field YieldStress due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 6;
@@ -56,36 +55,35 @@ export default  class IfcMechanicalSteelMaterialProperties extends IfcMechanical
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field YieldStress' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.YieldStress_ = null;                
+                return null;                
             }
             else
             {
-                this.YieldStress_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.YieldStress_ as IfcPressureMeasure | null;
     }
 
-
     public get UltimateStress() : IfcPressureMeasure | null
     {
         if ( this.UltimateStress_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.UltimateStress_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 7 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field UltimateStress due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 7;
@@ -96,36 +94,35 @@ export default  class IfcMechanicalSteelMaterialProperties extends IfcMechanical
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field UltimateStress' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.UltimateStress_ = null;                
+                return null;                
             }
             else
             {
-                this.UltimateStress_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.UltimateStress_ as IfcPressureMeasure | null;
     }
 
-
     public get UltimateStrain() : IfcPositiveRatioMeasure | null
     {
         if ( this.UltimateStrain_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.UltimateStrain_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 8 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field UltimateStrain due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 8;
@@ -136,36 +133,35 @@ export default  class IfcMechanicalSteelMaterialProperties extends IfcMechanical
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field UltimateStrain' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.UltimateStrain_ = null;                
+                return null;                
             }
             else
             {
-                this.UltimateStrain_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.UltimateStrain_ as IfcPositiveRatioMeasure | null;
     }
 
-
     public get HardeningModule() : IfcModulusOfElasticityMeasure | null
     {
         if ( this.HardeningModule_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.HardeningModule_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 9 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field HardeningModule due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 9;
@@ -176,36 +172,35 @@ export default  class IfcMechanicalSteelMaterialProperties extends IfcMechanical
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field HardeningModule' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.HardeningModule_ = null;                
+                return null;                
             }
             else
             {
-                this.HardeningModule_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.HardeningModule_ as IfcModulusOfElasticityMeasure | null;
     }
 
-
     public get ProportionalStress() : IfcPressureMeasure | null
     {
         if ( this.ProportionalStress_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ProportionalStress_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 10 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ProportionalStress due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 10;
@@ -216,36 +211,35 @@ export default  class IfcMechanicalSteelMaterialProperties extends IfcMechanical
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field ProportionalStress' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.ProportionalStress_ = null;                
+                return null;                
             }
             else
             {
-                this.ProportionalStress_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.ProportionalStress_ as IfcPressureMeasure | null;
     }
 
-
     public get PlasticStrain() : IfcPositiveRatioMeasure | null
     {
         if ( this.PlasticStrain_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.PlasticStrain_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 11 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field PlasticStrain due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 11;
@@ -256,36 +250,79 @@ export default  class IfcMechanicalSteelMaterialProperties extends IfcMechanical
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field PlasticStrain' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.PlasticStrain_ = null;                
+                return null;                
             }
             else
             {
-                this.PlasticStrain_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.PlasticStrain_ as IfcPositiveRatioMeasure | null;
     }
 
-
     public get Relaxations() : Array<IfcRelaxation> | null
     {
         if ( this.Relaxations_ === void 0 )
         {
+            this.Relaxations_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 12 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 12;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value : Array<IfcRelaxation> = [];
+
+            for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
+            {
+                value.push( (() => { 
+                    let cursor = address;
+        
+                    let expressID = stepExtractReference( buffer, cursor, endCursor );
+                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+        
+                    if ( value === void 0 || !( value instanceof IfcRelaxation ) )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                    };
+        
+                    return value;
+                })() );
+            }
+
+            if ( value === void 0 )
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed' );
+                }
+
+                return null;                
+            }
+            else
+            {
+                return value;
+            } })();
         }
 
         return this.Relaxations_ as Array<IfcRelaxation> | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

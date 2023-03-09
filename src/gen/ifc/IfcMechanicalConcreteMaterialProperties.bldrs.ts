@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcPressureMeasure from "./IfcPressureMeasure.bldrs"
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 import IfcText from "./IfcText.bldrs"
@@ -33,18 +33,17 @@ export default  class IfcMechanicalConcreteMaterialProperties extends IfcMechani
     private ProtectivePoreRatio_? : IfcNormalisedRatioMeasure | null;
     private WaterImpermeability_? : IfcText | null;
 
-
     public get CompressiveStrength() : IfcPressureMeasure | null
     {
         if ( this.CompressiveStrength_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.CompressiveStrength_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 6 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field CompressiveStrength due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 6;
@@ -55,36 +54,35 @@ export default  class IfcMechanicalConcreteMaterialProperties extends IfcMechani
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field CompressiveStrength' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.CompressiveStrength_ = null;                
+                return null;                
             }
             else
             {
-                this.CompressiveStrength_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.CompressiveStrength_ as IfcPressureMeasure | null;
     }
 
-
     public get MaxAggregateSize() : IfcPositiveLengthMeasure | null
     {
         if ( this.MaxAggregateSize_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.MaxAggregateSize_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 7 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field MaxAggregateSize due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 7;
@@ -95,36 +93,35 @@ export default  class IfcMechanicalConcreteMaterialProperties extends IfcMechani
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field MaxAggregateSize' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.MaxAggregateSize_ = null;                
+                return null;                
             }
             else
             {
-                this.MaxAggregateSize_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.MaxAggregateSize_ as IfcPositiveLengthMeasure | null;
     }
 
-
     public get AdmixturesDescription() : IfcText | null
     {
         if ( this.AdmixturesDescription_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.AdmixturesDescription_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 8 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field AdmixturesDescription due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 8;
@@ -135,36 +132,35 @@ export default  class IfcMechanicalConcreteMaterialProperties extends IfcMechani
 
             let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field AdmixturesDescription' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.AdmixturesDescription_ = null;                
+                return null;                
             }
             else
             {
-                this.AdmixturesDescription_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.AdmixturesDescription_ as IfcText | null;
     }
 
-
     public get Workability() : IfcText | null
     {
         if ( this.Workability_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Workability_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 9 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Workability due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 9;
@@ -175,36 +171,35 @@ export default  class IfcMechanicalConcreteMaterialProperties extends IfcMechani
 
             let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field Workability' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.Workability_ = null;                
+                return null;                
             }
             else
             {
-                this.Workability_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.Workability_ as IfcText | null;
     }
 
-
     public get ProtectivePoreRatio() : IfcNormalisedRatioMeasure | null
     {
         if ( this.ProtectivePoreRatio_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ProtectivePoreRatio_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 10 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ProtectivePoreRatio due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 10;
@@ -215,36 +210,35 @@ export default  class IfcMechanicalConcreteMaterialProperties extends IfcMechani
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field ProtectivePoreRatio' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.ProtectivePoreRatio_ = null;                
+                return null;                
             }
             else
             {
-                this.ProtectivePoreRatio_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.ProtectivePoreRatio_ as IfcNormalisedRatioMeasure | null;
     }
 
-
     public get WaterImpermeability() : IfcText | null
     {
         if ( this.WaterImpermeability_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.WaterImpermeability_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 11 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field WaterImpermeability due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 11;
@@ -255,25 +249,23 @@ export default  class IfcMechanicalConcreteMaterialProperties extends IfcMechani
 
             let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field WaterImpermeability' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.WaterImpermeability_ = null;                
+                return null;                
             }
             else
             {
-                this.WaterImpermeability_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.WaterImpermeability_ as IfcText | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

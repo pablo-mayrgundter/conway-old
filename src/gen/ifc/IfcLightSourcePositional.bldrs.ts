@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcCartesianPoint from "./IfcCartesianPoint.bldrs"
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 import IfcReal from "./IfcReal.bldrs"
@@ -31,29 +31,50 @@ export default  class IfcLightSourcePositional extends IfcLightSource
     private DistanceAttenuation_? : IfcReal;
     private QuadricAttenuation_? : IfcReal;
 
-
     public get Position() : IfcCartesianPoint
     {
         if ( this.Position_ === void 0 )
         {
+            this.Position_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 4 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 4;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+
+            if ( value === void 0 || !( value instanceof IfcCartesianPoint ) )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed for field' );
+            };
+
+            return value; })();
         }
 
         return this.Position_ as IfcCartesianPoint;
     }
 
-
     public get Radius() : IfcPositiveLengthMeasure
     {
         if ( this.Radius_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Radius_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 5 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Radius due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 5;
@@ -66,27 +87,26 @@ export default  class IfcLightSourcePositional extends IfcLightSource
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field Radius' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.Radius_ = value;
+            return value; })();
         }
 
         return this.Radius_ as IfcPositiveLengthMeasure;
     }
 
-
     public get ConstantAttenuation() : IfcReal
     {
         if ( this.ConstantAttenuation_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ConstantAttenuation_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 6 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ConstantAttenuation due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 6;
@@ -99,27 +119,26 @@ export default  class IfcLightSourcePositional extends IfcLightSource
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field ConstantAttenuation' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.ConstantAttenuation_ = value;
+            return value; })();
         }
 
         return this.ConstantAttenuation_ as IfcReal;
     }
 
-
     public get DistanceAttenuation() : IfcReal
     {
         if ( this.DistanceAttenuation_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.DistanceAttenuation_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 7 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field DistanceAttenuation due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 7;
@@ -132,27 +151,26 @@ export default  class IfcLightSourcePositional extends IfcLightSource
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field DistanceAttenuation' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.DistanceAttenuation_ = value;
+            return value; })();
         }
 
         return this.DistanceAttenuation_ as IfcReal;
     }
 
-
     public get QuadricAttenuation() : IfcReal
     {
         if ( this.QuadricAttenuation_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.QuadricAttenuation_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 8 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field QuadricAttenuation due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 8;
@@ -165,16 +183,14 @@ export default  class IfcLightSourcePositional extends IfcLightSource
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field QuadricAttenuation' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.QuadricAttenuation_ = value;
+            return value; })();
         }
 
         return this.QuadricAttenuation_ as IfcReal;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

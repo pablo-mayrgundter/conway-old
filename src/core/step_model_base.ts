@@ -8,6 +8,7 @@ export default class StepModelBase< EntityTypeIDs extends number, BaseEntity ext
 {
     private readonly vtableBuilder_: StepVtableBuilder = new StepVtableBuilder();
     private readonly expressIDMap_                     = new Map< number, number >();
+    private readonly inlineAddressMap_                 = new Map< number, number >();
     private readonly elementIndex_: StepEntityInternalReferencePrivate< EntityTypeIDs, BaseEntity >[];
 
     /**
@@ -15,19 +16,45 @@ export default class StepModelBase< EntityTypeIDs extends number, BaseEntity ext
      * 
      * @param schema The Step schema this is based on.
      * @param buffer_ The buffer to read this from.
-     * @param elementIndex The element index for this, parsed or deserialized - note this takes ownership of this array in the sense it will modify values etc.
+     * @param elementIndex The element index for this, parsed or deserialized - note this takes ownership of this array in the sense it will modify values/unfold inline elements etc.
      */
     constructor( public readonly schema: StepEntitySchema< EntityTypeIDs, BaseEntity >, private readonly buffer_: Uint8Array, elementIndex: StepIndexEntry< EntityTypeIDs >[] ) 
     {
-        this.elementIndex_ = elementIndex;
+        let localElementIndex: StepEntityInternalReferencePrivate< EntityTypeIDs, BaseEntity >[] = elementIndex;
 
         let indexId = 0;
+        let where   = 0;
+
+        let inlineAddressMap = this.inlineAddressMap_;
+
+        while ( where < localElementIndex.length )
+        {
+            let element = localElementIndex[ where ];
+
+            if ( element.inlineEntities !== void 0 )
+            {
+                let inlineLocalId = localElementIndex.length;
+
+                localElementIndex.push( ...element.inlineEntities );
+
+                // We're going to map inline elements backwards.
+                for ( ; inlineLocalId < localElementIndex.length; ++inlineLocalId )
+                {
+                    inlineAddressMap.set( localElementIndex[ inlineLocalId ].address, inlineLocalId );
+                }
+            }
+        }
 
         // Continguous dense array map from express IDs.
         for ( let element of elementIndex )
         {
-            this.expressIDMap_.set( element.expressID, indexId++ );
+            if ( element.expressID !== void 0 )
+            {
+                this.expressIDMap_.set( element.expressID, indexId++ );
+            }
         }
+        
+        this.elementIndex_ = localElementIndex;
     }
 
     /**
@@ -67,6 +94,23 @@ export default class StepModelBase< EntityTypeIDs extends number, BaseEntity ext
     public get size(): number
     {
         return this.elementIndex_.length;
+    }
+
+    public getInlineElementByAddress( address: number | undefined ): BaseEntity | undefined
+    {
+        if ( address === void 0 )
+        {
+            return;
+        }
+
+        let localID = this.inlineAddressMap_.get( address );
+
+        if ( localID === void 0 )
+        {
+            return;
+        }
+
+        return this.getElementByLocalID( localID );
     }
     
     public getElementByExpressID( expressID: number ): BaseEntity | undefined

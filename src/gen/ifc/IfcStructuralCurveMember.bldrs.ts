@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcStructuralCurveTypeEnum, { IfcStructuralCurveTypeEnumDeserializeStep } from "./IfcStructuralCurveTypeEnum.bldrs"
 import IfcStructuralMember from "./IfcStructuralMember.bldrs"
 
@@ -25,18 +25,17 @@ export default  class IfcStructuralCurveMember extends IfcStructuralMember
 
     private PredefinedType_? : IfcStructuralCurveTypeEnum;
 
-
     public get PredefinedType() : IfcStructuralCurveTypeEnum
     {
         if ( this.PredefinedType_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.PredefinedType_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 7 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field PredefinedType due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 7;
@@ -49,16 +48,14 @@ export default  class IfcStructuralCurveMember extends IfcStructuralMember
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field PredefinedType' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.PredefinedType_ = value;
+            return value; })();
         }
 
         return this.PredefinedType_ as IfcStructuralCurveTypeEnum;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

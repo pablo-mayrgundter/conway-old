@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcPlanarExtent from "./IfcPlanarExtent.bldrs"
 import IfcBoxAlignment from "./IfcBoxAlignment.bldrs"
 import IfcTextLiteral from "./IfcTextLiteral.bldrs"
@@ -27,29 +27,50 @@ export default  class IfcTextLiteralWithExtent extends IfcTextLiteral
     private Extent_? : IfcPlanarExtent;
     private BoxAlignment_? : IfcBoxAlignment;
 
-
     public get Extent() : IfcPlanarExtent
     {
         if ( this.Extent_ === void 0 )
         {
+            this.Extent_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 3 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 3;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+
+            if ( value === void 0 || !( value instanceof IfcPlanarExtent ) )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed for field' );
+            };
+
+            return value; })();
         }
 
         return this.Extent_ as IfcPlanarExtent;
     }
 
-
     public get BoxAlignment() : IfcBoxAlignment
     {
         if ( this.BoxAlignment_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.BoxAlignment_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 4 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field BoxAlignment due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 4;
@@ -62,16 +83,14 @@ export default  class IfcTextLiteralWithExtent extends IfcTextLiteral
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field BoxAlignment' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.BoxAlignment_ = value;
+            return value; })();
         }
 
         return this.BoxAlignment_ as IfcBoxAlignment;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

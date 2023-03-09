@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcCalendarDate from "./IfcCalendarDate.bldrs"
 import IfcLocalTime from "./IfcLocalTime.bldrs"
 import IfcDateAndTime from "./IfcDateAndTime.bldrs"
@@ -124,29 +124,920 @@ export default  class IfcIrregularTimeSeriesValue extends StepEntityBase< Entity
     private TimeStamp_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
     private ListValues_? : Array<IfcVolumeMeasure|IfcTimeMeasure|IfcThermodynamicTemperatureMeasure|IfcSolidAngleMeasure|IfcPositiveRatioMeasure|IfcRatioMeasure|IfcPositivePlaneAngleMeasure|IfcPlaneAngleMeasure|IfcParameterValue|IfcNumericMeasure|IfcMassMeasure|IfcPositiveLengthMeasure|IfcLengthMeasure|IfcElectricCurrentMeasure|IfcDescriptiveMeasure|IfcCountMeasure|IfcContextDependentMeasure|IfcAreaMeasure|IfcAmountOfSubstanceMeasure|IfcLuminousIntensityMeasure|IfcNormalisedRatioMeasure|IfcComplexNumber|IfcInteger|IfcReal|IfcBoolean|IfcIdentifier|IfcText|IfcLabel|IfcLogical|IfcVolumetricFlowRateMeasure|IfcTimeStamp|IfcThermalTransmittanceMeasure|IfcThermalResistanceMeasure|IfcThermalAdmittanceMeasure|IfcPressureMeasure|IfcPowerMeasure|IfcMassFlowRateMeasure|IfcMassDensityMeasure|IfcLinearVelocityMeasure|IfcKinematicViscosityMeasure|IfcIntegerCountRateMeasure|IfcHeatFluxDensityMeasure|IfcFrequencyMeasure|IfcEnergyMeasure|IfcElectricVoltageMeasure|IfcDynamicViscosityMeasure|IfcCompoundPlaneAngleMeasure|IfcAngularVelocityMeasure|IfcThermalConductivityMeasure|IfcMolecularWeightMeasure|IfcVaporPermeabilityMeasure|IfcMoistureDiffusivityMeasure|IfcIsothermalMoistureCapacityMeasure|IfcSpecificHeatCapacityMeasure|IfcMonetaryMeasure|IfcMagneticFluxDensityMeasure|IfcMagneticFluxMeasure|IfcLuminousFluxMeasure|IfcForceMeasure|IfcInductanceMeasure|IfcIlluminanceMeasure|IfcElectricResistanceMeasure|IfcElectricConductanceMeasure|IfcElectricChargeMeasure|IfcDoseEquivalentMeasure|IfcElectricCapacitanceMeasure|IfcAbsorbedDoseMeasure|IfcRadioActivityMeasure|IfcRotationalFrequencyMeasure|IfcTorqueMeasure|IfcAccelerationMeasure|IfcLinearForceMeasure|IfcLinearStiffnessMeasure|IfcModulusOfSubgradeReactionMeasure|IfcModulusOfElasticityMeasure|IfcMomentOfInertiaMeasure|IfcPlanarForceMeasure|IfcRotationalStiffnessMeasure|IfcShearModulusMeasure|IfcLinearMomentMeasure|IfcLuminousIntensityDistributionMeasure|IfcCurvatureMeasure|IfcMassPerLengthMeasure|IfcModulusOfLinearSubgradeReactionMeasure|IfcModulusOfRotationalSubgradeReactionMeasure|IfcRotationalMassMeasure|IfcSectionalAreaIntegralMeasure|IfcSectionModulusMeasure|IfcTemperatureGradientMeasure|IfcThermalExpansionCoefficientMeasure|IfcWarpingConstantMeasure|IfcWarpingMomentMeasure|IfcSoundPowerMeasure|IfcSoundPressureMeasure|IfcHeatingValueMeasure|IfcPHMeasure|IfcIonConcentrationMeasure>;
 
-
     public get TimeStamp() : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
     {
         if ( this.TimeStamp_ === void 0 )
         {
+            this.TimeStamp_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 0 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 0;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value = ( () => { try { 
+                    let expressID = stepExtractReference( buffer, cursor, endCursor );
+                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+        
+                    if ( value === void 0 || !( value instanceof IfcCalendarDate ) )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let expressID = stepExtractReference( buffer, cursor, endCursor );
+                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+        
+                    if ( value === void 0 || !( value instanceof IfcLocalTime ) )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let expressID = stepExtractReference( buffer, cursor, endCursor );
+                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+        
+                    if ( value === void 0 || !( value instanceof IfcDateAndTime ) )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )();
+
+            if ( value === void 0 )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed' );
+            };
+
+            return value; })();
         }
 
         return this.TimeStamp_ as IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
     }
 
-
     public get ListValues() : Array<IfcVolumeMeasure|IfcTimeMeasure|IfcThermodynamicTemperatureMeasure|IfcSolidAngleMeasure|IfcPositiveRatioMeasure|IfcRatioMeasure|IfcPositivePlaneAngleMeasure|IfcPlaneAngleMeasure|IfcParameterValue|IfcNumericMeasure|IfcMassMeasure|IfcPositiveLengthMeasure|IfcLengthMeasure|IfcElectricCurrentMeasure|IfcDescriptiveMeasure|IfcCountMeasure|IfcContextDependentMeasure|IfcAreaMeasure|IfcAmountOfSubstanceMeasure|IfcLuminousIntensityMeasure|IfcNormalisedRatioMeasure|IfcComplexNumber|IfcInteger|IfcReal|IfcBoolean|IfcIdentifier|IfcText|IfcLabel|IfcLogical|IfcVolumetricFlowRateMeasure|IfcTimeStamp|IfcThermalTransmittanceMeasure|IfcThermalResistanceMeasure|IfcThermalAdmittanceMeasure|IfcPressureMeasure|IfcPowerMeasure|IfcMassFlowRateMeasure|IfcMassDensityMeasure|IfcLinearVelocityMeasure|IfcKinematicViscosityMeasure|IfcIntegerCountRateMeasure|IfcHeatFluxDensityMeasure|IfcFrequencyMeasure|IfcEnergyMeasure|IfcElectricVoltageMeasure|IfcDynamicViscosityMeasure|IfcCompoundPlaneAngleMeasure|IfcAngularVelocityMeasure|IfcThermalConductivityMeasure|IfcMolecularWeightMeasure|IfcVaporPermeabilityMeasure|IfcMoistureDiffusivityMeasure|IfcIsothermalMoistureCapacityMeasure|IfcSpecificHeatCapacityMeasure|IfcMonetaryMeasure|IfcMagneticFluxDensityMeasure|IfcMagneticFluxMeasure|IfcLuminousFluxMeasure|IfcForceMeasure|IfcInductanceMeasure|IfcIlluminanceMeasure|IfcElectricResistanceMeasure|IfcElectricConductanceMeasure|IfcElectricChargeMeasure|IfcDoseEquivalentMeasure|IfcElectricCapacitanceMeasure|IfcAbsorbedDoseMeasure|IfcRadioActivityMeasure|IfcRotationalFrequencyMeasure|IfcTorqueMeasure|IfcAccelerationMeasure|IfcLinearForceMeasure|IfcLinearStiffnessMeasure|IfcModulusOfSubgradeReactionMeasure|IfcModulusOfElasticityMeasure|IfcMomentOfInertiaMeasure|IfcPlanarForceMeasure|IfcRotationalStiffnessMeasure|IfcShearModulusMeasure|IfcLinearMomentMeasure|IfcLuminousIntensityDistributionMeasure|IfcCurvatureMeasure|IfcMassPerLengthMeasure|IfcModulusOfLinearSubgradeReactionMeasure|IfcModulusOfRotationalSubgradeReactionMeasure|IfcRotationalMassMeasure|IfcSectionalAreaIntegralMeasure|IfcSectionModulusMeasure|IfcTemperatureGradientMeasure|IfcThermalExpansionCoefficientMeasure|IfcWarpingConstantMeasure|IfcWarpingMomentMeasure|IfcSoundPowerMeasure|IfcSoundPressureMeasure|IfcHeatingValueMeasure|IfcPHMeasure|IfcIonConcentrationMeasure>
     {
         if ( this.ListValues_ === void 0 )
         {
+            this.ListValues_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 1 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 1;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value : Array<IfcVolumeMeasure|IfcTimeMeasure|IfcThermodynamicTemperatureMeasure|IfcSolidAngleMeasure|IfcPositiveRatioMeasure|IfcRatioMeasure|IfcPositivePlaneAngleMeasure|IfcPlaneAngleMeasure|IfcParameterValue|IfcNumericMeasure|IfcMassMeasure|IfcPositiveLengthMeasure|IfcLengthMeasure|IfcElectricCurrentMeasure|IfcDescriptiveMeasure|IfcCountMeasure|IfcContextDependentMeasure|IfcAreaMeasure|IfcAmountOfSubstanceMeasure|IfcLuminousIntensityMeasure|IfcNormalisedRatioMeasure|IfcComplexNumber|IfcInteger|IfcReal|IfcBoolean|IfcIdentifier|IfcText|IfcLabel|IfcLogical|IfcVolumetricFlowRateMeasure|IfcTimeStamp|IfcThermalTransmittanceMeasure|IfcThermalResistanceMeasure|IfcThermalAdmittanceMeasure|IfcPressureMeasure|IfcPowerMeasure|IfcMassFlowRateMeasure|IfcMassDensityMeasure|IfcLinearVelocityMeasure|IfcKinematicViscosityMeasure|IfcIntegerCountRateMeasure|IfcHeatFluxDensityMeasure|IfcFrequencyMeasure|IfcEnergyMeasure|IfcElectricVoltageMeasure|IfcDynamicViscosityMeasure|IfcCompoundPlaneAngleMeasure|IfcAngularVelocityMeasure|IfcThermalConductivityMeasure|IfcMolecularWeightMeasure|IfcVaporPermeabilityMeasure|IfcMoistureDiffusivityMeasure|IfcIsothermalMoistureCapacityMeasure|IfcSpecificHeatCapacityMeasure|IfcMonetaryMeasure|IfcMagneticFluxDensityMeasure|IfcMagneticFluxMeasure|IfcLuminousFluxMeasure|IfcForceMeasure|IfcInductanceMeasure|IfcIlluminanceMeasure|IfcElectricResistanceMeasure|IfcElectricConductanceMeasure|IfcElectricChargeMeasure|IfcDoseEquivalentMeasure|IfcElectricCapacitanceMeasure|IfcAbsorbedDoseMeasure|IfcRadioActivityMeasure|IfcRotationalFrequencyMeasure|IfcTorqueMeasure|IfcAccelerationMeasure|IfcLinearForceMeasure|IfcLinearStiffnessMeasure|IfcModulusOfSubgradeReactionMeasure|IfcModulusOfElasticityMeasure|IfcMomentOfInertiaMeasure|IfcPlanarForceMeasure|IfcRotationalStiffnessMeasure|IfcShearModulusMeasure|IfcLinearMomentMeasure|IfcLuminousIntensityDistributionMeasure|IfcCurvatureMeasure|IfcMassPerLengthMeasure|IfcModulusOfLinearSubgradeReactionMeasure|IfcModulusOfRotationalSubgradeReactionMeasure|IfcRotationalMassMeasure|IfcSectionalAreaIntegralMeasure|IfcSectionModulusMeasure|IfcTemperatureGradientMeasure|IfcThermalExpansionCoefficientMeasure|IfcWarpingConstantMeasure|IfcWarpingMomentMeasure|IfcSoundPowerMeasure|IfcSoundPressureMeasure|IfcHeatingValueMeasure|IfcPHMeasure|IfcIonConcentrationMeasure> = [];
+
+            for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
+            {
+                value.push( (() => { 
+                    let cursor = address;
+        
+                    let value = ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractString( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value : Array<number> = [];
+                        
+                                    for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
+                                    {
+                                        value.push( (() => { 
+                                            let cursor = address;
+                                                
+                                                            let value = stepExtractNumber( buffer, cursor, endCursor );
+                                                
+                                                            if ( value === void 0 )
+                                                            {                
+                                                                throw new Error( 'Value in STEP was incorrectly typed' );
+                                                            };
+                                                
+                                                            return value;
+                                        })() );
+                                    }
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractBoolean( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractString( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractString( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractString( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractBoolean( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value : Array<number> = [];
+                        
+                                    for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
+                                    {
+                                        value.push( (() => { 
+                                            let cursor = address;
+                                                
+                                                            let value = stepExtractNumber( buffer, cursor, endCursor );
+                                                
+                                                            if ( value === void 0 )
+                                                            {                
+                                                                throw new Error( 'Value in STEP was incorrectly typed' );
+                                                            };
+                                                
+                                                            return value;
+                                        })() );
+                                    }
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    let value = stepExtractNumber( buffer, cursor, endCursor );
+                        
+                                    if ( value === void 0 )
+                                    {                
+                                        throw new Error( 'Value in STEP was incorrectly typed' );
+                                    };
+                        
+                                    return value; } catch( e ) { return; } } )();
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value;
+                })() );
+            }
+
+            if ( value === void 0 )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed' );
+            };
+
+            return value; })();
         }
 
         return this.ListValues_ as Array<IfcVolumeMeasure|IfcTimeMeasure|IfcThermodynamicTemperatureMeasure|IfcSolidAngleMeasure|IfcPositiveRatioMeasure|IfcRatioMeasure|IfcPositivePlaneAngleMeasure|IfcPlaneAngleMeasure|IfcParameterValue|IfcNumericMeasure|IfcMassMeasure|IfcPositiveLengthMeasure|IfcLengthMeasure|IfcElectricCurrentMeasure|IfcDescriptiveMeasure|IfcCountMeasure|IfcContextDependentMeasure|IfcAreaMeasure|IfcAmountOfSubstanceMeasure|IfcLuminousIntensityMeasure|IfcNormalisedRatioMeasure|IfcComplexNumber|IfcInteger|IfcReal|IfcBoolean|IfcIdentifier|IfcText|IfcLabel|IfcLogical|IfcVolumetricFlowRateMeasure|IfcTimeStamp|IfcThermalTransmittanceMeasure|IfcThermalResistanceMeasure|IfcThermalAdmittanceMeasure|IfcPressureMeasure|IfcPowerMeasure|IfcMassFlowRateMeasure|IfcMassDensityMeasure|IfcLinearVelocityMeasure|IfcKinematicViscosityMeasure|IfcIntegerCountRateMeasure|IfcHeatFluxDensityMeasure|IfcFrequencyMeasure|IfcEnergyMeasure|IfcElectricVoltageMeasure|IfcDynamicViscosityMeasure|IfcCompoundPlaneAngleMeasure|IfcAngularVelocityMeasure|IfcThermalConductivityMeasure|IfcMolecularWeightMeasure|IfcVaporPermeabilityMeasure|IfcMoistureDiffusivityMeasure|IfcIsothermalMoistureCapacityMeasure|IfcSpecificHeatCapacityMeasure|IfcMonetaryMeasure|IfcMagneticFluxDensityMeasure|IfcMagneticFluxMeasure|IfcLuminousFluxMeasure|IfcForceMeasure|IfcInductanceMeasure|IfcIlluminanceMeasure|IfcElectricResistanceMeasure|IfcElectricConductanceMeasure|IfcElectricChargeMeasure|IfcDoseEquivalentMeasure|IfcElectricCapacitanceMeasure|IfcAbsorbedDoseMeasure|IfcRadioActivityMeasure|IfcRotationalFrequencyMeasure|IfcTorqueMeasure|IfcAccelerationMeasure|IfcLinearForceMeasure|IfcLinearStiffnessMeasure|IfcModulusOfSubgradeReactionMeasure|IfcModulusOfElasticityMeasure|IfcMomentOfInertiaMeasure|IfcPlanarForceMeasure|IfcRotationalStiffnessMeasure|IfcShearModulusMeasure|IfcLinearMomentMeasure|IfcLuminousIntensityDistributionMeasure|IfcCurvatureMeasure|IfcMassPerLengthMeasure|IfcModulusOfLinearSubgradeReactionMeasure|IfcModulusOfRotationalSubgradeReactionMeasure|IfcRotationalMassMeasure|IfcSectionalAreaIntegralMeasure|IfcSectionModulusMeasure|IfcTemperatureGradientMeasure|IfcThermalExpansionCoefficientMeasure|IfcWarpingConstantMeasure|IfcWarpingMomentMeasure|IfcSoundPowerMeasure|IfcSoundPressureMeasure|IfcHeatingValueMeasure|IfcPHMeasure|IfcIonConcentrationMeasure>;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

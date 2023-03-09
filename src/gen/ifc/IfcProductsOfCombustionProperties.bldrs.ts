@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcSpecificHeatCapacityMeasure from "./IfcSpecificHeatCapacityMeasure.bldrs"
 import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
 import IfcMaterialProperties from "./IfcMaterialProperties.bldrs"
@@ -29,18 +29,17 @@ export default  class IfcProductsOfCombustionProperties extends IfcMaterialPrope
     private COContent_? : IfcPositiveRatioMeasure | null;
     private CO2Content_? : IfcPositiveRatioMeasure | null;
 
-
     public get SpecificHeatCapacity() : IfcSpecificHeatCapacityMeasure | null
     {
         if ( this.SpecificHeatCapacity_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.SpecificHeatCapacity_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 1 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field SpecificHeatCapacity due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 1;
@@ -51,36 +50,35 @@ export default  class IfcProductsOfCombustionProperties extends IfcMaterialPrope
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field SpecificHeatCapacity' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.SpecificHeatCapacity_ = null;                
+                return null;                
             }
             else
             {
-                this.SpecificHeatCapacity_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.SpecificHeatCapacity_ as IfcSpecificHeatCapacityMeasure | null;
     }
 
-
     public get N20Content() : IfcPositiveRatioMeasure | null
     {
         if ( this.N20Content_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.N20Content_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 2 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field N20Content due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 2;
@@ -91,36 +89,35 @@ export default  class IfcProductsOfCombustionProperties extends IfcMaterialPrope
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field N20Content' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.N20Content_ = null;                
+                return null;                
             }
             else
             {
-                this.N20Content_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.N20Content_ as IfcPositiveRatioMeasure | null;
     }
 
-
     public get COContent() : IfcPositiveRatioMeasure | null
     {
         if ( this.COContent_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.COContent_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 3 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field COContent due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 3;
@@ -131,36 +128,35 @@ export default  class IfcProductsOfCombustionProperties extends IfcMaterialPrope
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field COContent' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.COContent_ = null;                
+                return null;                
             }
             else
             {
-                this.COContent_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.COContent_ as IfcPositiveRatioMeasure | null;
     }
 
-
     public get CO2Content() : IfcPositiveRatioMeasure | null
     {
         if ( this.CO2Content_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.CO2Content_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 4 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field CO2Content due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 4;
@@ -171,25 +167,23 @@ export default  class IfcProductsOfCombustionProperties extends IfcMaterialPrope
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field CO2Content' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.CO2Content_ = null;                
+                return null;                
             }
             else
             {
-                this.CO2Content_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.CO2Content_ as IfcPositiveRatioMeasure | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

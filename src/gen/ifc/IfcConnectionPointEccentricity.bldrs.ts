@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 import IfcConnectionPointGeometry from "./IfcConnectionPointGeometry.bldrs"
 
@@ -27,18 +27,17 @@ export default  class IfcConnectionPointEccentricity extends IfcConnectionPointG
     private EccentricityInY_? : IfcLengthMeasure | null;
     private EccentricityInZ_? : IfcLengthMeasure | null;
 
-
     public get EccentricityInX() : IfcLengthMeasure | null
     {
         if ( this.EccentricityInX_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.EccentricityInX_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 2 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field EccentricityInX due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 2;
@@ -49,36 +48,35 @@ export default  class IfcConnectionPointEccentricity extends IfcConnectionPointG
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field EccentricityInX' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.EccentricityInX_ = null;                
+                return null;                
             }
             else
             {
-                this.EccentricityInX_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.EccentricityInX_ as IfcLengthMeasure | null;
     }
 
-
     public get EccentricityInY() : IfcLengthMeasure | null
     {
         if ( this.EccentricityInY_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.EccentricityInY_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 3 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field EccentricityInY due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 3;
@@ -89,36 +87,35 @@ export default  class IfcConnectionPointEccentricity extends IfcConnectionPointG
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field EccentricityInY' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.EccentricityInY_ = null;                
+                return null;                
             }
             else
             {
-                this.EccentricityInY_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.EccentricityInY_ as IfcLengthMeasure | null;
     }
 
-
     public get EccentricityInZ() : IfcLengthMeasure | null
     {
         if ( this.EccentricityInZ_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.EccentricityInZ_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 4 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field EccentricityInZ due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 4;
@@ -129,25 +126,23 @@ export default  class IfcConnectionPointEccentricity extends IfcConnectionPointG
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field EccentricityInZ' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.EccentricityInZ_ = null;                
+                return null;                
             }
             else
             {
-                this.EccentricityInZ_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.EccentricityInZ_ as IfcLengthMeasure | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

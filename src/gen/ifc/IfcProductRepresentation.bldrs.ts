@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcText from "./IfcText.bldrs"
 import IfcRepresentation from "./IfcRepresentation.bldrs"
@@ -28,18 +28,17 @@ export default  class IfcProductRepresentation extends StepEntityBase< EntityTyp
     private Description_? : IfcText | null;
     private Representations_? : Array<IfcRepresentation>;
 
-
     public get Name() : IfcLabel | null
     {
         if ( this.Name_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Name_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 0 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Name due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 0;
@@ -50,36 +49,35 @@ export default  class IfcProductRepresentation extends StepEntityBase< EntityTyp
 
             let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field Name' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.Name_ = null;                
+                return null;                
             }
             else
             {
-                this.Name_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.Name_ as IfcLabel | null;
     }
 
-
     public get Description() : IfcText | null
     {
         if ( this.Description_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Description_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 1 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Description due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 1;
@@ -90,36 +88,72 @@ export default  class IfcProductRepresentation extends StepEntityBase< EntityTyp
 
             let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field Description' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.Description_ = null;                
+                return null;                
             }
             else
             {
-                this.Description_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.Description_ as IfcText | null;
     }
 
-
     public get Representations() : Array<IfcRepresentation>
     {
         if ( this.Representations_ === void 0 )
         {
+            this.Representations_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 2 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 2;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value : Array<IfcRepresentation> = [];
+
+            for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
+            {
+                value.push( (() => { 
+                    let cursor = address;
+        
+                    let expressID = stepExtractReference( buffer, cursor, endCursor );
+                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+        
+                    if ( value === void 0 || !( value instanceof IfcRepresentation ) )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                    };
+        
+                    return value;
+                })() );
+            }
+
+            if ( value === void 0 )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed' );
+            };
+
+            return value; })();
         }
 
         return this.Representations_ as Array<IfcRepresentation>;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

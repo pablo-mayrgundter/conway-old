@@ -1,8 +1,8 @@
-import { StepIndexEntry } from "../../dependencies/conway-ds/src/parsing/step/step_parser";
+import { StepIndexEntry, StepIndexEntryBase } from "../../dependencies/conway-ds/src/parsing/step/step_parser";
 import StepVtableBuilder, { IndexMark } from "../../dependencies/conway-ds/src/parsing/step/step_vtable_builder";
 import StepEntityBase from "./step_entity_base";
 
-export default interface StepEntityInternalReference< EntityTypeIDs extends number > extends StepIndexEntry< EntityTypeIDs >
+export default interface StepEntityInternalReference< EntityTypeIDs extends number > extends StepIndexEntryBase< EntityTypeIDs >
 {    
     vtableIndex?: IndexMark;
     vtableCount?: number;

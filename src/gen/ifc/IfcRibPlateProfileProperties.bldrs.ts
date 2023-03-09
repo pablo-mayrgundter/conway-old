@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 import IfcRibPlateDirectionEnum, { IfcRibPlateDirectionEnumDeserializeStep } from "./IfcRibPlateDirectionEnum.bldrs"
 import IfcProfileProperties from "./IfcProfileProperties.bldrs"
@@ -30,18 +30,17 @@ export default  class IfcRibPlateProfileProperties extends IfcProfileProperties
     private RibSpacing_? : IfcPositiveLengthMeasure | null;
     private Direction_? : IfcRibPlateDirectionEnum;
 
-
     public get Thickness() : IfcPositiveLengthMeasure | null
     {
         if ( this.Thickness_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Thickness_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 2 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Thickness due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 2;
@@ -52,36 +51,35 @@ export default  class IfcRibPlateProfileProperties extends IfcProfileProperties
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field Thickness' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.Thickness_ = null;                
+                return null;                
             }
             else
             {
-                this.Thickness_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.Thickness_ as IfcPositiveLengthMeasure | null;
     }
 
-
     public get RibHeight() : IfcPositiveLengthMeasure | null
     {
         if ( this.RibHeight_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.RibHeight_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 3 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field RibHeight due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 3;
@@ -92,36 +90,35 @@ export default  class IfcRibPlateProfileProperties extends IfcProfileProperties
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field RibHeight' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.RibHeight_ = null;                
+                return null;                
             }
             else
             {
-                this.RibHeight_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.RibHeight_ as IfcPositiveLengthMeasure | null;
     }
 
-
     public get RibWidth() : IfcPositiveLengthMeasure | null
     {
         if ( this.RibWidth_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.RibWidth_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 4 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field RibWidth due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 4;
@@ -132,36 +129,35 @@ export default  class IfcRibPlateProfileProperties extends IfcProfileProperties
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field RibWidth' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.RibWidth_ = null;                
+                return null;                
             }
             else
             {
-                this.RibWidth_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.RibWidth_ as IfcPositiveLengthMeasure | null;
     }
 
-
     public get RibSpacing() : IfcPositiveLengthMeasure | null
     {
         if ( this.RibSpacing_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.RibSpacing_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 5 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field RibSpacing due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 5;
@@ -172,36 +168,35 @@ export default  class IfcRibPlateProfileProperties extends IfcProfileProperties
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field RibSpacing' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.RibSpacing_ = null;                
+                return null;                
             }
             else
             {
-                this.RibSpacing_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.RibSpacing_ as IfcPositiveLengthMeasure | null;
     }
 
-
     public get Direction() : IfcRibPlateDirectionEnum
     {
         if ( this.Direction_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Direction_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 6 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Direction due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 6;
@@ -214,16 +209,14 @@ export default  class IfcRibPlateProfileProperties extends IfcProfileProperties
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field Direction' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.Direction_ = value;
+            return value; })();
         }
 
         return this.Direction_ as IfcRibPlateDirectionEnum;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

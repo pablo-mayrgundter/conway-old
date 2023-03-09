@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcIdentifier from "./IfcIdentifier.bldrs"
 import IfcCalendarDate from "./IfcCalendarDate.bldrs"
 import IfcLocalTime from "./IfcLocalTime.bldrs"
@@ -41,18 +41,17 @@ export default abstract class IfcWorkControl extends IfcControl
     private WorkControlType_? : IfcWorkControlTypeEnum | null;
     private UserDefinedControlType_? : IfcLabel | null;
 
-
     public get Identifier() : IfcIdentifier
     {
         if ( this.Identifier_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Identifier_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 5 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Identifier due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 5;
@@ -65,49 +64,141 @@ export default abstract class IfcWorkControl extends IfcControl
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field Identifier' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.Identifier_ = value;
+            return value; })();
         }
 
         return this.Identifier_ as IfcIdentifier;
     }
 
-
     public get CreationDate() : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
     {
         if ( this.CreationDate_ === void 0 )
         {
+            this.CreationDate_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 6 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 6;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value = ( () => { try { 
+                    let expressID = stepExtractReference( buffer, cursor, endCursor );
+                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+        
+                    if ( value === void 0 || !( value instanceof IfcCalendarDate ) )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let expressID = stepExtractReference( buffer, cursor, endCursor );
+                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+        
+                    if ( value === void 0 || !( value instanceof IfcLocalTime ) )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let expressID = stepExtractReference( buffer, cursor, endCursor );
+                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+        
+                    if ( value === void 0 || !( value instanceof IfcDateAndTime ) )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )();
+
+            if ( value === void 0 )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed' );
+            };
+
+            return value; })();
         }
 
         return this.CreationDate_ as IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
     }
 
-
     public get Creators() : Array<IfcPerson> | null
     {
         if ( this.Creators_ === void 0 )
         {
+            this.Creators_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 7 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 7;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value : Array<IfcPerson> = [];
+
+            for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
+            {
+                value.push( (() => { 
+                    let cursor = address;
+        
+                    let expressID = stepExtractReference( buffer, cursor, endCursor );
+                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+        
+                    if ( value === void 0 || !( value instanceof IfcPerson ) )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                    };
+        
+                    return value;
+                })() );
+            }
+
+            if ( value === void 0 )
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed' );
+                }
+
+                return null;                
+            }
+            else
+            {
+                return value;
+            } })();
         }
 
         return this.Creators_ as Array<IfcPerson> | null;
     }
 
-
     public get Purpose() : IfcLabel | null
     {
         if ( this.Purpose_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Purpose_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 8 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Purpose due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 8;
@@ -118,36 +209,35 @@ export default abstract class IfcWorkControl extends IfcControl
 
             let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field Purpose' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.Purpose_ = null;                
+                return null;                
             }
             else
             {
-                this.Purpose_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.Purpose_ as IfcLabel | null;
     }
 
-
     public get Duration() : IfcTimeMeasure | null
     {
         if ( this.Duration_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Duration_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 9 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Duration due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 9;
@@ -158,36 +248,35 @@ export default abstract class IfcWorkControl extends IfcControl
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field Duration' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.Duration_ = null;                
+                return null;                
             }
             else
             {
-                this.Duration_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.Duration_ as IfcTimeMeasure | null;
     }
 
-
     public get TotalFloat() : IfcTimeMeasure | null
     {
         if ( this.TotalFloat_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.TotalFloat_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 10 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field TotalFloat due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 10;
@@ -198,58 +287,160 @@ export default abstract class IfcWorkControl extends IfcControl
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field TotalFloat' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.TotalFloat_ = null;                
+                return null;                
             }
             else
             {
-                this.TotalFloat_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.TotalFloat_ as IfcTimeMeasure | null;
     }
 
-
     public get StartTime() : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
     {
         if ( this.StartTime_ === void 0 )
         {
+            this.StartTime_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 11 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 11;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value = ( () => { try { 
+                    let expressID = stepExtractReference( buffer, cursor, endCursor );
+                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+        
+                    if ( value === void 0 || !( value instanceof IfcCalendarDate ) )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let expressID = stepExtractReference( buffer, cursor, endCursor );
+                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+        
+                    if ( value === void 0 || !( value instanceof IfcLocalTime ) )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let expressID = stepExtractReference( buffer, cursor, endCursor );
+                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+        
+                    if ( value === void 0 || !( value instanceof IfcDateAndTime ) )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )();
+
+            if ( value === void 0 )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed' );
+            };
+
+            return value; })();
         }
 
         return this.StartTime_ as IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
     }
 
-
     public get FinishTime() : IfcCalendarDate|IfcLocalTime|IfcDateAndTime | null
     {
         if ( this.FinishTime_ === void 0 )
         {
+            this.FinishTime_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 12 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 12;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value = ( () => { try { 
+                    let expressID = stepExtractReference( buffer, cursor, endCursor );
+                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+        
+                    if ( value === void 0 || !( value instanceof IfcCalendarDate ) )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let expressID = stepExtractReference( buffer, cursor, endCursor );
+                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+        
+                    if ( value === void 0 || !( value instanceof IfcLocalTime ) )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let expressID = stepExtractReference( buffer, cursor, endCursor );
+                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+        
+                    if ( value === void 0 || !( value instanceof IfcDateAndTime ) )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )();
+
+            if ( value === void 0 )
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed' );
+                }
+
+                return null;                
+            }
+            else
+            {
+                return value;
+            } })();
         }
 
         return this.FinishTime_ as IfcCalendarDate|IfcLocalTime|IfcDateAndTime | null;
     }
 
-
     public get WorkControlType() : IfcWorkControlTypeEnum | null
     {
         if ( this.WorkControlType_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.WorkControlType_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 13 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field WorkControlType due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 13;
@@ -260,36 +451,35 @@ export default abstract class IfcWorkControl extends IfcControl
 
             let value = IfcWorkControlTypeEnumDeserializeStep( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field WorkControlType' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.WorkControlType_ = null;                
+                return null;                
             }
             else
             {
-                this.WorkControlType_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.WorkControlType_ as IfcWorkControlTypeEnum | null;
     }
 
-
     public get UserDefinedControlType() : IfcLabel | null
     {
         if ( this.UserDefinedControlType_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.UserDefinedControlType_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 14 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field UserDefinedControlType due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 14;
@@ -300,25 +490,23 @@ export default abstract class IfcWorkControl extends IfcControl
 
             let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field UserDefinedControlType' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.UserDefinedControlType_ = null;                
+                return null;                
             }
             else
             {
-                this.UserDefinedControlType_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.UserDefinedControlType_ as IfcLabel | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

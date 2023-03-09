@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcElectricDistributionPointFunctionEnum, { IfcElectricDistributionPointFunctionEnumDeserializeStep } from "./IfcElectricDistributionPointFunctionEnum.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcFlowController from "./IfcFlowController.bldrs"
@@ -27,18 +27,17 @@ export default  class IfcElectricDistributionPoint extends IfcFlowController
     private DistributionPointFunction_? : IfcElectricDistributionPointFunctionEnum;
     private UserDefinedFunction_? : IfcLabel | null;
 
-
     public get DistributionPointFunction() : IfcElectricDistributionPointFunctionEnum
     {
         if ( this.DistributionPointFunction_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.DistributionPointFunction_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 8 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field DistributionPointFunction due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 8;
@@ -51,27 +50,26 @@ export default  class IfcElectricDistributionPoint extends IfcFlowController
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field DistributionPointFunction' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.DistributionPointFunction_ = value;
+            return value; })();
         }
 
         return this.DistributionPointFunction_ as IfcElectricDistributionPointFunctionEnum;
     }
 
-
     public get UserDefinedFunction() : IfcLabel | null
     {
         if ( this.UserDefinedFunction_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.UserDefinedFunction_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 9 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field UserDefinedFunction due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 9;
@@ -82,25 +80,23 @@ export default  class IfcElectricDistributionPoint extends IfcFlowController
 
             let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field UserDefinedFunction' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.UserDefinedFunction_ = null;                
+                return null;                
             }
             else
             {
-                this.UserDefinedFunction_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.UserDefinedFunction_ as IfcLabel | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

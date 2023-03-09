@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcText from "./IfcText.bldrs"
 import IfcAppliedValue from "./IfcAppliedValue.bldrs"
@@ -27,18 +27,17 @@ export default  class IfcCostValue extends IfcAppliedValue
     private CostType_? : IfcLabel;
     private Condition_? : IfcText | null;
 
-
     public get CostType() : IfcLabel
     {
         if ( this.CostType_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.CostType_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 6 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field CostType due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 6;
@@ -51,27 +50,26 @@ export default  class IfcCostValue extends IfcAppliedValue
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field CostType' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.CostType_ = value;
+            return value; })();
         }
 
         return this.CostType_ as IfcLabel;
     }
 
-
     public get Condition() : IfcText | null
     {
         if ( this.Condition_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Condition_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 7 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Condition due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 7;
@@ -82,25 +80,23 @@ export default  class IfcCostValue extends IfcAppliedValue
 
             let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field Condition' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.Condition_ = null;                
+                return null;                
             }
             else
             {
-                this.Condition_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.Condition_ as IfcText | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

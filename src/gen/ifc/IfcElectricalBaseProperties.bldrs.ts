@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcElectricCurrentEnum, { IfcElectricCurrentEnumDeserializeStep } from "./IfcElectricCurrentEnum.bldrs"
 import IfcElectricVoltageMeasure from "./IfcElectricVoltageMeasure.bldrs"
 import IfcFrequencyMeasure from "./IfcFrequencyMeasure.bldrs"
@@ -36,18 +36,17 @@ export default  class IfcElectricalBaseProperties extends IfcEnergyProperties
     private RatedPowerInput_? : IfcPowerMeasure | null;
     private InputPhase_? : number;
 
-
     public get ElectricCurrentType() : IfcElectricCurrentEnum | null
     {
         if ( this.ElectricCurrentType_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ElectricCurrentType_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 6 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ElectricCurrentType due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 6;
@@ -58,36 +57,35 @@ export default  class IfcElectricalBaseProperties extends IfcEnergyProperties
 
             let value = IfcElectricCurrentEnumDeserializeStep( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field ElectricCurrentType' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.ElectricCurrentType_ = null;                
+                return null;                
             }
             else
             {
-                this.ElectricCurrentType_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.ElectricCurrentType_ as IfcElectricCurrentEnum | null;
     }
 
-
     public get InputVoltage() : IfcElectricVoltageMeasure
     {
         if ( this.InputVoltage_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.InputVoltage_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 7 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field InputVoltage due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 7;
@@ -100,27 +98,26 @@ export default  class IfcElectricalBaseProperties extends IfcEnergyProperties
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field InputVoltage' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.InputVoltage_ = value;
+            return value; })();
         }
 
         return this.InputVoltage_ as IfcElectricVoltageMeasure;
     }
 
-
     public get InputFrequency() : IfcFrequencyMeasure
     {
         if ( this.InputFrequency_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.InputFrequency_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 8 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field InputFrequency due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 8;
@@ -133,27 +130,26 @@ export default  class IfcElectricalBaseProperties extends IfcEnergyProperties
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field InputFrequency' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.InputFrequency_ = value;
+            return value; })();
         }
 
         return this.InputFrequency_ as IfcFrequencyMeasure;
     }
 
-
     public get FullLoadCurrent() : IfcElectricCurrentMeasure | null
     {
         if ( this.FullLoadCurrent_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.FullLoadCurrent_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 9 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field FullLoadCurrent due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 9;
@@ -164,36 +160,35 @@ export default  class IfcElectricalBaseProperties extends IfcEnergyProperties
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field FullLoadCurrent' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.FullLoadCurrent_ = null;                
+                return null;                
             }
             else
             {
-                this.FullLoadCurrent_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.FullLoadCurrent_ as IfcElectricCurrentMeasure | null;
     }
 
-
     public get MinimumCircuitCurrent() : IfcElectricCurrentMeasure | null
     {
         if ( this.MinimumCircuitCurrent_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.MinimumCircuitCurrent_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 10 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field MinimumCircuitCurrent due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 10;
@@ -204,36 +199,35 @@ export default  class IfcElectricalBaseProperties extends IfcEnergyProperties
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field MinimumCircuitCurrent' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.MinimumCircuitCurrent_ = null;                
+                return null;                
             }
             else
             {
-                this.MinimumCircuitCurrent_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.MinimumCircuitCurrent_ as IfcElectricCurrentMeasure | null;
     }
 
-
     public get MaximumPowerInput() : IfcPowerMeasure | null
     {
         if ( this.MaximumPowerInput_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.MaximumPowerInput_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 11 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field MaximumPowerInput due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 11;
@@ -244,36 +238,35 @@ export default  class IfcElectricalBaseProperties extends IfcEnergyProperties
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field MaximumPowerInput' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.MaximumPowerInput_ = null;                
+                return null;                
             }
             else
             {
-                this.MaximumPowerInput_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.MaximumPowerInput_ as IfcPowerMeasure | null;
     }
 
-
     public get RatedPowerInput() : IfcPowerMeasure | null
     {
         if ( this.RatedPowerInput_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.RatedPowerInput_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 12 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field RatedPowerInput due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 12;
@@ -284,36 +277,35 @@ export default  class IfcElectricalBaseProperties extends IfcEnergyProperties
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field RatedPowerInput' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.RatedPowerInput_ = null;                
+                return null;                
             }
             else
             {
-                this.RatedPowerInput_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.RatedPowerInput_ as IfcPowerMeasure | null;
     }
 
-
     public get InputPhase() : number
     {
         if ( this.InputPhase_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.InputPhase_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 13 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field InputPhase due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 13;
@@ -326,16 +318,14 @@ export default  class IfcElectricalBaseProperties extends IfcEnergyProperties
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field InputPhase' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.InputPhase_ = value;
+            return value; })();
         }
 
         return this.InputPhase_ as number;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

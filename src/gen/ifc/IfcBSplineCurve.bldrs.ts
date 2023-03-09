@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcCartesianPoint from "./IfcCartesianPoint.bldrs"
 import IfcBSplineCurveForm, { IfcBSplineCurveFormDeserializeStep } from "./IfcBSplineCurveForm.bldrs"
 import IfcBoundedCurve from "./IfcBoundedCurve.bldrs"
@@ -30,18 +30,17 @@ export default abstract class IfcBSplineCurve extends IfcBoundedCurve
     private ClosedCurve_? : boolean;
     private SelfIntersect_? : boolean;
 
-
     public get Degree() : number
     {
         if ( this.Degree_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Degree_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 0 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Degree due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 0;
@@ -54,38 +53,75 @@ export default abstract class IfcBSplineCurve extends IfcBoundedCurve
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field Degree' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.Degree_ = value;
+            return value; })();
         }
 
         return this.Degree_ as number;
     }
 
-
     public get ControlPointsList() : Array<IfcCartesianPoint>
     {
         if ( this.ControlPointsList_ === void 0 )
         {
+            this.ControlPointsList_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 1 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 1;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value : Array<IfcCartesianPoint> = [];
+
+            for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
+            {
+                value.push( (() => { 
+                    let cursor = address;
+        
+                    let expressID = stepExtractReference( buffer, cursor, endCursor );
+                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+        
+                    if ( value === void 0 || !( value instanceof IfcCartesianPoint ) )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                    };
+        
+                    return value;
+                })() );
+            }
+
+            if ( value === void 0 )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed' );
+            };
+
+            return value; })();
         }
 
         return this.ControlPointsList_ as Array<IfcCartesianPoint>;
     }
 
-
     public get CurveForm() : IfcBSplineCurveForm
     {
         if ( this.CurveForm_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.CurveForm_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 2 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field CurveForm due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 2;
@@ -98,27 +134,26 @@ export default abstract class IfcBSplineCurve extends IfcBoundedCurve
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field CurveForm' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.CurveForm_ = value;
+            return value; })();
         }
 
         return this.CurveForm_ as IfcBSplineCurveForm;
     }
 
-
     public get ClosedCurve() : boolean
     {
         if ( this.ClosedCurve_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ClosedCurve_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 3 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ClosedCurve due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 3;
@@ -131,27 +166,26 @@ export default abstract class IfcBSplineCurve extends IfcBoundedCurve
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field ClosedCurve' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.ClosedCurve_ = value;
+            return value; })();
         }
 
         return this.ClosedCurve_ as boolean;
     }
 
-
     public get SelfIntersect() : boolean
     {
         if ( this.SelfIntersect_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.SelfIntersect_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 4 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field SelfIntersect due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 4;
@@ -164,18 +198,14 @@ export default abstract class IfcBSplineCurve extends IfcBoundedCurve
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field SelfIntersect' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.SelfIntersect_ = value;
+            return value; })();
         }
 
         return this.SelfIntersect_ as boolean;
     }
-
-
-
-
 
 
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )

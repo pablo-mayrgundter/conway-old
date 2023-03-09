@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcAreaMeasure from "./IfcAreaMeasure.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcReinforcingBarSurfaceEnum, { IfcReinforcingBarSurfaceEnumDeserializeStep } from "./IfcReinforcingBarSurfaceEnum.bldrs"
@@ -34,18 +34,17 @@ export default  class IfcReinforcementBarProperties extends StepEntityBase< Enti
     private NominalBarDiameter_? : IfcPositiveLengthMeasure | null;
     private BarCount_? : IfcCountMeasure | null;
 
-
     public get TotalCrossSectionArea() : IfcAreaMeasure
     {
         if ( this.TotalCrossSectionArea_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.TotalCrossSectionArea_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 0 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field TotalCrossSectionArea due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 0;
@@ -58,27 +57,26 @@ export default  class IfcReinforcementBarProperties extends StepEntityBase< Enti
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field TotalCrossSectionArea' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.TotalCrossSectionArea_ = value;
+            return value; })();
         }
 
         return this.TotalCrossSectionArea_ as IfcAreaMeasure;
     }
 
-
     public get SteelGrade() : IfcLabel
     {
         if ( this.SteelGrade_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.SteelGrade_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 1 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field SteelGrade due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 1;
@@ -91,27 +89,26 @@ export default  class IfcReinforcementBarProperties extends StepEntityBase< Enti
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field SteelGrade' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.SteelGrade_ = value;
+            return value; })();
         }
 
         return this.SteelGrade_ as IfcLabel;
     }
 
-
     public get BarSurface() : IfcReinforcingBarSurfaceEnum | null
     {
         if ( this.BarSurface_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.BarSurface_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 2 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field BarSurface due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 2;
@@ -122,36 +119,35 @@ export default  class IfcReinforcementBarProperties extends StepEntityBase< Enti
 
             let value = IfcReinforcingBarSurfaceEnumDeserializeStep( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field BarSurface' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.BarSurface_ = null;                
+                return null;                
             }
             else
             {
-                this.BarSurface_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.BarSurface_ as IfcReinforcingBarSurfaceEnum | null;
     }
 
-
     public get EffectiveDepth() : IfcLengthMeasure | null
     {
         if ( this.EffectiveDepth_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.EffectiveDepth_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 3 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field EffectiveDepth due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 3;
@@ -162,36 +158,35 @@ export default  class IfcReinforcementBarProperties extends StepEntityBase< Enti
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field EffectiveDepth' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.EffectiveDepth_ = null;                
+                return null;                
             }
             else
             {
-                this.EffectiveDepth_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.EffectiveDepth_ as IfcLengthMeasure | null;
     }
 
-
     public get NominalBarDiameter() : IfcPositiveLengthMeasure | null
     {
         if ( this.NominalBarDiameter_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.NominalBarDiameter_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 4 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field NominalBarDiameter due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 4;
@@ -202,36 +197,35 @@ export default  class IfcReinforcementBarProperties extends StepEntityBase< Enti
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field NominalBarDiameter' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.NominalBarDiameter_ = null;                
+                return null;                
             }
             else
             {
-                this.NominalBarDiameter_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.NominalBarDiameter_ as IfcPositiveLengthMeasure | null;
     }
 
-
     public get BarCount() : IfcCountMeasure | null
     {
         if ( this.BarCount_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.BarCount_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 5 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field BarCount due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 5;
@@ -242,25 +236,23 @@ export default  class IfcReinforcementBarProperties extends StepEntityBase< Enti
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field BarCount' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.BarCount_ = null;                
+                return null;                
             }
             else
             {
-                this.BarCount_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.BarCount_ as IfcCountMeasure | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

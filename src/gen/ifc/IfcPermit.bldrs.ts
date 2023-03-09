@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcIdentifier from "./IfcIdentifier.bldrs"
 import IfcControl from "./IfcControl.bldrs"
 
@@ -25,18 +25,17 @@ export default  class IfcPermit extends IfcControl
 
     private PermitID_? : IfcIdentifier;
 
-
     public get PermitID() : IfcIdentifier
     {
         if ( this.PermitID_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.PermitID_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 5 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field PermitID due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 5;
@@ -49,16 +48,14 @@ export default  class IfcPermit extends IfcControl
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field PermitID' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.PermitID_ = value;
+            return value; })();
         }
 
         return this.PermitID_ as IfcIdentifier;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

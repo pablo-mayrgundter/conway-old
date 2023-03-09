@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcDirection from "./IfcDirection.bldrs"
 import IfcReal from "./IfcReal.bldrs"
 import IfcPositivePlaneAngleMeasure from "./IfcPositivePlaneAngleMeasure.bldrs"
@@ -30,29 +30,50 @@ export default  class IfcLightSourceSpot extends IfcLightSourcePositional
     private SpreadAngle_? : IfcPositivePlaneAngleMeasure;
     private BeamWidthAngle_? : IfcPositivePlaneAngleMeasure;
 
-
     public get Orientation() : IfcDirection
     {
         if ( this.Orientation_ === void 0 )
         {
+            this.Orientation_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 9 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 9;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+
+            if ( value === void 0 || !( value instanceof IfcDirection ) )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed for field' );
+            };
+
+            return value; })();
         }
 
         return this.Orientation_ as IfcDirection;
     }
 
-
     public get ConcentrationExponent() : IfcReal | null
     {
         if ( this.ConcentrationExponent_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ConcentrationExponent_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 10 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ConcentrationExponent due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 10;
@@ -63,36 +84,35 @@ export default  class IfcLightSourceSpot extends IfcLightSourcePositional
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field ConcentrationExponent' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.ConcentrationExponent_ = null;                
+                return null;                
             }
             else
             {
-                this.ConcentrationExponent_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.ConcentrationExponent_ as IfcReal | null;
     }
 
-
     public get SpreadAngle() : IfcPositivePlaneAngleMeasure
     {
         if ( this.SpreadAngle_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.SpreadAngle_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 11 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field SpreadAngle due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 11;
@@ -105,27 +125,26 @@ export default  class IfcLightSourceSpot extends IfcLightSourcePositional
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field SpreadAngle' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.SpreadAngle_ = value;
+            return value; })();
         }
 
         return this.SpreadAngle_ as IfcPositivePlaneAngleMeasure;
     }
 
-
     public get BeamWidthAngle() : IfcPositivePlaneAngleMeasure
     {
         if ( this.BeamWidthAngle_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.BeamWidthAngle_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 12 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field BeamWidthAngle due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 12;
@@ -138,16 +157,14 @@ export default  class IfcLightSourceSpot extends IfcLightSourcePositional
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field BeamWidthAngle' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.BeamWidthAngle_ = value;
+            return value; })();
         }
 
         return this.BeamWidthAngle_ as IfcPositivePlaneAngleMeasure;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

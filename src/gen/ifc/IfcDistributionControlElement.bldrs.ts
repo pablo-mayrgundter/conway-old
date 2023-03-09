@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcIdentifier from "./IfcIdentifier.bldrs"
 import IfcRelFlowControlElements from "./IfcRelFlowControlElements.bldrs"
 import IfcDistributionElement from "./IfcDistributionElement.bldrs"
@@ -26,18 +26,17 @@ export default  class IfcDistributionControlElement extends IfcDistributionEleme
 
     private ControlElementId_? : IfcIdentifier | null;
 
-
     public get ControlElementId() : IfcIdentifier | null
     {
         if ( this.ControlElementId_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ControlElementId_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 8 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ControlElementId due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 8;
@@ -48,26 +47,23 @@ export default  class IfcDistributionControlElement extends IfcDistributionEleme
 
             let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field ControlElementId' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.ControlElementId_ = null;                
+                return null;                
             }
             else
             {
-                this.ControlElementId_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.ControlElementId_ as IfcIdentifier | null;
     }
-
-
-
 
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

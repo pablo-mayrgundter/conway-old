@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcIdentifier from "./IfcIdentifier.bldrs"
 import IfcRelFillsElement from "./IfcRelFillsElement.bldrs"
 import IfcRelConnectsElements from "./IfcRelConnectsElements.bldrs"
@@ -36,18 +36,17 @@ export default abstract class IfcElement extends IfcProduct
 
     private Tag_? : IfcIdentifier | null;
 
-
     public get Tag() : IfcIdentifier | null
     {
         if ( this.Tag_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Tag_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 7 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Tag due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 7;
@@ -58,37 +57,23 @@ export default abstract class IfcElement extends IfcProduct
 
             let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field Tag' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.Tag_ = null;                
+                return null;                
             }
             else
             {
-                this.Tag_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.Tag_ as IfcIdentifier | null;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

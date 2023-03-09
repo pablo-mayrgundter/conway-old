@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 import IfcConic from "./IfcConic.bldrs"
 
@@ -26,18 +26,17 @@ export default  class IfcEllipse extends IfcConic
     private SemiAxis1_? : IfcPositiveLengthMeasure;
     private SemiAxis2_? : IfcPositiveLengthMeasure;
 
-
     public get SemiAxis1() : IfcPositiveLengthMeasure
     {
         if ( this.SemiAxis1_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.SemiAxis1_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 1 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field SemiAxis1 due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 1;
@@ -50,27 +49,26 @@ export default  class IfcEllipse extends IfcConic
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field SemiAxis1' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.SemiAxis1_ = value;
+            return value; })();
         }
 
         return this.SemiAxis1_ as IfcPositiveLengthMeasure;
     }
 
-
     public get SemiAxis2() : IfcPositiveLengthMeasure
     {
         if ( this.SemiAxis2_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.SemiAxis2_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 2 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field SemiAxis2 due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 2;
@@ -83,16 +81,14 @@ export default  class IfcEllipse extends IfcConic
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field SemiAxis2' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.SemiAxis2_ = value;
+            return value; })();
         }
 
         return this.SemiAxis2_ as IfcPositiveLengthMeasure;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcEnvironmentalImpactCategoryEnum, { IfcEnvironmentalImpactCategoryEnumDeserializeStep } from "./IfcEnvironmentalImpactCategoryEnum.bldrs"
 import IfcAppliedValue from "./IfcAppliedValue.bldrs"
@@ -28,18 +28,17 @@ export default  class IfcEnvironmentalImpactValue extends IfcAppliedValue
     private Category_? : IfcEnvironmentalImpactCategoryEnum;
     private UserDefinedCategory_? : IfcLabel | null;
 
-
     public get ImpactType() : IfcLabel
     {
         if ( this.ImpactType_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ImpactType_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 6 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ImpactType due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 6;
@@ -52,27 +51,26 @@ export default  class IfcEnvironmentalImpactValue extends IfcAppliedValue
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field ImpactType' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.ImpactType_ = value;
+            return value; })();
         }
 
         return this.ImpactType_ as IfcLabel;
     }
 
-
     public get Category() : IfcEnvironmentalImpactCategoryEnum
     {
         if ( this.Category_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Category_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 7 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Category due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 7;
@@ -85,27 +83,26 @@ export default  class IfcEnvironmentalImpactValue extends IfcAppliedValue
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field Category' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.Category_ = value;
+            return value; })();
         }
 
         return this.Category_ as IfcEnvironmentalImpactCategoryEnum;
     }
 
-
     public get UserDefinedCategory() : IfcLabel | null
     {
         if ( this.UserDefinedCategory_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.UserDefinedCategory_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 8 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field UserDefinedCategory due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 8;
@@ -116,25 +113,23 @@ export default  class IfcEnvironmentalImpactValue extends IfcAppliedValue
 
             let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field UserDefinedCategory' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.UserDefinedCategory_ = null;                
+                return null;                
             }
             else
             {
-                this.UserDefinedCategory_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.UserDefinedCategory_ as IfcLabel | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

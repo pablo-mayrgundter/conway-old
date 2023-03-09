@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcIonConcentrationMeasure from "./IfcIonConcentrationMeasure.bldrs"
 import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
 import IfcPHMeasure from "./IfcPHMeasure.bldrs"
@@ -33,18 +33,17 @@ export default  class IfcWaterProperties extends IfcMaterialProperties
     private PHLevel_? : IfcPHMeasure | null;
     private DissolvedSolidsContent_? : IfcNormalisedRatioMeasure | null;
 
-
     public get IsPotable() : boolean | null
     {
         if ( this.IsPotable_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.IsPotable_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 1 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field IsPotable due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 1;
@@ -55,36 +54,35 @@ export default  class IfcWaterProperties extends IfcMaterialProperties
 
             let value = stepExtractBoolean( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field IsPotable' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.IsPotable_ = null;                
+                return null;                
             }
             else
             {
-                this.IsPotable_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.IsPotable_ as boolean | null;
     }
 
-
     public get Hardness() : IfcIonConcentrationMeasure | null
     {
         if ( this.Hardness_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Hardness_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 2 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Hardness due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 2;
@@ -95,36 +93,35 @@ export default  class IfcWaterProperties extends IfcMaterialProperties
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field Hardness' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.Hardness_ = null;                
+                return null;                
             }
             else
             {
-                this.Hardness_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.Hardness_ as IfcIonConcentrationMeasure | null;
     }
 
-
     public get AlkalinityConcentration() : IfcIonConcentrationMeasure | null
     {
         if ( this.AlkalinityConcentration_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.AlkalinityConcentration_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 3 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field AlkalinityConcentration due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 3;
@@ -135,36 +132,35 @@ export default  class IfcWaterProperties extends IfcMaterialProperties
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field AlkalinityConcentration' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.AlkalinityConcentration_ = null;                
+                return null;                
             }
             else
             {
-                this.AlkalinityConcentration_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.AlkalinityConcentration_ as IfcIonConcentrationMeasure | null;
     }
 
-
     public get AcidityConcentration() : IfcIonConcentrationMeasure | null
     {
         if ( this.AcidityConcentration_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.AcidityConcentration_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 4 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field AcidityConcentration due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 4;
@@ -175,36 +171,35 @@ export default  class IfcWaterProperties extends IfcMaterialProperties
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field AcidityConcentration' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.AcidityConcentration_ = null;                
+                return null;                
             }
             else
             {
-                this.AcidityConcentration_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.AcidityConcentration_ as IfcIonConcentrationMeasure | null;
     }
 
-
     public get ImpuritiesContent() : IfcNormalisedRatioMeasure | null
     {
         if ( this.ImpuritiesContent_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ImpuritiesContent_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 5 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ImpuritiesContent due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 5;
@@ -215,36 +210,35 @@ export default  class IfcWaterProperties extends IfcMaterialProperties
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field ImpuritiesContent' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.ImpuritiesContent_ = null;                
+                return null;                
             }
             else
             {
-                this.ImpuritiesContent_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.ImpuritiesContent_ as IfcNormalisedRatioMeasure | null;
     }
 
-
     public get PHLevel() : IfcPHMeasure | null
     {
         if ( this.PHLevel_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.PHLevel_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 6 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field PHLevel due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 6;
@@ -255,36 +249,35 @@ export default  class IfcWaterProperties extends IfcMaterialProperties
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field PHLevel' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.PHLevel_ = null;                
+                return null;                
             }
             else
             {
-                this.PHLevel_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.PHLevel_ as IfcPHMeasure | null;
     }
 
-
     public get DissolvedSolidsContent() : IfcNormalisedRatioMeasure | null
     {
         if ( this.DissolvedSolidsContent_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.DissolvedSolidsContent_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 7 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field DissolvedSolidsContent due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 7;
@@ -295,25 +288,23 @@ export default  class IfcWaterProperties extends IfcMaterialProperties
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field DissolvedSolidsContent' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.DissolvedSolidsContent_ = null;                
+                return null;                
             }
             else
             {
-                this.DissolvedSolidsContent_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.DissolvedSolidsContent_ as IfcNormalisedRatioMeasure | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

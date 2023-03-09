@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcOrganization from "./IfcOrganization.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
 import IfcIdentifier from "./IfcIdentifier.bldrs"
@@ -29,29 +29,50 @@ export default  class IfcApplication extends StepEntityBase< EntityTypesIfc >
     private ApplicationFullName_? : IfcLabel;
     private ApplicationIdentifier_? : IfcIdentifier;
 
-
     public get ApplicationDeveloper() : IfcOrganization
     {
         if ( this.ApplicationDeveloper_ === void 0 )
         {
+            this.ApplicationDeveloper_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 0 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 0;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+
+            if ( value === void 0 || !( value instanceof IfcOrganization ) )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed for field' );
+            };
+
+            return value; })();
         }
 
         return this.ApplicationDeveloper_ as IfcOrganization;
     }
 
-
     public get Version() : IfcLabel
     {
         if ( this.Version_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Version_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 1 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Version due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 1;
@@ -64,27 +85,26 @@ export default  class IfcApplication extends StepEntityBase< EntityTypesIfc >
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field Version' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.Version_ = value;
+            return value; })();
         }
 
         return this.Version_ as IfcLabel;
     }
 
-
     public get ApplicationFullName() : IfcLabel
     {
         if ( this.ApplicationFullName_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ApplicationFullName_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 2 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ApplicationFullName due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 2;
@@ -97,27 +117,26 @@ export default  class IfcApplication extends StepEntityBase< EntityTypesIfc >
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field ApplicationFullName' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.ApplicationFullName_ = value;
+            return value; })();
         }
 
         return this.ApplicationFullName_ as IfcLabel;
     }
 
-
     public get ApplicationIdentifier() : IfcIdentifier
     {
         if ( this.ApplicationIdentifier_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ApplicationIdentifier_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 3 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ApplicationIdentifier due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 3;
@@ -130,16 +149,14 @@ export default  class IfcApplication extends StepEntityBase< EntityTypesIfc >
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field ApplicationIdentifier' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.ApplicationIdentifier_ = value;
+            return value; })();
         }
 
         return this.ApplicationIdentifier_ as IfcIdentifier;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

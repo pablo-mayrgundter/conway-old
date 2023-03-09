@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 import IfcPlaneAngleMeasure from "./IfcPlaneAngleMeasure.bldrs"
 import IfcParameterizedProfileDef from "./IfcParameterizedProfileDef.bldrs"
@@ -33,18 +33,17 @@ export default  class IfcLShapeProfileDef extends IfcParameterizedProfileDef
     private CentreOfGravityInX_? : IfcPositiveLengthMeasure | null;
     private CentreOfGravityInY_? : IfcPositiveLengthMeasure | null;
 
-
     public get Depth() : IfcPositiveLengthMeasure
     {
         if ( this.Depth_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Depth_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 3 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Depth due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 3;
@@ -57,27 +56,26 @@ export default  class IfcLShapeProfileDef extends IfcParameterizedProfileDef
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field Depth' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.Depth_ = value;
+            return value; })();
         }
 
         return this.Depth_ as IfcPositiveLengthMeasure;
     }
 
-
     public get Width() : IfcPositiveLengthMeasure | null
     {
         if ( this.Width_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Width_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 4 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Width due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 4;
@@ -88,36 +86,35 @@ export default  class IfcLShapeProfileDef extends IfcParameterizedProfileDef
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field Width' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.Width_ = null;                
+                return null;                
             }
             else
             {
-                this.Width_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.Width_ as IfcPositiveLengthMeasure | null;
     }
 
-
     public get Thickness() : IfcPositiveLengthMeasure
     {
         if ( this.Thickness_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Thickness_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 5 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Thickness due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 5;
@@ -130,27 +127,26 @@ export default  class IfcLShapeProfileDef extends IfcParameterizedProfileDef
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field Thickness' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.Thickness_ = value;
+            return value; })();
         }
 
         return this.Thickness_ as IfcPositiveLengthMeasure;
     }
 
-
     public get FilletRadius() : IfcPositiveLengthMeasure | null
     {
         if ( this.FilletRadius_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.FilletRadius_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 6 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field FilletRadius due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 6;
@@ -161,36 +157,35 @@ export default  class IfcLShapeProfileDef extends IfcParameterizedProfileDef
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field FilletRadius' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.FilletRadius_ = null;                
+                return null;                
             }
             else
             {
-                this.FilletRadius_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.FilletRadius_ as IfcPositiveLengthMeasure | null;
     }
 
-
     public get EdgeRadius() : IfcPositiveLengthMeasure | null
     {
         if ( this.EdgeRadius_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.EdgeRadius_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 7 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field EdgeRadius due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 7;
@@ -201,36 +196,35 @@ export default  class IfcLShapeProfileDef extends IfcParameterizedProfileDef
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field EdgeRadius' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.EdgeRadius_ = null;                
+                return null;                
             }
             else
             {
-                this.EdgeRadius_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.EdgeRadius_ as IfcPositiveLengthMeasure | null;
     }
 
-
     public get LegSlope() : IfcPlaneAngleMeasure | null
     {
         if ( this.LegSlope_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.LegSlope_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 8 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field LegSlope due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 8;
@@ -241,36 +235,35 @@ export default  class IfcLShapeProfileDef extends IfcParameterizedProfileDef
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field LegSlope' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.LegSlope_ = null;                
+                return null;                
             }
             else
             {
-                this.LegSlope_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.LegSlope_ as IfcPlaneAngleMeasure | null;
     }
 
-
     public get CentreOfGravityInX() : IfcPositiveLengthMeasure | null
     {
         if ( this.CentreOfGravityInX_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.CentreOfGravityInX_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 9 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field CentreOfGravityInX due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 9;
@@ -281,36 +274,35 @@ export default  class IfcLShapeProfileDef extends IfcParameterizedProfileDef
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field CentreOfGravityInX' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.CentreOfGravityInX_ = null;                
+                return null;                
             }
             else
             {
-                this.CentreOfGravityInX_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.CentreOfGravityInX_ as IfcPositiveLengthMeasure | null;
     }
 
-
     public get CentreOfGravityInY() : IfcPositiveLengthMeasure | null
     {
         if ( this.CentreOfGravityInY_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.CentreOfGravityInY_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 10 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field CentreOfGravityInY due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 10;
@@ -321,25 +313,23 @@ export default  class IfcLShapeProfileDef extends IfcParameterizedProfileDef
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field CentreOfGravityInY' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.CentreOfGravityInY_ = null;                
+                return null;                
             }
             else
             {
-                this.CentreOfGravityInY_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.CentreOfGravityInY_ as IfcPositiveLengthMeasure | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

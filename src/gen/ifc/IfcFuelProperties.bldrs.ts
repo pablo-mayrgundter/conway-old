@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcThermodynamicTemperatureMeasure from "./IfcThermodynamicTemperatureMeasure.bldrs"
 import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
 import IfcHeatingValueMeasure from "./IfcHeatingValueMeasure.bldrs"
@@ -30,18 +30,17 @@ export default  class IfcFuelProperties extends IfcMaterialProperties
     private LowerHeatingValue_? : IfcHeatingValueMeasure | null;
     private HigherHeatingValue_? : IfcHeatingValueMeasure | null;
 
-
     public get CombustionTemperature() : IfcThermodynamicTemperatureMeasure | null
     {
         if ( this.CombustionTemperature_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.CombustionTemperature_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 1 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field CombustionTemperature due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 1;
@@ -52,36 +51,35 @@ export default  class IfcFuelProperties extends IfcMaterialProperties
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field CombustionTemperature' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.CombustionTemperature_ = null;                
+                return null;                
             }
             else
             {
-                this.CombustionTemperature_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.CombustionTemperature_ as IfcThermodynamicTemperatureMeasure | null;
     }
 
-
     public get CarbonContent() : IfcPositiveRatioMeasure | null
     {
         if ( this.CarbonContent_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.CarbonContent_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 2 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field CarbonContent due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 2;
@@ -92,36 +90,35 @@ export default  class IfcFuelProperties extends IfcMaterialProperties
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field CarbonContent' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.CarbonContent_ = null;                
+                return null;                
             }
             else
             {
-                this.CarbonContent_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.CarbonContent_ as IfcPositiveRatioMeasure | null;
     }
 
-
     public get LowerHeatingValue() : IfcHeatingValueMeasure | null
     {
         if ( this.LowerHeatingValue_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.LowerHeatingValue_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 3 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field LowerHeatingValue due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 3;
@@ -132,36 +129,35 @@ export default  class IfcFuelProperties extends IfcMaterialProperties
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field LowerHeatingValue' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.LowerHeatingValue_ = null;                
+                return null;                
             }
             else
             {
-                this.LowerHeatingValue_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.LowerHeatingValue_ as IfcHeatingValueMeasure | null;
     }
 
-
     public get HigherHeatingValue() : IfcHeatingValueMeasure | null
     {
         if ( this.HigherHeatingValue_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.HigherHeatingValue_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 4 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field HigherHeatingValue due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 4;
@@ -172,25 +168,23 @@ export default  class IfcFuelProperties extends IfcMaterialProperties
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field HigherHeatingValue' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.HigherHeatingValue_ = null;                
+                return null;                
             }
             else
             {
-                this.HigherHeatingValue_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.HigherHeatingValue_ as IfcHeatingValueMeasure | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 import IfcPlaneAngleMeasure from "./IfcPlaneAngleMeasure.bldrs"
 import IfcRatioMeasure from "./IfcRatioMeasure.bldrs"
@@ -34,18 +34,17 @@ export default  class IfcTextStyleWithBoxCharacteristics extends StepEntityBase<
     private BoxRotateAngle_? : IfcPlaneAngleMeasure | null;
     private CharacterSpacing_? : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure | null;
 
-
     public get BoxHeight() : IfcPositiveLengthMeasure | null
     {
         if ( this.BoxHeight_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.BoxHeight_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 0 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field BoxHeight due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 0;
@@ -56,36 +55,35 @@ export default  class IfcTextStyleWithBoxCharacteristics extends StepEntityBase<
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field BoxHeight' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.BoxHeight_ = null;                
+                return null;                
             }
             else
             {
-                this.BoxHeight_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.BoxHeight_ as IfcPositiveLengthMeasure | null;
     }
 
-
     public get BoxWidth() : IfcPositiveLengthMeasure | null
     {
         if ( this.BoxWidth_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.BoxWidth_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 1 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field BoxWidth due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 1;
@@ -96,36 +94,35 @@ export default  class IfcTextStyleWithBoxCharacteristics extends StepEntityBase<
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field BoxWidth' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.BoxWidth_ = null;                
+                return null;                
             }
             else
             {
-                this.BoxWidth_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.BoxWidth_ as IfcPositiveLengthMeasure | null;
     }
 
-
     public get BoxSlantAngle() : IfcPlaneAngleMeasure | null
     {
         if ( this.BoxSlantAngle_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.BoxSlantAngle_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 2 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field BoxSlantAngle due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 2;
@@ -136,36 +133,35 @@ export default  class IfcTextStyleWithBoxCharacteristics extends StepEntityBase<
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field BoxSlantAngle' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.BoxSlantAngle_ = null;                
+                return null;                
             }
             else
             {
-                this.BoxSlantAngle_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.BoxSlantAngle_ as IfcPlaneAngleMeasure | null;
     }
 
-
     public get BoxRotateAngle() : IfcPlaneAngleMeasure | null
     {
         if ( this.BoxRotateAngle_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.BoxRotateAngle_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 3 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field BoxRotateAngle due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 3;
@@ -176,36 +172,110 @@ export default  class IfcTextStyleWithBoxCharacteristics extends StepEntityBase<
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field BoxRotateAngle' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.BoxRotateAngle_ = null;                
+                return null;                
             }
             else
             {
-                this.BoxRotateAngle_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.BoxRotateAngle_ as IfcPlaneAngleMeasure | null;
     }
 
-
     public get CharacterSpacing() : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure | null
     {
         if ( this.CharacterSpacing_ === void 0 )
         {
+            this.CharacterSpacing_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 4 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 4;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value = ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractString( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    let value = stepExtractNumber( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value; } catch( e ) { return; } } )();
+
+            if ( value === void 0 )
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed' );
+                }
+
+                return null;                
+            }
+            else
+            {
+                return value;
+            } })();
         }
 
         return this.CharacterSpacing_ as IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

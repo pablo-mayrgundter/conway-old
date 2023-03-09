@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcTransportElementTypeEnum, { IfcTransportElementTypeEnumDeserializeStep } from "./IfcTransportElementTypeEnum.bldrs"
 import IfcMassMeasure from "./IfcMassMeasure.bldrs"
 import IfcCountMeasure from "./IfcCountMeasure.bldrs"
@@ -29,18 +29,17 @@ export default  class IfcTransportElement extends IfcElement
     private CapacityByWeight_? : IfcMassMeasure | null;
     private CapacityByNumber_? : IfcCountMeasure | null;
 
-
     public get OperationType() : IfcTransportElementTypeEnum | null
     {
         if ( this.OperationType_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.OperationType_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 8 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field OperationType due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 8;
@@ -51,36 +50,35 @@ export default  class IfcTransportElement extends IfcElement
 
             let value = IfcTransportElementTypeEnumDeserializeStep( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field OperationType' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.OperationType_ = null;                
+                return null;                
             }
             else
             {
-                this.OperationType_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.OperationType_ as IfcTransportElementTypeEnum | null;
     }
 
-
     public get CapacityByWeight() : IfcMassMeasure | null
     {
         if ( this.CapacityByWeight_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.CapacityByWeight_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 9 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field CapacityByWeight due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 9;
@@ -91,36 +89,35 @@ export default  class IfcTransportElement extends IfcElement
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field CapacityByWeight' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.CapacityByWeight_ = null;                
+                return null;                
             }
             else
             {
-                this.CapacityByWeight_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.CapacityByWeight_ as IfcMassMeasure | null;
     }
 
-
     public get CapacityByNumber() : IfcCountMeasure | null
     {
         if ( this.CapacityByNumber_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.CapacityByNumber_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 10 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field CapacityByNumber due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 10;
@@ -131,25 +128,23 @@ export default  class IfcTransportElement extends IfcElement
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field CapacityByNumber' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.CapacityByNumber_ = null;                
+                return null;                
             }
             else
             {
-                this.CapacityByNumber_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.CapacityByNumber_ as IfcCountMeasure | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

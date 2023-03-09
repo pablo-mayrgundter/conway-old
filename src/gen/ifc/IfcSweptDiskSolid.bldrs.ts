@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcCurve from "./IfcCurve.bldrs"
 import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
 import IfcParameterValue from "./IfcParameterValue.bldrs"
@@ -31,29 +31,50 @@ export default  class IfcSweptDiskSolid extends IfcSolidModel
     private StartParam_? : IfcParameterValue;
     private EndParam_? : IfcParameterValue;
 
-
     public get Directrix() : IfcCurve
     {
         if ( this.Directrix_ === void 0 )
         {
+            this.Directrix_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 0 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 0;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+
+            if ( value === void 0 || !( value instanceof IfcCurve ) )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed for field' );
+            };
+
+            return value; })();
         }
 
         return this.Directrix_ as IfcCurve;
     }
 
-
     public get Radius() : IfcPositiveLengthMeasure
     {
         if ( this.Radius_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Radius_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 1 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Radius due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 1;
@@ -66,27 +87,26 @@ export default  class IfcSweptDiskSolid extends IfcSolidModel
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field Radius' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.Radius_ = value;
+            return value; })();
         }
 
         return this.Radius_ as IfcPositiveLengthMeasure;
     }
 
-
     public get InnerRadius() : IfcPositiveLengthMeasure | null
     {
         if ( this.InnerRadius_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.InnerRadius_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 2 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field InnerRadius due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 2;
@@ -97,36 +117,35 @@ export default  class IfcSweptDiskSolid extends IfcSolidModel
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field InnerRadius' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.InnerRadius_ = null;                
+                return null;                
             }
             else
             {
-                this.InnerRadius_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.InnerRadius_ as IfcPositiveLengthMeasure | null;
     }
 
-
     public get StartParam() : IfcParameterValue
     {
         if ( this.StartParam_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.StartParam_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 3 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field StartParam due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 3;
@@ -139,27 +158,26 @@ export default  class IfcSweptDiskSolid extends IfcSolidModel
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field StartParam' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.StartParam_ = value;
+            return value; })();
         }
 
         return this.StartParam_ as IfcParameterValue;
     }
 
-
     public get EndParam() : IfcParameterValue
     {
         if ( this.EndParam_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.EndParam_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 4 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field EndParam due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 4;
@@ -172,16 +190,14 @@ export default  class IfcSweptDiskSolid extends IfcSolidModel
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field EndParam' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.EndParam_ = value;
+            return value; })();
         }
 
         return this.EndParam_ as IfcParameterValue;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

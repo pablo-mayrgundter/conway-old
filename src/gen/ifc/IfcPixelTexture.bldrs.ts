@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcInteger from "./IfcInteger.bldrs"
 import IfcSurfaceTexture from "./IfcSurfaceTexture.bldrs"
 
@@ -26,20 +26,19 @@ export default  class IfcPixelTexture extends IfcSurfaceTexture
     private Width_? : IfcInteger;
     private Height_? : IfcInteger;
     private ColourComponents_? : IfcInteger;
-    private Pixel_? : Array<Uint8Array>;
-
+    private Pixel_? : Array<[Uint8Array, number]>;
 
     public get Width() : IfcInteger
     {
         if ( this.Width_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Width_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 4 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Width due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 4;
@@ -52,27 +51,26 @@ export default  class IfcPixelTexture extends IfcSurfaceTexture
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field Width' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.Width_ = value;
+            return value; })();
         }
 
         return this.Width_ as IfcInteger;
     }
 
-
     public get Height() : IfcInteger
     {
         if ( this.Height_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Height_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 5 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Height due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 5;
@@ -85,27 +83,26 @@ export default  class IfcPixelTexture extends IfcSurfaceTexture
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field Height' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.Height_ = value;
+            return value; })();
         }
 
         return this.Height_ as IfcInteger;
     }
 
-
     public get ColourComponents() : IfcInteger
     {
         if ( this.ColourComponents_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ColourComponents_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 6 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ColourComponents due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 6;
@@ -118,27 +115,62 @@ export default  class IfcPixelTexture extends IfcSurfaceTexture
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field ColourComponents' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.ColourComponents_ = value;
+            return value; })();
         }
 
         return this.ColourComponents_ as IfcInteger;
     }
 
-
-    public get Pixel() : Array<Uint8Array>
+    public get Pixel() : Array<[Uint8Array, number]>
     {
         if ( this.Pixel_ === void 0 )
         {
+            this.Pixel_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 7 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
             
+            let vtableSlot = internalReference.vtableIndex + 7;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value : Array<[Uint8Array, number]> = [];
+
+            for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
+            {
+                value.push( (() => { 
+                    let cursor = address;
+        
+                    let value = stepExtractBinary( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    };
+        
+                    return value;
+                })() );
+            }
+
+            if ( value === void 0 )
+            {                
+                throw new Error( 'Value in STEP was incorrectly typed' );
+            };
+
+            return value; })();
         }
 
-        return this.Pixel_ as Array<Uint8Array>;
+        return this.Pixel_ as Array<[Uint8Array, number]>;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

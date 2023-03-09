@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcMomentOfInertiaMeasure from "./IfcMomentOfInertiaMeasure.bldrs"
 import IfcWarpingConstantMeasure from "./IfcWarpingConstantMeasure.bldrs"
 import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
@@ -44,18 +44,17 @@ export default  class IfcStructuralProfileProperties extends IfcGeneralProfilePr
     private CentreOfGravityInX_? : IfcLengthMeasure | null;
     private CentreOfGravityInY_? : IfcLengthMeasure | null;
 
-
     public get TorsionalConstantX() : IfcMomentOfInertiaMeasure | null
     {
         if ( this.TorsionalConstantX_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.TorsionalConstantX_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 7 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field TorsionalConstantX due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 7;
@@ -66,36 +65,35 @@ export default  class IfcStructuralProfileProperties extends IfcGeneralProfilePr
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field TorsionalConstantX' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.TorsionalConstantX_ = null;                
+                return null;                
             }
             else
             {
-                this.TorsionalConstantX_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.TorsionalConstantX_ as IfcMomentOfInertiaMeasure | null;
     }
 
-
     public get MomentOfInertiaYZ() : IfcMomentOfInertiaMeasure | null
     {
         if ( this.MomentOfInertiaYZ_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.MomentOfInertiaYZ_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 8 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field MomentOfInertiaYZ due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 8;
@@ -106,36 +104,35 @@ export default  class IfcStructuralProfileProperties extends IfcGeneralProfilePr
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field MomentOfInertiaYZ' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.MomentOfInertiaYZ_ = null;                
+                return null;                
             }
             else
             {
-                this.MomentOfInertiaYZ_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.MomentOfInertiaYZ_ as IfcMomentOfInertiaMeasure | null;
     }
 
-
     public get MomentOfInertiaY() : IfcMomentOfInertiaMeasure | null
     {
         if ( this.MomentOfInertiaY_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.MomentOfInertiaY_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 9 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field MomentOfInertiaY due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 9;
@@ -146,36 +143,35 @@ export default  class IfcStructuralProfileProperties extends IfcGeneralProfilePr
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field MomentOfInertiaY' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.MomentOfInertiaY_ = null;                
+                return null;                
             }
             else
             {
-                this.MomentOfInertiaY_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.MomentOfInertiaY_ as IfcMomentOfInertiaMeasure | null;
     }
 
-
     public get MomentOfInertiaZ() : IfcMomentOfInertiaMeasure | null
     {
         if ( this.MomentOfInertiaZ_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.MomentOfInertiaZ_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 10 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field MomentOfInertiaZ due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 10;
@@ -186,36 +182,35 @@ export default  class IfcStructuralProfileProperties extends IfcGeneralProfilePr
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field MomentOfInertiaZ' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.MomentOfInertiaZ_ = null;                
+                return null;                
             }
             else
             {
-                this.MomentOfInertiaZ_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.MomentOfInertiaZ_ as IfcMomentOfInertiaMeasure | null;
     }
 
-
     public get WarpingConstant() : IfcWarpingConstantMeasure | null
     {
         if ( this.WarpingConstant_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.WarpingConstant_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 11 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field WarpingConstant due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 11;
@@ -226,36 +221,35 @@ export default  class IfcStructuralProfileProperties extends IfcGeneralProfilePr
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field WarpingConstant' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.WarpingConstant_ = null;                
+                return null;                
             }
             else
             {
-                this.WarpingConstant_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.WarpingConstant_ as IfcWarpingConstantMeasure | null;
     }
 
-
     public get ShearCentreZ() : IfcLengthMeasure | null
     {
         if ( this.ShearCentreZ_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ShearCentreZ_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 12 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ShearCentreZ due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 12;
@@ -266,36 +260,35 @@ export default  class IfcStructuralProfileProperties extends IfcGeneralProfilePr
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field ShearCentreZ' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.ShearCentreZ_ = null;                
+                return null;                
             }
             else
             {
-                this.ShearCentreZ_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.ShearCentreZ_ as IfcLengthMeasure | null;
     }
 
-
     public get ShearCentreY() : IfcLengthMeasure | null
     {
         if ( this.ShearCentreY_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ShearCentreY_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 13 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ShearCentreY due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 13;
@@ -306,36 +299,35 @@ export default  class IfcStructuralProfileProperties extends IfcGeneralProfilePr
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field ShearCentreY' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.ShearCentreY_ = null;                
+                return null;                
             }
             else
             {
-                this.ShearCentreY_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.ShearCentreY_ as IfcLengthMeasure | null;
     }
 
-
     public get ShearDeformationAreaZ() : IfcAreaMeasure | null
     {
         if ( this.ShearDeformationAreaZ_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ShearDeformationAreaZ_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 14 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ShearDeformationAreaZ due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 14;
@@ -346,36 +338,35 @@ export default  class IfcStructuralProfileProperties extends IfcGeneralProfilePr
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field ShearDeformationAreaZ' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.ShearDeformationAreaZ_ = null;                
+                return null;                
             }
             else
             {
-                this.ShearDeformationAreaZ_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.ShearDeformationAreaZ_ as IfcAreaMeasure | null;
     }
 
-
     public get ShearDeformationAreaY() : IfcAreaMeasure | null
     {
         if ( this.ShearDeformationAreaY_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ShearDeformationAreaY_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 15 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ShearDeformationAreaY due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 15;
@@ -386,36 +377,35 @@ export default  class IfcStructuralProfileProperties extends IfcGeneralProfilePr
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field ShearDeformationAreaY' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.ShearDeformationAreaY_ = null;                
+                return null;                
             }
             else
             {
-                this.ShearDeformationAreaY_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.ShearDeformationAreaY_ as IfcAreaMeasure | null;
     }
 
-
     public get MaximumSectionModulusY() : IfcSectionModulusMeasure | null
     {
         if ( this.MaximumSectionModulusY_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.MaximumSectionModulusY_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 16 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field MaximumSectionModulusY due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 16;
@@ -426,36 +416,35 @@ export default  class IfcStructuralProfileProperties extends IfcGeneralProfilePr
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field MaximumSectionModulusY' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.MaximumSectionModulusY_ = null;                
+                return null;                
             }
             else
             {
-                this.MaximumSectionModulusY_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.MaximumSectionModulusY_ as IfcSectionModulusMeasure | null;
     }
 
-
     public get MinimumSectionModulusY() : IfcSectionModulusMeasure | null
     {
         if ( this.MinimumSectionModulusY_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.MinimumSectionModulusY_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 17 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field MinimumSectionModulusY due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 17;
@@ -466,36 +455,35 @@ export default  class IfcStructuralProfileProperties extends IfcGeneralProfilePr
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field MinimumSectionModulusY' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.MinimumSectionModulusY_ = null;                
+                return null;                
             }
             else
             {
-                this.MinimumSectionModulusY_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.MinimumSectionModulusY_ as IfcSectionModulusMeasure | null;
     }
 
-
     public get MaximumSectionModulusZ() : IfcSectionModulusMeasure | null
     {
         if ( this.MaximumSectionModulusZ_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.MaximumSectionModulusZ_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 18 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field MaximumSectionModulusZ due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 18;
@@ -506,36 +494,35 @@ export default  class IfcStructuralProfileProperties extends IfcGeneralProfilePr
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field MaximumSectionModulusZ' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.MaximumSectionModulusZ_ = null;                
+                return null;                
             }
             else
             {
-                this.MaximumSectionModulusZ_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.MaximumSectionModulusZ_ as IfcSectionModulusMeasure | null;
     }
 
-
     public get MinimumSectionModulusZ() : IfcSectionModulusMeasure | null
     {
         if ( this.MinimumSectionModulusZ_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.MinimumSectionModulusZ_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 19 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field MinimumSectionModulusZ due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 19;
@@ -546,36 +533,35 @@ export default  class IfcStructuralProfileProperties extends IfcGeneralProfilePr
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field MinimumSectionModulusZ' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.MinimumSectionModulusZ_ = null;                
+                return null;                
             }
             else
             {
-                this.MinimumSectionModulusZ_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.MinimumSectionModulusZ_ as IfcSectionModulusMeasure | null;
     }
 
-
     public get TorsionalSectionModulus() : IfcSectionModulusMeasure | null
     {
         if ( this.TorsionalSectionModulus_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.TorsionalSectionModulus_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 20 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field TorsionalSectionModulus due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 20;
@@ -586,36 +572,35 @@ export default  class IfcStructuralProfileProperties extends IfcGeneralProfilePr
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field TorsionalSectionModulus' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.TorsionalSectionModulus_ = null;                
+                return null;                
             }
             else
             {
-                this.TorsionalSectionModulus_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.TorsionalSectionModulus_ as IfcSectionModulusMeasure | null;
     }
 
-
     public get CentreOfGravityInX() : IfcLengthMeasure | null
     {
         if ( this.CentreOfGravityInX_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.CentreOfGravityInX_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 21 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field CentreOfGravityInX due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 21;
@@ -626,36 +611,35 @@ export default  class IfcStructuralProfileProperties extends IfcGeneralProfilePr
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field CentreOfGravityInX' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.CentreOfGravityInX_ = null;                
+                return null;                
             }
             else
             {
-                this.CentreOfGravityInX_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.CentreOfGravityInX_ as IfcLengthMeasure | null;
     }
 
-
     public get CentreOfGravityInY() : IfcLengthMeasure | null
     {
         if ( this.CentreOfGravityInY_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.CentreOfGravityInY_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 22 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field CentreOfGravityInY due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 22;
@@ -666,25 +650,23 @@ export default  class IfcStructuralProfileProperties extends IfcGeneralProfilePr
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field CentreOfGravityInY' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.CentreOfGravityInY_ = null;                
+                return null;                
             }
             else
             {
-                this.CentreOfGravityInY_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.CentreOfGravityInY_ as IfcLengthMeasure | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

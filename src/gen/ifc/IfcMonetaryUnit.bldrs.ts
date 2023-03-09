@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcCurrencyEnum, { IfcCurrencyEnumDeserializeStep } from "./IfcCurrencyEnum.bldrs"
 
 
@@ -24,18 +24,17 @@ export default  class IfcMonetaryUnit extends StepEntityBase< EntityTypesIfc >
 
     private Currency_? : IfcCurrencyEnum;
 
-
     public get Currency() : IfcCurrencyEnum
     {
         if ( this.Currency_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.Currency_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 0 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field Currency due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 0;
@@ -48,16 +47,14 @@ export default  class IfcMonetaryUnit extends StepEntityBase< EntityTypesIfc >
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field Currency' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.Currency_ = value;
+            return value; })();
         }
 
         return this.Currency_ as IfcCurrencyEnum;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

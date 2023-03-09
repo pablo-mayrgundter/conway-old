@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 import IfcPlaneAngleMeasure from "./IfcPlaneAngleMeasure.bldrs"
 import IfcStructuralLoadStatic from "./IfcStructuralLoadStatic.bldrs"
@@ -31,18 +31,17 @@ export default  class IfcStructuralLoadSingleDisplacement extends IfcStructuralL
     private RotationalDisplacementRY_? : IfcPlaneAngleMeasure | null;
     private RotationalDisplacementRZ_? : IfcPlaneAngleMeasure | null;
 
-
     public get DisplacementX() : IfcLengthMeasure | null
     {
         if ( this.DisplacementX_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.DisplacementX_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 1 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field DisplacementX due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 1;
@@ -53,36 +52,35 @@ export default  class IfcStructuralLoadSingleDisplacement extends IfcStructuralL
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field DisplacementX' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.DisplacementX_ = null;                
+                return null;                
             }
             else
             {
-                this.DisplacementX_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.DisplacementX_ as IfcLengthMeasure | null;
     }
 
-
     public get DisplacementY() : IfcLengthMeasure | null
     {
         if ( this.DisplacementY_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.DisplacementY_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 2 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field DisplacementY due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 2;
@@ -93,36 +91,35 @@ export default  class IfcStructuralLoadSingleDisplacement extends IfcStructuralL
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field DisplacementY' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.DisplacementY_ = null;                
+                return null;                
             }
             else
             {
-                this.DisplacementY_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.DisplacementY_ as IfcLengthMeasure | null;
     }
 
-
     public get DisplacementZ() : IfcLengthMeasure | null
     {
         if ( this.DisplacementZ_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.DisplacementZ_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 3 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field DisplacementZ due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 3;
@@ -133,36 +130,35 @@ export default  class IfcStructuralLoadSingleDisplacement extends IfcStructuralL
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field DisplacementZ' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.DisplacementZ_ = null;                
+                return null;                
             }
             else
             {
-                this.DisplacementZ_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.DisplacementZ_ as IfcLengthMeasure | null;
     }
 
-
     public get RotationalDisplacementRX() : IfcPlaneAngleMeasure | null
     {
         if ( this.RotationalDisplacementRX_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.RotationalDisplacementRX_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 4 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field RotationalDisplacementRX due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 4;
@@ -173,36 +169,35 @@ export default  class IfcStructuralLoadSingleDisplacement extends IfcStructuralL
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field RotationalDisplacementRX' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.RotationalDisplacementRX_ = null;                
+                return null;                
             }
             else
             {
-                this.RotationalDisplacementRX_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.RotationalDisplacementRX_ as IfcPlaneAngleMeasure | null;
     }
 
-
     public get RotationalDisplacementRY() : IfcPlaneAngleMeasure | null
     {
         if ( this.RotationalDisplacementRY_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.RotationalDisplacementRY_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 5 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field RotationalDisplacementRY due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 5;
@@ -213,36 +208,35 @@ export default  class IfcStructuralLoadSingleDisplacement extends IfcStructuralL
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field RotationalDisplacementRY' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.RotationalDisplacementRY_ = null;                
+                return null;                
             }
             else
             {
-                this.RotationalDisplacementRY_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.RotationalDisplacementRY_ as IfcPlaneAngleMeasure | null;
     }
 
-
     public get RotationalDisplacementRZ() : IfcPlaneAngleMeasure | null
     {
         if ( this.RotationalDisplacementRZ_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.RotationalDisplacementRZ_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 6 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field RotationalDisplacementRZ due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 6;
@@ -253,25 +247,23 @@ export default  class IfcStructuralLoadSingleDisplacement extends IfcStructuralL
 
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field RotationalDisplacementRZ' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.RotationalDisplacementRZ_ = null;                
+                return null;                
             }
             else
             {
-                this.RotationalDisplacementRZ_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.RotationalDisplacementRZ_ as IfcPlaneAngleMeasure | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

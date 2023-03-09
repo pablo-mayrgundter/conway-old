@@ -4,7 +4,7 @@ import StepEntityInternalReference from "../../core/step_entity_internal_referen
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
 import StepEntitySchema from "../../core/step_entity_schema"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
 import IfcIdentifier from "./IfcIdentifier.bldrs"
 import IfcProcedureTypeEnum, { IfcProcedureTypeEnumDeserializeStep } from "./IfcProcedureTypeEnum.bldrs"
 import IfcLabel from "./IfcLabel.bldrs"
@@ -29,18 +29,17 @@ export default  class IfcProcedure extends IfcProcess
     private ProcedureType_? : IfcProcedureTypeEnum;
     private UserDefinedProcedureType_? : IfcLabel | null;
 
-
     public get ProcedureID() : IfcIdentifier
     {
         if ( this.ProcedureID_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ProcedureID_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 5 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ProcedureID due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 5;
@@ -53,27 +52,26 @@ export default  class IfcProcedure extends IfcProcess
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field ProcedureID' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.ProcedureID_ = value;
+            return value; })();
         }
 
         return this.ProcedureID_ as IfcIdentifier;
     }
 
-
     public get ProcedureType() : IfcProcedureTypeEnum
     {
         if ( this.ProcedureType_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.ProcedureType_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 6 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field ProcedureType due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 6;
@@ -86,27 +84,26 @@ export default  class IfcProcedure extends IfcProcess
 
             if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field ProcedureType' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             };
 
-            this.ProcedureType_ = value;
+            return value; })();
         }
 
         return this.ProcedureType_ as IfcProcedureTypeEnum;
     }
 
-
     public get UserDefinedProcedureType() : IfcLabel | null
     {
         if ( this.UserDefinedProcedureType_ === void 0 )
         {
-            this.guaranteeVTable();
+            this.UserDefinedProcedureType_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
             if ( 7 >= internalReference.vtableCount )
             {
-                throw new Error( "Couldn't read field UserDefinedProcedureType due to too few fields in record" ); 
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
             }
             
             let vtableSlot = internalReference.vtableIndex + 7;
@@ -117,25 +114,23 @@ export default  class IfcProcedure extends IfcProcess
 
             let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( value !== void 0 )
+            if ( value === void 0 )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed for field UserDefinedProcedureType' );
+                    throw new Error( 'Value in STEP was incorrectly typed' );
                 }
 
-                this.UserDefinedProcedureType_ = null;                
+                return null;                
             }
             else
             {
-                this.UserDefinedProcedureType_ = value;
-            }
+                return value;
+            } })();
         }
 
         return this.UserDefinedProcedureType_ as IfcLabel | null;
     }
-
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
