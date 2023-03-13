@@ -1,26 +1,21 @@
+
+import { IfcControl } from "./index"
+import { IfcLabel } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcLabel from "./IfcLabel.bldrs"
-import IfcControl from "./IfcControl.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcperformancehistory.htm */
-export default  class IfcPerformanceHistory extends IfcControl 
+export  class IfcPerformanceHistory extends IfcControl 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCPERFORMANCEHISTORY;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private LifeCyclePhase_? : IfcLabel;

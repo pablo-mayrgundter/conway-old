@@ -9,7 +9,7 @@ enum IfcSurfaceTextureEnum {
     TRANSPARENCYMAP = 7,
     NOTDEFINED = 8,
 }
-export default IfcSurfaceTextureEnum;
+export { IfcSurfaceTextureEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

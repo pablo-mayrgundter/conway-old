@@ -8,7 +8,7 @@ enum IfcEnvironmentalImpactCategoryEnum {
     USERDEFINED = 6,
     NOTDEFINED = 7,
 }
-export default IfcEnvironmentalImpactCategoryEnum;
+export { IfcEnvironmentalImpactCategoryEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -1,27 +1,22 @@
+
+import { IfcProfileProperties } from "./index"
+import { IfcPositiveLengthMeasure } from "./index"
+import { IfcRibPlateDirectionEnum, IfcRibPlateDirectionEnumDeserializeStep } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
-import IfcRibPlateDirectionEnum, { IfcRibPlateDirectionEnumDeserializeStep } from "./IfcRibPlateDirectionEnum.bldrs"
-import IfcProfileProperties from "./IfcProfileProperties.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcribplateprofileproperties.htm */
-export default  class IfcRibPlateProfileProperties extends IfcProfileProperties 
+export  class IfcRibPlateProfileProperties extends IfcProfileProperties 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCRIBPLATEPROFILEPROPERTIES;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Thickness_? : IfcPositiveLengthMeasure | null;

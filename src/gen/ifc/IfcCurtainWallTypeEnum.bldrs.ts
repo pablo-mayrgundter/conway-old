@@ -2,7 +2,7 @@ enum IfcCurtainWallTypeEnum {
     USERDEFINED = 0,
     NOTDEFINED = 1,
 }
-export default IfcCurtainWallTypeEnum;
+export { IfcCurtainWallTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

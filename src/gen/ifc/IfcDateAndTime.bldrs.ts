@@ -1,26 +1,21 @@
+
+import { IfcCalendarDate } from "./index"
+import { IfcLocalTime } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcCalendarDate from "./IfcCalendarDate.bldrs"
-import IfcLocalTime from "./IfcLocalTime.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcdateandtime.htm */
-export default  class IfcDateAndTime extends StepEntityBase< EntityTypesIfc > 
+export  class IfcDateAndTime extends StepEntityBase< EntityTypesIfc > 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCDATEANDTIME;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private DateComponent_? : IfcCalendarDate;
@@ -48,7 +43,7 @@ export default  class IfcDateAndTime extends StepEntityBase< EntityTypesIfc >
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcCalendarDate ) )
+            if ( !( value instanceof IfcCalendarDate ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -81,7 +76,7 @@ export default  class IfcDateAndTime extends StepEntityBase< EntityTypesIfc >
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcLocalTime ) )
+            if ( !( value instanceof IfcLocalTime ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };

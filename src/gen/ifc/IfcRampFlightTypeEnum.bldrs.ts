@@ -4,7 +4,7 @@ enum IfcRampFlightTypeEnum {
     USERDEFINED = 2,
     NOTDEFINED = 3,
 }
-export default IfcRampFlightTypeEnum;
+export { IfcRampFlightTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

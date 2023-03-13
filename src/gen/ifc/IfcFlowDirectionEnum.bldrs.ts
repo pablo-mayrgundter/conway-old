@@ -4,7 +4,7 @@ enum IfcFlowDirectionEnum {
     SOURCEANDSINK = 2,
     NOTDEFINED = 3,
 }
-export default IfcFlowDirectionEnum;
+export { IfcFlowDirectionEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -26,7 +26,7 @@ enum IfcElectricApplianceTypeEnum {
     USERDEFINED = 24,
     NOTDEFINED = 25,
 }
-export default IfcElectricApplianceTypeEnum;
+export { IfcElectricApplianceTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

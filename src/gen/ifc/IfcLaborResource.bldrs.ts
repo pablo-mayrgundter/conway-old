@@ -1,26 +1,21 @@
+
+import { IfcConstructionResource } from "./index"
+import { IfcText } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcText from "./IfcText.bldrs"
-import IfcConstructionResource from "./IfcConstructionResource.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifclaborresource.htm */
-export default  class IfcLaborResource extends IfcConstructionResource 
+export  class IfcLaborResource extends IfcConstructionResource 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCLABORRESOURCE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private SkillSet_? : IfcText | null;

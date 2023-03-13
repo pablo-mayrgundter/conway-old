@@ -1,29 +1,24 @@
+
+import { IfcBoundedCurve } from "./index"
+import { IfcCurve } from "./index"
+import { IfcCartesianPoint } from "./index"
+import { IfcParameterValue } from "./index"
+import { IfcTrimmingPreference, IfcTrimmingPreferenceDeserializeStep } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcCurve from "./IfcCurve.bldrs"
-import IfcCartesianPoint from "./IfcCartesianPoint.bldrs"
-import IfcParameterValue from "./IfcParameterValue.bldrs"
-import IfcTrimmingPreference, { IfcTrimmingPreferenceDeserializeStep } from "./IfcTrimmingPreference.bldrs"
-import IfcBoundedCurve from "./IfcBoundedCurve.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifctrimmedcurve.htm */
-export default  class IfcTrimmedCurve extends IfcBoundedCurve 
+export  class IfcTrimmedCurve extends IfcBoundedCurve 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCTRIMMEDCURVE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private BasisCurve_? : IfcCurve;
@@ -54,7 +49,7 @@ export default  class IfcTrimmedCurve extends IfcBoundedCurve
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcCurve ) )
+            if ( !( value instanceof IfcCurve ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -91,24 +86,20 @@ export default  class IfcTrimmedCurve extends IfcBoundedCurve
                 value.push( (() => { 
                     let cursor = address;
         
-                    let value = ( () => { try { 
+                    let value = ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcCartesianPoint ) )
+                                    if ( !( value instanceof IfcCartesianPoint ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    return value; } )() ??
+        ( () => { 
                                     let value = stepExtractNumber( buffer, cursor, endCursor );
                         
-                                    if ( value === void 0 )
-                                    {                
-                                        throw new Error( 'Value in STEP was incorrectly typed' );
-                                    };
-                        
-                                    return value; } catch( e ) { return; } } )();
+                        return value; } )();
         
                     if ( value === void 0 )
                     {                
@@ -156,24 +147,20 @@ export default  class IfcTrimmedCurve extends IfcBoundedCurve
                 value.push( (() => { 
                     let cursor = address;
         
-                    let value = ( () => { try { 
+                    let value = ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcCartesianPoint ) )
+                                    if ( !( value instanceof IfcCartesianPoint ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    return value; } )() ??
+        ( () => { 
                                     let value = stepExtractNumber( buffer, cursor, endCursor );
                         
-                                    if ( value === void 0 )
-                                    {                
-                                        throw new Error( 'Value in STEP was incorrectly typed' );
-                                    };
-                        
-                                    return value; } catch( e ) { return; } } )();
+                        return value; } )();
         
                     if ( value === void 0 )
                     {                

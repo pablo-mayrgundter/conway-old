@@ -1,32 +1,25 @@
+
+import { IfcGroup } from "./index"
+import { IfcLoadGroupTypeEnum, IfcLoadGroupTypeEnumDeserializeStep } from "./index"
+import { IfcActionTypeEnum, IfcActionTypeEnumDeserializeStep } from "./index"
+import { IfcActionSourceTypeEnum, IfcActionSourceTypeEnumDeserializeStep } from "./index"
+import { IfcPositiveRatioMeasure } from "./index"
+import { IfcLabel } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcLoadGroupTypeEnum, { IfcLoadGroupTypeEnumDeserializeStep } from "./IfcLoadGroupTypeEnum.bldrs"
-import IfcActionTypeEnum, { IfcActionTypeEnumDeserializeStep } from "./IfcActionTypeEnum.bldrs"
-import IfcActionSourceTypeEnum, { IfcActionSourceTypeEnumDeserializeStep } from "./IfcActionSourceTypeEnum.bldrs"
-import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
-import IfcLabel from "./IfcLabel.bldrs"
-import IfcStructuralResultGroup from "./IfcStructuralResultGroup.bldrs"
-import IfcStructuralAnalysisModel from "./IfcStructuralAnalysisModel.bldrs"
-import IfcGroup from "./IfcGroup.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcstructuralloadgroup.htm */
-export default  class IfcStructuralLoadGroup extends IfcGroup 
+export  class IfcStructuralLoadGroup extends IfcGroup 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSTRUCTURALLOADGROUP;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private PredefinedType_? : IfcLoadGroupTypeEnum;

@@ -1,27 +1,22 @@
+
+import { IfcNamedUnit } from "./index"
+import { IfcLabel } from "./index"
+import { IfcMeasureWithUnit } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcLabel from "./IfcLabel.bldrs"
-import IfcMeasureWithUnit from "./IfcMeasureWithUnit.bldrs"
-import IfcNamedUnit from "./IfcNamedUnit.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcconversionbasedunit.htm */
-export default  class IfcConversionBasedUnit extends IfcNamedUnit 
+export  class IfcConversionBasedUnit extends IfcNamedUnit 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCCONVERSIONBASEDUNIT;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Name_? : IfcLabel;
@@ -81,7 +76,7 @@ export default  class IfcConversionBasedUnit extends IfcNamedUnit
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcMeasureWithUnit ) )
+            if ( !( value instanceof IfcMeasureWithUnit ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };

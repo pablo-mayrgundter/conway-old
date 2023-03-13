@@ -1,13 +1,10 @@
 import { IndexMark } from "../../dependencies/conway-ds/src/parsing/step/step_vtable_builder";
 import StepEntityInternalReference from "./step_entity_internal_reference";
-import StepEntitySchema from "./step_entity_schema";
 import StepModelBase from "./step_model_base";
 
 export default abstract class StepEntityBase< EntityTypeIDs extends number >
 {
     public abstract get type(): EntityTypeIDs;
-
-    public abstract get schema(): StepEntitySchema< EntityTypeIDs >;
 
     /**
      * Get the express ID for this, note that if an element is inlined, it will have a 

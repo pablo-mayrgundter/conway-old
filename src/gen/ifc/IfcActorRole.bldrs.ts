@@ -1,27 +1,22 @@
+
+import { IfcRoleEnum, IfcRoleEnumDeserializeStep } from "./index"
+import { IfcLabel } from "./index"
+import { IfcText } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcRoleEnum, { IfcRoleEnumDeserializeStep } from "./IfcRoleEnum.bldrs"
-import IfcLabel from "./IfcLabel.bldrs"
-import IfcText from "./IfcText.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcactorrole.htm */
-export default  class IfcActorRole extends StepEntityBase< EntityTypesIfc > 
+export  class IfcActorRole extends StepEntityBase< EntityTypesIfc > 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCACTORROLE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Role_? : IfcRoleEnum;

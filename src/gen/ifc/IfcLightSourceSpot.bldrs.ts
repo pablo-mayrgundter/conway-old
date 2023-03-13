@@ -1,28 +1,23 @@
+
+import { IfcLightSourcePositional } from "./index"
+import { IfcDirection } from "./index"
+import { IfcReal } from "./index"
+import { IfcPositivePlaneAngleMeasure } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcDirection from "./IfcDirection.bldrs"
-import IfcReal from "./IfcReal.bldrs"
-import IfcPositivePlaneAngleMeasure from "./IfcPositivePlaneAngleMeasure.bldrs"
-import IfcLightSourcePositional from "./IfcLightSourcePositional.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifclightsourcespot.htm */
-export default  class IfcLightSourceSpot extends IfcLightSourcePositional 
+export  class IfcLightSourceSpot extends IfcLightSourcePositional 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCLIGHTSOURCESPOT;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Orientation_? : IfcDirection;
@@ -52,7 +47,7 @@ export default  class IfcLightSourceSpot extends IfcLightSourcePositional
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcDirection ) )
+            if ( !( value instanceof IfcDirection ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };

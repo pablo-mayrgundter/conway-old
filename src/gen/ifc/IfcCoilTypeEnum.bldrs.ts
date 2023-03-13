@@ -8,7 +8,7 @@ enum IfcCoilTypeEnum {
     USERDEFINED = 6,
     NOTDEFINED = 7,
 }
-export default IfcCoilTypeEnum;
+export { IfcCoilTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

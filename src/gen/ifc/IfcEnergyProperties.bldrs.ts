@@ -1,27 +1,22 @@
+
+import { IfcPropertySetDefinition } from "./index"
+import { IfcEnergySequenceEnum, IfcEnergySequenceEnumDeserializeStep } from "./index"
+import { IfcLabel } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcEnergySequenceEnum, { IfcEnergySequenceEnumDeserializeStep } from "./IfcEnergySequenceEnum.bldrs"
-import IfcLabel from "./IfcLabel.bldrs"
-import IfcPropertySetDefinition from "./IfcPropertySetDefinition.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcenergyproperties.htm */
-export default  class IfcEnergyProperties extends IfcPropertySetDefinition 
+export  class IfcEnergyProperties extends IfcPropertySetDefinition 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCENERGYPROPERTIES;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private EnergySequence_? : IfcEnergySequenceEnum | null;

@@ -1,35 +1,30 @@
+
+import { IfcPreDefinedTextFont } from "./index"
+import { IfcTextFontName } from "./index"
+import { IfcFontStyle } from "./index"
+import { IfcFontVariant } from "./index"
+import { IfcFontWeight } from "./index"
+import { IfcRatioMeasure } from "./index"
+import { IfcLengthMeasure } from "./index"
+import { IfcDescriptiveMeasure } from "./index"
+import { IfcPositiveLengthMeasure } from "./index"
+import { IfcNormalisedRatioMeasure } from "./index"
+import { IfcPositiveRatioMeasure } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcTextFontName from "./IfcTextFontName.bldrs"
-import IfcFontStyle from "./IfcFontStyle.bldrs"
-import IfcFontVariant from "./IfcFontVariant.bldrs"
-import IfcFontWeight from "./IfcFontWeight.bldrs"
-import IfcRatioMeasure from "./IfcRatioMeasure.bldrs"
-import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
-import IfcDescriptiveMeasure from "./IfcDescriptiveMeasure.bldrs"
-import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
-import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
-import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
-import IfcPreDefinedTextFont from "./IfcPreDefinedTextFont.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifctextstylefontmodel.htm */
-export default  class IfcTextStyleFontModel extends IfcPreDefinedTextFont 
+export  class IfcTextStyleFontModel extends IfcPreDefinedTextFont 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCTEXTSTYLEFONTMODEL;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private FontFamily_? : Array<IfcTextFontName> | null;
@@ -229,55 +224,30 @@ export default  class IfcTextStyleFontModel extends IfcPreDefinedTextFont
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { try { 
+            let value = ( () => { 
                     let value = stepExtractNumber( buffer, cursor, endCursor );
         
-                    if ( value === void 0 )
-                    {                
-                        throw new Error( 'Value in STEP was incorrectly typed' );
-                    };
-        
-                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+        return value; } )() ??
+( () => { 
                     let value = stepExtractNumber( buffer, cursor, endCursor );
         
-                    if ( value === void 0 )
-                    {                
-                        throw new Error( 'Value in STEP was incorrectly typed' );
-                    };
-        
-                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+        return value; } )() ??
+( () => { 
                     let value = stepExtractString( buffer, cursor, endCursor );
         
-                    if ( value === void 0 )
-                    {                
-                        throw new Error( 'Value in STEP was incorrectly typed' );
-                    };
-        
-                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+        return value; } )() ??
+( () => { 
                     let value = stepExtractNumber( buffer, cursor, endCursor );
         
-                    if ( value === void 0 )
-                    {                
-                        throw new Error( 'Value in STEP was incorrectly typed' );
-                    };
-        
-                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+        return value; } )() ??
+( () => { 
                     let value = stepExtractNumber( buffer, cursor, endCursor );
         
-                    if ( value === void 0 )
-                    {                
-                        throw new Error( 'Value in STEP was incorrectly typed' );
-                    };
-        
-                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+        return value; } )() ??
+( () => { 
                     let value = stepExtractNumber( buffer, cursor, endCursor );
         
-                    if ( value === void 0 )
-                    {                
-                        throw new Error( 'Value in STEP was incorrectly typed' );
-                    };
-        
-                    return value; } catch( e ) { return; } } )();
+        return value; } )();
 
             if ( value === void 0 )
             {                

@@ -8,7 +8,7 @@ enum IfcDoorPanelOperationEnum {
     USERDEFINED = 6,
     NOTDEFINED = 7,
 }
-export default IfcDoorPanelOperationEnum;
+export { IfcDoorPanelOperationEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

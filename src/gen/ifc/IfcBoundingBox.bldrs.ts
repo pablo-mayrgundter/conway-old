@@ -1,28 +1,22 @@
+
+import { IfcGeometricRepresentationItem } from "./index"
+import { IfcCartesianPoint } from "./index"
+import { IfcPositiveLengthMeasure } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcCartesianPoint from "./IfcCartesianPoint.bldrs"
-import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
-import IfcDimensionCount from "./IfcDimensionCount.bldrs"
-import IfcGeometricRepresentationItem from "./IfcGeometricRepresentationItem.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcboundingbox.htm */
-export default  class IfcBoundingBox extends IfcGeometricRepresentationItem 
+export  class IfcBoundingBox extends IfcGeometricRepresentationItem 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCBOUNDINGBOX;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Corner_? : IfcCartesianPoint;
@@ -52,7 +46,7 @@ export default  class IfcBoundingBox extends IfcGeometricRepresentationItem
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcCartesianPoint ) )
+            if ( !( value instanceof IfcCartesianPoint ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };

@@ -6,7 +6,7 @@ enum IfcTendonTypeEnum {
     USERDEFINED = 4,
     NOTDEFINED = 5,
 }
-export default IfcTendonTypeEnum;
+export { IfcTendonTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -8,7 +8,7 @@ enum IfcResourceConsumptionEnum {
     USERDEFINED = 6,
     NOTDEFINED = 7,
 }
-export default IfcResourceConsumptionEnum;
+export { IfcResourceConsumptionEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

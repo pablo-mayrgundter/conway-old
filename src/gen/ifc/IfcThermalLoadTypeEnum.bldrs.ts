@@ -4,7 +4,7 @@ enum IfcThermalLoadTypeEnum {
     RADIANT = 2,
     NOTDEFINED = 3,
 }
-export default IfcThermalLoadTypeEnum;
+export { IfcThermalLoadTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

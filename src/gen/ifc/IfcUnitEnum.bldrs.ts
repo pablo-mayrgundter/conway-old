@@ -30,7 +30,7 @@ enum IfcUnitEnum {
     VOLUMEUNIT = 28,
     USERDEFINED = 29,
 }
-export default IfcUnitEnum;
+export { IfcUnitEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

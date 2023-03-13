@@ -1,27 +1,22 @@
+
+import { IfcBoundedCurve } from "./index"
+import { IfcCartesianPoint } from "./index"
+import { IfcBSplineCurveForm, IfcBSplineCurveFormDeserializeStep } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcCartesianPoint from "./IfcCartesianPoint.bldrs"
-import IfcBSplineCurveForm, { IfcBSplineCurveFormDeserializeStep } from "./IfcBSplineCurveForm.bldrs"
-import IfcBoundedCurve from "./IfcBoundedCurve.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcbsplinecurve.htm */
-export default abstract class IfcBSplineCurve extends IfcBoundedCurve 
+export abstract class IfcBSplineCurve extends IfcBoundedCurve 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCBSPLINECURVE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Degree_? : number;
@@ -91,7 +86,7 @@ export default abstract class IfcBSplineCurve extends IfcBoundedCurve
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcCartesianPoint ) )
+                    if ( !( value instanceof IfcCartesianPoint ) )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed for field' );
                     };

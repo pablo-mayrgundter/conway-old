@@ -16,7 +16,7 @@ enum IfcSIPrefix {
     FEMTO = 14,
     ATTO = 15,
 }
-export default IfcSIPrefix;
+export { IfcSIPrefix };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

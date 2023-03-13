@@ -1,30 +1,25 @@
+
+import { IfcGeneralProfileProperties } from "./index"
+import { IfcMomentOfInertiaMeasure } from "./index"
+import { IfcWarpingConstantMeasure } from "./index"
+import { IfcLengthMeasure } from "./index"
+import { IfcAreaMeasure } from "./index"
+import { IfcSectionModulusMeasure } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcMomentOfInertiaMeasure from "./IfcMomentOfInertiaMeasure.bldrs"
-import IfcWarpingConstantMeasure from "./IfcWarpingConstantMeasure.bldrs"
-import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
-import IfcAreaMeasure from "./IfcAreaMeasure.bldrs"
-import IfcSectionModulusMeasure from "./IfcSectionModulusMeasure.bldrs"
-import IfcGeneralProfileProperties from "./IfcGeneralProfileProperties.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcstructuralprofileproperties.htm */
-export default  class IfcStructuralProfileProperties extends IfcGeneralProfileProperties 
+export  class IfcStructuralProfileProperties extends IfcGeneralProfileProperties 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSTRUCTURALPROFILEPROPERTIES;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private TorsionalConstantX_? : IfcMomentOfInertiaMeasure | null;

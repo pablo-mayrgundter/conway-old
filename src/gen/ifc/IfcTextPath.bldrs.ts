@@ -4,7 +4,7 @@ enum IfcTextPath {
     UP = 2,
     DOWN = 3,
 }
-export default IfcTextPath;
+export { IfcTextPath };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -23,7 +23,7 @@ enum IfcRoleEnum {
     RESELLER = 21,
     USERDEFINED = 22,
 }
-export default IfcRoleEnum;
+export { IfcRoleEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -1,27 +1,22 @@
+
+import { IfcTimeSeries } from "./index"
+import { IfcDocumentReference } from "./index"
+import { IfcDocumentInformation } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcTimeSeries from "./IfcTimeSeries.bldrs"
-import IfcDocumentReference from "./IfcDocumentReference.bldrs"
-import IfcDocumentInformation from "./IfcDocumentInformation.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifctimeseriesreferencerelationship.htm */
-export default  class IfcTimeSeriesReferenceRelationship extends StepEntityBase< EntityTypesIfc > 
+export  class IfcTimeSeriesReferenceRelationship extends StepEntityBase< EntityTypesIfc > 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCTIMESERIESREFERENCERELATIONSHIP;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private ReferencedTimeSeries_? : IfcTimeSeries;
@@ -49,7 +44,7 @@ export default  class IfcTimeSeriesReferenceRelationship extends StepEntityBase<
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcTimeSeries ) )
+            if ( !( value instanceof IfcTimeSeries ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -86,25 +81,26 @@ export default  class IfcTimeSeriesReferenceRelationship extends StepEntityBase<
                 value.push( (() => { 
                     let cursor = address;
         
-                    let value = ( () => { try { 
+                    let value = ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcDocumentReference ) )
+                                    if ( !( value instanceof IfcDocumentReference ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    return value; } )() ??
+        ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcDocumentInformation ) )
+                                    if ( !( value instanceof IfcDocumentInformation ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )();
+                                    return value; } )();
         
                     if ( value === void 0 )
                     {                

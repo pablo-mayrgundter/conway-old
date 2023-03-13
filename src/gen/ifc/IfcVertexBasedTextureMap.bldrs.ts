@@ -1,26 +1,21 @@
+
+import { IfcTextureVertex } from "./index"
+import { IfcCartesianPoint } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcTextureVertex from "./IfcTextureVertex.bldrs"
-import IfcCartesianPoint from "./IfcCartesianPoint.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcvertexbasedtexturemap.htm */
-export default  class IfcVertexBasedTextureMap extends StepEntityBase< EntityTypesIfc > 
+export  class IfcVertexBasedTextureMap extends StepEntityBase< EntityTypesIfc > 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCVERTEXBASEDTEXTUREMAP;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private TextureVertices_? : Array<IfcTextureVertex>;
@@ -55,7 +50,7 @@ export default  class IfcVertexBasedTextureMap extends StepEntityBase< EntityTyp
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcTextureVertex ) )
+                    if ( !( value instanceof IfcTextureVertex ) )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed for field' );
                     };
@@ -104,7 +99,7 @@ export default  class IfcVertexBasedTextureMap extends StepEntityBase< EntityTyp
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcCartesianPoint ) )
+                    if ( !( value instanceof IfcCartesianPoint ) )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed for field' );
                     };

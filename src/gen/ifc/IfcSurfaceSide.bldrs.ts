@@ -3,7 +3,7 @@ enum IfcSurfaceSide {
     NEGATIVE = 1,
     BOTH = 2,
 }
-export default IfcSurfaceSide;
+export { IfcSurfaceSide };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

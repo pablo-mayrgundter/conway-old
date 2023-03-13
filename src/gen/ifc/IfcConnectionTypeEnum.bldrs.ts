@@ -4,7 +4,7 @@ enum IfcConnectionTypeEnum {
     ATEND = 2,
     NOTDEFINED = 3,
 }
-export default IfcConnectionTypeEnum;
+export { IfcConnectionTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

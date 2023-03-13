@@ -1,26 +1,21 @@
+
+import { IfcFlowStorageDeviceType } from "./index"
+import { IfcElectricFlowStorageDeviceTypeEnum, IfcElectricFlowStorageDeviceTypeEnumDeserializeStep } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcElectricFlowStorageDeviceTypeEnum, { IfcElectricFlowStorageDeviceTypeEnumDeserializeStep } from "./IfcElectricFlowStorageDeviceTypeEnum.bldrs"
-import IfcFlowStorageDeviceType from "./IfcFlowStorageDeviceType.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcelectricflowstoragedevicetype.htm */
-export default  class IfcElectricFlowStorageDeviceType extends IfcFlowStorageDeviceType 
+export  class IfcElectricFlowStorageDeviceType extends IfcFlowStorageDeviceType 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCELECTRICFLOWSTORAGEDEVICETYPE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private PredefinedType_? : IfcElectricFlowStorageDeviceTypeEnum;

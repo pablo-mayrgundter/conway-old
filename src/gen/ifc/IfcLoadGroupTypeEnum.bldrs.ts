@@ -6,7 +6,7 @@ enum IfcLoadGroupTypeEnum {
     USERDEFINED = 4,
     NOTDEFINED = 5,
 }
-export default IfcLoadGroupTypeEnum;
+export { IfcLoadGroupTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

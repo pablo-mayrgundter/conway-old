@@ -5,7 +5,7 @@ enum IfcServiceLifeTypeEnum {
     PESSIMISTICREFERENCESERVICELIFE = 3,
     REFERENCESERVICELIFE = 4,
 }
-export default IfcServiceLifeTypeEnum;
+export { IfcServiceLifeTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

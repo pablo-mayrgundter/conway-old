@@ -1,26 +1,21 @@
+
+import { IfcFlowControllerType } from "./index"
+import { IfcValveTypeEnum, IfcValveTypeEnumDeserializeStep } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcValveTypeEnum, { IfcValveTypeEnumDeserializeStep } from "./IfcValveTypeEnum.bldrs"
-import IfcFlowControllerType from "./IfcFlowControllerType.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcvalvetype.htm */
-export default  class IfcValveType extends IfcFlowControllerType 
+export  class IfcValveType extends IfcFlowControllerType 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCVALVETYPE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private PredefinedType_? : IfcValveTypeEnum;

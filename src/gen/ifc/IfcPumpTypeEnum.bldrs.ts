@@ -7,7 +7,7 @@ enum IfcPumpTypeEnum {
     USERDEFINED = 5,
     NOTDEFINED = 6,
 }
-export default IfcPumpTypeEnum;
+export { IfcPumpTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

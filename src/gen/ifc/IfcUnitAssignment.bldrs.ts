@@ -1,27 +1,22 @@
+
+import { IfcDerivedUnit } from "./index"
+import { IfcNamedUnit } from "./index"
+import { IfcMonetaryUnit } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcDerivedUnit from "./IfcDerivedUnit.bldrs"
-import IfcNamedUnit from "./IfcNamedUnit.bldrs"
-import IfcMonetaryUnit from "./IfcMonetaryUnit.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcunitassignment.htm */
-export default  class IfcUnitAssignment extends StepEntityBase< EntityTypesIfc > 
+export  class IfcUnitAssignment extends StepEntityBase< EntityTypesIfc > 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCUNITASSIGNMENT;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Units_? : Array<IfcDerivedUnit|IfcNamedUnit|IfcMonetaryUnit>;
@@ -52,34 +47,36 @@ export default  class IfcUnitAssignment extends StepEntityBase< EntityTypesIfc >
                 value.push( (() => { 
                     let cursor = address;
         
-                    let value = ( () => { try { 
+                    let value = ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcDerivedUnit ) )
+                                    if ( !( value instanceof IfcDerivedUnit ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    return value; } )() ??
+        ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcNamedUnit ) )
+                                    if ( !( value instanceof IfcNamedUnit ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    return value; } )() ??
+        ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcMonetaryUnit ) )
+                                    if ( !( value instanceof IfcMonetaryUnit ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )();
+                                    return value; } )();
         
                     if ( value === void 0 )
                     {                

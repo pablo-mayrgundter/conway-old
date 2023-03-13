@@ -1,29 +1,24 @@
+
+import { IfcReinforcingElement } from "./index"
+import { IfcPositiveLengthMeasure } from "./index"
+import { IfcAreaMeasure } from "./index"
+import { IfcReinforcingBarRoleEnum, IfcReinforcingBarRoleEnumDeserializeStep } from "./index"
+import { IfcReinforcingBarSurfaceEnum, IfcReinforcingBarSurfaceEnumDeserializeStep } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
-import IfcAreaMeasure from "./IfcAreaMeasure.bldrs"
-import IfcReinforcingBarRoleEnum, { IfcReinforcingBarRoleEnumDeserializeStep } from "./IfcReinforcingBarRoleEnum.bldrs"
-import IfcReinforcingBarSurfaceEnum, { IfcReinforcingBarSurfaceEnumDeserializeStep } from "./IfcReinforcingBarSurfaceEnum.bldrs"
-import IfcReinforcingElement from "./IfcReinforcingElement.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcreinforcingbar.htm */
-export default  class IfcReinforcingBar extends IfcReinforcingElement 
+export  class IfcReinforcingBar extends IfcReinforcingElement 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCREINFORCINGBAR;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private NominalDiameter_? : IfcPositiveLengthMeasure;

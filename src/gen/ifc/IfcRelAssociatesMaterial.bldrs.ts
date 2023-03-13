@@ -1,30 +1,25 @@
+
+import { IfcRelAssociates } from "./index"
+import { IfcMaterial } from "./index"
+import { IfcMaterialList } from "./index"
+import { IfcMaterialLayerSetUsage } from "./index"
+import { IfcMaterialLayerSet } from "./index"
+import { IfcMaterialLayer } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcMaterial from "./IfcMaterial.bldrs"
-import IfcMaterialList from "./IfcMaterialList.bldrs"
-import IfcMaterialLayerSetUsage from "./IfcMaterialLayerSetUsage.bldrs"
-import IfcMaterialLayerSet from "./IfcMaterialLayerSet.bldrs"
-import IfcMaterialLayer from "./IfcMaterialLayer.bldrs"
-import IfcRelAssociates from "./IfcRelAssociates.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcrelassociatesmaterial.htm */
-export default  class IfcRelAssociatesMaterial extends IfcRelAssociates 
+export  class IfcRelAssociatesMaterial extends IfcRelAssociates 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCRELASSOCIATESMATERIAL;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private RelatingMaterial_? : IfcMaterial|IfcMaterialList|IfcMaterialLayerSetUsage|IfcMaterialLayerSet|IfcMaterialLayer;
@@ -48,52 +43,56 @@ export default  class IfcRelAssociatesMaterial extends IfcRelAssociates
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { try { 
+            let value = ( () => { 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcMaterial ) )
+                    if ( !( value instanceof IfcMaterial ) )
                     {                
-                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                        return (void 0);
                     };
         
-                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    return value; } )() ??
+( () => { 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcMaterialList ) )
+                    if ( !( value instanceof IfcMaterialList ) )
                     {                
-                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                        return (void 0);
                     };
         
-                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    return value; } )() ??
+( () => { 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcMaterialLayerSetUsage ) )
+                    if ( !( value instanceof IfcMaterialLayerSetUsage ) )
                     {                
-                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                        return (void 0);
                     };
         
-                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    return value; } )() ??
+( () => { 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcMaterialLayerSet ) )
+                    if ( !( value instanceof IfcMaterialLayerSet ) )
                     {                
-                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                        return (void 0);
                     };
         
-                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    return value; } )() ??
+( () => { 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcMaterialLayer ) )
+                    if ( !( value instanceof IfcMaterialLayer ) )
                     {                
-                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                        return (void 0);
                     };
         
-                    return value; } catch( e ) { return; } } )();
+                    return value; } )();
 
             if ( value === void 0 )
             {                

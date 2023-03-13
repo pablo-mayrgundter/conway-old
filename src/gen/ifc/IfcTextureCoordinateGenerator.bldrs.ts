@@ -1,32 +1,27 @@
+
+import { IfcTextureCoordinate } from "./index"
+import { IfcLabel } from "./index"
+import { IfcInteger } from "./index"
+import { IfcReal } from "./index"
+import { IfcBoolean } from "./index"
+import { IfcIdentifier } from "./index"
+import { IfcText } from "./index"
+import { IfcLogical } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcLabel from "./IfcLabel.bldrs"
-import IfcInteger from "./IfcInteger.bldrs"
-import IfcReal from "./IfcReal.bldrs"
-import IfcBoolean from "./IfcBoolean.bldrs"
-import IfcIdentifier from "./IfcIdentifier.bldrs"
-import IfcText from "./IfcText.bldrs"
-import IfcLogical from "./IfcLogical.bldrs"
-import IfcTextureCoordinate from "./IfcTextureCoordinate.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifctexturecoordinategenerator.htm */
-export default  class IfcTextureCoordinateGenerator extends IfcTextureCoordinate 
+export  class IfcTextureCoordinateGenerator extends IfcTextureCoordinate 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCTEXTURECOORDINATEGENERATOR;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Mode_? : IfcLabel;
@@ -90,63 +85,34 @@ export default  class IfcTextureCoordinateGenerator extends IfcTextureCoordinate
                 value.push( (() => { 
                     let cursor = address;
         
-                    let value = ( () => { try { 
+                    let value = ( () => { 
                                     let value = stepExtractNumber( buffer, cursor, endCursor );
                         
-                                    if ( value === void 0 )
-                                    {                
-                                        throw new Error( 'Value in STEP was incorrectly typed' );
-                                    };
-                        
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                        return value; } )() ??
+        ( () => { 
                                     let value = stepExtractNumber( buffer, cursor, endCursor );
                         
-                                    if ( value === void 0 )
-                                    {                
-                                        throw new Error( 'Value in STEP was incorrectly typed' );
-                                    };
-                        
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                        return value; } )() ??
+        ( () => { 
                                     let value = stepExtractBoolean( buffer, cursor, endCursor );
                         
-                                    if ( value === void 0 )
-                                    {                
-                                        throw new Error( 'Value in STEP was incorrectly typed' );
-                                    };
-                        
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                        return value; } )() ??
+        ( () => { 
                                     let value = stepExtractString( buffer, cursor, endCursor );
                         
-                                    if ( value === void 0 )
-                                    {                
-                                        throw new Error( 'Value in STEP was incorrectly typed' );
-                                    };
-                        
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                        return value; } )() ??
+        ( () => { 
                                     let value = stepExtractString( buffer, cursor, endCursor );
                         
-                                    if ( value === void 0 )
-                                    {                
-                                        throw new Error( 'Value in STEP was incorrectly typed' );
-                                    };
-                        
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                        return value; } )() ??
+        ( () => { 
                                     let value = stepExtractString( buffer, cursor, endCursor );
                         
-                                    if ( value === void 0 )
-                                    {                
-                                        throw new Error( 'Value in STEP was incorrectly typed' );
-                                    };
-                        
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                        return value; } )() ??
+        ( () => { 
                                     let value = stepExtractBoolean( buffer, cursor, endCursor );
                         
-                                    if ( value === void 0 )
-                                    {                
-                                        throw new Error( 'Value in STEP was incorrectly typed' );
-                                    };
-                        
-                                    return value; } catch( e ) { return; } } )();
+                        return value; } )();
         
                     if ( value === void 0 )
                     {                

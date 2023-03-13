@@ -1,25 +1,20 @@
+
+import { IfcShapeModel } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcShapeModel from "./IfcShapeModel.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifctopologyrepresentation.htm */
-export default  class IfcTopologyRepresentation extends IfcShapeModel 
+export  class IfcTopologyRepresentation extends IfcShapeModel 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCTOPOLOGYREPRESENTATION;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
 

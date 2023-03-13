@@ -1,26 +1,21 @@
+
+import { IfcFlowControllerType } from "./index"
+import { IfcSwitchingDeviceTypeEnum, IfcSwitchingDeviceTypeEnumDeserializeStep } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcSwitchingDeviceTypeEnum, { IfcSwitchingDeviceTypeEnumDeserializeStep } from "./IfcSwitchingDeviceTypeEnum.bldrs"
-import IfcFlowControllerType from "./IfcFlowControllerType.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcswitchingdevicetype.htm */
-export default  class IfcSwitchingDeviceType extends IfcFlowControllerType 
+export  class IfcSwitchingDeviceType extends IfcFlowControllerType 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSWITCHINGDEVICETYPE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private PredefinedType_? : IfcSwitchingDeviceTypeEnum;

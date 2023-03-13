@@ -2,7 +2,7 @@ enum IfcBuildingElementProxyTypeEnum {
     USERDEFINED = 0,
     NOTDEFINED = 1,
 }
-export default IfcBuildingElementProxyTypeEnum;
+export { IfcBuildingElementProxyTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

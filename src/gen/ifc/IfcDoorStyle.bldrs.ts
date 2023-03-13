@@ -1,27 +1,22 @@
+
+import { IfcTypeProduct } from "./index"
+import { IfcDoorStyleOperationEnum, IfcDoorStyleOperationEnumDeserializeStep } from "./index"
+import { IfcDoorStyleConstructionEnum, IfcDoorStyleConstructionEnumDeserializeStep } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcDoorStyleOperationEnum, { IfcDoorStyleOperationEnumDeserializeStep } from "./IfcDoorStyleOperationEnum.bldrs"
-import IfcDoorStyleConstructionEnum, { IfcDoorStyleConstructionEnumDeserializeStep } from "./IfcDoorStyleConstructionEnum.bldrs"
-import IfcTypeProduct from "./IfcTypeProduct.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcdoorstyle.htm */
-export default  class IfcDoorStyle extends IfcTypeProduct 
+export  class IfcDoorStyle extends IfcTypeProduct 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCDOORSTYLE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private OperationType_? : IfcDoorStyleOperationEnum;

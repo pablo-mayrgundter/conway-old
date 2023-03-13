@@ -1,26 +1,21 @@
+
+import { IfcFeatureElementSubtraction } from "./index"
+import { IfcPositiveLengthMeasure } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
-import IfcFeatureElementSubtraction from "./IfcFeatureElementSubtraction.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcedgefeature.htm */
-export default abstract class IfcEdgeFeature extends IfcFeatureElementSubtraction 
+export abstract class IfcEdgeFeature extends IfcFeatureElementSubtraction 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCEDGEFEATURE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private FeatureLength_? : IfcPositiveLengthMeasure | null;

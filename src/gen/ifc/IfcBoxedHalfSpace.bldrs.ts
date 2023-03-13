@@ -1,26 +1,21 @@
+
+import { IfcHalfSpaceSolid } from "./index"
+import { IfcBoundingBox } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcBoundingBox from "./IfcBoundingBox.bldrs"
-import IfcHalfSpaceSolid from "./IfcHalfSpaceSolid.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcboxedhalfspace.htm */
-export default  class IfcBoxedHalfSpace extends IfcHalfSpaceSolid 
+export  class IfcBoxedHalfSpace extends IfcHalfSpaceSolid 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCBOXEDHALFSPACE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Enclosure_? : IfcBoundingBox;
@@ -47,7 +42,7 @@ export default  class IfcBoxedHalfSpace extends IfcHalfSpaceSolid
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcBoundingBox ) )
+            if ( !( value instanceof IfcBoundingBox ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };

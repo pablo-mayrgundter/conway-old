@@ -1,37 +1,21 @@
+
+import { IfcProduct } from "./index"
+import { IfcIdentifier } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcIdentifier from "./IfcIdentifier.bldrs"
-import IfcRelFillsElement from "./IfcRelFillsElement.bldrs"
-import IfcRelConnectsElements from "./IfcRelConnectsElements.bldrs"
-import IfcRelCoversBldgElements from "./IfcRelCoversBldgElements.bldrs"
-import IfcRelProjectsElement from "./IfcRelProjectsElement.bldrs"
-import IfcRelConnectsStructuralElement from "./IfcRelConnectsStructuralElement.bldrs"
-import IfcRelReferencedInSpatialStructure from "./IfcRelReferencedInSpatialStructure.bldrs"
-import IfcRelConnectsPortToElement from "./IfcRelConnectsPortToElement.bldrs"
-import IfcRelVoidsElement from "./IfcRelVoidsElement.bldrs"
-import IfcRelConnectsWithRealizingElements from "./IfcRelConnectsWithRealizingElements.bldrs"
-import IfcRelSpaceBoundary from "./IfcRelSpaceBoundary.bldrs"
-import IfcRelContainedInSpatialStructure from "./IfcRelContainedInSpatialStructure.bldrs"
-import IfcProduct from "./IfcProduct.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcelement.htm */
-export default abstract class IfcElement extends IfcProduct 
+export abstract class IfcElement extends IfcProduct 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCELEMENT;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Tag_? : IfcIdentifier | null;

@@ -1,30 +1,25 @@
+
+import { IfcAreaMeasure } from "./index"
+import { IfcLabel } from "./index"
+import { IfcReinforcingBarSurfaceEnum, IfcReinforcingBarSurfaceEnumDeserializeStep } from "./index"
+import { IfcLengthMeasure } from "./index"
+import { IfcPositiveLengthMeasure } from "./index"
+import { IfcCountMeasure } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcAreaMeasure from "./IfcAreaMeasure.bldrs"
-import IfcLabel from "./IfcLabel.bldrs"
-import IfcReinforcingBarSurfaceEnum, { IfcReinforcingBarSurfaceEnumDeserializeStep } from "./IfcReinforcingBarSurfaceEnum.bldrs"
-import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
-import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
-import IfcCountMeasure from "./IfcCountMeasure.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcreinforcementbarproperties.htm */
-export default  class IfcReinforcementBarProperties extends StepEntityBase< EntityTypesIfc > 
+export  class IfcReinforcementBarProperties extends StepEntityBase< EntityTypesIfc > 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCREINFORCEMENTBARPROPERTIES;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private TotalCrossSectionArea_? : IfcAreaMeasure;

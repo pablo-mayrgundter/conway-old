@@ -1,26 +1,21 @@
+
+import { IfcAnnotationSymbolOccurrence } from "./index"
+import { IfcAnnotationCurveOccurrence } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcAnnotationCurveOccurrence from "./IfcAnnotationCurveOccurrence.bldrs"
-import IfcAnnotationSymbolOccurrence from "./IfcAnnotationSymbolOccurrence.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcterminatorsymbol.htm */
-export default  class IfcTerminatorSymbol extends IfcAnnotationSymbolOccurrence 
+export  class IfcTerminatorSymbol extends IfcAnnotationSymbolOccurrence 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCTERMINATORSYMBOL;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private AnnotatedCurve_? : IfcAnnotationCurveOccurrence;
@@ -47,7 +42,7 @@ export default  class IfcTerminatorSymbol extends IfcAnnotationSymbolOccurrence
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcAnnotationCurveOccurrence ) )
+            if ( !( value instanceof IfcAnnotationCurveOccurrence ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };

@@ -2,7 +2,7 @@ enum IfcDirectionSenseEnum {
     POSITIVE = 0,
     NEGATIVE = 1,
 }
-export default IfcDirectionSenseEnum;
+export { IfcDirectionSenseEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

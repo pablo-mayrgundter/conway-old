@@ -13,7 +13,7 @@ enum IfcThermalLoadSourceEnum {
     USERDEFINED = 11,
     NOTDEFINED = 12,
 }
-export default IfcThermalLoadSourceEnum;
+export { IfcThermalLoadSourceEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

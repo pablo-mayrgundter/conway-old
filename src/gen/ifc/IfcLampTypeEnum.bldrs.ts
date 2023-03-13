@@ -8,7 +8,7 @@ enum IfcLampTypeEnum {
     USERDEFINED = 6,
     NOTDEFINED = 7,
 }
-export default IfcLampTypeEnum;
+export { IfcLampTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

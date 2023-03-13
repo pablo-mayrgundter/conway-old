@@ -1,29 +1,24 @@
+
+import { IfcConstructionResource } from "./index"
+import { IfcOrganization } from "./index"
+import { IfcPerson } from "./index"
+import { IfcPersonAndOrganization } from "./index"
+import { IfcRatioMeasure } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcOrganization from "./IfcOrganization.bldrs"
-import IfcPerson from "./IfcPerson.bldrs"
-import IfcPersonAndOrganization from "./IfcPersonAndOrganization.bldrs"
-import IfcRatioMeasure from "./IfcRatioMeasure.bldrs"
-import IfcConstructionResource from "./IfcConstructionResource.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcconstructionmaterialresource.htm */
-export default  class IfcConstructionMaterialResource extends IfcConstructionResource 
+export  class IfcConstructionMaterialResource extends IfcConstructionResource 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCCONSTRUCTIONMATERIALRESOURCE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Suppliers_? : Array<IfcOrganization|IfcPerson|IfcPersonAndOrganization> | null;
@@ -55,34 +50,36 @@ export default  class IfcConstructionMaterialResource extends IfcConstructionRes
                 value.push( (() => { 
                     let cursor = address;
         
-                    let value = ( () => { try { 
+                    let value = ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcOrganization ) )
+                                    if ( !( value instanceof IfcOrganization ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    return value; } )() ??
+        ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcPerson ) )
+                                    if ( !( value instanceof IfcPerson ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    return value; } )() ??
+        ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcPersonAndOrganization ) )
+                                    if ( !( value instanceof IfcPersonAndOrganization ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )();
+                                    return value; } )();
         
                     if ( value === void 0 )
                     {                

@@ -1,26 +1,21 @@
+
+import { IfcSpatialStructureElement } from "./index"
+import { IfcLengthMeasure } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
-import IfcSpatialStructureElement from "./IfcSpatialStructureElement.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcbuildingstorey.htm */
-export default  class IfcBuildingStorey extends IfcSpatialStructureElement 
+export  class IfcBuildingStorey extends IfcSpatialStructureElement 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCBUILDINGSTOREY;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Elevation_? : IfcLengthMeasure | null;

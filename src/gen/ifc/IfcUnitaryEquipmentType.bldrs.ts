@@ -1,26 +1,21 @@
+
+import { IfcEnergyConversionDeviceType } from "./index"
+import { IfcUnitaryEquipmentTypeEnum, IfcUnitaryEquipmentTypeEnumDeserializeStep } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcUnitaryEquipmentTypeEnum, { IfcUnitaryEquipmentTypeEnumDeserializeStep } from "./IfcUnitaryEquipmentTypeEnum.bldrs"
-import IfcEnergyConversionDeviceType from "./IfcEnergyConversionDeviceType.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcunitaryequipmenttype.htm */
-export default  class IfcUnitaryEquipmentType extends IfcEnergyConversionDeviceType 
+export  class IfcUnitaryEquipmentType extends IfcEnergyConversionDeviceType 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCUNITARYEQUIPMENTTYPE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private PredefinedType_? : IfcUnitaryEquipmentTypeEnum;

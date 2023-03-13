@@ -16,7 +16,7 @@ enum IfcStairTypeEnum {
     USERDEFINED = 14,
     NOTDEFINED = 15,
 }
-export default IfcStairTypeEnum;
+export { IfcStairTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

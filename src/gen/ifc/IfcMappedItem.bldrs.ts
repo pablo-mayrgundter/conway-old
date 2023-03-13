@@ -1,27 +1,22 @@
+
+import { IfcRepresentationItem } from "./index"
+import { IfcRepresentationMap } from "./index"
+import { IfcCartesianTransformationOperator } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcRepresentationMap from "./IfcRepresentationMap.bldrs"
-import IfcCartesianTransformationOperator from "./IfcCartesianTransformationOperator.bldrs"
-import IfcRepresentationItem from "./IfcRepresentationItem.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcmappeditem.htm */
-export default  class IfcMappedItem extends IfcRepresentationItem 
+export  class IfcMappedItem extends IfcRepresentationItem 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCMAPPEDITEM;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private MappingSource_? : IfcRepresentationMap;
@@ -49,7 +44,7 @@ export default  class IfcMappedItem extends IfcRepresentationItem
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcRepresentationMap ) )
+            if ( !( value instanceof IfcRepresentationMap ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -82,7 +77,7 @@ export default  class IfcMappedItem extends IfcRepresentationItem
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcCartesianTransformationOperator ) )
+            if ( !( value instanceof IfcCartesianTransformationOperator ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };

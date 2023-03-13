@@ -1,30 +1,25 @@
+
+import { IfcPresentationStyle } from "./index"
+import { IfcFillAreaStyleHatching } from "./index"
+import { IfcFillAreaStyleTiles } from "./index"
+import { IfcColourSpecification } from "./index"
+import { IfcPreDefinedColour } from "./index"
+import { IfcExternallyDefinedHatchStyle } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcFillAreaStyleHatching from "./IfcFillAreaStyleHatching.bldrs"
-import IfcFillAreaStyleTiles from "./IfcFillAreaStyleTiles.bldrs"
-import IfcColourSpecification from "./IfcColourSpecification.bldrs"
-import IfcPreDefinedColour from "./IfcPreDefinedColour.bldrs"
-import IfcExternallyDefinedHatchStyle from "./IfcExternallyDefinedHatchStyle.bldrs"
-import IfcPresentationStyle from "./IfcPresentationStyle.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcfillareastyle.htm */
-export default  class IfcFillAreaStyle extends IfcPresentationStyle 
+export  class IfcFillAreaStyle extends IfcPresentationStyle 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCFILLAREASTYLE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private FillStyles_? : Array<IfcFillAreaStyleHatching|IfcFillAreaStyleTiles|IfcColourSpecification|IfcPreDefinedColour|IfcExternallyDefinedHatchStyle>;
@@ -55,52 +50,56 @@ export default  class IfcFillAreaStyle extends IfcPresentationStyle
                 value.push( (() => { 
                     let cursor = address;
         
-                    let value = ( () => { try { 
+                    let value = ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcFillAreaStyleHatching ) )
+                                    if ( !( value instanceof IfcFillAreaStyleHatching ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    return value; } )() ??
+        ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcFillAreaStyleTiles ) )
+                                    if ( !( value instanceof IfcFillAreaStyleTiles ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    return value; } )() ??
+        ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcColourSpecification ) )
+                                    if ( !( value instanceof IfcColourSpecification ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    return value; } )() ??
+        ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcPreDefinedColour ) )
+                                    if ( !( value instanceof IfcPreDefinedColour ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    return value; } )() ??
+        ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcExternallyDefinedHatchStyle ) )
+                                    if ( !( value instanceof IfcExternallyDefinedHatchStyle ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )();
+                                    return value; } )();
         
                     if ( value === void 0 )
                     {                

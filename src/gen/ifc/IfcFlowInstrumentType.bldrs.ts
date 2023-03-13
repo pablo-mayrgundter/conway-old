@@ -1,26 +1,21 @@
+
+import { IfcDistributionControlElementType } from "./index"
+import { IfcFlowInstrumentTypeEnum, IfcFlowInstrumentTypeEnumDeserializeStep } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcFlowInstrumentTypeEnum, { IfcFlowInstrumentTypeEnumDeserializeStep } from "./IfcFlowInstrumentTypeEnum.bldrs"
-import IfcDistributionControlElementType from "./IfcDistributionControlElementType.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcflowinstrumenttype.htm */
-export default  class IfcFlowInstrumentType extends IfcDistributionControlElementType 
+export  class IfcFlowInstrumentType extends IfcDistributionControlElementType 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCFLOWINSTRUMENTTYPE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private PredefinedType_? : IfcFlowInstrumentTypeEnum;

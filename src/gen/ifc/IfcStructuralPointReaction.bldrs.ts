@@ -1,25 +1,20 @@
+
+import { IfcStructuralReaction } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcStructuralReaction from "./IfcStructuralReaction.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcstructuralpointreaction.htm */
-export default  class IfcStructuralPointReaction extends IfcStructuralReaction 
+export  class IfcStructuralPointReaction extends IfcStructuralReaction 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSTRUCTURALPOINTREACTION;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
 

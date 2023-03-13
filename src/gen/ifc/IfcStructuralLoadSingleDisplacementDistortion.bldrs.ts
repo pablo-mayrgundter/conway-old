@@ -1,26 +1,21 @@
+
+import { IfcStructuralLoadSingleDisplacement } from "./index"
+import { IfcCurvatureMeasure } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcCurvatureMeasure from "./IfcCurvatureMeasure.bldrs"
-import IfcStructuralLoadSingleDisplacement from "./IfcStructuralLoadSingleDisplacement.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcstructuralloadsingledisplacementdistortion.htm */
-export default  class IfcStructuralLoadSingleDisplacementDistortion extends IfcStructuralLoadSingleDisplacement 
+export  class IfcStructuralLoadSingleDisplacementDistortion extends IfcStructuralLoadSingleDisplacement 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSTRUCTURALLOADSINGLEDISPLACEMENTDISTORTION;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Distortion_? : IfcCurvatureMeasure | null;

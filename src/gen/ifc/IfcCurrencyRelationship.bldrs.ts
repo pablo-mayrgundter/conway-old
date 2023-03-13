@@ -1,28 +1,23 @@
+
+import { IfcMonetaryUnit } from "./index"
+import { IfcPositiveRatioMeasure } from "./index"
+import { IfcDateAndTime } from "./index"
+import { IfcLibraryInformation } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcMonetaryUnit from "./IfcMonetaryUnit.bldrs"
-import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
-import IfcDateAndTime from "./IfcDateAndTime.bldrs"
-import IfcLibraryInformation from "./IfcLibraryInformation.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifccurrencyrelationship.htm */
-export default  class IfcCurrencyRelationship extends StepEntityBase< EntityTypesIfc > 
+export  class IfcCurrencyRelationship extends StepEntityBase< EntityTypesIfc > 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCCURRENCYRELATIONSHIP;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private RelatingMonetaryUnit_? : IfcMonetaryUnit;
@@ -53,7 +48,7 @@ export default  class IfcCurrencyRelationship extends StepEntityBase< EntityType
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcMonetaryUnit ) )
+            if ( !( value instanceof IfcMonetaryUnit ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -86,7 +81,7 @@ export default  class IfcCurrencyRelationship extends StepEntityBase< EntityType
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcMonetaryUnit ) )
+            if ( !( value instanceof IfcMonetaryUnit ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -151,7 +146,7 @@ export default  class IfcCurrencyRelationship extends StepEntityBase< EntityType
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcDateAndTime ) )
+            if ( !( value instanceof IfcDateAndTime ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -184,7 +179,7 @@ export default  class IfcCurrencyRelationship extends StepEntityBase< EntityType
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcLibraryInformation ) )
+            if ( !( value instanceof IfcLibraryInformation ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {

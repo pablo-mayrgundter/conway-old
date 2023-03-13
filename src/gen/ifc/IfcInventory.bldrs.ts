@@ -1,31 +1,26 @@
+
+import { IfcGroup } from "./index"
+import { IfcInventoryTypeEnum, IfcInventoryTypeEnumDeserializeStep } from "./index"
+import { IfcOrganization } from "./index"
+import { IfcPerson } from "./index"
+import { IfcPersonAndOrganization } from "./index"
+import { IfcCalendarDate } from "./index"
+import { IfcCostValue } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcInventoryTypeEnum, { IfcInventoryTypeEnumDeserializeStep } from "./IfcInventoryTypeEnum.bldrs"
-import IfcOrganization from "./IfcOrganization.bldrs"
-import IfcPerson from "./IfcPerson.bldrs"
-import IfcPersonAndOrganization from "./IfcPersonAndOrganization.bldrs"
-import IfcCalendarDate from "./IfcCalendarDate.bldrs"
-import IfcCostValue from "./IfcCostValue.bldrs"
-import IfcGroup from "./IfcGroup.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcinventory.htm */
-export default  class IfcInventory extends IfcGroup 
+export  class IfcInventory extends IfcGroup 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCINVENTORY;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private InventoryType_? : IfcInventoryTypeEnum;
@@ -86,34 +81,36 @@ export default  class IfcInventory extends IfcGroup
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { try { 
+            let value = ( () => { 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcOrganization ) )
+                    if ( !( value instanceof IfcOrganization ) )
                     {                
-                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                        return (void 0);
                     };
         
-                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    return value; } )() ??
+( () => { 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcPerson ) )
+                    if ( !( value instanceof IfcPerson ) )
                     {                
-                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                        return (void 0);
                     };
         
-                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    return value; } )() ??
+( () => { 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcPersonAndOrganization ) )
+                    if ( !( value instanceof IfcPersonAndOrganization ) )
                     {                
-                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                        return (void 0);
                     };
         
-                    return value; } catch( e ) { return; } } )();
+                    return value; } )();
 
             if ( value === void 0 )
             {                
@@ -155,7 +152,7 @@ export default  class IfcInventory extends IfcGroup
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcPerson ) )
+                    if ( !( value instanceof IfcPerson ) )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed for field' );
                     };
@@ -197,7 +194,7 @@ export default  class IfcInventory extends IfcGroup
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcCalendarDate ) )
+            if ( !( value instanceof IfcCalendarDate ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -230,7 +227,7 @@ export default  class IfcInventory extends IfcGroup
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcCostValue ) )
+            if ( !( value instanceof IfcCostValue ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
@@ -270,7 +267,7 @@ export default  class IfcInventory extends IfcGroup
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcCostValue ) )
+            if ( !( value instanceof IfcCostValue ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {

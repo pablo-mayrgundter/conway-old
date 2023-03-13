@@ -7,7 +7,7 @@ enum IfcTimeSeriesDataTypeEnum {
     PIECEWISECONTINUOUS = 5,
     NOTDEFINED = 6,
 }
-export default IfcTimeSeriesDataTypeEnum;
+export { IfcTimeSeriesDataTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

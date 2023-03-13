@@ -1,27 +1,21 @@
+
+import { IfcStructuralItem } from "./index"
+import { IfcBoundaryCondition } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcBoundaryCondition from "./IfcBoundaryCondition.bldrs"
-import IfcRelConnectsStructuralMember from "./IfcRelConnectsStructuralMember.bldrs"
-import IfcStructuralItem from "./IfcStructuralItem.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcstructuralconnection.htm */
-export default abstract class IfcStructuralConnection extends IfcStructuralItem 
+export abstract class IfcStructuralConnection extends IfcStructuralItem 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSTRUCTURALCONNECTION;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private AppliedCondition_? : IfcBoundaryCondition | null;
@@ -48,7 +42,7 @@ export default abstract class IfcStructuralConnection extends IfcStructuralItem
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcBoundaryCondition ) )
+            if ( !( value instanceof IfcBoundaryCondition ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {

@@ -1,29 +1,24 @@
+
+import { IfcMechanicalMaterialProperties } from "./index"
+import { IfcPressureMeasure } from "./index"
+import { IfcPositiveRatioMeasure } from "./index"
+import { IfcModulusOfElasticityMeasure } from "./index"
+import { IfcRelaxation } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcPressureMeasure from "./IfcPressureMeasure.bldrs"
-import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
-import IfcModulusOfElasticityMeasure from "./IfcModulusOfElasticityMeasure.bldrs"
-import IfcRelaxation from "./IfcRelaxation.bldrs"
-import IfcMechanicalMaterialProperties from "./IfcMechanicalMaterialProperties.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcmechanicalsteelmaterialproperties.htm */
-export default  class IfcMechanicalSteelMaterialProperties extends IfcMechanicalMaterialProperties 
+export  class IfcMechanicalSteelMaterialProperties extends IfcMechanicalMaterialProperties 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCMECHANICALSTEELMATERIALPROPERTIES;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private YieldStress_? : IfcPressureMeasure | null;
@@ -297,7 +292,7 @@ export default  class IfcMechanicalSteelMaterialProperties extends IfcMechanical
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcRelaxation ) )
+                    if ( !( value instanceof IfcRelaxation ) )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed for field' );
                     };

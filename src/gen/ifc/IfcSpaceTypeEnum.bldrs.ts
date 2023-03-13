@@ -2,7 +2,7 @@ enum IfcSpaceTypeEnum {
     USERDEFINED = 0,
     NOTDEFINED = 1,
 }
-export default IfcSpaceTypeEnum;
+export { IfcSpaceTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

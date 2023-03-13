@@ -1,28 +1,22 @@
+
+import { IfcProduct } from "./index"
+import { IfcStructuralLoad } from "./index"
+import { IfcGlobalOrLocalEnum, IfcGlobalOrLocalEnumDeserializeStep } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcStructuralLoad from "./IfcStructuralLoad.bldrs"
-import IfcGlobalOrLocalEnum, { IfcGlobalOrLocalEnumDeserializeStep } from "./IfcGlobalOrLocalEnum.bldrs"
-import IfcRelConnectsStructuralActivity from "./IfcRelConnectsStructuralActivity.bldrs"
-import IfcProduct from "./IfcProduct.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcstructuralactivity.htm */
-export default abstract class IfcStructuralActivity extends IfcProduct 
+export abstract class IfcStructuralActivity extends IfcProduct 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSTRUCTURALACTIVITY;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private AppliedLoad_? : IfcStructuralLoad;
@@ -50,7 +44,7 @@ export default abstract class IfcStructuralActivity extends IfcProduct
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcStructuralLoad ) )
+            if ( !( value instanceof IfcStructuralLoad ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };

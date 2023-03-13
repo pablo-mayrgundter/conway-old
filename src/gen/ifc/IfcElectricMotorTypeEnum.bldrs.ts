@@ -7,7 +7,7 @@ enum IfcElectricMotorTypeEnum {
     USERDEFINED = 5,
     NOTDEFINED = 6,
 }
-export default IfcElectricMotorTypeEnum;
+export { IfcElectricMotorTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

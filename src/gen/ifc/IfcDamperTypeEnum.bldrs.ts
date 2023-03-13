@@ -13,7 +13,7 @@ enum IfcDamperTypeEnum {
     USERDEFINED = 11,
     NOTDEFINED = 12,
 }
-export default IfcDamperTypeEnum;
+export { IfcDamperTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

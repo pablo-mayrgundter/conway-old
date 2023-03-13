@@ -1,29 +1,23 @@
+
+import { IfcGeometricRepresentationItem } from "./index"
+import { IfcCompositeCurve } from "./index"
+import { IfcProfileDef } from "./index"
+import { IfcAxis2Placement3D } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcCompositeCurve from "./IfcCompositeCurve.bldrs"
-import IfcProfileDef from "./IfcProfileDef.bldrs"
-import IfcAxis2Placement3D from "./IfcAxis2Placement3D.bldrs"
-import IfcDimensionCount from "./IfcDimensionCount.bldrs"
-import IfcGeometricRepresentationItem from "./IfcGeometricRepresentationItem.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcsectionedspine.htm */
-export default  class IfcSectionedSpine extends IfcGeometricRepresentationItem 
+export  class IfcSectionedSpine extends IfcGeometricRepresentationItem 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSECTIONEDSPINE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private SpineCurve_? : IfcCompositeCurve;
@@ -52,7 +46,7 @@ export default  class IfcSectionedSpine extends IfcGeometricRepresentationItem
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcCompositeCurve ) )
+            if ( !( value instanceof IfcCompositeCurve ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -92,7 +86,7 @@ export default  class IfcSectionedSpine extends IfcGeometricRepresentationItem
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcProfileDef ) )
+                    if ( !( value instanceof IfcProfileDef ) )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed for field' );
                     };
@@ -141,7 +135,7 @@ export default  class IfcSectionedSpine extends IfcGeometricRepresentationItem
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcAxis2Placement3D ) )
+                    if ( !( value instanceof IfcAxis2Placement3D ) )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed for field' );
                     };

@@ -1,30 +1,25 @@
+
+import { IfcNullStyle, IfcNullStyleDeserializeStep } from "./index"
+import { IfcCurveStyle } from "./index"
+import { IfcSymbolStyle } from "./index"
+import { IfcFillAreaStyle } from "./index"
+import { IfcTextStyle } from "./index"
+import { IfcSurfaceStyle } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcNullStyle, { IfcNullStyleDeserializeStep } from "./IfcNullStyle.bldrs"
-import IfcCurveStyle from "./IfcCurveStyle.bldrs"
-import IfcSymbolStyle from "./IfcSymbolStyle.bldrs"
-import IfcFillAreaStyle from "./IfcFillAreaStyle.bldrs"
-import IfcTextStyle from "./IfcTextStyle.bldrs"
-import IfcSurfaceStyle from "./IfcSurfaceStyle.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcpresentationstyleassignment.htm */
-export default  class IfcPresentationStyleAssignment extends StepEntityBase< EntityTypesIfc > 
+export  class IfcPresentationStyleAssignment extends StepEntityBase< EntityTypesIfc > 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCPRESENTATIONSTYLEASSIGNMENT;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Styles_? : Array<IfcNullStyle|IfcCurveStyle|IfcSymbolStyle|IfcFillAreaStyle|IfcTextStyle|IfcSurfaceStyle>;
@@ -55,60 +50,60 @@ export default  class IfcPresentationStyleAssignment extends StepEntityBase< Ent
                 value.push( (() => { 
                     let cursor = address;
         
-                    let value = ( () => { try { 
+                    let value = ( () => { 
                                     let value = IfcNullStyleDeserializeStep( buffer, cursor, endCursor );
                         
-                                    if ( value === void 0 )
-                                    {                
-                                        throw new Error( 'Value in STEP was incorrectly typed' );
-                                    };
-                        
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                        return value; } )() ??
+        ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcCurveStyle ) )
+                                    if ( !( value instanceof IfcCurveStyle ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    return value; } )() ??
+        ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcSymbolStyle ) )
+                                    if ( !( value instanceof IfcSymbolStyle ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    return value; } )() ??
+        ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcFillAreaStyle ) )
+                                    if ( !( value instanceof IfcFillAreaStyle ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    return value; } )() ??
+        ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcTextStyle ) )
+                                    if ( !( value instanceof IfcTextStyle ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    return value; } )() ??
+        ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcSurfaceStyle ) )
+                                    if ( !( value instanceof IfcSurfaceStyle ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )();
+                                    return value; } )();
         
                     if ( value === void 0 )
                     {                

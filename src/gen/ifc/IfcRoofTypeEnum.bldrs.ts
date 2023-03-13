@@ -14,7 +14,7 @@ enum IfcRoofTypeEnum {
     FREEFORM = 12,
     NOTDEFINED = 13,
 }
-export default IfcRoofTypeEnum;
+export { IfcRoofTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -9,7 +9,7 @@ enum IfcSpaceHeaterTypeEnum {
     USERDEFINED = 7,
     NOTDEFINED = 8,
 }
-export default IfcSpaceHeaterTypeEnum;
+export { IfcSpaceHeaterTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

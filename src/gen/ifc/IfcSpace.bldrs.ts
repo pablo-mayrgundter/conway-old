@@ -1,29 +1,22 @@
+
+import { IfcSpatialStructureElement } from "./index"
+import { IfcInternalOrExternalEnum, IfcInternalOrExternalEnumDeserializeStep } from "./index"
+import { IfcLengthMeasure } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcInternalOrExternalEnum, { IfcInternalOrExternalEnumDeserializeStep } from "./IfcInternalOrExternalEnum.bldrs"
-import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
-import IfcRelCoversSpaces from "./IfcRelCoversSpaces.bldrs"
-import IfcRelSpaceBoundary from "./IfcRelSpaceBoundary.bldrs"
-import IfcSpatialStructureElement from "./IfcSpatialStructureElement.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcspace.htm */
-export default  class IfcSpace extends IfcSpatialStructureElement 
+export  class IfcSpace extends IfcSpatialStructureElement 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSPACE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private InteriorOrExteriorSpace_? : IfcInternalOrExternalEnum;

@@ -1,28 +1,23 @@
+
+import { IfcPropertySetDefinition } from "./index"
+import { IfcBoolean } from "./index"
+import { IfcSoundScaleEnum, IfcSoundScaleEnumDeserializeStep } from "./index"
+import { IfcSoundValue } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcBoolean from "./IfcBoolean.bldrs"
-import IfcSoundScaleEnum, { IfcSoundScaleEnumDeserializeStep } from "./IfcSoundScaleEnum.bldrs"
-import IfcSoundValue from "./IfcSoundValue.bldrs"
-import IfcPropertySetDefinition from "./IfcPropertySetDefinition.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcsoundproperties.htm */
-export default  class IfcSoundProperties extends IfcPropertySetDefinition 
+export  class IfcSoundProperties extends IfcPropertySetDefinition 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSOUNDPROPERTIES;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private IsAttenuating_? : IfcBoolean;
@@ -129,7 +124,7 @@ export default  class IfcSoundProperties extends IfcPropertySetDefinition
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcSoundValue ) )
+                    if ( !( value instanceof IfcSoundValue ) )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed for field' );
                     };

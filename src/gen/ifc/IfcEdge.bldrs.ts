@@ -1,26 +1,21 @@
+
+import { IfcTopologicalRepresentationItem } from "./index"
+import { IfcVertex } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcVertex from "./IfcVertex.bldrs"
-import IfcTopologicalRepresentationItem from "./IfcTopologicalRepresentationItem.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcedge.htm */
-export default  class IfcEdge extends IfcTopologicalRepresentationItem 
+export  class IfcEdge extends IfcTopologicalRepresentationItem 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCEDGE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private EdgeStart_? : IfcVertex;
@@ -48,7 +43,7 @@ export default  class IfcEdge extends IfcTopologicalRepresentationItem
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcVertex ) )
+            if ( !( value instanceof IfcVertex ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -81,7 +76,7 @@ export default  class IfcEdge extends IfcTopologicalRepresentationItem
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcVertex ) )
+            if ( !( value instanceof IfcVertex ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };

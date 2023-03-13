@@ -1,27 +1,22 @@
+
+import { IfcRepresentationItem } from "./index"
+import { IfcPresentationStyleAssignment } from "./index"
+import { IfcLabel } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcRepresentationItem from "./IfcRepresentationItem.bldrs"
-import IfcPresentationStyleAssignment from "./IfcPresentationStyleAssignment.bldrs"
-import IfcLabel from "./IfcLabel.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcstyleditem.htm */
-export default  class IfcStyledItem extends IfcRepresentationItem 
+export  class IfcStyledItem extends IfcRepresentationItem 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSTYLEDITEM;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Item_? : IfcRepresentationItem | null;
@@ -50,7 +45,7 @@ export default  class IfcStyledItem extends IfcRepresentationItem
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcRepresentationItem ) )
+            if ( !( value instanceof IfcRepresentationItem ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
@@ -97,7 +92,7 @@ export default  class IfcStyledItem extends IfcRepresentationItem
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcPresentationStyleAssignment ) )
+                    if ( !( value instanceof IfcPresentationStyleAssignment ) )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed for field' );
                     };

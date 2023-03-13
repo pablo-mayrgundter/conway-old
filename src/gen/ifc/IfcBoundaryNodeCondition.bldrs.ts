@@ -1,27 +1,22 @@
+
+import { IfcBoundaryCondition } from "./index"
+import { IfcLinearStiffnessMeasure } from "./index"
+import { IfcRotationalStiffnessMeasure } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcLinearStiffnessMeasure from "./IfcLinearStiffnessMeasure.bldrs"
-import IfcRotationalStiffnessMeasure from "./IfcRotationalStiffnessMeasure.bldrs"
-import IfcBoundaryCondition from "./IfcBoundaryCondition.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcboundarynodecondition.htm */
-export default  class IfcBoundaryNodeCondition extends IfcBoundaryCondition 
+export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCBOUNDARYNODECONDITION;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private LinearStiffnessX_? : IfcLinearStiffnessMeasure | null;

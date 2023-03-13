@@ -1,27 +1,22 @@
+
+import { IfcTask } from "./index"
+import { IfcSpatialStructureElement } from "./index"
+import { IfcText } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcSpatialStructureElement from "./IfcSpatialStructureElement.bldrs"
-import IfcText from "./IfcText.bldrs"
-import IfcTask from "./IfcTask.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcmove.htm */
-export default  class IfcMove extends IfcTask 
+export  class IfcMove extends IfcTask 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCMOVE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private MoveFrom_? : IfcSpatialStructureElement;
@@ -50,7 +45,7 @@ export default  class IfcMove extends IfcTask
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcSpatialStructureElement ) )
+            if ( !( value instanceof IfcSpatialStructureElement ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -83,7 +78,7 @@ export default  class IfcMove extends IfcTask
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcSpatialStructureElement ) )
+            if ( !( value instanceof IfcSpatialStructureElement ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };

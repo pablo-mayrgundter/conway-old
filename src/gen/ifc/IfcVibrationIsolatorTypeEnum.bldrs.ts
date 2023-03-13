@@ -4,7 +4,7 @@ enum IfcVibrationIsolatorTypeEnum {
     USERDEFINED = 2,
     NOTDEFINED = 3,
 }
-export default IfcVibrationIsolatorTypeEnum;
+export { IfcVibrationIsolatorTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

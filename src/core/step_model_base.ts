@@ -1,5 +1,5 @@
 import { StepIndexEntry } from "../../dependencies/conway-ds/src/parsing/step/step_parser";
-import StepVtableBuilder, { IndexMark } from "../../dependencies/conway-ds/src/parsing/step/step_vtable_builder";
+import StepVtableBuilder from "../../dependencies/conway-ds/src/parsing/step/step_vtable_builder";
 import StepEntityBase from "./step_entity_base";
 import StepEntitySchema from "./step_entity_schema";
 import { StepEntityInternalReferencePrivate } from "./step_entity_internal_reference";
@@ -43,6 +43,8 @@ export default class StepModelBase< EntityTypeIDs extends number, BaseEntity ext
                     inlineAddressMap.set( localElementIndex[ inlineLocalId ].address, inlineLocalId );
                 }
             }
+
+            ++where;
         }
 
         // Continguous dense array map from express IDs.

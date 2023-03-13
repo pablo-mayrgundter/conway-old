@@ -1,26 +1,21 @@
+
+import { IfcEnergyConversionDeviceType } from "./index"
+import { IfcEvaporativeCoolerTypeEnum, IfcEvaporativeCoolerTypeEnumDeserializeStep } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcEvaporativeCoolerTypeEnum, { IfcEvaporativeCoolerTypeEnumDeserializeStep } from "./IfcEvaporativeCoolerTypeEnum.bldrs"
-import IfcEnergyConversionDeviceType from "./IfcEnergyConversionDeviceType.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcevaporativecoolertype.htm */
-export default  class IfcEvaporativeCoolerType extends IfcEnergyConversionDeviceType 
+export  class IfcEvaporativeCoolerType extends IfcEnergyConversionDeviceType 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCEVAPORATIVECOOLERTYPE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private PredefinedType_? : IfcEvaporativeCoolerTypeEnum;

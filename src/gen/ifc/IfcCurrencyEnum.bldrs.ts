@@ -83,7 +83,7 @@ enum IfcCurrencyEnum {
     ZWD = 81,
     NOK = 82,
 }
-export default IfcCurrencyEnum;
+export { IfcCurrencyEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

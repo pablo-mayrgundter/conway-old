@@ -2,7 +2,7 @@ enum IfcProjectedOrTrueLengthEnum {
     PROJECTED_LENGTH = 0,
     TRUE_LENGTH = 1,
 }
-export default IfcProjectedOrTrueLengthEnum;
+export { IfcProjectedOrTrueLengthEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -1,27 +1,22 @@
+
+import { IfcPropertySetDefinition } from "./index"
+import { IfcLabel } from "./index"
+import { IfcSectionReinforcementProperties } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcLabel from "./IfcLabel.bldrs"
-import IfcSectionReinforcementProperties from "./IfcSectionReinforcementProperties.bldrs"
-import IfcPropertySetDefinition from "./IfcPropertySetDefinition.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcreinforcementdefinitionproperties.htm */
-export default  class IfcReinforcementDefinitionProperties extends IfcPropertySetDefinition 
+export  class IfcReinforcementDefinitionProperties extends IfcPropertySetDefinition 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCREINFORCEMENTDEFINITIONPROPERTIES;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private DefinitionType_? : IfcLabel | null;
@@ -95,7 +90,7 @@ export default  class IfcReinforcementDefinitionProperties extends IfcPropertySe
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcSectionReinforcementProperties ) )
+                    if ( !( value instanceof IfcSectionReinforcementProperties ) )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed for field' );
                     };

@@ -1,30 +1,25 @@
+
+import { IfcEnergyProperties } from "./index"
+import { IfcElectricCurrentEnum, IfcElectricCurrentEnumDeserializeStep } from "./index"
+import { IfcElectricVoltageMeasure } from "./index"
+import { IfcFrequencyMeasure } from "./index"
+import { IfcElectricCurrentMeasure } from "./index"
+import { IfcPowerMeasure } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcElectricCurrentEnum, { IfcElectricCurrentEnumDeserializeStep } from "./IfcElectricCurrentEnum.bldrs"
-import IfcElectricVoltageMeasure from "./IfcElectricVoltageMeasure.bldrs"
-import IfcFrequencyMeasure from "./IfcFrequencyMeasure.bldrs"
-import IfcElectricCurrentMeasure from "./IfcElectricCurrentMeasure.bldrs"
-import IfcPowerMeasure from "./IfcPowerMeasure.bldrs"
-import IfcEnergyProperties from "./IfcEnergyProperties.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcelectricalbaseproperties.htm */
-export default  class IfcElectricalBaseProperties extends IfcEnergyProperties 
+export  class IfcElectricalBaseProperties extends IfcEnergyProperties 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCELECTRICALBASEPROPERTIES;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private ElectricCurrentType_? : IfcElectricCurrentEnum | null;

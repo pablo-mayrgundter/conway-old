@@ -1,28 +1,23 @@
+
+import { IfcConstraint } from "./index"
+import { IfcMetric } from "./index"
+import { IfcObjectiveEnum, IfcObjectiveEnumDeserializeStep } from "./index"
+import { IfcLabel } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcMetric from "./IfcMetric.bldrs"
-import IfcObjectiveEnum, { IfcObjectiveEnumDeserializeStep } from "./IfcObjectiveEnum.bldrs"
-import IfcLabel from "./IfcLabel.bldrs"
-import IfcConstraint from "./IfcConstraint.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcobjective.htm */
-export default  class IfcObjective extends IfcConstraint 
+export  class IfcObjective extends IfcConstraint 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCOBJECTIVE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private BenchmarkValues_? : IfcMetric | null;
@@ -52,7 +47,7 @@ export default  class IfcObjective extends IfcConstraint
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcMetric ) )
+            if ( !( value instanceof IfcMetric ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
@@ -92,7 +87,7 @@ export default  class IfcObjective extends IfcConstraint
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcMetric ) )
+            if ( !( value instanceof IfcMetric ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {

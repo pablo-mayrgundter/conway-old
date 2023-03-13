@@ -8,7 +8,7 @@ enum IfcProtectiveDeviceTypeEnum {
     USERDEFINED = 6,
     NOTDEFINED = 7,
 }
-export default IfcProtectiveDeviceTypeEnum;
+export { IfcProtectiveDeviceTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

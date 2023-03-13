@@ -1,25 +1,20 @@
+
+import { IfcRelAssignsToControl } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcRelAssignsToControl from "./IfcRelAssignsToControl.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcrelschedulescostitems.htm */
-export default  class IfcRelSchedulesCostItems extends IfcRelAssignsToControl 
+export  class IfcRelSchedulesCostItems extends IfcRelAssignsToControl 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCRELSCHEDULESCOSTITEMS;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
 

@@ -6,7 +6,7 @@ enum IfcAnalysisTheoryTypeEnum {
     USERDEFINED = 4,
     NOTDEFINED = 5,
 }
-export default IfcAnalysisTheoryTypeEnum;
+export { IfcAnalysisTheoryTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

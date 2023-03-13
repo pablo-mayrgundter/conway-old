@@ -1,28 +1,20 @@
+
+import { IfcRoot } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcRelAssigns from "./IfcRelAssigns.bldrs"
-import IfcRelDecomposes from "./IfcRelDecomposes.bldrs"
-import IfcRelAssociates from "./IfcRelAssociates.bldrs"
-import IfcRoot from "./IfcRoot.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcobjectdefinition.htm */
-export default abstract class IfcObjectDefinition extends IfcRoot 
+export abstract class IfcObjectDefinition extends IfcRoot 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCOBJECTDEFINITION;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
 

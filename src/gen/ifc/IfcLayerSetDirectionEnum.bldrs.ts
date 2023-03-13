@@ -3,7 +3,7 @@ enum IfcLayerSetDirectionEnum {
     AXIS2 = 1,
     AXIS3 = 2,
 }
-export default IfcLayerSetDirectionEnum;
+export { IfcLayerSetDirectionEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

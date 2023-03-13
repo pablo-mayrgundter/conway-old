@@ -1,29 +1,24 @@
+
+import { IfcRelConnects } from "./index"
+import { IfcCountMeasure } from "./index"
+import { IfcNormalisedRatioMeasure } from "./index"
+import { IfcSpatialStructureElement } from "./index"
+import { IfcSpaceProgram } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcCountMeasure from "./IfcCountMeasure.bldrs"
-import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
-import IfcSpatialStructureElement from "./IfcSpatialStructureElement.bldrs"
-import IfcSpaceProgram from "./IfcSpaceProgram.bldrs"
-import IfcRelConnects from "./IfcRelConnects.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcrelinteractionrequirements.htm */
-export default  class IfcRelInteractionRequirements extends IfcRelConnects 
+export  class IfcRelInteractionRequirements extends IfcRelConnects 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCRELINTERACTIONREQUIREMENTS;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private DailyInteraction_? : IfcCountMeasure | null;
@@ -132,7 +127,7 @@ export default  class IfcRelInteractionRequirements extends IfcRelConnects
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcSpatialStructureElement ) )
+            if ( !( value instanceof IfcSpatialStructureElement ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
@@ -172,7 +167,7 @@ export default  class IfcRelInteractionRequirements extends IfcRelConnects
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcSpaceProgram ) )
+            if ( !( value instanceof IfcSpaceProgram ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -205,7 +200,7 @@ export default  class IfcRelInteractionRequirements extends IfcRelConnects
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcSpaceProgram ) )
+            if ( !( value instanceof IfcSpaceProgram ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };

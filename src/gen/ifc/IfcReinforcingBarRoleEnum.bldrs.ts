@@ -9,7 +9,7 @@ enum IfcReinforcingBarRoleEnum {
     USERDEFINED = 7,
     NOTDEFINED = 8,
 }
-export default IfcReinforcingBarRoleEnum;
+export { IfcReinforcingBarRoleEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

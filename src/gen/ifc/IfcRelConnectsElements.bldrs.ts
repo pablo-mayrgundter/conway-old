@@ -1,27 +1,22 @@
+
+import { IfcRelConnects } from "./index"
+import { IfcConnectionGeometry } from "./index"
+import { IfcElement } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcConnectionGeometry from "./IfcConnectionGeometry.bldrs"
-import IfcElement from "./IfcElement.bldrs"
-import IfcRelConnects from "./IfcRelConnects.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcrelconnectselements.htm */
-export default  class IfcRelConnectsElements extends IfcRelConnects 
+export  class IfcRelConnectsElements extends IfcRelConnects 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCRELCONNECTSELEMENTS;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private ConnectionGeometry_? : IfcConnectionGeometry | null;
@@ -50,7 +45,7 @@ export default  class IfcRelConnectsElements extends IfcRelConnects
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcConnectionGeometry ) )
+            if ( !( value instanceof IfcConnectionGeometry ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
@@ -90,7 +85,7 @@ export default  class IfcRelConnectsElements extends IfcRelConnects
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcElement ) )
+            if ( !( value instanceof IfcElement ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -123,7 +118,7 @@ export default  class IfcRelConnectsElements extends IfcRelConnects
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcElement ) )
+            if ( !( value instanceof IfcElement ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };

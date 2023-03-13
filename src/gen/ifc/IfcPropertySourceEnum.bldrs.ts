@@ -9,7 +9,7 @@ enum IfcPropertySourceEnum {
     USERDEFINED = 7,
     NOTKNOWN = 8,
 }
-export default IfcPropertySourceEnum;
+export { IfcPropertySourceEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -1,28 +1,22 @@
+
+import { IfcBoundedSurface } from "./index"
+import { IfcPlane } from "./index"
+import { IfcCurve } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcPlane from "./IfcPlane.bldrs"
-import IfcCurve from "./IfcCurve.bldrs"
-import IfcDimensionCount from "./IfcDimensionCount.bldrs"
-import IfcBoundedSurface from "./IfcBoundedSurface.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifccurveboundedplane.htm */
-export default  class IfcCurveBoundedPlane extends IfcBoundedSurface 
+export  class IfcCurveBoundedPlane extends IfcBoundedSurface 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCCURVEBOUNDEDPLANE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private BasisSurface_? : IfcPlane;
@@ -51,7 +45,7 @@ export default  class IfcCurveBoundedPlane extends IfcBoundedSurface
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcPlane ) )
+            if ( !( value instanceof IfcPlane ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -84,7 +78,7 @@ export default  class IfcCurveBoundedPlane extends IfcBoundedSurface
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcCurve ) )
+            if ( !( value instanceof IfcCurve ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -124,7 +118,7 @@ export default  class IfcCurveBoundedPlane extends IfcBoundedSurface
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcCurve ) )
+                    if ( !( value instanceof IfcCurve ) )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed for field' );
                     };

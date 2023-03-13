@@ -6,7 +6,7 @@ enum IfcBenchmarkEnum {
     EQUALTO = 4,
     NOTEQUALTO = 5,
 }
-export default IfcBenchmarkEnum;
+export { IfcBenchmarkEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

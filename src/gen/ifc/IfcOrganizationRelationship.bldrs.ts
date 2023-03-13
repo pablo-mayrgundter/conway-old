@@ -1,27 +1,22 @@
+
+import { IfcLabel } from "./index"
+import { IfcText } from "./index"
+import { IfcOrganization } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcLabel from "./IfcLabel.bldrs"
-import IfcText from "./IfcText.bldrs"
-import IfcOrganization from "./IfcOrganization.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcorganizationrelationship.htm */
-export default  class IfcOrganizationRelationship extends StepEntityBase< EntityTypesIfc > 
+export  class IfcOrganizationRelationship extends StepEntityBase< EntityTypesIfc > 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCORGANIZATIONRELATIONSHIP;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Name_? : IfcLabel;
@@ -122,7 +117,7 @@ export default  class IfcOrganizationRelationship extends StepEntityBase< Entity
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcOrganization ) )
+            if ( !( value instanceof IfcOrganization ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -162,7 +157,7 @@ export default  class IfcOrganizationRelationship extends StepEntityBase< Entity
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcOrganization ) )
+                    if ( !( value instanceof IfcOrganization ) )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed for field' );
                     };

@@ -1,28 +1,23 @@
+
+import { IfcRelConnects } from "./index"
+import { IfcStructuralItem } from "./index"
+import { IfcElement } from "./index"
+import { IfcStructuralActivity } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcStructuralItem from "./IfcStructuralItem.bldrs"
-import IfcElement from "./IfcElement.bldrs"
-import IfcStructuralActivity from "./IfcStructuralActivity.bldrs"
-import IfcRelConnects from "./IfcRelConnects.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcrelconnectsstructuralactivity.htm */
-export default  class IfcRelConnectsStructuralActivity extends IfcRelConnects 
+export  class IfcRelConnectsStructuralActivity extends IfcRelConnects 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCRELCONNECTSSTRUCTURALACTIVITY;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private RelatingElement_? : IfcStructuralItem|IfcElement;
@@ -47,25 +42,26 @@ export default  class IfcRelConnectsStructuralActivity extends IfcRelConnects
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { try { 
+            let value = ( () => { 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcStructuralItem ) )
+                    if ( !( value instanceof IfcStructuralItem ) )
                     {                
-                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                        return (void 0);
                     };
         
-                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    return value; } )() ??
+( () => { 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcElement ) )
+                    if ( !( value instanceof IfcElement ) )
                     {                
-                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                        return (void 0);
                     };
         
-                    return value; } catch( e ) { return; } } )();
+                    return value; } )();
 
             if ( value === void 0 )
             {                
@@ -100,7 +96,7 @@ export default  class IfcRelConnectsStructuralActivity extends IfcRelConnects
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcStructuralActivity ) )
+            if ( !( value instanceof IfcStructuralActivity ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };

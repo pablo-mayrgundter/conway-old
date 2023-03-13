@@ -10,7 +10,7 @@ enum IfcCoveringTypeEnum {
     USERDEFINED = 8,
     NOTDEFINED = 9,
 }
-export default IfcCoveringTypeEnum;
+export { IfcCoveringTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -1,28 +1,23 @@
+
+import { IfcGeometricRepresentationItem } from "./index"
+import { IfcLabel } from "./index"
+import { IfcColourRgb } from "./index"
+import { IfcNormalisedRatioMeasure } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcLabel from "./IfcLabel.bldrs"
-import IfcColourRgb from "./IfcColourRgb.bldrs"
-import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
-import IfcGeometricRepresentationItem from "./IfcGeometricRepresentationItem.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifclightsource.htm */
-export default abstract class IfcLightSource extends IfcGeometricRepresentationItem 
+export abstract class IfcLightSource extends IfcGeometricRepresentationItem 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCLIGHTSOURCE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Name_? : IfcLabel | null;
@@ -91,7 +86,7 @@ export default abstract class IfcLightSource extends IfcGeometricRepresentationI
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcColourRgb ) )
+            if ( !( value instanceof IfcColourRgb ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };

@@ -7,7 +7,7 @@ enum IfcStructuralCurveTypeEnum {
     USERDEFINED = 5,
     NOTDEFINED = 6,
 }
-export default IfcStructuralCurveTypeEnum;
+export { IfcStructuralCurveTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

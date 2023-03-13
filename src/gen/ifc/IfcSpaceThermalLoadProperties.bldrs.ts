@@ -1,33 +1,28 @@
+
+import { IfcPropertySetDefinition } from "./index"
+import { IfcPositiveRatioMeasure } from "./index"
+import { IfcThermalLoadSourceEnum, IfcThermalLoadSourceEnumDeserializeStep } from "./index"
+import { IfcPropertySourceEnum, IfcPropertySourceEnumDeserializeStep } from "./index"
+import { IfcText } from "./index"
+import { IfcPowerMeasure } from "./index"
+import { IfcTimeSeries } from "./index"
+import { IfcLabel } from "./index"
+import { IfcThermalLoadTypeEnum, IfcThermalLoadTypeEnumDeserializeStep } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
-import IfcThermalLoadSourceEnum, { IfcThermalLoadSourceEnumDeserializeStep } from "./IfcThermalLoadSourceEnum.bldrs"
-import IfcPropertySourceEnum, { IfcPropertySourceEnumDeserializeStep } from "./IfcPropertySourceEnum.bldrs"
-import IfcText from "./IfcText.bldrs"
-import IfcPowerMeasure from "./IfcPowerMeasure.bldrs"
-import IfcTimeSeries from "./IfcTimeSeries.bldrs"
-import IfcLabel from "./IfcLabel.bldrs"
-import IfcThermalLoadTypeEnum, { IfcThermalLoadTypeEnumDeserializeStep } from "./IfcThermalLoadTypeEnum.bldrs"
-import IfcPropertySetDefinition from "./IfcPropertySetDefinition.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcspacethermalloadproperties.htm */
-export default  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefinition 
+export  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefinition 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSPACETHERMALLOADPROPERTIES;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private ApplicableValueRatio_? : IfcPositiveRatioMeasure | null;
@@ -276,7 +271,7 @@ export default  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefini
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcTimeSeries ) )
+            if ( !( value instanceof IfcTimeSeries ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {

@@ -1,30 +1,25 @@
+
+import { IfcPresentationStyle } from "./index"
+import { IfcTextStyleForDefinedFont } from "./index"
+import { IfcTextStyleWithBoxCharacteristics } from "./index"
+import { IfcTextStyleTextModel } from "./index"
+import { IfcPreDefinedTextFont } from "./index"
+import { IfcExternallyDefinedTextFont } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcTextStyleForDefinedFont from "./IfcTextStyleForDefinedFont.bldrs"
-import IfcTextStyleWithBoxCharacteristics from "./IfcTextStyleWithBoxCharacteristics.bldrs"
-import IfcTextStyleTextModel from "./IfcTextStyleTextModel.bldrs"
-import IfcPreDefinedTextFont from "./IfcPreDefinedTextFont.bldrs"
-import IfcExternallyDefinedTextFont from "./IfcExternallyDefinedTextFont.bldrs"
-import IfcPresentationStyle from "./IfcPresentationStyle.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifctextstyle.htm */
-export default  class IfcTextStyle extends IfcPresentationStyle 
+export  class IfcTextStyle extends IfcPresentationStyle 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCTEXTSTYLE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private TextCharacterAppearance_? : IfcTextStyleForDefinedFont | null;
@@ -50,16 +45,16 @@ export default  class IfcTextStyle extends IfcPresentationStyle
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { try { 
+            let value = ( () => { 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcTextStyleForDefinedFont ) )
+                    if ( !( value instanceof IfcTextStyleForDefinedFont ) )
                     {                
-                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                        return (void 0);
                     };
         
-                    return value; } catch( e ) { return; } } )();
+                    return value; } )();
 
             if ( value === void 0 )
             {
@@ -98,25 +93,26 @@ export default  class IfcTextStyle extends IfcPresentationStyle
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { try { 
+            let value = ( () => { 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcTextStyleWithBoxCharacteristics ) )
+                    if ( !( value instanceof IfcTextStyleWithBoxCharacteristics ) )
                     {                
-                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                        return (void 0);
                     };
         
-                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    return value; } )() ??
+( () => { 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcTextStyleTextModel ) )
+                    if ( !( value instanceof IfcTextStyleTextModel ) )
                     {                
-                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                        return (void 0);
                     };
         
-                    return value; } catch( e ) { return; } } )();
+                    return value; } )();
 
             if ( value === void 0 )
             {
@@ -155,25 +151,26 @@ export default  class IfcTextStyle extends IfcPresentationStyle
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { try { 
+            let value = ( () => { 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcPreDefinedTextFont ) )
+                    if ( !( value instanceof IfcPreDefinedTextFont ) )
                     {                
-                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                        return (void 0);
                     };
         
-                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    return value; } )() ??
+( () => { 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcExternallyDefinedTextFont ) )
+                    if ( !( value instanceof IfcExternallyDefinedTextFont ) )
                     {                
-                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                        return (void 0);
                     };
         
-                    return value; } catch( e ) { return; } } )();
+                    return value; } )();
 
             if ( value === void 0 )
             {                

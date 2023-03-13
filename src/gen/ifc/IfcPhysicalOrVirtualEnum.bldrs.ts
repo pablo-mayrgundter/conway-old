@@ -3,7 +3,7 @@ enum IfcPhysicalOrVirtualEnum {
     VIRTUAL = 1,
     NOTDEFINED = 2,
 }
-export default IfcPhysicalOrVirtualEnum;
+export { IfcPhysicalOrVirtualEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

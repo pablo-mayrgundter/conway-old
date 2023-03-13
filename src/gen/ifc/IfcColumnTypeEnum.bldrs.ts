@@ -3,7 +3,7 @@ enum IfcColumnTypeEnum {
     USERDEFINED = 1,
     NOTDEFINED = 2,
 }
-export default IfcColumnTypeEnum;
+export { IfcColumnTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

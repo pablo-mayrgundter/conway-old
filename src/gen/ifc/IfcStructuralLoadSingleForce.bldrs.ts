@@ -1,27 +1,22 @@
+
+import { IfcStructuralLoadStatic } from "./index"
+import { IfcForceMeasure } from "./index"
+import { IfcTorqueMeasure } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcForceMeasure from "./IfcForceMeasure.bldrs"
-import IfcTorqueMeasure from "./IfcTorqueMeasure.bldrs"
-import IfcStructuralLoadStatic from "./IfcStructuralLoadStatic.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcstructuralloadsingleforce.htm */
-export default  class IfcStructuralLoadSingleForce extends IfcStructuralLoadStatic 
+export  class IfcStructuralLoadSingleForce extends IfcStructuralLoadStatic 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSTRUCTURALLOADSINGLEFORCE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private ForceX_? : IfcForceMeasure | null;

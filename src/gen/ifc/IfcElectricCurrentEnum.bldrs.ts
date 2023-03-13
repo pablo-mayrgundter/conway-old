@@ -3,7 +3,7 @@ enum IfcElectricCurrentEnum {
     DIRECT = 1,
     NOTDEFINED = 2,
 }
-export default IfcElectricCurrentEnum;
+export { IfcElectricCurrentEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

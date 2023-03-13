@@ -1,31 +1,26 @@
+
+import { IfcReinforcingElement } from "./index"
+import { IfcTendonTypeEnum, IfcTendonTypeEnumDeserializeStep } from "./index"
+import { IfcPositiveLengthMeasure } from "./index"
+import { IfcAreaMeasure } from "./index"
+import { IfcForceMeasure } from "./index"
+import { IfcPressureMeasure } from "./index"
+import { IfcNormalisedRatioMeasure } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcTendonTypeEnum, { IfcTendonTypeEnumDeserializeStep } from "./IfcTendonTypeEnum.bldrs"
-import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
-import IfcAreaMeasure from "./IfcAreaMeasure.bldrs"
-import IfcForceMeasure from "./IfcForceMeasure.bldrs"
-import IfcPressureMeasure from "./IfcPressureMeasure.bldrs"
-import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
-import IfcReinforcingElement from "./IfcReinforcingElement.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifctendon.htm */
-export default  class IfcTendon extends IfcReinforcingElement 
+export  class IfcTendon extends IfcReinforcingElement 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCTENDON;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private PredefinedType_? : IfcTendonTypeEnum;

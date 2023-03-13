@@ -1,26 +1,21 @@
+
+import { IfcDistributionControlElementType } from "./index"
+import { IfcSensorTypeEnum, IfcSensorTypeEnumDeserializeStep } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcSensorTypeEnum, { IfcSensorTypeEnumDeserializeStep } from "./IfcSensorTypeEnum.bldrs"
-import IfcDistributionControlElementType from "./IfcDistributionControlElementType.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcsensortype.htm */
-export default  class IfcSensorType extends IfcDistributionControlElementType 
+export  class IfcSensorType extends IfcDistributionControlElementType 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSENSORTYPE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private PredefinedType_? : IfcSensorTypeEnum;

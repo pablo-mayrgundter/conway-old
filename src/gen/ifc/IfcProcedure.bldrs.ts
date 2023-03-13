@@ -1,28 +1,23 @@
+
+import { IfcProcess } from "./index"
+import { IfcIdentifier } from "./index"
+import { IfcProcedureTypeEnum, IfcProcedureTypeEnumDeserializeStep } from "./index"
+import { IfcLabel } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcIdentifier from "./IfcIdentifier.bldrs"
-import IfcProcedureTypeEnum, { IfcProcedureTypeEnumDeserializeStep } from "./IfcProcedureTypeEnum.bldrs"
-import IfcLabel from "./IfcLabel.bldrs"
-import IfcProcess from "./IfcProcess.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcprocedure.htm */
-export default  class IfcProcedure extends IfcProcess 
+export  class IfcProcedure extends IfcProcess 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCPROCEDURE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private ProcedureID_? : IfcIdentifier;

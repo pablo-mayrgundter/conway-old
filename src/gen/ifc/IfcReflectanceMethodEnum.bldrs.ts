@@ -10,7 +10,7 @@ enum IfcReflectanceMethodEnum {
     STRAUSS = 8,
     NOTDEFINED = 9,
 }
-export default IfcReflectanceMethodEnum;
+export { IfcReflectanceMethodEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

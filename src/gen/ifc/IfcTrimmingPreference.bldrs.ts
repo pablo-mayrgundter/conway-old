@@ -3,7 +3,7 @@ enum IfcTrimmingPreference {
     PARAMETER = 1,
     UNSPECIFIED = 2,
 }
-export default IfcTrimmingPreference;
+export { IfcTrimmingPreference };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

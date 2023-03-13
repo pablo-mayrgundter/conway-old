@@ -1,31 +1,26 @@
+
+import { IfcPresentationStyle } from "./index"
+import { IfcSurfaceSide, IfcSurfaceSideDeserializeStep } from "./index"
+import { IfcSurfaceStyleShading } from "./index"
+import { IfcSurfaceStyleLighting } from "./index"
+import { IfcSurfaceStyleWithTextures } from "./index"
+import { IfcExternallyDefinedSurfaceStyle } from "./index"
+import { IfcSurfaceStyleRefraction } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcSurfaceSide, { IfcSurfaceSideDeserializeStep } from "./IfcSurfaceSide.bldrs"
-import IfcSurfaceStyleShading from "./IfcSurfaceStyleShading.bldrs"
-import IfcSurfaceStyleLighting from "./IfcSurfaceStyleLighting.bldrs"
-import IfcSurfaceStyleWithTextures from "./IfcSurfaceStyleWithTextures.bldrs"
-import IfcExternallyDefinedSurfaceStyle from "./IfcExternallyDefinedSurfaceStyle.bldrs"
-import IfcSurfaceStyleRefraction from "./IfcSurfaceStyleRefraction.bldrs"
-import IfcPresentationStyle from "./IfcPresentationStyle.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcsurfacestyle.htm */
-export default  class IfcSurfaceStyle extends IfcPresentationStyle 
+export  class IfcSurfaceStyle extends IfcPresentationStyle 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSURFACESTYLE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Side_? : IfcSurfaceSide;
@@ -89,52 +84,56 @@ export default  class IfcSurfaceStyle extends IfcPresentationStyle
                 value.push( (() => { 
                     let cursor = address;
         
-                    let value = ( () => { try { 
+                    let value = ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcSurfaceStyleShading ) )
+                                    if ( !( value instanceof IfcSurfaceStyleShading ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    return value; } )() ??
+        ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcSurfaceStyleLighting ) )
+                                    if ( !( value instanceof IfcSurfaceStyleLighting ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    return value; } )() ??
+        ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcSurfaceStyleWithTextures ) )
+                                    if ( !( value instanceof IfcSurfaceStyleWithTextures ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    return value; } )() ??
+        ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcExternallyDefinedSurfaceStyle ) )
+                                    if ( !( value instanceof IfcExternallyDefinedSurfaceStyle ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                                    return value; } )() ??
+        ( () => { 
                                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
                         
-                                    if ( value === void 0 || !( value instanceof IfcSurfaceStyleRefraction ) )
+                                    if ( !( value instanceof IfcSurfaceStyleRefraction ) )
                                     {                
-                                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                                        return (void 0);
                                     };
                         
-                                    return value; } catch( e ) { return; } } )();
+                                    return value; } )();
         
                     if ( value === void 0 )
                     {                

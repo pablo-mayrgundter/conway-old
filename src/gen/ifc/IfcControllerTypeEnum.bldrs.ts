@@ -8,7 +8,7 @@ enum IfcControllerTypeEnum {
     USERDEFINED = 6,
     NOTDEFINED = 7,
 }
-export default IfcControllerTypeEnum;
+export { IfcControllerTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -1,27 +1,22 @@
+
+import { IfcRelConnects } from "./index"
+import { IfcSystem } from "./index"
+import { IfcSpatialStructureElement } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcSystem from "./IfcSystem.bldrs"
-import IfcSpatialStructureElement from "./IfcSpatialStructureElement.bldrs"
-import IfcRelConnects from "./IfcRelConnects.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcrelservicesbuildings.htm */
-export default  class IfcRelServicesBuildings extends IfcRelConnects 
+export  class IfcRelServicesBuildings extends IfcRelConnects 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCRELSERVICESBUILDINGS;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private RelatingSystem_? : IfcSystem;
@@ -49,7 +44,7 @@ export default  class IfcRelServicesBuildings extends IfcRelConnects
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcSystem ) )
+            if ( !( value instanceof IfcSystem ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -89,7 +84,7 @@ export default  class IfcRelServicesBuildings extends IfcRelConnects
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcSpatialStructureElement ) )
+                    if ( !( value instanceof IfcSpatialStructureElement ) )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed for field' );
                     };

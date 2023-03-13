@@ -3,7 +3,7 @@ enum IfcInternalOrExternalEnum {
     EXTERNAL = 1,
     NOTDEFINED = 2,
 }
-export default IfcInternalOrExternalEnum;
+export { IfcInternalOrExternalEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

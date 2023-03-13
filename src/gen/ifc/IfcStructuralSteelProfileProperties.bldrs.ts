@@ -1,27 +1,22 @@
+
+import { IfcStructuralProfileProperties } from "./index"
+import { IfcAreaMeasure } from "./index"
+import { IfcPositiveRatioMeasure } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcAreaMeasure from "./IfcAreaMeasure.bldrs"
-import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
-import IfcStructuralProfileProperties from "./IfcStructuralProfileProperties.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcstructuralsteelprofileproperties.htm */
-export default  class IfcStructuralSteelProfileProperties extends IfcStructuralProfileProperties 
+export  class IfcStructuralSteelProfileProperties extends IfcStructuralProfileProperties 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSTRUCTURALSTEELPROFILEPROPERTIES;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private ShearAreaZ_? : IfcAreaMeasure | null;

@@ -1,27 +1,20 @@
+
+import { IfcStructuralItem } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcRelConnectsStructuralElement from "./IfcRelConnectsStructuralElement.bldrs"
-import IfcRelConnectsStructuralMember from "./IfcRelConnectsStructuralMember.bldrs"
-import IfcStructuralItem from "./IfcStructuralItem.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcstructuralmember.htm */
-export default abstract class IfcStructuralMember extends IfcStructuralItem 
+export abstract class IfcStructuralMember extends IfcStructuralItem 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSTRUCTURALMEMBER;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
 

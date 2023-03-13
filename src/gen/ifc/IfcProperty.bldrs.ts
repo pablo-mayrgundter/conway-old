@@ -1,28 +1,21 @@
+
+import { IfcIdentifier } from "./index"
+import { IfcText } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcIdentifier from "./IfcIdentifier.bldrs"
-import IfcText from "./IfcText.bldrs"
-import IfcPropertyDependencyRelationship from "./IfcPropertyDependencyRelationship.bldrs"
-import IfcComplexProperty from "./IfcComplexProperty.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcproperty.htm */
-export default abstract class IfcProperty extends StepEntityBase< EntityTypesIfc > 
+export abstract class IfcProperty extends StepEntityBase< EntityTypesIfc > 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCPROPERTY;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Name_? : IfcIdentifier;

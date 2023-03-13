@@ -1,26 +1,21 @@
+
+import { IfcFlowFittingType } from "./index"
+import { IfcPipeFittingTypeEnum, IfcPipeFittingTypeEnumDeserializeStep } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcPipeFittingTypeEnum, { IfcPipeFittingTypeEnumDeserializeStep } from "./IfcPipeFittingTypeEnum.bldrs"
-import IfcFlowFittingType from "./IfcFlowFittingType.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcpipefittingtype.htm */
-export default  class IfcPipeFittingType extends IfcFlowFittingType 
+export  class IfcPipeFittingType extends IfcFlowFittingType 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCPIPEFITTINGTYPE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private PredefinedType_? : IfcPipeFittingTypeEnum;

@@ -3,7 +3,7 @@ enum IfcTubeBundleTypeEnum {
     USERDEFINED = 1,
     NOTDEFINED = 2,
 }
-export default IfcTubeBundleTypeEnum;
+export { IfcTubeBundleTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

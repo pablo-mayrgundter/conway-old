@@ -1,28 +1,23 @@
+
+import { IfcPropertySetDefinition } from "./index"
+import { IfcPositiveLengthMeasure } from "./index"
+import { IfcLengthMeasure } from "./index"
+import { IfcShapeAspect } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
-import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
-import IfcShapeAspect from "./IfcShapeAspect.bldrs"
-import IfcPropertySetDefinition from "./IfcPropertySetDefinition.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcdoorliningproperties.htm */
-export default  class IfcDoorLiningProperties extends IfcPropertySetDefinition 
+export  class IfcDoorLiningProperties extends IfcPropertySetDefinition 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCDOORLININGPROPERTIES;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private LiningDepth_? : IfcPositiveLengthMeasure | null;
@@ -449,7 +444,7 @@ export default  class IfcDoorLiningProperties extends IfcPropertySetDefinition
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcShapeAspect ) )
+            if ( !( value instanceof IfcShapeAspect ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {

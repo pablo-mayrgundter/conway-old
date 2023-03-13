@@ -2,7 +2,7 @@ enum IfcDimensionExtentUsage {
     ORIGIN = 0,
     TARGET = 1,
 }
-export default IfcDimensionExtentUsage;
+export { IfcDimensionExtentUsage };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

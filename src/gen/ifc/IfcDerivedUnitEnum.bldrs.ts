@@ -49,7 +49,7 @@ enum IfcDerivedUnitEnum {
     WARPINGMOMENTUNIT = 47,
     USERDEFINED = 48,
 }
-export default IfcDerivedUnitEnum;
+export { IfcDerivedUnitEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

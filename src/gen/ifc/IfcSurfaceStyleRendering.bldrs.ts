@@ -1,30 +1,25 @@
+
+import { IfcSurfaceStyleShading } from "./index"
+import { IfcNormalisedRatioMeasure } from "./index"
+import { IfcColourRgb } from "./index"
+import { IfcSpecularExponent } from "./index"
+import { IfcSpecularRoughness } from "./index"
+import { IfcReflectanceMethodEnum, IfcReflectanceMethodEnumDeserializeStep } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
-import IfcColourRgb from "./IfcColourRgb.bldrs"
-import IfcSpecularExponent from "./IfcSpecularExponent.bldrs"
-import IfcSpecularRoughness from "./IfcSpecularRoughness.bldrs"
-import IfcReflectanceMethodEnum, { IfcReflectanceMethodEnumDeserializeStep } from "./IfcReflectanceMethodEnum.bldrs"
-import IfcSurfaceStyleShading from "./IfcSurfaceStyleShading.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcsurfacestylerendering.htm */
-export default  class IfcSurfaceStyleRendering extends IfcSurfaceStyleShading 
+export  class IfcSurfaceStyleRendering extends IfcSurfaceStyleShading 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSURFACESTYLERENDERING;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Transparency_? : IfcNormalisedRatioMeasure | null;
@@ -94,24 +89,20 @@ export default  class IfcSurfaceStyleRendering extends IfcSurfaceStyleShading
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { try { 
+            let value = ( () => { 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcColourRgb ) )
+                    if ( !( value instanceof IfcColourRgb ) )
                     {                
-                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                        return (void 0);
                     };
         
-                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    return value; } )() ??
+( () => { 
                     let value = stepExtractNumber( buffer, cursor, endCursor );
         
-                    if ( value === void 0 )
-                    {                
-                        throw new Error( 'Value in STEP was incorrectly typed' );
-                    };
-        
-                    return value; } catch( e ) { return; } } )();
+        return value; } )();
 
             if ( value === void 0 )
             {
@@ -150,24 +141,20 @@ export default  class IfcSurfaceStyleRendering extends IfcSurfaceStyleShading
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { try { 
+            let value = ( () => { 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcColourRgb ) )
+                    if ( !( value instanceof IfcColourRgb ) )
                     {                
-                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                        return (void 0);
                     };
         
-                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    return value; } )() ??
+( () => { 
                     let value = stepExtractNumber( buffer, cursor, endCursor );
         
-                    if ( value === void 0 )
-                    {                
-                        throw new Error( 'Value in STEP was incorrectly typed' );
-                    };
-        
-                    return value; } catch( e ) { return; } } )();
+        return value; } )();
 
             if ( value === void 0 )
             {
@@ -206,24 +193,20 @@ export default  class IfcSurfaceStyleRendering extends IfcSurfaceStyleShading
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { try { 
+            let value = ( () => { 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcColourRgb ) )
+                    if ( !( value instanceof IfcColourRgb ) )
                     {                
-                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                        return (void 0);
                     };
         
-                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    return value; } )() ??
+( () => { 
                     let value = stepExtractNumber( buffer, cursor, endCursor );
         
-                    if ( value === void 0 )
-                    {                
-                        throw new Error( 'Value in STEP was incorrectly typed' );
-                    };
-        
-                    return value; } catch( e ) { return; } } )();
+        return value; } )();
 
             if ( value === void 0 )
             {
@@ -262,24 +245,20 @@ export default  class IfcSurfaceStyleRendering extends IfcSurfaceStyleShading
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { try { 
+            let value = ( () => { 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcColourRgb ) )
+                    if ( !( value instanceof IfcColourRgb ) )
                     {                
-                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                        return (void 0);
                     };
         
-                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    return value; } )() ??
+( () => { 
                     let value = stepExtractNumber( buffer, cursor, endCursor );
         
-                    if ( value === void 0 )
-                    {                
-                        throw new Error( 'Value in STEP was incorrectly typed' );
-                    };
-        
-                    return value; } catch( e ) { return; } } )();
+        return value; } )();
 
             if ( value === void 0 )
             {
@@ -318,24 +297,20 @@ export default  class IfcSurfaceStyleRendering extends IfcSurfaceStyleShading
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { try { 
+            let value = ( () => { 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcColourRgb ) )
+                    if ( !( value instanceof IfcColourRgb ) )
                     {                
-                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                        return (void 0);
                     };
         
-                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    return value; } )() ??
+( () => { 
                     let value = stepExtractNumber( buffer, cursor, endCursor );
         
-                    if ( value === void 0 )
-                    {                
-                        throw new Error( 'Value in STEP was incorrectly typed' );
-                    };
-        
-                    return value; } catch( e ) { return; } } )();
+        return value; } )();
 
             if ( value === void 0 )
             {
@@ -374,23 +349,14 @@ export default  class IfcSurfaceStyleRendering extends IfcSurfaceStyleShading
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { try { 
+            let value = ( () => { 
                     let value = stepExtractNumber( buffer, cursor, endCursor );
         
-                    if ( value === void 0 )
-                    {                
-                        throw new Error( 'Value in STEP was incorrectly typed' );
-                    };
-        
-                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+        return value; } )() ??
+( () => { 
                     let value = stepExtractNumber( buffer, cursor, endCursor );
         
-                    if ( value === void 0 )
-                    {                
-                        throw new Error( 'Value in STEP was incorrectly typed' );
-                    };
-        
-                    return value; } catch( e ) { return; } } )();
+        return value; } )();
 
             if ( value === void 0 )
             {

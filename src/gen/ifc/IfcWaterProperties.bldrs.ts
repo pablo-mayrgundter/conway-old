@@ -1,28 +1,23 @@
+
+import { IfcMaterialProperties } from "./index"
+import { IfcIonConcentrationMeasure } from "./index"
+import { IfcNormalisedRatioMeasure } from "./index"
+import { IfcPHMeasure } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcIonConcentrationMeasure from "./IfcIonConcentrationMeasure.bldrs"
-import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
-import IfcPHMeasure from "./IfcPHMeasure.bldrs"
-import IfcMaterialProperties from "./IfcMaterialProperties.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcwaterproperties.htm */
-export default  class IfcWaterProperties extends IfcMaterialProperties 
+export  class IfcWaterProperties extends IfcMaterialProperties 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCWATERPROPERTIES;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private IsPotable_? : boolean | null;

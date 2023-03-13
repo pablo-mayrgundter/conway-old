@@ -4,7 +4,7 @@ enum IfcDoorPanelPositionEnum {
     RIGHT = 2,
     NOTDEFINED = 3,
 }
-export default IfcDoorPanelPositionEnum;
+export { IfcDoorPanelPositionEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

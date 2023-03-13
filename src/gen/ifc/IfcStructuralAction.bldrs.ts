@@ -1,26 +1,21 @@
+
+import { IfcStructuralActivity } from "./index"
+import { IfcStructuralReaction } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcStructuralReaction from "./IfcStructuralReaction.bldrs"
-import IfcStructuralActivity from "./IfcStructuralActivity.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcstructuralaction.htm */
-export default abstract class IfcStructuralAction extends IfcStructuralActivity 
+export abstract class IfcStructuralAction extends IfcStructuralActivity 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSTRUCTURALACTION;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private DestabilizingLoad_? : boolean;
@@ -80,7 +75,7 @@ export default abstract class IfcStructuralAction extends IfcStructuralActivity
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcStructuralReaction ) )
+            if ( !( value instanceof IfcStructuralReaction ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {

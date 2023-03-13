@@ -2,7 +2,7 @@ enum IfcAheadOrBehind {
     AHEAD = 0,
     BEHIND = 1,
 }
-export default IfcAheadOrBehind;
+export { IfcAheadOrBehind };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

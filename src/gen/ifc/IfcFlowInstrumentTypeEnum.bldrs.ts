@@ -10,7 +10,7 @@ enum IfcFlowInstrumentTypeEnum {
     USERDEFINED = 8,
     NOTDEFINED = 9,
 }
-export default IfcFlowInstrumentTypeEnum;
+export { IfcFlowInstrumentTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

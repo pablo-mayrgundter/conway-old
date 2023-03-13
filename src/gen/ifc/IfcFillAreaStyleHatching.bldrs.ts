@@ -1,30 +1,25 @@
+
+import { IfcGeometricRepresentationItem } from "./index"
+import { IfcCurveStyle } from "./index"
+import { IfcOneDirectionRepeatFactor } from "./index"
+import { IfcPositiveLengthMeasure } from "./index"
+import { IfcCartesianPoint } from "./index"
+import { IfcPlaneAngleMeasure } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcCurveStyle from "./IfcCurveStyle.bldrs"
-import IfcOneDirectionRepeatFactor from "./IfcOneDirectionRepeatFactor.bldrs"
-import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
-import IfcCartesianPoint from "./IfcCartesianPoint.bldrs"
-import IfcPlaneAngleMeasure from "./IfcPlaneAngleMeasure.bldrs"
-import IfcGeometricRepresentationItem from "./IfcGeometricRepresentationItem.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcfillareastylehatching.htm */
-export default  class IfcFillAreaStyleHatching extends IfcGeometricRepresentationItem 
+export  class IfcFillAreaStyleHatching extends IfcGeometricRepresentationItem 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCFILLAREASTYLEHATCHING;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private HatchLineAppearance_? : IfcCurveStyle;
@@ -55,7 +50,7 @@ export default  class IfcFillAreaStyleHatching extends IfcGeometricRepresentatio
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcCurveStyle ) )
+            if ( !( value instanceof IfcCurveStyle ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -85,24 +80,20 @@ export default  class IfcFillAreaStyleHatching extends IfcGeometricRepresentatio
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { try { 
+            let value = ( () => { 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcOneDirectionRepeatFactor ) )
+                    if ( !( value instanceof IfcOneDirectionRepeatFactor ) )
                     {                
-                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                        return (void 0);
                     };
         
-                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+                    return value; } )() ??
+( () => { 
                     let value = stepExtractNumber( buffer, cursor, endCursor );
         
-                    if ( value === void 0 )
-                    {                
-                        throw new Error( 'Value in STEP was incorrectly typed' );
-                    };
-        
-                    return value; } catch( e ) { return; } } )();
+        return value; } )();
 
             if ( value === void 0 )
             {                
@@ -137,7 +128,7 @@ export default  class IfcFillAreaStyleHatching extends IfcGeometricRepresentatio
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcCartesianPoint ) )
+            if ( !( value instanceof IfcCartesianPoint ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
@@ -177,7 +168,7 @@ export default  class IfcFillAreaStyleHatching extends IfcGeometricRepresentatio
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcCartesianPoint ) )
+            if ( !( value instanceof IfcCartesianPoint ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {

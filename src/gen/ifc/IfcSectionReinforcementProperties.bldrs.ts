@@ -1,28 +1,23 @@
+
+import { IfcLengthMeasure } from "./index"
+import { IfcReinforcingBarRoleEnum, IfcReinforcingBarRoleEnumDeserializeStep } from "./index"
+import { IfcSectionProperties } from "./index"
+import { IfcReinforcementBarProperties } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
-import IfcReinforcingBarRoleEnum, { IfcReinforcingBarRoleEnumDeserializeStep } from "./IfcReinforcingBarRoleEnum.bldrs"
-import IfcSectionProperties from "./IfcSectionProperties.bldrs"
-import IfcReinforcementBarProperties from "./IfcReinforcementBarProperties.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcsectionreinforcementproperties.htm */
-export default  class IfcSectionReinforcementProperties extends StepEntityBase< EntityTypesIfc > 
+export  class IfcSectionReinforcementProperties extends StepEntityBase< EntityTypesIfc > 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSECTIONREINFORCEMENTPROPERTIES;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private LongitudinalStartPosition_? : IfcLengthMeasure;
@@ -189,7 +184,7 @@ export default  class IfcSectionReinforcementProperties extends StepEntityBase< 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcSectionProperties ) )
+            if ( !( value instanceof IfcSectionProperties ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -229,7 +224,7 @@ export default  class IfcSectionReinforcementProperties extends StepEntityBase< 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcReinforcementBarProperties ) )
+                    if ( !( value instanceof IfcReinforcementBarProperties ) )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed for field' );
                     };

@@ -1,26 +1,21 @@
+
+import { IfcParameterizedProfileDef } from "./index"
+import { IfcPositiveLengthMeasure } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
-import IfcParameterizedProfileDef from "./IfcParameterizedProfileDef.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifccshapeprofiledef.htm */
-export default  class IfcCShapeProfileDef extends IfcParameterizedProfileDef 
+export  class IfcCShapeProfileDef extends IfcParameterizedProfileDef 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCCSHAPEPROFILEDEF;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Depth_? : IfcPositiveLengthMeasure;

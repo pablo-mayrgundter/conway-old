@@ -5,7 +5,7 @@ enum IfcSequenceEnum {
     FINISH_FINISH = 3,
     NOTDEFINED = 4,
 }
-export default IfcSequenceEnum;
+export { IfcSequenceEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

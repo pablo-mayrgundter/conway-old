@@ -23,7 +23,7 @@ enum IfcValveTypeEnum {
     USERDEFINED = 21,
     NOTDEFINED = 22,
 }
-export default IfcValveTypeEnum;
+export { IfcValveTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

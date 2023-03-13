@@ -1,29 +1,24 @@
+
+import { IfcMaterialProperties } from "./index"
+import { IfcDynamicViscosityMeasure } from "./index"
+import { IfcModulusOfElasticityMeasure } from "./index"
+import { IfcPositiveRatioMeasure } from "./index"
+import { IfcThermalExpansionCoefficientMeasure } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcDynamicViscosityMeasure from "./IfcDynamicViscosityMeasure.bldrs"
-import IfcModulusOfElasticityMeasure from "./IfcModulusOfElasticityMeasure.bldrs"
-import IfcPositiveRatioMeasure from "./IfcPositiveRatioMeasure.bldrs"
-import IfcThermalExpansionCoefficientMeasure from "./IfcThermalExpansionCoefficientMeasure.bldrs"
-import IfcMaterialProperties from "./IfcMaterialProperties.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcmechanicalmaterialproperties.htm */
-export default  class IfcMechanicalMaterialProperties extends IfcMaterialProperties 
+export  class IfcMechanicalMaterialProperties extends IfcMaterialProperties 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCMECHANICALMATERIALPROPERTIES;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private DynamicViscosity_? : IfcDynamicViscosityMeasure | null;

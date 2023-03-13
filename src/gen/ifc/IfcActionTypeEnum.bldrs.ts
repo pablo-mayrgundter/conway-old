@@ -5,7 +5,7 @@ enum IfcActionTypeEnum {
     USERDEFINED = 3,
     NOTDEFINED = 4,
 }
-export default IfcActionTypeEnum;
+export { IfcActionTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

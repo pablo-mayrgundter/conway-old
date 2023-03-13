@@ -6,7 +6,7 @@ enum IfcBeamTypeEnum {
     USERDEFINED = 4,
     NOTDEFINED = 5,
 }
-export default IfcBeamTypeEnum;
+export { IfcBeamTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

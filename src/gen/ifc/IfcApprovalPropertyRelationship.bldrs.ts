@@ -1,26 +1,21 @@
+
+import { IfcProperty } from "./index"
+import { IfcApproval } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcProperty from "./IfcProperty.bldrs"
-import IfcApproval from "./IfcApproval.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcapprovalpropertyrelationship.htm */
-export default  class IfcApprovalPropertyRelationship extends StepEntityBase< EntityTypesIfc > 
+export  class IfcApprovalPropertyRelationship extends StepEntityBase< EntityTypesIfc > 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCAPPROVALPROPERTYRELATIONSHIP;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private ApprovedProperties_? : Array<IfcProperty>;
@@ -55,7 +50,7 @@ export default  class IfcApprovalPropertyRelationship extends StepEntityBase< En
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcProperty ) )
+                    if ( !( value instanceof IfcProperty ) )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed for field' );
                     };
@@ -97,7 +92,7 @@ export default  class IfcApprovalPropertyRelationship extends StepEntityBase< En
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcApproval ) )
+            if ( !( value instanceof IfcApproval ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };

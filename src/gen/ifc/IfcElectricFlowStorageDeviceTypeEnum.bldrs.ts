@@ -7,7 +7,7 @@ enum IfcElectricFlowStorageDeviceTypeEnum {
     USERDEFINED = 5,
     NOTDEFINED = 6,
 }
-export default IfcElectricFlowStorageDeviceTypeEnum;
+export { IfcElectricFlowStorageDeviceTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

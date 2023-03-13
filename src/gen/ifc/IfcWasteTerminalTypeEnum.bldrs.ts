@@ -12,7 +12,7 @@ enum IfcWasteTerminalTypeEnum {
     USERDEFINED = 10,
     NOTDEFINED = 11,
 }
-export default IfcWasteTerminalTypeEnum;
+export { IfcWasteTerminalTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

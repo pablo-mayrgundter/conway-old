@@ -1,26 +1,21 @@
+
+import { IfcBuildingElement } from "./index"
+import { IfcRoofTypeEnum, IfcRoofTypeEnumDeserializeStep } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcRoofTypeEnum, { IfcRoofTypeEnumDeserializeStep } from "./IfcRoofTypeEnum.bldrs"
-import IfcBuildingElement from "./IfcBuildingElement.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcroof.htm */
-export default  class IfcRoof extends IfcBuildingElement 
+export  class IfcRoof extends IfcBuildingElement 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCROOF;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private ShapeType_? : IfcRoofTypeEnum;

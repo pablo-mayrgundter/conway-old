@@ -2,7 +2,7 @@ enum IfcLogicalOperatorEnum {
     LOGICALAND = 0,
     LOGICALOR = 1,
 }
-export default IfcLogicalOperatorEnum;
+export { IfcLogicalOperatorEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

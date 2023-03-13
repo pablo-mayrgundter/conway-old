@@ -1,28 +1,23 @@
+
+import { IfcMaterialLayerSet } from "./index"
+import { IfcLayerSetDirectionEnum, IfcLayerSetDirectionEnumDeserializeStep } from "./index"
+import { IfcDirectionSenseEnum, IfcDirectionSenseEnumDeserializeStep } from "./index"
+import { IfcLengthMeasure } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcMaterialLayerSet from "./IfcMaterialLayerSet.bldrs"
-import IfcLayerSetDirectionEnum, { IfcLayerSetDirectionEnumDeserializeStep } from "./IfcLayerSetDirectionEnum.bldrs"
-import IfcDirectionSenseEnum, { IfcDirectionSenseEnumDeserializeStep } from "./IfcDirectionSenseEnum.bldrs"
-import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcmateriallayersetusage.htm */
-export default  class IfcMaterialLayerSetUsage extends StepEntityBase< EntityTypesIfc > 
+export  class IfcMaterialLayerSetUsage extends StepEntityBase< EntityTypesIfc > 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCMATERIALLAYERSETUSAGE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private ForLayerSet_? : IfcMaterialLayerSet;
@@ -52,7 +47,7 @@ export default  class IfcMaterialLayerSetUsage extends StepEntityBase< EntityTyp
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcMaterialLayerSet ) )
+            if ( !( value instanceof IfcMaterialLayerSet ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };

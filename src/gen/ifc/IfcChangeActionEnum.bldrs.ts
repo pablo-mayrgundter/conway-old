@@ -6,7 +6,7 @@ enum IfcChangeActionEnum {
     MODIFIEDADDED = 4,
     MODIFIEDDELETED = 5,
 }
-export default IfcChangeActionEnum;
+export { IfcChangeActionEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

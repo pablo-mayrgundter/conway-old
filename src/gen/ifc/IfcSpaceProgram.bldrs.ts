@@ -1,29 +1,23 @@
+
+import { IfcControl } from "./index"
+import { IfcIdentifier } from "./index"
+import { IfcAreaMeasure } from "./index"
+import { IfcSpatialStructureElement } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcIdentifier from "./IfcIdentifier.bldrs"
-import IfcAreaMeasure from "./IfcAreaMeasure.bldrs"
-import IfcSpatialStructureElement from "./IfcSpatialStructureElement.bldrs"
-import IfcRelInteractionRequirements from "./IfcRelInteractionRequirements.bldrs"
-import IfcControl from "./IfcControl.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcspaceprogram.htm */
-export default  class IfcSpaceProgram extends IfcControl 
+export  class IfcSpaceProgram extends IfcControl 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSPACEPROGRAM;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private SpaceProgramIdentifier_? : IfcIdentifier;
@@ -164,7 +158,7 @@ export default  class IfcSpaceProgram extends IfcControl
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcSpatialStructureElement ) )
+            if ( !( value instanceof IfcSpatialStructureElement ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {

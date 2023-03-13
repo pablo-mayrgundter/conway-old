@@ -1,26 +1,21 @@
+
+import { IfcEnergyConversionDeviceType } from "./index"
+import { IfcChillerTypeEnum, IfcChillerTypeEnumDeserializeStep } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcChillerTypeEnum, { IfcChillerTypeEnumDeserializeStep } from "./IfcChillerTypeEnum.bldrs"
-import IfcEnergyConversionDeviceType from "./IfcEnergyConversionDeviceType.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcchillertype.htm */
-export default  class IfcChillerType extends IfcEnergyConversionDeviceType 
+export  class IfcChillerType extends IfcEnergyConversionDeviceType 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCCHILLERTYPE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private PredefinedType_? : IfcChillerTypeEnum;

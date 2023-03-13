@@ -30,7 +30,7 @@ enum IfcSIUnitName {
     WATT = 28,
     WEBER = 29,
 }
-export default IfcSIUnitName;
+export { IfcSIUnitName };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

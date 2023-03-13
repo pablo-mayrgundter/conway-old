@@ -1,29 +1,24 @@
+
+import { IfcSpatialStructureElement } from "./index"
+import { IfcCompoundPlaneAngleMeasure } from "./index"
+import { IfcLengthMeasure } from "./index"
+import { IfcLabel } from "./index"
+import { IfcPostalAddress } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcCompoundPlaneAngleMeasure from "./IfcCompoundPlaneAngleMeasure.bldrs"
-import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
-import IfcLabel from "./IfcLabel.bldrs"
-import IfcPostalAddress from "./IfcPostalAddress.bldrs"
-import IfcSpatialStructureElement from "./IfcSpatialStructureElement.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcsite.htm */
-export default  class IfcSite extends IfcSpatialStructureElement 
+export  class IfcSite extends IfcSpatialStructureElement 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSITE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private RefLatitude_? : IfcCompoundPlaneAngleMeasure | null;
@@ -242,7 +237,7 @@ export default  class IfcSite extends IfcSpatialStructureElement
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcPostalAddress ) )
+            if ( !( value instanceof IfcPostalAddress ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {

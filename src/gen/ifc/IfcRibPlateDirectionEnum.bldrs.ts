@@ -2,7 +2,7 @@ enum IfcRibPlateDirectionEnum {
     DIRECTION_X = 0,
     DIRECTION_Y = 1,
 }
-export default IfcRibPlateDirectionEnum;
+export { IfcRibPlateDirectionEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

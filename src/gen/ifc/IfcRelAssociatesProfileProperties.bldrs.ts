@@ -1,29 +1,24 @@
+
+import { IfcRelAssociates } from "./index"
+import { IfcProfileProperties } from "./index"
+import { IfcShapeAspect } from "./index"
+import { IfcPlaneAngleMeasure } from "./index"
+import { IfcDirection } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcProfileProperties from "./IfcProfileProperties.bldrs"
-import IfcShapeAspect from "./IfcShapeAspect.bldrs"
-import IfcPlaneAngleMeasure from "./IfcPlaneAngleMeasure.bldrs"
-import IfcDirection from "./IfcDirection.bldrs"
-import IfcRelAssociates from "./IfcRelAssociates.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcrelassociatesprofileproperties.htm */
-export default  class IfcRelAssociatesProfileProperties extends IfcRelAssociates 
+export  class IfcRelAssociatesProfileProperties extends IfcRelAssociates 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCRELASSOCIATESPROFILEPROPERTIES;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private RelatingProfileProperties_? : IfcProfileProperties;
@@ -52,7 +47,7 @@ export default  class IfcRelAssociatesProfileProperties extends IfcRelAssociates
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcProfileProperties ) )
+            if ( !( value instanceof IfcProfileProperties ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -85,7 +80,7 @@ export default  class IfcRelAssociatesProfileProperties extends IfcRelAssociates
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcShapeAspect ) )
+            if ( !( value instanceof IfcShapeAspect ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
@@ -122,24 +117,20 @@ export default  class IfcRelAssociatesProfileProperties extends IfcRelAssociates
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { try { 
+            let value = ( () => { 
                     let value = stepExtractNumber( buffer, cursor, endCursor );
         
-                    if ( value === void 0 )
-                    {                
-                        throw new Error( 'Value in STEP was incorrectly typed' );
-                    };
-        
-                    return value; } catch( e ) { return; } } )() ?? ( () => { try { 
+        return value; } )() ??
+( () => { 
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcDirection ) )
+                    if ( !( value instanceof IfcDirection ) )
                     {                
-                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                        return (void 0);
                     };
         
-                    return value; } catch( e ) { return; } } )();
+                    return value; } )();
 
             if ( value === void 0 )
             {

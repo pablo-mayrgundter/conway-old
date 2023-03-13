@@ -1,26 +1,21 @@
+
+import { IfcBuildingElementType } from "./index"
+import { IfcStairFlightTypeEnum, IfcStairFlightTypeEnumDeserializeStep } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcStairFlightTypeEnum, { IfcStairFlightTypeEnumDeserializeStep } from "./IfcStairFlightTypeEnum.bldrs"
-import IfcBuildingElementType from "./IfcBuildingElementType.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcstairflighttype.htm */
-export default  class IfcStairFlightType extends IfcBuildingElementType 
+export  class IfcStairFlightType extends IfcBuildingElementType 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCSTAIRFLIGHTTYPE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private PredefinedType_? : IfcStairFlightTypeEnum;

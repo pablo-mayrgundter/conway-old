@@ -2,7 +2,7 @@ enum IfcReinforcingBarSurfaceEnum {
     PLAIN = 0,
     TEXTURED = 1,
 }
-export default IfcReinforcingBarSurfaceEnum;
+export { IfcReinforcingBarSurfaceEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

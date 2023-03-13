@@ -1,29 +1,24 @@
+
+import { IfcMechanicalMaterialProperties } from "./index"
+import { IfcPressureMeasure } from "./index"
+import { IfcPositiveLengthMeasure } from "./index"
+import { IfcText } from "./index"
+import { IfcNormalisedRatioMeasure } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcPressureMeasure from "./IfcPressureMeasure.bldrs"
-import IfcPositiveLengthMeasure from "./IfcPositiveLengthMeasure.bldrs"
-import IfcText from "./IfcText.bldrs"
-import IfcNormalisedRatioMeasure from "./IfcNormalisedRatioMeasure.bldrs"
-import IfcMechanicalMaterialProperties from "./IfcMechanicalMaterialProperties.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcmechanicalconcretematerialproperties.htm */
-export default  class IfcMechanicalConcreteMaterialProperties extends IfcMechanicalMaterialProperties 
+export  class IfcMechanicalConcreteMaterialProperties extends IfcMechanicalMaterialProperties 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCMECHANICALCONCRETEMATERIALPROPERTIES;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private CompressiveStrength_? : IfcPressureMeasure | null;

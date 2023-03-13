@@ -1,31 +1,26 @@
+
+import { IfcRelConnects } from "./index"
+import { IfcStructuralMember } from "./index"
+import { IfcStructuralConnection } from "./index"
+import { IfcBoundaryCondition } from "./index"
+import { IfcStructuralConnectionCondition } from "./index"
+import { IfcLengthMeasure } from "./index"
+import { IfcAxis2Placement3D } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcStructuralMember from "./IfcStructuralMember.bldrs"
-import IfcStructuralConnection from "./IfcStructuralConnection.bldrs"
-import IfcBoundaryCondition from "./IfcBoundaryCondition.bldrs"
-import IfcStructuralConnectionCondition from "./IfcStructuralConnectionCondition.bldrs"
-import IfcLengthMeasure from "./IfcLengthMeasure.bldrs"
-import IfcAxis2Placement3D from "./IfcAxis2Placement3D.bldrs"
-import IfcRelConnects from "./IfcRelConnects.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcrelconnectsstructuralmember.htm */
-export default  class IfcRelConnectsStructuralMember extends IfcRelConnects 
+export  class IfcRelConnectsStructuralMember extends IfcRelConnects 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCRELCONNECTSSTRUCTURALMEMBER;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private RelatingStructuralMember_? : IfcStructuralMember;
@@ -57,7 +52,7 @@ export default  class IfcRelConnectsStructuralMember extends IfcRelConnects
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcStructuralMember ) )
+            if ( !( value instanceof IfcStructuralMember ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -90,7 +85,7 @@ export default  class IfcRelConnectsStructuralMember extends IfcRelConnects
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcStructuralConnection ) )
+            if ( !( value instanceof IfcStructuralConnection ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -123,7 +118,7 @@ export default  class IfcRelConnectsStructuralMember extends IfcRelConnects
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcBoundaryCondition ) )
+            if ( !( value instanceof IfcBoundaryCondition ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
@@ -163,7 +158,7 @@ export default  class IfcRelConnectsStructuralMember extends IfcRelConnects
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcStructuralConnectionCondition ) )
+            if ( !( value instanceof IfcStructuralConnectionCondition ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
@@ -242,7 +237,7 @@ export default  class IfcRelConnectsStructuralMember extends IfcRelConnects
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcAxis2Placement3D ) )
+            if ( !( value instanceof IfcAxis2Placement3D ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {

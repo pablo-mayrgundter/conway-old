@@ -7,7 +7,7 @@ enum IfcFilterTypeEnum {
     USERDEFINED = 5,
     NOTDEFINED = 6,
 }
-export default IfcFilterTypeEnum;
+export { IfcFilterTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

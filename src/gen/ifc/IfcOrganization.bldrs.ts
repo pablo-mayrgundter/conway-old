@@ -1,31 +1,24 @@
+
+import { IfcIdentifier } from "./index"
+import { IfcLabel } from "./index"
+import { IfcText } from "./index"
+import { IfcActorRole } from "./index"
+import { IfcAddress } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcIdentifier from "./IfcIdentifier.bldrs"
-import IfcLabel from "./IfcLabel.bldrs"
-import IfcText from "./IfcText.bldrs"
-import IfcActorRole from "./IfcActorRole.bldrs"
-import IfcAddress from "./IfcAddress.bldrs"
-import IfcOrganizationRelationship from "./IfcOrganizationRelationship.bldrs"
-import IfcPersonAndOrganization from "./IfcPersonAndOrganization.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcorganization.htm */
-export default  class IfcOrganization extends StepEntityBase< EntityTypesIfc > 
+export  class IfcOrganization extends StepEntityBase< EntityTypesIfc > 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCORGANIZATION;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Id_? : IfcIdentifier | null;
@@ -173,7 +166,7 @@ export default  class IfcOrganization extends StepEntityBase< EntityTypesIfc >
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcActorRole ) )
+                    if ( !( value instanceof IfcActorRole ) )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed for field' );
                     };
@@ -229,7 +222,7 @@ export default  class IfcOrganization extends StepEntityBase< EntityTypesIfc >
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcAddress ) )
+                    if ( !( value instanceof IfcAddress ) )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed for field' );
                     };

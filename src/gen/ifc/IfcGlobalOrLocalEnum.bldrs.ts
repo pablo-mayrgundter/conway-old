@@ -2,7 +2,7 @@ enum IfcGlobalOrLocalEnum {
     GLOBAL_COORDS = 0,
     LOCAL_COORDS = 1,
 }
-export default IfcGlobalOrLocalEnum;
+export { IfcGlobalOrLocalEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

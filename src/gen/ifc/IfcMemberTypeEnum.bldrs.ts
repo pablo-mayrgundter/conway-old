@@ -14,7 +14,7 @@ enum IfcMemberTypeEnum {
     USERDEFINED = 12,
     NOTDEFINED = 13,
 }
-export default IfcMemberTypeEnum;
+export { IfcMemberTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

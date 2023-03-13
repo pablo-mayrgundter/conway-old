@@ -1,26 +1,21 @@
+
+import { IfcLoop } from "./index"
+import { IfcCartesianPoint } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcCartesianPoint from "./IfcCartesianPoint.bldrs"
-import IfcLoop from "./IfcLoop.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcpolyloop.htm */
-export default  class IfcPolyLoop extends IfcLoop 
+export  class IfcPolyLoop extends IfcLoop 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCPOLYLOOP;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private Polygon_? : Array<IfcCartesianPoint>;
@@ -54,7 +49,7 @@ export default  class IfcPolyLoop extends IfcLoop
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( value === void 0 || !( value instanceof IfcCartesianPoint ) )
+                    if ( !( value instanceof IfcCartesianPoint ) )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed for field' );
                     };

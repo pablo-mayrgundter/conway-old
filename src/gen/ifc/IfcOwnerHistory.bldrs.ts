@@ -1,29 +1,24 @@
+
+import { IfcPersonAndOrganization } from "./index"
+import { IfcApplication } from "./index"
+import { IfcStateEnum, IfcStateEnumDeserializeStep } from "./index"
+import { IfcChangeActionEnum, IfcChangeActionEnumDeserializeStep } from "./index"
+import { IfcTimeStamp } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcPersonAndOrganization from "./IfcPersonAndOrganization.bldrs"
-import IfcApplication from "./IfcApplication.bldrs"
-import IfcStateEnum, { IfcStateEnumDeserializeStep } from "./IfcStateEnum.bldrs"
-import IfcChangeActionEnum, { IfcChangeActionEnumDeserializeStep } from "./IfcChangeActionEnum.bldrs"
-import IfcTimeStamp from "./IfcTimeStamp.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcownerhistory.htm */
-export default  class IfcOwnerHistory extends StepEntityBase< EntityTypesIfc > 
+export  class IfcOwnerHistory extends StepEntityBase< EntityTypesIfc > 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCOWNERHISTORY;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private OwningUser_? : IfcPersonAndOrganization;
@@ -57,7 +52,7 @@ export default  class IfcOwnerHistory extends StepEntityBase< EntityTypesIfc >
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcPersonAndOrganization ) )
+            if ( !( value instanceof IfcPersonAndOrganization ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -90,7 +85,7 @@ export default  class IfcOwnerHistory extends StepEntityBase< EntityTypesIfc >
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcApplication ) )
+            if ( !( value instanceof IfcApplication ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -233,7 +228,7 @@ export default  class IfcOwnerHistory extends StepEntityBase< EntityTypesIfc >
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcPersonAndOrganization ) )
+            if ( !( value instanceof IfcPersonAndOrganization ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
@@ -273,7 +268,7 @@ export default  class IfcOwnerHistory extends StepEntityBase< EntityTypesIfc >
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( value === void 0 || !( value instanceof IfcApplication ) )
+            if ( !( value instanceof IfcApplication ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {

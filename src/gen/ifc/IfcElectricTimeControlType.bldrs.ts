@@ -1,26 +1,21 @@
+
+import { IfcFlowControllerType } from "./index"
+import { IfcElectricTimeControlTypeEnum, IfcElectricTimeControlTypeEnumDeserializeStep } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcElectricTimeControlTypeEnum, { IfcElectricTimeControlTypeEnumDeserializeStep } from "./IfcElectricTimeControlTypeEnum.bldrs"
-import IfcFlowControllerType from "./IfcFlowControllerType.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcelectrictimecontroltype.htm */
-export default  class IfcElectricTimeControlType extends IfcFlowControllerType 
+export  class IfcElectricTimeControlType extends IfcFlowControllerType 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCELECTRICTIMECONTROLTYPE;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private PredefinedType_? : IfcElectricTimeControlTypeEnum;

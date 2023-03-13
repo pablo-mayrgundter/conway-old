@@ -1,26 +1,21 @@
+
+import { IfcPort } from "./index"
+import { IfcFlowDirectionEnum, IfcFlowDirectionEnumDeserializeStep } from "./index"
+
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
-import SchemaIfc from "./schema_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import StepEntitySchema from "../../core/step_entity_schema"
 import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import IfcFlowDirectionEnum, { IfcFlowDirectionEnumDeserializeStep } from "./IfcFlowDirectionEnum.bldrs"
-import IfcPort from "./IfcPort.bldrs"
 
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcdistributionport.htm */
-export default  class IfcDistributionPort extends IfcPort 
+export  class IfcDistributionPort extends IfcPort 
 {    
     public get type(): EntityTypesIfc
     {
         return EntityTypesIfc.IFCDISTRIBUTIONPORT;
-    }
-
-    public get schema(): StepEntitySchema< EntityTypesIfc >
-    {
-        return SchemaIfc;
     }
 
     private FlowDirection_? : IfcFlowDirectionEnum | null;
