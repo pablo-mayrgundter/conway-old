@@ -29,4 +29,3 @@ export function IfcColumnTypeEnumDeserializeStep( input: Uint8Array, cursor: num
 {
     return parser.extract< IfcColumnTypeEnum >( IfcColumnTypeEnumSearch, input, cursor, endCursor );
 }
-

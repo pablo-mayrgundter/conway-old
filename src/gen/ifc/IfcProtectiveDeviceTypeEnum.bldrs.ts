@@ -34,4 +34,3 @@ export function IfcProtectiveDeviceTypeEnumDeserializeStep( input: Uint8Array, c
 {
     return parser.extract< IfcProtectiveDeviceTypeEnum >( IfcProtectiveDeviceTypeEnumSearch, input, cursor, endCursor );
 }
-

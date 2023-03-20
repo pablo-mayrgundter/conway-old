@@ -34,4 +34,3 @@ export function IfcObjectiveEnumDeserializeStep( input: Uint8Array, cursor: numb
 {
     return parser.extract< IfcObjectiveEnum >( IfcObjectiveEnumSearch, input, cursor, endCursor );
 }
-

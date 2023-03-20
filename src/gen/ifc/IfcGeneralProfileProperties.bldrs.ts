@@ -8,8 +8,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcgeneralprofileproperties.htm */
@@ -20,13 +20,13 @@ export  class IfcGeneralProfileProperties extends IfcProfileProperties
         return EntityTypesIfc.IFCGENERALPROFILEPROPERTIES;
     }
 
-    private PhysicalWeight_? : IfcMassPerLengthMeasure | null;
-    private Perimeter_? : IfcPositiveLengthMeasure | null;
-    private MinimumPlateThickness_? : IfcPositiveLengthMeasure | null;
-    private MaximumPlateThickness_? : IfcPositiveLengthMeasure | null;
-    private CrossSectionArea_? : IfcAreaMeasure | null;
+    private PhysicalWeight_? : number | null;
+    private Perimeter_? : number | null;
+    private MinimumPlateThickness_? : number | null;
+    private MaximumPlateThickness_? : number | null;
+    private CrossSectionArea_? : number | null;
 
-    public get PhysicalWeight() : IfcMassPerLengthMeasure | null
+    public get PhysicalWeight() : number | null
     {
         if ( this.PhysicalWeight_ === void 0 )
         {
@@ -62,10 +62,10 @@ export  class IfcGeneralProfileProperties extends IfcProfileProperties
             } })();
         }
 
-        return this.PhysicalWeight_ as IfcMassPerLengthMeasure | null;
+        return this.PhysicalWeight_ as number | null;
     }
 
-    public get Perimeter() : IfcPositiveLengthMeasure | null
+    public get Perimeter() : number | null
     {
         if ( this.Perimeter_ === void 0 )
         {
@@ -101,10 +101,10 @@ export  class IfcGeneralProfileProperties extends IfcProfileProperties
             } })();
         }
 
-        return this.Perimeter_ as IfcPositiveLengthMeasure | null;
+        return this.Perimeter_ as number | null;
     }
 
-    public get MinimumPlateThickness() : IfcPositiveLengthMeasure | null
+    public get MinimumPlateThickness() : number | null
     {
         if ( this.MinimumPlateThickness_ === void 0 )
         {
@@ -140,10 +140,10 @@ export  class IfcGeneralProfileProperties extends IfcProfileProperties
             } })();
         }
 
-        return this.MinimumPlateThickness_ as IfcPositiveLengthMeasure | null;
+        return this.MinimumPlateThickness_ as number | null;
     }
 
-    public get MaximumPlateThickness() : IfcPositiveLengthMeasure | null
+    public get MaximumPlateThickness() : number | null
     {
         if ( this.MaximumPlateThickness_ === void 0 )
         {
@@ -179,10 +179,10 @@ export  class IfcGeneralProfileProperties extends IfcProfileProperties
             } })();
         }
 
-        return this.MaximumPlateThickness_ as IfcPositiveLengthMeasure | null;
+        return this.MaximumPlateThickness_ as number | null;
     }
 
-    public get CrossSectionArea() : IfcAreaMeasure | null
+    public get CrossSectionArea() : number | null
     {
         if ( this.CrossSectionArea_ === void 0 )
         {
@@ -218,7 +218,7 @@ export  class IfcGeneralProfileProperties extends IfcProfileProperties
             } })();
         }
 
-        return this.CrossSectionArea_ as IfcAreaMeasure | null;
+        return this.CrossSectionArea_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

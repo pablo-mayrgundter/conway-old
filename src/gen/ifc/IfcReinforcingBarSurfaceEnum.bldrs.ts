@@ -28,4 +28,3 @@ export function IfcReinforcingBarSurfaceEnumDeserializeStep( input: Uint8Array, 
 {
     return parser.extract< IfcReinforcingBarSurfaceEnum >( IfcReinforcingBarSurfaceEnumSearch, input, cursor, endCursor );
 }
-

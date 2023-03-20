@@ -43,4 +43,3 @@ export function IfcCompressorTypeEnumDeserializeStep( input: Uint8Array, cursor:
 {
     return parser.extract< IfcCompressorTypeEnum >( IfcCompressorTypeEnumSearch, input, cursor, endCursor );
 }
-

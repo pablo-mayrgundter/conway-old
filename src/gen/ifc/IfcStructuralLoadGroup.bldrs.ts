@@ -10,8 +10,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcstructuralloadgroup.htm */
@@ -25,8 +25,8 @@ export  class IfcStructuralLoadGroup extends IfcGroup
     private PredefinedType_? : IfcLoadGroupTypeEnum;
     private ActionType_? : IfcActionTypeEnum;
     private ActionSource_? : IfcActionSourceTypeEnum;
-    private Coefficient_? : IfcPositiveRatioMeasure | null;
-    private Purpose_? : IfcLabel | null;
+    private Coefficient_? : number | null;
+    private Purpose_? : string | null;
 
     public get PredefinedType() : IfcLoadGroupTypeEnum
     {
@@ -124,7 +124,7 @@ export  class IfcStructuralLoadGroup extends IfcGroup
         return this.ActionSource_ as IfcActionSourceTypeEnum;
     }
 
-    public get Coefficient() : IfcPositiveRatioMeasure | null
+    public get Coefficient() : number | null
     {
         if ( this.Coefficient_ === void 0 )
         {
@@ -160,10 +160,10 @@ export  class IfcStructuralLoadGroup extends IfcGroup
             } })();
         }
 
-        return this.Coefficient_ as IfcPositiveRatioMeasure | null;
+        return this.Coefficient_ as number | null;
     }
 
-    public get Purpose() : IfcLabel | null
+    public get Purpose() : string | null
     {
         if ( this.Purpose_ === void 0 )
         {
@@ -199,7 +199,7 @@ export  class IfcStructuralLoadGroup extends IfcGroup
             } })();
         }
 
-        return this.Purpose_ as IfcLabel | null;
+        return this.Purpose_ as string | null;
     }
 
 

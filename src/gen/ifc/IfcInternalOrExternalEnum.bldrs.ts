@@ -29,4 +29,3 @@ export function IfcInternalOrExternalEnumDeserializeStep( input: Uint8Array, cur
 {
     return parser.extract< IfcInternalOrExternalEnum >( IfcInternalOrExternalEnumSearch, input, cursor, endCursor );
 }
-

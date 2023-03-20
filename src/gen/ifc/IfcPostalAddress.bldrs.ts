@@ -6,8 +6,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcpostaladdress.htm */
@@ -18,15 +18,15 @@ export  class IfcPostalAddress extends IfcAddress
         return EntityTypesIfc.IFCPOSTALADDRESS;
     }
 
-    private InternalLocation_? : IfcLabel | null;
-    private AddressLines_? : Array<IfcLabel> | null;
-    private PostalBox_? : IfcLabel | null;
-    private Town_? : IfcLabel | null;
-    private Region_? : IfcLabel | null;
-    private PostalCode_? : IfcLabel | null;
-    private Country_? : IfcLabel | null;
+    private InternalLocation_? : string | null;
+    private AddressLines_? : Array< string > | null;
+    private PostalBox_? : string | null;
+    private Town_? : string | null;
+    private Region_? : string | null;
+    private PostalCode_? : string | null;
+    private Country_? : string | null;
 
-    public get InternalLocation() : IfcLabel | null
+    public get InternalLocation() : string | null
     {
         if ( this.InternalLocation_ === void 0 )
         {
@@ -62,10 +62,10 @@ export  class IfcPostalAddress extends IfcAddress
             } })();
         }
 
-        return this.InternalLocation_ as IfcLabel | null;
+        return this.InternalLocation_ as string | null;
     }
 
-    public get AddressLines() : Array<IfcLabel> | null
+    public get AddressLines() : Array< string > | null
     {
         if ( this.AddressLines_ === void 0 )
         {
@@ -84,7 +84,7 @@ export  class IfcPostalAddress extends IfcAddress
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value : Array<IfcLabel> = [];
+            let value : Array<string> = [];
 
             for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
             {
@@ -117,10 +117,10 @@ export  class IfcPostalAddress extends IfcAddress
             } })();
         }
 
-        return this.AddressLines_ as Array<IfcLabel> | null;
+        return this.AddressLines_ as Array< string > | null;
     }
 
-    public get PostalBox() : IfcLabel | null
+    public get PostalBox() : string | null
     {
         if ( this.PostalBox_ === void 0 )
         {
@@ -156,10 +156,10 @@ export  class IfcPostalAddress extends IfcAddress
             } })();
         }
 
-        return this.PostalBox_ as IfcLabel | null;
+        return this.PostalBox_ as string | null;
     }
 
-    public get Town() : IfcLabel | null
+    public get Town() : string | null
     {
         if ( this.Town_ === void 0 )
         {
@@ -195,10 +195,10 @@ export  class IfcPostalAddress extends IfcAddress
             } })();
         }
 
-        return this.Town_ as IfcLabel | null;
+        return this.Town_ as string | null;
     }
 
-    public get Region() : IfcLabel | null
+    public get Region() : string | null
     {
         if ( this.Region_ === void 0 )
         {
@@ -234,10 +234,10 @@ export  class IfcPostalAddress extends IfcAddress
             } })();
         }
 
-        return this.Region_ as IfcLabel | null;
+        return this.Region_ as string | null;
     }
 
-    public get PostalCode() : IfcLabel | null
+    public get PostalCode() : string | null
     {
         if ( this.PostalCode_ === void 0 )
         {
@@ -273,10 +273,10 @@ export  class IfcPostalAddress extends IfcAddress
             } })();
         }
 
-        return this.PostalCode_ as IfcLabel | null;
+        return this.PostalCode_ as string | null;
     }
 
-    public get Country() : IfcLabel | null
+    public get Country() : string | null
     {
         if ( this.Country_ === void 0 )
         {
@@ -312,7 +312,7 @@ export  class IfcPostalAddress extends IfcAddress
             } })();
         }
 
-        return this.Country_ as IfcLabel | null;
+        return this.Country_ as string | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

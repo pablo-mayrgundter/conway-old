@@ -40,4 +40,3 @@ export function IfcRoofTypeEnumDeserializeStep( input: Uint8Array, cursor: numbe
 {
     return parser.extract< IfcRoofTypeEnum >( IfcRoofTypeEnumSearch, input, cursor, endCursor );
 }
-

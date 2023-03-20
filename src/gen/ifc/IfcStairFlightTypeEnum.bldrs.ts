@@ -33,4 +33,3 @@ export function IfcStairFlightTypeEnumDeserializeStep( input: Uint8Array, cursor
 {
     return parser.extract< IfcStairFlightTypeEnum >( IfcStairFlightTypeEnumSearch, input, cursor, endCursor );
 }
-

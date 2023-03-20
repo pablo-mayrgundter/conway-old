@@ -32,4 +32,3 @@ export function IfcTendonTypeEnumDeserializeStep( input: Uint8Array, cursor: num
 {
     return parser.extract< IfcTendonTypeEnum >( IfcTendonTypeEnumSearch, input, cursor, endCursor );
 }
-

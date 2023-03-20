@@ -30,4 +30,3 @@ export function IfcLightDistributionCurveEnumDeserializeStep( input: Uint8Array,
 {
     return parser.extract< IfcLightDistributionCurveEnum >( IfcLightDistributionCurveEnumSearch, input, cursor, endCursor );
 }
-

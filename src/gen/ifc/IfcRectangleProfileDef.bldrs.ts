@@ -6,8 +6,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcrectangleprofiledef.htm */
@@ -18,10 +18,10 @@ export  class IfcRectangleProfileDef extends IfcParameterizedProfileDef
         return EntityTypesIfc.IFCRECTANGLEPROFILEDEF;
     }
 
-    private XDim_? : IfcPositiveLengthMeasure;
-    private YDim_? : IfcPositiveLengthMeasure;
+    private XDim_? : number;
+    private YDim_? : number;
 
-    public get XDim() : IfcPositiveLengthMeasure
+    public get XDim() : number
     {
         if ( this.XDim_ === void 0 )
         {
@@ -50,10 +50,10 @@ export  class IfcRectangleProfileDef extends IfcParameterizedProfileDef
             return value; })();
         }
 
-        return this.XDim_ as IfcPositiveLengthMeasure;
+        return this.XDim_ as number;
     }
 
-    public get YDim() : IfcPositiveLengthMeasure
+    public get YDim() : number
     {
         if ( this.YDim_ === void 0 )
         {
@@ -82,7 +82,7 @@ export  class IfcRectangleProfileDef extends IfcParameterizedProfileDef
             return value; })();
         }
 
-        return this.YDim_ as IfcPositiveLengthMeasure;
+        return this.YDim_ as number;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

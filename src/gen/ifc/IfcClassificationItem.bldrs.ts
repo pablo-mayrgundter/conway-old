@@ -7,8 +7,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcclassificationitem.htm */
@@ -21,7 +21,7 @@ export  class IfcClassificationItem extends StepEntityBase< EntityTypesIfc >
 
     private Notation_? : IfcClassificationNotationFacet;
     private ItemOf_? : IfcClassification | null;
-    private Title_? : IfcLabel;
+    private Title_? : string;
 
     public get Notation() : IfcClassificationNotationFacet
     {
@@ -43,7 +43,7 @@ export  class IfcClassificationItem extends StepEntityBase< EntityTypesIfc >
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcClassificationNotationFacet ) )
             {                
@@ -76,7 +76,7 @@ export  class IfcClassificationItem extends StepEntityBase< EntityTypesIfc >
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcClassification ) )
             {
@@ -96,7 +96,7 @@ export  class IfcClassificationItem extends StepEntityBase< EntityTypesIfc >
         return this.ItemOf_ as IfcClassification | null;
     }
 
-    public get Title() : IfcLabel
+    public get Title() : string
     {
         if ( this.Title_ === void 0 )
         {
@@ -125,7 +125,7 @@ export  class IfcClassificationItem extends StepEntityBase< EntityTypesIfc >
             return value; })();
         }
 
-        return this.Title_ as IfcLabel;
+        return this.Title_ as string;
     }
 
 

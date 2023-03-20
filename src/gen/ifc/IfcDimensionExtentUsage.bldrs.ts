@@ -28,4 +28,3 @@ export function IfcDimensionExtentUsageDeserializeStep( input: Uint8Array, curso
 {
     return parser.extract< IfcDimensionExtentUsage >( IfcDimensionExtentUsageSearch, input, cursor, endCursor );
 }
-

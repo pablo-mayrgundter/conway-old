@@ -32,4 +32,3 @@ export function IfcBenchmarkEnumDeserializeStep( input: Uint8Array, cursor: numb
 {
     return parser.extract< IfcBenchmarkEnum >( IfcBenchmarkEnumSearch, input, cursor, endCursor );
 }
-

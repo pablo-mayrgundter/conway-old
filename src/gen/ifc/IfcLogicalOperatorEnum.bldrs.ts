@@ -28,4 +28,3 @@ export function IfcLogicalOperatorEnumDeserializeStep( input: Uint8Array, cursor
 {
     return parser.extract< IfcLogicalOperatorEnum >( IfcLogicalOperatorEnumSearch, input, cursor, endCursor );
 }
-

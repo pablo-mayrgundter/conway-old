@@ -28,4 +28,3 @@ export function IfcSpaceTypeEnumDeserializeStep( input: Uint8Array, cursor: numb
 {
     return parser.extract< IfcSpaceTypeEnum >( IfcSpaceTypeEnumSearch, input, cursor, endCursor );
 }
-

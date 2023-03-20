@@ -10,8 +10,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifctextstyle.htm */
@@ -45,29 +45,21 @@ export  class IfcTextStyle extends IfcPresentationStyle
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { 
-                    let expressID = stepExtractReference( buffer, cursor, endCursor );
-                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
-        
-                    if ( !( value instanceof IfcTextStyleForDefinedFont ) )
-                    {                
-                        return (void 0);
-                    };
-        
-                    return value; } )();
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( value === void 0 )
+            if ( !( value instanceof IfcTextStyleForDefinedFont ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed' );
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
                 }
 
                 return null;                
             }
             else
             {
-                return value;
+                return value as (IfcTextStyleForDefinedFont);
             } })();
         }
 
@@ -93,39 +85,21 @@ export  class IfcTextStyle extends IfcPresentationStyle
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { 
-                    let expressID = stepExtractReference( buffer, cursor, endCursor );
-                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
-        
-                    if ( !( value instanceof IfcTextStyleWithBoxCharacteristics ) )
-                    {                
-                        return (void 0);
-                    };
-        
-                    return value; } )() ??
-( () => { 
-                    let expressID = stepExtractReference( buffer, cursor, endCursor );
-                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
-        
-                    if ( !( value instanceof IfcTextStyleTextModel ) )
-                    {                
-                        return (void 0);
-                    };
-        
-                    return value; } )();
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( value === void 0 )
+            if ( !( value instanceof IfcTextStyleWithBoxCharacteristics ) && !( value instanceof IfcTextStyleTextModel ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed' );
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
                 }
 
                 return null;                
             }
             else
             {
-                return value;
+                return value as (IfcTextStyleWithBoxCharacteristics | IfcTextStyleTextModel);
             } })();
         }
 
@@ -151,33 +125,15 @@ export  class IfcTextStyle extends IfcPresentationStyle
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { 
-                    let expressID = stepExtractReference( buffer, cursor, endCursor );
-                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
-        
-                    if ( !( value instanceof IfcPreDefinedTextFont ) )
-                    {                
-                        return (void 0);
-                    };
-        
-                    return value; } )() ??
-( () => { 
-                    let expressID = stepExtractReference( buffer, cursor, endCursor );
-                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
-        
-                    if ( !( value instanceof IfcExternallyDefinedTextFont ) )
-                    {                
-                        return (void 0);
-                    };
-        
-                    return value; } )();
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( value === void 0 )
+            if ( !( value instanceof IfcPreDefinedTextFont ) && !( value instanceof IfcExternallyDefinedTextFont ) )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+                throw new Error( 'Value in STEP was incorrectly typed for field' );
+            }
 
-            return value; })();
+            return value as (IfcPreDefinedTextFont | IfcExternallyDefinedTextFont); })();
         }
 
         return this.TextFontStyle_ as IfcPreDefinedTextFont|IfcExternallyDefinedTextFont;

@@ -29,4 +29,3 @@ export function IfcBooleanOperatorDeserializeStep( input: Uint8Array, cursor: nu
 {
     return parser.extract< IfcBooleanOperator >( IfcBooleanOperatorSearch, input, cursor, endCursor );
 }
-

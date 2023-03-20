@@ -37,4 +37,3 @@ export function IfcElementAssemblyTypeEnumDeserializeStep( input: Uint8Array, cu
 {
     return parser.extract< IfcElementAssemblyTypeEnum >( IfcElementAssemblyTypeEnumSearch, input, cursor, endCursor );
 }
-

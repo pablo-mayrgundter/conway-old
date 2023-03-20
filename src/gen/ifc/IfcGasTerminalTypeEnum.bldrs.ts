@@ -31,4 +31,3 @@ export function IfcGasTerminalTypeEnumDeserializeStep( input: Uint8Array, cursor
 {
     return parser.extract< IfcGasTerminalTypeEnum >( IfcGasTerminalTypeEnumSearch, input, cursor, endCursor );
 }
-

@@ -6,8 +6,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcellipseprofiledef.htm */
@@ -18,10 +18,10 @@ export  class IfcEllipseProfileDef extends IfcParameterizedProfileDef
         return EntityTypesIfc.IFCELLIPSEPROFILEDEF;
     }
 
-    private SemiAxis1_? : IfcPositiveLengthMeasure;
-    private SemiAxis2_? : IfcPositiveLengthMeasure;
+    private SemiAxis1_? : number;
+    private SemiAxis2_? : number;
 
-    public get SemiAxis1() : IfcPositiveLengthMeasure
+    public get SemiAxis1() : number
     {
         if ( this.SemiAxis1_ === void 0 )
         {
@@ -50,10 +50,10 @@ export  class IfcEllipseProfileDef extends IfcParameterizedProfileDef
             return value; })();
         }
 
-        return this.SemiAxis1_ as IfcPositiveLengthMeasure;
+        return this.SemiAxis1_ as number;
     }
 
-    public get SemiAxis2() : IfcPositiveLengthMeasure
+    public get SemiAxis2() : number
     {
         if ( this.SemiAxis2_ === void 0 )
         {
@@ -82,7 +82,7 @@ export  class IfcEllipseProfileDef extends IfcParameterizedProfileDef
             return value; })();
         }
 
-        return this.SemiAxis2_ as IfcPositiveLengthMeasure;
+        return this.SemiAxis2_ as number;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

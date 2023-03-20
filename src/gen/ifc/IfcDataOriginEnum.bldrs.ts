@@ -31,4 +31,3 @@ export function IfcDataOriginEnumDeserializeStep( input: Uint8Array, cursor: num
 {
     return parser.extract< IfcDataOriginEnum >( IfcDataOriginEnumSearch, input, cursor, endCursor );
 }
-

@@ -31,4 +31,3 @@ export function IfcAddressTypeEnumDeserializeStep( input: Uint8Array, cursor: nu
 {
     return parser.extract< IfcAddressTypeEnum >( IfcAddressTypeEnumSearch, input, cursor, endCursor );
 }
-

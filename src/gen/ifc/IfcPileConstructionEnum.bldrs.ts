@@ -32,4 +32,3 @@ export function IfcPileConstructionEnumDeserializeStep( input: Uint8Array, curso
 {
     return parser.extract< IfcPileConstructionEnum >( IfcPileConstructionEnumSearch, input, cursor, endCursor );
 }
-

@@ -12,8 +12,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifclightsourcegoniometric.htm */
@@ -26,8 +26,8 @@ export  class IfcLightSourceGoniometric extends IfcLightSource
 
     private Position_? : IfcAxis2Placement3D;
     private ColourAppearance_? : IfcColourRgb | null;
-    private ColourTemperature_? : IfcThermodynamicTemperatureMeasure;
-    private LuminousFlux_? : IfcLuminousFluxMeasure;
+    private ColourTemperature_? : number;
+    private LuminousFlux_? : number;
     private LightEmissionSource_? : IfcLightEmissionSourceEnum;
     private LightDistributionDataSource_? : IfcExternalReference|IfcLightIntensityDistribution;
 
@@ -51,7 +51,7 @@ export  class IfcLightSourceGoniometric extends IfcLightSource
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcAxis2Placement3D ) )
             {                
@@ -84,7 +84,7 @@ export  class IfcLightSourceGoniometric extends IfcLightSource
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcColourRgb ) )
             {
@@ -104,7 +104,7 @@ export  class IfcLightSourceGoniometric extends IfcLightSource
         return this.ColourAppearance_ as IfcColourRgb | null;
     }
 
-    public get ColourTemperature() : IfcThermodynamicTemperatureMeasure
+    public get ColourTemperature() : number
     {
         if ( this.ColourTemperature_ === void 0 )
         {
@@ -133,10 +133,10 @@ export  class IfcLightSourceGoniometric extends IfcLightSource
             return value; })();
         }
 
-        return this.ColourTemperature_ as IfcThermodynamicTemperatureMeasure;
+        return this.ColourTemperature_ as number;
     }
 
-    public get LuminousFlux() : IfcLuminousFluxMeasure
+    public get LuminousFlux() : number
     {
         if ( this.LuminousFlux_ === void 0 )
         {
@@ -165,7 +165,7 @@ export  class IfcLightSourceGoniometric extends IfcLightSource
             return value; })();
         }
 
-        return this.LuminousFlux_ as IfcLuminousFluxMeasure;
+        return this.LuminousFlux_ as number;
     }
 
     public get LightEmissionSource() : IfcLightEmissionSourceEnum
@@ -219,33 +219,15 @@ export  class IfcLightSourceGoniometric extends IfcLightSource
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { 
-                    let expressID = stepExtractReference( buffer, cursor, endCursor );
-                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
-        
-                    if ( !( value instanceof IfcExternalReference ) )
-                    {                
-                        return (void 0);
-                    };
-        
-                    return value; } )() ??
-( () => { 
-                    let expressID = stepExtractReference( buffer, cursor, endCursor );
-                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
-        
-                    if ( !( value instanceof IfcLightIntensityDistribution ) )
-                    {                
-                        return (void 0);
-                    };
-        
-                    return value; } )();
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( value === void 0 )
+            if ( !( value instanceof IfcExternalReference ) && !( value instanceof IfcLightIntensityDistribution ) )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+                throw new Error( 'Value in STEP was incorrectly typed for field' );
+            }
 
-            return value; })();
+            return value as (IfcExternalReference | IfcLightIntensityDistribution); })();
         }
 
         return this.LightDistributionDataSource_ as IfcExternalReference|IfcLightIntensityDistribution;

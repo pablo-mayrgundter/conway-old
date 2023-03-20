@@ -6,8 +6,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcboundaryfacecondition.htm */
@@ -18,11 +18,11 @@ export  class IfcBoundaryFaceCondition extends IfcBoundaryCondition
         return EntityTypesIfc.IFCBOUNDARYFACECONDITION;
     }
 
-    private LinearStiffnessByAreaX_? : IfcModulusOfSubgradeReactionMeasure | null;
-    private LinearStiffnessByAreaY_? : IfcModulusOfSubgradeReactionMeasure | null;
-    private LinearStiffnessByAreaZ_? : IfcModulusOfSubgradeReactionMeasure | null;
+    private LinearStiffnessByAreaX_? : number | null;
+    private LinearStiffnessByAreaY_? : number | null;
+    private LinearStiffnessByAreaZ_? : number | null;
 
-    public get LinearStiffnessByAreaX() : IfcModulusOfSubgradeReactionMeasure | null
+    public get LinearStiffnessByAreaX() : number | null
     {
         if ( this.LinearStiffnessByAreaX_ === void 0 )
         {
@@ -58,10 +58,10 @@ export  class IfcBoundaryFaceCondition extends IfcBoundaryCondition
             } })();
         }
 
-        return this.LinearStiffnessByAreaX_ as IfcModulusOfSubgradeReactionMeasure | null;
+        return this.LinearStiffnessByAreaX_ as number | null;
     }
 
-    public get LinearStiffnessByAreaY() : IfcModulusOfSubgradeReactionMeasure | null
+    public get LinearStiffnessByAreaY() : number | null
     {
         if ( this.LinearStiffnessByAreaY_ === void 0 )
         {
@@ -97,10 +97,10 @@ export  class IfcBoundaryFaceCondition extends IfcBoundaryCondition
             } })();
         }
 
-        return this.LinearStiffnessByAreaY_ as IfcModulusOfSubgradeReactionMeasure | null;
+        return this.LinearStiffnessByAreaY_ as number | null;
     }
 
-    public get LinearStiffnessByAreaZ() : IfcModulusOfSubgradeReactionMeasure | null
+    public get LinearStiffnessByAreaZ() : number | null
     {
         if ( this.LinearStiffnessByAreaZ_ === void 0 )
         {
@@ -136,7 +136,7 @@ export  class IfcBoundaryFaceCondition extends IfcBoundaryCondition
             } })();
         }
 
-        return this.LinearStiffnessByAreaZ_ as IfcModulusOfSubgradeReactionMeasure | null;
+        return this.LinearStiffnessByAreaZ_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

@@ -31,4 +31,3 @@ export function IfcWorkControlTypeEnumDeserializeStep( input: Uint8Array, cursor
 {
     return parser.extract< IfcWorkControlTypeEnum >( IfcWorkControlTypeEnumSearch, input, cursor, endCursor );
 }
-

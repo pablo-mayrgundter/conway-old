@@ -10,8 +10,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcelectricalbaseproperties.htm */
@@ -23,12 +23,12 @@ export  class IfcElectricalBaseProperties extends IfcEnergyProperties
     }
 
     private ElectricCurrentType_? : IfcElectricCurrentEnum | null;
-    private InputVoltage_? : IfcElectricVoltageMeasure;
-    private InputFrequency_? : IfcFrequencyMeasure;
-    private FullLoadCurrent_? : IfcElectricCurrentMeasure | null;
-    private MinimumCircuitCurrent_? : IfcElectricCurrentMeasure | null;
-    private MaximumPowerInput_? : IfcPowerMeasure | null;
-    private RatedPowerInput_? : IfcPowerMeasure | null;
+    private InputVoltage_? : number;
+    private InputFrequency_? : number;
+    private FullLoadCurrent_? : number | null;
+    private MinimumCircuitCurrent_? : number | null;
+    private MaximumPowerInput_? : number | null;
+    private RatedPowerInput_? : number | null;
     private InputPhase_? : number;
 
     public get ElectricCurrentType() : IfcElectricCurrentEnum | null
@@ -70,7 +70,7 @@ export  class IfcElectricalBaseProperties extends IfcEnergyProperties
         return this.ElectricCurrentType_ as IfcElectricCurrentEnum | null;
     }
 
-    public get InputVoltage() : IfcElectricVoltageMeasure
+    public get InputVoltage() : number
     {
         if ( this.InputVoltage_ === void 0 )
         {
@@ -99,10 +99,10 @@ export  class IfcElectricalBaseProperties extends IfcEnergyProperties
             return value; })();
         }
 
-        return this.InputVoltage_ as IfcElectricVoltageMeasure;
+        return this.InputVoltage_ as number;
     }
 
-    public get InputFrequency() : IfcFrequencyMeasure
+    public get InputFrequency() : number
     {
         if ( this.InputFrequency_ === void 0 )
         {
@@ -131,10 +131,10 @@ export  class IfcElectricalBaseProperties extends IfcEnergyProperties
             return value; })();
         }
 
-        return this.InputFrequency_ as IfcFrequencyMeasure;
+        return this.InputFrequency_ as number;
     }
 
-    public get FullLoadCurrent() : IfcElectricCurrentMeasure | null
+    public get FullLoadCurrent() : number | null
     {
         if ( this.FullLoadCurrent_ === void 0 )
         {
@@ -170,10 +170,10 @@ export  class IfcElectricalBaseProperties extends IfcEnergyProperties
             } })();
         }
 
-        return this.FullLoadCurrent_ as IfcElectricCurrentMeasure | null;
+        return this.FullLoadCurrent_ as number | null;
     }
 
-    public get MinimumCircuitCurrent() : IfcElectricCurrentMeasure | null
+    public get MinimumCircuitCurrent() : number | null
     {
         if ( this.MinimumCircuitCurrent_ === void 0 )
         {
@@ -209,10 +209,10 @@ export  class IfcElectricalBaseProperties extends IfcEnergyProperties
             } })();
         }
 
-        return this.MinimumCircuitCurrent_ as IfcElectricCurrentMeasure | null;
+        return this.MinimumCircuitCurrent_ as number | null;
     }
 
-    public get MaximumPowerInput() : IfcPowerMeasure | null
+    public get MaximumPowerInput() : number | null
     {
         if ( this.MaximumPowerInput_ === void 0 )
         {
@@ -248,10 +248,10 @@ export  class IfcElectricalBaseProperties extends IfcEnergyProperties
             } })();
         }
 
-        return this.MaximumPowerInput_ as IfcPowerMeasure | null;
+        return this.MaximumPowerInput_ as number | null;
     }
 
-    public get RatedPowerInput() : IfcPowerMeasure | null
+    public get RatedPowerInput() : number | null
     {
         if ( this.RatedPowerInput_ === void 0 )
         {
@@ -287,7 +287,7 @@ export  class IfcElectricalBaseProperties extends IfcEnergyProperties
             } })();
         }
 
-        return this.RatedPowerInput_ as IfcPowerMeasure | null;
+        return this.RatedPowerInput_ as number | null;
     }
 
     public get InputPhase() : number

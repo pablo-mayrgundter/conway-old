@@ -31,4 +31,3 @@ export function IfcAnalysisModelTypeEnumDeserializeStep( input: Uint8Array, curs
 {
     return parser.extract< IfcAnalysisModelTypeEnum >( IfcAnalysisModelTypeEnumSearch, input, cursor, endCursor );
 }
-

@@ -8,8 +8,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcsurfacecurvesweptareasolid.htm */
@@ -21,8 +21,8 @@ export  class IfcSurfaceCurveSweptAreaSolid extends IfcSweptAreaSolid
     }
 
     private Directrix_? : IfcCurve;
-    private StartParam_? : IfcParameterValue;
-    private EndParam_? : IfcParameterValue;
+    private StartParam_? : number;
+    private EndParam_? : number;
     private ReferenceSurface_? : IfcSurface;
 
     public get Directrix() : IfcCurve
@@ -45,7 +45,7 @@ export  class IfcSurfaceCurveSweptAreaSolid extends IfcSweptAreaSolid
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcCurve ) )
             {                
@@ -58,7 +58,7 @@ export  class IfcSurfaceCurveSweptAreaSolid extends IfcSweptAreaSolid
         return this.Directrix_ as IfcCurve;
     }
 
-    public get StartParam() : IfcParameterValue
+    public get StartParam() : number
     {
         if ( this.StartParam_ === void 0 )
         {
@@ -87,10 +87,10 @@ export  class IfcSurfaceCurveSweptAreaSolid extends IfcSweptAreaSolid
             return value; })();
         }
 
-        return this.StartParam_ as IfcParameterValue;
+        return this.StartParam_ as number;
     }
 
-    public get EndParam() : IfcParameterValue
+    public get EndParam() : number
     {
         if ( this.EndParam_ === void 0 )
         {
@@ -119,7 +119,7 @@ export  class IfcSurfaceCurveSweptAreaSolid extends IfcSweptAreaSolid
             return value; })();
         }
 
-        return this.EndParam_ as IfcParameterValue;
+        return this.EndParam_ as number;
     }
 
     public get ReferenceSurface() : IfcSurface
@@ -142,7 +142,7 @@ export  class IfcSurfaceCurveSweptAreaSolid extends IfcSweptAreaSolid
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcSurface ) )
             {                

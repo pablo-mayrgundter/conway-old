@@ -32,4 +32,3 @@ export function IfcBSplineCurveFormDeserializeStep( input: Uint8Array, cursor: n
 {
     return parser.extract< IfcBSplineCurveForm >( IfcBSplineCurveFormSearch, input, cursor, endCursor );
 }
-

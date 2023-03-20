@@ -30,4 +30,3 @@ export function IfcBoilerTypeEnumDeserializeStep( input: Uint8Array, cursor: num
 {
     return parser.extract< IfcBoilerTypeEnum >( IfcBoilerTypeEnumSearch, input, cursor, endCursor );
 }
-

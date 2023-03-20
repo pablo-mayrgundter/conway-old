@@ -33,4 +33,3 @@ export function IfcStructuralCurveTypeEnumDeserializeStep( input: Uint8Array, cu
 {
     return parser.extract< IfcStructuralCurveTypeEnum >( IfcStructuralCurveTypeEnumSearch, input, cursor, endCursor );
 }
-

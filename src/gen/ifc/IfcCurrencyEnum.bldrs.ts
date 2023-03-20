@@ -109,4 +109,3 @@ export function IfcCurrencyEnumDeserializeStep( input: Uint8Array, cursor: numbe
 {
     return parser.extract< IfcCurrencyEnum >( IfcCurrencyEnumSearch, input, cursor, endCursor );
 }
-

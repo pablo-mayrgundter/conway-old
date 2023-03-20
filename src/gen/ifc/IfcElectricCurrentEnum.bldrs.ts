@@ -29,4 +29,3 @@ export function IfcElectricCurrentEnumDeserializeStep( input: Uint8Array, cursor
 {
     return parser.extract< IfcElectricCurrentEnum >( IfcElectricCurrentEnumSearch, input, cursor, endCursor );
 }
-

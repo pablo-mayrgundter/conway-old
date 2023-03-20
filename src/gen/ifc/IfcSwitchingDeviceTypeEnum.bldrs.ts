@@ -33,4 +33,3 @@ export function IfcSwitchingDeviceTypeEnumDeserializeStep( input: Uint8Array, cu
 {
     return parser.extract< IfcSwitchingDeviceTypeEnum >( IfcSwitchingDeviceTypeEnumSearch, input, cursor, endCursor );
 }
-

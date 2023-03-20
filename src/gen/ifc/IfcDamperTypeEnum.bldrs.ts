@@ -39,4 +39,3 @@ export function IfcDamperTypeEnumDeserializeStep( input: Uint8Array, cursor: num
 {
     return parser.extract< IfcDamperTypeEnum >( IfcDamperTypeEnumSearch, input, cursor, endCursor );
 }
-

@@ -33,4 +33,3 @@ export function IfcEvaporatorTypeEnumDeserializeStep( input: Uint8Array, cursor:
 {
     return parser.extract< IfcEvaporatorTypeEnum >( IfcEvaporatorTypeEnumSearch, input, cursor, endCursor );
 }
-

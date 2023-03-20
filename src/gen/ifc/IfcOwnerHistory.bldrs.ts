@@ -9,8 +9,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcownerhistory.htm */
@@ -25,10 +25,10 @@ export  class IfcOwnerHistory extends StepEntityBase< EntityTypesIfc >
     private OwningApplication_? : IfcApplication;
     private State_? : IfcStateEnum | null;
     private ChangeAction_? : IfcChangeActionEnum;
-    private LastModifiedDate_? : IfcTimeStamp | null;
+    private LastModifiedDate_? : number | null;
     private LastModifyingUser_? : IfcPersonAndOrganization | null;
     private LastModifyingApplication_? : IfcApplication | null;
-    private CreationDate_? : IfcTimeStamp;
+    private CreationDate_? : number;
 
     public get OwningUser() : IfcPersonAndOrganization
     {
@@ -50,7 +50,7 @@ export  class IfcOwnerHistory extends StepEntityBase< EntityTypesIfc >
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcPersonAndOrganization ) )
             {                
@@ -83,7 +83,7 @@ export  class IfcOwnerHistory extends StepEntityBase< EntityTypesIfc >
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcApplication ) )
             {                
@@ -167,7 +167,7 @@ export  class IfcOwnerHistory extends StepEntityBase< EntityTypesIfc >
         return this.ChangeAction_ as IfcChangeActionEnum;
     }
 
-    public get LastModifiedDate() : IfcTimeStamp | null
+    public get LastModifiedDate() : number | null
     {
         if ( this.LastModifiedDate_ === void 0 )
         {
@@ -203,7 +203,7 @@ export  class IfcOwnerHistory extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.LastModifiedDate_ as IfcTimeStamp | null;
+        return this.LastModifiedDate_ as number | null;
     }
 
     public get LastModifyingUser() : IfcPersonAndOrganization | null
@@ -226,7 +226,7 @@ export  class IfcOwnerHistory extends StepEntityBase< EntityTypesIfc >
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcPersonAndOrganization ) )
             {
@@ -266,7 +266,7 @@ export  class IfcOwnerHistory extends StepEntityBase< EntityTypesIfc >
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcApplication ) )
             {
@@ -286,7 +286,7 @@ export  class IfcOwnerHistory extends StepEntityBase< EntityTypesIfc >
         return this.LastModifyingApplication_ as IfcApplication | null;
     }
 
-    public get CreationDate() : IfcTimeStamp
+    public get CreationDate() : number
     {
         if ( this.CreationDate_ === void 0 )
         {
@@ -315,7 +315,7 @@ export  class IfcOwnerHistory extends StepEntityBase< EntityTypesIfc >
             return value; })();
         }
 
-        return this.CreationDate_ as IfcTimeStamp;
+        return this.CreationDate_ as number;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

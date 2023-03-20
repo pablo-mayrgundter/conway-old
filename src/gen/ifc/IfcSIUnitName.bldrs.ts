@@ -56,4 +56,3 @@ export function IfcSIUnitNameDeserializeStep( input: Uint8Array, cursor: number,
 {
     return parser.extract< IfcSIUnitName >( IfcSIUnitNameSearch, input, cursor, endCursor );
 }
-

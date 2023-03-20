@@ -32,4 +32,3 @@ export function IfcTimeSeriesScheduleTypeEnumDeserializeStep( input: Uint8Array,
 {
     return parser.extract< IfcTimeSeriesScheduleTypeEnum >( IfcTimeSeriesScheduleTypeEnumSearch, input, cursor, endCursor );
 }
-

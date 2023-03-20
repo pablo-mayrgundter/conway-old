@@ -3,13 +3,17 @@ import { IfcGeometricRepresentationContext } from "./index"
 import { IfcPositiveRatioMeasure } from "./index"
 import { IfcGeometricProjectionEnum, IfcGeometricProjectionEnumDeserializeStep } from "./index"
 import { IfcLabel } from "./index"
+import { IfcAxis2Placement2D } from "./index"
+import { IfcAxis2Placement3D } from "./index"
+import { IfcDimensionCount } from "./index"
+import { IfcDirection } from "./index"
 
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcgeometricrepresentationsubcontext.htm */
@@ -21,9 +25,9 @@ export  class IfcGeometricRepresentationSubContext extends IfcGeometricRepresent
     }
 
     private ParentContext_? : IfcGeometricRepresentationContext;
-    private TargetScale_? : IfcPositiveRatioMeasure | null;
+    private TargetScale_? : number | null;
     private TargetView_? : IfcGeometricProjectionEnum;
-    private UserDefinedTargetView_? : IfcLabel | null;
+    private UserDefinedTargetView_? : string | null;
 
     public get ParentContext() : IfcGeometricRepresentationContext
     {
@@ -45,7 +49,7 @@ export  class IfcGeometricRepresentationSubContext extends IfcGeometricRepresent
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcGeometricRepresentationContext ) )
             {                
@@ -58,7 +62,7 @@ export  class IfcGeometricRepresentationSubContext extends IfcGeometricRepresent
         return this.ParentContext_ as IfcGeometricRepresentationContext;
     }
 
-    public get TargetScale() : IfcPositiveRatioMeasure | null
+    public get TargetScale() : number | null
     {
         if ( this.TargetScale_ === void 0 )
         {
@@ -94,7 +98,7 @@ export  class IfcGeometricRepresentationSubContext extends IfcGeometricRepresent
             } })();
         }
 
-        return this.TargetScale_ as IfcPositiveRatioMeasure | null;
+        return this.TargetScale_ as number | null;
     }
 
     public get TargetView() : IfcGeometricProjectionEnum
@@ -129,7 +133,7 @@ export  class IfcGeometricRepresentationSubContext extends IfcGeometricRepresent
         return this.TargetView_ as IfcGeometricProjectionEnum;
     }
 
-    public get UserDefinedTargetView() : IfcLabel | null
+    public get UserDefinedTargetView() : string | null
     {
         if ( this.UserDefinedTargetView_ === void 0 )
         {
@@ -165,12 +169,28 @@ export  class IfcGeometricRepresentationSubContext extends IfcGeometricRepresent
             } })();
         }
 
-        return this.UserDefinedTargetView_ as IfcLabel | null;
+        return this.UserDefinedTargetView_ as string | null;
     }
 
+    public get WorldCoordinateSystem() : IfcAxis2Placement2D|IfcAxis2Placement3D
+    {
+        return this?.ParentContext.WorldCoordinateSystem;
+    }
 
+    public get CoordinateSpaceDimension() : number
+    {
+        return this?.ParentContext.CoordinateSpaceDimension;
+    }
 
+    public get TrueNorth() : IfcDirection
+    {
+        return NVL(this?.ParentContext.TrueNorth,this?.WorldCoordinateSystem.P[2 - 1]);
+    }
 
+    public get Precision() : number
+    {
+        return NVL(this?.ParentContext.Precision,1.E-5);
+    }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

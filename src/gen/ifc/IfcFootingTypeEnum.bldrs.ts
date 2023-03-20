@@ -32,4 +32,3 @@ export function IfcFootingTypeEnumDeserializeStep( input: Uint8Array, cursor: nu
 {
     return parser.extract< IfcFootingTypeEnum >( IfcFootingTypeEnumSearch, input, cursor, endCursor );
 }
-

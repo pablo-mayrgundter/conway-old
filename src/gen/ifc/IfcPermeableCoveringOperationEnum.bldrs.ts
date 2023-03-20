@@ -31,4 +31,3 @@ export function IfcPermeableCoveringOperationEnumDeserializeStep( input: Uint8Ar
 {
     return parser.extract< IfcPermeableCoveringOperationEnum >( IfcPermeableCoveringOperationEnumSearch, input, cursor, endCursor );
 }
-

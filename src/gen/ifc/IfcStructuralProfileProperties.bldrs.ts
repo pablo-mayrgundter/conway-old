@@ -10,8 +10,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcstructuralprofileproperties.htm */
@@ -22,24 +22,24 @@ export  class IfcStructuralProfileProperties extends IfcGeneralProfileProperties
         return EntityTypesIfc.IFCSTRUCTURALPROFILEPROPERTIES;
     }
 
-    private TorsionalConstantX_? : IfcMomentOfInertiaMeasure | null;
-    private MomentOfInertiaYZ_? : IfcMomentOfInertiaMeasure | null;
-    private MomentOfInertiaY_? : IfcMomentOfInertiaMeasure | null;
-    private MomentOfInertiaZ_? : IfcMomentOfInertiaMeasure | null;
-    private WarpingConstant_? : IfcWarpingConstantMeasure | null;
-    private ShearCentreZ_? : IfcLengthMeasure | null;
-    private ShearCentreY_? : IfcLengthMeasure | null;
-    private ShearDeformationAreaZ_? : IfcAreaMeasure | null;
-    private ShearDeformationAreaY_? : IfcAreaMeasure | null;
-    private MaximumSectionModulusY_? : IfcSectionModulusMeasure | null;
-    private MinimumSectionModulusY_? : IfcSectionModulusMeasure | null;
-    private MaximumSectionModulusZ_? : IfcSectionModulusMeasure | null;
-    private MinimumSectionModulusZ_? : IfcSectionModulusMeasure | null;
-    private TorsionalSectionModulus_? : IfcSectionModulusMeasure | null;
-    private CentreOfGravityInX_? : IfcLengthMeasure | null;
-    private CentreOfGravityInY_? : IfcLengthMeasure | null;
+    private TorsionalConstantX_? : number | null;
+    private MomentOfInertiaYZ_? : number | null;
+    private MomentOfInertiaY_? : number | null;
+    private MomentOfInertiaZ_? : number | null;
+    private WarpingConstant_? : number | null;
+    private ShearCentreZ_? : number | null;
+    private ShearCentreY_? : number | null;
+    private ShearDeformationAreaZ_? : number | null;
+    private ShearDeformationAreaY_? : number | null;
+    private MaximumSectionModulusY_? : number | null;
+    private MinimumSectionModulusY_? : number | null;
+    private MaximumSectionModulusZ_? : number | null;
+    private MinimumSectionModulusZ_? : number | null;
+    private TorsionalSectionModulus_? : number | null;
+    private CentreOfGravityInX_? : number | null;
+    private CentreOfGravityInY_? : number | null;
 
-    public get TorsionalConstantX() : IfcMomentOfInertiaMeasure | null
+    public get TorsionalConstantX() : number | null
     {
         if ( this.TorsionalConstantX_ === void 0 )
         {
@@ -75,10 +75,10 @@ export  class IfcStructuralProfileProperties extends IfcGeneralProfileProperties
             } })();
         }
 
-        return this.TorsionalConstantX_ as IfcMomentOfInertiaMeasure | null;
+        return this.TorsionalConstantX_ as number | null;
     }
 
-    public get MomentOfInertiaYZ() : IfcMomentOfInertiaMeasure | null
+    public get MomentOfInertiaYZ() : number | null
     {
         if ( this.MomentOfInertiaYZ_ === void 0 )
         {
@@ -114,10 +114,10 @@ export  class IfcStructuralProfileProperties extends IfcGeneralProfileProperties
             } })();
         }
 
-        return this.MomentOfInertiaYZ_ as IfcMomentOfInertiaMeasure | null;
+        return this.MomentOfInertiaYZ_ as number | null;
     }
 
-    public get MomentOfInertiaY() : IfcMomentOfInertiaMeasure | null
+    public get MomentOfInertiaY() : number | null
     {
         if ( this.MomentOfInertiaY_ === void 0 )
         {
@@ -153,10 +153,10 @@ export  class IfcStructuralProfileProperties extends IfcGeneralProfileProperties
             } })();
         }
 
-        return this.MomentOfInertiaY_ as IfcMomentOfInertiaMeasure | null;
+        return this.MomentOfInertiaY_ as number | null;
     }
 
-    public get MomentOfInertiaZ() : IfcMomentOfInertiaMeasure | null
+    public get MomentOfInertiaZ() : number | null
     {
         if ( this.MomentOfInertiaZ_ === void 0 )
         {
@@ -192,10 +192,10 @@ export  class IfcStructuralProfileProperties extends IfcGeneralProfileProperties
             } })();
         }
 
-        return this.MomentOfInertiaZ_ as IfcMomentOfInertiaMeasure | null;
+        return this.MomentOfInertiaZ_ as number | null;
     }
 
-    public get WarpingConstant() : IfcWarpingConstantMeasure | null
+    public get WarpingConstant() : number | null
     {
         if ( this.WarpingConstant_ === void 0 )
         {
@@ -231,10 +231,10 @@ export  class IfcStructuralProfileProperties extends IfcGeneralProfileProperties
             } })();
         }
 
-        return this.WarpingConstant_ as IfcWarpingConstantMeasure | null;
+        return this.WarpingConstant_ as number | null;
     }
 
-    public get ShearCentreZ() : IfcLengthMeasure | null
+    public get ShearCentreZ() : number | null
     {
         if ( this.ShearCentreZ_ === void 0 )
         {
@@ -270,10 +270,10 @@ export  class IfcStructuralProfileProperties extends IfcGeneralProfileProperties
             } })();
         }
 
-        return this.ShearCentreZ_ as IfcLengthMeasure | null;
+        return this.ShearCentreZ_ as number | null;
     }
 
-    public get ShearCentreY() : IfcLengthMeasure | null
+    public get ShearCentreY() : number | null
     {
         if ( this.ShearCentreY_ === void 0 )
         {
@@ -309,10 +309,10 @@ export  class IfcStructuralProfileProperties extends IfcGeneralProfileProperties
             } })();
         }
 
-        return this.ShearCentreY_ as IfcLengthMeasure | null;
+        return this.ShearCentreY_ as number | null;
     }
 
-    public get ShearDeformationAreaZ() : IfcAreaMeasure | null
+    public get ShearDeformationAreaZ() : number | null
     {
         if ( this.ShearDeformationAreaZ_ === void 0 )
         {
@@ -348,10 +348,10 @@ export  class IfcStructuralProfileProperties extends IfcGeneralProfileProperties
             } })();
         }
 
-        return this.ShearDeformationAreaZ_ as IfcAreaMeasure | null;
+        return this.ShearDeformationAreaZ_ as number | null;
     }
 
-    public get ShearDeformationAreaY() : IfcAreaMeasure | null
+    public get ShearDeformationAreaY() : number | null
     {
         if ( this.ShearDeformationAreaY_ === void 0 )
         {
@@ -387,10 +387,10 @@ export  class IfcStructuralProfileProperties extends IfcGeneralProfileProperties
             } })();
         }
 
-        return this.ShearDeformationAreaY_ as IfcAreaMeasure | null;
+        return this.ShearDeformationAreaY_ as number | null;
     }
 
-    public get MaximumSectionModulusY() : IfcSectionModulusMeasure | null
+    public get MaximumSectionModulusY() : number | null
     {
         if ( this.MaximumSectionModulusY_ === void 0 )
         {
@@ -426,10 +426,10 @@ export  class IfcStructuralProfileProperties extends IfcGeneralProfileProperties
             } })();
         }
 
-        return this.MaximumSectionModulusY_ as IfcSectionModulusMeasure | null;
+        return this.MaximumSectionModulusY_ as number | null;
     }
 
-    public get MinimumSectionModulusY() : IfcSectionModulusMeasure | null
+    public get MinimumSectionModulusY() : number | null
     {
         if ( this.MinimumSectionModulusY_ === void 0 )
         {
@@ -465,10 +465,10 @@ export  class IfcStructuralProfileProperties extends IfcGeneralProfileProperties
             } })();
         }
 
-        return this.MinimumSectionModulusY_ as IfcSectionModulusMeasure | null;
+        return this.MinimumSectionModulusY_ as number | null;
     }
 
-    public get MaximumSectionModulusZ() : IfcSectionModulusMeasure | null
+    public get MaximumSectionModulusZ() : number | null
     {
         if ( this.MaximumSectionModulusZ_ === void 0 )
         {
@@ -504,10 +504,10 @@ export  class IfcStructuralProfileProperties extends IfcGeneralProfileProperties
             } })();
         }
 
-        return this.MaximumSectionModulusZ_ as IfcSectionModulusMeasure | null;
+        return this.MaximumSectionModulusZ_ as number | null;
     }
 
-    public get MinimumSectionModulusZ() : IfcSectionModulusMeasure | null
+    public get MinimumSectionModulusZ() : number | null
     {
         if ( this.MinimumSectionModulusZ_ === void 0 )
         {
@@ -543,10 +543,10 @@ export  class IfcStructuralProfileProperties extends IfcGeneralProfileProperties
             } })();
         }
 
-        return this.MinimumSectionModulusZ_ as IfcSectionModulusMeasure | null;
+        return this.MinimumSectionModulusZ_ as number | null;
     }
 
-    public get TorsionalSectionModulus() : IfcSectionModulusMeasure | null
+    public get TorsionalSectionModulus() : number | null
     {
         if ( this.TorsionalSectionModulus_ === void 0 )
         {
@@ -582,10 +582,10 @@ export  class IfcStructuralProfileProperties extends IfcGeneralProfileProperties
             } })();
         }
 
-        return this.TorsionalSectionModulus_ as IfcSectionModulusMeasure | null;
+        return this.TorsionalSectionModulus_ as number | null;
     }
 
-    public get CentreOfGravityInX() : IfcLengthMeasure | null
+    public get CentreOfGravityInX() : number | null
     {
         if ( this.CentreOfGravityInX_ === void 0 )
         {
@@ -621,10 +621,10 @@ export  class IfcStructuralProfileProperties extends IfcGeneralProfileProperties
             } })();
         }
 
-        return this.CentreOfGravityInX_ as IfcLengthMeasure | null;
+        return this.CentreOfGravityInX_ as number | null;
     }
 
-    public get CentreOfGravityInY() : IfcLengthMeasure | null
+    public get CentreOfGravityInY() : number | null
     {
         if ( this.CentreOfGravityInY_ === void 0 )
         {
@@ -660,7 +660,7 @@ export  class IfcStructuralProfileProperties extends IfcGeneralProfileProperties
             } })();
         }
 
-        return this.CentreOfGravityInY_ as IfcLengthMeasure | null;
+        return this.CentreOfGravityInY_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

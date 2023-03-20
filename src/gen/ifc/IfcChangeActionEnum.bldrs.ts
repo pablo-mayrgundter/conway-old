@@ -32,4 +32,3 @@ export function IfcChangeActionEnumDeserializeStep( input: Uint8Array, cursor: n
 {
     return parser.extract< IfcChangeActionEnum >( IfcChangeActionEnumSearch, input, cursor, endCursor );
 }
-

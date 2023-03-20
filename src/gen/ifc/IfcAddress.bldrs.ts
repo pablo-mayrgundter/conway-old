@@ -7,8 +7,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcaddress.htm */
@@ -20,8 +20,8 @@ export abstract class IfcAddress extends StepEntityBase< EntityTypesIfc >
     }
 
     private Purpose_? : IfcAddressTypeEnum | null;
-    private Description_? : IfcText | null;
-    private UserDefinedPurpose_? : IfcLabel | null;
+    private Description_? : string | null;
+    private UserDefinedPurpose_? : string | null;
 
     public get Purpose() : IfcAddressTypeEnum | null
     {
@@ -62,7 +62,7 @@ export abstract class IfcAddress extends StepEntityBase< EntityTypesIfc >
         return this.Purpose_ as IfcAddressTypeEnum | null;
     }
 
-    public get Description() : IfcText | null
+    public get Description() : string | null
     {
         if ( this.Description_ === void 0 )
         {
@@ -98,10 +98,10 @@ export abstract class IfcAddress extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.Description_ as IfcText | null;
+        return this.Description_ as string | null;
     }
 
-    public get UserDefinedPurpose() : IfcLabel | null
+    public get UserDefinedPurpose() : string | null
     {
         if ( this.UserDefinedPurpose_ === void 0 )
         {
@@ -137,7 +137,7 @@ export abstract class IfcAddress extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.UserDefinedPurpose_ as IfcLabel | null;
+        return this.UserDefinedPurpose_ as string | null;
     }
 
 

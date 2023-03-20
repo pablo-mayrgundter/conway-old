@@ -30,4 +30,3 @@ export function IfcCooledBeamTypeEnumDeserializeStep( input: Uint8Array, cursor:
 {
     return parser.extract< IfcCooledBeamTypeEnum >( IfcCooledBeamTypeEnumSearch, input, cursor, endCursor );
 }
-

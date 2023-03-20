@@ -31,4 +31,3 @@ export function IfcElectricTimeControlTypeEnumDeserializeStep( input: Uint8Array
 {
     return parser.extract< IfcElectricTimeControlTypeEnum >( IfcElectricTimeControlTypeEnumSearch, input, cursor, endCursor );
 }
-

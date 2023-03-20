@@ -30,4 +30,3 @@ export function IfcHeatExchangerTypeEnumDeserializeStep( input: Uint8Array, curs
 {
     return parser.extract< IfcHeatExchangerTypeEnum >( IfcHeatExchangerTypeEnumSearch, input, cursor, endCursor );
 }
-

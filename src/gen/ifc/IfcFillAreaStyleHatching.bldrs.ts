@@ -10,8 +10,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcfillareastylehatching.htm */
@@ -26,7 +26,7 @@ export  class IfcFillAreaStyleHatching extends IfcGeometricRepresentationItem
     private StartOfNextHatchLine_? : IfcOneDirectionRepeatFactor|IfcPositiveLengthMeasure;
     private PointOfReferenceHatchLine_? : IfcCartesianPoint | null;
     private PatternStart_? : IfcCartesianPoint | null;
-    private HatchLineAngle_? : IfcPlaneAngleMeasure;
+    private HatchLineAngle_? : number;
 
     public get HatchLineAppearance() : IfcCurveStyle
     {
@@ -48,7 +48,7 @@ export  class IfcFillAreaStyleHatching extends IfcGeometricRepresentationItem
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcCurveStyle ) )
             {                
@@ -80,27 +80,15 @@ export  class IfcFillAreaStyleHatching extends IfcGeometricRepresentationItem
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { 
-                    let expressID = stepExtractReference( buffer, cursor, endCursor );
-                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
-        
-                    if ( !( value instanceof IfcOneDirectionRepeatFactor ) )
-                    {                
-                        return (void 0);
-                    };
-        
-                    return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )();
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( value === void 0 )
+            if ( !( value instanceof IfcOneDirectionRepeatFactor ) && !( value instanceof IfcPositiveLengthMeasure ) )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+                throw new Error( 'Value in STEP was incorrectly typed for field' );
+            }
 
-            return value; })();
+            return value as (IfcOneDirectionRepeatFactor | IfcPositiveLengthMeasure); })();
         }
 
         return this.StartOfNextHatchLine_ as IfcOneDirectionRepeatFactor|IfcPositiveLengthMeasure;
@@ -126,7 +114,7 @@ export  class IfcFillAreaStyleHatching extends IfcGeometricRepresentationItem
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcCartesianPoint ) )
             {
@@ -166,7 +154,7 @@ export  class IfcFillAreaStyleHatching extends IfcGeometricRepresentationItem
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcCartesianPoint ) )
             {
@@ -186,7 +174,7 @@ export  class IfcFillAreaStyleHatching extends IfcGeometricRepresentationItem
         return this.PatternStart_ as IfcCartesianPoint | null;
     }
 
-    public get HatchLineAngle() : IfcPlaneAngleMeasure
+    public get HatchLineAngle() : number
     {
         if ( this.HatchLineAngle_ === void 0 )
         {
@@ -215,7 +203,7 @@ export  class IfcFillAreaStyleHatching extends IfcGeometricRepresentationItem
             return value; })();
         }
 
-        return this.HatchLineAngle_ as IfcPlaneAngleMeasure;
+        return this.HatchLineAngle_ as number;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

@@ -35,4 +35,3 @@ export function IfcServiceLifeFactorTypeEnumDeserializeStep( input: Uint8Array, 
 {
     return parser.extract< IfcServiceLifeFactorTypeEnum >( IfcServiceLifeFactorTypeEnumSearch, input, cursor, endCursor );
 }
-

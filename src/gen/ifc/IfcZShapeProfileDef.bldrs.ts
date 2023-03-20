@@ -6,8 +6,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifczshapeprofiledef.htm */
@@ -18,14 +18,14 @@ export  class IfcZShapeProfileDef extends IfcParameterizedProfileDef
         return EntityTypesIfc.IFCZSHAPEPROFILEDEF;
     }
 
-    private Depth_? : IfcPositiveLengthMeasure;
-    private FlangeWidth_? : IfcPositiveLengthMeasure;
-    private WebThickness_? : IfcPositiveLengthMeasure;
-    private FlangeThickness_? : IfcPositiveLengthMeasure;
-    private FilletRadius_? : IfcPositiveLengthMeasure | null;
-    private EdgeRadius_? : IfcPositiveLengthMeasure | null;
+    private Depth_? : number;
+    private FlangeWidth_? : number;
+    private WebThickness_? : number;
+    private FlangeThickness_? : number;
+    private FilletRadius_? : number | null;
+    private EdgeRadius_? : number | null;
 
-    public get Depth() : IfcPositiveLengthMeasure
+    public get Depth() : number
     {
         if ( this.Depth_ === void 0 )
         {
@@ -54,10 +54,10 @@ export  class IfcZShapeProfileDef extends IfcParameterizedProfileDef
             return value; })();
         }
 
-        return this.Depth_ as IfcPositiveLengthMeasure;
+        return this.Depth_ as number;
     }
 
-    public get FlangeWidth() : IfcPositiveLengthMeasure
+    public get FlangeWidth() : number
     {
         if ( this.FlangeWidth_ === void 0 )
         {
@@ -86,10 +86,10 @@ export  class IfcZShapeProfileDef extends IfcParameterizedProfileDef
             return value; })();
         }
 
-        return this.FlangeWidth_ as IfcPositiveLengthMeasure;
+        return this.FlangeWidth_ as number;
     }
 
-    public get WebThickness() : IfcPositiveLengthMeasure
+    public get WebThickness() : number
     {
         if ( this.WebThickness_ === void 0 )
         {
@@ -118,10 +118,10 @@ export  class IfcZShapeProfileDef extends IfcParameterizedProfileDef
             return value; })();
         }
 
-        return this.WebThickness_ as IfcPositiveLengthMeasure;
+        return this.WebThickness_ as number;
     }
 
-    public get FlangeThickness() : IfcPositiveLengthMeasure
+    public get FlangeThickness() : number
     {
         if ( this.FlangeThickness_ === void 0 )
         {
@@ -150,10 +150,10 @@ export  class IfcZShapeProfileDef extends IfcParameterizedProfileDef
             return value; })();
         }
 
-        return this.FlangeThickness_ as IfcPositiveLengthMeasure;
+        return this.FlangeThickness_ as number;
     }
 
-    public get FilletRadius() : IfcPositiveLengthMeasure | null
+    public get FilletRadius() : number | null
     {
         if ( this.FilletRadius_ === void 0 )
         {
@@ -189,10 +189,10 @@ export  class IfcZShapeProfileDef extends IfcParameterizedProfileDef
             } })();
         }
 
-        return this.FilletRadius_ as IfcPositiveLengthMeasure | null;
+        return this.FilletRadius_ as number | null;
     }
 
-    public get EdgeRadius() : IfcPositiveLengthMeasure | null
+    public get EdgeRadius() : number | null
     {
         if ( this.EdgeRadius_ === void 0 )
         {
@@ -228,7 +228,7 @@ export  class IfcZShapeProfileDef extends IfcParameterizedProfileDef
             } })();
         }
 
-        return this.EdgeRadius_ as IfcPositiveLengthMeasure | null;
+        return this.EdgeRadius_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

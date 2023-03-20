@@ -30,4 +30,3 @@ export function IfcTransitionCodeDeserializeStep( input: Uint8Array, cursor: num
 {
     return parser.extract< IfcTransitionCode >( IfcTransitionCodeSearch, input, cursor, endCursor );
 }
-

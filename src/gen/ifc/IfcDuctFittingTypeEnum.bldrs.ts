@@ -35,4 +35,3 @@ export function IfcDuctFittingTypeEnumDeserializeStep( input: Uint8Array, cursor
 {
     return parser.extract< IfcDuctFittingTypeEnum >( IfcDuctFittingTypeEnumSearch, input, cursor, endCursor );
 }
-

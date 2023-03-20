@@ -34,4 +34,3 @@ export function IfcWindowStyleConstructionEnumDeserializeStep( input: Uint8Array
 {
     return parser.extract< IfcWindowStyleConstructionEnum >( IfcWindowStyleConstructionEnumSearch, input, cursor, endCursor );
 }
-

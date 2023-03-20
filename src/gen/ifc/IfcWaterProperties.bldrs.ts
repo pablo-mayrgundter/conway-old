@@ -8,8 +8,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcwaterproperties.htm */
@@ -21,12 +21,12 @@ export  class IfcWaterProperties extends IfcMaterialProperties
     }
 
     private IsPotable_? : boolean | null;
-    private Hardness_? : IfcIonConcentrationMeasure | null;
-    private AlkalinityConcentration_? : IfcIonConcentrationMeasure | null;
-    private AcidityConcentration_? : IfcIonConcentrationMeasure | null;
-    private ImpuritiesContent_? : IfcNormalisedRatioMeasure | null;
-    private PHLevel_? : IfcPHMeasure | null;
-    private DissolvedSolidsContent_? : IfcNormalisedRatioMeasure | null;
+    private Hardness_? : number | null;
+    private AlkalinityConcentration_? : number | null;
+    private AcidityConcentration_? : number | null;
+    private ImpuritiesContent_? : number | null;
+    private PHLevel_? : number | null;
+    private DissolvedSolidsContent_? : number | null;
 
     public get IsPotable() : boolean | null
     {
@@ -67,7 +67,7 @@ export  class IfcWaterProperties extends IfcMaterialProperties
         return this.IsPotable_ as boolean | null;
     }
 
-    public get Hardness() : IfcIonConcentrationMeasure | null
+    public get Hardness() : number | null
     {
         if ( this.Hardness_ === void 0 )
         {
@@ -103,10 +103,10 @@ export  class IfcWaterProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.Hardness_ as IfcIonConcentrationMeasure | null;
+        return this.Hardness_ as number | null;
     }
 
-    public get AlkalinityConcentration() : IfcIonConcentrationMeasure | null
+    public get AlkalinityConcentration() : number | null
     {
         if ( this.AlkalinityConcentration_ === void 0 )
         {
@@ -142,10 +142,10 @@ export  class IfcWaterProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.AlkalinityConcentration_ as IfcIonConcentrationMeasure | null;
+        return this.AlkalinityConcentration_ as number | null;
     }
 
-    public get AcidityConcentration() : IfcIonConcentrationMeasure | null
+    public get AcidityConcentration() : number | null
     {
         if ( this.AcidityConcentration_ === void 0 )
         {
@@ -181,10 +181,10 @@ export  class IfcWaterProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.AcidityConcentration_ as IfcIonConcentrationMeasure | null;
+        return this.AcidityConcentration_ as number | null;
     }
 
-    public get ImpuritiesContent() : IfcNormalisedRatioMeasure | null
+    public get ImpuritiesContent() : number | null
     {
         if ( this.ImpuritiesContent_ === void 0 )
         {
@@ -220,10 +220,10 @@ export  class IfcWaterProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.ImpuritiesContent_ as IfcNormalisedRatioMeasure | null;
+        return this.ImpuritiesContent_ as number | null;
     }
 
-    public get PHLevel() : IfcPHMeasure | null
+    public get PHLevel() : number | null
     {
         if ( this.PHLevel_ === void 0 )
         {
@@ -259,10 +259,10 @@ export  class IfcWaterProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.PHLevel_ as IfcPHMeasure | null;
+        return this.PHLevel_ as number | null;
     }
 
-    public get DissolvedSolidsContent() : IfcNormalisedRatioMeasure | null
+    public get DissolvedSolidsContent() : number | null
     {
         if ( this.DissolvedSolidsContent_ === void 0 )
         {
@@ -298,7 +298,7 @@ export  class IfcWaterProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.DissolvedSolidsContent_ as IfcNormalisedRatioMeasure | null;
+        return this.DissolvedSolidsContent_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

@@ -32,4 +32,3 @@ export function IfcBeamTypeEnumDeserializeStep( input: Uint8Array, cursor: numbe
 {
     return parser.extract< IfcBeamTypeEnum >( IfcBeamTypeEnumSearch, input, cursor, endCursor );
 }
-

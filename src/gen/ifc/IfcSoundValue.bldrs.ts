@@ -74,8 +74,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcsoundvalue.htm */
@@ -87,7 +87,7 @@ export  class IfcSoundValue extends IfcPropertySetDefinition
     }
 
     private SoundLevelTimeSeries_? : IfcTimeSeries | null;
-    private Frequency_? : IfcFrequencyMeasure;
+    private Frequency_? : number;
     private SoundLevelSingleValue_? : IfcVolumetricFlowRateMeasure|IfcTimeStamp|IfcThermalTransmittanceMeasure|IfcThermalResistanceMeasure|IfcThermalAdmittanceMeasure|IfcPressureMeasure|IfcPowerMeasure|IfcMassFlowRateMeasure|IfcMassDensityMeasure|IfcLinearVelocityMeasure|IfcKinematicViscosityMeasure|IfcIntegerCountRateMeasure|IfcHeatFluxDensityMeasure|IfcFrequencyMeasure|IfcEnergyMeasure|IfcElectricVoltageMeasure|IfcDynamicViscosityMeasure|IfcCompoundPlaneAngleMeasure|IfcAngularVelocityMeasure|IfcThermalConductivityMeasure|IfcMolecularWeightMeasure|IfcVaporPermeabilityMeasure|IfcMoistureDiffusivityMeasure|IfcIsothermalMoistureCapacityMeasure|IfcSpecificHeatCapacityMeasure|IfcMonetaryMeasure|IfcMagneticFluxDensityMeasure|IfcMagneticFluxMeasure|IfcLuminousFluxMeasure|IfcForceMeasure|IfcInductanceMeasure|IfcIlluminanceMeasure|IfcElectricResistanceMeasure|IfcElectricConductanceMeasure|IfcElectricChargeMeasure|IfcDoseEquivalentMeasure|IfcElectricCapacitanceMeasure|IfcAbsorbedDoseMeasure|IfcRadioActivityMeasure|IfcRotationalFrequencyMeasure|IfcTorqueMeasure|IfcAccelerationMeasure|IfcLinearForceMeasure|IfcLinearStiffnessMeasure|IfcModulusOfSubgradeReactionMeasure|IfcModulusOfElasticityMeasure|IfcMomentOfInertiaMeasure|IfcPlanarForceMeasure|IfcRotationalStiffnessMeasure|IfcShearModulusMeasure|IfcLinearMomentMeasure|IfcLuminousIntensityDistributionMeasure|IfcCurvatureMeasure|IfcMassPerLengthMeasure|IfcModulusOfLinearSubgradeReactionMeasure|IfcModulusOfRotationalSubgradeReactionMeasure|IfcRotationalMassMeasure|IfcSectionalAreaIntegralMeasure|IfcSectionModulusMeasure|IfcTemperatureGradientMeasure|IfcThermalExpansionCoefficientMeasure|IfcWarpingConstantMeasure|IfcWarpingMomentMeasure|IfcSoundPowerMeasure|IfcSoundPressureMeasure|IfcHeatingValueMeasure|IfcPHMeasure|IfcIonConcentrationMeasure | null;
 
     public get SoundLevelTimeSeries() : IfcTimeSeries | null
@@ -110,7 +110,7 @@ export  class IfcSoundValue extends IfcPropertySetDefinition
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcTimeSeries ) )
             {
@@ -130,7 +130,7 @@ export  class IfcSoundValue extends IfcPropertySetDefinition
         return this.SoundLevelTimeSeries_ as IfcTimeSeries | null;
     }
 
-    public get Frequency() : IfcFrequencyMeasure
+    public get Frequency() : number
     {
         if ( this.Frequency_ === void 0 )
         {
@@ -159,7 +159,7 @@ export  class IfcSoundValue extends IfcPropertySetDefinition
             return value; })();
         }
 
-        return this.Frequency_ as IfcFrequencyMeasure;
+        return this.Frequency_ as number;
     }
 
     public get SoundLevelSingleValue() : IfcVolumetricFlowRateMeasure|IfcTimeStamp|IfcThermalTransmittanceMeasure|IfcThermalResistanceMeasure|IfcThermalAdmittanceMeasure|IfcPressureMeasure|IfcPowerMeasure|IfcMassFlowRateMeasure|IfcMassDensityMeasure|IfcLinearVelocityMeasure|IfcKinematicViscosityMeasure|IfcIntegerCountRateMeasure|IfcHeatFluxDensityMeasure|IfcFrequencyMeasure|IfcEnergyMeasure|IfcElectricVoltageMeasure|IfcDynamicViscosityMeasure|IfcCompoundPlaneAngleMeasure|IfcAngularVelocityMeasure|IfcThermalConductivityMeasure|IfcMolecularWeightMeasure|IfcVaporPermeabilityMeasure|IfcMoistureDiffusivityMeasure|IfcIsothermalMoistureCapacityMeasure|IfcSpecificHeatCapacityMeasure|IfcMonetaryMeasure|IfcMagneticFluxDensityMeasure|IfcMagneticFluxMeasure|IfcLuminousFluxMeasure|IfcForceMeasure|IfcInductanceMeasure|IfcIlluminanceMeasure|IfcElectricResistanceMeasure|IfcElectricConductanceMeasure|IfcElectricChargeMeasure|IfcDoseEquivalentMeasure|IfcElectricCapacitanceMeasure|IfcAbsorbedDoseMeasure|IfcRadioActivityMeasure|IfcRotationalFrequencyMeasure|IfcTorqueMeasure|IfcAccelerationMeasure|IfcLinearForceMeasure|IfcLinearStiffnessMeasure|IfcModulusOfSubgradeReactionMeasure|IfcModulusOfElasticityMeasure|IfcMomentOfInertiaMeasure|IfcPlanarForceMeasure|IfcRotationalStiffnessMeasure|IfcShearModulusMeasure|IfcLinearMomentMeasure|IfcLuminousIntensityDistributionMeasure|IfcCurvatureMeasure|IfcMassPerLengthMeasure|IfcModulusOfLinearSubgradeReactionMeasure|IfcModulusOfRotationalSubgradeReactionMeasure|IfcRotationalMassMeasure|IfcSectionalAreaIntegralMeasure|IfcSectionModulusMeasure|IfcTemperatureGradientMeasure|IfcThermalExpansionCoefficientMeasure|IfcWarpingConstantMeasure|IfcWarpingMomentMeasure|IfcSoundPowerMeasure|IfcSoundPressureMeasure|IfcHeatingValueMeasure|IfcPHMeasure|IfcIonConcentrationMeasure | null
@@ -181,307 +181,21 @@ export  class IfcSoundValue extends IfcPropertySetDefinition
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value : Array<number> = [];
-        
-                    for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
-                    {
-                        value.push( (() => { 
-                            let cursor = address;
-                        
-                                    let value = stepExtractNumber( buffer, cursor, endCursor );
-                        
-                                    if ( value === void 0 )
-                                    {                
-                                        throw new Error( 'Value in STEP was incorrectly typed' );
-                                    };
-                        
-                                    return value;
-                        })() );
-                    }
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )();
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( value === void 0 )
+            if ( !( value instanceof IfcVolumetricFlowRateMeasure ) && !( value instanceof IfcTimeStamp ) && !( value instanceof IfcThermalTransmittanceMeasure ) && !( value instanceof IfcThermalResistanceMeasure ) && !( value instanceof IfcThermalAdmittanceMeasure ) && !( value instanceof IfcPressureMeasure ) && !( value instanceof IfcPowerMeasure ) && !( value instanceof IfcMassFlowRateMeasure ) && !( value instanceof IfcMassDensityMeasure ) && !( value instanceof IfcLinearVelocityMeasure ) && !( value instanceof IfcKinematicViscosityMeasure ) && !( value instanceof IfcIntegerCountRateMeasure ) && !( value instanceof IfcHeatFluxDensityMeasure ) && !( value instanceof IfcFrequencyMeasure ) && !( value instanceof IfcEnergyMeasure ) && !( value instanceof IfcElectricVoltageMeasure ) && !( value instanceof IfcDynamicViscosityMeasure ) && !( value instanceof IfcCompoundPlaneAngleMeasure ) && !( value instanceof IfcAngularVelocityMeasure ) && !( value instanceof IfcThermalConductivityMeasure ) && !( value instanceof IfcMolecularWeightMeasure ) && !( value instanceof IfcVaporPermeabilityMeasure ) && !( value instanceof IfcMoistureDiffusivityMeasure ) && !( value instanceof IfcIsothermalMoistureCapacityMeasure ) && !( value instanceof IfcSpecificHeatCapacityMeasure ) && !( value instanceof IfcMonetaryMeasure ) && !( value instanceof IfcMagneticFluxDensityMeasure ) && !( value instanceof IfcMagneticFluxMeasure ) && !( value instanceof IfcLuminousFluxMeasure ) && !( value instanceof IfcForceMeasure ) && !( value instanceof IfcInductanceMeasure ) && !( value instanceof IfcIlluminanceMeasure ) && !( value instanceof IfcElectricResistanceMeasure ) && !( value instanceof IfcElectricConductanceMeasure ) && !( value instanceof IfcElectricChargeMeasure ) && !( value instanceof IfcDoseEquivalentMeasure ) && !( value instanceof IfcElectricCapacitanceMeasure ) && !( value instanceof IfcAbsorbedDoseMeasure ) && !( value instanceof IfcRadioActivityMeasure ) && !( value instanceof IfcRotationalFrequencyMeasure ) && !( value instanceof IfcTorqueMeasure ) && !( value instanceof IfcAccelerationMeasure ) && !( value instanceof IfcLinearForceMeasure ) && !( value instanceof IfcLinearStiffnessMeasure ) && !( value instanceof IfcModulusOfSubgradeReactionMeasure ) && !( value instanceof IfcModulusOfElasticityMeasure ) && !( value instanceof IfcMomentOfInertiaMeasure ) && !( value instanceof IfcPlanarForceMeasure ) && !( value instanceof IfcRotationalStiffnessMeasure ) && !( value instanceof IfcShearModulusMeasure ) && !( value instanceof IfcLinearMomentMeasure ) && !( value instanceof IfcLuminousIntensityDistributionMeasure ) && !( value instanceof IfcCurvatureMeasure ) && !( value instanceof IfcMassPerLengthMeasure ) && !( value instanceof IfcModulusOfLinearSubgradeReactionMeasure ) && !( value instanceof IfcModulusOfRotationalSubgradeReactionMeasure ) && !( value instanceof IfcRotationalMassMeasure ) && !( value instanceof IfcSectionalAreaIntegralMeasure ) && !( value instanceof IfcSectionModulusMeasure ) && !( value instanceof IfcTemperatureGradientMeasure ) && !( value instanceof IfcThermalExpansionCoefficientMeasure ) && !( value instanceof IfcWarpingConstantMeasure ) && !( value instanceof IfcWarpingMomentMeasure ) && !( value instanceof IfcSoundPowerMeasure ) && !( value instanceof IfcSoundPressureMeasure ) && !( value instanceof IfcHeatingValueMeasure ) && !( value instanceof IfcPHMeasure ) && !( value instanceof IfcIonConcentrationMeasure ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed' );
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
                 }
 
                 return null;                
             }
             else
             {
-                return value;
+                return value as (IfcVolumetricFlowRateMeasure | IfcTimeStamp | IfcThermalTransmittanceMeasure | IfcThermalResistanceMeasure | IfcThermalAdmittanceMeasure | IfcPressureMeasure | IfcPowerMeasure | IfcMassFlowRateMeasure | IfcMassDensityMeasure | IfcLinearVelocityMeasure | IfcKinematicViscosityMeasure | IfcIntegerCountRateMeasure | IfcHeatFluxDensityMeasure | IfcFrequencyMeasure | IfcEnergyMeasure | IfcElectricVoltageMeasure | IfcDynamicViscosityMeasure | IfcCompoundPlaneAngleMeasure | IfcAngularVelocityMeasure | IfcThermalConductivityMeasure | IfcMolecularWeightMeasure | IfcVaporPermeabilityMeasure | IfcMoistureDiffusivityMeasure | IfcIsothermalMoistureCapacityMeasure | IfcSpecificHeatCapacityMeasure | IfcMonetaryMeasure | IfcMagneticFluxDensityMeasure | IfcMagneticFluxMeasure | IfcLuminousFluxMeasure | IfcForceMeasure | IfcInductanceMeasure | IfcIlluminanceMeasure | IfcElectricResistanceMeasure | IfcElectricConductanceMeasure | IfcElectricChargeMeasure | IfcDoseEquivalentMeasure | IfcElectricCapacitanceMeasure | IfcAbsorbedDoseMeasure | IfcRadioActivityMeasure | IfcRotationalFrequencyMeasure | IfcTorqueMeasure | IfcAccelerationMeasure | IfcLinearForceMeasure | IfcLinearStiffnessMeasure | IfcModulusOfSubgradeReactionMeasure | IfcModulusOfElasticityMeasure | IfcMomentOfInertiaMeasure | IfcPlanarForceMeasure | IfcRotationalStiffnessMeasure | IfcShearModulusMeasure | IfcLinearMomentMeasure | IfcLuminousIntensityDistributionMeasure | IfcCurvatureMeasure | IfcMassPerLengthMeasure | IfcModulusOfLinearSubgradeReactionMeasure | IfcModulusOfRotationalSubgradeReactionMeasure | IfcRotationalMassMeasure | IfcSectionalAreaIntegralMeasure | IfcSectionModulusMeasure | IfcTemperatureGradientMeasure | IfcThermalExpansionCoefficientMeasure | IfcWarpingConstantMeasure | IfcWarpingMomentMeasure | IfcSoundPowerMeasure | IfcSoundPressureMeasure | IfcHeatingValueMeasure | IfcPHMeasure | IfcIonConcentrationMeasure);
             } })();
         }
 

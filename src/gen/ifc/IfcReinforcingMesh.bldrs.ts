@@ -7,8 +7,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcreinforcingmesh.htm */
@@ -19,16 +19,16 @@ export  class IfcReinforcingMesh extends IfcReinforcingElement
         return EntityTypesIfc.IFCREINFORCINGMESH;
     }
 
-    private MeshLength_? : IfcPositiveLengthMeasure | null;
-    private MeshWidth_? : IfcPositiveLengthMeasure | null;
-    private LongitudinalBarNominalDiameter_? : IfcPositiveLengthMeasure;
-    private TransverseBarNominalDiameter_? : IfcPositiveLengthMeasure;
-    private LongitudinalBarCrossSectionArea_? : IfcAreaMeasure;
-    private TransverseBarCrossSectionArea_? : IfcAreaMeasure;
-    private LongitudinalBarSpacing_? : IfcPositiveLengthMeasure;
-    private TransverseBarSpacing_? : IfcPositiveLengthMeasure;
+    private MeshLength_? : number | null;
+    private MeshWidth_? : number | null;
+    private LongitudinalBarNominalDiameter_? : number;
+    private TransverseBarNominalDiameter_? : number;
+    private LongitudinalBarCrossSectionArea_? : number;
+    private TransverseBarCrossSectionArea_? : number;
+    private LongitudinalBarSpacing_? : number;
+    private TransverseBarSpacing_? : number;
 
-    public get MeshLength() : IfcPositiveLengthMeasure | null
+    public get MeshLength() : number | null
     {
         if ( this.MeshLength_ === void 0 )
         {
@@ -64,10 +64,10 @@ export  class IfcReinforcingMesh extends IfcReinforcingElement
             } })();
         }
 
-        return this.MeshLength_ as IfcPositiveLengthMeasure | null;
+        return this.MeshLength_ as number | null;
     }
 
-    public get MeshWidth() : IfcPositiveLengthMeasure | null
+    public get MeshWidth() : number | null
     {
         if ( this.MeshWidth_ === void 0 )
         {
@@ -103,10 +103,10 @@ export  class IfcReinforcingMesh extends IfcReinforcingElement
             } })();
         }
 
-        return this.MeshWidth_ as IfcPositiveLengthMeasure | null;
+        return this.MeshWidth_ as number | null;
     }
 
-    public get LongitudinalBarNominalDiameter() : IfcPositiveLengthMeasure
+    public get LongitudinalBarNominalDiameter() : number
     {
         if ( this.LongitudinalBarNominalDiameter_ === void 0 )
         {
@@ -135,10 +135,10 @@ export  class IfcReinforcingMesh extends IfcReinforcingElement
             return value; })();
         }
 
-        return this.LongitudinalBarNominalDiameter_ as IfcPositiveLengthMeasure;
+        return this.LongitudinalBarNominalDiameter_ as number;
     }
 
-    public get TransverseBarNominalDiameter() : IfcPositiveLengthMeasure
+    public get TransverseBarNominalDiameter() : number
     {
         if ( this.TransverseBarNominalDiameter_ === void 0 )
         {
@@ -167,10 +167,10 @@ export  class IfcReinforcingMesh extends IfcReinforcingElement
             return value; })();
         }
 
-        return this.TransverseBarNominalDiameter_ as IfcPositiveLengthMeasure;
+        return this.TransverseBarNominalDiameter_ as number;
     }
 
-    public get LongitudinalBarCrossSectionArea() : IfcAreaMeasure
+    public get LongitudinalBarCrossSectionArea() : number
     {
         if ( this.LongitudinalBarCrossSectionArea_ === void 0 )
         {
@@ -199,10 +199,10 @@ export  class IfcReinforcingMesh extends IfcReinforcingElement
             return value; })();
         }
 
-        return this.LongitudinalBarCrossSectionArea_ as IfcAreaMeasure;
+        return this.LongitudinalBarCrossSectionArea_ as number;
     }
 
-    public get TransverseBarCrossSectionArea() : IfcAreaMeasure
+    public get TransverseBarCrossSectionArea() : number
     {
         if ( this.TransverseBarCrossSectionArea_ === void 0 )
         {
@@ -231,10 +231,10 @@ export  class IfcReinforcingMesh extends IfcReinforcingElement
             return value; })();
         }
 
-        return this.TransverseBarCrossSectionArea_ as IfcAreaMeasure;
+        return this.TransverseBarCrossSectionArea_ as number;
     }
 
-    public get LongitudinalBarSpacing() : IfcPositiveLengthMeasure
+    public get LongitudinalBarSpacing() : number
     {
         if ( this.LongitudinalBarSpacing_ === void 0 )
         {
@@ -263,10 +263,10 @@ export  class IfcReinforcingMesh extends IfcReinforcingElement
             return value; })();
         }
 
-        return this.LongitudinalBarSpacing_ as IfcPositiveLengthMeasure;
+        return this.LongitudinalBarSpacing_ as number;
     }
 
-    public get TransverseBarSpacing() : IfcPositiveLengthMeasure
+    public get TransverseBarSpacing() : number
     {
         if ( this.TransverseBarSpacing_ === void 0 )
         {
@@ -295,7 +295,7 @@ export  class IfcReinforcingMesh extends IfcReinforcingElement
             return value; })();
         }
 
-        return this.TransverseBarSpacing_ as IfcPositiveLengthMeasure;
+        return this.TransverseBarSpacing_ as number;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

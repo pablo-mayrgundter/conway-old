@@ -13,8 +13,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifctextstyletextmodel.htm */
@@ -26,11 +26,11 @@ export  class IfcTextStyleTextModel extends StepEntityBase< EntityTypesIfc >
     }
 
     private TextIndent_? : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure | null;
-    private TextAlign_? : IfcTextAlignment | null;
-    private TextDecoration_? : IfcTextDecoration | null;
+    private TextAlign_? : string | null;
+    private TextDecoration_? : string | null;
     private LetterSpacing_? : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure | null;
     private WordSpacing_? : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure | null;
-    private TextTransform_? : IfcTextTransformation | null;
+    private TextTransform_? : string | null;
     private LineHeight_? : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure | null;
 
     public get TextIndent() : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure | null
@@ -52,50 +52,28 @@ export  class IfcTextStyleTextModel extends StepEntityBase< EntityTypesIfc >
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractString( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )();
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( value === void 0 )
+            if ( !( value instanceof IfcRatioMeasure ) && !( value instanceof IfcLengthMeasure ) && !( value instanceof IfcDescriptiveMeasure ) && !( value instanceof IfcPositiveLengthMeasure ) && !( value instanceof IfcNormalisedRatioMeasure ) && !( value instanceof IfcPositiveRatioMeasure ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed' );
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
                 }
 
                 return null;                
             }
             else
             {
-                return value;
+                return value as (IfcRatioMeasure | IfcLengthMeasure | IfcDescriptiveMeasure | IfcPositiveLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveRatioMeasure);
             } })();
         }
 
         return this.TextIndent_ as IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure | null;
     }
 
-    public get TextAlign() : IfcTextAlignment | null
+    public get TextAlign() : string | null
     {
         if ( this.TextAlign_ === void 0 )
         {
@@ -131,10 +109,10 @@ export  class IfcTextStyleTextModel extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.TextAlign_ as IfcTextAlignment | null;
+        return this.TextAlign_ as string | null;
     }
 
-    public get TextDecoration() : IfcTextDecoration | null
+    public get TextDecoration() : string | null
     {
         if ( this.TextDecoration_ === void 0 )
         {
@@ -170,7 +148,7 @@ export  class IfcTextStyleTextModel extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.TextDecoration_ as IfcTextDecoration | null;
+        return this.TextDecoration_ as string | null;
     }
 
     public get LetterSpacing() : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure | null
@@ -192,43 +170,21 @@ export  class IfcTextStyleTextModel extends StepEntityBase< EntityTypesIfc >
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractString( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )();
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( value === void 0 )
+            if ( !( value instanceof IfcRatioMeasure ) && !( value instanceof IfcLengthMeasure ) && !( value instanceof IfcDescriptiveMeasure ) && !( value instanceof IfcPositiveLengthMeasure ) && !( value instanceof IfcNormalisedRatioMeasure ) && !( value instanceof IfcPositiveRatioMeasure ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed' );
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
                 }
 
                 return null;                
             }
             else
             {
-                return value;
+                return value as (IfcRatioMeasure | IfcLengthMeasure | IfcDescriptiveMeasure | IfcPositiveLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveRatioMeasure);
             } })();
         }
 
@@ -254,50 +210,28 @@ export  class IfcTextStyleTextModel extends StepEntityBase< EntityTypesIfc >
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractString( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )();
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( value === void 0 )
+            if ( !( value instanceof IfcRatioMeasure ) && !( value instanceof IfcLengthMeasure ) && !( value instanceof IfcDescriptiveMeasure ) && !( value instanceof IfcPositiveLengthMeasure ) && !( value instanceof IfcNormalisedRatioMeasure ) && !( value instanceof IfcPositiveRatioMeasure ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed' );
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
                 }
 
                 return null;                
             }
             else
             {
-                return value;
+                return value as (IfcRatioMeasure | IfcLengthMeasure | IfcDescriptiveMeasure | IfcPositiveLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveRatioMeasure);
             } })();
         }
 
         return this.WordSpacing_ as IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure | null;
     }
 
-    public get TextTransform() : IfcTextTransformation | null
+    public get TextTransform() : string | null
     {
         if ( this.TextTransform_ === void 0 )
         {
@@ -333,7 +267,7 @@ export  class IfcTextStyleTextModel extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.TextTransform_ as IfcTextTransformation | null;
+        return this.TextTransform_ as string | null;
     }
 
     public get LineHeight() : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure | null
@@ -355,43 +289,21 @@ export  class IfcTextStyleTextModel extends StepEntityBase< EntityTypesIfc >
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractString( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )() ??
-( () => { 
-                    let value = stepExtractNumber( buffer, cursor, endCursor );
-        
-        return value; } )();
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( value === void 0 )
+            if ( !( value instanceof IfcRatioMeasure ) && !( value instanceof IfcLengthMeasure ) && !( value instanceof IfcDescriptiveMeasure ) && !( value instanceof IfcPositiveLengthMeasure ) && !( value instanceof IfcNormalisedRatioMeasure ) && !( value instanceof IfcPositiveRatioMeasure ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed' );
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
                 }
 
                 return null;                
             }
             else
             {
-                return value;
+                return value as (IfcRatioMeasure | IfcLengthMeasure | IfcDescriptiveMeasure | IfcPositiveLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveRatioMeasure);
             } })();
         }
 

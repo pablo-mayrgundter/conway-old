@@ -28,4 +28,3 @@ export function IfcBuildingElementProxyTypeEnumDeserializeStep( input: Uint8Arra
 {
     return parser.extract< IfcBuildingElementProxyTypeEnum >( IfcBuildingElementProxyTypeEnumSearch, input, cursor, endCursor );
 }
-

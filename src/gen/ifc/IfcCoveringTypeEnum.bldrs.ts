@@ -36,4 +36,3 @@ export function IfcCoveringTypeEnumDeserializeStep( input: Uint8Array, cursor: n
 {
     return parser.extract< IfcCoveringTypeEnum >( IfcCoveringTypeEnumSearch, input, cursor, endCursor );
 }
-

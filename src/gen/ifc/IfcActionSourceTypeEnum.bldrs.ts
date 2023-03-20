@@ -53,4 +53,3 @@ export function IfcActionSourceTypeEnumDeserializeStep( input: Uint8Array, curso
 {
     return parser.extract< IfcActionSourceTypeEnum >( IfcActionSourceTypeEnumSearch, input, cursor, endCursor );
 }
-

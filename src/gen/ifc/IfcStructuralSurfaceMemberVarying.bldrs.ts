@@ -7,8 +7,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcstructuralsurfacemembervarying.htm */
@@ -19,10 +19,10 @@ export  class IfcStructuralSurfaceMemberVarying extends IfcStructuralSurfaceMemb
         return EntityTypesIfc.IFCSTRUCTURALSURFACEMEMBERVARYING;
     }
 
-    private SubsequentThickness_? : Array<IfcPositiveLengthMeasure>;
+    private SubsequentThickness_? : Array< number >;
     private VaryingThicknessLocation_? : IfcShapeAspect;
 
-    public get SubsequentThickness() : Array<IfcPositiveLengthMeasure>
+    public get SubsequentThickness() : Array< number >
     {
         if ( this.SubsequentThickness_ === void 0 )
         {
@@ -41,7 +41,7 @@ export  class IfcStructuralSurfaceMemberVarying extends IfcStructuralSurfaceMemb
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value : Array<IfcPositiveLengthMeasure> = [];
+            let value : Array<number> = [];
 
             for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
             {
@@ -67,7 +67,7 @@ export  class IfcStructuralSurfaceMemberVarying extends IfcStructuralSurfaceMemb
             return value; })();
         }
 
-        return this.SubsequentThickness_ as Array<IfcPositiveLengthMeasure>;
+        return this.SubsequentThickness_ as Array< number >;
     }
 
     public get VaryingThicknessLocation() : IfcShapeAspect
@@ -90,7 +90,7 @@ export  class IfcStructuralSurfaceMemberVarying extends IfcStructuralSurfaceMemb
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcShapeAspect ) )
             {                

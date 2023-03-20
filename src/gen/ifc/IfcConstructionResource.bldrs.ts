@@ -9,8 +9,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcconstructionresource.htm */
@@ -21,12 +21,12 @@ export abstract class IfcConstructionResource extends IfcResource
         return EntityTypesIfc.IFCCONSTRUCTIONRESOURCE;
     }
 
-    private ResourceIdentifier_? : IfcIdentifier | null;
-    private ResourceGroup_? : IfcLabel | null;
+    private ResourceIdentifier_? : string | null;
+    private ResourceGroup_? : string | null;
     private ResourceConsumption_? : IfcResourceConsumptionEnum | null;
     private BaseQuantity_? : IfcMeasureWithUnit | null;
 
-    public get ResourceIdentifier() : IfcIdentifier | null
+    public get ResourceIdentifier() : string | null
     {
         if ( this.ResourceIdentifier_ === void 0 )
         {
@@ -62,10 +62,10 @@ export abstract class IfcConstructionResource extends IfcResource
             } })();
         }
 
-        return this.ResourceIdentifier_ as IfcIdentifier | null;
+        return this.ResourceIdentifier_ as string | null;
     }
 
-    public get ResourceGroup() : IfcLabel | null
+    public get ResourceGroup() : string | null
     {
         if ( this.ResourceGroup_ === void 0 )
         {
@@ -101,7 +101,7 @@ export abstract class IfcConstructionResource extends IfcResource
             } })();
         }
 
-        return this.ResourceGroup_ as IfcLabel | null;
+        return this.ResourceGroup_ as string | null;
     }
 
     public get ResourceConsumption() : IfcResourceConsumptionEnum | null
@@ -163,7 +163,7 @@ export abstract class IfcConstructionResource extends IfcResource
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcMeasureWithUnit ) )
             {

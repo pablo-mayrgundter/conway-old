@@ -28,4 +28,3 @@ export function IfcProjectedOrTrueLengthEnumDeserializeStep( input: Uint8Array, 
 {
     return parser.extract< IfcProjectedOrTrueLengthEnum >( IfcProjectedOrTrueLengthEnumSearch, input, cursor, endCursor );
 }
-

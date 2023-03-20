@@ -6,8 +6,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifccranerailfshapeprofiledef.htm */
@@ -18,17 +18,17 @@ export  class IfcCraneRailFShapeProfileDef extends IfcParameterizedProfileDef
         return EntityTypesIfc.IFCCRANERAILFSHAPEPROFILEDEF;
     }
 
-    private OverallHeight_? : IfcPositiveLengthMeasure;
-    private HeadWidth_? : IfcPositiveLengthMeasure;
-    private Radius_? : IfcPositiveLengthMeasure | null;
-    private HeadDepth2_? : IfcPositiveLengthMeasure;
-    private HeadDepth3_? : IfcPositiveLengthMeasure;
-    private WebThickness_? : IfcPositiveLengthMeasure;
-    private BaseDepth1_? : IfcPositiveLengthMeasure;
-    private BaseDepth2_? : IfcPositiveLengthMeasure;
-    private CentreOfGravityInY_? : IfcPositiveLengthMeasure | null;
+    private OverallHeight_? : number;
+    private HeadWidth_? : number;
+    private Radius_? : number | null;
+    private HeadDepth2_? : number;
+    private HeadDepth3_? : number;
+    private WebThickness_? : number;
+    private BaseDepth1_? : number;
+    private BaseDepth2_? : number;
+    private CentreOfGravityInY_? : number | null;
 
-    public get OverallHeight() : IfcPositiveLengthMeasure
+    public get OverallHeight() : number
     {
         if ( this.OverallHeight_ === void 0 )
         {
@@ -57,10 +57,10 @@ export  class IfcCraneRailFShapeProfileDef extends IfcParameterizedProfileDef
             return value; })();
         }
 
-        return this.OverallHeight_ as IfcPositiveLengthMeasure;
+        return this.OverallHeight_ as number;
     }
 
-    public get HeadWidth() : IfcPositiveLengthMeasure
+    public get HeadWidth() : number
     {
         if ( this.HeadWidth_ === void 0 )
         {
@@ -89,10 +89,10 @@ export  class IfcCraneRailFShapeProfileDef extends IfcParameterizedProfileDef
             return value; })();
         }
 
-        return this.HeadWidth_ as IfcPositiveLengthMeasure;
+        return this.HeadWidth_ as number;
     }
 
-    public get Radius() : IfcPositiveLengthMeasure | null
+    public get Radius() : number | null
     {
         if ( this.Radius_ === void 0 )
         {
@@ -128,10 +128,10 @@ export  class IfcCraneRailFShapeProfileDef extends IfcParameterizedProfileDef
             } })();
         }
 
-        return this.Radius_ as IfcPositiveLengthMeasure | null;
+        return this.Radius_ as number | null;
     }
 
-    public get HeadDepth2() : IfcPositiveLengthMeasure
+    public get HeadDepth2() : number
     {
         if ( this.HeadDepth2_ === void 0 )
         {
@@ -160,10 +160,10 @@ export  class IfcCraneRailFShapeProfileDef extends IfcParameterizedProfileDef
             return value; })();
         }
 
-        return this.HeadDepth2_ as IfcPositiveLengthMeasure;
+        return this.HeadDepth2_ as number;
     }
 
-    public get HeadDepth3() : IfcPositiveLengthMeasure
+    public get HeadDepth3() : number
     {
         if ( this.HeadDepth3_ === void 0 )
         {
@@ -192,10 +192,10 @@ export  class IfcCraneRailFShapeProfileDef extends IfcParameterizedProfileDef
             return value; })();
         }
 
-        return this.HeadDepth3_ as IfcPositiveLengthMeasure;
+        return this.HeadDepth3_ as number;
     }
 
-    public get WebThickness() : IfcPositiveLengthMeasure
+    public get WebThickness() : number
     {
         if ( this.WebThickness_ === void 0 )
         {
@@ -224,10 +224,10 @@ export  class IfcCraneRailFShapeProfileDef extends IfcParameterizedProfileDef
             return value; })();
         }
 
-        return this.WebThickness_ as IfcPositiveLengthMeasure;
+        return this.WebThickness_ as number;
     }
 
-    public get BaseDepth1() : IfcPositiveLengthMeasure
+    public get BaseDepth1() : number
     {
         if ( this.BaseDepth1_ === void 0 )
         {
@@ -256,10 +256,10 @@ export  class IfcCraneRailFShapeProfileDef extends IfcParameterizedProfileDef
             return value; })();
         }
 
-        return this.BaseDepth1_ as IfcPositiveLengthMeasure;
+        return this.BaseDepth1_ as number;
     }
 
-    public get BaseDepth2() : IfcPositiveLengthMeasure
+    public get BaseDepth2() : number
     {
         if ( this.BaseDepth2_ === void 0 )
         {
@@ -288,10 +288,10 @@ export  class IfcCraneRailFShapeProfileDef extends IfcParameterizedProfileDef
             return value; })();
         }
 
-        return this.BaseDepth2_ as IfcPositiveLengthMeasure;
+        return this.BaseDepth2_ as number;
     }
 
-    public get CentreOfGravityInY() : IfcPositiveLengthMeasure | null
+    public get CentreOfGravityInY() : number | null
     {
         if ( this.CentreOfGravityInY_ === void 0 )
         {
@@ -327,7 +327,7 @@ export  class IfcCraneRailFShapeProfileDef extends IfcParameterizedProfileDef
             } })();
         }
 
-        return this.CentreOfGravityInY_ as IfcPositiveLengthMeasure | null;
+        return this.CentreOfGravityInY_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

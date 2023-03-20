@@ -75,4 +75,3 @@ export function IfcDerivedUnitEnumDeserializeStep( input: Uint8Array, cursor: nu
 {
     return parser.extract< IfcDerivedUnitEnum >( IfcDerivedUnitEnumSearch, input, cursor, endCursor );
 }
-

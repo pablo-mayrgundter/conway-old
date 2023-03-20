@@ -33,4 +33,3 @@ export function IfcElectricFlowStorageDeviceTypeEnumDeserializeStep( input: Uint
 {
     return parser.extract< IfcElectricFlowStorageDeviceTypeEnum >( IfcElectricFlowStorageDeviceTypeEnumSearch, input, cursor, endCursor );
 }
-

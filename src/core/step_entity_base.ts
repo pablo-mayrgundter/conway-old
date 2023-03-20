@@ -6,6 +6,11 @@ export default abstract class StepEntityBase< EntityTypeIDs extends number >
 {
     public abstract get type(): EntityTypeIDs;
 
+    public get Dim(): number
+    {
+        return 0;
+    }
+
     /**
      * Get the express ID for this, note that if an element is inlined, it will have a 
      */

@@ -30,4 +30,3 @@ export function IfcConnectionTypeEnumDeserializeStep( input: Uint8Array, cursor:
 {
     return parser.extract< IfcConnectionTypeEnum >( IfcConnectionTypeEnumSearch, input, cursor, endCursor );
 }
-

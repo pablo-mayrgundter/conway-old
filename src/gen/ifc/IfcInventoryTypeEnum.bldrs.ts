@@ -31,4 +31,3 @@ export function IfcInventoryTypeEnumDeserializeStep( input: Uint8Array, cursor: 
 {
     return parser.extract< IfcInventoryTypeEnum >( IfcInventoryTypeEnumSearch, input, cursor, endCursor );
 }
-

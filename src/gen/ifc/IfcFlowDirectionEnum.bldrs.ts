@@ -30,4 +30,3 @@ export function IfcFlowDirectionEnumDeserializeStep( input: Uint8Array, cursor: 
 {
     return parser.extract< IfcFlowDirectionEnum >( IfcFlowDirectionEnumSearch, input, cursor, endCursor );
 }
-

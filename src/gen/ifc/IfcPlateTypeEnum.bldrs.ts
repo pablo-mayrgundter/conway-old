@@ -30,4 +30,3 @@ export function IfcPlateTypeEnumDeserializeStep( input: Uint8Array, cursor: numb
 {
     return parser.extract< IfcPlateTypeEnum >( IfcPlateTypeEnumSearch, input, cursor, endCursor );
 }
-

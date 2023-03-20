@@ -31,4 +31,3 @@ export function IfcDocumentStatusEnumDeserializeStep( input: Uint8Array, cursor:
 {
     return parser.extract< IfcDocumentStatusEnum >( IfcDocumentStatusEnumSearch, input, cursor, endCursor );
 }
-

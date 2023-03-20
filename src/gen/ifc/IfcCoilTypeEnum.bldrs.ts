@@ -34,4 +34,3 @@ export function IfcCoilTypeEnumDeserializeStep( input: Uint8Array, cursor: numbe
 {
     return parser.extract< IfcCoilTypeEnum >( IfcCoilTypeEnumSearch, input, cursor, endCursor );
 }
-

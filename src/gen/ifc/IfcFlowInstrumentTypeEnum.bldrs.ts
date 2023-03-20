@@ -36,4 +36,3 @@ export function IfcFlowInstrumentTypeEnumDeserializeStep( input: Uint8Array, cur
 {
     return parser.extract< IfcFlowInstrumentTypeEnum >( IfcFlowInstrumentTypeEnumSearch, input, cursor, endCursor );
 }
-

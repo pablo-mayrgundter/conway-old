@@ -35,4 +35,3 @@ export function IfcGeometricProjectionEnumDeserializeStep( input: Uint8Array, cu
 {
     return parser.extract< IfcGeometricProjectionEnum >( IfcGeometricProjectionEnumSearch, input, cursor, endCursor );
 }
-

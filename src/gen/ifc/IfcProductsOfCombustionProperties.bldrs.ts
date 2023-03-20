@@ -7,8 +7,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcproductsofcombustionproperties.htm */
@@ -19,12 +19,12 @@ export  class IfcProductsOfCombustionProperties extends IfcMaterialProperties
         return EntityTypesIfc.IFCPRODUCTSOFCOMBUSTIONPROPERTIES;
     }
 
-    private SpecificHeatCapacity_? : IfcSpecificHeatCapacityMeasure | null;
-    private N20Content_? : IfcPositiveRatioMeasure | null;
-    private COContent_? : IfcPositiveRatioMeasure | null;
-    private CO2Content_? : IfcPositiveRatioMeasure | null;
+    private SpecificHeatCapacity_? : number | null;
+    private N20Content_? : number | null;
+    private COContent_? : number | null;
+    private CO2Content_? : number | null;
 
-    public get SpecificHeatCapacity() : IfcSpecificHeatCapacityMeasure | null
+    public get SpecificHeatCapacity() : number | null
     {
         if ( this.SpecificHeatCapacity_ === void 0 )
         {
@@ -60,10 +60,10 @@ export  class IfcProductsOfCombustionProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.SpecificHeatCapacity_ as IfcSpecificHeatCapacityMeasure | null;
+        return this.SpecificHeatCapacity_ as number | null;
     }
 
-    public get N20Content() : IfcPositiveRatioMeasure | null
+    public get N20Content() : number | null
     {
         if ( this.N20Content_ === void 0 )
         {
@@ -99,10 +99,10 @@ export  class IfcProductsOfCombustionProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.N20Content_ as IfcPositiveRatioMeasure | null;
+        return this.N20Content_ as number | null;
     }
 
-    public get COContent() : IfcPositiveRatioMeasure | null
+    public get COContent() : number | null
     {
         if ( this.COContent_ === void 0 )
         {
@@ -138,10 +138,10 @@ export  class IfcProductsOfCombustionProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.COContent_ as IfcPositiveRatioMeasure | null;
+        return this.COContent_ as number | null;
     }
 
-    public get CO2Content() : IfcPositiveRatioMeasure | null
+    public get CO2Content() : number | null
     {
         if ( this.CO2Content_ === void 0 )
         {
@@ -177,7 +177,7 @@ export  class IfcProductsOfCombustionProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.CO2Content_ as IfcPositiveRatioMeasure | null;
+        return this.CO2Content_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

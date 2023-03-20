@@ -8,8 +8,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifclightsourcespot.htm */
@@ -21,9 +21,9 @@ export  class IfcLightSourceSpot extends IfcLightSourcePositional
     }
 
     private Orientation_? : IfcDirection;
-    private ConcentrationExponent_? : IfcReal | null;
-    private SpreadAngle_? : IfcPositivePlaneAngleMeasure;
-    private BeamWidthAngle_? : IfcPositivePlaneAngleMeasure;
+    private ConcentrationExponent_? : number | null;
+    private SpreadAngle_? : number;
+    private BeamWidthAngle_? : number;
 
     public get Orientation() : IfcDirection
     {
@@ -45,7 +45,7 @@ export  class IfcLightSourceSpot extends IfcLightSourcePositional
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcDirection ) )
             {                
@@ -58,7 +58,7 @@ export  class IfcLightSourceSpot extends IfcLightSourcePositional
         return this.Orientation_ as IfcDirection;
     }
 
-    public get ConcentrationExponent() : IfcReal | null
+    public get ConcentrationExponent() : number | null
     {
         if ( this.ConcentrationExponent_ === void 0 )
         {
@@ -94,10 +94,10 @@ export  class IfcLightSourceSpot extends IfcLightSourcePositional
             } })();
         }
 
-        return this.ConcentrationExponent_ as IfcReal | null;
+        return this.ConcentrationExponent_ as number | null;
     }
 
-    public get SpreadAngle() : IfcPositivePlaneAngleMeasure
+    public get SpreadAngle() : number
     {
         if ( this.SpreadAngle_ === void 0 )
         {
@@ -126,10 +126,10 @@ export  class IfcLightSourceSpot extends IfcLightSourcePositional
             return value; })();
         }
 
-        return this.SpreadAngle_ as IfcPositivePlaneAngleMeasure;
+        return this.SpreadAngle_ as number;
     }
 
-    public get BeamWidthAngle() : IfcPositivePlaneAngleMeasure
+    public get BeamWidthAngle() : number
     {
         if ( this.BeamWidthAngle_ === void 0 )
         {
@@ -158,7 +158,7 @@ export  class IfcLightSourceSpot extends IfcLightSourcePositional
             return value; })();
         }
 
-        return this.BeamWidthAngle_ as IfcPositivePlaneAngleMeasure;
+        return this.BeamWidthAngle_ as number;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

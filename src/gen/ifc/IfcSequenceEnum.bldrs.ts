@@ -31,4 +31,3 @@ export function IfcSequenceEnumDeserializeStep( input: Uint8Array, cursor: numbe
 {
     return parser.extract< IfcSequenceEnum >( IfcSequenceEnumSearch, input, cursor, endCursor );
 }
-

@@ -36,4 +36,3 @@ export function IfcDistributionChamberElementTypeEnumDeserializeStep( input: Uin
 {
     return parser.extract< IfcDistributionChamberElementTypeEnum >( IfcDistributionChamberElementTypeEnumSearch, input, cursor, endCursor );
 }
-

@@ -31,4 +31,3 @@ export function IfcTransportElementTypeEnumDeserializeStep( input: Uint8Array, c
 {
     return parser.extract< IfcTransportElementTypeEnum >( IfcTransportElementTypeEnumSearch, input, cursor, endCursor );
 }
-

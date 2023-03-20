@@ -28,4 +28,3 @@ export function IfcDirectionSenseEnumDeserializeStep( input: Uint8Array, cursor:
 {
     return parser.extract< IfcDirectionSenseEnum >( IfcDirectionSenseEnumSearch, input, cursor, endCursor );
 }
-

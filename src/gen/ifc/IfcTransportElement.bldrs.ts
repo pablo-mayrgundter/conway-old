@@ -8,8 +8,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifctransportelement.htm */
@@ -21,8 +21,8 @@ export  class IfcTransportElement extends IfcElement
     }
 
     private OperationType_? : IfcTransportElementTypeEnum | null;
-    private CapacityByWeight_? : IfcMassMeasure | null;
-    private CapacityByNumber_? : IfcCountMeasure | null;
+    private CapacityByWeight_? : number | null;
+    private CapacityByNumber_? : number | null;
 
     public get OperationType() : IfcTransportElementTypeEnum | null
     {
@@ -63,7 +63,7 @@ export  class IfcTransportElement extends IfcElement
         return this.OperationType_ as IfcTransportElementTypeEnum | null;
     }
 
-    public get CapacityByWeight() : IfcMassMeasure | null
+    public get CapacityByWeight() : number | null
     {
         if ( this.CapacityByWeight_ === void 0 )
         {
@@ -99,10 +99,10 @@ export  class IfcTransportElement extends IfcElement
             } })();
         }
 
-        return this.CapacityByWeight_ as IfcMassMeasure | null;
+        return this.CapacityByWeight_ as number | null;
     }
 
-    public get CapacityByNumber() : IfcCountMeasure | null
+    public get CapacityByNumber() : number | null
     {
         if ( this.CapacityByNumber_ === void 0 )
         {
@@ -138,7 +138,7 @@ export  class IfcTransportElement extends IfcElement
             } })();
         }
 
-        return this.CapacityByNumber_ as IfcCountMeasure | null;
+        return this.CapacityByNumber_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

@@ -33,4 +33,3 @@ export function IfcProjectOrderTypeEnumDeserializeStep( input: Uint8Array, curso
 {
     return parser.extract< IfcProjectOrderTypeEnum >( IfcProjectOrderTypeEnumSearch, input, cursor, endCursor );
 }
-

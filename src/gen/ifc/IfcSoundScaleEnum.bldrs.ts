@@ -33,4 +33,3 @@ export function IfcSoundScaleEnumDeserializeStep( input: Uint8Array, cursor: num
 {
     return parser.extract< IfcSoundScaleEnum >( IfcSoundScaleEnumSearch, input, cursor, endCursor );
 }
-

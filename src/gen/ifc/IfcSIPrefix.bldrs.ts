@@ -42,4 +42,3 @@ export function IfcSIPrefixDeserializeStep( input: Uint8Array, cursor: number, e
 {
     return parser.extract< IfcSIPrefix >( IfcSIPrefixSearch, input, cursor, endCursor );
 }
-

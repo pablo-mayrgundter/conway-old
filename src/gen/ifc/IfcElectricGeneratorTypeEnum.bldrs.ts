@@ -28,4 +28,3 @@ export function IfcElectricGeneratorTypeEnumDeserializeStep( input: Uint8Array, 
 {
     return parser.extract< IfcElectricGeneratorTypeEnum >( IfcElectricGeneratorTypeEnumSearch, input, cursor, endCursor );
 }
-

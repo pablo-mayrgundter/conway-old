@@ -8,8 +8,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcthermalmaterialproperties.htm */
@@ -20,12 +20,12 @@ export  class IfcThermalMaterialProperties extends IfcMaterialProperties
         return EntityTypesIfc.IFCTHERMALMATERIALPROPERTIES;
     }
 
-    private SpecificHeatCapacity_? : IfcSpecificHeatCapacityMeasure | null;
-    private BoilingPoint_? : IfcThermodynamicTemperatureMeasure | null;
-    private FreezingPoint_? : IfcThermodynamicTemperatureMeasure | null;
-    private ThermalConductivity_? : IfcThermalConductivityMeasure | null;
+    private SpecificHeatCapacity_? : number | null;
+    private BoilingPoint_? : number | null;
+    private FreezingPoint_? : number | null;
+    private ThermalConductivity_? : number | null;
 
-    public get SpecificHeatCapacity() : IfcSpecificHeatCapacityMeasure | null
+    public get SpecificHeatCapacity() : number | null
     {
         if ( this.SpecificHeatCapacity_ === void 0 )
         {
@@ -61,10 +61,10 @@ export  class IfcThermalMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.SpecificHeatCapacity_ as IfcSpecificHeatCapacityMeasure | null;
+        return this.SpecificHeatCapacity_ as number | null;
     }
 
-    public get BoilingPoint() : IfcThermodynamicTemperatureMeasure | null
+    public get BoilingPoint() : number | null
     {
         if ( this.BoilingPoint_ === void 0 )
         {
@@ -100,10 +100,10 @@ export  class IfcThermalMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.BoilingPoint_ as IfcThermodynamicTemperatureMeasure | null;
+        return this.BoilingPoint_ as number | null;
     }
 
-    public get FreezingPoint() : IfcThermodynamicTemperatureMeasure | null
+    public get FreezingPoint() : number | null
     {
         if ( this.FreezingPoint_ === void 0 )
         {
@@ -139,10 +139,10 @@ export  class IfcThermalMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.FreezingPoint_ as IfcThermodynamicTemperatureMeasure | null;
+        return this.FreezingPoint_ as number | null;
     }
 
-    public get ThermalConductivity() : IfcThermalConductivityMeasure | null
+    public get ThermalConductivity() : number | null
     {
         if ( this.ThermalConductivity_ === void 0 )
         {
@@ -178,7 +178,7 @@ export  class IfcThermalMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.ThermalConductivity_ as IfcThermalConductivityMeasure | null;
+        return this.ThermalConductivity_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

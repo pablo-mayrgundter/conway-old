@@ -8,8 +8,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcspaceprogram.htm */
@@ -20,13 +20,13 @@ export  class IfcSpaceProgram extends IfcControl
         return EntityTypesIfc.IFCSPACEPROGRAM;
     }
 
-    private SpaceProgramIdentifier_? : IfcIdentifier;
-    private MaxRequiredArea_? : IfcAreaMeasure | null;
-    private MinRequiredArea_? : IfcAreaMeasure | null;
+    private SpaceProgramIdentifier_? : string;
+    private MaxRequiredArea_? : number | null;
+    private MinRequiredArea_? : number | null;
     private RequestedLocation_? : IfcSpatialStructureElement | null;
-    private StandardRequiredArea_? : IfcAreaMeasure;
+    private StandardRequiredArea_? : number;
 
-    public get SpaceProgramIdentifier() : IfcIdentifier
+    public get SpaceProgramIdentifier() : string
     {
         if ( this.SpaceProgramIdentifier_ === void 0 )
         {
@@ -55,10 +55,10 @@ export  class IfcSpaceProgram extends IfcControl
             return value; })();
         }
 
-        return this.SpaceProgramIdentifier_ as IfcIdentifier;
+        return this.SpaceProgramIdentifier_ as string;
     }
 
-    public get MaxRequiredArea() : IfcAreaMeasure | null
+    public get MaxRequiredArea() : number | null
     {
         if ( this.MaxRequiredArea_ === void 0 )
         {
@@ -94,10 +94,10 @@ export  class IfcSpaceProgram extends IfcControl
             } })();
         }
 
-        return this.MaxRequiredArea_ as IfcAreaMeasure | null;
+        return this.MaxRequiredArea_ as number | null;
     }
 
-    public get MinRequiredArea() : IfcAreaMeasure | null
+    public get MinRequiredArea() : number | null
     {
         if ( this.MinRequiredArea_ === void 0 )
         {
@@ -133,7 +133,7 @@ export  class IfcSpaceProgram extends IfcControl
             } })();
         }
 
-        return this.MinRequiredArea_ as IfcAreaMeasure | null;
+        return this.MinRequiredArea_ as number | null;
     }
 
     public get RequestedLocation() : IfcSpatialStructureElement | null
@@ -156,7 +156,7 @@ export  class IfcSpaceProgram extends IfcControl
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcSpatialStructureElement ) )
             {
@@ -176,7 +176,7 @@ export  class IfcSpaceProgram extends IfcControl
         return this.RequestedLocation_ as IfcSpatialStructureElement | null;
     }
 
-    public get StandardRequiredArea() : IfcAreaMeasure
+    public get StandardRequiredArea() : number
     {
         if ( this.StandardRequiredArea_ === void 0 )
         {
@@ -205,7 +205,7 @@ export  class IfcSpaceProgram extends IfcControl
             return value; })();
         }
 
-        return this.StandardRequiredArea_ as IfcAreaMeasure;
+        return this.StandardRequiredArea_ as number;
     }
 
 

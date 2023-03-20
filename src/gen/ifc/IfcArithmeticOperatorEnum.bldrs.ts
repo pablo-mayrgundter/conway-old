@@ -30,4 +30,3 @@ export function IfcArithmeticOperatorEnumDeserializeStep( input: Uint8Array, cur
 {
     return parser.extract< IfcArithmeticOperatorEnum >( IfcArithmeticOperatorEnumSearch, input, cursor, endCursor );
 }
-

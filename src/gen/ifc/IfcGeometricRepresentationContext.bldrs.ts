@@ -9,8 +9,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcgeometricrepresentationcontext.htm */
@@ -21,12 +21,12 @@ export  class IfcGeometricRepresentationContext extends IfcRepresentationContext
         return EntityTypesIfc.IFCGEOMETRICREPRESENTATIONCONTEXT;
     }
 
-    private CoordinateSpaceDimension_? : IfcDimensionCount;
+    private CoordinateSpaceDimension_? : number;
     private Precision_? : number | null;
     private WorldCoordinateSystem_? : IfcAxis2Placement2D|IfcAxis2Placement3D;
     private TrueNorth_? : IfcDirection | null;
 
-    public get CoordinateSpaceDimension() : IfcDimensionCount
+    public get CoordinateSpaceDimension() : number
     {
         if ( this.CoordinateSpaceDimension_ === void 0 )
         {
@@ -55,7 +55,7 @@ export  class IfcGeometricRepresentationContext extends IfcRepresentationContext
             return value; })();
         }
 
-        return this.CoordinateSpaceDimension_ as IfcDimensionCount;
+        return this.CoordinateSpaceDimension_ as number;
     }
 
     public get Precision() : number | null
@@ -116,33 +116,15 @@ export  class IfcGeometricRepresentationContext extends IfcRepresentationContext
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { 
-                    let expressID = stepExtractReference( buffer, cursor, endCursor );
-                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
-        
-                    if ( !( value instanceof IfcAxis2Placement2D ) )
-                    {                
-                        return (void 0);
-                    };
-        
-                    return value; } )() ??
-( () => { 
-                    let expressID = stepExtractReference( buffer, cursor, endCursor );
-                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
-        
-                    if ( !( value instanceof IfcAxis2Placement3D ) )
-                    {                
-                        return (void 0);
-                    };
-        
-                    return value; } )();
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( value === void 0 )
+            if ( !( value instanceof IfcAxis2Placement2D ) && !( value instanceof IfcAxis2Placement3D ) )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+                throw new Error( 'Value in STEP was incorrectly typed for field' );
+            }
 
-            return value; })();
+            return value as (IfcAxis2Placement2D | IfcAxis2Placement3D); })();
         }
 
         return this.WorldCoordinateSystem_ as IfcAxis2Placement2D|IfcAxis2Placement3D;
@@ -168,7 +150,7 @@ export  class IfcGeometricRepresentationContext extends IfcRepresentationContext
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcDirection ) )
             {

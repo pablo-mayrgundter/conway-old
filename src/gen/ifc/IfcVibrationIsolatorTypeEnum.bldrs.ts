@@ -30,4 +30,3 @@ export function IfcVibrationIsolatorTypeEnumDeserializeStep( input: Uint8Array, 
 {
     return parser.extract< IfcVibrationIsolatorTypeEnum >( IfcVibrationIsolatorTypeEnumSearch, input, cursor, endCursor );
 }
-

@@ -5,8 +5,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcrepresentationcontext.htm */
@@ -17,10 +17,10 @@ export  class IfcRepresentationContext extends StepEntityBase< EntityTypesIfc >
         return EntityTypesIfc.IFCREPRESENTATIONCONTEXT;
     }
 
-    private ContextIdentifier_? : IfcLabel | null;
-    private ContextType_? : IfcLabel | null;
+    private ContextIdentifier_? : string | null;
+    private ContextType_? : string | null;
 
-    public get ContextIdentifier() : IfcLabel | null
+    public get ContextIdentifier() : string | null
     {
         if ( this.ContextIdentifier_ === void 0 )
         {
@@ -56,10 +56,10 @@ export  class IfcRepresentationContext extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.ContextIdentifier_ as IfcLabel | null;
+        return this.ContextIdentifier_ as string | null;
     }
 
-    public get ContextType() : IfcLabel | null
+    public get ContextType() : string | null
     {
         if ( this.ContextType_ === void 0 )
         {
@@ -95,7 +95,7 @@ export  class IfcRepresentationContext extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.ContextType_ as IfcLabel | null;
+        return this.ContextType_ as string | null;
     }
 
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )

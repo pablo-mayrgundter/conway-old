@@ -31,4 +31,3 @@ export function IfcAirTerminalBoxTypeEnumDeserializeStep( input: Uint8Array, cur
 {
     return parser.extract< IfcAirTerminalBoxTypeEnum >( IfcAirTerminalBoxTypeEnumSearch, input, cursor, endCursor );
 }
-

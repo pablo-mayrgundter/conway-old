@@ -29,4 +29,3 @@ export function IfcElementCompositionEnumDeserializeStep( input: Uint8Array, cur
 {
     return parser.extract< IfcElementCompositionEnum >( IfcElementCompositionEnumSearch, input, cursor, endCursor );
 }
-

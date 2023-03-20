@@ -41,4 +41,3 @@ export function IfcSensorTypeEnumDeserializeStep( input: Uint8Array, cursor: num
 {
     return parser.extract< IfcSensorTypeEnum >( IfcSensorTypeEnumSearch, input, cursor, endCursor );
 }
-

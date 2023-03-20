@@ -28,4 +28,3 @@ export function IfcSectionTypeEnumDeserializeStep( input: Uint8Array, cursor: nu
 {
     return parser.extract< IfcSectionTypeEnum >( IfcSectionTypeEnumSearch, input, cursor, endCursor );
 }
-

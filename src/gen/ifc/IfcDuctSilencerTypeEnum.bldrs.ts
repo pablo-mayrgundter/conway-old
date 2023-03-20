@@ -31,4 +31,3 @@ export function IfcDuctSilencerTypeEnumDeserializeStep( input: Uint8Array, curso
 {
     return parser.extract< IfcDuctSilencerTypeEnum >( IfcDuctSilencerTypeEnumSearch, input, cursor, endCursor );
 }
-

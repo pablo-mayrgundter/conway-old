@@ -30,4 +30,3 @@ export function IfcLightFixtureTypeEnumDeserializeStep( input: Uint8Array, curso
 {
     return parser.extract< IfcLightFixtureTypeEnum >( IfcLightFixtureTypeEnumSearch, input, cursor, endCursor );
 }
-

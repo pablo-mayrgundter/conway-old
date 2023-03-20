@@ -32,4 +32,3 @@ export function IfcLoadGroupTypeEnumDeserializeStep( input: Uint8Array, cursor: 
 {
     return parser.extract< IfcLoadGroupTypeEnum >( IfcLoadGroupTypeEnumSearch, input, cursor, endCursor );
 }
-

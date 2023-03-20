@@ -6,8 +6,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifctelecomaddress.htm */
@@ -18,13 +18,13 @@ export  class IfcTelecomAddress extends IfcAddress
         return EntityTypesIfc.IFCTELECOMADDRESS;
     }
 
-    private TelephoneNumbers_? : Array<IfcLabel> | null;
-    private FacsimileNumbers_? : Array<IfcLabel> | null;
-    private PagerNumber_? : IfcLabel | null;
-    private ElectronicMailAddresses_? : Array<IfcLabel> | null;
-    private WWWHomePageURL_? : IfcLabel | null;
+    private TelephoneNumbers_? : Array< string > | null;
+    private FacsimileNumbers_? : Array< string > | null;
+    private PagerNumber_? : string | null;
+    private ElectronicMailAddresses_? : Array< string > | null;
+    private WWWHomePageURL_? : string | null;
 
-    public get TelephoneNumbers() : Array<IfcLabel> | null
+    public get TelephoneNumbers() : Array< string > | null
     {
         if ( this.TelephoneNumbers_ === void 0 )
         {
@@ -43,7 +43,7 @@ export  class IfcTelecomAddress extends IfcAddress
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value : Array<IfcLabel> = [];
+            let value : Array<string> = [];
 
             for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
             {
@@ -76,10 +76,10 @@ export  class IfcTelecomAddress extends IfcAddress
             } })();
         }
 
-        return this.TelephoneNumbers_ as Array<IfcLabel> | null;
+        return this.TelephoneNumbers_ as Array< string > | null;
     }
 
-    public get FacsimileNumbers() : Array<IfcLabel> | null
+    public get FacsimileNumbers() : Array< string > | null
     {
         if ( this.FacsimileNumbers_ === void 0 )
         {
@@ -98,7 +98,7 @@ export  class IfcTelecomAddress extends IfcAddress
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value : Array<IfcLabel> = [];
+            let value : Array<string> = [];
 
             for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
             {
@@ -131,10 +131,10 @@ export  class IfcTelecomAddress extends IfcAddress
             } })();
         }
 
-        return this.FacsimileNumbers_ as Array<IfcLabel> | null;
+        return this.FacsimileNumbers_ as Array< string > | null;
     }
 
-    public get PagerNumber() : IfcLabel | null
+    public get PagerNumber() : string | null
     {
         if ( this.PagerNumber_ === void 0 )
         {
@@ -170,10 +170,10 @@ export  class IfcTelecomAddress extends IfcAddress
             } })();
         }
 
-        return this.PagerNumber_ as IfcLabel | null;
+        return this.PagerNumber_ as string | null;
     }
 
-    public get ElectronicMailAddresses() : Array<IfcLabel> | null
+    public get ElectronicMailAddresses() : Array< string > | null
     {
         if ( this.ElectronicMailAddresses_ === void 0 )
         {
@@ -192,7 +192,7 @@ export  class IfcTelecomAddress extends IfcAddress
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value : Array<IfcLabel> = [];
+            let value : Array<string> = [];
 
             for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
             {
@@ -225,10 +225,10 @@ export  class IfcTelecomAddress extends IfcAddress
             } })();
         }
 
-        return this.ElectronicMailAddresses_ as Array<IfcLabel> | null;
+        return this.ElectronicMailAddresses_ as Array< string > | null;
     }
 
-    public get WWWHomePageURL() : IfcLabel | null
+    public get WWWHomePageURL() : string | null
     {
         if ( this.WWWHomePageURL_ === void 0 )
         {
@@ -264,7 +264,7 @@ export  class IfcTelecomAddress extends IfcAddress
             } })();
         }
 
-        return this.WWWHomePageURL_ as IfcLabel | null;
+        return this.WWWHomePageURL_ as string | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

@@ -28,4 +28,3 @@ export function IfcCurtainWallTypeEnumDeserializeStep( input: Uint8Array, cursor
 {
     return parser.extract< IfcCurtainWallTypeEnum >( IfcCurtainWallTypeEnumSearch, input, cursor, endCursor );
 }
-

@@ -56,4 +56,3 @@ export function IfcUnitEnumDeserializeStep( input: Uint8Array, cursor: number, e
 {
     return parser.extract< IfcUnitEnum >( IfcUnitEnumSearch, input, cursor, endCursor );
 }
-

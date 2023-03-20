@@ -32,4 +32,3 @@ export function IfcUnitaryEquipmentTypeEnumDeserializeStep( input: Uint8Array, c
 {
     return parser.extract< IfcUnitaryEquipmentTypeEnum >( IfcUnitaryEquipmentTypeEnumSearch, input, cursor, endCursor );
 }
-

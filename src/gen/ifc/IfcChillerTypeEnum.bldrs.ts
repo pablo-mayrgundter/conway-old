@@ -31,4 +31,3 @@ export function IfcChillerTypeEnumDeserializeStep( input: Uint8Array, cursor: nu
 {
     return parser.extract< IfcChillerTypeEnum >( IfcChillerTypeEnumSearch, input, cursor, endCursor );
 }
-

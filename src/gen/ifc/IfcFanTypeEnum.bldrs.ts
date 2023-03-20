@@ -35,4 +35,3 @@ export function IfcFanTypeEnumDeserializeStep( input: Uint8Array, cursor: number
 {
     return parser.extract< IfcFanTypeEnum >( IfcFanTypeEnumSearch, input, cursor, endCursor );
 }
-

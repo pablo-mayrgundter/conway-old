@@ -8,8 +8,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcdoorliningproperties.htm */
@@ -20,19 +20,19 @@ export  class IfcDoorLiningProperties extends IfcPropertySetDefinition
         return EntityTypesIfc.IFCDOORLININGPROPERTIES;
     }
 
-    private LiningDepth_? : IfcPositiveLengthMeasure | null;
-    private LiningThickness_? : IfcPositiveLengthMeasure | null;
-    private ThresholdDepth_? : IfcPositiveLengthMeasure | null;
-    private ThresholdThickness_? : IfcPositiveLengthMeasure | null;
-    private TransomThickness_? : IfcPositiveLengthMeasure | null;
-    private TransomOffset_? : IfcLengthMeasure | null;
-    private LiningOffset_? : IfcLengthMeasure | null;
-    private ThresholdOffset_? : IfcLengthMeasure | null;
-    private CasingThickness_? : IfcPositiveLengthMeasure | null;
-    private CasingDepth_? : IfcPositiveLengthMeasure | null;
+    private LiningDepth_? : number | null;
+    private LiningThickness_? : number | null;
+    private ThresholdDepth_? : number | null;
+    private ThresholdThickness_? : number | null;
+    private TransomThickness_? : number | null;
+    private TransomOffset_? : number | null;
+    private LiningOffset_? : number | null;
+    private ThresholdOffset_? : number | null;
+    private CasingThickness_? : number | null;
+    private CasingDepth_? : number | null;
     private ShapeAspectStyle_? : IfcShapeAspect | null;
 
-    public get LiningDepth() : IfcPositiveLengthMeasure | null
+    public get LiningDepth() : number | null
     {
         if ( this.LiningDepth_ === void 0 )
         {
@@ -68,10 +68,10 @@ export  class IfcDoorLiningProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.LiningDepth_ as IfcPositiveLengthMeasure | null;
+        return this.LiningDepth_ as number | null;
     }
 
-    public get LiningThickness() : IfcPositiveLengthMeasure | null
+    public get LiningThickness() : number | null
     {
         if ( this.LiningThickness_ === void 0 )
         {
@@ -107,10 +107,10 @@ export  class IfcDoorLiningProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.LiningThickness_ as IfcPositiveLengthMeasure | null;
+        return this.LiningThickness_ as number | null;
     }
 
-    public get ThresholdDepth() : IfcPositiveLengthMeasure | null
+    public get ThresholdDepth() : number | null
     {
         if ( this.ThresholdDepth_ === void 0 )
         {
@@ -146,10 +146,10 @@ export  class IfcDoorLiningProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.ThresholdDepth_ as IfcPositiveLengthMeasure | null;
+        return this.ThresholdDepth_ as number | null;
     }
 
-    public get ThresholdThickness() : IfcPositiveLengthMeasure | null
+    public get ThresholdThickness() : number | null
     {
         if ( this.ThresholdThickness_ === void 0 )
         {
@@ -185,10 +185,10 @@ export  class IfcDoorLiningProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.ThresholdThickness_ as IfcPositiveLengthMeasure | null;
+        return this.ThresholdThickness_ as number | null;
     }
 
-    public get TransomThickness() : IfcPositiveLengthMeasure | null
+    public get TransomThickness() : number | null
     {
         if ( this.TransomThickness_ === void 0 )
         {
@@ -224,10 +224,10 @@ export  class IfcDoorLiningProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.TransomThickness_ as IfcPositiveLengthMeasure | null;
+        return this.TransomThickness_ as number | null;
     }
 
-    public get TransomOffset() : IfcLengthMeasure | null
+    public get TransomOffset() : number | null
     {
         if ( this.TransomOffset_ === void 0 )
         {
@@ -263,10 +263,10 @@ export  class IfcDoorLiningProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.TransomOffset_ as IfcLengthMeasure | null;
+        return this.TransomOffset_ as number | null;
     }
 
-    public get LiningOffset() : IfcLengthMeasure | null
+    public get LiningOffset() : number | null
     {
         if ( this.LiningOffset_ === void 0 )
         {
@@ -302,10 +302,10 @@ export  class IfcDoorLiningProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.LiningOffset_ as IfcLengthMeasure | null;
+        return this.LiningOffset_ as number | null;
     }
 
-    public get ThresholdOffset() : IfcLengthMeasure | null
+    public get ThresholdOffset() : number | null
     {
         if ( this.ThresholdOffset_ === void 0 )
         {
@@ -341,10 +341,10 @@ export  class IfcDoorLiningProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.ThresholdOffset_ as IfcLengthMeasure | null;
+        return this.ThresholdOffset_ as number | null;
     }
 
-    public get CasingThickness() : IfcPositiveLengthMeasure | null
+    public get CasingThickness() : number | null
     {
         if ( this.CasingThickness_ === void 0 )
         {
@@ -380,10 +380,10 @@ export  class IfcDoorLiningProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.CasingThickness_ as IfcPositiveLengthMeasure | null;
+        return this.CasingThickness_ as number | null;
     }
 
-    public get CasingDepth() : IfcPositiveLengthMeasure | null
+    public get CasingDepth() : number | null
     {
         if ( this.CasingDepth_ === void 0 )
         {
@@ -419,7 +419,7 @@ export  class IfcDoorLiningProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.CasingDepth_ as IfcPositiveLengthMeasure | null;
+        return this.CasingDepth_ as number | null;
     }
 
     public get ShapeAspectStyle() : IfcShapeAspect | null
@@ -442,7 +442,7 @@ export  class IfcDoorLiningProperties extends IfcPropertySetDefinition
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcShapeAspect ) )
             {

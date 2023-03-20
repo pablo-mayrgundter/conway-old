@@ -8,8 +8,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcgeneralmaterialproperties.htm */
@@ -20,11 +20,11 @@ export  class IfcGeneralMaterialProperties extends IfcMaterialProperties
         return EntityTypesIfc.IFCGENERALMATERIALPROPERTIES;
     }
 
-    private MolecularWeight_? : IfcMolecularWeightMeasure | null;
-    private Porosity_? : IfcNormalisedRatioMeasure | null;
-    private MassDensity_? : IfcMassDensityMeasure | null;
+    private MolecularWeight_? : number | null;
+    private Porosity_? : number | null;
+    private MassDensity_? : number | null;
 
-    public get MolecularWeight() : IfcMolecularWeightMeasure | null
+    public get MolecularWeight() : number | null
     {
         if ( this.MolecularWeight_ === void 0 )
         {
@@ -60,10 +60,10 @@ export  class IfcGeneralMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.MolecularWeight_ as IfcMolecularWeightMeasure | null;
+        return this.MolecularWeight_ as number | null;
     }
 
-    public get Porosity() : IfcNormalisedRatioMeasure | null
+    public get Porosity() : number | null
     {
         if ( this.Porosity_ === void 0 )
         {
@@ -99,10 +99,10 @@ export  class IfcGeneralMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.Porosity_ as IfcNormalisedRatioMeasure | null;
+        return this.Porosity_ as number | null;
     }
 
-    public get MassDensity() : IfcMassDensityMeasure | null
+    public get MassDensity() : number | null
     {
         if ( this.MassDensity_ === void 0 )
         {
@@ -138,7 +138,7 @@ export  class IfcGeneralMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.MassDensity_ as IfcMassDensityMeasure | null;
+        return this.MassDensity_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

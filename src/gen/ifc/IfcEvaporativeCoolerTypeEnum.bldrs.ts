@@ -37,4 +37,3 @@ export function IfcEvaporativeCoolerTypeEnumDeserializeStep( input: Uint8Array, 
 {
     return parser.extract< IfcEvaporativeCoolerTypeEnum >( IfcEvaporativeCoolerTypeEnumSearch, input, cursor, endCursor );
 }
-

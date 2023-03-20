@@ -30,4 +30,3 @@ export function IfcRampFlightTypeEnumDeserializeStep( input: Uint8Array, cursor:
 {
     return parser.extract< IfcRampFlightTypeEnum >( IfcRampFlightTypeEnumSearch, input, cursor, endCursor );
 }
-

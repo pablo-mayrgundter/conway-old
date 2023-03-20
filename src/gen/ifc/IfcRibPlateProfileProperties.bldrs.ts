@@ -7,8 +7,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcribplateprofileproperties.htm */
@@ -19,13 +19,13 @@ export  class IfcRibPlateProfileProperties extends IfcProfileProperties
         return EntityTypesIfc.IFCRIBPLATEPROFILEPROPERTIES;
     }
 
-    private Thickness_? : IfcPositiveLengthMeasure | null;
-    private RibHeight_? : IfcPositiveLengthMeasure | null;
-    private RibWidth_? : IfcPositiveLengthMeasure | null;
-    private RibSpacing_? : IfcPositiveLengthMeasure | null;
+    private Thickness_? : number | null;
+    private RibHeight_? : number | null;
+    private RibWidth_? : number | null;
+    private RibSpacing_? : number | null;
     private Direction_? : IfcRibPlateDirectionEnum;
 
-    public get Thickness() : IfcPositiveLengthMeasure | null
+    public get Thickness() : number | null
     {
         if ( this.Thickness_ === void 0 )
         {
@@ -61,10 +61,10 @@ export  class IfcRibPlateProfileProperties extends IfcProfileProperties
             } })();
         }
 
-        return this.Thickness_ as IfcPositiveLengthMeasure | null;
+        return this.Thickness_ as number | null;
     }
 
-    public get RibHeight() : IfcPositiveLengthMeasure | null
+    public get RibHeight() : number | null
     {
         if ( this.RibHeight_ === void 0 )
         {
@@ -100,10 +100,10 @@ export  class IfcRibPlateProfileProperties extends IfcProfileProperties
             } })();
         }
 
-        return this.RibHeight_ as IfcPositiveLengthMeasure | null;
+        return this.RibHeight_ as number | null;
     }
 
-    public get RibWidth() : IfcPositiveLengthMeasure | null
+    public get RibWidth() : number | null
     {
         if ( this.RibWidth_ === void 0 )
         {
@@ -139,10 +139,10 @@ export  class IfcRibPlateProfileProperties extends IfcProfileProperties
             } })();
         }
 
-        return this.RibWidth_ as IfcPositiveLengthMeasure | null;
+        return this.RibWidth_ as number | null;
     }
 
-    public get RibSpacing() : IfcPositiveLengthMeasure | null
+    public get RibSpacing() : number | null
     {
         if ( this.RibSpacing_ === void 0 )
         {
@@ -178,7 +178,7 @@ export  class IfcRibPlateProfileProperties extends IfcProfileProperties
             } })();
         }
 
-        return this.RibSpacing_ as IfcPositiveLengthMeasure | null;
+        return this.RibSpacing_ as number | null;
     }
 
     public get Direction() : IfcRibPlateDirectionEnum

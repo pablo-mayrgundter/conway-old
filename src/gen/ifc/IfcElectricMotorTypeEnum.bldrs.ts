@@ -33,4 +33,3 @@ export function IfcElectricMotorTypeEnumDeserializeStep( input: Uint8Array, curs
 {
     return parser.extract< IfcElectricMotorTypeEnum >( IfcElectricMotorTypeEnumSearch, input, cursor, endCursor );
 }
-

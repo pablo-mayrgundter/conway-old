@@ -9,8 +9,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifchygroscopicmaterialproperties.htm */
@@ -21,13 +21,13 @@ export  class IfcHygroscopicMaterialProperties extends IfcMaterialProperties
         return EntityTypesIfc.IFCHYGROSCOPICMATERIALPROPERTIES;
     }
 
-    private UpperVaporResistanceFactor_? : IfcPositiveRatioMeasure | null;
-    private LowerVaporResistanceFactor_? : IfcPositiveRatioMeasure | null;
-    private IsothermalMoistureCapacity_? : IfcIsothermalMoistureCapacityMeasure | null;
-    private VaporPermeability_? : IfcVaporPermeabilityMeasure | null;
-    private MoistureDiffusivity_? : IfcMoistureDiffusivityMeasure | null;
+    private UpperVaporResistanceFactor_? : number | null;
+    private LowerVaporResistanceFactor_? : number | null;
+    private IsothermalMoistureCapacity_? : number | null;
+    private VaporPermeability_? : number | null;
+    private MoistureDiffusivity_? : number | null;
 
-    public get UpperVaporResistanceFactor() : IfcPositiveRatioMeasure | null
+    public get UpperVaporResistanceFactor() : number | null
     {
         if ( this.UpperVaporResistanceFactor_ === void 0 )
         {
@@ -63,10 +63,10 @@ export  class IfcHygroscopicMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.UpperVaporResistanceFactor_ as IfcPositiveRatioMeasure | null;
+        return this.UpperVaporResistanceFactor_ as number | null;
     }
 
-    public get LowerVaporResistanceFactor() : IfcPositiveRatioMeasure | null
+    public get LowerVaporResistanceFactor() : number | null
     {
         if ( this.LowerVaporResistanceFactor_ === void 0 )
         {
@@ -102,10 +102,10 @@ export  class IfcHygroscopicMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.LowerVaporResistanceFactor_ as IfcPositiveRatioMeasure | null;
+        return this.LowerVaporResistanceFactor_ as number | null;
     }
 
-    public get IsothermalMoistureCapacity() : IfcIsothermalMoistureCapacityMeasure | null
+    public get IsothermalMoistureCapacity() : number | null
     {
         if ( this.IsothermalMoistureCapacity_ === void 0 )
         {
@@ -141,10 +141,10 @@ export  class IfcHygroscopicMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.IsothermalMoistureCapacity_ as IfcIsothermalMoistureCapacityMeasure | null;
+        return this.IsothermalMoistureCapacity_ as number | null;
     }
 
-    public get VaporPermeability() : IfcVaporPermeabilityMeasure | null
+    public get VaporPermeability() : number | null
     {
         if ( this.VaporPermeability_ === void 0 )
         {
@@ -180,10 +180,10 @@ export  class IfcHygroscopicMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.VaporPermeability_ as IfcVaporPermeabilityMeasure | null;
+        return this.VaporPermeability_ as number | null;
     }
 
-    public get MoistureDiffusivity() : IfcMoistureDiffusivityMeasure | null
+    public get MoistureDiffusivity() : number | null
     {
         if ( this.MoistureDiffusivity_ === void 0 )
         {
@@ -219,7 +219,7 @@ export  class IfcHygroscopicMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.MoistureDiffusivity_ as IfcMoistureDiffusivityMeasure | null;
+        return this.MoistureDiffusivity_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

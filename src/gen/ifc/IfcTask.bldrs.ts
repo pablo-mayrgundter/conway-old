@@ -7,8 +7,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifctask.htm */
@@ -19,13 +19,13 @@ export  class IfcTask extends IfcProcess
         return EntityTypesIfc.IFCTASK;
     }
 
-    private TaskId_? : IfcIdentifier;
-    private Status_? : IfcLabel | null;
-    private WorkMethod_? : IfcLabel | null;
+    private TaskId_? : string;
+    private Status_? : string | null;
+    private WorkMethod_? : string | null;
     private IsMilestone_? : boolean;
     private Priority_? : number | null;
 
-    public get TaskId() : IfcIdentifier
+    public get TaskId() : string
     {
         if ( this.TaskId_ === void 0 )
         {
@@ -54,10 +54,10 @@ export  class IfcTask extends IfcProcess
             return value; })();
         }
 
-        return this.TaskId_ as IfcIdentifier;
+        return this.TaskId_ as string;
     }
 
-    public get Status() : IfcLabel | null
+    public get Status() : string | null
     {
         if ( this.Status_ === void 0 )
         {
@@ -93,10 +93,10 @@ export  class IfcTask extends IfcProcess
             } })();
         }
 
-        return this.Status_ as IfcLabel | null;
+        return this.Status_ as string | null;
     }
 
-    public get WorkMethod() : IfcLabel | null
+    public get WorkMethod() : string | null
     {
         if ( this.WorkMethod_ === void 0 )
         {
@@ -132,7 +132,7 @@ export  class IfcTask extends IfcProcess
             } })();
         }
 
-        return this.WorkMethod_ as IfcLabel | null;
+        return this.WorkMethod_ as string | null;
     }
 
     public get IsMilestone() : boolean

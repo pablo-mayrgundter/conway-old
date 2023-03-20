@@ -30,4 +30,3 @@ export function IfcCableSegmentTypeEnumDeserializeStep( input: Uint8Array, curso
 {
     return parser.extract< IfcCableSegmentTypeEnum >( IfcCableSegmentTypeEnumSearch, input, cursor, endCursor );
 }
-

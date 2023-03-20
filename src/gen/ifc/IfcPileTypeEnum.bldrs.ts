@@ -31,4 +31,3 @@ export function IfcPileTypeEnumDeserializeStep( input: Uint8Array, cursor: numbe
 {
     return parser.extract< IfcPileTypeEnum >( IfcPileTypeEnumSearch, input, cursor, endCursor );
 }
-

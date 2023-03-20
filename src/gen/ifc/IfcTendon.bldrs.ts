@@ -11,8 +11,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifctendon.htm */
@@ -24,13 +24,13 @@ export  class IfcTendon extends IfcReinforcingElement
     }
 
     private PredefinedType_? : IfcTendonTypeEnum;
-    private NominalDiameter_? : IfcPositiveLengthMeasure;
-    private CrossSectionArea_? : IfcAreaMeasure;
-    private TensionForce_? : IfcForceMeasure | null;
-    private PreStress_? : IfcPressureMeasure | null;
-    private FrictionCoefficient_? : IfcNormalisedRatioMeasure | null;
-    private AnchorageSlip_? : IfcPositiveLengthMeasure | null;
-    private MinCurvatureRadius_? : IfcPositiveLengthMeasure | null;
+    private NominalDiameter_? : number;
+    private CrossSectionArea_? : number;
+    private TensionForce_? : number | null;
+    private PreStress_? : number | null;
+    private FrictionCoefficient_? : number | null;
+    private AnchorageSlip_? : number | null;
+    private MinCurvatureRadius_? : number | null;
 
     public get PredefinedType() : IfcTendonTypeEnum
     {
@@ -64,7 +64,7 @@ export  class IfcTendon extends IfcReinforcingElement
         return this.PredefinedType_ as IfcTendonTypeEnum;
     }
 
-    public get NominalDiameter() : IfcPositiveLengthMeasure
+    public get NominalDiameter() : number
     {
         if ( this.NominalDiameter_ === void 0 )
         {
@@ -93,10 +93,10 @@ export  class IfcTendon extends IfcReinforcingElement
             return value; })();
         }
 
-        return this.NominalDiameter_ as IfcPositiveLengthMeasure;
+        return this.NominalDiameter_ as number;
     }
 
-    public get CrossSectionArea() : IfcAreaMeasure
+    public get CrossSectionArea() : number
     {
         if ( this.CrossSectionArea_ === void 0 )
         {
@@ -125,10 +125,10 @@ export  class IfcTendon extends IfcReinforcingElement
             return value; })();
         }
 
-        return this.CrossSectionArea_ as IfcAreaMeasure;
+        return this.CrossSectionArea_ as number;
     }
 
-    public get TensionForce() : IfcForceMeasure | null
+    public get TensionForce() : number | null
     {
         if ( this.TensionForce_ === void 0 )
         {
@@ -164,10 +164,10 @@ export  class IfcTendon extends IfcReinforcingElement
             } })();
         }
 
-        return this.TensionForce_ as IfcForceMeasure | null;
+        return this.TensionForce_ as number | null;
     }
 
-    public get PreStress() : IfcPressureMeasure | null
+    public get PreStress() : number | null
     {
         if ( this.PreStress_ === void 0 )
         {
@@ -203,10 +203,10 @@ export  class IfcTendon extends IfcReinforcingElement
             } })();
         }
 
-        return this.PreStress_ as IfcPressureMeasure | null;
+        return this.PreStress_ as number | null;
     }
 
-    public get FrictionCoefficient() : IfcNormalisedRatioMeasure | null
+    public get FrictionCoefficient() : number | null
     {
         if ( this.FrictionCoefficient_ === void 0 )
         {
@@ -242,10 +242,10 @@ export  class IfcTendon extends IfcReinforcingElement
             } })();
         }
 
-        return this.FrictionCoefficient_ as IfcNormalisedRatioMeasure | null;
+        return this.FrictionCoefficient_ as number | null;
     }
 
-    public get AnchorageSlip() : IfcPositiveLengthMeasure | null
+    public get AnchorageSlip() : number | null
     {
         if ( this.AnchorageSlip_ === void 0 )
         {
@@ -281,10 +281,10 @@ export  class IfcTendon extends IfcReinforcingElement
             } })();
         }
 
-        return this.AnchorageSlip_ as IfcPositiveLengthMeasure | null;
+        return this.AnchorageSlip_ as number | null;
     }
 
-    public get MinCurvatureRadius() : IfcPositiveLengthMeasure | null
+    public get MinCurvatureRadius() : number | null
     {
         if ( this.MinCurvatureRadius_ === void 0 )
         {
@@ -320,7 +320,7 @@ export  class IfcTendon extends IfcReinforcingElement
             } })();
         }
 
-        return this.MinCurvatureRadius_ as IfcPositiveLengthMeasure | null;
+        return this.MinCurvatureRadius_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

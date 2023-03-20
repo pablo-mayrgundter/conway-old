@@ -9,8 +9,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcsite.htm */
@@ -21,13 +21,13 @@ export  class IfcSite extends IfcSpatialStructureElement
         return EntityTypesIfc.IFCSITE;
     }
 
-    private RefLatitude_? : IfcCompoundPlaneAngleMeasure | null;
-    private RefLongitude_? : IfcCompoundPlaneAngleMeasure | null;
-    private RefElevation_? : IfcLengthMeasure | null;
-    private LandTitleNumber_? : IfcLabel | null;
+    private RefLatitude_? : Array< number > | null;
+    private RefLongitude_? : Array< number > | null;
+    private RefElevation_? : number | null;
+    private LandTitleNumber_? : string | null;
     private SiteAddress_? : IfcPostalAddress | null;
 
-    public get RefLatitude() : IfcCompoundPlaneAngleMeasure | null
+    public get RefLatitude() : Array< number > | null
     {
         if ( this.RefLatitude_ === void 0 )
         {
@@ -79,10 +79,10 @@ export  class IfcSite extends IfcSpatialStructureElement
             } })();
         }
 
-        return this.RefLatitude_ as IfcCompoundPlaneAngleMeasure | null;
+        return this.RefLatitude_ as Array< number > | null;
     }
 
-    public get RefLongitude() : IfcCompoundPlaneAngleMeasure | null
+    public get RefLongitude() : Array< number > | null
     {
         if ( this.RefLongitude_ === void 0 )
         {
@@ -134,10 +134,10 @@ export  class IfcSite extends IfcSpatialStructureElement
             } })();
         }
 
-        return this.RefLongitude_ as IfcCompoundPlaneAngleMeasure | null;
+        return this.RefLongitude_ as Array< number > | null;
     }
 
-    public get RefElevation() : IfcLengthMeasure | null
+    public get RefElevation() : number | null
     {
         if ( this.RefElevation_ === void 0 )
         {
@@ -173,10 +173,10 @@ export  class IfcSite extends IfcSpatialStructureElement
             } })();
         }
 
-        return this.RefElevation_ as IfcLengthMeasure | null;
+        return this.RefElevation_ as number | null;
     }
 
-    public get LandTitleNumber() : IfcLabel | null
+    public get LandTitleNumber() : string | null
     {
         if ( this.LandTitleNumber_ === void 0 )
         {
@@ -212,7 +212,7 @@ export  class IfcSite extends IfcSpatialStructureElement
             } })();
         }
 
-        return this.LandTitleNumber_ as IfcLabel | null;
+        return this.LandTitleNumber_ as string | null;
     }
 
     public get SiteAddress() : IfcPostalAddress | null
@@ -235,7 +235,7 @@ export  class IfcSite extends IfcSpatialStructureElement
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcPostalAddress ) )
             {

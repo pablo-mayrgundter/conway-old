@@ -40,4 +40,3 @@ export function IfcWindowPanelOperationEnumDeserializeStep( input: Uint8Array, c
 {
     return parser.extract< IfcWindowPanelOperationEnum >( IfcWindowPanelOperationEnumSearch, input, cursor, endCursor );
 }
-

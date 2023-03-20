@@ -8,8 +8,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcwindowliningproperties.htm */
@@ -20,17 +20,17 @@ export  class IfcWindowLiningProperties extends IfcPropertySetDefinition
         return EntityTypesIfc.IFCWINDOWLININGPROPERTIES;
     }
 
-    private LiningDepth_? : IfcPositiveLengthMeasure | null;
-    private LiningThickness_? : IfcPositiveLengthMeasure | null;
-    private TransomThickness_? : IfcPositiveLengthMeasure | null;
-    private MullionThickness_? : IfcPositiveLengthMeasure | null;
-    private FirstTransomOffset_? : IfcNormalisedRatioMeasure | null;
-    private SecondTransomOffset_? : IfcNormalisedRatioMeasure | null;
-    private FirstMullionOffset_? : IfcNormalisedRatioMeasure | null;
-    private SecondMullionOffset_? : IfcNormalisedRatioMeasure | null;
+    private LiningDepth_? : number | null;
+    private LiningThickness_? : number | null;
+    private TransomThickness_? : number | null;
+    private MullionThickness_? : number | null;
+    private FirstTransomOffset_? : number | null;
+    private SecondTransomOffset_? : number | null;
+    private FirstMullionOffset_? : number | null;
+    private SecondMullionOffset_? : number | null;
     private ShapeAspectStyle_? : IfcShapeAspect | null;
 
-    public get LiningDepth() : IfcPositiveLengthMeasure | null
+    public get LiningDepth() : number | null
     {
         if ( this.LiningDepth_ === void 0 )
         {
@@ -66,10 +66,10 @@ export  class IfcWindowLiningProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.LiningDepth_ as IfcPositiveLengthMeasure | null;
+        return this.LiningDepth_ as number | null;
     }
 
-    public get LiningThickness() : IfcPositiveLengthMeasure | null
+    public get LiningThickness() : number | null
     {
         if ( this.LiningThickness_ === void 0 )
         {
@@ -105,10 +105,10 @@ export  class IfcWindowLiningProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.LiningThickness_ as IfcPositiveLengthMeasure | null;
+        return this.LiningThickness_ as number | null;
     }
 
-    public get TransomThickness() : IfcPositiveLengthMeasure | null
+    public get TransomThickness() : number | null
     {
         if ( this.TransomThickness_ === void 0 )
         {
@@ -144,10 +144,10 @@ export  class IfcWindowLiningProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.TransomThickness_ as IfcPositiveLengthMeasure | null;
+        return this.TransomThickness_ as number | null;
     }
 
-    public get MullionThickness() : IfcPositiveLengthMeasure | null
+    public get MullionThickness() : number | null
     {
         if ( this.MullionThickness_ === void 0 )
         {
@@ -183,10 +183,10 @@ export  class IfcWindowLiningProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.MullionThickness_ as IfcPositiveLengthMeasure | null;
+        return this.MullionThickness_ as number | null;
     }
 
-    public get FirstTransomOffset() : IfcNormalisedRatioMeasure | null
+    public get FirstTransomOffset() : number | null
     {
         if ( this.FirstTransomOffset_ === void 0 )
         {
@@ -222,10 +222,10 @@ export  class IfcWindowLiningProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.FirstTransomOffset_ as IfcNormalisedRatioMeasure | null;
+        return this.FirstTransomOffset_ as number | null;
     }
 
-    public get SecondTransomOffset() : IfcNormalisedRatioMeasure | null
+    public get SecondTransomOffset() : number | null
     {
         if ( this.SecondTransomOffset_ === void 0 )
         {
@@ -261,10 +261,10 @@ export  class IfcWindowLiningProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.SecondTransomOffset_ as IfcNormalisedRatioMeasure | null;
+        return this.SecondTransomOffset_ as number | null;
     }
 
-    public get FirstMullionOffset() : IfcNormalisedRatioMeasure | null
+    public get FirstMullionOffset() : number | null
     {
         if ( this.FirstMullionOffset_ === void 0 )
         {
@@ -300,10 +300,10 @@ export  class IfcWindowLiningProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.FirstMullionOffset_ as IfcNormalisedRatioMeasure | null;
+        return this.FirstMullionOffset_ as number | null;
     }
 
-    public get SecondMullionOffset() : IfcNormalisedRatioMeasure | null
+    public get SecondMullionOffset() : number | null
     {
         if ( this.SecondMullionOffset_ === void 0 )
         {
@@ -339,7 +339,7 @@ export  class IfcWindowLiningProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.SecondMullionOffset_ as IfcNormalisedRatioMeasure | null;
+        return this.SecondMullionOffset_ as number | null;
     }
 
     public get ShapeAspectStyle() : IfcShapeAspect | null
@@ -362,7 +362,7 @@ export  class IfcWindowLiningProperties extends IfcPropertySetDefinition
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcShapeAspect ) )
             {

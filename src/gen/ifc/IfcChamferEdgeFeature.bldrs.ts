@@ -6,8 +6,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcchamferedgefeature.htm */
@@ -18,10 +18,10 @@ export  class IfcChamferEdgeFeature extends IfcEdgeFeature
         return EntityTypesIfc.IFCCHAMFEREDGEFEATURE;
     }
 
-    private Width_? : IfcPositiveLengthMeasure | null;
-    private Height_? : IfcPositiveLengthMeasure | null;
+    private Width_? : number | null;
+    private Height_? : number | null;
 
-    public get Width() : IfcPositiveLengthMeasure | null
+    public get Width() : number | null
     {
         if ( this.Width_ === void 0 )
         {
@@ -57,10 +57,10 @@ export  class IfcChamferEdgeFeature extends IfcEdgeFeature
             } })();
         }
 
-        return this.Width_ as IfcPositiveLengthMeasure | null;
+        return this.Width_ as number | null;
     }
 
-    public get Height() : IfcPositiveLengthMeasure | null
+    public get Height() : number | null
     {
         if ( this.Height_ === void 0 )
         {
@@ -96,7 +96,7 @@ export  class IfcChamferEdgeFeature extends IfcEdgeFeature
             } })();
         }
 
-        return this.Height_ as IfcPositiveLengthMeasure | null;
+        return this.Height_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

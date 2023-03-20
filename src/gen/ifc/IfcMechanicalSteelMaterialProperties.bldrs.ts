@@ -9,8 +9,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcmechanicalsteelmaterialproperties.htm */
@@ -21,15 +21,15 @@ export  class IfcMechanicalSteelMaterialProperties extends IfcMechanicalMaterial
         return EntityTypesIfc.IFCMECHANICALSTEELMATERIALPROPERTIES;
     }
 
-    private YieldStress_? : IfcPressureMeasure | null;
-    private UltimateStress_? : IfcPressureMeasure | null;
-    private UltimateStrain_? : IfcPositiveRatioMeasure | null;
-    private HardeningModule_? : IfcModulusOfElasticityMeasure | null;
-    private ProportionalStress_? : IfcPressureMeasure | null;
-    private PlasticStrain_? : IfcPositiveRatioMeasure | null;
+    private YieldStress_? : number | null;
+    private UltimateStress_? : number | null;
+    private UltimateStrain_? : number | null;
+    private HardeningModule_? : number | null;
+    private ProportionalStress_? : number | null;
+    private PlasticStrain_? : number | null;
     private Relaxations_? : Array<IfcRelaxation> | null;
 
-    public get YieldStress() : IfcPressureMeasure | null
+    public get YieldStress() : number | null
     {
         if ( this.YieldStress_ === void 0 )
         {
@@ -65,10 +65,10 @@ export  class IfcMechanicalSteelMaterialProperties extends IfcMechanicalMaterial
             } })();
         }
 
-        return this.YieldStress_ as IfcPressureMeasure | null;
+        return this.YieldStress_ as number | null;
     }
 
-    public get UltimateStress() : IfcPressureMeasure | null
+    public get UltimateStress() : number | null
     {
         if ( this.UltimateStress_ === void 0 )
         {
@@ -104,10 +104,10 @@ export  class IfcMechanicalSteelMaterialProperties extends IfcMechanicalMaterial
             } })();
         }
 
-        return this.UltimateStress_ as IfcPressureMeasure | null;
+        return this.UltimateStress_ as number | null;
     }
 
-    public get UltimateStrain() : IfcPositiveRatioMeasure | null
+    public get UltimateStrain() : number | null
     {
         if ( this.UltimateStrain_ === void 0 )
         {
@@ -143,10 +143,10 @@ export  class IfcMechanicalSteelMaterialProperties extends IfcMechanicalMaterial
             } })();
         }
 
-        return this.UltimateStrain_ as IfcPositiveRatioMeasure | null;
+        return this.UltimateStrain_ as number | null;
     }
 
-    public get HardeningModule() : IfcModulusOfElasticityMeasure | null
+    public get HardeningModule() : number | null
     {
         if ( this.HardeningModule_ === void 0 )
         {
@@ -182,10 +182,10 @@ export  class IfcMechanicalSteelMaterialProperties extends IfcMechanicalMaterial
             } })();
         }
 
-        return this.HardeningModule_ as IfcModulusOfElasticityMeasure | null;
+        return this.HardeningModule_ as number | null;
     }
 
-    public get ProportionalStress() : IfcPressureMeasure | null
+    public get ProportionalStress() : number | null
     {
         if ( this.ProportionalStress_ === void 0 )
         {
@@ -221,10 +221,10 @@ export  class IfcMechanicalSteelMaterialProperties extends IfcMechanicalMaterial
             } })();
         }
 
-        return this.ProportionalStress_ as IfcPressureMeasure | null;
+        return this.ProportionalStress_ as number | null;
     }
 
-    public get PlasticStrain() : IfcPositiveRatioMeasure | null
+    public get PlasticStrain() : number | null
     {
         if ( this.PlasticStrain_ === void 0 )
         {
@@ -260,7 +260,7 @@ export  class IfcMechanicalSteelMaterialProperties extends IfcMechanicalMaterial
             } })();
         }
 
-        return this.PlasticStrain_ as IfcPositiveRatioMeasure | null;
+        return this.PlasticStrain_ as number | null;
     }
 
     public get Relaxations() : Array<IfcRelaxation> | null
@@ -290,7 +290,7 @@ export  class IfcMechanicalSteelMaterialProperties extends IfcMechanicalMaterial
                     let cursor = address;
         
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
-                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+                    let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
                     if ( !( value instanceof IfcRelaxation ) )
                     {                

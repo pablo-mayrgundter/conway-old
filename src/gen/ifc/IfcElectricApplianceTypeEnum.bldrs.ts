@@ -52,4 +52,3 @@ export function IfcElectricApplianceTypeEnumDeserializeStep( input: Uint8Array, 
 {
     return parser.extract< IfcElectricApplianceTypeEnum >( IfcElectricApplianceTypeEnumSearch, input, cursor, endCursor );
 }
-

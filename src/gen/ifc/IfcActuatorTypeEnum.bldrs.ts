@@ -33,4 +33,3 @@ export function IfcActuatorTypeEnumDeserializeStep( input: Uint8Array, cursor: n
 {
     return parser.extract< IfcActuatorTypeEnum >( IfcActuatorTypeEnumSearch, input, cursor, endCursor );
 }
-

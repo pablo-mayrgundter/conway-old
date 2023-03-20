@@ -49,4 +49,3 @@ export function IfcValveTypeEnumDeserializeStep( input: Uint8Array, cursor: numb
 {
     return parser.extract< IfcValveTypeEnum >( IfcValveTypeEnumSearch, input, cursor, endCursor );
 }
-

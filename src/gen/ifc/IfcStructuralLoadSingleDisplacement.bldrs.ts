@@ -7,8 +7,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcstructuralloadsingledisplacement.htm */
@@ -19,14 +19,14 @@ export  class IfcStructuralLoadSingleDisplacement extends IfcStructuralLoadStati
         return EntityTypesIfc.IFCSTRUCTURALLOADSINGLEDISPLACEMENT;
     }
 
-    private DisplacementX_? : IfcLengthMeasure | null;
-    private DisplacementY_? : IfcLengthMeasure | null;
-    private DisplacementZ_? : IfcLengthMeasure | null;
-    private RotationalDisplacementRX_? : IfcPlaneAngleMeasure | null;
-    private RotationalDisplacementRY_? : IfcPlaneAngleMeasure | null;
-    private RotationalDisplacementRZ_? : IfcPlaneAngleMeasure | null;
+    private DisplacementX_? : number | null;
+    private DisplacementY_? : number | null;
+    private DisplacementZ_? : number | null;
+    private RotationalDisplacementRX_? : number | null;
+    private RotationalDisplacementRY_? : number | null;
+    private RotationalDisplacementRZ_? : number | null;
 
-    public get DisplacementX() : IfcLengthMeasure | null
+    public get DisplacementX() : number | null
     {
         if ( this.DisplacementX_ === void 0 )
         {
@@ -62,10 +62,10 @@ export  class IfcStructuralLoadSingleDisplacement extends IfcStructuralLoadStati
             } })();
         }
 
-        return this.DisplacementX_ as IfcLengthMeasure | null;
+        return this.DisplacementX_ as number | null;
     }
 
-    public get DisplacementY() : IfcLengthMeasure | null
+    public get DisplacementY() : number | null
     {
         if ( this.DisplacementY_ === void 0 )
         {
@@ -101,10 +101,10 @@ export  class IfcStructuralLoadSingleDisplacement extends IfcStructuralLoadStati
             } })();
         }
 
-        return this.DisplacementY_ as IfcLengthMeasure | null;
+        return this.DisplacementY_ as number | null;
     }
 
-    public get DisplacementZ() : IfcLengthMeasure | null
+    public get DisplacementZ() : number | null
     {
         if ( this.DisplacementZ_ === void 0 )
         {
@@ -140,10 +140,10 @@ export  class IfcStructuralLoadSingleDisplacement extends IfcStructuralLoadStati
             } })();
         }
 
-        return this.DisplacementZ_ as IfcLengthMeasure | null;
+        return this.DisplacementZ_ as number | null;
     }
 
-    public get RotationalDisplacementRX() : IfcPlaneAngleMeasure | null
+    public get RotationalDisplacementRX() : number | null
     {
         if ( this.RotationalDisplacementRX_ === void 0 )
         {
@@ -179,10 +179,10 @@ export  class IfcStructuralLoadSingleDisplacement extends IfcStructuralLoadStati
             } })();
         }
 
-        return this.RotationalDisplacementRX_ as IfcPlaneAngleMeasure | null;
+        return this.RotationalDisplacementRX_ as number | null;
     }
 
-    public get RotationalDisplacementRY() : IfcPlaneAngleMeasure | null
+    public get RotationalDisplacementRY() : number | null
     {
         if ( this.RotationalDisplacementRY_ === void 0 )
         {
@@ -218,10 +218,10 @@ export  class IfcStructuralLoadSingleDisplacement extends IfcStructuralLoadStati
             } })();
         }
 
-        return this.RotationalDisplacementRY_ as IfcPlaneAngleMeasure | null;
+        return this.RotationalDisplacementRY_ as number | null;
     }
 
-    public get RotationalDisplacementRZ() : IfcPlaneAngleMeasure | null
+    public get RotationalDisplacementRZ() : number | null
     {
         if ( this.RotationalDisplacementRZ_ === void 0 )
         {
@@ -257,7 +257,7 @@ export  class IfcStructuralLoadSingleDisplacement extends IfcStructuralLoadStati
             } })();
         }
 
-        return this.RotationalDisplacementRZ_ as IfcPlaneAngleMeasure | null;
+        return this.RotationalDisplacementRZ_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

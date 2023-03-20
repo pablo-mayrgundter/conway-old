@@ -8,8 +8,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcperson.htm */
@@ -20,16 +20,16 @@ export  class IfcPerson extends StepEntityBase< EntityTypesIfc >
         return EntityTypesIfc.IFCPERSON;
     }
 
-    private Id_? : IfcIdentifier | null;
-    private FamilyName_? : IfcLabel | null;
-    private GivenName_? : IfcLabel | null;
-    private MiddleNames_? : Array<IfcLabel> | null;
-    private PrefixTitles_? : Array<IfcLabel> | null;
-    private SuffixTitles_? : Array<IfcLabel> | null;
+    private Id_? : string | null;
+    private FamilyName_? : string | null;
+    private GivenName_? : string | null;
+    private MiddleNames_? : Array< string > | null;
+    private PrefixTitles_? : Array< string > | null;
+    private SuffixTitles_? : Array< string > | null;
     private Roles_? : Array<IfcActorRole> | null;
     private Addresses_? : Array<IfcAddress> | null;
 
-    public get Id() : IfcIdentifier | null
+    public get Id() : string | null
     {
         if ( this.Id_ === void 0 )
         {
@@ -65,10 +65,10 @@ export  class IfcPerson extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.Id_ as IfcIdentifier | null;
+        return this.Id_ as string | null;
     }
 
-    public get FamilyName() : IfcLabel | null
+    public get FamilyName() : string | null
     {
         if ( this.FamilyName_ === void 0 )
         {
@@ -104,10 +104,10 @@ export  class IfcPerson extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.FamilyName_ as IfcLabel | null;
+        return this.FamilyName_ as string | null;
     }
 
-    public get GivenName() : IfcLabel | null
+    public get GivenName() : string | null
     {
         if ( this.GivenName_ === void 0 )
         {
@@ -143,10 +143,10 @@ export  class IfcPerson extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.GivenName_ as IfcLabel | null;
+        return this.GivenName_ as string | null;
     }
 
-    public get MiddleNames() : Array<IfcLabel> | null
+    public get MiddleNames() : Array< string > | null
     {
         if ( this.MiddleNames_ === void 0 )
         {
@@ -165,7 +165,7 @@ export  class IfcPerson extends StepEntityBase< EntityTypesIfc >
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value : Array<IfcLabel> = [];
+            let value : Array<string> = [];
 
             for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
             {
@@ -198,10 +198,10 @@ export  class IfcPerson extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.MiddleNames_ as Array<IfcLabel> | null;
+        return this.MiddleNames_ as Array< string > | null;
     }
 
-    public get PrefixTitles() : Array<IfcLabel> | null
+    public get PrefixTitles() : Array< string > | null
     {
         if ( this.PrefixTitles_ === void 0 )
         {
@@ -220,7 +220,7 @@ export  class IfcPerson extends StepEntityBase< EntityTypesIfc >
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value : Array<IfcLabel> = [];
+            let value : Array<string> = [];
 
             for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
             {
@@ -253,10 +253,10 @@ export  class IfcPerson extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.PrefixTitles_ as Array<IfcLabel> | null;
+        return this.PrefixTitles_ as Array< string > | null;
     }
 
-    public get SuffixTitles() : Array<IfcLabel> | null
+    public get SuffixTitles() : Array< string > | null
     {
         if ( this.SuffixTitles_ === void 0 )
         {
@@ -275,7 +275,7 @@ export  class IfcPerson extends StepEntityBase< EntityTypesIfc >
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value : Array<IfcLabel> = [];
+            let value : Array<string> = [];
 
             for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
             {
@@ -308,7 +308,7 @@ export  class IfcPerson extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.SuffixTitles_ as Array<IfcLabel> | null;
+        return this.SuffixTitles_ as Array< string > | null;
     }
 
     public get Roles() : Array<IfcActorRole> | null
@@ -338,7 +338,7 @@ export  class IfcPerson extends StepEntityBase< EntityTypesIfc >
                     let cursor = address;
         
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
-                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+                    let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
                     if ( !( value instanceof IfcActorRole ) )
                     {                
@@ -394,7 +394,7 @@ export  class IfcPerson extends StepEntityBase< EntityTypesIfc >
                     let cursor = address;
         
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
-                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+                    let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
                     if ( !( value instanceof IfcAddress ) )
                     {                

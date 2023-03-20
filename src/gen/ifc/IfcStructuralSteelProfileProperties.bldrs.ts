@@ -7,8 +7,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcstructuralsteelprofileproperties.htm */
@@ -19,12 +19,12 @@ export  class IfcStructuralSteelProfileProperties extends IfcStructuralProfilePr
         return EntityTypesIfc.IFCSTRUCTURALSTEELPROFILEPROPERTIES;
     }
 
-    private ShearAreaZ_? : IfcAreaMeasure | null;
-    private ShearAreaY_? : IfcAreaMeasure | null;
-    private PlasticShapeFactorY_? : IfcPositiveRatioMeasure | null;
-    private PlasticShapeFactorZ_? : IfcPositiveRatioMeasure | null;
+    private ShearAreaZ_? : number | null;
+    private ShearAreaY_? : number | null;
+    private PlasticShapeFactorY_? : number | null;
+    private PlasticShapeFactorZ_? : number | null;
 
-    public get ShearAreaZ() : IfcAreaMeasure | null
+    public get ShearAreaZ() : number | null
     {
         if ( this.ShearAreaZ_ === void 0 )
         {
@@ -60,10 +60,10 @@ export  class IfcStructuralSteelProfileProperties extends IfcStructuralProfilePr
             } })();
         }
 
-        return this.ShearAreaZ_ as IfcAreaMeasure | null;
+        return this.ShearAreaZ_ as number | null;
     }
 
-    public get ShearAreaY() : IfcAreaMeasure | null
+    public get ShearAreaY() : number | null
     {
         if ( this.ShearAreaY_ === void 0 )
         {
@@ -99,10 +99,10 @@ export  class IfcStructuralSteelProfileProperties extends IfcStructuralProfilePr
             } })();
         }
 
-        return this.ShearAreaY_ as IfcAreaMeasure | null;
+        return this.ShearAreaY_ as number | null;
     }
 
-    public get PlasticShapeFactorY() : IfcPositiveRatioMeasure | null
+    public get PlasticShapeFactorY() : number | null
     {
         if ( this.PlasticShapeFactorY_ === void 0 )
         {
@@ -138,10 +138,10 @@ export  class IfcStructuralSteelProfileProperties extends IfcStructuralProfilePr
             } })();
         }
 
-        return this.PlasticShapeFactorY_ as IfcPositiveRatioMeasure | null;
+        return this.PlasticShapeFactorY_ as number | null;
     }
 
-    public get PlasticShapeFactorZ() : IfcPositiveRatioMeasure | null
+    public get PlasticShapeFactorZ() : number | null
     {
         if ( this.PlasticShapeFactorZ_ === void 0 )
         {
@@ -177,7 +177,7 @@ export  class IfcStructuralSteelProfileProperties extends IfcStructuralProfilePr
             } })();
         }
 
-        return this.PlasticShapeFactorZ_ as IfcPositiveRatioMeasure | null;
+        return this.PlasticShapeFactorZ_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

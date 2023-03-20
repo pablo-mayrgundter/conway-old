@@ -560,6 +560,123 @@ import { IfcVirtualGridIntersection } from './index';
 import { IfcWallStandardCase } from './index';
 import { IfcWorkPlan } from './index';
 import { IfcWorkSchedule } from './index';
+import { IfcAbsorbedDoseMeasure } from './index';
+import { IfcAccelerationMeasure } from './index';
+import { IfcAmountOfSubstanceMeasure } from './index';
+import { IfcAngularVelocityMeasure } from './index';
+import { IfcAreaMeasure } from './index';
+import { IfcBoolean } from './index';
+import { IfcBoxAlignment } from './index';
+import { IfcComplexNumber } from './index';
+import { IfcCompoundPlaneAngleMeasure } from './index';
+import { IfcContextDependentMeasure } from './index';
+import { IfcCountMeasure } from './index';
+import { IfcCurvatureMeasure } from './index';
+import { IfcDayInMonthNumber } from './index';
+import { IfcDaylightSavingHour } from './index';
+import { IfcDescriptiveMeasure } from './index';
+import { IfcDimensionCount } from './index';
+import { IfcDoseEquivalentMeasure } from './index';
+import { IfcDynamicViscosityMeasure } from './index';
+import { IfcElectricCapacitanceMeasure } from './index';
+import { IfcElectricChargeMeasure } from './index';
+import { IfcElectricConductanceMeasure } from './index';
+import { IfcElectricCurrentMeasure } from './index';
+import { IfcElectricResistanceMeasure } from './index';
+import { IfcElectricVoltageMeasure } from './index';
+import { IfcEnergyMeasure } from './index';
+import { IfcFontStyle } from './index';
+import { IfcFontVariant } from './index';
+import { IfcFontWeight } from './index';
+import { IfcForceMeasure } from './index';
+import { IfcFrequencyMeasure } from './index';
+import { IfcGloballyUniqueId } from './index';
+import { IfcHeatFluxDensityMeasure } from './index';
+import { IfcHeatingValueMeasure } from './index';
+import { IfcHourInDay } from './index';
+import { IfcIdentifier } from './index';
+import { IfcIlluminanceMeasure } from './index';
+import { IfcInductanceMeasure } from './index';
+import { IfcInteger } from './index';
+import { IfcIntegerCountRateMeasure } from './index';
+import { IfcIonConcentrationMeasure } from './index';
+import { IfcIsothermalMoistureCapacityMeasure } from './index';
+import { IfcKinematicViscosityMeasure } from './index';
+import { IfcLabel } from './index';
+import { IfcLengthMeasure } from './index';
+import { IfcLinearForceMeasure } from './index';
+import { IfcLinearMomentMeasure } from './index';
+import { IfcLinearStiffnessMeasure } from './index';
+import { IfcLinearVelocityMeasure } from './index';
+import { IfcLogical } from './index';
+import { IfcLuminousFluxMeasure } from './index';
+import { IfcLuminousIntensityDistributionMeasure } from './index';
+import { IfcLuminousIntensityMeasure } from './index';
+import { IfcMagneticFluxDensityMeasure } from './index';
+import { IfcMagneticFluxMeasure } from './index';
+import { IfcMassDensityMeasure } from './index';
+import { IfcMassFlowRateMeasure } from './index';
+import { IfcMassMeasure } from './index';
+import { IfcMassPerLengthMeasure } from './index';
+import { IfcMinuteInHour } from './index';
+import { IfcModulusOfElasticityMeasure } from './index';
+import { IfcModulusOfLinearSubgradeReactionMeasure } from './index';
+import { IfcModulusOfRotationalSubgradeReactionMeasure } from './index';
+import { IfcModulusOfSubgradeReactionMeasure } from './index';
+import { IfcMoistureDiffusivityMeasure } from './index';
+import { IfcMolecularWeightMeasure } from './index';
+import { IfcMomentOfInertiaMeasure } from './index';
+import { IfcMonetaryMeasure } from './index';
+import { IfcMonthInYearNumber } from './index';
+import { IfcNormalisedRatioMeasure } from './index';
+import { IfcNumericMeasure } from './index';
+import { IfcPHMeasure } from './index';
+import { IfcParameterValue } from './index';
+import { IfcPlanarForceMeasure } from './index';
+import { IfcPlaneAngleMeasure } from './index';
+import { IfcPositiveLengthMeasure } from './index';
+import { IfcPositivePlaneAngleMeasure } from './index';
+import { IfcPositiveRatioMeasure } from './index';
+import { IfcPowerMeasure } from './index';
+import { IfcPresentableText } from './index';
+import { IfcPressureMeasure } from './index';
+import { IfcRadioActivityMeasure } from './index';
+import { IfcRatioMeasure } from './index';
+import { IfcReal } from './index';
+import { IfcRotationalFrequencyMeasure } from './index';
+import { IfcRotationalMassMeasure } from './index';
+import { IfcRotationalStiffnessMeasure } from './index';
+import { IfcSecondInMinute } from './index';
+import { IfcSectionModulusMeasure } from './index';
+import { IfcSectionalAreaIntegralMeasure } from './index';
+import { IfcShearModulusMeasure } from './index';
+import { IfcSolidAngleMeasure } from './index';
+import { IfcSoundPowerMeasure } from './index';
+import { IfcSoundPressureMeasure } from './index';
+import { IfcSpecificHeatCapacityMeasure } from './index';
+import { IfcSpecularExponent } from './index';
+import { IfcSpecularRoughness } from './index';
+import { IfcTemperatureGradientMeasure } from './index';
+import { IfcText } from './index';
+import { IfcTextAlignment } from './index';
+import { IfcTextDecoration } from './index';
+import { IfcTextFontName } from './index';
+import { IfcTextTransformation } from './index';
+import { IfcThermalAdmittanceMeasure } from './index';
+import { IfcThermalConductivityMeasure } from './index';
+import { IfcThermalExpansionCoefficientMeasure } from './index';
+import { IfcThermalResistanceMeasure } from './index';
+import { IfcThermalTransmittanceMeasure } from './index';
+import { IfcThermodynamicTemperatureMeasure } from './index';
+import { IfcTimeMeasure } from './index';
+import { IfcTimeStamp } from './index';
+import { IfcTorqueMeasure } from './index';
+import { IfcVaporPermeabilityMeasure } from './index';
+import { IfcVolumeMeasure } from './index';
+import { IfcVolumetricFlowRateMeasure } from './index';
+import { IfcWarpingConstantMeasure } from './index';
+import { IfcWarpingMomentMeasure } from './index';
+import { IfcYearNumber } from './index';
 let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > | undefined )[]  = [
     Ifc2DCompositeCurve,
     IfcCompositeCurve,
@@ -1214,6 +1331,123 @@ let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< Enti
     IfcWallStandardCase,
     IfcWorkPlan,
     IfcWorkSchedule,
+    IfcAbsorbedDoseMeasure,
+    IfcAccelerationMeasure,
+    IfcAmountOfSubstanceMeasure,
+    IfcAngularVelocityMeasure,
+    IfcAreaMeasure,
+    IfcBoolean,
+    IfcBoxAlignment,
+    IfcComplexNumber,
+    IfcCompoundPlaneAngleMeasure,
+    IfcContextDependentMeasure,
+    IfcCountMeasure,
+    IfcCurvatureMeasure,
+    IfcDayInMonthNumber,
+    IfcDaylightSavingHour,
+    IfcDescriptiveMeasure,
+    IfcDimensionCount,
+    IfcDoseEquivalentMeasure,
+    IfcDynamicViscosityMeasure,
+    IfcElectricCapacitanceMeasure,
+    IfcElectricChargeMeasure,
+    IfcElectricConductanceMeasure,
+    IfcElectricCurrentMeasure,
+    IfcElectricResistanceMeasure,
+    IfcElectricVoltageMeasure,
+    IfcEnergyMeasure,
+    IfcFontStyle,
+    IfcFontVariant,
+    IfcFontWeight,
+    IfcForceMeasure,
+    IfcFrequencyMeasure,
+    IfcGloballyUniqueId,
+    IfcHeatFluxDensityMeasure,
+    IfcHeatingValueMeasure,
+    IfcHourInDay,
+    IfcIdentifier,
+    IfcIlluminanceMeasure,
+    IfcInductanceMeasure,
+    IfcInteger,
+    IfcIntegerCountRateMeasure,
+    IfcIonConcentrationMeasure,
+    IfcIsothermalMoistureCapacityMeasure,
+    IfcKinematicViscosityMeasure,
+    IfcLabel,
+    IfcLengthMeasure,
+    IfcLinearForceMeasure,
+    IfcLinearMomentMeasure,
+    IfcLinearStiffnessMeasure,
+    IfcLinearVelocityMeasure,
+    IfcLogical,
+    IfcLuminousFluxMeasure,
+    IfcLuminousIntensityDistributionMeasure,
+    IfcLuminousIntensityMeasure,
+    IfcMagneticFluxDensityMeasure,
+    IfcMagneticFluxMeasure,
+    IfcMassDensityMeasure,
+    IfcMassFlowRateMeasure,
+    IfcMassMeasure,
+    IfcMassPerLengthMeasure,
+    IfcMinuteInHour,
+    IfcModulusOfElasticityMeasure,
+    IfcModulusOfLinearSubgradeReactionMeasure,
+    IfcModulusOfRotationalSubgradeReactionMeasure,
+    IfcModulusOfSubgradeReactionMeasure,
+    IfcMoistureDiffusivityMeasure,
+    IfcMolecularWeightMeasure,
+    IfcMomentOfInertiaMeasure,
+    IfcMonetaryMeasure,
+    IfcMonthInYearNumber,
+    IfcNormalisedRatioMeasure,
+    IfcNumericMeasure,
+    IfcPHMeasure,
+    IfcParameterValue,
+    IfcPlanarForceMeasure,
+    IfcPlaneAngleMeasure,
+    IfcPositiveLengthMeasure,
+    IfcPositivePlaneAngleMeasure,
+    IfcPositiveRatioMeasure,
+    IfcPowerMeasure,
+    IfcPresentableText,
+    IfcPressureMeasure,
+    IfcRadioActivityMeasure,
+    IfcRatioMeasure,
+    IfcReal,
+    IfcRotationalFrequencyMeasure,
+    IfcRotationalMassMeasure,
+    IfcRotationalStiffnessMeasure,
+    IfcSecondInMinute,
+    IfcSectionModulusMeasure,
+    IfcSectionalAreaIntegralMeasure,
+    IfcShearModulusMeasure,
+    IfcSolidAngleMeasure,
+    IfcSoundPowerMeasure,
+    IfcSoundPressureMeasure,
+    IfcSpecificHeatCapacityMeasure,
+    IfcSpecularExponent,
+    IfcSpecularRoughness,
+    IfcTemperatureGradientMeasure,
+    IfcText,
+    IfcTextAlignment,
+    IfcTextDecoration,
+    IfcTextFontName,
+    IfcTextTransformation,
+    IfcThermalAdmittanceMeasure,
+    IfcThermalConductivityMeasure,
+    IfcThermalExpansionCoefficientMeasure,
+    IfcThermalResistanceMeasure,
+    IfcThermalTransmittanceMeasure,
+    IfcThermodynamicTemperatureMeasure,
+    IfcTimeMeasure,
+    IfcTimeStamp,
+    IfcTorqueMeasure,
+    IfcVaporPermeabilityMeasure,
+    IfcVolumeMeasure,
+    IfcVolumetricFlowRateMeasure,
+    IfcWarpingConstantMeasure,
+    IfcWarpingMomentMeasure,
+    IfcYearNumber,
 ];
 
 let parser = new StepParser< EntityTypesIfc >( EntityTypesIfcSearch );

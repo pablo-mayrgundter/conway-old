@@ -5,8 +5,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcdocumentelectronicformat.htm */
@@ -17,11 +17,11 @@ export  class IfcDocumentElectronicFormat extends StepEntityBase< EntityTypesIfc
         return EntityTypesIfc.IFCDOCUMENTELECTRONICFORMAT;
     }
 
-    private FileExtension_? : IfcLabel | null;
-    private MimeContentType_? : IfcLabel | null;
-    private MimeSubtype_? : IfcLabel | null;
+    private FileExtension_? : string | null;
+    private MimeContentType_? : string | null;
+    private MimeSubtype_? : string | null;
 
-    public get FileExtension() : IfcLabel | null
+    public get FileExtension() : string | null
     {
         if ( this.FileExtension_ === void 0 )
         {
@@ -57,10 +57,10 @@ export  class IfcDocumentElectronicFormat extends StepEntityBase< EntityTypesIfc
             } })();
         }
 
-        return this.FileExtension_ as IfcLabel | null;
+        return this.FileExtension_ as string | null;
     }
 
-    public get MimeContentType() : IfcLabel | null
+    public get MimeContentType() : string | null
     {
         if ( this.MimeContentType_ === void 0 )
         {
@@ -96,10 +96,10 @@ export  class IfcDocumentElectronicFormat extends StepEntityBase< EntityTypesIfc
             } })();
         }
 
-        return this.MimeContentType_ as IfcLabel | null;
+        return this.MimeContentType_ as string | null;
     }
 
-    public get MimeSubtype() : IfcLabel | null
+    public get MimeSubtype() : string | null
     {
         if ( this.MimeSubtype_ === void 0 )
         {
@@ -135,7 +135,7 @@ export  class IfcDocumentElectronicFormat extends StepEntityBase< EntityTypesIfc
             } })();
         }
 
-        return this.MimeSubtype_ as IfcLabel | null;
+        return this.MimeSubtype_ as string | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

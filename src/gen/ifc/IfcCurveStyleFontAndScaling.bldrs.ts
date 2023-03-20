@@ -8,8 +8,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifccurvestylefontandscaling.htm */
@@ -20,11 +20,11 @@ export  class IfcCurveStyleFontAndScaling extends StepEntityBase< EntityTypesIfc
         return EntityTypesIfc.IFCCURVESTYLEFONTANDSCALING;
     }
 
-    private Name_? : IfcLabel | null;
+    private Name_? : string | null;
     private CurveFont_? : IfcPreDefinedCurveFont|IfcCurveStyleFont;
-    private CurveFontScaling_? : IfcPositiveRatioMeasure;
+    private CurveFontScaling_? : number;
 
-    public get Name() : IfcLabel | null
+    public get Name() : string | null
     {
         if ( this.Name_ === void 0 )
         {
@@ -60,7 +60,7 @@ export  class IfcCurveStyleFontAndScaling extends StepEntityBase< EntityTypesIfc
             } })();
         }
 
-        return this.Name_ as IfcLabel | null;
+        return this.Name_ as string | null;
     }
 
     public get CurveFont() : IfcPreDefinedCurveFont|IfcCurveStyleFont
@@ -82,39 +82,21 @@ export  class IfcCurveStyleFontAndScaling extends StepEntityBase< EntityTypesIfc
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = ( () => { 
-                    let expressID = stepExtractReference( buffer, cursor, endCursor );
-                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
-        
-                    if ( !( value instanceof IfcPreDefinedCurveFont ) )
-                    {                
-                        return (void 0);
-                    };
-        
-                    return value; } )() ??
-( () => { 
-                    let expressID = stepExtractReference( buffer, cursor, endCursor );
-                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
-        
-                    if ( !( value instanceof IfcCurveStyleFont ) )
-                    {                
-                        return (void 0);
-                    };
-        
-                    return value; } )();
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( value === void 0 )
+            if ( !( value instanceof IfcPreDefinedCurveFont ) && !( value instanceof IfcCurveStyleFont ) )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+                throw new Error( 'Value in STEP was incorrectly typed for field' );
+            }
 
-            return value; })();
+            return value as (IfcPreDefinedCurveFont | IfcCurveStyleFont); })();
         }
 
         return this.CurveFont_ as IfcPreDefinedCurveFont|IfcCurveStyleFont;
     }
 
-    public get CurveFontScaling() : IfcPositiveRatioMeasure
+    public get CurveFontScaling() : number
     {
         if ( this.CurveFontScaling_ === void 0 )
         {
@@ -143,7 +125,7 @@ export  class IfcCurveStyleFontAndScaling extends StepEntityBase< EntityTypesIfc
             return value; })();
         }
 
-        return this.CurveFontScaling_ as IfcPositiveRatioMeasure;
+        return this.CurveFontScaling_ as number;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

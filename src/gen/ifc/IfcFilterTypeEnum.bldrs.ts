@@ -33,4 +33,3 @@ export function IfcFilterTypeEnumDeserializeStep( input: Uint8Array, cursor: num
 {
     return parser.extract< IfcFilterTypeEnum >( IfcFilterTypeEnumSearch, input, cursor, endCursor );
 }
-

@@ -6,8 +6,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcstructuralloadplanarforce.htm */
@@ -18,11 +18,11 @@ export  class IfcStructuralLoadPlanarForce extends IfcStructuralLoadStatic
         return EntityTypesIfc.IFCSTRUCTURALLOADPLANARFORCE;
     }
 
-    private PlanarForceX_? : IfcPlanarForceMeasure | null;
-    private PlanarForceY_? : IfcPlanarForceMeasure | null;
-    private PlanarForceZ_? : IfcPlanarForceMeasure | null;
+    private PlanarForceX_? : number | null;
+    private PlanarForceY_? : number | null;
+    private PlanarForceZ_? : number | null;
 
-    public get PlanarForceX() : IfcPlanarForceMeasure | null
+    public get PlanarForceX() : number | null
     {
         if ( this.PlanarForceX_ === void 0 )
         {
@@ -58,10 +58,10 @@ export  class IfcStructuralLoadPlanarForce extends IfcStructuralLoadStatic
             } })();
         }
 
-        return this.PlanarForceX_ as IfcPlanarForceMeasure | null;
+        return this.PlanarForceX_ as number | null;
     }
 
-    public get PlanarForceY() : IfcPlanarForceMeasure | null
+    public get PlanarForceY() : number | null
     {
         if ( this.PlanarForceY_ === void 0 )
         {
@@ -97,10 +97,10 @@ export  class IfcStructuralLoadPlanarForce extends IfcStructuralLoadStatic
             } })();
         }
 
-        return this.PlanarForceY_ as IfcPlanarForceMeasure | null;
+        return this.PlanarForceY_ as number | null;
     }
 
-    public get PlanarForceZ() : IfcPlanarForceMeasure | null
+    public get PlanarForceZ() : number | null
     {
         if ( this.PlanarForceZ_ === void 0 )
         {
@@ -136,7 +136,7 @@ export  class IfcStructuralLoadPlanarForce extends IfcStructuralLoadStatic
             } })();
         }
 
-        return this.PlanarForceZ_ as IfcPlanarForceMeasure | null;
+        return this.PlanarForceZ_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

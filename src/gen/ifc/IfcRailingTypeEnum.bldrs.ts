@@ -31,4 +31,3 @@ export function IfcRailingTypeEnumDeserializeStep( input: Uint8Array, cursor: nu
 {
     return parser.extract< IfcRailingTypeEnum >( IfcRailingTypeEnumSearch, input, cursor, endCursor );
 }
-

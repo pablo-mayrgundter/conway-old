@@ -37,4 +37,3 @@ export function IfcLightEmissionSourceEnumDeserializeStep( input: Uint8Array, cu
 {
     return parser.extract< IfcLightEmissionSourceEnum >( IfcLightEmissionSourceEnumSearch, input, cursor, endCursor );
 }
-

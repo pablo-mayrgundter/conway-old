@@ -30,4 +30,3 @@ export function IfcTextPathDeserializeStep( input: Uint8Array, cursor: number, e
 {
     return parser.extract< IfcTextPath >( IfcTextPathSearch, input, cursor, endCursor );
 }
-

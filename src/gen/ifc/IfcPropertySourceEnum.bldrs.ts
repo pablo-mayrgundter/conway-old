@@ -35,4 +35,3 @@ export function IfcPropertySourceEnumDeserializeStep( input: Uint8Array, cursor:
 {
     return parser.extract< IfcPropertySourceEnum >( IfcPropertySourceEnumSearch, input, cursor, endCursor );
 }
-

@@ -34,4 +34,3 @@ export function IfcEnvironmentalImpactCategoryEnumDeserializeStep( input: Uint8A
 {
     return parser.extract< IfcEnvironmentalImpactCategoryEnum >( IfcEnvironmentalImpactCategoryEnumSearch, input, cursor, endCursor );
 }
-

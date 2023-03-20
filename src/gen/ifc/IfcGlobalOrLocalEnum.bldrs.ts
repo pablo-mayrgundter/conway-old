@@ -28,4 +28,3 @@ export function IfcGlobalOrLocalEnumDeserializeStep( input: Uint8Array, cursor: 
 {
     return parser.extract< IfcGlobalOrLocalEnum >( IfcGlobalOrLocalEnumSearch, input, cursor, endCursor );
 }
-

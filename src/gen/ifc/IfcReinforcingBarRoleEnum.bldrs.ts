@@ -35,4 +35,3 @@ export function IfcReinforcingBarRoleEnumDeserializeStep( input: Uint8Array, cur
 {
     return parser.extract< IfcReinforcingBarRoleEnum >( IfcReinforcingBarRoleEnumSearch, input, cursor, endCursor );
 }
-

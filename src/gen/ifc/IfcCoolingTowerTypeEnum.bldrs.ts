@@ -31,4 +31,3 @@ export function IfcCoolingTowerTypeEnumDeserializeStep( input: Uint8Array, curso
 {
     return parser.extract< IfcCoolingTowerTypeEnum >( IfcCoolingTowerTypeEnumSearch, input, cursor, endCursor );
 }
-

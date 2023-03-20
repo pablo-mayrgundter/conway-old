@@ -9,8 +9,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifclocaltime.htm */
@@ -21,13 +21,13 @@ export  class IfcLocalTime extends StepEntityBase< EntityTypesIfc >
         return EntityTypesIfc.IFCLOCALTIME;
     }
 
-    private HourComponent_? : IfcHourInDay;
-    private MinuteComponent_? : IfcMinuteInHour | null;
-    private SecondComponent_? : IfcSecondInMinute | null;
+    private HourComponent_? : number;
+    private MinuteComponent_? : number | null;
+    private SecondComponent_? : number | null;
     private Zone_? : IfcCoordinatedUniversalTimeOffset | null;
-    private DaylightSavingOffset_? : IfcDaylightSavingHour | null;
+    private DaylightSavingOffset_? : number | null;
 
-    public get HourComponent() : IfcHourInDay
+    public get HourComponent() : number
     {
         if ( this.HourComponent_ === void 0 )
         {
@@ -56,10 +56,10 @@ export  class IfcLocalTime extends StepEntityBase< EntityTypesIfc >
             return value; })();
         }
 
-        return this.HourComponent_ as IfcHourInDay;
+        return this.HourComponent_ as number;
     }
 
-    public get MinuteComponent() : IfcMinuteInHour | null
+    public get MinuteComponent() : number | null
     {
         if ( this.MinuteComponent_ === void 0 )
         {
@@ -95,10 +95,10 @@ export  class IfcLocalTime extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.MinuteComponent_ as IfcMinuteInHour | null;
+        return this.MinuteComponent_ as number | null;
     }
 
-    public get SecondComponent() : IfcSecondInMinute | null
+    public get SecondComponent() : number | null
     {
         if ( this.SecondComponent_ === void 0 )
         {
@@ -134,7 +134,7 @@ export  class IfcLocalTime extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.SecondComponent_ as IfcSecondInMinute | null;
+        return this.SecondComponent_ as number | null;
     }
 
     public get Zone() : IfcCoordinatedUniversalTimeOffset | null
@@ -157,7 +157,7 @@ export  class IfcLocalTime extends StepEntityBase< EntityTypesIfc >
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcCoordinatedUniversalTimeOffset ) )
             {
@@ -177,7 +177,7 @@ export  class IfcLocalTime extends StepEntityBase< EntityTypesIfc >
         return this.Zone_ as IfcCoordinatedUniversalTimeOffset | null;
     }
 
-    public get DaylightSavingOffset() : IfcDaylightSavingHour | null
+    public get DaylightSavingOffset() : number | null
     {
         if ( this.DaylightSavingOffset_ === void 0 )
         {
@@ -213,7 +213,7 @@ export  class IfcLocalTime extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.DaylightSavingOffset_ as IfcDaylightSavingHour | null;
+        return this.DaylightSavingOffset_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

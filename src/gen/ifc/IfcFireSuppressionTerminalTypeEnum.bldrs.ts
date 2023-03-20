@@ -33,4 +33,3 @@ export function IfcFireSuppressionTerminalTypeEnumDeserializeStep( input: Uint8A
 {
     return parser.extract< IfcFireSuppressionTerminalTypeEnum >( IfcFireSuppressionTerminalTypeEnumSearch, input, cursor, endCursor );
 }
-

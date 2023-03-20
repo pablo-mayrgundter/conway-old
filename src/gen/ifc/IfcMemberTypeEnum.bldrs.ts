@@ -40,4 +40,3 @@ export function IfcMemberTypeEnumDeserializeStep( input: Uint8Array, cursor: num
 {
     return parser.extract< IfcMemberTypeEnum >( IfcMemberTypeEnumSearch, input, cursor, endCursor );
 }
-

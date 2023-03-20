@@ -32,4 +32,3 @@ export function IfcTankTypeEnumDeserializeStep( input: Uint8Array, cursor: numbe
 {
     return parser.extract< IfcTankTypeEnum >( IfcTankTypeEnumSearch, input, cursor, endCursor );
 }
-

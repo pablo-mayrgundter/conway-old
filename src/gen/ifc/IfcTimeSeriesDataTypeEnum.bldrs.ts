@@ -33,4 +33,3 @@ export function IfcTimeSeriesDataTypeEnumDeserializeStep( input: Uint8Array, cur
 {
     return parser.extract< IfcTimeSeriesDataTypeEnum >( IfcTimeSeriesDataTypeEnumSearch, input, cursor, endCursor );
 }
-

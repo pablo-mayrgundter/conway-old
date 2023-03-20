@@ -29,4 +29,3 @@ export function IfcLayerSetDirectionEnumDeserializeStep( input: Uint8Array, curs
 {
     return parser.extract< IfcLayerSetDirectionEnum >( IfcLayerSetDirectionEnumSearch, input, cursor, endCursor );
 }
-

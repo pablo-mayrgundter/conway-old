@@ -32,4 +32,3 @@ export function IfcCableCarrierFittingTypeEnumDeserializeStep( input: Uint8Array
 {
     return parser.extract< IfcCableCarrierFittingTypeEnum >( IfcCableCarrierFittingTypeEnumSearch, input, cursor, endCursor );
 }
-

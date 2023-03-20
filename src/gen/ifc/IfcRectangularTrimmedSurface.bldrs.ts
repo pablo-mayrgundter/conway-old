@@ -2,13 +2,14 @@
 import { IfcBoundedSurface } from "./index"
 import { IfcSurface } from "./index"
 import { IfcParameterValue } from "./index"
+import { IfcDimensionCount } from "./index"
 
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcrectangulartrimmedsurface.htm */
@@ -20,10 +21,10 @@ export  class IfcRectangularTrimmedSurface extends IfcBoundedSurface
     }
 
     private BasisSurface_? : IfcSurface;
-    private U1_? : IfcParameterValue;
-    private V1_? : IfcParameterValue;
-    private U2_? : IfcParameterValue;
-    private V2_? : IfcParameterValue;
+    private U1_? : number;
+    private V1_? : number;
+    private U2_? : number;
+    private V2_? : number;
     private Usense_? : boolean;
     private Vsense_? : boolean;
 
@@ -47,7 +48,7 @@ export  class IfcRectangularTrimmedSurface extends IfcBoundedSurface
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcSurface ) )
             {                
@@ -60,7 +61,7 @@ export  class IfcRectangularTrimmedSurface extends IfcBoundedSurface
         return this.BasisSurface_ as IfcSurface;
     }
 
-    public get U1() : IfcParameterValue
+    public get U1() : number
     {
         if ( this.U1_ === void 0 )
         {
@@ -89,10 +90,10 @@ export  class IfcRectangularTrimmedSurface extends IfcBoundedSurface
             return value; })();
         }
 
-        return this.U1_ as IfcParameterValue;
+        return this.U1_ as number;
     }
 
-    public get V1() : IfcParameterValue
+    public get V1() : number
     {
         if ( this.V1_ === void 0 )
         {
@@ -121,10 +122,10 @@ export  class IfcRectangularTrimmedSurface extends IfcBoundedSurface
             return value; })();
         }
 
-        return this.V1_ as IfcParameterValue;
+        return this.V1_ as number;
     }
 
-    public get U2() : IfcParameterValue
+    public get U2() : number
     {
         if ( this.U2_ === void 0 )
         {
@@ -153,10 +154,10 @@ export  class IfcRectangularTrimmedSurface extends IfcBoundedSurface
             return value; })();
         }
 
-        return this.U2_ as IfcParameterValue;
+        return this.U2_ as number;
     }
 
-    public get V2() : IfcParameterValue
+    public get V2() : number
     {
         if ( this.V2_ === void 0 )
         {
@@ -185,7 +186,7 @@ export  class IfcRectangularTrimmedSurface extends IfcBoundedSurface
             return value; })();
         }
 
-        return this.V2_ as IfcParameterValue;
+        return this.V2_ as number;
     }
 
     public get Usense() : boolean
@@ -252,6 +253,10 @@ export  class IfcRectangularTrimmedSurface extends IfcBoundedSurface
         return this.Vsense_ as boolean;
     }
 
+    public get Dim() : number
+    {
+        return this?.BasisSurface.Dim;
+    }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

@@ -29,4 +29,3 @@ export function IfcAssemblyPlaceEnumDeserializeStep( input: Uint8Array, cursor: 
 {
     return parser.extract< IfcAssemblyPlaceEnum >( IfcAssemblyPlaceEnumSearch, input, cursor, endCursor );
 }
-

@@ -7,8 +7,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifctrapeziumprofiledef.htm */
@@ -19,12 +19,12 @@ export  class IfcTrapeziumProfileDef extends IfcParameterizedProfileDef
         return EntityTypesIfc.IFCTRAPEZIUMPROFILEDEF;
     }
 
-    private BottomXDim_? : IfcPositiveLengthMeasure;
-    private TopXDim_? : IfcPositiveLengthMeasure;
-    private YDim_? : IfcPositiveLengthMeasure;
-    private TopXOffset_? : IfcLengthMeasure;
+    private BottomXDim_? : number;
+    private TopXDim_? : number;
+    private YDim_? : number;
+    private TopXOffset_? : number;
 
-    public get BottomXDim() : IfcPositiveLengthMeasure
+    public get BottomXDim() : number
     {
         if ( this.BottomXDim_ === void 0 )
         {
@@ -53,10 +53,10 @@ export  class IfcTrapeziumProfileDef extends IfcParameterizedProfileDef
             return value; })();
         }
 
-        return this.BottomXDim_ as IfcPositiveLengthMeasure;
+        return this.BottomXDim_ as number;
     }
 
-    public get TopXDim() : IfcPositiveLengthMeasure
+    public get TopXDim() : number
     {
         if ( this.TopXDim_ === void 0 )
         {
@@ -85,10 +85,10 @@ export  class IfcTrapeziumProfileDef extends IfcParameterizedProfileDef
             return value; })();
         }
 
-        return this.TopXDim_ as IfcPositiveLengthMeasure;
+        return this.TopXDim_ as number;
     }
 
-    public get YDim() : IfcPositiveLengthMeasure
+    public get YDim() : number
     {
         if ( this.YDim_ === void 0 )
         {
@@ -117,10 +117,10 @@ export  class IfcTrapeziumProfileDef extends IfcParameterizedProfileDef
             return value; })();
         }
 
-        return this.YDim_ as IfcPositiveLengthMeasure;
+        return this.YDim_ as number;
     }
 
-    public get TopXOffset() : IfcLengthMeasure
+    public get TopXOffset() : number
     {
         if ( this.TopXOffset_ === void 0 )
         {
@@ -149,7 +149,7 @@ export  class IfcTrapeziumProfileDef extends IfcParameterizedProfileDef
             return value; })();
         }
 
-        return this.TopXOffset_ as IfcLengthMeasure;
+        return this.TopXOffset_ as number;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

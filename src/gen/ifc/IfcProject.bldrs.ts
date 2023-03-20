@@ -8,8 +8,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcproject.htm */
@@ -20,12 +20,12 @@ export  class IfcProject extends IfcObject
         return EntityTypesIfc.IFCPROJECT;
     }
 
-    private LongName_? : IfcLabel | null;
-    private Phase_? : IfcLabel | null;
+    private LongName_? : string | null;
+    private Phase_? : string | null;
     private RepresentationContexts_? : Array<IfcRepresentationContext>;
     private UnitsInContext_? : IfcUnitAssignment;
 
-    public get LongName() : IfcLabel | null
+    public get LongName() : string | null
     {
         if ( this.LongName_ === void 0 )
         {
@@ -61,10 +61,10 @@ export  class IfcProject extends IfcObject
             } })();
         }
 
-        return this.LongName_ as IfcLabel | null;
+        return this.LongName_ as string | null;
     }
 
-    public get Phase() : IfcLabel | null
+    public get Phase() : string | null
     {
         if ( this.Phase_ === void 0 )
         {
@@ -100,7 +100,7 @@ export  class IfcProject extends IfcObject
             } })();
         }
 
-        return this.Phase_ as IfcLabel | null;
+        return this.Phase_ as string | null;
     }
 
     public get RepresentationContexts() : Array<IfcRepresentationContext>
@@ -130,7 +130,7 @@ export  class IfcProject extends IfcObject
                     let cursor = address;
         
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
-                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+                    let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
                     if ( !( value instanceof IfcRepresentationContext ) )
                     {                
@@ -172,7 +172,7 @@ export  class IfcProject extends IfcObject
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcUnitAssignment ) )
             {                

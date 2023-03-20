@@ -34,4 +34,3 @@ export function IfcResourceConsumptionEnumDeserializeStep( input: Uint8Array, cu
 {
     return parser.extract< IfcResourceConsumptionEnum >( IfcResourceConsumptionEnumSearch, input, cursor, endCursor );
 }
-

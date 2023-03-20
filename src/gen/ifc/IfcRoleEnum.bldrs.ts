@@ -49,4 +49,3 @@ export function IfcRoleEnumDeserializeStep( input: Uint8Array, cursor: number, e
 {
     return parser.extract< IfcRoleEnum >( IfcRoleEnumSearch, input, cursor, endCursor );
 }
-

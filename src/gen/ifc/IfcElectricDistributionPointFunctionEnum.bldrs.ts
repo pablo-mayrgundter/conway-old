@@ -37,4 +37,3 @@ export function IfcElectricDistributionPointFunctionEnumDeserializeStep( input: 
 {
     return parser.extract< IfcElectricDistributionPointFunctionEnum >( IfcElectricDistributionPointFunctionEnumSearch, input, cursor, endCursor );
 }
-

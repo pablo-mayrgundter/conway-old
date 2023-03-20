@@ -8,8 +8,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifclightsourcepositional.htm */
@@ -21,10 +21,10 @@ export  class IfcLightSourcePositional extends IfcLightSource
     }
 
     private Position_? : IfcCartesianPoint;
-    private Radius_? : IfcPositiveLengthMeasure;
-    private ConstantAttenuation_? : IfcReal;
-    private DistanceAttenuation_? : IfcReal;
-    private QuadricAttenuation_? : IfcReal;
+    private Radius_? : number;
+    private ConstantAttenuation_? : number;
+    private DistanceAttenuation_? : number;
+    private QuadricAttenuation_? : number;
 
     public get Position() : IfcCartesianPoint
     {
@@ -46,7 +46,7 @@ export  class IfcLightSourcePositional extends IfcLightSource
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcCartesianPoint ) )
             {                
@@ -59,7 +59,7 @@ export  class IfcLightSourcePositional extends IfcLightSource
         return this.Position_ as IfcCartesianPoint;
     }
 
-    public get Radius() : IfcPositiveLengthMeasure
+    public get Radius() : number
     {
         if ( this.Radius_ === void 0 )
         {
@@ -88,10 +88,10 @@ export  class IfcLightSourcePositional extends IfcLightSource
             return value; })();
         }
 
-        return this.Radius_ as IfcPositiveLengthMeasure;
+        return this.Radius_ as number;
     }
 
-    public get ConstantAttenuation() : IfcReal
+    public get ConstantAttenuation() : number
     {
         if ( this.ConstantAttenuation_ === void 0 )
         {
@@ -120,10 +120,10 @@ export  class IfcLightSourcePositional extends IfcLightSource
             return value; })();
         }
 
-        return this.ConstantAttenuation_ as IfcReal;
+        return this.ConstantAttenuation_ as number;
     }
 
-    public get DistanceAttenuation() : IfcReal
+    public get DistanceAttenuation() : number
     {
         if ( this.DistanceAttenuation_ === void 0 )
         {
@@ -152,10 +152,10 @@ export  class IfcLightSourcePositional extends IfcLightSource
             return value; })();
         }
 
-        return this.DistanceAttenuation_ as IfcReal;
+        return this.DistanceAttenuation_ as number;
     }
 
-    public get QuadricAttenuation() : IfcReal
+    public get QuadricAttenuation() : number
     {
         if ( this.QuadricAttenuation_ === void 0 )
         {
@@ -184,7 +184,7 @@ export  class IfcLightSourcePositional extends IfcLightSource
             return value; })();
         }
 
-        return this.QuadricAttenuation_ as IfcReal;
+        return this.QuadricAttenuation_ as number;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

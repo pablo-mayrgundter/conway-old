@@ -39,4 +39,3 @@ export function IfcThermalLoadSourceEnumDeserializeStep( input: Uint8Array, curs
 {
     return parser.extract< IfcThermalLoadSourceEnum >( IfcThermalLoadSourceEnumSearch, input, cursor, endCursor );
 }
-

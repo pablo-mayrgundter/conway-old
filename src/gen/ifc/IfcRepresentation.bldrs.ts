@@ -7,8 +7,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcrepresentation.htm */
@@ -20,8 +20,8 @@ export  class IfcRepresentation extends StepEntityBase< EntityTypesIfc >
     }
 
     private ContextOfItems_? : IfcRepresentationContext;
-    private RepresentationIdentifier_? : IfcLabel | null;
-    private RepresentationType_? : IfcLabel | null;
+    private RepresentationIdentifier_? : string | null;
+    private RepresentationType_? : string | null;
     private Items_? : Array<IfcRepresentationItem>;
 
     public get ContextOfItems() : IfcRepresentationContext
@@ -44,7 +44,7 @@ export  class IfcRepresentation extends StepEntityBase< EntityTypesIfc >
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcRepresentationContext ) )
             {                
@@ -57,7 +57,7 @@ export  class IfcRepresentation extends StepEntityBase< EntityTypesIfc >
         return this.ContextOfItems_ as IfcRepresentationContext;
     }
 
-    public get RepresentationIdentifier() : IfcLabel | null
+    public get RepresentationIdentifier() : string | null
     {
         if ( this.RepresentationIdentifier_ === void 0 )
         {
@@ -93,10 +93,10 @@ export  class IfcRepresentation extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.RepresentationIdentifier_ as IfcLabel | null;
+        return this.RepresentationIdentifier_ as string | null;
     }
 
-    public get RepresentationType() : IfcLabel | null
+    public get RepresentationType() : string | null
     {
         if ( this.RepresentationType_ === void 0 )
         {
@@ -132,7 +132,7 @@ export  class IfcRepresentation extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.RepresentationType_ as IfcLabel | null;
+        return this.RepresentationType_ as string | null;
     }
 
     public get Items() : Array<IfcRepresentationItem>
@@ -162,7 +162,7 @@ export  class IfcRepresentation extends StepEntityBase< EntityTypesIfc >
                     let cursor = address;
         
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
-                    let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+                    let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
                     if ( !( value instanceof IfcRepresentationItem ) )
                     {                

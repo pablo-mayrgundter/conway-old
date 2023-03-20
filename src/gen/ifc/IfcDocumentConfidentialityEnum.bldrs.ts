@@ -32,4 +32,3 @@ export function IfcDocumentConfidentialityEnumDeserializeStep( input: Uint8Array
 {
     return parser.extract< IfcDocumentConfidentialityEnum >( IfcDocumentConfidentialityEnumSearch, input, cursor, endCursor );
 }
-

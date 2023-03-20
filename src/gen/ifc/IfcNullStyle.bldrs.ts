@@ -27,4 +27,3 @@ export function IfcNullStyleDeserializeStep( input: Uint8Array, cursor: number, 
 {
     return parser.extract< IfcNullStyle >( IfcNullStyleSearch, input, cursor, endCursor );
 }
-

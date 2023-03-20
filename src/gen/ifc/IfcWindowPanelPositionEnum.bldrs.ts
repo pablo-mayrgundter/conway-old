@@ -32,4 +32,3 @@ export function IfcWindowPanelPositionEnumDeserializeStep( input: Uint8Array, cu
 {
     return parser.extract< IfcWindowPanelPositionEnum >( IfcWindowPanelPositionEnumSearch, input, cursor, endCursor );
 }
-

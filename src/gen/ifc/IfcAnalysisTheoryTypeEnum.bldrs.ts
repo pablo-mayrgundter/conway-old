@@ -32,4 +32,3 @@ export function IfcAnalysisTheoryTypeEnumDeserializeStep( input: Uint8Array, cur
 {
     return parser.extract< IfcAnalysisTheoryTypeEnum >( IfcAnalysisTheoryTypeEnumSearch, input, cursor, endCursor );
 }
-

@@ -38,4 +38,3 @@ export function IfcSanitaryTerminalTypeEnumDeserializeStep( input: Uint8Array, c
 {
     return parser.extract< IfcSanitaryTerminalTypeEnum >( IfcSanitaryTerminalTypeEnumSearch, input, cursor, endCursor );
 }
-

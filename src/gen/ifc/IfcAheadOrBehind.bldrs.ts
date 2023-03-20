@@ -28,4 +28,3 @@ export function IfcAheadOrBehindDeserializeStep( input: Uint8Array, cursor: numb
 {
     return parser.extract< IfcAheadOrBehind >( IfcAheadOrBehindSearch, input, cursor, endCursor );
 }
-

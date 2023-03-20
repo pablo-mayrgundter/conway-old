@@ -10,8 +10,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcreinforcementbarproperties.htm */
@@ -22,14 +22,14 @@ export  class IfcReinforcementBarProperties extends StepEntityBase< EntityTypesI
         return EntityTypesIfc.IFCREINFORCEMENTBARPROPERTIES;
     }
 
-    private TotalCrossSectionArea_? : IfcAreaMeasure;
-    private SteelGrade_? : IfcLabel;
+    private TotalCrossSectionArea_? : number;
+    private SteelGrade_? : string;
     private BarSurface_? : IfcReinforcingBarSurfaceEnum | null;
-    private EffectiveDepth_? : IfcLengthMeasure | null;
-    private NominalBarDiameter_? : IfcPositiveLengthMeasure | null;
-    private BarCount_? : IfcCountMeasure | null;
+    private EffectiveDepth_? : number | null;
+    private NominalBarDiameter_? : number | null;
+    private BarCount_? : number | null;
 
-    public get TotalCrossSectionArea() : IfcAreaMeasure
+    public get TotalCrossSectionArea() : number
     {
         if ( this.TotalCrossSectionArea_ === void 0 )
         {
@@ -58,10 +58,10 @@ export  class IfcReinforcementBarProperties extends StepEntityBase< EntityTypesI
             return value; })();
         }
 
-        return this.TotalCrossSectionArea_ as IfcAreaMeasure;
+        return this.TotalCrossSectionArea_ as number;
     }
 
-    public get SteelGrade() : IfcLabel
+    public get SteelGrade() : string
     {
         if ( this.SteelGrade_ === void 0 )
         {
@@ -90,7 +90,7 @@ export  class IfcReinforcementBarProperties extends StepEntityBase< EntityTypesI
             return value; })();
         }
 
-        return this.SteelGrade_ as IfcLabel;
+        return this.SteelGrade_ as string;
     }
 
     public get BarSurface() : IfcReinforcingBarSurfaceEnum | null
@@ -132,7 +132,7 @@ export  class IfcReinforcementBarProperties extends StepEntityBase< EntityTypesI
         return this.BarSurface_ as IfcReinforcingBarSurfaceEnum | null;
     }
 
-    public get EffectiveDepth() : IfcLengthMeasure | null
+    public get EffectiveDepth() : number | null
     {
         if ( this.EffectiveDepth_ === void 0 )
         {
@@ -168,10 +168,10 @@ export  class IfcReinforcementBarProperties extends StepEntityBase< EntityTypesI
             } })();
         }
 
-        return this.EffectiveDepth_ as IfcLengthMeasure | null;
+        return this.EffectiveDepth_ as number | null;
     }
 
-    public get NominalBarDiameter() : IfcPositiveLengthMeasure | null
+    public get NominalBarDiameter() : number | null
     {
         if ( this.NominalBarDiameter_ === void 0 )
         {
@@ -207,10 +207,10 @@ export  class IfcReinforcementBarProperties extends StepEntityBase< EntityTypesI
             } })();
         }
 
-        return this.NominalBarDiameter_ as IfcPositiveLengthMeasure | null;
+        return this.NominalBarDiameter_ as number | null;
     }
 
-    public get BarCount() : IfcCountMeasure | null
+    public get BarCount() : number | null
     {
         if ( this.BarCount_ === void 0 )
         {
@@ -246,7 +246,7 @@ export  class IfcReinforcementBarProperties extends StepEntityBase< EntityTypesI
             } })();
         }
 
-        return this.BarCount_ as IfcCountMeasure | null;
+        return this.BarCount_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

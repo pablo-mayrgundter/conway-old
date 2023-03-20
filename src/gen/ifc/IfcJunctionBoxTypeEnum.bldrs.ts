@@ -28,4 +28,3 @@ export function IfcJunctionBoxTypeEnumDeserializeStep( input: Uint8Array, cursor
 {
     return parser.extract< IfcJunctionBoxTypeEnum >( IfcJunctionBoxTypeEnumSearch, input, cursor, endCursor );
 }
-

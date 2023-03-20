@@ -8,8 +8,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcfuelproperties.htm */
@@ -20,12 +20,12 @@ export  class IfcFuelProperties extends IfcMaterialProperties
         return EntityTypesIfc.IFCFUELPROPERTIES;
     }
 
-    private CombustionTemperature_? : IfcThermodynamicTemperatureMeasure | null;
-    private CarbonContent_? : IfcPositiveRatioMeasure | null;
-    private LowerHeatingValue_? : IfcHeatingValueMeasure | null;
-    private HigherHeatingValue_? : IfcHeatingValueMeasure | null;
+    private CombustionTemperature_? : number | null;
+    private CarbonContent_? : number | null;
+    private LowerHeatingValue_? : number | null;
+    private HigherHeatingValue_? : number | null;
 
-    public get CombustionTemperature() : IfcThermodynamicTemperatureMeasure | null
+    public get CombustionTemperature() : number | null
     {
         if ( this.CombustionTemperature_ === void 0 )
         {
@@ -61,10 +61,10 @@ export  class IfcFuelProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.CombustionTemperature_ as IfcThermodynamicTemperatureMeasure | null;
+        return this.CombustionTemperature_ as number | null;
     }
 
-    public get CarbonContent() : IfcPositiveRatioMeasure | null
+    public get CarbonContent() : number | null
     {
         if ( this.CarbonContent_ === void 0 )
         {
@@ -100,10 +100,10 @@ export  class IfcFuelProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.CarbonContent_ as IfcPositiveRatioMeasure | null;
+        return this.CarbonContent_ as number | null;
     }
 
-    public get LowerHeatingValue() : IfcHeatingValueMeasure | null
+    public get LowerHeatingValue() : number | null
     {
         if ( this.LowerHeatingValue_ === void 0 )
         {
@@ -139,10 +139,10 @@ export  class IfcFuelProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.LowerHeatingValue_ as IfcHeatingValueMeasure | null;
+        return this.LowerHeatingValue_ as number | null;
     }
 
-    public get HigherHeatingValue() : IfcHeatingValueMeasure | null
+    public get HigherHeatingValue() : number | null
     {
         if ( this.HigherHeatingValue_ === void 0 )
         {
@@ -178,7 +178,7 @@ export  class IfcFuelProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.HigherHeatingValue_ as IfcHeatingValueMeasure | null;
+        return this.HigherHeatingValue_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

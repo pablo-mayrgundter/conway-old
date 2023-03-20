@@ -13,8 +13,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcspacethermalloadproperties.htm */
@@ -25,18 +25,18 @@ export  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefinition
         return EntityTypesIfc.IFCSPACETHERMALLOADPROPERTIES;
     }
 
-    private ApplicableValueRatio_? : IfcPositiveRatioMeasure | null;
+    private ApplicableValueRatio_? : number | null;
     private ThermalLoadSource_? : IfcThermalLoadSourceEnum;
     private PropertySource_? : IfcPropertySourceEnum;
-    private SourceDescription_? : IfcText | null;
-    private MaximumValue_? : IfcPowerMeasure;
-    private MinimumValue_? : IfcPowerMeasure | null;
+    private SourceDescription_? : string | null;
+    private MaximumValue_? : number;
+    private MinimumValue_? : number | null;
     private ThermalLoadTimeSeriesValues_? : IfcTimeSeries | null;
-    private UserDefinedThermalLoadSource_? : IfcLabel | null;
-    private UserDefinedPropertySource_? : IfcLabel | null;
+    private UserDefinedThermalLoadSource_? : string | null;
+    private UserDefinedPropertySource_? : string | null;
     private ThermalLoadType_? : IfcThermalLoadTypeEnum;
 
-    public get ApplicableValueRatio() : IfcPositiveRatioMeasure | null
+    public get ApplicableValueRatio() : number | null
     {
         if ( this.ApplicableValueRatio_ === void 0 )
         {
@@ -72,7 +72,7 @@ export  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.ApplicableValueRatio_ as IfcPositiveRatioMeasure | null;
+        return this.ApplicableValueRatio_ as number | null;
     }
 
     public get ThermalLoadSource() : IfcThermalLoadSourceEnum
@@ -139,7 +139,7 @@ export  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefinition
         return this.PropertySource_ as IfcPropertySourceEnum;
     }
 
-    public get SourceDescription() : IfcText | null
+    public get SourceDescription() : string | null
     {
         if ( this.SourceDescription_ === void 0 )
         {
@@ -175,10 +175,10 @@ export  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.SourceDescription_ as IfcText | null;
+        return this.SourceDescription_ as string | null;
     }
 
-    public get MaximumValue() : IfcPowerMeasure
+    public get MaximumValue() : number
     {
         if ( this.MaximumValue_ === void 0 )
         {
@@ -207,10 +207,10 @@ export  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefinition
             return value; })();
         }
 
-        return this.MaximumValue_ as IfcPowerMeasure;
+        return this.MaximumValue_ as number;
     }
 
-    public get MinimumValue() : IfcPowerMeasure | null
+    public get MinimumValue() : number | null
     {
         if ( this.MinimumValue_ === void 0 )
         {
@@ -246,7 +246,7 @@ export  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.MinimumValue_ as IfcPowerMeasure | null;
+        return this.MinimumValue_ as number | null;
     }
 
     public get ThermalLoadTimeSeriesValues() : IfcTimeSeries | null
@@ -269,7 +269,7 @@ export  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefinition
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcTimeSeries ) )
             {
@@ -289,7 +289,7 @@ export  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefinition
         return this.ThermalLoadTimeSeriesValues_ as IfcTimeSeries | null;
     }
 
-    public get UserDefinedThermalLoadSource() : IfcLabel | null
+    public get UserDefinedThermalLoadSource() : string | null
     {
         if ( this.UserDefinedThermalLoadSource_ === void 0 )
         {
@@ -325,10 +325,10 @@ export  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.UserDefinedThermalLoadSource_ as IfcLabel | null;
+        return this.UserDefinedThermalLoadSource_ as string | null;
     }
 
-    public get UserDefinedPropertySource() : IfcLabel | null
+    public get UserDefinedPropertySource() : string | null
     {
         if ( this.UserDefinedPropertySource_ === void 0 )
         {
@@ -364,7 +364,7 @@ export  class IfcSpaceThermalLoadProperties extends IfcPropertySetDefinition
             } })();
         }
 
-        return this.UserDefinedPropertySource_ as IfcLabel | null;
+        return this.UserDefinedPropertySource_ as string | null;
     }
 
     public get ThermalLoadType() : IfcThermalLoadTypeEnum

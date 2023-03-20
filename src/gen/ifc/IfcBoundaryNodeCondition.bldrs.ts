@@ -7,8 +7,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcboundarynodecondition.htm */
@@ -19,14 +19,14 @@ export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
         return EntityTypesIfc.IFCBOUNDARYNODECONDITION;
     }
 
-    private LinearStiffnessX_? : IfcLinearStiffnessMeasure | null;
-    private LinearStiffnessY_? : IfcLinearStiffnessMeasure | null;
-    private LinearStiffnessZ_? : IfcLinearStiffnessMeasure | null;
-    private RotationalStiffnessX_? : IfcRotationalStiffnessMeasure | null;
-    private RotationalStiffnessY_? : IfcRotationalStiffnessMeasure | null;
-    private RotationalStiffnessZ_? : IfcRotationalStiffnessMeasure | null;
+    private LinearStiffnessX_? : number | null;
+    private LinearStiffnessY_? : number | null;
+    private LinearStiffnessZ_? : number | null;
+    private RotationalStiffnessX_? : number | null;
+    private RotationalStiffnessY_? : number | null;
+    private RotationalStiffnessZ_? : number | null;
 
-    public get LinearStiffnessX() : IfcLinearStiffnessMeasure | null
+    public get LinearStiffnessX() : number | null
     {
         if ( this.LinearStiffnessX_ === void 0 )
         {
@@ -62,10 +62,10 @@ export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
             } })();
         }
 
-        return this.LinearStiffnessX_ as IfcLinearStiffnessMeasure | null;
+        return this.LinearStiffnessX_ as number | null;
     }
 
-    public get LinearStiffnessY() : IfcLinearStiffnessMeasure | null
+    public get LinearStiffnessY() : number | null
     {
         if ( this.LinearStiffnessY_ === void 0 )
         {
@@ -101,10 +101,10 @@ export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
             } })();
         }
 
-        return this.LinearStiffnessY_ as IfcLinearStiffnessMeasure | null;
+        return this.LinearStiffnessY_ as number | null;
     }
 
-    public get LinearStiffnessZ() : IfcLinearStiffnessMeasure | null
+    public get LinearStiffnessZ() : number | null
     {
         if ( this.LinearStiffnessZ_ === void 0 )
         {
@@ -140,10 +140,10 @@ export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
             } })();
         }
 
-        return this.LinearStiffnessZ_ as IfcLinearStiffnessMeasure | null;
+        return this.LinearStiffnessZ_ as number | null;
     }
 
-    public get RotationalStiffnessX() : IfcRotationalStiffnessMeasure | null
+    public get RotationalStiffnessX() : number | null
     {
         if ( this.RotationalStiffnessX_ === void 0 )
         {
@@ -179,10 +179,10 @@ export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
             } })();
         }
 
-        return this.RotationalStiffnessX_ as IfcRotationalStiffnessMeasure | null;
+        return this.RotationalStiffnessX_ as number | null;
     }
 
-    public get RotationalStiffnessY() : IfcRotationalStiffnessMeasure | null
+    public get RotationalStiffnessY() : number | null
     {
         if ( this.RotationalStiffnessY_ === void 0 )
         {
@@ -218,10 +218,10 @@ export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
             } })();
         }
 
-        return this.RotationalStiffnessY_ as IfcRotationalStiffnessMeasure | null;
+        return this.RotationalStiffnessY_ as number | null;
     }
 
-    public get RotationalStiffnessZ() : IfcRotationalStiffnessMeasure | null
+    public get RotationalStiffnessZ() : number | null
     {
         if ( this.RotationalStiffnessZ_ === void 0 )
         {
@@ -257,7 +257,7 @@ export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
             } })();
         }
 
-        return this.RotationalStiffnessZ_ as IfcRotationalStiffnessMeasure | null;
+        return this.RotationalStiffnessZ_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

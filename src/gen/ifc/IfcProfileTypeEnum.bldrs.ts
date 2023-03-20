@@ -28,4 +28,3 @@ export function IfcProfileTypeEnumDeserializeStep( input: Uint8Array, cursor: nu
 {
     return parser.extract< IfcProfileTypeEnum >( IfcProfileTypeEnumSearch, input, cursor, endCursor );
 }
-

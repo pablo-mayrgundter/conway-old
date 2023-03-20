@@ -32,4 +32,3 @@ export function IfcEnergySequenceEnumDeserializeStep( input: Uint8Array, cursor:
 {
     return parser.extract< IfcEnergySequenceEnum >( IfcEnergySequenceEnumSearch, input, cursor, endCursor );
 }
-

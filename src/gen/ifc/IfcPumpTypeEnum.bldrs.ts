@@ -33,4 +33,3 @@ export function IfcPumpTypeEnumDeserializeStep( input: Uint8Array, cursor: numbe
 {
     return parser.extract< IfcPumpTypeEnum >( IfcPumpTypeEnumSearch, input, cursor, endCursor );
 }
-

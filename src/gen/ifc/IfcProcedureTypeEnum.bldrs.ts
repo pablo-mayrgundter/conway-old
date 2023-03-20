@@ -35,4 +35,3 @@ export function IfcProcedureTypeEnumDeserializeStep( input: Uint8Array, cursor: 
 {
     return parser.extract< IfcProcedureTypeEnum >( IfcProcedureTypeEnumSearch, input, cursor, endCursor );
 }
-

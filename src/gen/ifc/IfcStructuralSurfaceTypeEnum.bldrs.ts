@@ -31,4 +31,3 @@ export function IfcStructuralSurfaceTypeEnumDeserializeStep( input: Uint8Array, 
 {
     return parser.extract< IfcStructuralSurfaceTypeEnum >( IfcStructuralSurfaceTypeEnumSearch, input, cursor, endCursor );
 }
-

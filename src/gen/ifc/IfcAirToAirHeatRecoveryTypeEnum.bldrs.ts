@@ -37,4 +37,3 @@ export function IfcAirToAirHeatRecoveryTypeEnumDeserializeStep( input: Uint8Arra
 {
     return parser.extract< IfcAirToAirHeatRecoveryTypeEnum >( IfcAirToAirHeatRecoveryTypeEnumSearch, input, cursor, endCursor );
 }
-

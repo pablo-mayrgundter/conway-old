@@ -35,4 +35,3 @@ export function IfcCostScheduleTypeEnumDeserializeStep( input: Uint8Array, curso
 {
     return parser.extract< IfcCostScheduleTypeEnum >( IfcCostScheduleTypeEnumSearch, input, cursor, endCursor );
 }
-

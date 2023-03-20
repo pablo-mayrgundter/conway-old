@@ -33,4 +33,3 @@ export function IfcWallTypeEnumDeserializeStep( input: Uint8Array, cursor: numbe
 {
     return parser.extract< IfcWallTypeEnum >( IfcWallTypeEnumSearch, input, cursor, endCursor );
 }
-

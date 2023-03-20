@@ -28,4 +28,3 @@ export function IfcRibPlateDirectionEnumDeserializeStep( input: Uint8Array, curs
 {
     return parser.extract< IfcRibPlateDirectionEnum >( IfcRibPlateDirectionEnumSearch, input, cursor, endCursor );
 }
-

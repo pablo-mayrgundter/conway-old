@@ -35,4 +35,3 @@ export function IfcSpaceHeaterTypeEnumDeserializeStep( input: Uint8Array, cursor
 {
     return parser.extract< IfcSpaceHeaterTypeEnum >( IfcSpaceHeaterTypeEnumSearch, input, cursor, endCursor );
 }
-

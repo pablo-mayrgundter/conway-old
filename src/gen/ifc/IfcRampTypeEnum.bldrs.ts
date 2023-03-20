@@ -34,4 +34,3 @@ export function IfcRampTypeEnumDeserializeStep( input: Uint8Array, cursor: numbe
 {
     return parser.extract< IfcRampTypeEnum >( IfcRampTypeEnumSearch, input, cursor, endCursor );
 }
-

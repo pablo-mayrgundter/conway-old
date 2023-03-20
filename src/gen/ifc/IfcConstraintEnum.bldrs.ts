@@ -31,4 +31,3 @@ export function IfcConstraintEnumDeserializeStep( input: Uint8Array, cursor: num
 {
     return parser.extract< IfcConstraintEnum >( IfcConstraintEnumSearch, input, cursor, endCursor );
 }
-

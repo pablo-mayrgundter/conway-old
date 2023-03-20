@@ -29,4 +29,3 @@ export function IfcPhysicalOrVirtualEnumDeserializeStep( input: Uint8Array, curs
 {
     return parser.extract< IfcPhysicalOrVirtualEnum >( IfcPhysicalOrVirtualEnumSearch, input, cursor, endCursor );
 }
-

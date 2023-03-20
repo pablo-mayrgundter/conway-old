@@ -34,4 +34,3 @@ export function IfcAlarmTypeEnumDeserializeStep( input: Uint8Array, cursor: numb
 {
     return parser.extract< IfcAlarmTypeEnum >( IfcAlarmTypeEnumSearch, input, cursor, endCursor );
 }
-

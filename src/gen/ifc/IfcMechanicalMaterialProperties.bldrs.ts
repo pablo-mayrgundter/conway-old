@@ -9,8 +9,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcmechanicalmaterialproperties.htm */
@@ -21,13 +21,13 @@ export  class IfcMechanicalMaterialProperties extends IfcMaterialProperties
         return EntityTypesIfc.IFCMECHANICALMATERIALPROPERTIES;
     }
 
-    private DynamicViscosity_? : IfcDynamicViscosityMeasure | null;
-    private YoungModulus_? : IfcModulusOfElasticityMeasure | null;
-    private ShearModulus_? : IfcModulusOfElasticityMeasure | null;
-    private PoissonRatio_? : IfcPositiveRatioMeasure | null;
-    private ThermalExpansionCoefficient_? : IfcThermalExpansionCoefficientMeasure | null;
+    private DynamicViscosity_? : number | null;
+    private YoungModulus_? : number | null;
+    private ShearModulus_? : number | null;
+    private PoissonRatio_? : number | null;
+    private ThermalExpansionCoefficient_? : number | null;
 
-    public get DynamicViscosity() : IfcDynamicViscosityMeasure | null
+    public get DynamicViscosity() : number | null
     {
         if ( this.DynamicViscosity_ === void 0 )
         {
@@ -63,10 +63,10 @@ export  class IfcMechanicalMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.DynamicViscosity_ as IfcDynamicViscosityMeasure | null;
+        return this.DynamicViscosity_ as number | null;
     }
 
-    public get YoungModulus() : IfcModulusOfElasticityMeasure | null
+    public get YoungModulus() : number | null
     {
         if ( this.YoungModulus_ === void 0 )
         {
@@ -102,10 +102,10 @@ export  class IfcMechanicalMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.YoungModulus_ as IfcModulusOfElasticityMeasure | null;
+        return this.YoungModulus_ as number | null;
     }
 
-    public get ShearModulus() : IfcModulusOfElasticityMeasure | null
+    public get ShearModulus() : number | null
     {
         if ( this.ShearModulus_ === void 0 )
         {
@@ -141,10 +141,10 @@ export  class IfcMechanicalMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.ShearModulus_ as IfcModulusOfElasticityMeasure | null;
+        return this.ShearModulus_ as number | null;
     }
 
-    public get PoissonRatio() : IfcPositiveRatioMeasure | null
+    public get PoissonRatio() : number | null
     {
         if ( this.PoissonRatio_ === void 0 )
         {
@@ -180,10 +180,10 @@ export  class IfcMechanicalMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.PoissonRatio_ as IfcPositiveRatioMeasure | null;
+        return this.PoissonRatio_ as number | null;
     }
 
-    public get ThermalExpansionCoefficient() : IfcThermalExpansionCoefficientMeasure | null
+    public get ThermalExpansionCoefficient() : number | null
     {
         if ( this.ThermalExpansionCoefficient_ === void 0 )
         {
@@ -219,7 +219,7 @@ export  class IfcMechanicalMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.ThermalExpansionCoefficient_ as IfcThermalExpansionCoefficientMeasure | null;
+        return this.ThermalExpansionCoefficient_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

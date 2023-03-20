@@ -7,8 +7,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcstructuralloadlinearforce.htm */
@@ -19,14 +19,14 @@ export  class IfcStructuralLoadLinearForce extends IfcStructuralLoadStatic
         return EntityTypesIfc.IFCSTRUCTURALLOADLINEARFORCE;
     }
 
-    private LinearForceX_? : IfcLinearForceMeasure | null;
-    private LinearForceY_? : IfcLinearForceMeasure | null;
-    private LinearForceZ_? : IfcLinearForceMeasure | null;
-    private LinearMomentX_? : IfcLinearMomentMeasure | null;
-    private LinearMomentY_? : IfcLinearMomentMeasure | null;
-    private LinearMomentZ_? : IfcLinearMomentMeasure | null;
+    private LinearForceX_? : number | null;
+    private LinearForceY_? : number | null;
+    private LinearForceZ_? : number | null;
+    private LinearMomentX_? : number | null;
+    private LinearMomentY_? : number | null;
+    private LinearMomentZ_? : number | null;
 
-    public get LinearForceX() : IfcLinearForceMeasure | null
+    public get LinearForceX() : number | null
     {
         if ( this.LinearForceX_ === void 0 )
         {
@@ -62,10 +62,10 @@ export  class IfcStructuralLoadLinearForce extends IfcStructuralLoadStatic
             } })();
         }
 
-        return this.LinearForceX_ as IfcLinearForceMeasure | null;
+        return this.LinearForceX_ as number | null;
     }
 
-    public get LinearForceY() : IfcLinearForceMeasure | null
+    public get LinearForceY() : number | null
     {
         if ( this.LinearForceY_ === void 0 )
         {
@@ -101,10 +101,10 @@ export  class IfcStructuralLoadLinearForce extends IfcStructuralLoadStatic
             } })();
         }
 
-        return this.LinearForceY_ as IfcLinearForceMeasure | null;
+        return this.LinearForceY_ as number | null;
     }
 
-    public get LinearForceZ() : IfcLinearForceMeasure | null
+    public get LinearForceZ() : number | null
     {
         if ( this.LinearForceZ_ === void 0 )
         {
@@ -140,10 +140,10 @@ export  class IfcStructuralLoadLinearForce extends IfcStructuralLoadStatic
             } })();
         }
 
-        return this.LinearForceZ_ as IfcLinearForceMeasure | null;
+        return this.LinearForceZ_ as number | null;
     }
 
-    public get LinearMomentX() : IfcLinearMomentMeasure | null
+    public get LinearMomentX() : number | null
     {
         if ( this.LinearMomentX_ === void 0 )
         {
@@ -179,10 +179,10 @@ export  class IfcStructuralLoadLinearForce extends IfcStructuralLoadStatic
             } })();
         }
 
-        return this.LinearMomentX_ as IfcLinearMomentMeasure | null;
+        return this.LinearMomentX_ as number | null;
     }
 
-    public get LinearMomentY() : IfcLinearMomentMeasure | null
+    public get LinearMomentY() : number | null
     {
         if ( this.LinearMomentY_ === void 0 )
         {
@@ -218,10 +218,10 @@ export  class IfcStructuralLoadLinearForce extends IfcStructuralLoadStatic
             } })();
         }
 
-        return this.LinearMomentY_ as IfcLinearMomentMeasure | null;
+        return this.LinearMomentY_ as number | null;
     }
 
-    public get LinearMomentZ() : IfcLinearMomentMeasure | null
+    public get LinearMomentZ() : number | null
     {
         if ( this.LinearMomentZ_ === void 0 )
         {
@@ -257,7 +257,7 @@ export  class IfcStructuralLoadLinearForce extends IfcStructuralLoadStatic
             } })();
         }
 
-        return this.LinearMomentZ_ as IfcLinearMomentMeasure | null;
+        return this.LinearMomentZ_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

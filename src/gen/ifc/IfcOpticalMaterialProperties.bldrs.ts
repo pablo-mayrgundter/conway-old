@@ -6,8 +6,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcopticalmaterialproperties.htm */
@@ -18,17 +18,17 @@ export  class IfcOpticalMaterialProperties extends IfcMaterialProperties
         return EntityTypesIfc.IFCOPTICALMATERIALPROPERTIES;
     }
 
-    private VisibleTransmittance_? : IfcPositiveRatioMeasure | null;
-    private SolarTransmittance_? : IfcPositiveRatioMeasure | null;
-    private ThermalIrTransmittance_? : IfcPositiveRatioMeasure | null;
-    private ThermalIrEmissivityBack_? : IfcPositiveRatioMeasure | null;
-    private ThermalIrEmissivityFront_? : IfcPositiveRatioMeasure | null;
-    private VisibleReflectanceBack_? : IfcPositiveRatioMeasure | null;
-    private VisibleReflectanceFront_? : IfcPositiveRatioMeasure | null;
-    private SolarReflectanceFront_? : IfcPositiveRatioMeasure | null;
-    private SolarReflectanceBack_? : IfcPositiveRatioMeasure | null;
+    private VisibleTransmittance_? : number | null;
+    private SolarTransmittance_? : number | null;
+    private ThermalIrTransmittance_? : number | null;
+    private ThermalIrEmissivityBack_? : number | null;
+    private ThermalIrEmissivityFront_? : number | null;
+    private VisibleReflectanceBack_? : number | null;
+    private VisibleReflectanceFront_? : number | null;
+    private SolarReflectanceFront_? : number | null;
+    private SolarReflectanceBack_? : number | null;
 
-    public get VisibleTransmittance() : IfcPositiveRatioMeasure | null
+    public get VisibleTransmittance() : number | null
     {
         if ( this.VisibleTransmittance_ === void 0 )
         {
@@ -64,10 +64,10 @@ export  class IfcOpticalMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.VisibleTransmittance_ as IfcPositiveRatioMeasure | null;
+        return this.VisibleTransmittance_ as number | null;
     }
 
-    public get SolarTransmittance() : IfcPositiveRatioMeasure | null
+    public get SolarTransmittance() : number | null
     {
         if ( this.SolarTransmittance_ === void 0 )
         {
@@ -103,10 +103,10 @@ export  class IfcOpticalMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.SolarTransmittance_ as IfcPositiveRatioMeasure | null;
+        return this.SolarTransmittance_ as number | null;
     }
 
-    public get ThermalIrTransmittance() : IfcPositiveRatioMeasure | null
+    public get ThermalIrTransmittance() : number | null
     {
         if ( this.ThermalIrTransmittance_ === void 0 )
         {
@@ -142,10 +142,10 @@ export  class IfcOpticalMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.ThermalIrTransmittance_ as IfcPositiveRatioMeasure | null;
+        return this.ThermalIrTransmittance_ as number | null;
     }
 
-    public get ThermalIrEmissivityBack() : IfcPositiveRatioMeasure | null
+    public get ThermalIrEmissivityBack() : number | null
     {
         if ( this.ThermalIrEmissivityBack_ === void 0 )
         {
@@ -181,10 +181,10 @@ export  class IfcOpticalMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.ThermalIrEmissivityBack_ as IfcPositiveRatioMeasure | null;
+        return this.ThermalIrEmissivityBack_ as number | null;
     }
 
-    public get ThermalIrEmissivityFront() : IfcPositiveRatioMeasure | null
+    public get ThermalIrEmissivityFront() : number | null
     {
         if ( this.ThermalIrEmissivityFront_ === void 0 )
         {
@@ -220,10 +220,10 @@ export  class IfcOpticalMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.ThermalIrEmissivityFront_ as IfcPositiveRatioMeasure | null;
+        return this.ThermalIrEmissivityFront_ as number | null;
     }
 
-    public get VisibleReflectanceBack() : IfcPositiveRatioMeasure | null
+    public get VisibleReflectanceBack() : number | null
     {
         if ( this.VisibleReflectanceBack_ === void 0 )
         {
@@ -259,10 +259,10 @@ export  class IfcOpticalMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.VisibleReflectanceBack_ as IfcPositiveRatioMeasure | null;
+        return this.VisibleReflectanceBack_ as number | null;
     }
 
-    public get VisibleReflectanceFront() : IfcPositiveRatioMeasure | null
+    public get VisibleReflectanceFront() : number | null
     {
         if ( this.VisibleReflectanceFront_ === void 0 )
         {
@@ -298,10 +298,10 @@ export  class IfcOpticalMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.VisibleReflectanceFront_ as IfcPositiveRatioMeasure | null;
+        return this.VisibleReflectanceFront_ as number | null;
     }
 
-    public get SolarReflectanceFront() : IfcPositiveRatioMeasure | null
+    public get SolarReflectanceFront() : number | null
     {
         if ( this.SolarReflectanceFront_ === void 0 )
         {
@@ -337,10 +337,10 @@ export  class IfcOpticalMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.SolarReflectanceFront_ as IfcPositiveRatioMeasure | null;
+        return this.SolarReflectanceFront_ as number | null;
     }
 
-    public get SolarReflectanceBack() : IfcPositiveRatioMeasure | null
+    public get SolarReflectanceBack() : number | null
     {
         if ( this.SolarReflectanceBack_ === void 0 )
         {
@@ -376,7 +376,7 @@ export  class IfcOpticalMaterialProperties extends IfcMaterialProperties
             } })();
         }
 
-        return this.SolarReflectanceBack_ as IfcPositiveRatioMeasure | null;
+        return this.SolarReflectanceBack_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

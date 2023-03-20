@@ -35,4 +35,3 @@ export function IfcSurfaceTextureEnumDeserializeStep( input: Uint8Array, cursor:
 {
     return parser.extract< IfcSurfaceTextureEnum >( IfcSurfaceTextureEnumSearch, input, cursor, endCursor );
 }
-

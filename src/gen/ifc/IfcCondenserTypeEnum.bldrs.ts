@@ -34,4 +34,3 @@ export function IfcCondenserTypeEnumDeserializeStep( input: Uint8Array, cursor: 
 {
     return parser.extract< IfcCondenserTypeEnum >( IfcCondenserTypeEnumSearch, input, cursor, endCursor );
 }
-

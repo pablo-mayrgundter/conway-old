@@ -34,4 +34,3 @@ export function IfcDoorPanelOperationEnumDeserializeStep( input: Uint8Array, cur
 {
     return parser.extract< IfcDoorPanelOperationEnum >( IfcDoorPanelOperationEnumSearch, input, cursor, endCursor );
 }
-

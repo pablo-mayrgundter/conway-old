@@ -6,8 +6,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcpixeltexture.htm */
@@ -18,12 +18,12 @@ export  class IfcPixelTexture extends IfcSurfaceTexture
         return EntityTypesIfc.IFCPIXELTEXTURE;
     }
 
-    private Width_? : IfcInteger;
-    private Height_? : IfcInteger;
-    private ColourComponents_? : IfcInteger;
+    private Width_? : number;
+    private Height_? : number;
+    private ColourComponents_? : number;
     private Pixel_? : Array<[Uint8Array, number]>;
 
-    public get Width() : IfcInteger
+    public get Width() : number
     {
         if ( this.Width_ === void 0 )
         {
@@ -52,10 +52,10 @@ export  class IfcPixelTexture extends IfcSurfaceTexture
             return value; })();
         }
 
-        return this.Width_ as IfcInteger;
+        return this.Width_ as number;
     }
 
-    public get Height() : IfcInteger
+    public get Height() : number
     {
         if ( this.Height_ === void 0 )
         {
@@ -84,10 +84,10 @@ export  class IfcPixelTexture extends IfcSurfaceTexture
             return value; })();
         }
 
-        return this.Height_ as IfcInteger;
+        return this.Height_ as number;
     }
 
-    public get ColourComponents() : IfcInteger
+    public get ColourComponents() : number
     {
         if ( this.ColourComponents_ === void 0 )
         {
@@ -116,7 +116,7 @@ export  class IfcPixelTexture extends IfcSurfaceTexture
             return value; })();
         }
 
-        return this.ColourComponents_ as IfcInteger;
+        return this.ColourComponents_ as number;
     }
 
     public get Pixel() : Array<[Uint8Array, number]>

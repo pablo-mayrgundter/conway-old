@@ -29,4 +29,3 @@ export function IfcSurfaceSideDeserializeStep( input: Uint8Array, cursor: number
 {
     return parser.extract< IfcSurfaceSide >( IfcSurfaceSideSearch, input, cursor, endCursor );
 }
-

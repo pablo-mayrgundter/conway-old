@@ -36,4 +36,3 @@ export function IfcReflectanceMethodEnumDeserializeStep( input: Uint8Array, curs
 {
     return parser.extract< IfcReflectanceMethodEnum >( IfcReflectanceMethodEnumSearch, input, cursor, endCursor );
 }
-

@@ -41,4 +41,3 @@ export function IfcHumidifierTypeEnumDeserializeStep( input: Uint8Array, cursor:
 {
     return parser.extract< IfcHumidifierTypeEnum >( IfcHumidifierTypeEnumSearch, input, cursor, endCursor );
 }
-

@@ -9,8 +9,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcrelinteractionrequirements.htm */
@@ -21,13 +21,13 @@ export  class IfcRelInteractionRequirements extends IfcRelConnects
         return EntityTypesIfc.IFCRELINTERACTIONREQUIREMENTS;
     }
 
-    private DailyInteraction_? : IfcCountMeasure | null;
-    private ImportanceRating_? : IfcNormalisedRatioMeasure | null;
+    private DailyInteraction_? : number | null;
+    private ImportanceRating_? : number | null;
     private LocationOfInteraction_? : IfcSpatialStructureElement | null;
     private RelatedSpaceProgram_? : IfcSpaceProgram;
     private RelatingSpaceProgram_? : IfcSpaceProgram;
 
-    public get DailyInteraction() : IfcCountMeasure | null
+    public get DailyInteraction() : number | null
     {
         if ( this.DailyInteraction_ === void 0 )
         {
@@ -63,10 +63,10 @@ export  class IfcRelInteractionRequirements extends IfcRelConnects
             } })();
         }
 
-        return this.DailyInteraction_ as IfcCountMeasure | null;
+        return this.DailyInteraction_ as number | null;
     }
 
-    public get ImportanceRating() : IfcNormalisedRatioMeasure | null
+    public get ImportanceRating() : number | null
     {
         if ( this.ImportanceRating_ === void 0 )
         {
@@ -102,7 +102,7 @@ export  class IfcRelInteractionRequirements extends IfcRelConnects
             } })();
         }
 
-        return this.ImportanceRating_ as IfcNormalisedRatioMeasure | null;
+        return this.ImportanceRating_ as number | null;
     }
 
     public get LocationOfInteraction() : IfcSpatialStructureElement | null
@@ -125,7 +125,7 @@ export  class IfcRelInteractionRequirements extends IfcRelConnects
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcSpatialStructureElement ) )
             {
@@ -165,7 +165,7 @@ export  class IfcRelInteractionRequirements extends IfcRelConnects
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcSpaceProgram ) )
             {                
@@ -198,7 +198,7 @@ export  class IfcRelInteractionRequirements extends IfcRelConnects
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value     = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
             if ( !( value instanceof IfcSpaceProgram ) )
             {                

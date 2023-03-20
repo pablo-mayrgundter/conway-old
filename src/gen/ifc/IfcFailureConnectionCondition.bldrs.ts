@@ -6,8 +6,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcfailureconnectioncondition.htm */
@@ -18,14 +18,14 @@ export  class IfcFailureConnectionCondition extends IfcStructuralConnectionCondi
         return EntityTypesIfc.IFCFAILURECONNECTIONCONDITION;
     }
 
-    private TensionFailureX_? : IfcForceMeasure | null;
-    private TensionFailureY_? : IfcForceMeasure | null;
-    private TensionFailureZ_? : IfcForceMeasure | null;
-    private CompressionFailureX_? : IfcForceMeasure | null;
-    private CompressionFailureY_? : IfcForceMeasure | null;
-    private CompressionFailureZ_? : IfcForceMeasure | null;
+    private TensionFailureX_? : number | null;
+    private TensionFailureY_? : number | null;
+    private TensionFailureZ_? : number | null;
+    private CompressionFailureX_? : number | null;
+    private CompressionFailureY_? : number | null;
+    private CompressionFailureZ_? : number | null;
 
-    public get TensionFailureX() : IfcForceMeasure | null
+    public get TensionFailureX() : number | null
     {
         if ( this.TensionFailureX_ === void 0 )
         {
@@ -61,10 +61,10 @@ export  class IfcFailureConnectionCondition extends IfcStructuralConnectionCondi
             } })();
         }
 
-        return this.TensionFailureX_ as IfcForceMeasure | null;
+        return this.TensionFailureX_ as number | null;
     }
 
-    public get TensionFailureY() : IfcForceMeasure | null
+    public get TensionFailureY() : number | null
     {
         if ( this.TensionFailureY_ === void 0 )
         {
@@ -100,10 +100,10 @@ export  class IfcFailureConnectionCondition extends IfcStructuralConnectionCondi
             } })();
         }
 
-        return this.TensionFailureY_ as IfcForceMeasure | null;
+        return this.TensionFailureY_ as number | null;
     }
 
-    public get TensionFailureZ() : IfcForceMeasure | null
+    public get TensionFailureZ() : number | null
     {
         if ( this.TensionFailureZ_ === void 0 )
         {
@@ -139,10 +139,10 @@ export  class IfcFailureConnectionCondition extends IfcStructuralConnectionCondi
             } })();
         }
 
-        return this.TensionFailureZ_ as IfcForceMeasure | null;
+        return this.TensionFailureZ_ as number | null;
     }
 
-    public get CompressionFailureX() : IfcForceMeasure | null
+    public get CompressionFailureX() : number | null
     {
         if ( this.CompressionFailureX_ === void 0 )
         {
@@ -178,10 +178,10 @@ export  class IfcFailureConnectionCondition extends IfcStructuralConnectionCondi
             } })();
         }
 
-        return this.CompressionFailureX_ as IfcForceMeasure | null;
+        return this.CompressionFailureX_ as number | null;
     }
 
-    public get CompressionFailureY() : IfcForceMeasure | null
+    public get CompressionFailureY() : number | null
     {
         if ( this.CompressionFailureY_ === void 0 )
         {
@@ -217,10 +217,10 @@ export  class IfcFailureConnectionCondition extends IfcStructuralConnectionCondi
             } })();
         }
 
-        return this.CompressionFailureY_ as IfcForceMeasure | null;
+        return this.CompressionFailureY_ as number | null;
     }
 
-    public get CompressionFailureZ() : IfcForceMeasure | null
+    public get CompressionFailureZ() : number | null
     {
         if ( this.CompressionFailureZ_ === void 0 )
         {
@@ -256,7 +256,7 @@ export  class IfcFailureConnectionCondition extends IfcStructuralConnectionCondi
             } })();
         }
 
-        return this.CompressionFailureZ_ as IfcForceMeasure | null;
+        return this.CompressionFailureZ_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

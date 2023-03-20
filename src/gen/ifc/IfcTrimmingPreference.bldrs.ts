@@ -29,4 +29,3 @@ export function IfcTrimmingPreferenceDeserializeStep( input: Uint8Array, cursor:
 {
     return parser.extract< IfcTrimmingPreference >( IfcTrimmingPreferenceSearch, input, cursor, endCursor );
 }
-

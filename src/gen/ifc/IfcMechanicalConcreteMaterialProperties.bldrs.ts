@@ -9,8 +9,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcmechanicalconcretematerialproperties.htm */
@@ -21,14 +21,14 @@ export  class IfcMechanicalConcreteMaterialProperties extends IfcMechanicalMater
         return EntityTypesIfc.IFCMECHANICALCONCRETEMATERIALPROPERTIES;
     }
 
-    private CompressiveStrength_? : IfcPressureMeasure | null;
-    private MaxAggregateSize_? : IfcPositiveLengthMeasure | null;
-    private AdmixturesDescription_? : IfcText | null;
-    private Workability_? : IfcText | null;
-    private ProtectivePoreRatio_? : IfcNormalisedRatioMeasure | null;
-    private WaterImpermeability_? : IfcText | null;
+    private CompressiveStrength_? : number | null;
+    private MaxAggregateSize_? : number | null;
+    private AdmixturesDescription_? : string | null;
+    private Workability_? : string | null;
+    private ProtectivePoreRatio_? : number | null;
+    private WaterImpermeability_? : string | null;
 
-    public get CompressiveStrength() : IfcPressureMeasure | null
+    public get CompressiveStrength() : number | null
     {
         if ( this.CompressiveStrength_ === void 0 )
         {
@@ -64,10 +64,10 @@ export  class IfcMechanicalConcreteMaterialProperties extends IfcMechanicalMater
             } })();
         }
 
-        return this.CompressiveStrength_ as IfcPressureMeasure | null;
+        return this.CompressiveStrength_ as number | null;
     }
 
-    public get MaxAggregateSize() : IfcPositiveLengthMeasure | null
+    public get MaxAggregateSize() : number | null
     {
         if ( this.MaxAggregateSize_ === void 0 )
         {
@@ -103,10 +103,10 @@ export  class IfcMechanicalConcreteMaterialProperties extends IfcMechanicalMater
             } })();
         }
 
-        return this.MaxAggregateSize_ as IfcPositiveLengthMeasure | null;
+        return this.MaxAggregateSize_ as number | null;
     }
 
-    public get AdmixturesDescription() : IfcText | null
+    public get AdmixturesDescription() : string | null
     {
         if ( this.AdmixturesDescription_ === void 0 )
         {
@@ -142,10 +142,10 @@ export  class IfcMechanicalConcreteMaterialProperties extends IfcMechanicalMater
             } })();
         }
 
-        return this.AdmixturesDescription_ as IfcText | null;
+        return this.AdmixturesDescription_ as string | null;
     }
 
-    public get Workability() : IfcText | null
+    public get Workability() : string | null
     {
         if ( this.Workability_ === void 0 )
         {
@@ -181,10 +181,10 @@ export  class IfcMechanicalConcreteMaterialProperties extends IfcMechanicalMater
             } })();
         }
 
-        return this.Workability_ as IfcText | null;
+        return this.Workability_ as string | null;
     }
 
-    public get ProtectivePoreRatio() : IfcNormalisedRatioMeasure | null
+    public get ProtectivePoreRatio() : number | null
     {
         if ( this.ProtectivePoreRatio_ === void 0 )
         {
@@ -220,10 +220,10 @@ export  class IfcMechanicalConcreteMaterialProperties extends IfcMechanicalMater
             } })();
         }
 
-        return this.ProtectivePoreRatio_ as IfcNormalisedRatioMeasure | null;
+        return this.ProtectivePoreRatio_ as number | null;
     }
 
-    public get WaterImpermeability() : IfcText | null
+    public get WaterImpermeability() : string | null
     {
         if ( this.WaterImpermeability_ === void 0 )
         {
@@ -259,7 +259,7 @@ export  class IfcMechanicalConcreteMaterialProperties extends IfcMechanicalMater
             } })();
         }
 
-        return this.WaterImpermeability_ as IfcText | null;
+        return this.WaterImpermeability_ as string | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
