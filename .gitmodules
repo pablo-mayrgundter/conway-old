@@ -1,7 +1,8 @@
 [submodule "external/IFC-gen"]
 	path = external/IFC-gen
 	url = https://github.com/bldrs-ai/IFC-gen
-	branch = bldrs-ifc
+	branch = main
 [submodule "dependencies/conway-ds"]
 	path = dependencies/conway-ds
 	url = https://github.com/bldrs-ai/conway-ds.git
+	branch = main
