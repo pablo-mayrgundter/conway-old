@@ -8,13 +8,9 @@ Conway is the Bldrs.ai data-model and data transit system. Here we take existing
 Conway itself is currently oriented around components, instead of a typical class hierarchy, to decouple different kinds of and make it easily queriable.  
 
 ### Building Conway
- 
-First, clone the repository, then in the root directory of the repository, run the yarn install, followed by using yarn to initialise the IFC-gen submodule:
 
-	yarn install
-	yarn submodule-update
-
-To run code-gneeration, you'll need to install version 6.0 of the .NET framework.
+#### Deps
+To run code-generation, you'll need to install version 6.0 of the .NET framework.
 
 On a Ubuntu or Debian style distribution, you can install it like so:
 
@@ -25,6 +21,13 @@ On a Ubuntu or Debian style distribution, you can install it like so:
 On macOS, it should be installable with brew using:
 
 	brew install dotnet@6
+
+#### Build
+ 
+Clone the repository, then in the root directory of the repository, run the yarn install, followed by using yarn to initialise the IFC-gen submodule:
+
+	yarn install
+	yarn submodule-update
 
 After this, you can build using either an incremental build (which will not perform code-gen and will lead to the fastest build times), a watch build (which will automatically update changes), or a full rebuild, which will clean all build artefacts and perform code-gen, before running a build.
 
