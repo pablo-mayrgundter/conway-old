@@ -24,6 +24,11 @@ export default abstract class StepEntityBase< EntityTypeIDs extends number >
         return this.expressID === void 0;
     }
 
+    public toString(): string
+    {
+        return `#${this.expressID ?? "Inline"}`;
+    }
+
     constructor( public readonly localID: number, protected readonly internalReference_: StepEntityInternalReference< EntityTypeIDs >, public readonly model: StepModelBase< EntityTypeIDs > ) {} 
 
     protected guaranteeVTable(): void

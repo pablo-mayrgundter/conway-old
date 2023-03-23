@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "buffer": "^6.0.3",
-    "smart-buffer": "^4.2.0"
+    "smart-buffer": "^4.2.0",
+    "yargs": "^17.7.1"
   }
 }

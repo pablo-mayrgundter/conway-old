@@ -49,6 +49,7 @@ export class IfcSectionalAreaIntegralMeasure extends StepEntityBase< EntityTypes
 
         return this.Value_ as number;
     }
+
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

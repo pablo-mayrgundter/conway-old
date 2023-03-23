@@ -49,6 +49,7 @@ export class IfcTextTransformation extends StepEntityBase< EntityTypesIfc >
 
         return this.Value_ as string;
     }
+
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
