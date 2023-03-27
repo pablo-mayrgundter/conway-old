@@ -65,6 +65,7 @@ export class IfcComplexNumber extends StepEntityBase< EntityTypesIfc >
 
         return this.Value_ as Array<number>;
     }
+
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
