@@ -1,5 +1,6 @@
 
 import { IfcRepresentationItem } from "./index"
+import { IfcPresentationStyle } from "./index"
 import { IfcPresentationStyleAssignment } from "./index"
 import { IfcLabel } from "./index"
 
@@ -7,8 +8,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, stepExtractLogical, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum, IfcPointListDim, IfcGetBasisSurface } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcstyleditem.htm */
@@ -20,7 +21,7 @@ export  class IfcStyledItem extends IfcRepresentationItem
     }
 
     private Item_? : IfcRepresentationItem | null;
-    private Styles_? : Array<IfcPresentationStyleAssignment>;
+    private Styles_? : Array<IfcPresentationStyle|IfcPresentationStyleAssignment>;
     private Name_? : string | null;
 
     public get Item() : IfcRepresentationItem | null
@@ -63,7 +64,7 @@ export  class IfcStyledItem extends IfcRepresentationItem
         return this.Item_ as IfcRepresentationItem | null;
     }
 
-    public get Styles() : Array<IfcPresentationStyleAssignment>
+    public get Styles() : Array<IfcPresentationStyle|IfcPresentationStyleAssignment>
     {
         if ( this.Styles_ === void 0 )
         {
@@ -82,7 +83,7 @@ export  class IfcStyledItem extends IfcRepresentationItem
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value : Array<IfcPresentationStyleAssignment> = [];
+            let value : Array<IfcPresentationStyle|IfcPresentationStyleAssignment> = [];
 
             for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
             {
@@ -90,26 +91,21 @@ export  class IfcStyledItem extends IfcRepresentationItem
                     let cursor = address;
         
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
-                    let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+                    let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
         
-                    if ( !( value instanceof IfcPresentationStyleAssignment ) )
+                    if ( !( value instanceof IfcPresentationStyle ) && !( value instanceof IfcPresentationStyleAssignment ) )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed for field' );
-                    };
+                    }
         
-                    return value;
+                    return value as (IfcPresentationStyle | IfcPresentationStyleAssignment);
                 })() );
             }
 
-            if ( value === void 0 )
-            {                
-                throw new Error( 'Value in STEP was incorrectly typed' );
-            };
-
-            return value; })();
+return value; })();
         }
 
-        return this.Styles_ as Array<IfcPresentationStyleAssignment>;
+        return this.Styles_ as Array<IfcPresentationStyle|IfcPresentationStyleAssignment>;
     }
 
     public get Name() : string | null

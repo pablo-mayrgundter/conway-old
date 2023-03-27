@@ -4,75 +4,83 @@ import StepEntityConstructor from '../../core/step_entity_constructor';
 import StepEntityBase from '../../core/step_entity_base';
 import StepEntitySchema from '../../core/step_entity_schema';
 import StepParser from '../../../dependencies/conway-ds/src/parsing/step/step_parser';
-import { Ifc2DCompositeCurve } from './index';
-import { IfcCompositeCurve } from './index';
 import { IfcActionRequest } from './index';
 import { IfcActor } from './index';
 import { IfcOccupant } from './index';
 import { IfcActorRole } from './index';
+import { IfcActuator } from './index';
+import { IfcDistributionControlElement } from './index';
 import { IfcActuatorType } from './index';
 import { IfcPostalAddress } from './index';
 import { IfcTelecomAddress } from './index';
+import { IfcAdvancedBrep } from './index';
+import { IfcAdvancedBrepWithVoids } from './index';
+import { IfcAdvancedFace } from './index';
+import { IfcFaceSurface } from './index';
+import { IfcAirTerminal } from './index';
+import { IfcFlowTerminal } from './index';
+import { IfcAirTerminalBox } from './index';
+import { IfcFlowController } from './index';
 import { IfcAirTerminalBoxType } from './index';
 import { IfcAirTerminalType } from './index';
+import { IfcAirToAirHeatRecovery } from './index';
+import { IfcEnergyConversionDevice } from './index';
 import { IfcAirToAirHeatRecoveryType } from './index';
+import { IfcAlarm } from './index';
 import { IfcAlarmType } from './index';
-import { IfcAngularDimension } from './index';
-import { IfcDimensionCurveDirectedCallout } from './index';
 import { IfcAnnotation } from './index';
-import { IfcAnnotationCurveOccurrence } from './index';
-import { IfcDimensionCurve } from './index';
-import { IfcProjectionCurve } from './index';
 import { IfcAnnotationFillArea } from './index';
-import { IfcAnnotationFillAreaOccurrence } from './index';
-import { IfcAnnotationSurfaceOccurrence } from './index';
-import { IfcAnnotationSymbolOccurrence } from './index';
-import { IfcAnnotationTextOccurrence } from './index';
-import { IfcStyledItem } from './index';
-import { IfcAnnotationSurface } from './index';
-import { IfcTerminatorSymbol } from './index';
 import { IfcApplication } from './index';
+import { IfcAppliedValue } from './index';
 import { IfcCostValue } from './index';
-import { IfcEnvironmentalImpactValue } from './index';
-import { IfcAppliedValueRelationship } from './index';
 import { IfcApproval } from './index';
-import { IfcApprovalActorRelationship } from './index';
-import { IfcApprovalPropertyRelationship } from './index';
 import { IfcApprovalRelationship } from './index';
 import { IfcArbitraryClosedProfileDef } from './index';
 import { IfcArbitraryProfileDefWithVoids } from './index';
+import { IfcProfileDef } from './index';
 import { IfcArbitraryOpenProfileDef } from './index';
 import { IfcCenterLineProfileDef } from './index';
 import { IfcAsset } from './index';
 import { IfcGroup } from './index';
 import { IfcAsymmetricIShapeProfileDef } from './index';
-import { IfcIShapeProfileDef } from './index';
+import { IfcAudioVisualAppliance } from './index';
+import { IfcAudioVisualApplianceType } from './index';
 import { IfcAxis1Placement } from './index';
 import { IfcAxis2Placement2D } from './index';
 import { IfcAxis2Placement3D } from './index';
-import { IfcBezierCurve } from './index';
+import { IfcBSplineCurveWithKnots } from './index';
+import { IfcRationalBSplineCurveWithKnots } from './index';
+import { IfcBSplineSurfaceWithKnots } from './index';
+import { IfcRationalBSplineSurfaceWithKnots } from './index';
 import { IfcBeam } from './index';
+import { IfcBeamStandardCase } from './index';
 import { IfcBeamType } from './index';
-import { IfcRationalBezierCurve } from './index';
 import { IfcBlobTexture } from './index';
 import { IfcBlock } from './index';
+import { IfcBoiler } from './index';
 import { IfcBoilerType } from './index';
 import { IfcBooleanClippingResult } from './index';
 import { IfcBooleanResult } from './index';
 import { IfcBoundaryEdgeCondition } from './index';
 import { IfcBoundaryFaceCondition } from './index';
 import { IfcBoundaryNodeCondition } from './index';
+import { IfcBoundaryCurve } from './index';
+import { IfcOuterBoundaryCurve } from './index';
+import { IfcCompositeCurveOnSurface } from './index';
 import { IfcBoundaryNodeConditionWarping } from './index';
+import { IfcCompositeCurve } from './index';
+import { IfcIndexedPolyCurve } from './index';
 import { IfcPolyline } from './index';
 import { IfcTrimmedCurve } from './index';
-import { IfcBoundedSurface } from './index';
 import { IfcCurveBoundedPlane } from './index';
+import { IfcCurveBoundedSurface } from './index';
 import { IfcRectangularTrimmedSurface } from './index';
 import { IfcBoundingBox } from './index';
 import { IfcBoxedHalfSpace } from './index';
 import { IfcHalfSpaceSolid } from './index';
 import { IfcBuilding } from './index';
 import { IfcBuildingElementProxy } from './index';
+import { IfcChimney } from './index';
 import { IfcColumn } from './index';
 import { IfcCovering } from './index';
 import { IfcCurtainWall } from './index';
@@ -85,94 +93,125 @@ import { IfcRailing } from './index';
 import { IfcRamp } from './index';
 import { IfcRampFlight } from './index';
 import { IfcRoof } from './index';
+import { IfcShadingDevice } from './index';
 import { IfcSlab } from './index';
 import { IfcStair } from './index';
 import { IfcStairFlight } from './index';
 import { IfcWall } from './index';
 import { IfcWindow } from './index';
 import { IfcBuildingElementPart } from './index';
+import { IfcBuildingElementPartType } from './index';
 import { IfcBuildingElementProxyType } from './index';
+import { IfcChimneyType } from './index';
 import { IfcColumnType } from './index';
 import { IfcCoveringType } from './index';
 import { IfcCurtainWallType } from './index';
+import { IfcDoorType } from './index';
+import { IfcFootingType } from './index';
 import { IfcMemberType } from './index';
+import { IfcPileType } from './index';
 import { IfcPlateType } from './index';
 import { IfcRailingType } from './index';
 import { IfcRampFlightType } from './index';
+import { IfcRampType } from './index';
+import { IfcRoofType } from './index';
+import { IfcShadingDeviceType } from './index';
 import { IfcSlabType } from './index';
 import { IfcStairFlightType } from './index';
+import { IfcStairType } from './index';
 import { IfcWallType } from './index';
+import { IfcWindowType } from './index';
 import { IfcBuildingStorey } from './index';
+import { IfcBuildingSystem } from './index';
+import { IfcSystem } from './index';
+import { IfcBurner } from './index';
+import { IfcBurnerType } from './index';
 import { IfcCShapeProfileDef } from './index';
+import { IfcCableCarrierFitting } from './index';
+import { IfcFlowFitting } from './index';
 import { IfcCableCarrierFittingType } from './index';
+import { IfcCableCarrierSegment } from './index';
+import { IfcFlowSegment } from './index';
 import { IfcCableCarrierSegmentType } from './index';
+import { IfcCableFitting } from './index';
+import { IfcCableFittingType } from './index';
+import { IfcCableSegment } from './index';
 import { IfcCableSegmentType } from './index';
-import { IfcCalendarDate } from './index';
 import { IfcCartesianPoint } from './index';
+import { IfcCartesianPointList2D } from './index';
+import { IfcCartesianPointList3D } from './index';
 import { IfcCartesianTransformationOperator2D } from './index';
 import { IfcCartesianTransformationOperator3D } from './index';
 import { IfcCartesianTransformationOperator2DnonUniform } from './index';
 import { IfcCartesianTransformationOperator3DnonUniform } from './index';
-import { IfcChamferEdgeFeature } from './index';
+import { IfcChiller } from './index';
 import { IfcChillerType } from './index';
 import { IfcCircle } from './index';
 import { IfcCircleHollowProfileDef } from './index';
 import { IfcCircleProfileDef } from './index';
+import { IfcCivilElement } from './index';
+import { IfcCivilElementType } from './index';
 import { IfcClassification } from './index';
-import { IfcClassificationItem } from './index';
-import { IfcClassificationItemRelationship } from './index';
-import { IfcClassificationNotation } from './index';
-import { IfcClassificationNotationFacet } from './index';
 import { IfcClassificationReference } from './index';
 import { IfcClosedShell } from './index';
 import { IfcConnectedFaceSet } from './index';
+import { IfcCoil } from './index';
 import { IfcCoilType } from './index';
 import { IfcColourRgb } from './index';
+import { IfcColourRgbList } from './index';
+import { IfcColumnStandardCase } from './index';
+import { IfcCommunicationsAppliance } from './index';
+import { IfcCommunicationsApplianceType } from './index';
 import { IfcComplexProperty } from './index';
+import { IfcComplexPropertyTemplate } from './index';
 import { IfcCompositeCurveSegment } from './index';
+import { IfcReparametrisedCompositeCurveSegment } from './index';
 import { IfcCompositeProfileDef } from './index';
+import { IfcCompressor } from './index';
+import { IfcFlowMovingDevice } from './index';
 import { IfcCompressorType } from './index';
+import { IfcCondenser } from './index';
 import { IfcCondenserType } from './index';
-import { IfcCondition } from './index';
-import { IfcConditionCriterion } from './index';
 import { IfcEllipse } from './index';
 import { IfcOpenShell } from './index';
 import { IfcConnectionCurveGeometry } from './index';
 import { IfcConnectionPointGeometry } from './index';
-import { IfcConnectionPortGeometry } from './index';
 import { IfcConnectionSurfaceGeometry } from './index';
+import { IfcConnectionVolumeGeometry } from './index';
 import { IfcConnectionPointEccentricity } from './index';
 import { IfcMetric } from './index';
 import { IfcObjective } from './index';
-import { IfcConstraintAggregationRelationship } from './index';
-import { IfcConstraintClassificationRelationship } from './index';
-import { IfcConstraintRelationship } from './index';
 import { IfcConstructionEquipmentResource } from './index';
+import { IfcConstructionEquipmentResourceType } from './index';
 import { IfcConstructionMaterialResource } from './index';
+import { IfcConstructionMaterialResourceType } from './index';
 import { IfcConstructionProductResource } from './index';
+import { IfcConstructionProductResourceType } from './index';
 import { IfcCrewResource } from './index';
 import { IfcLaborResource } from './index';
 import { IfcSubContractResource } from './index';
+import { IfcCrewResourceType } from './index';
+import { IfcLaborResourceType } from './index';
+import { IfcSubContractResourceType } from './index';
+import { IfcProject } from './index';
+import { IfcProjectLibrary } from './index';
 import { IfcContextDependentUnit } from './index';
 import { IfcCostItem } from './index';
 import { IfcCostSchedule } from './index';
-import { IfcEquipmentStandard } from './index';
-import { IfcFurnitureStandard } from './index';
 import { IfcPerformanceHistory } from './index';
 import { IfcPermit } from './index';
 import { IfcProjectOrder } from './index';
-import { IfcProjectOrderRecord } from './index';
-import { IfcScheduleTimeControl } from './index';
-import { IfcServiceLife } from './index';
-import { IfcSpaceProgram } from './index';
-import { IfcTimeSeriesSchedule } from './index';
+import { IfcWorkCalendar } from './index';
+import { IfcController } from './index';
 import { IfcControllerType } from './index';
 import { IfcConversionBasedUnit } from './index';
+import { IfcConversionBasedUnitWithOffset } from './index';
+import { IfcCooledBeam } from './index';
 import { IfcCooledBeamType } from './index';
+import { IfcCoolingTower } from './index';
 import { IfcCoolingTowerType } from './index';
-import { IfcCoordinatedUniversalTimeOffset } from './index';
-import { IfcCraneRailAShapeProfileDef } from './index';
-import { IfcCraneRailFShapeProfileDef } from './index';
+import { IfcMapConversion } from './index';
+import { IfcProjectedCRS } from './index';
 import { IfcRectangularPyramid } from './index';
 import { IfcRightCircularCone } from './index';
 import { IfcRightCircularCylinder } from './index';
@@ -182,156 +221,194 @@ import { IfcCurrencyRelationship } from './index';
 import { IfcLine } from './index';
 import { IfcOffsetCurve2D } from './index';
 import { IfcOffsetCurve3D } from './index';
+import { IfcPcurve } from './index';
+import { IfcSurfaceCurve } from './index';
 import { IfcCurveStyle } from './index';
 import { IfcCurveStyleFont } from './index';
 import { IfcCurveStyleFontAndScaling } from './index';
 import { IfcCurveStyleFontPattern } from './index';
+import { IfcCylindricalSurface } from './index';
+import { IfcDamper } from './index';
 import { IfcDamperType } from './index';
-import { IfcDateAndTime } from './index';
-import { IfcDefinedSymbol } from './index';
 import { IfcDerivedProfileDef } from './index';
+import { IfcMirroredProfileDef } from './index';
 import { IfcDerivedUnit } from './index';
 import { IfcDerivedUnitElement } from './index';
-import { IfcDiameterDimension } from './index';
-import { IfcDimensionCalloutRelationship } from './index';
-import { IfcDraughtingCalloutRelationship } from './index';
-import { IfcLinearDimension } from './index';
-import { IfcRadiusDimension } from './index';
-import { IfcDraughtingCallout } from './index';
-import { IfcDimensionCurveTerminator } from './index';
-import { IfcDimensionPair } from './index';
 import { IfcDimensionalExponents } from './index';
 import { IfcDirection } from './index';
 import { IfcDiscreteAccessory } from './index';
 import { IfcDiscreteAccessoryType } from './index';
-import { IfcVibrationIsolatorType } from './index';
 import { IfcDistributionChamberElement } from './index';
 import { IfcDistributionFlowElement } from './index';
 import { IfcDistributionChamberElementType } from './index';
-import { IfcDistributionControlElement } from './index';
+import { IfcDistributionCircuit } from './index';
+import { IfcDistributionSystem } from './index';
+import { IfcFlowInstrument } from './index';
+import { IfcProtectiveDeviceTrippingUnit } from './index';
+import { IfcSensor } from './index';
+import { IfcUnitaryControlElement } from './index';
 import { IfcDistributionElement } from './index';
 import { IfcFlowInstrumentType } from './index';
+import { IfcProtectiveDeviceTrippingUnitType } from './index';
 import { IfcSensorType } from './index';
+import { IfcUnitaryControlElementType } from './index';
 import { IfcDistributionElementType } from './index';
-import { IfcEnergyConversionDevice } from './index';
-import { IfcFlowController } from './index';
-import { IfcFlowFitting } from './index';
-import { IfcFlowMovingDevice } from './index';
-import { IfcFlowSegment } from './index';
 import { IfcFlowStorageDevice } from './index';
-import { IfcFlowTerminal } from './index';
 import { IfcFlowTreatmentDevice } from './index';
 import { IfcDistributionPort } from './index';
-import { IfcDocumentElectronicFormat } from './index';
 import { IfcDocumentInformation } from './index';
 import { IfcDocumentInformationRelationship } from './index';
 import { IfcDocumentReference } from './index';
+import { IfcDoorStandardCase } from './index';
 import { IfcDoorLiningProperties } from './index';
 import { IfcDoorPanelProperties } from './index';
 import { IfcDoorStyle } from './index';
 import { IfcTypeProduct } from './index';
-import { IfcStructuredDimensionCallout } from './index';
 import { IfcDraughtingPreDefinedColour } from './index';
 import { IfcDraughtingPreDefinedCurveFont } from './index';
-import { IfcDraughtingPreDefinedTextFont } from './index';
+import { IfcDuctFitting } from './index';
 import { IfcDuctFittingType } from './index';
+import { IfcDuctSegment } from './index';
 import { IfcDuctSegmentType } from './index';
+import { IfcDuctSilencer } from './index';
 import { IfcDuctSilencerType } from './index';
 import { IfcEdge } from './index';
 import { IfcEdgeCurve } from './index';
 import { IfcOrientedEdge } from './index';
 import { IfcSubedge } from './index';
-import { IfcRoundedEdgeFeature } from './index';
 import { IfcEdgeLoop } from './index';
 import { IfcLoop } from './index';
+import { IfcElectricAppliance } from './index';
 import { IfcElectricApplianceType } from './index';
-import { IfcElectricDistributionPoint } from './index';
+import { IfcElectricDistributionBoard } from './index';
+import { IfcElectricDistributionBoardType } from './index';
+import { IfcElectricFlowStorageDevice } from './index';
 import { IfcElectricFlowStorageDeviceType } from './index';
+import { IfcElectricGenerator } from './index';
 import { IfcElectricGeneratorType } from './index';
-import { IfcElectricHeaterType } from './index';
+import { IfcElectricMotor } from './index';
 import { IfcElectricMotorType } from './index';
+import { IfcElectricTimeControl } from './index';
 import { IfcElectricTimeControlType } from './index';
-import { IfcElectricalBaseProperties } from './index';
-import { IfcEnergyProperties } from './index';
-import { IfcElectricalCircuit } from './index';
-import { IfcSystem } from './index';
-import { IfcElectricalElement } from './index';
 import { IfcElementAssembly } from './index';
-import { IfcEquipmentElement } from './index';
 import { IfcFurnishingElement } from './index';
+import { IfcGeographicElement } from './index';
 import { IfcTransportElement } from './index';
 import { IfcVirtualElement } from './index';
+import { IfcElementAssemblyType } from './index';
 import { IfcFastener } from './index';
+import { IfcMechanicalFastener } from './index';
+import { IfcVibrationIsolator } from './index';
 import { IfcFastenerType } from './index';
+import { IfcMechanicalFastenerType } from './index';
+import { IfcVibrationIsolatorType } from './index';
 import { IfcElementQuantity } from './index';
 import { IfcFurnishingElementType } from './index';
+import { IfcGeographicElementType } from './index';
 import { IfcTransportElementType } from './index';
 import { IfcPlane } from './index';
+import { IfcSphericalSurface } from './index';
+import { IfcToroidalSurface } from './index';
 import { IfcEllipseProfileDef } from './index';
+import { IfcEngine } from './index';
+import { IfcEvaporativeCooler } from './index';
+import { IfcEvaporator } from './index';
+import { IfcHeatExchanger } from './index';
+import { IfcHumidifier } from './index';
+import { IfcMotorConnection } from './index';
+import { IfcSolarDevice } from './index';
+import { IfcTransformer } from './index';
+import { IfcTubeBundle } from './index';
+import { IfcUnitaryEquipment } from './index';
+import { IfcEngineType } from './index';
 import { IfcEvaporativeCoolerType } from './index';
 import { IfcEvaporatorType } from './index';
 import { IfcHeatExchangerType } from './index';
 import { IfcHumidifierType } from './index';
 import { IfcMotorConnectionType } from './index';
-import { IfcSpaceHeaterType } from './index';
+import { IfcSolarDeviceType } from './index';
 import { IfcTransformerType } from './index';
 import { IfcTubeBundleType } from './index';
 import { IfcUnitaryEquipmentType } from './index';
-import { IfcExtendedMaterialProperties } from './index';
+import { IfcEvent } from './index';
+import { IfcEventTime } from './index';
+import { IfcEventType } from './index';
+import { IfcMaterialProperties } from './index';
+import { IfcProfileProperties } from './index';
+import { IfcLibraryInformation } from './index';
 import { IfcExternallyDefinedHatchStyle } from './index';
 import { IfcExternallyDefinedSurfaceStyle } from './index';
-import { IfcExternallyDefinedSymbol } from './index';
 import { IfcExternallyDefinedTextFont } from './index';
 import { IfcLibraryReference } from './index';
+import { IfcExternalReferenceRelationship } from './index';
+import { IfcExternalSpatialElement } from './index';
 import { IfcExtrudedAreaSolid } from './index';
+import { IfcExtrudedAreaSolidTapered } from './index';
 import { IfcFace } from './index';
-import { IfcFaceSurface } from './index';
 import { IfcFaceBasedSurfaceModel } from './index';
 import { IfcFaceBound } from './index';
 import { IfcFaceOuterBound } from './index';
 import { IfcFacetedBrep } from './index';
 import { IfcFacetedBrepWithVoids } from './index';
 import { IfcFailureConnectionCondition } from './index';
+import { IfcFan } from './index';
 import { IfcFanType } from './index';
-import { IfcMechanicalFastener } from './index';
-import { IfcMechanicalFastenerType } from './index';
+import { IfcSurfaceFeature } from './index';
 import { IfcProjectionElement } from './index';
 import { IfcOpeningElement } from './index';
+import { IfcVoidingFeature } from './index';
 import { IfcFillAreaStyle } from './index';
 import { IfcFillAreaStyleHatching } from './index';
-import { IfcFillAreaStyleTileSymbolWithStyle } from './index';
 import { IfcFillAreaStyleTiles } from './index';
+import { IfcFilter } from './index';
 import { IfcFilterType } from './index';
+import { IfcFireSuppressionTerminal } from './index';
 import { IfcFireSuppressionTerminalType } from './index';
+import { IfcFixedReferenceSweptAreaSolid } from './index';
+import { IfcFlowMeter } from './index';
+import { IfcProtectiveDevice } from './index';
+import { IfcSwitchingDevice } from './index';
+import { IfcValve } from './index';
 import { IfcFlowMeterType } from './index';
 import { IfcProtectiveDeviceType } from './index';
 import { IfcSwitchingDeviceType } from './index';
 import { IfcValveType } from './index';
+import { IfcJunctionBox } from './index';
+import { IfcPipeFitting } from './index';
 import { IfcJunctionBoxType } from './index';
 import { IfcPipeFittingType } from './index';
+import { IfcPump } from './index';
 import { IfcPumpType } from './index';
+import { IfcPipeSegment } from './index';
 import { IfcPipeSegmentType } from './index';
+import { IfcTank } from './index';
 import { IfcTankType } from './index';
-import { IfcGasTerminalType } from './index';
+import { IfcLamp } from './index';
+import { IfcLightFixture } from './index';
+import { IfcMedicalDevice } from './index';
+import { IfcOutlet } from './index';
+import { IfcSanitaryTerminal } from './index';
+import { IfcSpaceHeater } from './index';
+import { IfcStackTerminal } from './index';
+import { IfcWasteTerminal } from './index';
 import { IfcLampType } from './index';
 import { IfcLightFixtureType } from './index';
+import { IfcMedicalDeviceType } from './index';
 import { IfcOutletType } from './index';
 import { IfcSanitaryTerminalType } from './index';
+import { IfcSpaceHeaterType } from './index';
 import { IfcStackTerminalType } from './index';
 import { IfcWasteTerminalType } from './index';
-import { IfcFluidFlowProperties } from './index';
-import { IfcFuelProperties } from './index';
+import { IfcInterceptor } from './index';
+import { IfcInterceptorType } from './index';
+import { IfcFurniture } from './index';
+import { IfcSystemFurnitureElement } from './index';
 import { IfcFurnitureType } from './index';
 import { IfcSystemFurnitureElementType } from './index';
-import { IfcGeneralMaterialProperties } from './index';
-import { IfcGeneralProfileProperties } from './index';
-import { IfcStructuralProfileProperties } from './index';
 import { IfcGeometricCurveSet } from './index';
 import { IfcGeometricSet } from './index';
 import { IfcGeometricRepresentationContext } from './index';
 import { IfcGeometricRepresentationSubContext } from './index';
-import { IfcRepresentationContext } from './index';
-import { IfcOneDirectionRepeatFactor } from './index';
 import { IfcPlanarExtent } from './index';
 import { IfcSectionedSpine } from './index';
 import { IfcShellBasedSurfaceModel } from './index';
@@ -343,14 +420,18 @@ import { IfcGridPlacement } from './index';
 import { IfcInventory } from './index';
 import { IfcStructuralLoadGroup } from './index';
 import { IfcStructuralResultGroup } from './index';
-import { IfcZone } from './index';
 import { IfcPolygonalBoundedHalfSpace } from './index';
-import { IfcHygroscopicMaterialProperties } from './index';
+import { IfcIShapeProfileDef } from './index';
 import { IfcImageTexture } from './index';
+import { IfcIndexedColourMap } from './index';
+import { IfcIndexedPolygonalFace } from './index';
+import { IfcIndexedPolygonalFaceWithVoids } from './index';
+import { IfcIndexedTriangleTextureMap } from './index';
+import { IfcIntersectionCurve } from './index';
 import { IfcIrregularTimeSeries } from './index';
 import { IfcIrregularTimeSeriesValue } from './index';
 import { IfcLShapeProfileDef } from './index';
-import { IfcLibraryInformation } from './index';
+import { IfcLagTime } from './index';
 import { IfcLightDistributionData } from './index';
 import { IfcLightIntensityDistribution } from './index';
 import { IfcLightSourceAmbient } from './index';
@@ -359,34 +440,31 @@ import { IfcLightSourceGoniometric } from './index';
 import { IfcLightSourcePositional } from './index';
 import { IfcLightSourceSpot } from './index';
 import { IfcLocalPlacement } from './index';
-import { IfcLocalTime } from './index';
 import { IfcPolyLoop } from './index';
 import { IfcVertexLoop } from './index';
 import { IfcMappedItem } from './index';
 import { IfcMaterial } from './index';
 import { IfcMaterialClassificationRelationship } from './index';
-import { IfcMaterialDefinitionRepresentation } from './index';
-import { IfcProductRepresentation } from './index';
+import { IfcMaterialConstituent } from './index';
+import { IfcMaterialConstituentSet } from './index';
 import { IfcMaterialLayer } from './index';
 import { IfcMaterialLayerSet } from './index';
+import { IfcMaterialProfile } from './index';
+import { IfcMaterialProfileSet } from './index';
+import { IfcMaterialDefinitionRepresentation } from './index';
+import { IfcMaterialLayerWithOffsets } from './index';
 import { IfcMaterialLayerSetUsage } from './index';
 import { IfcMaterialList } from './index';
-import { IfcMechanicalMaterialProperties } from './index';
-import { IfcOpticalMaterialProperties } from './index';
-import { IfcProductsOfCombustionProperties } from './index';
-import { IfcThermalMaterialProperties } from './index';
-import { IfcWaterProperties } from './index';
+import { IfcMaterialProfileWithOffsets } from './index';
+import { IfcMaterialProfileSetUsage } from './index';
+import { IfcMaterialProfileSetUsageTapering } from './index';
+import { IfcMaterialRelationship } from './index';
 import { IfcMeasureWithUnit } from './index';
-import { IfcMechanicalConcreteMaterialProperties } from './index';
-import { IfcMechanicalSteelMaterialProperties } from './index';
+import { IfcMemberStandardCase } from './index';
 import { IfcMonetaryUnit } from './index';
-import { IfcMove } from './index';
-import { IfcTask } from './index';
 import { IfcSIUnit } from './index';
-import { IfcProject } from './index';
 import { IfcTypeObject } from './index';
-import { IfcTwoDirectionRepeatFactor } from './index';
-import { IfcOrderAction } from './index';
+import { IfcOpeningStandardCase } from './index';
 import { IfcOrganization } from './index';
 import { IfcOrganizationRelationship } from './index';
 import { IfcOwnerHistory } from './index';
@@ -408,48 +486,59 @@ import { IfcQuantityVolume } from './index';
 import { IfcQuantityWeight } from './index';
 import { IfcPixelTexture } from './index';
 import { IfcPlanarBox } from './index';
+import { IfcPlateStandardCase } from './index';
 import { IfcPointOnCurve } from './index';
 import { IfcPointOnSurface } from './index';
-import { IfcPreDefinedDimensionSymbol } from './index';
-import { IfcPreDefinedPointMarkerSymbol } from './index';
-import { IfcPreDefinedTerminatorSymbol } from './index';
+import { IfcPolygonalFaceSet } from './index';
+import { IfcReinforcementBarProperties } from './index';
+import { IfcSectionProperties } from './index';
+import { IfcSectionReinforcementProperties } from './index';
+import { IfcReinforcementDefinitionProperties } from './index';
+import { IfcWindowLiningProperties } from './index';
+import { IfcWindowPanelProperties } from './index';
 import { IfcTextStyleFontModel } from './index';
+import { IfcSurfaceStyleLighting } from './index';
+import { IfcSurfaceStyleRefraction } from './index';
+import { IfcSurfaceStyleShading } from './index';
+import { IfcSurfaceStyleWithTextures } from './index';
+import { IfcTextStyleForDefinedFont } from './index';
+import { IfcTextStyleTextModel } from './index';
+import { IfcTextureVertex } from './index';
+import { IfcTextureVertexList } from './index';
 import { IfcPresentationLayerAssignment } from './index';
 import { IfcPresentationLayerWithStyle } from './index';
 import { IfcSurfaceStyle } from './index';
-import { IfcSymbolStyle } from './index';
 import { IfcTextStyle } from './index';
 import { IfcPresentationStyleAssignment } from './index';
 import { IfcProcedure } from './index';
+import { IfcProcedureType } from './index';
+import { IfcTask } from './index';
 import { IfcProxy } from './index';
 import { IfcProductDefinitionShape } from './index';
-import { IfcRibPlateProfileProperties } from './index';
+import { IfcPropertyEnumeration } from './index';
 import { IfcPropertyBoundedValue } from './index';
-import { IfcPropertyConstraintRelationship } from './index';
 import { IfcPropertyDependencyRelationship } from './index';
 import { IfcPropertyEnumeratedValue } from './index';
-import { IfcPropertyEnumeration } from './index';
 import { IfcPropertyListValue } from './index';
 import { IfcPropertyReferenceValue } from './index';
 import { IfcPropertySet } from './index';
-import { IfcReinforcementDefinitionProperties } from './index';
-import { IfcServiceLifeFactor } from './index';
-import { IfcSoundProperties } from './index';
-import { IfcSoundValue } from './index';
-import { IfcSpaceThermalLoadProperties } from './index';
-import { IfcWindowLiningProperties } from './index';
-import { IfcWindowPanelProperties } from './index';
+import { IfcPropertySetTemplate } from './index';
 import { IfcPropertySingleValue } from './index';
 import { IfcPropertyTableValue } from './index';
+import { IfcSimplePropertyTemplate } from './index';
 import { IfcRectangleHollowProfileDef } from './index';
 import { IfcRoundedRectangleProfileDef } from './index';
-import { IfcReferencesValueDocument } from './index';
+import { IfcRecurrencePattern } from './index';
+import { IfcReference } from './index';
 import { IfcRegularTimeSeries } from './index';
-import { IfcReinforcementBarProperties } from './index';
 import { IfcReinforcingBar } from './index';
+import { IfcReinforcingBarType } from './index';
 import { IfcReinforcingMesh } from './index';
 import { IfcTendon } from './index';
 import { IfcTendonAnchor } from './index';
+import { IfcReinforcingMeshType } from './index';
+import { IfcTendonAnchorType } from './index';
+import { IfcTendonType } from './index';
 import { IfcRelAggregates } from './index';
 import { IfcRelAssignsToActor } from './index';
 import { IfcRelAssignsToControl } from './index';
@@ -457,69 +546,78 @@ import { IfcRelAssignsToGroup } from './index';
 import { IfcRelAssignsToProcess } from './index';
 import { IfcRelAssignsToProduct } from './index';
 import { IfcRelAssignsToResource } from './index';
-import { IfcRelAssignsTasks } from './index';
-import { IfcRelOccupiesSpaces } from './index';
-import { IfcRelAssignsToProjectOrder } from './index';
-import { IfcRelSchedulesCostItems } from './index';
-import { IfcRelAssociates } from './index';
-import { IfcRelAssociatesAppliedValue } from './index';
+import { IfcRelAssignsToGroupByFactor } from './index';
 import { IfcRelAssociatesApproval } from './index';
 import { IfcRelAssociatesClassification } from './index';
 import { IfcRelAssociatesConstraint } from './index';
 import { IfcRelAssociatesDocument } from './index';
 import { IfcRelAssociatesLibrary } from './index';
 import { IfcRelAssociatesMaterial } from './index';
-import { IfcRelAssociatesProfileProperties } from './index';
 import { IfcRelConnectsElements } from './index';
 import { IfcRelConnectsPortToElement } from './index';
 import { IfcRelConnectsPorts } from './index';
 import { IfcRelConnectsStructuralActivity } from './index';
-import { IfcRelConnectsStructuralElement } from './index';
 import { IfcRelConnectsStructuralMember } from './index';
 import { IfcRelContainedInSpatialStructure } from './index';
 import { IfcRelCoversBldgElements } from './index';
 import { IfcRelCoversSpaces } from './index';
 import { IfcRelFillsElement } from './index';
 import { IfcRelFlowControlElements } from './index';
-import { IfcRelInteractionRequirements } from './index';
-import { IfcRelProjectsElement } from './index';
+import { IfcRelInterferesElements } from './index';
 import { IfcRelReferencedInSpatialStructure } from './index';
 import { IfcRelSequence } from './index';
 import { IfcRelServicesBuildings } from './index';
 import { IfcRelSpaceBoundary } from './index';
-import { IfcRelVoidsElement } from './index';
 import { IfcRelConnectsPathElements } from './index';
 import { IfcRelConnectsWithRealizingElements } from './index';
 import { IfcRelConnectsWithEccentricity } from './index';
+import { IfcRelDeclares } from './index';
 import { IfcRelNests } from './index';
+import { IfcRelProjectsElement } from './index';
+import { IfcRelVoidsElement } from './index';
+import { IfcRelDefinesByObject } from './index';
 import { IfcRelDefinesByProperties } from './index';
+import { IfcRelDefinesByTemplate } from './index';
 import { IfcRelDefinesByType } from './index';
-import { IfcRelOverridesProperties } from './index';
-import { IfcRelaxation } from './index';
-import { IfcRepresentation } from './index';
+import { IfcRelSpaceBoundary1stLevel } from './index';
+import { IfcRelSpaceBoundary2ndLevel } from './index';
+import { IfcStyledItem } from './index';
 import { IfcRepresentationMap } from './index';
+import { IfcResourceApprovalRelationship } from './index';
+import { IfcResourceConstraintRelationship } from './index';
+import { IfcResourceTime } from './index';
 import { IfcRevolvedAreaSolid } from './index';
-import { IfcSectionProperties } from './index';
-import { IfcSectionReinforcementProperties } from './index';
+import { IfcRevolvedAreaSolidTapered } from './index';
+import { IfcTaskTime } from './index';
+import { IfcWorkTime } from './index';
+import { IfcSeamCurve } from './index';
 import { IfcShapeAspect } from './index';
 import { IfcShapeRepresentation } from './index';
 import { IfcTopologyRepresentation } from './index';
 import { IfcSite } from './index';
+import { IfcSlabElementedCase } from './index';
+import { IfcSlabStandardCase } from './index';
 import { IfcSlippageConnectionCondition } from './index';
 import { IfcSweptDiskSolid } from './index';
 import { IfcSpace } from './index';
 import { IfcSpaceType } from './index';
-import { IfcStructuralLinearAction } from './index';
-import { IfcStructuralPlanarAction } from './index';
+import { IfcSpatialZone } from './index';
+import { IfcSpatialZoneType } from './index';
+import { IfcStructuralCurveAction } from './index';
 import { IfcStructuralPointAction } from './index';
+import { IfcStructuralSurfaceAction } from './index';
 import { IfcStructuralAnalysisModel } from './index';
 import { IfcStructuralCurveConnection } from './index';
 import { IfcStructuralPointConnection } from './index';
 import { IfcStructuralSurfaceConnection } from './index';
+import { IfcStructuralLinearAction } from './index';
 import { IfcStructuralCurveMember } from './index';
 import { IfcStructuralCurveMemberVarying } from './index';
-import { IfcStructuralLinearActionVarying } from './index';
+import { IfcStructuralCurveReaction } from './index';
+import { IfcStructuralLoadConfiguration } from './index';
+import { IfcStructuralLoadCase } from './index';
 import { IfcStructuralLoadLinearForce } from './index';
+import { IfcSurfaceReinforcementArea } from './index';
 import { IfcStructuralLoadPlanarForce } from './index';
 import { IfcStructuralLoadSingleDisplacement } from './index';
 import { IfcStructuralLoadSingleDisplacementDistortion } from './index';
@@ -527,56 +625,63 @@ import { IfcStructuralLoadSingleForce } from './index';
 import { IfcStructuralLoadSingleForceWarping } from './index';
 import { IfcStructuralLoadTemperature } from './index';
 import { IfcStructuralSurfaceMember } from './index';
-import { IfcStructuralPlanarActionVarying } from './index';
+import { IfcStructuralPlanarAction } from './index';
 import { IfcStructuralPointReaction } from './index';
-import { IfcStructuralSteelProfileProperties } from './index';
+import { IfcStructuralSurfaceReaction } from './index';
 import { IfcStructuralSurfaceMemberVarying } from './index';
 import { IfcStyledRepresentation } from './index';
 import { IfcSurfaceCurveSweptAreaSolid } from './index';
 import { IfcSurfaceOfLinearExtrusion } from './index';
 import { IfcSurfaceOfRevolution } from './index';
-import { IfcSurfaceStyleLighting } from './index';
-import { IfcSurfaceStyleRefraction } from './index';
 import { IfcSurfaceStyleRendering } from './index';
-import { IfcSurfaceStyleShading } from './index';
-import { IfcSurfaceStyleWithTextures } from './index';
+import { IfcSweptDiskSolidPolygonal } from './index';
+import { IfcZone } from './index';
 import { IfcTable } from './index';
+import { IfcTableColumn } from './index';
 import { IfcTableRow } from './index';
+import { IfcTaskTimeRecurring } from './index';
+import { IfcTaskType } from './index';
+import { IfcTriangulatedFaceSet } from './index';
 import { IfcTextLiteralWithExtent } from './index';
-import { IfcTextStyleForDefinedFont } from './index';
-import { IfcTextStyleTextModel } from './index';
-import { IfcTextStyleWithBoxCharacteristics } from './index';
 import { IfcTextureCoordinateGenerator } from './index';
 import { IfcTextureMap } from './index';
-import { IfcTextureVertex } from './index';
-import { IfcTimeSeriesReferenceRelationship } from './index';
+import { IfcTimePeriod } from './index';
 import { IfcTimeSeriesValue } from './index';
 import { IfcVertex } from './index';
 import { IfcWindowStyle } from './index';
 import { IfcUnitAssignment } from './index';
 import { IfcVertexPoint } from './index';
-import { IfcVertexBasedTextureMap } from './index';
 import { IfcVirtualGridIntersection } from './index';
+import { IfcWallElementedCase } from './index';
 import { IfcWallStandardCase } from './index';
+import { IfcWindowStandardCase } from './index';
 import { IfcWorkPlan } from './index';
 import { IfcWorkSchedule } from './index';
+import { IfcStrippedOptional } from './index';
 import { IfcAbsorbedDoseMeasure } from './index';
 import { IfcAccelerationMeasure } from './index';
 import { IfcAmountOfSubstanceMeasure } from './index';
 import { IfcAngularVelocityMeasure } from './index';
+import { IfcArcIndex } from './index';
+import { IfcAreaDensityMeasure } from './index';
 import { IfcAreaMeasure } from './index';
+import { IfcBinary } from './index';
 import { IfcBoolean } from './index';
 import { IfcBoxAlignment } from './index';
+import { IfcCardinalPointReference } from './index';
 import { IfcComplexNumber } from './index';
 import { IfcCompoundPlaneAngleMeasure } from './index';
 import { IfcContextDependentMeasure } from './index';
 import { IfcCountMeasure } from './index';
 import { IfcCurvatureMeasure } from './index';
+import { IfcDate } from './index';
+import { IfcDateTime } from './index';
 import { IfcDayInMonthNumber } from './index';
-import { IfcDaylightSavingHour } from './index';
+import { IfcDayInWeekNumber } from './index';
 import { IfcDescriptiveMeasure } from './index';
 import { IfcDimensionCount } from './index';
 import { IfcDoseEquivalentMeasure } from './index';
+import { IfcDuration } from './index';
 import { IfcDynamicViscosityMeasure } from './index';
 import { IfcElectricCapacitanceMeasure } from './index';
 import { IfcElectricChargeMeasure } from './index';
@@ -593,7 +698,6 @@ import { IfcFrequencyMeasure } from './index';
 import { IfcGloballyUniqueId } from './index';
 import { IfcHeatFluxDensityMeasure } from './index';
 import { IfcHeatingValueMeasure } from './index';
-import { IfcHourInDay } from './index';
 import { IfcIdentifier } from './index';
 import { IfcIlluminanceMeasure } from './index';
 import { IfcInductanceMeasure } from './index';
@@ -603,7 +707,9 @@ import { IfcIonConcentrationMeasure } from './index';
 import { IfcIsothermalMoistureCapacityMeasure } from './index';
 import { IfcKinematicViscosityMeasure } from './index';
 import { IfcLabel } from './index';
+import { IfcLanguageId } from './index';
 import { IfcLengthMeasure } from './index';
+import { IfcLineIndex } from './index';
 import { IfcLinearForceMeasure } from './index';
 import { IfcLinearMomentMeasure } from './index';
 import { IfcLinearStiffnessMeasure } from './index';
@@ -618,7 +724,6 @@ import { IfcMassDensityMeasure } from './index';
 import { IfcMassFlowRateMeasure } from './index';
 import { IfcMassMeasure } from './index';
 import { IfcMassPerLengthMeasure } from './index';
-import { IfcMinuteInHour } from './index';
 import { IfcModulusOfElasticityMeasure } from './index';
 import { IfcModulusOfLinearSubgradeReactionMeasure } from './index';
 import { IfcModulusOfRotationalSubgradeReactionMeasure } from './index';
@@ -628,35 +733,40 @@ import { IfcMolecularWeightMeasure } from './index';
 import { IfcMomentOfInertiaMeasure } from './index';
 import { IfcMonetaryMeasure } from './index';
 import { IfcMonthInYearNumber } from './index';
+import { IfcNonNegativeLengthMeasure } from './index';
 import { IfcNormalisedRatioMeasure } from './index';
 import { IfcNumericMeasure } from './index';
 import { IfcPHMeasure } from './index';
 import { IfcParameterValue } from './index';
 import { IfcPlanarForceMeasure } from './index';
 import { IfcPlaneAngleMeasure } from './index';
+import { IfcPositiveInteger } from './index';
 import { IfcPositiveLengthMeasure } from './index';
 import { IfcPositivePlaneAngleMeasure } from './index';
 import { IfcPositiveRatioMeasure } from './index';
 import { IfcPowerMeasure } from './index';
 import { IfcPresentableText } from './index';
 import { IfcPressureMeasure } from './index';
+import { IfcPropertySetDefinitionSet } from './index';
 import { IfcRadioActivityMeasure } from './index';
 import { IfcRatioMeasure } from './index';
 import { IfcReal } from './index';
 import { IfcRotationalFrequencyMeasure } from './index';
 import { IfcRotationalMassMeasure } from './index';
 import { IfcRotationalStiffnessMeasure } from './index';
-import { IfcSecondInMinute } from './index';
 import { IfcSectionModulusMeasure } from './index';
 import { IfcSectionalAreaIntegralMeasure } from './index';
 import { IfcShearModulusMeasure } from './index';
 import { IfcSolidAngleMeasure } from './index';
+import { IfcSoundPowerLevelMeasure } from './index';
 import { IfcSoundPowerMeasure } from './index';
+import { IfcSoundPressureLevelMeasure } from './index';
 import { IfcSoundPressureMeasure } from './index';
 import { IfcSpecificHeatCapacityMeasure } from './index';
 import { IfcSpecularExponent } from './index';
 import { IfcSpecularRoughness } from './index';
 import { IfcTemperatureGradientMeasure } from './index';
+import { IfcTemperatureRateOfChangeMeasure } from './index';
 import { IfcText } from './index';
 import { IfcTextAlignment } from './index';
 import { IfcTextDecoration } from './index';
@@ -668,87 +778,92 @@ import { IfcThermalExpansionCoefficientMeasure } from './index';
 import { IfcThermalResistanceMeasure } from './index';
 import { IfcThermalTransmittanceMeasure } from './index';
 import { IfcThermodynamicTemperatureMeasure } from './index';
+import { IfcTime } from './index';
 import { IfcTimeMeasure } from './index';
 import { IfcTimeStamp } from './index';
 import { IfcTorqueMeasure } from './index';
+import { IfcURIReference } from './index';
 import { IfcVaporPermeabilityMeasure } from './index';
 import { IfcVolumeMeasure } from './index';
 import { IfcVolumetricFlowRateMeasure } from './index';
 import { IfcWarpingConstantMeasure } from './index';
 import { IfcWarpingMomentMeasure } from './index';
-import { IfcYearNumber } from './index';
 let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > | undefined )[]  = [
-    Ifc2DCompositeCurve,
-    IfcCompositeCurve,
     IfcActionRequest,
     void 0,
     IfcActor,
     IfcOccupant,
     void 0,
     IfcActorRole,
+    IfcActuator,
+    IfcDistributionControlElement,
     IfcActuatorType,
     void 0,
     void 0,
     IfcPostalAddress,
     IfcTelecomAddress,
+    IfcAdvancedBrep,
+    IfcAdvancedBrepWithVoids,
+    void 0,
+    IfcAdvancedFace,
+    IfcFaceSurface,
+    IfcAirTerminal,
+    IfcFlowTerminal,
+    IfcAirTerminalBox,
+    IfcFlowController,
     IfcAirTerminalBoxType,
     void 0,
     IfcAirTerminalType,
     void 0,
+    IfcAirToAirHeatRecovery,
+    IfcEnergyConversionDevice,
     IfcAirToAirHeatRecoveryType,
     void 0,
+    IfcAlarm,
     IfcAlarmType,
-    IfcAngularDimension,
-    IfcDimensionCurveDirectedCallout,
     IfcAnnotation,
-    void 0,
-    IfcAnnotationCurveOccurrence,
-    IfcDimensionCurve,
-    IfcProjectionCurve,
     void 0,
     IfcAnnotationFillArea,
     void 0,
-    IfcAnnotationFillAreaOccurrence,
-    IfcAnnotationSurfaceOccurrence,
-    IfcAnnotationSymbolOccurrence,
-    IfcAnnotationTextOccurrence,
-    IfcStyledItem,
-    IfcAnnotationSurface,
-    IfcTerminatorSymbol,
     IfcApplication,
-    void 0,
+    IfcAppliedValue,
     IfcCostValue,
-    IfcEnvironmentalImpactValue,
-    IfcAppliedValueRelationship,
     IfcApproval,
-    IfcApprovalActorRelationship,
-    IfcApprovalPropertyRelationship,
     IfcApprovalRelationship,
+    void 0,
     IfcArbitraryClosedProfileDef,
     IfcArbitraryProfileDefWithVoids,
-    void 0,
+    IfcProfileDef,
     IfcArbitraryOpenProfileDef,
     IfcCenterLineProfileDef,
     IfcAsset,
     IfcGroup,
     IfcAsymmetricIShapeProfileDef,
-    IfcIShapeProfileDef,
+    void 0,
+    IfcAudioVisualAppliance,
+    IfcAudioVisualApplianceType,
     IfcAxis1Placement,
     void 0,
     IfcAxis2Placement2D,
     IfcAxis2Placement3D,
     void 0,
-    IfcBezierCurve,
+    IfcBSplineCurveWithKnots,
     void 0,
+    IfcRationalBSplineCurveWithKnots,
+    void 0,
+    IfcBSplineSurfaceWithKnots,
+    void 0,
+    IfcRationalBSplineSurfaceWithKnots,
     IfcBeam,
+    IfcBeamStandardCase,
     void 0,
     IfcBeamType,
     void 0,
-    IfcRationalBezierCurve,
     IfcBlobTexture,
     void 0,
     IfcBlock,
     void 0,
+    IfcBoiler,
     IfcBoilerType,
     IfcBooleanClippingResult,
     IfcBooleanResult,
@@ -756,12 +871,17 @@ let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< Enti
     IfcBoundaryEdgeCondition,
     IfcBoundaryFaceCondition,
     IfcBoundaryNodeCondition,
+    IfcBoundaryCurve,
+    IfcOuterBoundaryCurve,
+    IfcCompositeCurveOnSurface,
     IfcBoundaryNodeConditionWarping,
+    IfcCompositeCurve,
+    IfcIndexedPolyCurve,
     IfcPolyline,
     IfcTrimmedCurve,
     void 0,
-    IfcBoundedSurface,
     IfcCurveBoundedPlane,
+    IfcCurveBoundedSurface,
     IfcRectangularTrimmedSurface,
     void 0,
     IfcBoundingBox,
@@ -769,8 +889,8 @@ let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< Enti
     IfcHalfSpaceSolid,
     IfcBuilding,
     void 0,
-    void 0,
     IfcBuildingElementProxy,
+    IfcChimney,
     IfcColumn,
     IfcCovering,
     IfcCurtainWall,
@@ -783,6 +903,7 @@ let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< Enti
     IfcRamp,
     IfcRampFlight,
     IfcRoof,
+    IfcShadingDevice,
     IfcSlab,
     IfcStair,
     IfcStairFlight,
@@ -791,107 +912,146 @@ let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< Enti
     void 0,
     IfcBuildingElementPart,
     void 0,
+    IfcBuildingElementPartType,
+    void 0,
     IfcBuildingElementProxyType,
+    IfcChimneyType,
     IfcColumnType,
     IfcCoveringType,
     IfcCurtainWallType,
+    IfcDoorType,
+    IfcFootingType,
     IfcMemberType,
+    IfcPileType,
     IfcPlateType,
     IfcRailingType,
     IfcRampFlightType,
+    IfcRampType,
+    IfcRoofType,
+    IfcShadingDeviceType,
     IfcSlabType,
     IfcStairFlightType,
+    IfcStairType,
     IfcWallType,
+    IfcWindowType,
     void 0,
     IfcBuildingStorey,
+    IfcBuildingSystem,
+    IfcSystem,
+    IfcBurner,
+    IfcBurnerType,
     IfcCShapeProfileDef,
-    void 0,
+    IfcCableCarrierFitting,
+    IfcFlowFitting,
     IfcCableCarrierFittingType,
     void 0,
+    IfcCableCarrierSegment,
+    IfcFlowSegment,
     IfcCableCarrierSegmentType,
     void 0,
+    IfcCableFitting,
+    IfcCableFittingType,
+    IfcCableSegment,
     IfcCableSegmentType,
-    IfcCalendarDate,
     IfcCartesianPoint,
     void 0,
+    void 0,
+    IfcCartesianPointList2D,
+    IfcCartesianPointList3D,
     void 0,
     IfcCartesianTransformationOperator2D,
     IfcCartesianTransformationOperator3D,
     IfcCartesianTransformationOperator2DnonUniform,
     IfcCartesianTransformationOperator3DnonUniform,
-    IfcChamferEdgeFeature,
-    void 0,
+    IfcChiller,
     IfcChillerType,
     IfcCircle,
     void 0,
     IfcCircleHollowProfileDef,
     IfcCircleProfileDef,
+    IfcCivilElement,
+    IfcCivilElementType,
     IfcClassification,
-    IfcClassificationItem,
-    IfcClassificationItemRelationship,
-    IfcClassificationNotation,
-    IfcClassificationNotationFacet,
+    void 0,
     IfcClassificationReference,
     void 0,
     IfcClosedShell,
     IfcConnectedFaceSet,
+    IfcCoil,
     IfcCoilType,
     IfcColourRgb,
     void 0,
+    IfcColourRgbList,
+    void 0,
+    IfcColumnStandardCase,
+    IfcCommunicationsAppliance,
+    IfcCommunicationsApplianceType,
     IfcComplexProperty,
     void 0,
+    IfcComplexPropertyTemplate,
+    void 0,
     IfcCompositeCurveSegment,
+    IfcReparametrisedCompositeCurveSegment,
     IfcCompositeProfileDef,
+    IfcCompressor,
+    IfcFlowMovingDevice,
     IfcCompressorType,
     void 0,
+    IfcCondenser,
     IfcCondenserType,
-    IfcCondition,
-    IfcConditionCriterion,
     IfcEllipse,
     IfcOpenShell,
     void 0,
     IfcConnectionCurveGeometry,
     void 0,
     IfcConnectionPointGeometry,
-    IfcConnectionPortGeometry,
     IfcConnectionSurfaceGeometry,
+    IfcConnectionVolumeGeometry,
     IfcConnectionPointEccentricity,
     void 0,
     IfcMetric,
     IfcObjective,
-    IfcConstraintAggregationRelationship,
-    IfcConstraintClassificationRelationship,
-    IfcConstraintRelationship,
     IfcConstructionEquipmentResource,
     void 0,
+    IfcConstructionEquipmentResourceType,
+    void 0,
     IfcConstructionMaterialResource,
+    IfcConstructionMaterialResourceType,
     IfcConstructionProductResource,
+    IfcConstructionProductResourceType,
     IfcCrewResource,
     IfcLaborResource,
     IfcSubContractResource,
+    void 0,
+    IfcCrewResourceType,
+    IfcLaborResourceType,
+    IfcSubContractResourceType,
+    void 0,
+    void 0,
+    IfcProject,
+    IfcProjectLibrary,
     void 0,
     IfcContextDependentUnit,
     void 0,
     IfcCostItem,
     IfcCostSchedule,
-    IfcEquipmentStandard,
-    IfcFurnitureStandard,
     IfcPerformanceHistory,
     IfcPermit,
     IfcProjectOrder,
-    IfcProjectOrderRecord,
-    IfcScheduleTimeControl,
-    IfcServiceLife,
-    IfcSpaceProgram,
-    IfcTimeSeriesSchedule,
+    IfcWorkCalendar,
     void 0,
+    IfcController,
     IfcControllerType,
     IfcConversionBasedUnit,
+    IfcConversionBasedUnitWithOffset,
+    IfcCooledBeam,
     IfcCooledBeamType,
+    IfcCoolingTower,
     IfcCoolingTowerType,
-    IfcCoordinatedUniversalTimeOffset,
-    IfcCraneRailAShapeProfileDef,
-    IfcCraneRailFShapeProfileDef,
+    void 0,
+    IfcMapConversion,
+    void 0,
+    IfcProjectedCRS,
     IfcRectangularPyramid,
     IfcRightCircularCone,
     IfcRightCircularCylinder,
@@ -902,181 +1062,224 @@ let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< Enti
     IfcLine,
     IfcOffsetCurve2D,
     IfcOffsetCurve3D,
+    IfcPcurve,
+    IfcSurfaceCurve,
     IfcCurveStyle,
     void 0,
     IfcCurveStyleFont,
     IfcCurveStyleFontAndScaling,
     IfcCurveStyleFontPattern,
+    IfcCylindricalSurface,
+    void 0,
+    IfcDamper,
     IfcDamperType,
-    IfcDateAndTime,
-    IfcDefinedSymbol,
     IfcDerivedProfileDef,
+    IfcMirroredProfileDef,
     IfcDerivedUnit,
     IfcDerivedUnitElement,
-    IfcDiameterDimension,
-    IfcDimensionCalloutRelationship,
-    IfcDraughtingCalloutRelationship,
-    IfcLinearDimension,
-    IfcRadiusDimension,
-    IfcDraughtingCallout,
-    IfcDimensionCurveTerminator,
-    IfcDimensionPair,
     IfcDimensionalExponents,
     IfcDirection,
     IfcDiscreteAccessory,
-    void 0,
     IfcDiscreteAccessoryType,
-    IfcVibrationIsolatorType,
-    void 0,
     IfcDistributionChamberElement,
     IfcDistributionFlowElement,
     IfcDistributionChamberElementType,
     void 0,
-    IfcDistributionControlElement,
+    IfcDistributionCircuit,
+    IfcDistributionSystem,
+    IfcFlowInstrument,
+    IfcProtectiveDeviceTrippingUnit,
+    IfcSensor,
+    IfcUnitaryControlElement,
     IfcDistributionElement,
     IfcFlowInstrumentType,
+    IfcProtectiveDeviceTrippingUnitType,
     IfcSensorType,
+    IfcUnitaryControlElementType,
     IfcDistributionElementType,
-    IfcEnergyConversionDevice,
-    IfcFlowController,
-    IfcFlowFitting,
-    IfcFlowMovingDevice,
-    IfcFlowSegment,
     IfcFlowStorageDevice,
-    IfcFlowTerminal,
     IfcFlowTreatmentDevice,
     void 0,
     void 0,
     IfcDistributionPort,
     void 0,
-    IfcDocumentElectronicFormat,
     IfcDocumentInformation,
     IfcDocumentInformationRelationship,
     IfcDocumentReference,
+    IfcDoorStandardCase,
     IfcDoorLiningProperties,
     void 0,
     IfcDoorPanelProperties,
     IfcDoorStyle,
     IfcTypeProduct,
-    IfcStructuredDimensionCallout,
     IfcDraughtingPreDefinedColour,
     void 0,
     IfcDraughtingPreDefinedCurveFont,
     void 0,
-    IfcDraughtingPreDefinedTextFont,
-    void 0,
+    IfcDuctFitting,
     IfcDuctFittingType,
+    IfcDuctSegment,
     IfcDuctSegmentType,
+    IfcDuctSilencer,
     IfcDuctSilencerType,
     IfcEdge,
     IfcEdgeCurve,
     IfcOrientedEdge,
     IfcSubedge,
-    IfcRoundedEdgeFeature,
-    void 0,
     IfcEdgeLoop,
     IfcLoop,
+    IfcElectricAppliance,
     IfcElectricApplianceType,
-    IfcElectricDistributionPoint,
+    IfcElectricDistributionBoard,
+    IfcElectricDistributionBoardType,
+    IfcElectricFlowStorageDevice,
     IfcElectricFlowStorageDeviceType,
+    IfcElectricGenerator,
     IfcElectricGeneratorType,
-    IfcElectricHeaterType,
+    IfcElectricMotor,
     IfcElectricMotorType,
+    IfcElectricTimeControl,
     IfcElectricTimeControlType,
-    IfcElectricalBaseProperties,
-    IfcEnergyProperties,
-    IfcElectricalCircuit,
-    IfcSystem,
-    IfcElectricalElement,
     IfcElementAssembly,
-    IfcEquipmentElement,
     void 0,
     IfcFurnishingElement,
+    IfcGeographicElement,
     IfcTransportElement,
     IfcVirtualElement,
+    IfcElementAssemblyType,
     IfcFastener,
+    IfcMechanicalFastener,
+    void 0,
+    IfcVibrationIsolator,
     IfcFastenerType,
+    IfcMechanicalFastenerType,
+    void 0,
+    IfcVibrationIsolatorType,
     IfcElementQuantity,
+    void 0,
     IfcFurnishingElementType,
-    void 0,
+    IfcGeographicElementType,
     IfcTransportElementType,
-    void 0,
     IfcPlane,
+    IfcSphericalSurface,
+    IfcToroidalSurface,
     IfcEllipseProfileDef,
+    IfcEngine,
+    IfcEvaporativeCooler,
+    IfcEvaporator,
+    IfcHeatExchanger,
+    IfcHumidifier,
+    IfcMotorConnection,
+    IfcSolarDevice,
+    IfcTransformer,
+    IfcTubeBundle,
+    IfcUnitaryEquipment,
+    IfcEngineType,
     IfcEvaporativeCoolerType,
     IfcEvaporatorType,
     IfcHeatExchangerType,
     IfcHumidifierType,
     IfcMotorConnectionType,
-    IfcSpaceHeaterType,
+    IfcSolarDeviceType,
     IfcTransformerType,
     IfcTubeBundleType,
     IfcUnitaryEquipmentType,
-    IfcExtendedMaterialProperties,
+    IfcEvent,
     void 0,
+    IfcEventTime,
+    void 0,
+    IfcEventType,
+    void 0,
+    void 0,
+    IfcMaterialProperties,
+    IfcProfileProperties,
+    void 0,
+    IfcLibraryInformation,
     IfcExternallyDefinedHatchStyle,
     IfcExternallyDefinedSurfaceStyle,
-    IfcExternallyDefinedSymbol,
     IfcExternallyDefinedTextFont,
     IfcLibraryReference,
+    IfcExternalReferenceRelationship,
+    IfcExternalSpatialElement,
+    void 0,
+    void 0,
     IfcExtrudedAreaSolid,
+    IfcExtrudedAreaSolidTapered,
     void 0,
     IfcFace,
-    IfcFaceSurface,
     IfcFaceBasedSurfaceModel,
     IfcFaceBound,
     IfcFaceOuterBound,
     IfcFacetedBrep,
-    void 0,
     IfcFacetedBrepWithVoids,
     IfcFailureConnectionCondition,
     void 0,
+    IfcFan,
     IfcFanType,
-    IfcMechanicalFastener,
-    IfcMechanicalFastenerType,
     void 0,
+    void 0,
+    IfcSurfaceFeature,
     IfcProjectionElement,
     IfcOpeningElement,
+    IfcVoidingFeature,
     IfcFillAreaStyle,
     IfcFillAreaStyleHatching,
-    IfcFillAreaStyleTileSymbolWithStyle,
     IfcFillAreaStyleTiles,
+    IfcFilter,
     IfcFilterType,
+    IfcFireSuppressionTerminal,
     IfcFireSuppressionTerminalType,
+    IfcFixedReferenceSweptAreaSolid,
+    IfcFlowMeter,
+    IfcProtectiveDevice,
+    IfcSwitchingDevice,
+    IfcValve,
     IfcFlowMeterType,
     IfcProtectiveDeviceType,
     IfcSwitchingDeviceType,
     IfcValveType,
+    IfcJunctionBox,
+    IfcPipeFitting,
     IfcJunctionBoxType,
     IfcPipeFittingType,
+    IfcPump,
     IfcPumpType,
+    IfcPipeSegment,
     IfcPipeSegmentType,
+    IfcTank,
     IfcTankType,
-    IfcGasTerminalType,
+    IfcLamp,
+    IfcLightFixture,
+    IfcMedicalDevice,
+    IfcOutlet,
+    IfcSanitaryTerminal,
+    IfcSpaceHeater,
+    IfcStackTerminal,
+    IfcWasteTerminal,
     IfcLampType,
     IfcLightFixtureType,
+    IfcMedicalDeviceType,
     IfcOutletType,
     IfcSanitaryTerminalType,
+    IfcSpaceHeaterType,
     IfcStackTerminalType,
     IfcWasteTerminalType,
-    IfcFluidFlowProperties,
-    IfcFuelProperties,
+    IfcInterceptor,
+    IfcInterceptorType,
+    IfcFurniture,
+    IfcSystemFurnitureElement,
     IfcFurnitureType,
     IfcSystemFurnitureElementType,
-    IfcGeneralMaterialProperties,
-    IfcGeneralProfileProperties,
-    IfcStructuralProfileProperties,
-    void 0,
     IfcGeometricCurveSet,
     IfcGeometricSet,
     IfcGeometricRepresentationContext,
     IfcGeometricRepresentationSubContext,
-    IfcRepresentationContext,
     void 0,
-    IfcOneDirectionRepeatFactor,
+    void 0,
     IfcPlanarExtent,
     IfcSectionedSpine,
     IfcShellBasedSurfaceModel,
+    void 0,
     IfcTextLiteral,
     IfcVector,
     void 0,
@@ -1087,15 +1290,21 @@ let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< Enti
     IfcInventory,
     IfcStructuralLoadGroup,
     IfcStructuralResultGroup,
-    IfcZone,
     IfcPolygonalBoundedHalfSpace,
-    IfcHygroscopicMaterialProperties,
+    IfcIShapeProfileDef,
     IfcImageTexture,
+    IfcIndexedColourMap,
+    IfcIndexedPolygonalFace,
+    IfcIndexedPolygonalFaceWithVoids,
+    void 0,
+    IfcIndexedTriangleTextureMap,
+    void 0,
+    IfcIntersectionCurve,
     IfcIrregularTimeSeries,
     void 0,
     IfcIrregularTimeSeriesValue,
     IfcLShapeProfileDef,
-    IfcLibraryInformation,
+    IfcLagTime,
     IfcLightDistributionData,
     IfcLightIntensityDistribution,
     IfcLightSourceAmbient,
@@ -1104,37 +1313,35 @@ let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< Enti
     IfcLightSourcePositional,
     IfcLightSourceSpot,
     IfcLocalPlacement,
-    IfcLocalTime,
     IfcPolyLoop,
     IfcVertexLoop,
     IfcMappedItem,
     IfcMaterial,
+    void 0,
     IfcMaterialClassificationRelationship,
-    IfcMaterialDefinitionRepresentation,
-    IfcProductRepresentation,
+    IfcMaterialConstituent,
+    IfcMaterialConstituentSet,
     IfcMaterialLayer,
     IfcMaterialLayerSet,
+    IfcMaterialProfile,
+    IfcMaterialProfileSet,
+    IfcMaterialDefinitionRepresentation,
+    void 0,
+    IfcMaterialLayerWithOffsets,
     IfcMaterialLayerSetUsage,
+    void 0,
     IfcMaterialList,
-    IfcMechanicalMaterialProperties,
-    IfcOpticalMaterialProperties,
-    IfcProductsOfCombustionProperties,
-    IfcThermalMaterialProperties,
-    IfcWaterProperties,
+    IfcMaterialProfileWithOffsets,
+    IfcMaterialProfileSetUsage,
+    IfcMaterialProfileSetUsageTapering,
+    IfcMaterialRelationship,
     IfcMeasureWithUnit,
-    IfcMechanicalConcreteMaterialProperties,
-    IfcMechanicalSteelMaterialProperties,
+    IfcMemberStandardCase,
     IfcMonetaryUnit,
-    IfcMove,
-    IfcTask,
     IfcSIUnit,
-    void 0,
-    IfcProject,
-    void 0,
     IfcTypeObject,
     void 0,
-    IfcTwoDirectionRepeatFactor,
-    IfcOrderAction,
+    IfcOpeningStandardCase,
     IfcOrganization,
     IfcOrganizationRelationship,
     IfcOwnerHistory,
@@ -1158,54 +1365,69 @@ let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< Enti
     IfcQuantityWeight,
     IfcPixelTexture,
     IfcPlanarBox,
+    IfcPlateStandardCase,
     IfcPointOnCurve,
     IfcPointOnSurface,
+    IfcPolygonalFaceSet,
     void 0,
-    IfcPreDefinedDimensionSymbol,
     void 0,
-    IfcPreDefinedPointMarkerSymbol,
-    IfcPreDefinedTerminatorSymbol,
+    void 0,
+    void 0,
+    IfcReinforcementBarProperties,
+    IfcSectionProperties,
+    IfcSectionReinforcementProperties,
+    IfcReinforcementDefinitionProperties,
+    IfcWindowLiningProperties,
+    IfcWindowPanelProperties,
+    void 0,
     IfcTextStyleFontModel,
+    IfcSurfaceStyleLighting,
+    IfcSurfaceStyleRefraction,
+    IfcSurfaceStyleShading,
+    IfcSurfaceStyleWithTextures,
+    IfcTextStyleForDefinedFont,
+    IfcTextStyleTextModel,
+    IfcTextureVertex,
+    IfcTextureVertexList,
     IfcPresentationLayerAssignment,
     IfcPresentationLayerWithStyle,
     IfcSurfaceStyle,
-    IfcSymbolStyle,
     IfcTextStyle,
     IfcPresentationStyleAssignment,
     IfcProcedure,
+    IfcProcedureType,
+    IfcTask,
     IfcProxy,
     void 0,
     void 0,
     IfcProductDefinitionShape,
-    IfcRibPlateProfileProperties,
     void 0,
+    IfcPropertyEnumeration,
     IfcPropertyBoundedValue,
-    IfcPropertyConstraintRelationship,
+    void 0,
     void 0,
     IfcPropertyDependencyRelationship,
     IfcPropertyEnumeratedValue,
-    IfcPropertyEnumeration,
     IfcPropertyListValue,
     IfcPropertyReferenceValue,
     IfcPropertySet,
-    IfcReinforcementDefinitionProperties,
-    IfcServiceLifeFactor,
-    IfcSoundProperties,
-    IfcSoundValue,
-    IfcSpaceThermalLoadProperties,
-    IfcWindowLiningProperties,
-    IfcWindowPanelProperties,
+    IfcPropertySetTemplate,
     IfcPropertySingleValue,
     IfcPropertyTableValue,
+    IfcSimplePropertyTemplate,
     IfcRectangleHollowProfileDef,
     IfcRoundedRectangleProfileDef,
-    IfcReferencesValueDocument,
+    IfcRecurrencePattern,
+    IfcReference,
     IfcRegularTimeSeries,
-    IfcReinforcementBarProperties,
     IfcReinforcingBar,
+    IfcReinforcingBarType,
     IfcReinforcingMesh,
     IfcTendon,
     IfcTendonAnchor,
+    IfcReinforcingMeshType,
+    IfcTendonAnchorType,
+    IfcTendonType,
     IfcRelAggregates,
     void 0,
     void 0,
@@ -1216,79 +1438,93 @@ let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< Enti
     IfcRelAssignsToProduct,
     IfcRelAssignsToResource,
     void 0,
-    IfcRelAssignsTasks,
-    IfcRelOccupiesSpaces,
-    IfcRelAssignsToProjectOrder,
-    IfcRelSchedulesCostItems,
-    IfcRelAssociates,
-    IfcRelAssociatesAppliedValue,
+    IfcRelAssignsToGroupByFactor,
+    void 0,
     IfcRelAssociatesApproval,
     IfcRelAssociatesClassification,
     IfcRelAssociatesConstraint,
     IfcRelAssociatesDocument,
     IfcRelAssociatesLibrary,
     IfcRelAssociatesMaterial,
-    IfcRelAssociatesProfileProperties,
     void 0,
     IfcRelConnectsElements,
     IfcRelConnectsPortToElement,
     IfcRelConnectsPorts,
     IfcRelConnectsStructuralActivity,
-    IfcRelConnectsStructuralElement,
     IfcRelConnectsStructuralMember,
     IfcRelContainedInSpatialStructure,
     IfcRelCoversBldgElements,
     IfcRelCoversSpaces,
     IfcRelFillsElement,
     IfcRelFlowControlElements,
-    IfcRelInteractionRequirements,
-    IfcRelProjectsElement,
+    IfcRelInterferesElements,
     IfcRelReferencedInSpatialStructure,
     IfcRelSequence,
     IfcRelServicesBuildings,
     IfcRelSpaceBoundary,
-    IfcRelVoidsElement,
     IfcRelConnectsPathElements,
     IfcRelConnectsWithRealizingElements,
     IfcRelConnectsWithEccentricity,
+    IfcRelDeclares,
     IfcRelNests,
+    IfcRelProjectsElement,
+    IfcRelVoidsElement,
     void 0,
+    IfcRelDefinesByObject,
     IfcRelDefinesByProperties,
+    IfcRelDefinesByTemplate,
     IfcRelDefinesByType,
-    IfcRelOverridesProperties,
-    IfcRelaxation,
-    IfcRepresentation,
+    IfcRelSpaceBoundary1stLevel,
+    IfcRelSpaceBoundary2ndLevel,
     void 0,
     void 0,
+    void 0,
+    IfcStyledItem,
     IfcRepresentationMap,
+    IfcResourceApprovalRelationship,
+    IfcResourceConstraintRelationship,
+    IfcResourceTime,
     IfcRevolvedAreaSolid,
-    IfcSectionProperties,
-    IfcSectionReinforcementProperties,
+    IfcRevolvedAreaSolidTapered,
+    IfcTaskTime,
+    IfcWorkTime,
+    IfcSeamCurve,
     IfcShapeAspect,
     IfcShapeRepresentation,
     IfcTopologyRepresentation,
     IfcSite,
+    IfcSlabElementedCase,
+    IfcSlabStandardCase,
     IfcSlippageConnectionCondition,
     IfcSweptDiskSolid,
     IfcSpace,
     IfcSpaceType,
     void 0,
-    IfcStructuralLinearAction,
-    IfcStructuralPlanarAction,
+    IfcSpatialZone,
+    void 0,
+    IfcSpatialZoneType,
+    void 0,
+    IfcStructuralCurveAction,
     IfcStructuralPointAction,
+    IfcStructuralSurfaceAction,
     void 0,
     IfcStructuralAnalysisModel,
     void 0,
     IfcStructuralCurveConnection,
     IfcStructuralPointConnection,
     IfcStructuralSurfaceConnection,
+    IfcStructuralLinearAction,
     IfcStructuralCurveMember,
     IfcStructuralCurveMemberVarying,
     void 0,
-    IfcStructuralLinearActionVarying,
+    IfcStructuralCurveReaction,
     void 0,
+    IfcStructuralLoadConfiguration,
     void 0,
+    IfcStructuralLoadCase,
     IfcStructuralLoadLinearForce,
+    void 0,
+    IfcSurfaceReinforcementArea,
     IfcStructuralLoadPlanarForce,
     IfcStructuralLoadSingleDisplacement,
     IfcStructuralLoadSingleDisplacementDistortion,
@@ -1296,58 +1532,64 @@ let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< Enti
     IfcStructuralLoadSingleForceWarping,
     IfcStructuralLoadTemperature,
     IfcStructuralSurfaceMember,
-    IfcStructuralPlanarActionVarying,
+    IfcStructuralPlanarAction,
     IfcStructuralPointReaction,
-    IfcStructuralSteelProfileProperties,
+    IfcStructuralSurfaceReaction,
     IfcStructuralSurfaceMemberVarying,
     IfcStyledRepresentation,
     void 0,
     IfcSurfaceCurveSweptAreaSolid,
     IfcSurfaceOfLinearExtrusion,
     IfcSurfaceOfRevolution,
-    IfcSurfaceStyleLighting,
-    IfcSurfaceStyleRefraction,
     IfcSurfaceStyleRendering,
-    IfcSurfaceStyleShading,
-    IfcSurfaceStyleWithTextures,
+    IfcSweptDiskSolidPolygonal,
+    IfcZone,
     IfcTable,
+    IfcTableColumn,
     IfcTableRow,
+    IfcTaskTimeRecurring,
+    IfcTaskType,
+    IfcTriangulatedFaceSet,
     IfcTextLiteralWithExtent,
-    IfcTextStyleForDefinedFont,
-    IfcTextStyleTextModel,
-    IfcTextStyleWithBoxCharacteristics,
-    void 0,
     IfcTextureCoordinateGenerator,
     IfcTextureMap,
-    IfcTextureVertex,
-    IfcTimeSeriesReferenceRelationship,
+    IfcTimePeriod,
     IfcTimeSeriesValue,
     IfcVertex,
     IfcWindowStyle,
     IfcUnitAssignment,
     IfcVertexPoint,
-    IfcVertexBasedTextureMap,
     IfcVirtualGridIntersection,
+    IfcWallElementedCase,
     IfcWallStandardCase,
+    IfcWindowStandardCase,
     IfcWorkPlan,
     IfcWorkSchedule,
+    IfcStrippedOptional,
     IfcAbsorbedDoseMeasure,
     IfcAccelerationMeasure,
     IfcAmountOfSubstanceMeasure,
     IfcAngularVelocityMeasure,
+    IfcArcIndex,
+    IfcAreaDensityMeasure,
     IfcAreaMeasure,
+    IfcBinary,
     IfcBoolean,
     IfcBoxAlignment,
+    IfcCardinalPointReference,
     IfcComplexNumber,
     IfcCompoundPlaneAngleMeasure,
     IfcContextDependentMeasure,
     IfcCountMeasure,
     IfcCurvatureMeasure,
+    IfcDate,
+    IfcDateTime,
     IfcDayInMonthNumber,
-    IfcDaylightSavingHour,
+    IfcDayInWeekNumber,
     IfcDescriptiveMeasure,
     IfcDimensionCount,
     IfcDoseEquivalentMeasure,
+    IfcDuration,
     IfcDynamicViscosityMeasure,
     IfcElectricCapacitanceMeasure,
     IfcElectricChargeMeasure,
@@ -1364,7 +1606,6 @@ let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< Enti
     IfcGloballyUniqueId,
     IfcHeatFluxDensityMeasure,
     IfcHeatingValueMeasure,
-    IfcHourInDay,
     IfcIdentifier,
     IfcIlluminanceMeasure,
     IfcInductanceMeasure,
@@ -1374,7 +1615,9 @@ let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< Enti
     IfcIsothermalMoistureCapacityMeasure,
     IfcKinematicViscosityMeasure,
     IfcLabel,
+    IfcLanguageId,
     IfcLengthMeasure,
+    IfcLineIndex,
     IfcLinearForceMeasure,
     IfcLinearMomentMeasure,
     IfcLinearStiffnessMeasure,
@@ -1389,7 +1632,6 @@ let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< Enti
     IfcMassFlowRateMeasure,
     IfcMassMeasure,
     IfcMassPerLengthMeasure,
-    IfcMinuteInHour,
     IfcModulusOfElasticityMeasure,
     IfcModulusOfLinearSubgradeReactionMeasure,
     IfcModulusOfRotationalSubgradeReactionMeasure,
@@ -1399,35 +1641,40 @@ let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< Enti
     IfcMomentOfInertiaMeasure,
     IfcMonetaryMeasure,
     IfcMonthInYearNumber,
+    IfcNonNegativeLengthMeasure,
     IfcNormalisedRatioMeasure,
     IfcNumericMeasure,
     IfcPHMeasure,
     IfcParameterValue,
     IfcPlanarForceMeasure,
     IfcPlaneAngleMeasure,
+    IfcPositiveInteger,
     IfcPositiveLengthMeasure,
     IfcPositivePlaneAngleMeasure,
     IfcPositiveRatioMeasure,
     IfcPowerMeasure,
     IfcPresentableText,
     IfcPressureMeasure,
+    IfcPropertySetDefinitionSet,
     IfcRadioActivityMeasure,
     IfcRatioMeasure,
     IfcReal,
     IfcRotationalFrequencyMeasure,
     IfcRotationalMassMeasure,
     IfcRotationalStiffnessMeasure,
-    IfcSecondInMinute,
     IfcSectionModulusMeasure,
     IfcSectionalAreaIntegralMeasure,
     IfcShearModulusMeasure,
     IfcSolidAngleMeasure,
+    IfcSoundPowerLevelMeasure,
     IfcSoundPowerMeasure,
+    IfcSoundPressureLevelMeasure,
     IfcSoundPressureMeasure,
     IfcSpecificHeatCapacityMeasure,
     IfcSpecularExponent,
     IfcSpecularRoughness,
     IfcTemperatureGradientMeasure,
+    IfcTemperatureRateOfChangeMeasure,
     IfcText,
     IfcTextAlignment,
     IfcTextDecoration,
@@ -1439,15 +1686,16 @@ let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< Enti
     IfcThermalResistanceMeasure,
     IfcThermalTransmittanceMeasure,
     IfcThermodynamicTemperatureMeasure,
+    IfcTime,
     IfcTimeMeasure,
     IfcTimeStamp,
     IfcTorqueMeasure,
+    IfcURIReference,
     IfcVaporPermeabilityMeasure,
     IfcVolumeMeasure,
     IfcVolumetricFlowRateMeasure,
     IfcWarpingConstantMeasure,
     IfcWarpingMomentMeasure,
-    IfcYearNumber,
 ];
 
 let parser = new StepParser< EntityTypesIfc >( EntityTypesIfcSearch );

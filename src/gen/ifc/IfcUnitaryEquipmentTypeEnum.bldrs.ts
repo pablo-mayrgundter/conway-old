@@ -1,22 +1,23 @@
 enum IfcUnitaryEquipmentTypeEnum {
     AIRHANDLER = 0,
     AIRCONDITIONINGUNIT = 1,
-    SPLITSYSTEM = 2,
-    ROOFTOPUNIT = 3,
-    USERDEFINED = 4,
-    NOTDEFINED = 5,
+    DEHUMIDIFIER = 2,
+    SPLITSYSTEM = 3,
+    ROOFTOPUNIT = 4,
+    USERDEFINED = 5,
+    NOTDEFINED = 6,
 }
 export { IfcUnitaryEquipmentTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcUnitaryEquipmentTypeEnum = new Int32Array( [55] );
+let gMapIfcUnitaryEquipmentTypeEnum = new Int32Array( [4] );
 
-let prefixSumAddressIfcUnitaryEquipmentTypeEnum = new Uint32Array( [0,13,25,37,50,63,84] );
+let prefixSumAddressIfcUnitaryEquipmentTypeEnum = new Uint32Array( [0,12,33,47,60,73,86,98] );
 
-let slotMapIfcUnitaryEquipmentTypeEnum = new Int32Array( [4,0,5,3,2,1] );
+let slotMapIfcUnitaryEquipmentTypeEnum = new Int32Array( [6,1,2,4,3,5,0] );
 
-let encodedDataIfcUnitaryEquipmentTypeEnum = (new TextEncoder()).encode( ".USERDEFINED..AIRHANDLER..NOTDEFINED..ROOFTOPUNIT..SPLITSYSTEM..AIRCONDITIONINGUNIT." );
+let encodedDataIfcUnitaryEquipmentTypeEnum = (new TextEncoder()).encode( ".NOTDEFINED..AIRCONDITIONINGUNIT..DEHUMIDIFIER..ROOFTOPUNIT..SPLITSYSTEM..USERDEFINED..AIRHANDLER." );
 
 let IfcUnitaryEquipmentTypeEnumSearch = new MinimalPerfectHash< IfcUnitaryEquipmentTypeEnum >( gMapIfcUnitaryEquipmentTypeEnum, prefixSumAddressIfcUnitaryEquipmentTypeEnum, slotMapIfcUnitaryEquipmentTypeEnum, encodedDataIfcUnitaryEquipmentTypeEnum );
 

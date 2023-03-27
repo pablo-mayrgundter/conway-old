@@ -2,20 +2,22 @@ enum IfcOutletTypeEnum {
     AUDIOVISUALOUTLET = 0,
     COMMUNICATIONSOUTLET = 1,
     POWEROUTLET = 2,
-    USERDEFINED = 3,
-    NOTDEFINED = 4,
+    DATAOUTLET = 3,
+    TELEPHONEOUTLET = 4,
+    USERDEFINED = 5,
+    NOTDEFINED = 6,
 }
 export { IfcOutletTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcOutletTypeEnum = new Int32Array( [7] );
+let gMapIfcOutletTypeEnum = new Int32Array( [147] );
 
-let prefixSumAddressIfcOutletTypeEnum = new Uint32Array( [0,12,25,38,57,79] );
+let prefixSumAddressIfcOutletTypeEnum = new Uint32Array( [0,22,35,52,65,84,96,108] );
 
-let slotMapIfcOutletTypeEnum = new Int32Array( [4,3,2,0,1] );
+let slotMapIfcOutletTypeEnum = new Int32Array( [1,2,4,5,0,3,6] );
 
-let encodedDataIfcOutletTypeEnum = (new TextEncoder()).encode( ".NOTDEFINED..USERDEFINED..POWEROUTLET..AUDIOVISUALOUTLET..COMMUNICATIONSOUTLET." );
+let encodedDataIfcOutletTypeEnum = (new TextEncoder()).encode( ".COMMUNICATIONSOUTLET..POWEROUTLET..TELEPHONEOUTLET..USERDEFINED..AUDIOVISUALOUTLET..DATAOUTLET..NOTDEFINED." );
 
 let IfcOutletTypeEnumSearch = new MinimalPerfectHash< IfcOutletTypeEnum >( gMapIfcOutletTypeEnum, prefixSumAddressIfcOutletTypeEnum, slotMapIfcOutletTypeEnum, encodedDataIfcOutletTypeEnum );
 

@@ -1,24 +1,27 @@
 enum IfcLampTypeEnum {
     COMPACTFLUORESCENT = 0,
     FLUORESCENT = 1,
-    HIGHPRESSUREMERCURY = 2,
-    HIGHPRESSURESODIUM = 3,
-    METALHALIDE = 4,
-    TUNGSTENFILAMENT = 5,
-    USERDEFINED = 6,
-    NOTDEFINED = 7,
+    HALOGEN = 2,
+    HIGHPRESSUREMERCURY = 3,
+    HIGHPRESSURESODIUM = 4,
+    LED = 5,
+    METALHALIDE = 6,
+    OLED = 7,
+    TUNGSTENFILAMENT = 8,
+    USERDEFINED = 9,
+    NOTDEFINED = 10,
 }
 export { IfcLampTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcLampTypeEnum = new Int32Array( [-5,27,5] );
+let gMapIfcLampTypeEnum = new Int32Array( [-4,3,471] );
 
-let prefixSumAddressIfcLampTypeEnum = new Uint32Array( [0,13,31,51,64,85,98,118,130] );
+let prefixSumAddressIfcLampTypeEnum = new Uint32Array( [0,13,33,45,66,79,92,112,117,135,141,150] );
 
-let slotMapIfcLampTypeEnum = new Int32Array( [1,5,0,4,2,6,3,7] );
+let slotMapIfcLampTypeEnum = new Int32Array( [6,0,10,3,9,1,4,5,8,7,2] );
 
-let encodedDataIfcLampTypeEnum = (new TextEncoder()).encode( ".FLUORESCENT..TUNGSTENFILAMENT..COMPACTFLUORESCENT..METALHALIDE..HIGHPRESSUREMERCURY..USERDEFINED..HIGHPRESSURESODIUM..NOTDEFINED." );
+let encodedDataIfcLampTypeEnum = (new TextEncoder()).encode( ".METALHALIDE..COMPACTFLUORESCENT..NOTDEFINED..HIGHPRESSUREMERCURY..USERDEFINED..FLUORESCENT..HIGHPRESSURESODIUM..LED..TUNGSTENFILAMENT..OLED..HALOGEN." );
 
 let IfcLampTypeEnumSearch = new MinimalPerfectHash< IfcLampTypeEnum >( gMapIfcLampTypeEnum, prefixSumAddressIfcLampTypeEnum, slotMapIfcLampTypeEnum, encodedDataIfcLampTypeEnum );
 

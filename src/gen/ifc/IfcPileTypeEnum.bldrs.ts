@@ -1,21 +1,24 @@
 enum IfcPileTypeEnum {
-    COHESION = 0,
-    FRICTION = 1,
-    SUPPORT = 2,
-    USERDEFINED = 3,
-    NOTDEFINED = 4,
+    BORED = 0,
+    DRIVEN = 1,
+    JETGROUTING = 2,
+    COHESION = 3,
+    FRICTION = 4,
+    SUPPORT = 5,
+    USERDEFINED = 6,
+    NOTDEFINED = 7,
 }
 export { IfcPileTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcPileTypeEnum = new Int32Array( [66] );
+let gMapIfcPileTypeEnum = new Int32Array( [1,0,9] );
 
-let prefixSumAddressIfcPileTypeEnum = new Uint32Array( [0,12,22,31,44,54] );
+let prefixSumAddressIfcPileTypeEnum = new Uint32Array( [0,9,19,31,38,48,56,69,82] );
 
-let slotMapIfcPileTypeEnum = new Int32Array( [4,1,2,3,0] );
+let slotMapIfcPileTypeEnum = new Int32Array( [5,4,7,0,3,1,6,2] );
 
-let encodedDataIfcPileTypeEnum = (new TextEncoder()).encode( ".NOTDEFINED..FRICTION..SUPPORT..USERDEFINED..COHESION." );
+let encodedDataIfcPileTypeEnum = (new TextEncoder()).encode( ".SUPPORT..FRICTION..NOTDEFINED..BORED..COHESION..DRIVEN..USERDEFINED..JETGROUTING." );
 
 let IfcPileTypeEnumSearch = new MinimalPerfectHash< IfcPileTypeEnum >( gMapIfcPileTypeEnum, prefixSumAddressIfcPileTypeEnum, slotMapIfcPileTypeEnum, encodedDataIfcPileTypeEnum );
 

@@ -1,17 +1,19 @@
 
-import { IfcSurfaceTextureEnum, IfcSurfaceTextureEnumDeserializeStep } from "./index"
+import { IfcPresentationItem } from "./index"
+import { IfcBoolean } from "./index"
+import { IfcIdentifier } from "./index"
 import { IfcCartesianTransformationOperator2D } from "./index"
 
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, stepExtractLogical, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum, IfcPointListDim, IfcGetBasisSurface } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcsurfacetexture.htm */
-export abstract class IfcSurfaceTexture extends StepEntityBase< EntityTypesIfc > 
+export abstract class IfcSurfaceTexture extends IfcPresentationItem 
 {    
     public get type(): EntityTypesIfc
     {
@@ -20,8 +22,9 @@ export abstract class IfcSurfaceTexture extends StepEntityBase< EntityTypesIfc >
 
     private RepeatS_? : boolean;
     private RepeatT_? : boolean;
-    private TextureType_? : IfcSurfaceTextureEnum;
+    private Mode_? : string | null;
     private TextureTransform_? : IfcCartesianTransformationOperator2D | null;
+    private Parameter_? : Array< string > | null;
 
     public get RepeatS() : boolean
     {
@@ -47,7 +50,7 @@ export abstract class IfcSurfaceTexture extends StepEntityBase< EntityTypesIfc >
             if ( value === void 0 )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            }
 
             return value; })();
         }
@@ -79,7 +82,7 @@ export abstract class IfcSurfaceTexture extends StepEntityBase< EntityTypesIfc >
             if ( value === void 0 )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            }
 
             return value; })();
         }
@@ -87,11 +90,11 @@ export abstract class IfcSurfaceTexture extends StepEntityBase< EntityTypesIfc >
         return this.RepeatT_ as boolean;
     }
 
-    public get TextureType() : IfcSurfaceTextureEnum
+    public get Mode() : string | null
     {
-        if ( this.TextureType_ === void 0 )
+        if ( this.Mode_ === void 0 )
         {
-            this.TextureType_ = (() => { this.guaranteeVTable();
+            this.Mode_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
@@ -106,17 +109,24 @@ export abstract class IfcSurfaceTexture extends StepEntityBase< EntityTypesIfc >
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = IfcSurfaceTextureEnumDeserializeStep( buffer, cursor, endCursor );
+            let value = stepExtractString( buffer, cursor, endCursor );
 
             if ( value === void 0 )
-            {                
-                throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed' );
+                }
 
-            return value; })();
+                return null;                
+            }
+            else
+            {
+                return value;
+            } })();
         }
 
-        return this.TextureType_ as IfcSurfaceTextureEnum;
+        return this.Mode_ as string | null;
     }
 
     public get TextureTransform() : IfcCartesianTransformationOperator2D | null
@@ -158,6 +168,56 @@ export abstract class IfcSurfaceTexture extends StepEntityBase< EntityTypesIfc >
 
         return this.TextureTransform_ as IfcCartesianTransformationOperator2D | null;
     }
+
+    public get Parameter() : Array< string > | null
+    {
+        if ( this.Parameter_ === void 0 )
+        {
+            this.Parameter_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 4 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
+            
+            let vtableSlot = internalReference.vtableIndex + 4;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+            
+            if ( stepExtractOptional( buffer, cursor, endCursor ) === null )
+            {
+                return null;
+            }
+
+            let value : Array<string> = [];
+
+            for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
+            {
+                value.push( (() => { 
+                    let cursor = address;
+        
+                    let value = stepExtractString( buffer, cursor, endCursor );
+        
+                    if ( value === void 0 )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed' );
+                    }
+        
+                    return value;
+                })() );
+            }
+
+return value; })();
+        }
+
+        return this.Parameter_ as Array< string > | null;
+    }
+
+
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );

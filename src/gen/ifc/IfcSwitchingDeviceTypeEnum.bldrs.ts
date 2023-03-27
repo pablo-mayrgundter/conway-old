@@ -1,23 +1,27 @@
 enum IfcSwitchingDeviceTypeEnum {
     CONTACTOR = 0,
-    EMERGENCYSTOP = 1,
-    STARTER = 2,
-    SWITCHDISCONNECTOR = 3,
-    TOGGLESWITCH = 4,
-    USERDEFINED = 5,
-    NOTDEFINED = 6,
+    DIMMERSWITCH = 1,
+    EMERGENCYSTOP = 2,
+    KEYPAD = 3,
+    MOMENTARYSWITCH = 4,
+    SELECTORSWITCH = 5,
+    STARTER = 6,
+    SWITCHDISCONNECTOR = 7,
+    TOGGLESWITCH = 8,
+    USERDEFINED = 9,
+    NOTDEFINED = 10,
 }
 export { IfcSwitchingDeviceTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcSwitchingDeviceTypeEnum = new Int32Array( [95] );
+let gMapIfcSwitchingDeviceTypeEnum = new Int32Array( [6,42,79] );
 
-let prefixSumAddressIfcSwitchingDeviceTypeEnum = new Uint32Array( [0,12,21,32,52,66,81,94] );
+let prefixSumAddressIfcSwitchingDeviceTypeEnum = new Uint32Array( [0,9,24,36,47,61,75,92,100,116,136,149] );
 
-let slotMapIfcSwitchingDeviceTypeEnum = new Int32Array( [6,2,0,3,4,1,5] );
+let slotMapIfcSwitchingDeviceTypeEnum = new Int32Array( [6,2,10,0,8,1,4,3,5,7,9] );
 
-let encodedDataIfcSwitchingDeviceTypeEnum = (new TextEncoder()).encode( ".NOTDEFINED..STARTER..CONTACTOR..SWITCHDISCONNECTOR..TOGGLESWITCH..EMERGENCYSTOP..USERDEFINED." );
+let encodedDataIfcSwitchingDeviceTypeEnum = (new TextEncoder()).encode( ".STARTER..EMERGENCYSTOP..NOTDEFINED..CONTACTOR..TOGGLESWITCH..DIMMERSWITCH..MOMENTARYSWITCH..KEYPAD..SELECTORSWITCH..SWITCHDISCONNECTOR..USERDEFINED." );
 
 let IfcSwitchingDeviceTypeEnumSearch = new MinimalPerfectHash< IfcSwitchingDeviceTypeEnum >( gMapIfcSwitchingDeviceTypeEnum, prefixSumAddressIfcSwitchingDeviceTypeEnum, slotMapIfcSwitchingDeviceTypeEnum, encodedDataIfcSwitchingDeviceTypeEnum );
 

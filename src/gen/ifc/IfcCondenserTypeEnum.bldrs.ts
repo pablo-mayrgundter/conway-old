@@ -1,24 +1,25 @@
 enum IfcCondenserTypeEnum {
-    WATERCOOLEDSHELLTUBE = 0,
-    WATERCOOLEDSHELLCOIL = 1,
-    WATERCOOLEDTUBEINTUBE = 2,
+    AIRCOOLED = 0,
+    EVAPORATIVECOOLED = 1,
+    WATERCOOLED = 2,
     WATERCOOLEDBRAZEDPLATE = 3,
-    AIRCOOLED = 4,
-    EVAPORATIVECOOLED = 5,
-    USERDEFINED = 6,
-    NOTDEFINED = 7,
+    WATERCOOLEDSHELLCOIL = 4,
+    WATERCOOLEDSHELLTUBE = 5,
+    WATERCOOLEDTUBEINTUBE = 6,
+    USERDEFINED = 7,
+    NOTDEFINED = 8,
 }
 export { IfcCondenserTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcCondenserTypeEnum = new Int32Array( [2,-4,56] );
+let gMapIfcCondenserTypeEnum = new Int32Array( [4,-3,16] );
 
-let prefixSumAddressIfcCondenserTypeEnum = new Uint32Array( [0,22,34,56,80,91,110,133,146] );
+let prefixSumAddressIfcCondenserTypeEnum = new Uint32Array( [0,12,25,44,55,77,100,124,146,159] );
 
-let slotMapIfcCondenserTypeEnum = new Int32Array( [0,7,1,3,4,5,2,6] );
+let slotMapIfcCondenserTypeEnum = new Int32Array( [8,2,1,0,4,6,3,5,7] );
 
-let encodedDataIfcCondenserTypeEnum = (new TextEncoder()).encode( ".WATERCOOLEDSHELLTUBE..NOTDEFINED..WATERCOOLEDSHELLCOIL..WATERCOOLEDBRAZEDPLATE..AIRCOOLED..EVAPORATIVECOOLED..WATERCOOLEDTUBEINTUBE..USERDEFINED." );
+let encodedDataIfcCondenserTypeEnum = (new TextEncoder()).encode( ".NOTDEFINED..WATERCOOLED..EVAPORATIVECOOLED..AIRCOOLED..WATERCOOLEDSHELLCOIL..WATERCOOLEDTUBEINTUBE..WATERCOOLEDBRAZEDPLATE..WATERCOOLEDSHELLTUBE..USERDEFINED." );
 
 let IfcCondenserTypeEnumSearch = new MinimalPerfectHash< IfcCondenserTypeEnum >( gMapIfcCondenserTypeEnum, prefixSumAddressIfcCondenserTypeEnum, slotMapIfcCondenserTypeEnum, encodedDataIfcCondenserTypeEnum );
 

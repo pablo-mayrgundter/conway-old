@@ -4,19 +4,19 @@ import { IfcTextFontName } from "./index"
 import { IfcFontStyle } from "./index"
 import { IfcFontVariant } from "./index"
 import { IfcFontWeight } from "./index"
-import { IfcRatioMeasure } from "./index"
-import { IfcLengthMeasure } from "./index"
 import { IfcDescriptiveMeasure } from "./index"
-import { IfcPositiveLengthMeasure } from "./index"
+import { IfcLengthMeasure } from "./index"
 import { IfcNormalisedRatioMeasure } from "./index"
+import { IfcPositiveLengthMeasure } from "./index"
 import { IfcPositiveRatioMeasure } from "./index"
+import { IfcRatioMeasure } from "./index"
 
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, stepExtractLogical, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum, IfcPointListDim, IfcGetBasisSurface } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifctextstylefontmodel.htm */
@@ -27,13 +27,13 @@ export  class IfcTextStyleFontModel extends IfcPreDefinedTextFont
         return EntityTypesIfc.IFCTEXTSTYLEFONTMODEL;
     }
 
-    private FontFamily_? : Array< string > | null;
+    private FontFamily_? : Array< string >;
     private FontStyle_? : string | null;
     private FontVariant_? : string | null;
     private FontWeight_? : string | null;
-    private FontSize_? : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure;
+    private FontSize_? : IfcDescriptiveMeasure|IfcLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveLengthMeasure|IfcPositiveRatioMeasure|IfcRatioMeasure;
 
-    public get FontFamily() : Array< string > | null
+    public get FontFamily() : Array< string >
     {
         if ( this.FontFamily_ === void 0 )
         {
@@ -64,28 +64,16 @@ export  class IfcTextStyleFontModel extends IfcPreDefinedTextFont
                     if ( value === void 0 )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed' );
-                    };
+                    }
         
                     return value;
                 })() );
             }
 
-            if ( value === void 0 )
-            {
-                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
-                {
-                    throw new Error( 'Value in STEP was incorrectly typed' );
-                }
-
-                return null;                
-            }
-            else
-            {
-                return value;
-            } })();
+return value; })();
         }
 
-        return this.FontFamily_ as Array< string > | null;
+        return this.FontFamily_ as Array< string >;
     }
 
     public get FontStyle() : string | null
@@ -205,7 +193,7 @@ export  class IfcTextStyleFontModel extends IfcPreDefinedTextFont
         return this.FontWeight_ as string | null;
     }
 
-    public get FontSize() : IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure
+    public get FontSize() : IfcDescriptiveMeasure|IfcLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveLengthMeasure|IfcPositiveRatioMeasure|IfcRatioMeasure
     {
         if ( this.FontSize_ === void 0 )
         {
@@ -227,15 +215,15 @@ export  class IfcTextStyleFontModel extends IfcPreDefinedTextFont
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( !( value instanceof IfcRatioMeasure ) && !( value instanceof IfcLengthMeasure ) && !( value instanceof IfcDescriptiveMeasure ) && !( value instanceof IfcPositiveLengthMeasure ) && !( value instanceof IfcNormalisedRatioMeasure ) && !( value instanceof IfcPositiveRatioMeasure ) )
+            if ( !( value instanceof IfcDescriptiveMeasure ) && !( value instanceof IfcLengthMeasure ) && !( value instanceof IfcNormalisedRatioMeasure ) && !( value instanceof IfcPositiveLengthMeasure ) && !( value instanceof IfcPositiveRatioMeasure ) && !( value instanceof IfcRatioMeasure ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             }
 
-            return value as (IfcRatioMeasure | IfcLengthMeasure | IfcDescriptiveMeasure | IfcPositiveLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveRatioMeasure); })();
+            return value as (IfcDescriptiveMeasure | IfcLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveLengthMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure); })();
         }
 
-        return this.FontSize_ as IfcRatioMeasure|IfcLengthMeasure|IfcDescriptiveMeasure|IfcPositiveLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveRatioMeasure;
+        return this.FontSize_ as IfcDescriptiveMeasure|IfcLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveLengthMeasure|IfcPositiveRatioMeasure|IfcRatioMeasure;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

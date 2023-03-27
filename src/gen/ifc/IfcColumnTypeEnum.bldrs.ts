@@ -1,19 +1,20 @@
 enum IfcColumnTypeEnum {
     COLUMN = 0,
-    USERDEFINED = 1,
-    NOTDEFINED = 2,
+    PILASTER = 1,
+    USERDEFINED = 2,
+    NOTDEFINED = 3,
 }
 export { IfcColumnTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcColumnTypeEnum = new Int32Array( [4] );
+let gMapIfcColumnTypeEnum = new Int32Array( [60] );
 
-let prefixSumAddressIfcColumnTypeEnum = new Uint32Array( [0,12,20,33] );
+let prefixSumAddressIfcColumnTypeEnum = new Uint32Array( [0,13,21,31,43] );
 
-let slotMapIfcColumnTypeEnum = new Int32Array( [2,0,1] );
+let slotMapIfcColumnTypeEnum = new Int32Array( [2,0,1,3] );
 
-let encodedDataIfcColumnTypeEnum = (new TextEncoder()).encode( ".NOTDEFINED..COLUMN..USERDEFINED." );
+let encodedDataIfcColumnTypeEnum = (new TextEncoder()).encode( ".USERDEFINED..COLUMN..PILASTER..NOTDEFINED." );
 
 let IfcColumnTypeEnumSearch = new MinimalPerfectHash< IfcColumnTypeEnum >( gMapIfcColumnTypeEnum, prefixSumAddressIfcColumnTypeEnum, slotMapIfcColumnTypeEnum, encodedDataIfcColumnTypeEnum );
 

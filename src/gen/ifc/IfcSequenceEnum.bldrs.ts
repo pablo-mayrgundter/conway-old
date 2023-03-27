@@ -3,19 +3,20 @@ enum IfcSequenceEnum {
     START_FINISH = 1,
     FINISH_START = 2,
     FINISH_FINISH = 3,
-    NOTDEFINED = 4,
+    USERDEFINED = 4,
+    NOTDEFINED = 5,
 }
 export { IfcSequenceEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcSequenceEnum = new Int32Array( [33] );
+let gMapIfcSequenceEnum = new Int32Array( [86] );
 
-let prefixSumAddressIfcSequenceEnum = new Uint32Array( [0,12,26,39,54,68] );
+let prefixSumAddressIfcSequenceEnum = new Uint32Array( [0,13,28,42,54,67,81] );
 
-let slotMapIfcSequenceEnum = new Int32Array( [4,2,0,3,1] );
+let slotMapIfcSequenceEnum = new Int32Array( [0,3,1,5,4,2] );
 
-let encodedDataIfcSequenceEnum = (new TextEncoder()).encode( ".NOTDEFINED..FINISH_START..START_START..FINISH_FINISH..START_FINISH." );
+let encodedDataIfcSequenceEnum = (new TextEncoder()).encode( ".START_START..FINISH_FINISH..START_FINISH..NOTDEFINED..USERDEFINED..FINISH_START." );
 
 let IfcSequenceEnumSearch = new MinimalPerfectHash< IfcSequenceEnum >( gMapIfcSequenceEnum, prefixSumAddressIfcSequenceEnum, slotMapIfcSequenceEnum, encodedDataIfcSequenceEnum );
 

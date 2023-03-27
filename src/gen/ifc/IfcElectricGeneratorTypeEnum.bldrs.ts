@@ -1,18 +1,21 @@
 enum IfcElectricGeneratorTypeEnum {
-    USERDEFINED = 0,
-    NOTDEFINED = 1,
+    CHP = 0,
+    ENGINEGENERATOR = 1,
+    STANDALONE = 2,
+    USERDEFINED = 3,
+    NOTDEFINED = 4,
 }
 export { IfcElectricGeneratorTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcElectricGeneratorTypeEnum = new Int32Array( [1] );
+let gMapIfcElectricGeneratorTypeEnum = new Int32Array( [10] );
 
-let prefixSumAddressIfcElectricGeneratorTypeEnum = new Uint32Array( [0,13,25] );
+let prefixSumAddressIfcElectricGeneratorTypeEnum = new Uint32Array( [0,13,25,30,42,59] );
 
-let slotMapIfcElectricGeneratorTypeEnum = new Int32Array( [0,1] );
+let slotMapIfcElectricGeneratorTypeEnum = new Int32Array( [3,2,0,4,1] );
 
-let encodedDataIfcElectricGeneratorTypeEnum = (new TextEncoder()).encode( ".USERDEFINED..NOTDEFINED." );
+let encodedDataIfcElectricGeneratorTypeEnum = (new TextEncoder()).encode( ".USERDEFINED..STANDALONE..CHP..NOTDEFINED..ENGINEGENERATOR." );
 
 let IfcElectricGeneratorTypeEnumSearch = new MinimalPerfectHash< IfcElectricGeneratorTypeEnum >( gMapIfcElectricGeneratorTypeEnum, prefixSumAddressIfcElectricGeneratorTypeEnum, slotMapIfcElectricGeneratorTypeEnum, encodedDataIfcElectricGeneratorTypeEnum );
 

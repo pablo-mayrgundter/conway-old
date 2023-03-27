@@ -1,23 +1,24 @@
 enum IfcFilterTypeEnum {
     AIRPARTICLEFILTER = 0,
-    ODORFILTER = 1,
-    OILFILTER = 2,
-    STRAINER = 3,
-    WATERFILTER = 4,
-    USERDEFINED = 5,
-    NOTDEFINED = 6,
+    COMPRESSEDAIRFILTER = 1,
+    ODORFILTER = 2,
+    OILFILTER = 3,
+    STRAINER = 4,
+    WATERFILTER = 5,
+    USERDEFINED = 6,
+    NOTDEFINED = 7,
 }
 export { IfcFilterTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcFilterTypeEnum = new Int32Array( [260] );
+let gMapIfcFilterTypeEnum = new Int32Array( [1,1,54] );
 
-let prefixSumAddressIfcFilterTypeEnum = new Uint32Array( [0,11,30,40,52,65,77,90] );
+let prefixSumAddressIfcFilterTypeEnum = new Uint32Array( [0,21,40,52,62,74,87,100,111] );
 
-let slotMapIfcFilterTypeEnum = new Int32Array( [2,0,3,1,5,6,4] );
+let slotMapIfcFilterTypeEnum = new Int32Array( [1,0,7,4,2,5,6,3] );
 
-let encodedDataIfcFilterTypeEnum = (new TextEncoder()).encode( ".OILFILTER..AIRPARTICLEFILTER..STRAINER..ODORFILTER..USERDEFINED..NOTDEFINED..WATERFILTER." );
+let encodedDataIfcFilterTypeEnum = (new TextEncoder()).encode( ".COMPRESSEDAIRFILTER..AIRPARTICLEFILTER..NOTDEFINED..STRAINER..ODORFILTER..WATERFILTER..USERDEFINED..OILFILTER." );
 
 let IfcFilterTypeEnumSearch = new MinimalPerfectHash< IfcFilterTypeEnum >( gMapIfcFilterTypeEnum, prefixSumAddressIfcFilterTypeEnum, slotMapIfcFilterTypeEnum, encodedDataIfcFilterTypeEnum );
 

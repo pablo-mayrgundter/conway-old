@@ -1,20 +1,22 @@
 enum IfcCableSegmentTypeEnum {
-    CABLESEGMENT = 0,
-    CONDUCTORSEGMENT = 1,
-    USERDEFINED = 2,
-    NOTDEFINED = 3,
+    BUSBARSEGMENT = 0,
+    CABLESEGMENT = 1,
+    CONDUCTORSEGMENT = 2,
+    CORESEGMENT = 3,
+    USERDEFINED = 4,
+    NOTDEFINED = 5,
 }
 export { IfcCableSegmentTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcCableSegmentTypeEnum = new Int32Array( [10] );
+let gMapIfcCableSegmentTypeEnum = new Int32Array( [28] );
 
-let prefixSumAddressIfcCableSegmentTypeEnum = new Uint32Array( [0,13,27,45,57] );
+let prefixSumAddressIfcCableSegmentTypeEnum = new Uint32Array( [0,13,31,43,57,70,85] );
 
-let slotMapIfcCableSegmentTypeEnum = new Int32Array( [2,0,1,3] );
+let slotMapIfcCableSegmentTypeEnum = new Int32Array( [4,2,5,1,3,0] );
 
-let encodedDataIfcCableSegmentTypeEnum = (new TextEncoder()).encode( ".USERDEFINED..CABLESEGMENT..CONDUCTORSEGMENT..NOTDEFINED." );
+let encodedDataIfcCableSegmentTypeEnum = (new TextEncoder()).encode( ".USERDEFINED..CONDUCTORSEGMENT..NOTDEFINED..CABLESEGMENT..CORESEGMENT..BUSBARSEGMENT." );
 
 let IfcCableSegmentTypeEnumSearch = new MinimalPerfectHash< IfcCableSegmentTypeEnum >( gMapIfcCableSegmentTypeEnum, prefixSumAddressIfcCableSegmentTypeEnum, slotMapIfcCableSegmentTypeEnum, encodedDataIfcCableSegmentTypeEnum );
 

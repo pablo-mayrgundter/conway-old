@@ -1,24 +1,22 @@
 enum IfcFlowMeterTypeEnum {
-    ELECTRICMETER = 0,
-    ENERGYMETER = 1,
-    FLOWMETER = 2,
-    GASMETER = 3,
-    OILMETER = 4,
-    WATERMETER = 5,
-    USERDEFINED = 6,
-    NOTDEFINED = 7,
+    ENERGYMETER = 0,
+    GASMETER = 1,
+    OILMETER = 2,
+    WATERMETER = 3,
+    USERDEFINED = 4,
+    NOTDEFINED = 5,
 }
 export { IfcFlowMeterTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcFlowMeterTypeEnum = new Int32Array( [1,0,82] );
+let gMapIfcFlowMeterTypeEnum = new Int32Array( [133] );
 
-let prefixSumAddressIfcFlowMeterTypeEnum = new Uint32Array( [0,13,23,34,49,61,73,86,96] );
+let prefixSumAddressIfcFlowMeterTypeEnum = new Uint32Array( [0,13,23,35,48,58,70] );
 
-let slotMapIfcFlowMeterTypeEnum = new Int32Array( [1,3,2,0,5,7,6,4] );
+let slotMapIfcFlowMeterTypeEnum = new Int32Array( [4,2,5,0,1,3] );
 
-let encodedDataIfcFlowMeterTypeEnum = (new TextEncoder()).encode( ".ENERGYMETER..GASMETER..FLOWMETER..ELECTRICMETER..WATERMETER..NOTDEFINED..USERDEFINED..OILMETER." );
+let encodedDataIfcFlowMeterTypeEnum = (new TextEncoder()).encode( ".USERDEFINED..OILMETER..NOTDEFINED..ENERGYMETER..GASMETER..WATERMETER." );
 
 let IfcFlowMeterTypeEnumSearch = new MinimalPerfectHash< IfcFlowMeterTypeEnum >( gMapIfcFlowMeterTypeEnum, prefixSumAddressIfcFlowMeterTypeEnum, slotMapIfcFlowMeterTypeEnum, encodedDataIfcFlowMeterTypeEnum );
 

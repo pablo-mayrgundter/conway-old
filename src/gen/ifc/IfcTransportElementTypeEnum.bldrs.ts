@@ -2,20 +2,22 @@ enum IfcTransportElementTypeEnum {
     ELEVATOR = 0,
     ESCALATOR = 1,
     MOVINGWALKWAY = 2,
-    USERDEFINED = 3,
-    NOTDEFINED = 4,
+    CRANEWAY = 3,
+    LIFTINGGEAR = 4,
+    USERDEFINED = 5,
+    NOTDEFINED = 6,
 }
 export { IfcTransportElementTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcTransportElementTypeEnum = new Int32Array( [6] );
+let gMapIfcTransportElementTypeEnum = new Int32Array( [184] );
 
-let prefixSumAddressIfcTransportElementTypeEnum = new Uint32Array( [0,13,24,36,46,61] );
+let prefixSumAddressIfcTransportElementTypeEnum = new Uint32Array( [0,15,28,40,53,63,74,84] );
 
-let slotMapIfcTransportElementTypeEnum = new Int32Array( [3,1,4,0,2] );
+let slotMapIfcTransportElementTypeEnum = new Int32Array( [2,5,6,4,0,1,3] );
 
-let encodedDataIfcTransportElementTypeEnum = (new TextEncoder()).encode( ".USERDEFINED..ESCALATOR..NOTDEFINED..ELEVATOR..MOVINGWALKWAY." );
+let encodedDataIfcTransportElementTypeEnum = (new TextEncoder()).encode( ".MOVINGWALKWAY..USERDEFINED..NOTDEFINED..LIFTINGGEAR..ELEVATOR..ESCALATOR..CRANEWAY." );
 
 let IfcTransportElementTypeEnumSearch = new MinimalPerfectHash< IfcTransportElementTypeEnum >( gMapIfcTransportElementTypeEnum, prefixSumAddressIfcTransportElementTypeEnum, slotMapIfcTransportElementTypeEnum, encodedDataIfcTransportElementTypeEnum );
 

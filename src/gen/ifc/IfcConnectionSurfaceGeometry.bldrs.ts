@@ -1,15 +1,15 @@
 
 import { IfcConnectionGeometry } from "./index"
-import { IfcSurface } from "./index"
-import { IfcFaceSurface } from "./index"
 import { IfcFaceBasedSurfaceModel } from "./index"
+import { IfcFaceSurface } from "./index"
+import { IfcSurface } from "./index"
 
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, stepExtractLogical, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum, IfcPointListDim, IfcGetBasisSurface } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcconnectionsurfacegeometry.htm */
@@ -20,10 +20,10 @@ export  class IfcConnectionSurfaceGeometry extends IfcConnectionGeometry
         return EntityTypesIfc.IFCCONNECTIONSURFACEGEOMETRY;
     }
 
-    private SurfaceOnRelatingElement_? : IfcSurface|IfcFaceSurface|IfcFaceBasedSurfaceModel;
-    private SurfaceOnRelatedElement_? : IfcSurface|IfcFaceSurface|IfcFaceBasedSurfaceModel | null;
+    private SurfaceOnRelatingElement_? : IfcFaceBasedSurfaceModel|IfcFaceSurface|IfcSurface;
+    private SurfaceOnRelatedElement_? : IfcFaceBasedSurfaceModel|IfcFaceSurface|IfcSurface | null;
 
-    public get SurfaceOnRelatingElement() : IfcSurface|IfcFaceSurface|IfcFaceBasedSurfaceModel
+    public get SurfaceOnRelatingElement() : IfcFaceBasedSurfaceModel|IfcFaceSurface|IfcSurface
     {
         if ( this.SurfaceOnRelatingElement_ === void 0 )
         {
@@ -45,18 +45,18 @@ export  class IfcConnectionSurfaceGeometry extends IfcConnectionGeometry
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( !( value instanceof IfcSurface ) && !( value instanceof IfcFaceSurface ) && !( value instanceof IfcFaceBasedSurfaceModel ) )
+            if ( !( value instanceof IfcFaceBasedSurfaceModel ) && !( value instanceof IfcFaceSurface ) && !( value instanceof IfcSurface ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             }
 
-            return value as (IfcSurface | IfcFaceSurface | IfcFaceBasedSurfaceModel); })();
+            return value as (IfcFaceBasedSurfaceModel | IfcFaceSurface | IfcSurface); })();
         }
 
-        return this.SurfaceOnRelatingElement_ as IfcSurface|IfcFaceSurface|IfcFaceBasedSurfaceModel;
+        return this.SurfaceOnRelatingElement_ as IfcFaceBasedSurfaceModel|IfcFaceSurface|IfcSurface;
     }
 
-    public get SurfaceOnRelatedElement() : IfcSurface|IfcFaceSurface|IfcFaceBasedSurfaceModel | null
+    public get SurfaceOnRelatedElement() : IfcFaceBasedSurfaceModel|IfcFaceSurface|IfcSurface | null
     {
         if ( this.SurfaceOnRelatedElement_ === void 0 )
         {
@@ -78,7 +78,7 @@ export  class IfcConnectionSurfaceGeometry extends IfcConnectionGeometry
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( !( value instanceof IfcSurface ) && !( value instanceof IfcFaceSurface ) && !( value instanceof IfcFaceBasedSurfaceModel ) )
+            if ( !( value instanceof IfcFaceBasedSurfaceModel ) && !( value instanceof IfcFaceSurface ) && !( value instanceof IfcSurface ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
@@ -89,11 +89,11 @@ export  class IfcConnectionSurfaceGeometry extends IfcConnectionGeometry
             }
             else
             {
-                return value as (IfcSurface | IfcFaceSurface | IfcFaceBasedSurfaceModel);
+                return value as (IfcFaceBasedSurfaceModel | IfcFaceSurface | IfcSurface);
             } })();
         }
 
-        return this.SurfaceOnRelatedElement_ as IfcSurface|IfcFaceSurface|IfcFaceBasedSurfaceModel | null;
+        return this.SurfaceOnRelatedElement_ as IfcFaceBasedSurfaceModel|IfcFaceSurface|IfcSurface | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

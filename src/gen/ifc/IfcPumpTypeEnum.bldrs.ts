@@ -2,22 +2,24 @@ enum IfcPumpTypeEnum {
     CIRCULATOR = 0,
     ENDSUCTION = 1,
     SPLITCASE = 2,
-    VERTICALINLINE = 3,
-    VERTICALTURBINE = 4,
-    USERDEFINED = 5,
-    NOTDEFINED = 6,
+    SUBMERSIBLEPUMP = 3,
+    SUMPPUMP = 4,
+    VERTICALINLINE = 5,
+    VERTICALTURBINE = 6,
+    USERDEFINED = 7,
+    NOTDEFINED = 8,
 }
 export { IfcPumpTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcPumpTypeEnum = new Int32Array( [90] );
+let gMapIfcPumpTypeEnum = new Int32Array( [1,-7,53] );
 
-let prefixSumAddressIfcPumpTypeEnum = new Uint32Array( [0,13,25,42,58,69,81,93] );
+let prefixSumAddressIfcPumpTypeEnum = new Uint32Array( [0,12,22,39,50,67,83,96,108,120] );
 
-let slotMapIfcPumpTypeEnum = new Int32Array( [5,6,4,3,2,0,1] );
+let slotMapIfcPumpTypeEnum = new Int32Array( [1,4,6,2,3,5,7,0,8] );
 
-let encodedDataIfcPumpTypeEnum = (new TextEncoder()).encode( ".USERDEFINED..NOTDEFINED..VERTICALTURBINE..VERTICALINLINE..SPLITCASE..CIRCULATOR..ENDSUCTION." );
+let encodedDataIfcPumpTypeEnum = (new TextEncoder()).encode( ".ENDSUCTION..SUMPPUMP..VERTICALTURBINE..SPLITCASE..SUBMERSIBLEPUMP..VERTICALINLINE..USERDEFINED..CIRCULATOR..NOTDEFINED." );
 
 let IfcPumpTypeEnumSearch = new MinimalPerfectHash< IfcPumpTypeEnum >( gMapIfcPumpTypeEnum, prefixSumAddressIfcPumpTypeEnum, slotMapIfcPumpTypeEnum, encodedDataIfcPumpTypeEnum );
 

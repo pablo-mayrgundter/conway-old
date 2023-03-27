@@ -1,18 +1,23 @@
 enum IfcSpaceTypeEnum {
-    USERDEFINED = 0,
-    NOTDEFINED = 1,
+    SPACE = 0,
+    PARKING = 1,
+    GFA = 2,
+    INTERNAL = 3,
+    EXTERNAL = 4,
+    USERDEFINED = 5,
+    NOTDEFINED = 6,
 }
 export { IfcSpaceTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcSpaceTypeEnum = new Int32Array( [1] );
+let gMapIfcSpaceTypeEnum = new Int32Array( [346] );
 
-let prefixSumAddressIfcSpaceTypeEnum = new Uint32Array( [0,13,25] );
+let prefixSumAddressIfcSpaceTypeEnum = new Uint32Array( [0,10,17,29,39,52,61,66] );
 
-let slotMapIfcSpaceTypeEnum = new Int32Array( [0,1] );
+let slotMapIfcSpaceTypeEnum = new Int32Array( [4,0,6,3,5,1,2] );
 
-let encodedDataIfcSpaceTypeEnum = (new TextEncoder()).encode( ".USERDEFINED..NOTDEFINED." );
+let encodedDataIfcSpaceTypeEnum = (new TextEncoder()).encode( ".EXTERNAL..SPACE..NOTDEFINED..INTERNAL..USERDEFINED..PARKING..GFA." );
 
 let IfcSpaceTypeEnumSearch = new MinimalPerfectHash< IfcSpaceTypeEnum >( gMapIfcSpaceTypeEnum, prefixSumAddressIfcSpaceTypeEnum, slotMapIfcSpaceTypeEnum, encodedDataIfcSpaceTypeEnum );
 

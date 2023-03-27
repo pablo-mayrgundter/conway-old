@@ -1,19 +1,20 @@
 
+import { IfcPresentationItem } from "./index"
 import { IfcLabel } from "./index"
-import { IfcPreDefinedCurveFont } from "./index"
 import { IfcCurveStyleFont } from "./index"
+import { IfcPreDefinedCurveFont } from "./index"
 import { IfcPositiveRatioMeasure } from "./index"
 
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, stepExtractLogical, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum, IfcPointListDim, IfcGetBasisSurface } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifccurvestylefontandscaling.htm */
-export  class IfcCurveStyleFontAndScaling extends StepEntityBase< EntityTypesIfc > 
+export  class IfcCurveStyleFontAndScaling extends IfcPresentationItem 
 {    
     public get type(): EntityTypesIfc
     {
@@ -21,7 +22,7 @@ export  class IfcCurveStyleFontAndScaling extends StepEntityBase< EntityTypesIfc
     }
 
     private Name_? : string | null;
-    private CurveFont_? : IfcPreDefinedCurveFont|IfcCurveStyleFont;
+    private CurveFont_? : IfcCurveStyleFont|IfcPreDefinedCurveFont;
     private CurveFontScaling_? : number;
 
     public get Name() : string | null
@@ -63,7 +64,7 @@ export  class IfcCurveStyleFontAndScaling extends StepEntityBase< EntityTypesIfc
         return this.Name_ as string | null;
     }
 
-    public get CurveFont() : IfcPreDefinedCurveFont|IfcCurveStyleFont
+    public get CurveFont() : IfcCurveStyleFont|IfcPreDefinedCurveFont
     {
         if ( this.CurveFont_ === void 0 )
         {
@@ -85,15 +86,15 @@ export  class IfcCurveStyleFontAndScaling extends StepEntityBase< EntityTypesIfc
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( !( value instanceof IfcPreDefinedCurveFont ) && !( value instanceof IfcCurveStyleFont ) )
+            if ( !( value instanceof IfcCurveStyleFont ) && !( value instanceof IfcPreDefinedCurveFont ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             }
 
-            return value as (IfcPreDefinedCurveFont | IfcCurveStyleFont); })();
+            return value as (IfcCurveStyleFont | IfcPreDefinedCurveFont); })();
         }
 
-        return this.CurveFont_ as IfcPreDefinedCurveFont|IfcCurveStyleFont;
+        return this.CurveFont_ as IfcCurveStyleFont|IfcPreDefinedCurveFont;
     }
 
     public get CurveFontScaling() : number
@@ -120,7 +121,7 @@ export  class IfcCurveStyleFontAndScaling extends StepEntityBase< EntityTypesIfc
             if ( value === void 0 )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            }
 
             return value; })();
         }

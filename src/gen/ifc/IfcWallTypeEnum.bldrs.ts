@@ -1,23 +1,27 @@
 enum IfcWallTypeEnum {
-    STANDARD = 0,
-    POLYGONAL = 1,
-    SHEAR = 2,
-    ELEMENTEDWALL = 3,
-    PLUMBINGWALL = 4,
-    USERDEFINED = 5,
-    NOTDEFINED = 6,
+    MOVABLE = 0,
+    PARAPET = 1,
+    PARTITIONING = 2,
+    PLUMBINGWALL = 3,
+    SHEAR = 4,
+    SOLIDWALL = 5,
+    STANDARD = 6,
+    POLYGONAL = 7,
+    ELEMENTEDWALL = 8,
+    USERDEFINED = 9,
+    NOTDEFINED = 10,
 }
 export { IfcWallTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcWallTypeEnum = new Int32Array( [105] );
+let gMapIfcWallTypeEnum = new Int32Array( [165,0,2] );
 
-let prefixSumAddressIfcWallTypeEnum = new Uint32Array( [0,14,26,37,52,65,72,82] );
+let prefixSumAddressIfcWallTypeEnum = new Uint32Array( [0,10,22,29,40,54,65,74,89,98,111,125] );
 
-let slotMapIfcWallTypeEnum = new Int32Array( [4,6,1,3,5,2,0] );
+let slotMapIfcWallTypeEnum = new Int32Array( [6,10,4,5,3,7,0,8,1,9,2] );
 
-let encodedDataIfcWallTypeEnum = (new TextEncoder()).encode( ".PLUMBINGWALL..NOTDEFINED..POLYGONAL..ELEMENTEDWALL..USERDEFINED..SHEAR..STANDARD." );
+let encodedDataIfcWallTypeEnum = (new TextEncoder()).encode( ".STANDARD..NOTDEFINED..SHEAR..SOLIDWALL..PLUMBINGWALL..POLYGONAL..MOVABLE..ELEMENTEDWALL..PARAPET..USERDEFINED..PARTITIONING." );
 
 let IfcWallTypeEnumSearch = new MinimalPerfectHash< IfcWallTypeEnum >( gMapIfcWallTypeEnum, prefixSumAddressIfcWallTypeEnum, slotMapIfcWallTypeEnum, encodedDataIfcWallTypeEnum );
 

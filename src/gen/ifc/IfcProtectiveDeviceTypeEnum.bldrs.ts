@@ -1,24 +1,25 @@
 enum IfcProtectiveDeviceTypeEnum {
-    FUSEDISCONNECTOR = 0,
-    CIRCUITBREAKER = 1,
-    EARTHFAILUREDEVICE = 2,
-    RESIDUALCURRENTCIRCUITBREAKER = 3,
-    RESIDUALCURRENTSWITCH = 4,
-    VARISTOR = 5,
-    USERDEFINED = 6,
-    NOTDEFINED = 7,
+    CIRCUITBREAKER = 0,
+    EARTHLEAKAGECIRCUITBREAKER = 1,
+    EARTHINGSWITCH = 2,
+    FUSEDISCONNECTOR = 3,
+    RESIDUALCURRENTCIRCUITBREAKER = 4,
+    RESIDUALCURRENTSWITCH = 5,
+    VARISTOR = 6,
+    USERDEFINED = 7,
+    NOTDEFINED = 8,
 }
 export { IfcProtectiveDeviceTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcProtectiveDeviceTypeEnum = new Int32Array( [1,5,-2] );
+let gMapIfcProtectiveDeviceTypeEnum = new Int32Array( [4,1,-3] );
 
-let prefixSumAddressIfcProtectiveDeviceTypeEnum = new Uint32Array( [0,16,47,59,79,102,120,133,143] );
+let prefixSumAddressIfcProtectiveDeviceTypeEnum = new Uint32Array( [0,16,26,44,56,84,100,131,154,167] );
 
-let slotMapIfcProtectiveDeviceTypeEnum = new Int32Array( [1,3,7,2,4,0,6,5] );
+let slotMapIfcProtectiveDeviceTypeEnum = new Int32Array( [2,6,3,8,1,0,4,5,7] );
 
-let encodedDataIfcProtectiveDeviceTypeEnum = (new TextEncoder()).encode( ".CIRCUITBREAKER..RESIDUALCURRENTCIRCUITBREAKER..NOTDEFINED..EARTHFAILUREDEVICE..RESIDUALCURRENTSWITCH..FUSEDISCONNECTOR..USERDEFINED..VARISTOR." );
+let encodedDataIfcProtectiveDeviceTypeEnum = (new TextEncoder()).encode( ".EARTHINGSWITCH..VARISTOR..FUSEDISCONNECTOR..NOTDEFINED..EARTHLEAKAGECIRCUITBREAKER..CIRCUITBREAKER..RESIDUALCURRENTCIRCUITBREAKER..RESIDUALCURRENTSWITCH..USERDEFINED." );
 
 let IfcProtectiveDeviceTypeEnumSearch = new MinimalPerfectHash< IfcProtectiveDeviceTypeEnum >( gMapIfcProtectiveDeviceTypeEnum, prefixSumAddressIfcProtectiveDeviceTypeEnum, slotMapIfcProtectiveDeviceTypeEnum, encodedDataIfcProtectiveDeviceTypeEnum );
 

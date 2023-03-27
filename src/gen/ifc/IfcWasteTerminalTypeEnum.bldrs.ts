@@ -3,26 +3,23 @@ enum IfcWasteTerminalTypeEnum {
     FLOORWASTE = 1,
     GULLYSUMP = 2,
     GULLYTRAP = 3,
-    GREASEINTERCEPTOR = 4,
-    OILINTERCEPTOR = 5,
-    PETROLINTERCEPTOR = 6,
-    ROOFDRAIN = 7,
-    WASTEDISPOSALUNIT = 8,
-    WASTETRAP = 9,
-    USERDEFINED = 10,
-    NOTDEFINED = 11,
+    ROOFDRAIN = 4,
+    WASTEDISPOSALUNIT = 5,
+    WASTETRAP = 6,
+    USERDEFINED = 7,
+    NOTDEFINED = 8,
 }
 export { IfcWasteTerminalTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcWasteTerminalTypeEnum = new Int32Array( [-2,1,94] );
+let gMapIfcWasteTerminalTypeEnum = new Int32Array( [-7,1,117] );
 
-let prefixSumAddressIfcWasteTerminalTypeEnum = new Uint32Array( [0,11,27,40,51,62,73,92,111,123,142,153,165] );
+let prefixSumAddressIfcWasteTerminalTypeEnum = new Uint32Array( [0,12,23,42,53,64,75,86,99,111] );
 
-let slotMapIfcWasteTerminalTypeEnum = new Int32Array( [3,5,10,2,9,7,8,4,1,6,0,11] );
+let slotMapIfcWasteTerminalTypeEnum = new Int32Array( [8,0,5,6,3,4,2,7,1] );
 
-let encodedDataIfcWasteTerminalTypeEnum = (new TextEncoder()).encode( ".GULLYTRAP..OILINTERCEPTOR..USERDEFINED..GULLYSUMP..WASTETRAP..ROOFDRAIN..WASTEDISPOSALUNIT..GREASEINTERCEPTOR..FLOORWASTE..PETROLINTERCEPTOR..FLOORTRAP..NOTDEFINED." );
+let encodedDataIfcWasteTerminalTypeEnum = (new TextEncoder()).encode( ".NOTDEFINED..FLOORTRAP..WASTEDISPOSALUNIT..WASTETRAP..GULLYTRAP..ROOFDRAIN..GULLYSUMP..USERDEFINED..FLOORWASTE." );
 
 let IfcWasteTerminalTypeEnumSearch = new MinimalPerfectHash< IfcWasteTerminalTypeEnum >( gMapIfcWasteTerminalTypeEnum, prefixSumAddressIfcWasteTerminalTypeEnum, slotMapIfcWasteTerminalTypeEnum, encodedDataIfcWasteTerminalTypeEnum );
 

@@ -5,20 +5,21 @@ enum IfcDoorPanelOperationEnum {
     FOLDING = 3,
     REVOLVING = 4,
     ROLLINGUP = 5,
-    USERDEFINED = 6,
-    NOTDEFINED = 7,
+    FIXEDPANEL = 6,
+    USERDEFINED = 7,
+    NOTDEFINED = 8,
 }
 export { IfcDoorPanelOperationEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcDoorPanelOperationEnum = new Int32Array( [63,8,0] );
+let gMapIfcDoorPanelOperationEnum = new Int32Array( [2,15,-3] );
 
-let prefixSumAddressIfcDoorPanelOperationEnum = new Uint32Array( [0,12,23,36,45,55,70,81,90] );
+let prefixSumAddressIfcDoorPanelOperationEnum = new Uint32Array( [0,10,19,28,40,51,66,78,89,102] );
 
-let slotMapIfcDoorPanelOperationEnum = new Int32Array( [7,4,6,3,0,1,5,2] );
+let slotMapIfcDoorPanelOperationEnum = new Int32Array( [0,3,2,8,4,1,6,5,7] );
 
-let encodedDataIfcDoorPanelOperationEnum = (new TextEncoder()).encode( ".NOTDEFINED..REVOLVING..USERDEFINED..FOLDING..SWINGING..DOUBLE_ACTING..ROLLINGUP..SLIDING." );
+let encodedDataIfcDoorPanelOperationEnum = (new TextEncoder()).encode( ".SWINGING..FOLDING..SLIDING..NOTDEFINED..REVOLVING..DOUBLE_ACTING..FIXEDPANEL..ROLLINGUP..USERDEFINED." );
 
 let IfcDoorPanelOperationEnumSearch = new MinimalPerfectHash< IfcDoorPanelOperationEnum >( gMapIfcDoorPanelOperationEnum, prefixSumAddressIfcDoorPanelOperationEnum, slotMapIfcDoorPanelOperationEnum, encodedDataIfcDoorPanelOperationEnum );
 

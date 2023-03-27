@@ -1,18 +1,14 @@
 
 import { IfcPresentationLayerAssignment } from "./index"
-import { IfcNullStyle, IfcNullStyleDeserializeStep } from "./index"
-import { IfcCurveStyle } from "./index"
-import { IfcSymbolStyle } from "./index"
-import { IfcFillAreaStyle } from "./index"
-import { IfcTextStyle } from "./index"
-import { IfcSurfaceStyle } from "./index"
+import { IfcLogical } from "./index"
+import { IfcPresentationStyle } from "./index"
 
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, stepExtractLogical, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum, IfcPointListDim, IfcGetBasisSurface } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcpresentationlayerwithstyle.htm */
@@ -23,12 +19,12 @@ export  class IfcPresentationLayerWithStyle extends IfcPresentationLayerAssignme
         return EntityTypesIfc.IFCPRESENTATIONLAYERWITHSTYLE;
     }
 
-    private LayerOn_? : boolean;
-    private LayerFrozen_? : boolean;
-    private LayerBlocked_? : boolean;
-    private LayerStyles_? : Array<IfcNullStyle|IfcCurveStyle|IfcSymbolStyle|IfcFillAreaStyle|IfcTextStyle|IfcSurfaceStyle>;
+    private LayerOn_? : boolean | null;
+    private LayerFrozen_? : boolean | null;
+    private LayerBlocked_? : boolean | null;
+    private LayerStyles_? : Array<IfcPresentationStyle>;
 
-    public get LayerOn() : boolean
+    public get LayerOn() : boolean | null
     {
         if ( this.LayerOn_ === void 0 )
         {
@@ -47,20 +43,20 @@ export  class IfcPresentationLayerWithStyle extends IfcPresentationLayerAssignme
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = stepExtractBoolean( buffer, cursor, endCursor );
+            let value = stepExtractLogical( buffer, cursor, endCursor );
 
             if ( value === void 0 )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            }
 
             return value; })();
         }
 
-        return this.LayerOn_ as boolean;
+        return this.LayerOn_ as boolean | null;
     }
 
-    public get LayerFrozen() : boolean
+    public get LayerFrozen() : boolean | null
     {
         if ( this.LayerFrozen_ === void 0 )
         {
@@ -79,20 +75,20 @@ export  class IfcPresentationLayerWithStyle extends IfcPresentationLayerAssignme
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = stepExtractBoolean( buffer, cursor, endCursor );
+            let value = stepExtractLogical( buffer, cursor, endCursor );
 
             if ( value === void 0 )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            }
 
             return value; })();
         }
 
-        return this.LayerFrozen_ as boolean;
+        return this.LayerFrozen_ as boolean | null;
     }
 
-    public get LayerBlocked() : boolean
+    public get LayerBlocked() : boolean | null
     {
         if ( this.LayerBlocked_ === void 0 )
         {
@@ -111,20 +107,20 @@ export  class IfcPresentationLayerWithStyle extends IfcPresentationLayerAssignme
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = stepExtractBoolean( buffer, cursor, endCursor );
+            let value = stepExtractLogical( buffer, cursor, endCursor );
 
             if ( value === void 0 )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            }
 
             return value; })();
         }
 
-        return this.LayerBlocked_ as boolean;
+        return this.LayerBlocked_ as boolean | null;
     }
 
-    public get LayerStyles() : Array<IfcNullStyle|IfcCurveStyle|IfcSymbolStyle|IfcFillAreaStyle|IfcTextStyle|IfcSurfaceStyle>
+    public get LayerStyles() : Array<IfcPresentationStyle>
     {
         if ( this.LayerStyles_ === void 0 )
         {
@@ -143,7 +139,7 @@ export  class IfcPresentationLayerWithStyle extends IfcPresentationLayerAssignme
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value : Array<IfcNullStyle|IfcCurveStyle|IfcSymbolStyle|IfcFillAreaStyle|IfcTextStyle|IfcSurfaceStyle> = [];
+            let value : Array<IfcPresentationStyle> = [];
 
             for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
             {
@@ -151,26 +147,21 @@ export  class IfcPresentationLayerWithStyle extends IfcPresentationLayerAssignme
                     let cursor = address;
         
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
-                    let value : StepEntityBase< EntityTypesIfc > | IfcNullStyle | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )) ?? IfcNullStyleDeserializeStep( buffer, cursor, endCursor ));           
+                    let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( !( value instanceof IfcCurveStyle ) && !( value instanceof IfcSymbolStyle ) && !( value instanceof IfcFillAreaStyle ) && !( value instanceof IfcTextStyle ) && !( value instanceof IfcSurfaceStyle ) && value !== IfcNullStyle.NULL )
+                    if ( !( value instanceof IfcPresentationStyle ) )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed for field' );
-                    }
+                    };
         
-                    return value as (IfcNullStyle | IfcCurveStyle | IfcSymbolStyle | IfcFillAreaStyle | IfcTextStyle | IfcSurfaceStyle);
+                    return value;
                 })() );
             }
 
-            if ( value === void 0 )
-            {                
-                throw new Error( 'Value in STEP was incorrectly typed' );
-            };
-
-            return value; })();
+return value; })();
         }
 
-        return this.LayerStyles_ as Array<IfcNullStyle|IfcCurveStyle|IfcSymbolStyle|IfcFillAreaStyle|IfcTextStyle|IfcSurfaceStyle>;
+        return this.LayerStyles_ as Array<IfcPresentationStyle>;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

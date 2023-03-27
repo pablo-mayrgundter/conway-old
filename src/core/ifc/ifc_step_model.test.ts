@@ -3,11 +3,8 @@ import {describe, expect, test} from '@jest/globals';
 import fs from 'fs';
 import ParsingBuffer from '../../../dependencies/conway-ds/src/parsing/parsing_buffer';
 import { ParseResult } from '../../../dependencies/conway-ds/src/parsing/step/step_parser';
-import StepModelBase from '../step_model_base';
-import EntityTypesIfc from '../../gen/ifc/entity_types_ifc.bldrs';
-import SchemaIfc from '../../gen/ifc/schema_ifc.bldrs';
 import IfcStepParser from './ifc_step_parser';
-import { IfcAddressTypeEnum, IfcCartesianPoint, IfcClassification, IfcGeometricRepresentationSubContext, IfcPerson, IfcPostalAddress, IfcTelecomAddress } from '../../gen/ifc';
+import { IfcAddressTypeEnum, IfcCartesianPoint, IfcCartesianPointList3D, IfcClassification, IfcGeometricRepresentationSubContext, IfcPerson, IfcPostalAddress, IfcShapeAspect, IfcTelecomAddress } from '../../gen/ifc';
 
 let parser = IfcStepParser.Instance;
 let indexIfcBuffer = fs.readFileSync( 'index.ifc' );
@@ -31,7 +28,7 @@ function extractIFCData()
 
     let entities = Array.from( model );
 
-    if ( entities.length !== 217 )
+    if ( entities.length !== 287 )
     {
         return;
     }
@@ -39,10 +36,112 @@ function extractIFCData()
     return result;
 }
 
+const ifcShapeAspectString = "#767= IFCSHAPEASPECT((#765),'BLDRS-Logo-grey','',.U.,#761);"
+
+const ifcShapeAspectStringBuffer = new TextEncoder().encode( ifcShapeAspectString );
+
+
+function extractLogical()
+{ 
+    let bufferInput = new ParsingBuffer( ifcShapeAspectStringBuffer );
+
+    let [result, model] = parser.parseDataToModel( bufferInput );
+
+    if ( model === void 0 )
+    {
+        return false;
+    }
+
+    let shapeAspect = model.getElementByExpressID( 767 );
+
+    if (!(shapeAspect instanceof IfcShapeAspect)) 
+    {
+        return false;
+    }
+
+    if ( shapeAspect.ProductDefinitional !== null )
+    {
+        return false;
+    }
+
+    return true;
+}
+
+const ifcCartesianPoint3DString = "#171= IFCCARTESIANPOINTLIST3D(((76.,-11.4504049888,0.),(76.,-11.4504049888,15.),(76.,0.,15.),(76.,0.,0.),(86.,-11.4504049888,15.),(86.,-11.4504049888,0.),(86.,0.,15.),(86.,0.,0.)));";
+
+const ifcCartesianPoint3DStringBuffer = new TextEncoder().encode( ifcCartesianPoint3DString );
+
+function extractCartesianPointList3D()
+{ let bufferInput = new ParsingBuffer( ifcCartesianPoint3DStringBuffer );
+
+    let [result, model] = parser.parseDataToModel( bufferInput );
+
+    if ( model === void 0 )
+    {
+        return false;
+    }
+
+    let cartesianPointList3D = model.getElementByExpressID( 171 );
+
+    if (!(cartesianPointList3D instanceof IfcCartesianPointList3D)) 
+    {
+        return false;
+    }
+
+    if ( cartesianPointList3D.CoordList.length !== 8 )
+    {
+        return false;
+    }
+
+    const equalArrays = ( a: number[], b: number[] ) => a.length === b.length && a.every( ( value, index ) => value === b[ index ] );
+
+    if ( !equalArrays( cartesianPointList3D.CoordList[ 0 ], [76.,-11.4504049888,0.]) )
+    {
+        return false;
+    }
+    
+    if ( !equalArrays( cartesianPointList3D.CoordList[ 1 ], [76.,-11.4504049888,15.]) )
+    {
+        return false;
+    }
+ 
+    if ( !equalArrays( cartesianPointList3D.CoordList[ 2 ], [76.,0.,15.]) )
+    {
+        return false;
+    }
+
+    if ( !equalArrays( cartesianPointList3D.CoordList[ 3 ], [76.,0.,0.]) )
+    {
+        return false;
+    }
+
+    if ( !equalArrays( cartesianPointList3D.CoordList[ 4 ], [86.,-11.4504049888,15.]) )
+    {
+        return false;
+    }
+
+    if ( !equalArrays( cartesianPointList3D.CoordList[ 5 ], [86.,-11.4504049888,0.]) )
+    {
+        return false;
+    }
+
+    if ( !equalArrays( cartesianPointList3D.CoordList[ 6 ], [86.,0.,15.]) )
+    {
+        return false;
+    }
+
+    if ( !equalArrays( cartesianPointList3D.CoordList[ 7 ], [86.,0.,0.]) )
+    {
+        return false;
+    }
+
+    return true;
+}
+
 const derivedSubtextString = 
 "#74= IFCDIRECTION((1.,0.,0.));\
 #78= IFCDIRECTION((0.,0.,1.));\
-#80= IFCCARTESIANPOINT((-10.245e-1,0.,-10.245e-1));\
+#80= IFCCARTESIANPOINT((-10.245e-1,0.973380492763,-10.245e-1));\
 #82= IFCAXIS2PLACEMENT3D(#80,#78,#74);\
 #83= IFCDIRECTION((0.,1.));\
 #85= IFCGEOMETRICREPRESENTATIONCONTEXT($,'Model',3,1.0E-5,#82,#83);\
@@ -106,7 +205,6 @@ function extractDerivedSubcontext()
     return true;
 }
 
-
 function extractScientificNumber()
 {
     let bufferInput = new ParsingBuffer( derivedSubtextStringBuffer );
@@ -138,7 +236,7 @@ function extractScientificNumber()
     }
 
     // Note, we actually test here for interning by using the same number twice in different spots and making sure they match values.
-    if ( cartesianPoint.Coordinates.length !== 3 || cartesianPoint.Coordinates[ 2 ] !== -10.245e-1 || cartesianPoint.Coordinates[ 2 ] !== cartesianPoint.Coordinates[ 0 ] )
+    if ( cartesianPoint.Coordinates.length !== 3 || cartesianPoint.Coordinates[ 1 ] !== 0.973380492763 || cartesianPoint.Coordinates[ 2 ] !== -10.245e-1 || cartesianPoint.Coordinates[ 2 ] !== cartesianPoint.Coordinates[ 0 ] )
     {
         return false;
     }
@@ -291,6 +389,18 @@ describe( "IFC Step Model Test", () => {
         expect( extractIFCData() ).toBe( ParseResult.COMPLETE );
 
     } );
+
+    test( "extractLogical()" , () =>{
+
+        expect( extractLogical() ).toBe( true );
+
+    } );  
+    
+    test( "extractCartesianPointList3D()" , () =>{
+
+        expect( extractCartesianPointList3D() ).toBe( true );
+
+    } );  
 
     test( "extractDerivedSubcontext()" , () =>{
 

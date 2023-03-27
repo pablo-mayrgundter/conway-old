@@ -1,25 +1,22 @@
 enum IfcAirTerminalTypeEnum {
-    GRILLE = 0,
-    REGISTER = 1,
-    DIFFUSER = 2,
-    EYEBALL = 3,
-    IRIS = 4,
-    LINEARGRILLE = 5,
-    LINEARDIFFUSER = 6,
-    USERDEFINED = 7,
-    NOTDEFINED = 8,
+    DIFFUSER = 0,
+    GRILLE = 1,
+    LOUVRE = 2,
+    REGISTER = 3,
+    USERDEFINED = 4,
+    NOTDEFINED = 5,
 }
 export { IfcAirTerminalTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcAirTerminalTypeEnum = new Int32Array( [7,18,29] );
+let gMapIfcAirTerminalTypeEnum = new Int32Array( [50] );
 
-let prefixSumAddressIfcAirTerminalTypeEnum = new Uint32Array( [0,10,23,39,51,59,65,79,88,98] );
+let prefixSumAddressIfcAirTerminalTypeEnum = new Uint32Array( [0,13,21,31,41,53,61] );
 
-let slotMapIfcAirTerminalTypeEnum = new Int32Array( [2,7,6,8,0,4,5,3,1] );
+let slotMapIfcAirTerminalTypeEnum = new Int32Array( [4,1,0,3,5,2] );
 
-let encodedDataIfcAirTerminalTypeEnum = (new TextEncoder()).encode( ".DIFFUSER..USERDEFINED..LINEARDIFFUSER..NOTDEFINED..GRILLE..IRIS..LINEARGRILLE..EYEBALL..REGISTER." );
+let encodedDataIfcAirTerminalTypeEnum = (new TextEncoder()).encode( ".USERDEFINED..GRILLE..DIFFUSER..REGISTER..NOTDEFINED..LOUVRE." );
 
 let IfcAirTerminalTypeEnumSearch = new MinimalPerfectHash< IfcAirTerminalTypeEnum >( gMapIfcAirTerminalTypeEnum, prefixSumAddressIfcAirTerminalTypeEnum, slotMapIfcAirTerminalTypeEnum, encodedDataIfcAirTerminalTypeEnum );
 

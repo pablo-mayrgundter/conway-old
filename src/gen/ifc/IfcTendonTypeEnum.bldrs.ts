@@ -1,8 +1,8 @@
 enum IfcTendonTypeEnum {
-    STRAND = 0,
-    WIRE = 1,
-    BAR = 2,
-    COATED = 3,
+    BAR = 0,
+    COATED = 1,
+    STRAND = 2,
+    WIRE = 3,
     USERDEFINED = 4,
     NOTDEFINED = 5,
 }
@@ -14,7 +14,7 @@ let gMapIfcTendonTypeEnum = new Int32Array( [57] );
 
 let prefixSumAddressIfcTendonTypeEnum = new Uint32Array( [0,13,19,27,32,40,52] );
 
-let slotMapIfcTendonTypeEnum = new Int32Array( [4,1,0,2,3,5] );
+let slotMapIfcTendonTypeEnum = new Int32Array( [4,3,2,0,1,5] );
 
 let encodedDataIfcTendonTypeEnum = (new TextEncoder()).encode( ".USERDEFINED..WIRE..STRAND..BAR..COATED..NOTDEFINED." );
 

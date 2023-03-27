@@ -3,20 +3,19 @@ enum IfcChangeActionEnum {
     MODIFIED = 1,
     ADDED = 2,
     DELETED = 3,
-    MODIFIEDADDED = 4,
-    MODIFIEDDELETED = 5,
+    NOTDEFINED = 4,
 }
 export { IfcChangeActionEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcChangeActionEnum = new Int32Array( [43] );
+let gMapIfcChangeActionEnum = new Int32Array( [29] );
 
-let prefixSumAddressIfcChangeActionEnum = new Uint32Array( [0,9,24,41,48,58,68] );
+let prefixSumAddressIfcChangeActionEnum = new Uint32Array( [0,10,22,32,39,48] );
 
-let slotMapIfcChangeActionEnum = new Int32Array( [3,4,5,2,0,1] );
+let slotMapIfcChangeActionEnum = new Int32Array( [0,4,1,2,3] );
 
-let encodedDataIfcChangeActionEnum = (new TextEncoder()).encode( ".DELETED..MODIFIEDADDED..MODIFIEDDELETED..ADDED..NOCHANGE..MODIFIED." );
+let encodedDataIfcChangeActionEnum = (new TextEncoder()).encode( ".NOCHANGE..NOTDEFINED..MODIFIED..ADDED..DELETED." );
 
 let IfcChangeActionEnumSearch = new MinimalPerfectHash< IfcChangeActionEnum >( gMapIfcChangeActionEnum, prefixSumAddressIfcChangeActionEnum, slotMapIfcChangeActionEnum, encodedDataIfcChangeActionEnum );
 

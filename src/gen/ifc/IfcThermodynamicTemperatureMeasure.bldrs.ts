@@ -42,7 +42,7 @@ export class IfcThermodynamicTemperatureMeasure extends StepEntityBase< EntityTy
             if ( value === void 0 )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            }
 
             return value; })();
         }

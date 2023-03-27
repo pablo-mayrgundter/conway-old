@@ -1,22 +1,24 @@
 enum IfcBeamTypeEnum {
     BEAM = 0,
     JOIST = 1,
-    LINTEL = 2,
-    T_BEAM = 3,
-    USERDEFINED = 4,
-    NOTDEFINED = 5,
+    HOLLOWCORE = 2,
+    LINTEL = 3,
+    SPANDREL = 4,
+    T_BEAM = 5,
+    USERDEFINED = 6,
+    NOTDEFINED = 7,
 }
 export { IfcBeamTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcBeamTypeEnum = new Int32Array( [73] );
+let gMapIfcBeamTypeEnum = new Int32Array( [9,0,4] );
 
-let prefixSumAddressIfcBeamTypeEnum = new Uint32Array( [0,7,19,25,38,46,54] );
+let prefixSumAddressIfcBeamTypeEnum = new Uint32Array( [0,7,17,29,41,54,62,70,76] );
 
-let slotMapIfcBeamTypeEnum = new Int32Array( [1,5,0,4,3,2] );
+let slotMapIfcBeamTypeEnum = new Int32Array( [1,4,7,2,6,3,5,0] );
 
-let encodedDataIfcBeamTypeEnum = (new TextEncoder()).encode( ".JOIST..NOTDEFINED..BEAM..USERDEFINED..T_BEAM..LINTEL." );
+let encodedDataIfcBeamTypeEnum = (new TextEncoder()).encode( ".JOIST..SPANDREL..NOTDEFINED..HOLLOWCORE..USERDEFINED..LINTEL..T_BEAM..BEAM." );
 
 let IfcBeamTypeEnumSearch = new MinimalPerfectHash< IfcBeamTypeEnum >( gMapIfcBeamTypeEnum, prefixSumAddressIfcBeamTypeEnum, slotMapIfcBeamTypeEnum, encodedDataIfcBeamTypeEnum );
 
