@@ -1,15 +1,15 @@
 
 import { IfcGeometricRepresentationItem } from "./index"
-import { IfcOneDirectionRepeatFactor } from "./index"
-import { IfcFillAreaStyleTileSymbolWithStyle } from "./index"
+import { IfcVector } from "./index"
+import { IfcStyledItem } from "./index"
 import { IfcPositiveRatioMeasure } from "./index"
 
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, stepExtractLogical, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum, IfcPointListDim, IfcGetBasisSurface } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcfillareastyletiles.htm */
@@ -20,11 +20,11 @@ export  class IfcFillAreaStyleTiles extends IfcGeometricRepresentationItem
         return EntityTypesIfc.IFCFILLAREASTYLETILES;
     }
 
-    private TilingPattern_? : IfcOneDirectionRepeatFactor;
-    private Tiles_? : Array<IfcFillAreaStyleTileSymbolWithStyle>;
+    private TilingPattern_? : Array<IfcVector>;
+    private Tiles_? : Array<IfcStyledItem>;
     private TilingScale_? : number;
 
-    public get TilingPattern() : IfcOneDirectionRepeatFactor
+    public get TilingPattern() : Array<IfcVector>
     {
         if ( this.TilingPattern_ === void 0 )
         {
@@ -43,21 +43,32 @@ export  class IfcFillAreaStyleTiles extends IfcGeometricRepresentationItem
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value : Array<IfcVector> = [];
 
-            if ( !( value instanceof IfcOneDirectionRepeatFactor ) )
-            {                
-                throw new Error( 'Value in STEP was incorrectly typed for field' );
-            };
+            for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
+            {
+                value.push( (() => { 
+                    let cursor = address;
+        
+                    let expressID = stepExtractReference( buffer, cursor, endCursor );
+                    let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+        
+                    if ( !( value instanceof IfcVector ) )
+                    {                
+                        throw new Error( 'Value in STEP was incorrectly typed for field' );
+                    };
+        
+                    return value;
+                })() );
+            }
 
-            return value; })();
+return value; })();
         }
 
-        return this.TilingPattern_ as IfcOneDirectionRepeatFactor;
+        return this.TilingPattern_ as Array<IfcVector>;
     }
 
-    public get Tiles() : Array<IfcFillAreaStyleTileSymbolWithStyle>
+    public get Tiles() : Array<IfcStyledItem>
     {
         if ( this.Tiles_ === void 0 )
         {
@@ -76,7 +87,7 @@ export  class IfcFillAreaStyleTiles extends IfcGeometricRepresentationItem
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value : Array<IfcFillAreaStyleTileSymbolWithStyle> = [];
+            let value : Array<IfcStyledItem> = [];
 
             for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
             {
@@ -84,26 +95,21 @@ export  class IfcFillAreaStyleTiles extends IfcGeometricRepresentationItem
                     let cursor = address;
         
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
-                    let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
+                    let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
         
-                    if ( !( value instanceof IfcFillAreaStyleTileSymbolWithStyle ) )
+                    if ( !( value instanceof IfcStyledItem ) )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed for field' );
-                    }
+                    };
         
-                    return value as (IfcFillAreaStyleTileSymbolWithStyle);
+                    return value;
                 })() );
             }
 
-            if ( value === void 0 )
-            {                
-                throw new Error( 'Value in STEP was incorrectly typed' );
-            };
-
-            return value; })();
+return value; })();
         }
 
-        return this.Tiles_ as Array<IfcFillAreaStyleTileSymbolWithStyle>;
+        return this.Tiles_ as Array<IfcStyledItem>;
     }
 
     public get TilingScale() : number
@@ -130,7 +136,7 @@ export  class IfcFillAreaStyleTiles extends IfcGeometricRepresentationItem
             if ( value === void 0 )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            }
 
             return value; })();
         }

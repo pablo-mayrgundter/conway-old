@@ -5,18 +5,22 @@ enum IfcBenchmarkEnum {
     LESSTHANOREQUALTO = 3,
     EQUALTO = 4,
     NOTEQUALTO = 5,
+    INCLUDES = 6,
+    NOTINCLUDES = 7,
+    INCLUDEDIN = 8,
+    NOTINCLUDEDIN = 9,
 }
 export { IfcBenchmarkEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcBenchmarkEnum = new Int32Array( [107] );
+let gMapIfcBenchmarkEnum = new Int32Array( [2,77,31] );
 
-let prefixSumAddressIfcBenchmarkEnum = new Uint32Array( [0,12,31,41,63,72,85] );
+let prefixSumAddressIfcBenchmarkEnum = new Uint32Array( [0,19,29,38,53,65,87,100,113,123,135] );
 
-let slotMapIfcBenchmarkEnum = new Int32Array( [5,3,2,1,4,0] );
+let slotMapIfcBenchmarkEnum = new Int32Array( [3,2,4,9,8,1,7,0,6,5] );
 
-let encodedDataIfcBenchmarkEnum = (new TextEncoder()).encode( ".NOTEQUALTO..LESSTHANOREQUALTO..LESSTHAN..GREATERTHANOREQUALTO..EQUALTO..GREATERTHAN." );
+let encodedDataIfcBenchmarkEnum = (new TextEncoder()).encode( ".LESSTHANOREQUALTO..LESSTHAN..EQUALTO..NOTINCLUDEDIN..INCLUDEDIN..GREATERTHANOREQUALTO..NOTINCLUDES..GREATERTHAN..INCLUDES..NOTEQUALTO." );
 
 let IfcBenchmarkEnumSearch = new MinimalPerfectHash< IfcBenchmarkEnum >( gMapIfcBenchmarkEnum, prefixSumAddressIfcBenchmarkEnum, slotMapIfcBenchmarkEnum, encodedDataIfcBenchmarkEnum );
 

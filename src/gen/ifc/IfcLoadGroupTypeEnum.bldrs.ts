@@ -1,22 +1,21 @@
 enum IfcLoadGroupTypeEnum {
     LOAD_GROUP = 0,
     LOAD_CASE = 1,
-    LOAD_COMBINATION_GROUP = 2,
-    LOAD_COMBINATION = 3,
-    USERDEFINED = 4,
-    NOTDEFINED = 5,
+    LOAD_COMBINATION = 2,
+    USERDEFINED = 3,
+    NOTDEFINED = 4,
 }
 export { IfcLoadGroupTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcLoadGroupTypeEnum = new Int32Array( [73] );
+let gMapIfcLoadGroupTypeEnum = new Int32Array( [18] );
 
-let prefixSumAddressIfcLoadGroupTypeEnum = new Uint32Array( [0,11,23,41,54,78,90] );
+let prefixSumAddressIfcLoadGroupTypeEnum = new Uint32Array( [0,18,30,42,55,66] );
 
-let slotMapIfcLoadGroupTypeEnum = new Int32Array( [1,5,3,4,2,0] );
+let slotMapIfcLoadGroupTypeEnum = new Int32Array( [2,4,0,3,1] );
 
-let encodedDataIfcLoadGroupTypeEnum = (new TextEncoder()).encode( ".LOAD_CASE..NOTDEFINED..LOAD_COMBINATION..USERDEFINED..LOAD_COMBINATION_GROUP..LOAD_GROUP." );
+let encodedDataIfcLoadGroupTypeEnum = (new TextEncoder()).encode( ".LOAD_COMBINATION..NOTDEFINED..LOAD_GROUP..USERDEFINED..LOAD_CASE." );
 
 let IfcLoadGroupTypeEnumSearch = new MinimalPerfectHash< IfcLoadGroupTypeEnum >( gMapIfcLoadGroupTypeEnum, prefixSumAddressIfcLoadGroupTypeEnum, slotMapIfcLoadGroupTypeEnum, encodedDataIfcLoadGroupTypeEnum );
 

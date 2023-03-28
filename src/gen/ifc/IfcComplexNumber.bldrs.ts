@@ -49,18 +49,13 @@ export class IfcComplexNumber extends StepEntityBase< EntityTypesIfc >
                     if ( value === void 0 )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed' );
-                    };
+                    }
         
                     return value;
                 })() );
             }
 
-            if ( value === void 0 )
-            {                
-                throw new Error( 'Value in STEP was incorrectly typed' );
-            };
-
-            return value; })();
+return value; })();
         }
 
         return this.Value_ as Array<number>;

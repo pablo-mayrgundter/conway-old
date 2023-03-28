@@ -1,20 +1,21 @@
 enum IfcLightFixtureTypeEnum {
     POINTSOURCE = 0,
     DIRECTIONSOURCE = 1,
-    USERDEFINED = 2,
-    NOTDEFINED = 3,
+    SECURITYLIGHTING = 2,
+    USERDEFINED = 3,
+    NOTDEFINED = 4,
 }
 export { IfcLightFixtureTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcLightFixtureTypeEnum = new Int32Array( [14] );
+let gMapIfcLightFixtureTypeEnum = new Int32Array( [30] );
 
-let prefixSumAddressIfcLightFixtureTypeEnum = new Uint32Array( [0,12,29,42,55] );
+let prefixSumAddressIfcLightFixtureTypeEnum = new Uint32Array( [0,18,35,47,60,73] );
 
-let slotMapIfcLightFixtureTypeEnum = new Int32Array( [3,1,2,0] );
+let slotMapIfcLightFixtureTypeEnum = new Int32Array( [2,1,4,0,3] );
 
-let encodedDataIfcLightFixtureTypeEnum = (new TextEncoder()).encode( ".NOTDEFINED..DIRECTIONSOURCE..USERDEFINED..POINTSOURCE." );
+let encodedDataIfcLightFixtureTypeEnum = (new TextEncoder()).encode( ".SECURITYLIGHTING..DIRECTIONSOURCE..NOTDEFINED..POINTSOURCE..USERDEFINED." );
 
 let IfcLightFixtureTypeEnumSearch = new MinimalPerfectHash< IfcLightFixtureTypeEnum >( gMapIfcLightFixtureTypeEnum, prefixSumAddressIfcLightFixtureTypeEnum, slotMapIfcLightFixtureTypeEnum, encodedDataIfcLightFixtureTypeEnum );
 

@@ -1,18 +1,20 @@
 enum IfcJunctionBoxTypeEnum {
-    USERDEFINED = 0,
-    NOTDEFINED = 1,
+    DATA = 0,
+    POWER = 1,
+    USERDEFINED = 2,
+    NOTDEFINED = 3,
 }
 export { IfcJunctionBoxTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcJunctionBoxTypeEnum = new Int32Array( [1] );
+let gMapIfcJunctionBoxTypeEnum = new Int32Array( [11] );
 
-let prefixSumAddressIfcJunctionBoxTypeEnum = new Uint32Array( [0,13,25] );
+let prefixSumAddressIfcJunctionBoxTypeEnum = new Uint32Array( [0,6,19,26,38] );
 
-let slotMapIfcJunctionBoxTypeEnum = new Int32Array( [0,1] );
+let slotMapIfcJunctionBoxTypeEnum = new Int32Array( [0,2,1,3] );
 
-let encodedDataIfcJunctionBoxTypeEnum = (new TextEncoder()).encode( ".USERDEFINED..NOTDEFINED." );
+let encodedDataIfcJunctionBoxTypeEnum = (new TextEncoder()).encode( ".DATA..USERDEFINED..POWER..NOTDEFINED." );
 
 let IfcJunctionBoxTypeEnumSearch = new MinimalPerfectHash< IfcJunctionBoxTypeEnum >( gMapIfcJunctionBoxTypeEnum, prefixSumAddressIfcJunctionBoxTypeEnum, slotMapIfcJunctionBoxTypeEnum, encodedDataIfcJunctionBoxTypeEnum );
 

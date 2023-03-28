@@ -1,0 +1,32 @@
+enum IfcSubContractResourceTypeEnum {
+    PURCHASE = 0,
+    WORK = 1,
+    USERDEFINED = 2,
+    NOTDEFINED = 3,
+}
+export { IfcSubContractResourceTypeEnum };
+
+import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
+
+let gMapIfcSubContractResourceTypeEnum = new Int32Array( [7] );
+
+let prefixSumAddressIfcSubContractResourceTypeEnum = new Uint32Array( [0,12,18,28,41] );
+
+let slotMapIfcSubContractResourceTypeEnum = new Int32Array( [3,1,0,2] );
+
+let encodedDataIfcSubContractResourceTypeEnum = (new TextEncoder()).encode( ".NOTDEFINED..WORK..PURCHASE..USERDEFINED." );
+
+let IfcSubContractResourceTypeEnumSearch = new MinimalPerfectHash< IfcSubContractResourceTypeEnum >( gMapIfcSubContractResourceTypeEnum, prefixSumAddressIfcSubContractResourceTypeEnum, slotMapIfcSubContractResourceTypeEnum, encodedDataIfcSubContractResourceTypeEnum );
+
+export { IfcSubContractResourceTypeEnumSearch };
+
+
+
+import StepEnumParser from '../../../dependencies/conway-ds/src/parsing/step/step_enum_parser';
+
+const parser = StepEnumParser.Instance;
+
+export function IfcSubContractResourceTypeEnumDeserializeStep( input: Uint8Array, cursor: number, endCursor: number ): IfcSubContractResourceTypeEnum | undefined
+{
+    return parser.extract< IfcSubContractResourceTypeEnum >( IfcSubContractResourceTypeEnumSearch, input, cursor, endCursor );
+}

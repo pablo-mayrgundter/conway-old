@@ -1,22 +1,25 @@
 enum IfcTankTypeEnum {
-    PREFORMED = 0,
-    SECTIONAL = 1,
+    BASIN = 0,
+    BREAKPRESSURE = 1,
     EXPANSION = 2,
-    PRESSUREVESSEL = 3,
-    USERDEFINED = 4,
-    NOTDEFINED = 5,
+    FEEDANDEXPANSION = 3,
+    PRESSUREVESSEL = 4,
+    STORAGE = 5,
+    VESSEL = 6,
+    USERDEFINED = 7,
+    NOTDEFINED = 8,
 }
 export { IfcTankTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcTankTypeEnum = new Int32Array( [7] );
+let gMapIfcTankTypeEnum = new Int32Array( [2,-6,12] );
 
-let prefixSumAddressIfcTankTypeEnum = new Uint32Array( [0,11,24,35,46,58,74] );
+let prefixSumAddressIfcTankTypeEnum = new Uint32Array( [0,18,33,40,51,67,79,87,96,109] );
 
-let slotMapIfcTankTypeEnum = new Int32Array( [1,4,0,2,5,3] );
+let slotMapIfcTankTypeEnum = new Int32Array( [3,1,0,2,4,8,6,5,7] );
 
-let encodedDataIfcTankTypeEnum = (new TextEncoder()).encode( ".SECTIONAL..USERDEFINED..PREFORMED..EXPANSION..NOTDEFINED..PRESSUREVESSEL." );
+let encodedDataIfcTankTypeEnum = (new TextEncoder()).encode( ".FEEDANDEXPANSION..BREAKPRESSURE..BASIN..EXPANSION..PRESSUREVESSEL..NOTDEFINED..VESSEL..STORAGE..USERDEFINED." );
 
 let IfcTankTypeEnumSearch = new MinimalPerfectHash< IfcTankTypeEnum >( gMapIfcTankTypeEnum, prefixSumAddressIfcTankTypeEnum, slotMapIfcTankTypeEnum, encodedDataIfcTankTypeEnum );
 

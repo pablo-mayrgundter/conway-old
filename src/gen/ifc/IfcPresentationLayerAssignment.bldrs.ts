@@ -1,16 +1,16 @@
 
 import { IfcLabel } from "./index"
 import { IfcText } from "./index"
-import { IfcRepresentationItem } from "./index"
 import { IfcRepresentation } from "./index"
+import { IfcRepresentationItem } from "./index"
 import { IfcIdentifier } from "./index"
 
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, stepExtractLogical, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum, IfcPointListDim, IfcGetBasisSurface } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcpresentationlayerassignment.htm */
@@ -23,7 +23,7 @@ export  class IfcPresentationLayerAssignment extends StepEntityBase< EntityTypes
 
     private Name_? : string;
     private Description_? : string | null;
-    private AssignedItems_? : Array<IfcRepresentationItem|IfcRepresentation>;
+    private AssignedItems_? : Array<IfcRepresentation|IfcRepresentationItem>;
     private Identifier_? : string | null;
 
     public get Name() : string
@@ -50,7 +50,7 @@ export  class IfcPresentationLayerAssignment extends StepEntityBase< EntityTypes
             if ( value === void 0 )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            }
 
             return value; })();
         }
@@ -97,7 +97,7 @@ export  class IfcPresentationLayerAssignment extends StepEntityBase< EntityTypes
         return this.Description_ as string | null;
     }
 
-    public get AssignedItems() : Array<IfcRepresentationItem|IfcRepresentation>
+    public get AssignedItems() : Array<IfcRepresentation|IfcRepresentationItem>
     {
         if ( this.AssignedItems_ === void 0 )
         {
@@ -116,7 +116,7 @@ export  class IfcPresentationLayerAssignment extends StepEntityBase< EntityTypes
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value : Array<IfcRepresentationItem|IfcRepresentation> = [];
+            let value : Array<IfcRepresentation|IfcRepresentationItem> = [];
 
             for ( let address of stepExtractArray( buffer, cursor, endCursor ) )
             {
@@ -126,24 +126,19 @@ export  class IfcPresentationLayerAssignment extends StepEntityBase< EntityTypes
                     let expressID = stepExtractReference( buffer, cursor, endCursor );
                     let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
         
-                    if ( !( value instanceof IfcRepresentationItem ) && !( value instanceof IfcRepresentation ) )
+                    if ( !( value instanceof IfcRepresentation ) && !( value instanceof IfcRepresentationItem ) )
                     {                
                         throw new Error( 'Value in STEP was incorrectly typed for field' );
                     }
         
-                    return value as (IfcRepresentationItem | IfcRepresentation);
+                    return value as (IfcRepresentation | IfcRepresentationItem);
                 })() );
             }
 
-            if ( value === void 0 )
-            {                
-                throw new Error( 'Value in STEP was incorrectly typed' );
-            };
-
-            return value; })();
+return value; })();
         }
 
-        return this.AssignedItems_ as Array<IfcRepresentationItem|IfcRepresentation>;
+        return this.AssignedItems_ as Array<IfcRepresentation|IfcRepresentationItem>;
     }
 
     public get Identifier() : string | null

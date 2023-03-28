@@ -1,21 +1,23 @@
 enum IfcTransformerTypeEnum {
     CURRENT = 0,
     FREQUENCY = 1,
-    VOLTAGE = 2,
-    USERDEFINED = 3,
-    NOTDEFINED = 4,
+    INVERTER = 2,
+    RECTIFIER = 3,
+    VOLTAGE = 4,
+    USERDEFINED = 5,
+    NOTDEFINED = 6,
 }
 export { IfcTransformerTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcTransformerTypeEnum = new Int32Array( [14] );
+let gMapIfcTransformerTypeEnum = new Int32Array( [495] );
 
-let prefixSumAddressIfcTransformerTypeEnum = new Uint32Array( [0,9,20,32,41,54] );
+let prefixSumAddressIfcTransformerTypeEnum = new Uint32Array( [0,9,18,29,42,53,65,75] );
 
-let slotMapIfcTransformerTypeEnum = new Int32Array( [2,1,4,0,3] );
+let slotMapIfcTransformerTypeEnum = new Int32Array( [0,4,3,5,1,6,2] );
 
-let encodedDataIfcTransformerTypeEnum = (new TextEncoder()).encode( ".VOLTAGE..FREQUENCY..NOTDEFINED..CURRENT..USERDEFINED." );
+let encodedDataIfcTransformerTypeEnum = (new TextEncoder()).encode( ".CURRENT..VOLTAGE..RECTIFIER..USERDEFINED..FREQUENCY..NOTDEFINED..INVERTER." );
 
 let IfcTransformerTypeEnumSearch = new MinimalPerfectHash< IfcTransformerTypeEnum >( gMapIfcTransformerTypeEnum, prefixSumAddressIfcTransformerTypeEnum, slotMapIfcTransformerTypeEnum, encodedDataIfcTransformerTypeEnum );
 

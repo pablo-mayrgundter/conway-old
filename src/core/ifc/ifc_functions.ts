@@ -1,49 +1,59 @@
 
-import {IfcSurface} from "../../gen/ifc/IfcSurface.bldrs"
+import {IfcSurface} from "../../gen/ifc/index"
 //import {IfcPcurve} from "../../gen/ifc/IfcPcurve.bldrs"
-import {IfcDirection} from "../../gen/ifc/IfcDirection.bldrs"
+import {IfcDirection} from "../../gen/ifc/index"
 //import {IfcArcIndex} from "../../gen/ifc/IfcArcIndex.bldrs"
 //import {IfcLineIndex} from "../../gen/ifc/IfcLineIndex.bldrs"
-import {IfcParameterValue} from "../../gen/ifc/IfcParameterValue.bldrs"
-import {IfcUnitEnum} from "../../gen/ifc/IfcUnitEnum.bldrs"
-import {IfcDimensionalExponents} from "../../gen/ifc/IfcDimensionalExponents.bldrs"
-import {IfcColourSpecification} from "../../gen/ifc/IfcColourSpecification.bldrs"
-import {IfcPreDefinedColour} from "../../gen/ifc/IfcPreDefinedColour.bldrs"
-import {IfcExternallyDefinedHatchStyle} from "../../gen/ifc/IfcExternallyDefinedHatchStyle.bldrs"
-import {IfcFillAreaStyleHatching} from "../../gen/ifc/IfcFillAreaStyleHatching.bldrs"
-import {IfcFillAreaStyleTiles} from "../../gen/ifc/IfcFillAreaStyleTiles.bldrs"
-import {IfcAxis2Placement2D} from "../../gen/ifc/IfcAxis2Placement2D.bldrs"
-import {IfcAxis2Placement3D} from "../../gen/ifc/IfcAxis2Placement3D.bldrs"
-import {IfcObjectPlacement} from "../../gen/ifc/IfcObjectPlacement.bldrs"
-import {IfcObjectTypeEnum} from "../../gen/ifc/IfcObjectTypeEnum.bldrs"
-import {IfcObjectDefinition} from "../../gen/ifc/IfcObjectDefinition.bldrs"
-import {IfcDerivedUnit} from "../../gen/ifc/IfcDerivedUnit.bldrs"
-import {IfcMonetaryUnit} from "../../gen/ifc/IfcMonetaryUnit.bldrs"
-import {IfcNamedUnit} from "../../gen/ifc/IfcNamedUnit.bldrs"
-import {IfcVector} from "../../gen/ifc/IfcVector.bldrs"
-import {IfcDimensionCount} from "../../gen/ifc/IfcDimensionCount.bldrs"
-import {IfcCurve} from "../../gen/ifc/IfcCurve.bldrs"
+import {IfcParameterValue} from "../../gen/ifc/index"
+import {IfcUnitEnum} from "../../gen/ifc/index"
+import {IfcDimensionalExponents} from "../../gen/ifc/index"
+import {IfcColourSpecification} from "../../gen/ifc/index"
+import {IfcPreDefinedColour} from "../../gen/ifc/index"
+import {IfcExternallyDefinedHatchStyle} from "../../gen/ifc/index"
+import {IfcFillAreaStyleHatching} from "../../gen/ifc/index"
+import {IfcFillAreaStyleTiles} from "../../gen/ifc/index"
+import {IfcAxis2Placement2D} from "../../gen/ifc/index"
+import {IfcAxis2Placement3D} from "../../gen/ifc/index"
+import {IfcObjectPlacement} from "../../gen/ifc/index"
+import {IfcObjectTypeEnum} from "../../gen/ifc/index"
+import {IfcObjectDefinition} from "../../gen/ifc/index"
+import {IfcDerivedUnit} from "../../gen/ifc/index"
+import {IfcMonetaryUnit} from "../../gen/ifc/index"
+import {IfcNamedUnit} from "../../gen/ifc/index"
+import {IfcVector} from "../../gen/ifc/index"
+import {IfcDimensionCount} from "../../gen/ifc/index"
+import {IfcCurve} from "../../gen/ifc/index"
 //import {IfcRationalBSplineCurveWithKnots} from "../../gen/ifc/IfcRationalBSplineCurveWithKnots.bldrs"
-import {IfcDerivedUnitElement} from "../../gen/ifc/IfcDerivedUnitElement.bldrs"
-import {IfcSIUnitName} from "../../gen/ifc/IfcSIUnitName.bldrs"
+import {IfcDerivedUnitElement} from "../../gen/ifc/index"
+import {IfcSIUnitName} from "../../gen/ifc/index"
 //import {IfcCompositeCurveOnSurface} from "../../gen/ifc/IfcCompositeCurveOnSurface.bldrs"
 //import {IfcSurfaceCurve} from "../../gen/ifc/IfcSurfaceCurve.bldrs"
-import {IfcEdgeLoop} from "../../gen/ifc/IfcEdgeLoop.bldrs"
-import {IfcLengthMeasure} from "../../gen/ifc/IfcLengthMeasure.bldrs"
-import {IfcMaterialLayerSet} from "../../gen/ifc/IfcMaterialLayerSet.bldrs"
-import {IfcPath} from "../../gen/ifc/IfcPath.bldrs"
+import {IfcEdgeLoop} from "../../gen/ifc/index"
+import {IfcLengthMeasure} from "../../gen/ifc/index"
+import {IfcMaterialLayerSet} from "../../gen/ifc/index"
+import {IfcPath} from "../../gen/ifc/index"
 //import {IfcCartesianPointList} from "../../gen/ifc/IfcCartesianPointList.bldrs"
-import {IfcCartesianPoint} from "../../gen/ifc/IfcCartesianPoint.bldrs"
-import {IfcLabel} from "../../gen/ifc/IfcLabel.bldrs"
-import {IfcRepresentationItem} from "../../gen/ifc/IfcRepresentationItem.bldrs"
+import {IfcCartesianPoint} from "../../gen/ifc/index"
+import {IfcLabel} from "../../gen/ifc/index"
+import {IfcRepresentationItem} from "../../gen/ifc/index"
 //import {IfcRationalBSplineSurfaceWithKnots} from "../../gen/ifc/IfcRationalBSplineSurfaceWithKnots.bldrs"
-import {IfcProfileDef} from "../../gen/ifc/IfcProfileDef.bldrs"
-import {IfcRelDefinesByProperties} from "../../gen/ifc/IfcRelDefinesByProperties.bldrs"
-import {IfcProperty} from "../../gen/ifc/IfcProperty.bldrs"
-import {IfcPropertySetDefinition} from "../../gen/ifc/IfcPropertySetDefinition.bldrs"
+import {IfcProfileDef} from "../../gen/ifc/index"
+import {IfcRelDefinesByProperties} from "../../gen/ifc/index"
+import {IfcProperty} from "../../gen/ifc/index"
+import {IfcPropertySetDefinition} from "../../gen/ifc/index"
 //import {IfcPropertyTemplate} from "../../gen/ifc/IfcPropertyTemplate.bldrs"
-import {IfcPhysicalQuantity} from "../../gen/ifc/IfcPhysicalQuantity.bldrs"
+import {IfcPhysicalQuantity} from "../../gen/ifc/index"
+import { IfcCartesianPointList, IfcCartesianPointList2D, IfcCompositeCurveOnSurface, IfcPcurve, IfcSurfaceCurve } from "../../gen/ifc/index"
 
+export function IfcPointListDim(pointList: IfcCartesianPointList) : number
+{
+    if ( pointList instanceof IfcCartesianPointList2D )
+    {
+        return 2;
+    }
+    
+    return 3;
+}
 
 // export function IfcAssociatedSurface(arg: IfcPcurve) : IfcSurface {
 //     throw "This function is not yet implemented."
@@ -109,7 +119,7 @@ export function IfcCurveDim(curve: IfcCurve) : number {
 //     throw "This function is not yet implemented."
 // }
 
-export function IfcDeriveDimensionalExponents(unitElements: IfcDerivedUnit) : IfcDimensionalExponents {
+export function IfcDeriveDimensionalExponents(unitElements: IfcDerivedUnitElement[]) : IfcDimensionalExponents {
     throw "This function is not yet implemented."
 }
 
@@ -133,9 +143,9 @@ export function IfcFirstProjAxis(zAxis: IfcDirection,arg: IfcDirection) : IfcDir
     throw "This function is not yet implemented."
 }
 
-// export function IfcGetBasisSurface(c: IfcCompositeCurveOnSurface|IfcPcurve|IfcSurfaceCurve) : Array<IfcSurface> {
-//     throw "This function is not yet implemented."
-// }
+export function IfcGetBasisSurface(c: IfcCompositeCurveOnSurface|IfcPcurve|IfcSurfaceCurve) : Array<IfcSurface> {
+    throw "This function is not yet implemented."
+}
 
 export function IfcListToArray<T>(lis: Array<T>,low: number,u: number) : Array<T> {
     throw "This function is not yet implemented."

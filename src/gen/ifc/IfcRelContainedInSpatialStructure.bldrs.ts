@@ -1,14 +1,14 @@
 
 import { IfcRelConnects } from "./index"
 import { IfcProduct } from "./index"
-import { IfcSpatialStructureElement } from "./index"
+import { IfcSpatialElement } from "./index"
 
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, stepExtractLogical, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum, IfcPointListDim, IfcGetBasisSurface } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcrelcontainedinspatialstructure.htm */
@@ -20,7 +20,7 @@ export  class IfcRelContainedInSpatialStructure extends IfcRelConnects
     }
 
     private RelatedElements_? : Array<IfcProduct>;
-    private RelatingStructure_? : IfcSpatialStructureElement;
+    private RelatingStructure_? : IfcSpatialElement;
 
     public get RelatedElements() : Array<IfcProduct>
     {
@@ -60,18 +60,13 @@ export  class IfcRelContainedInSpatialStructure extends IfcRelConnects
                 })() );
             }
 
-            if ( value === void 0 )
-            {                
-                throw new Error( 'Value in STEP was incorrectly typed' );
-            };
-
-            return value; })();
+return value; })();
         }
 
         return this.RelatedElements_ as Array<IfcProduct>;
     }
 
-    public get RelatingStructure() : IfcSpatialStructureElement
+    public get RelatingStructure() : IfcSpatialElement
     {
         if ( this.RelatingStructure_ === void 0 )
         {
@@ -93,7 +88,7 @@ export  class IfcRelContainedInSpatialStructure extends IfcRelConnects
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
 
-            if ( !( value instanceof IfcSpatialStructureElement ) )
+            if ( !( value instanceof IfcSpatialElement ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             };
@@ -101,7 +96,7 @@ export  class IfcRelContainedInSpatialStructure extends IfcRelConnects
             return value; })();
         }
 
-        return this.RelatingStructure_ as IfcSpatialStructureElement;
+        return this.RelatingStructure_ as IfcSpatialElement;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

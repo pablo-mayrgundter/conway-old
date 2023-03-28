@@ -2,15 +2,15 @@
 import { IfcReinforcingElement } from "./index"
 import { IfcPositiveLengthMeasure } from "./index"
 import { IfcAreaMeasure } from "./index"
-import { IfcReinforcingBarRoleEnum, IfcReinforcingBarRoleEnumDeserializeStep } from "./index"
+import { IfcReinforcingBarTypeEnum, IfcReinforcingBarTypeEnumDeserializeStep } from "./index"
 import { IfcReinforcingBarSurfaceEnum, IfcReinforcingBarSurfaceEnumDeserializeStep } from "./index"
 
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, stepExtractLogical, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum, IfcPointListDim, IfcGetBasisSurface } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcreinforcingbar.htm */
@@ -21,13 +21,13 @@ export  class IfcReinforcingBar extends IfcReinforcingElement
         return EntityTypesIfc.IFCREINFORCINGBAR;
     }
 
-    private NominalDiameter_? : number;
-    private CrossSectionArea_? : number;
+    private NominalDiameter_? : number | null;
+    private CrossSectionArea_? : number | null;
     private BarLength_? : number | null;
-    private BarRole_? : IfcReinforcingBarRoleEnum;
+    private PredefinedType_? : IfcReinforcingBarTypeEnum | null;
     private BarSurface_? : IfcReinforcingBarSurfaceEnum | null;
 
-    public get NominalDiameter() : number
+    public get NominalDiameter() : number | null
     {
         if ( this.NominalDiameter_ === void 0 )
         {
@@ -49,17 +49,24 @@ export  class IfcReinforcingBar extends IfcReinforcingElement
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
             if ( value === void 0 )
-            {                
-                throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed' );
+                }
 
-            return value; })();
+                return null;                
+            }
+            else
+            {
+                return value;
+            } })();
         }
 
-        return this.NominalDiameter_ as number;
+        return this.NominalDiameter_ as number | null;
     }
 
-    public get CrossSectionArea() : number
+    public get CrossSectionArea() : number | null
     {
         if ( this.CrossSectionArea_ === void 0 )
         {
@@ -81,14 +88,21 @@ export  class IfcReinforcingBar extends IfcReinforcingElement
             let value = stepExtractNumber( buffer, cursor, endCursor );
 
             if ( value === void 0 )
-            {                
-                throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed' );
+                }
 
-            return value; })();
+                return null;                
+            }
+            else
+            {
+                return value;
+            } })();
         }
 
-        return this.CrossSectionArea_ as number;
+        return this.CrossSectionArea_ as number | null;
     }
 
     public get BarLength() : number | null
@@ -130,11 +144,11 @@ export  class IfcReinforcingBar extends IfcReinforcingElement
         return this.BarLength_ as number | null;
     }
 
-    public get BarRole() : IfcReinforcingBarRoleEnum
+    public get PredefinedType() : IfcReinforcingBarTypeEnum | null
     {
-        if ( this.BarRole_ === void 0 )
+        if ( this.PredefinedType_ === void 0 )
         {
-            this.BarRole_ = (() => { this.guaranteeVTable();
+            this.PredefinedType_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
@@ -149,17 +163,24 @@ export  class IfcReinforcingBar extends IfcReinforcingElement
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = IfcReinforcingBarRoleEnumDeserializeStep( buffer, cursor, endCursor );
+            let value = IfcReinforcingBarTypeEnumDeserializeStep( buffer, cursor, endCursor );
 
             if ( value === void 0 )
-            {                
-                throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed' );
+                }
 
-            return value; })();
+                return null;                
+            }
+            else
+            {
+                return value;
+            } })();
         }
 
-        return this.BarRole_ as IfcReinforcingBarRoleEnum;
+        return this.PredefinedType_ as IfcReinforcingBarTypeEnum | null;
     }
 
     public get BarSurface() : IfcReinforcingBarSurfaceEnum | null

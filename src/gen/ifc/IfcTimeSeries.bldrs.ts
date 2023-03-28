@@ -1,21 +1,19 @@
 
 import { IfcLabel } from "./index"
 import { IfcText } from "./index"
-import { IfcCalendarDate } from "./index"
-import { IfcLocalTime } from "./index"
-import { IfcDateAndTime } from "./index"
+import { IfcDateTime } from "./index"
 import { IfcTimeSeriesDataTypeEnum, IfcTimeSeriesDataTypeEnumDeserializeStep } from "./index"
 import { IfcDataOriginEnum, IfcDataOriginEnumDeserializeStep } from "./index"
 import { IfcDerivedUnit } from "./index"
-import { IfcNamedUnit } from "./index"
 import { IfcMonetaryUnit } from "./index"
+import { IfcNamedUnit } from "./index"
 
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, stepExtractLogical, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum, IfcPointListDim, IfcGetBasisSurface } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifctimeseries.htm */
@@ -28,12 +26,12 @@ export abstract class IfcTimeSeries extends StepEntityBase< EntityTypesIfc >
 
     private Name_? : string;
     private Description_? : string | null;
-    private StartTime_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-    private EndTime_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
+    private StartTime_? : string;
+    private EndTime_? : string;
     private TimeSeriesDataType_? : IfcTimeSeriesDataTypeEnum;
     private DataOrigin_? : IfcDataOriginEnum;
     private UserDefinedDataOrigin_? : string | null;
-    private Unit_? : IfcDerivedUnit|IfcNamedUnit|IfcMonetaryUnit | null;
+    private Unit_? : IfcDerivedUnit|IfcMonetaryUnit|IfcNamedUnit | null;
 
     public get Name() : string
     {
@@ -59,7 +57,7 @@ export abstract class IfcTimeSeries extends StepEntityBase< EntityTypesIfc >
             if ( value === void 0 )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            }
 
             return value; })();
         }
@@ -106,7 +104,7 @@ export abstract class IfcTimeSeries extends StepEntityBase< EntityTypesIfc >
         return this.Description_ as string | null;
     }
 
-    public get StartTime() : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
+    public get StartTime() : string
     {
         if ( this.StartTime_ === void 0 )
         {
@@ -125,21 +123,20 @@ export abstract class IfcTimeSeries extends StepEntityBase< EntityTypesIfc >
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
+            let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( !( value instanceof IfcCalendarDate ) && !( value instanceof IfcLocalTime ) && !( value instanceof IfcDateAndTime ) )
+            if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             }
 
-            return value as (IfcCalendarDate | IfcLocalTime | IfcDateAndTime); })();
+            return value; })();
         }
 
-        return this.StartTime_ as IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
+        return this.StartTime_ as string;
     }
 
-    public get EndTime() : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
+    public get EndTime() : string
     {
         if ( this.EndTime_ === void 0 )
         {
@@ -158,18 +155,17 @@ export abstract class IfcTimeSeries extends StepEntityBase< EntityTypesIfc >
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
+            let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( !( value instanceof IfcCalendarDate ) && !( value instanceof IfcLocalTime ) && !( value instanceof IfcDateAndTime ) )
+            if ( value === void 0 )
             {                
-                throw new Error( 'Value in STEP was incorrectly typed for field' );
+                throw new Error( 'Value in STEP was incorrectly typed' );
             }
 
-            return value as (IfcCalendarDate | IfcLocalTime | IfcDateAndTime); })();
+            return value; })();
         }
 
-        return this.EndTime_ as IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
+        return this.EndTime_ as string;
     }
 
     public get TimeSeriesDataType() : IfcTimeSeriesDataTypeEnum
@@ -196,7 +192,7 @@ export abstract class IfcTimeSeries extends StepEntityBase< EntityTypesIfc >
             if ( value === void 0 )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            }
 
             return value; })();
         }
@@ -228,7 +224,7 @@ export abstract class IfcTimeSeries extends StepEntityBase< EntityTypesIfc >
             if ( value === void 0 )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            }
 
             return value; })();
         }
@@ -275,7 +271,7 @@ export abstract class IfcTimeSeries extends StepEntityBase< EntityTypesIfc >
         return this.UserDefinedDataOrigin_ as string | null;
     }
 
-    public get Unit() : IfcDerivedUnit|IfcNamedUnit|IfcMonetaryUnit | null
+    public get Unit() : IfcDerivedUnit|IfcMonetaryUnit|IfcNamedUnit | null
     {
         if ( this.Unit_ === void 0 )
         {
@@ -297,7 +293,7 @@ export abstract class IfcTimeSeries extends StepEntityBase< EntityTypesIfc >
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( !( value instanceof IfcDerivedUnit ) && !( value instanceof IfcNamedUnit ) && !( value instanceof IfcMonetaryUnit ) )
+            if ( !( value instanceof IfcDerivedUnit ) && !( value instanceof IfcMonetaryUnit ) && !( value instanceof IfcNamedUnit ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
@@ -308,11 +304,11 @@ export abstract class IfcTimeSeries extends StepEntityBase< EntityTypesIfc >
             }
             else
             {
-                return value as (IfcDerivedUnit | IfcNamedUnit | IfcMonetaryUnit);
+                return value as (IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit);
             } })();
         }
 
-        return this.Unit_ as IfcDerivedUnit|IfcNamedUnit|IfcMonetaryUnit | null;
+        return this.Unit_ as IfcDerivedUnit|IfcMonetaryUnit|IfcNamedUnit | null;
     }
 
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )

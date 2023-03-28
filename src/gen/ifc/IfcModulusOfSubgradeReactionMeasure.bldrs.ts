@@ -42,7 +42,7 @@ export class IfcModulusOfSubgradeReactionMeasure extends StepEntityBase< EntityT
             if ( value === void 0 )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            }
 
             return value; })();
         }

@@ -1,18 +1,20 @@
 
+import { IfcMaterialDefinition } from "./index"
 import { IfcMaterialLayer } from "./index"
 import { IfcLabel } from "./index"
+import { IfcText } from "./index"
 import { IfcLengthMeasure } from "./index"
 
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, stepExtractLogical, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum, IfcPointListDim, IfcGetBasisSurface } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcmateriallayerset.htm */
-export  class IfcMaterialLayerSet extends StepEntityBase< EntityTypesIfc > 
+export  class IfcMaterialLayerSet extends IfcMaterialDefinition 
 {    
     public get type(): EntityTypesIfc
     {
@@ -21,6 +23,7 @@ export  class IfcMaterialLayerSet extends StepEntityBase< EntityTypesIfc >
 
     private MaterialLayers_? : Array<IfcMaterialLayer>;
     private LayerSetName_? : string | null;
+    private Description_? : string | null;
 
     public get MaterialLayers() : Array<IfcMaterialLayer>
     {
@@ -60,12 +63,7 @@ export  class IfcMaterialLayerSet extends StepEntityBase< EntityTypesIfc >
                 })() );
             }
 
-            if ( value === void 0 )
-            {                
-                throw new Error( 'Value in STEP was incorrectly typed' );
-            };
-
-            return value; })();
+return value; })();
         }
 
         return this.MaterialLayers_ as Array<IfcMaterialLayer>;
@@ -108,6 +106,45 @@ export  class IfcMaterialLayerSet extends StepEntityBase< EntityTypesIfc >
         }
 
         return this.LayerSetName_ as string | null;
+    }
+
+    public get Description() : string | null
+    {
+        if ( this.Description_ === void 0 )
+        {
+            this.Description_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 2 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
+            
+            let vtableSlot = internalReference.vtableIndex + 2;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let value = stepExtractString( buffer, cursor, endCursor );
+
+            if ( value === void 0 )
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed' );
+                }
+
+                return null;                
+            }
+            else
+            {
+                return value;
+            } })();
+        }
+
+        return this.Description_ as string | null;
     }
 
     public get TotalThickness() : number

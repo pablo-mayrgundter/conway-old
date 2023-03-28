@@ -1,23 +1,24 @@
 enum IfcEvaporatorTypeEnum {
-    DIRECTEXPANSIONSHELLANDTUBE = 0,
-    DIRECTEXPANSIONTUBEINTUBE = 1,
-    DIRECTEXPANSIONBRAZEDPLATE = 2,
-    FLOODEDSHELLANDTUBE = 3,
-    SHELLANDCOIL = 4,
-    USERDEFINED = 5,
-    NOTDEFINED = 6,
+    DIRECTEXPANSION = 0,
+    DIRECTEXPANSIONSHELLANDTUBE = 1,
+    DIRECTEXPANSIONTUBEINTUBE = 2,
+    DIRECTEXPANSIONBRAZEDPLATE = 3,
+    FLOODEDSHELLANDTUBE = 4,
+    SHELLANDCOIL = 5,
+    USERDEFINED = 6,
+    NOTDEFINED = 7,
 }
 export { IfcEvaporatorTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcEvaporatorTypeEnum = new Int32Array( [410] );
+let gMapIfcEvaporatorTypeEnum = new Int32Array( [7,0,84] );
 
-let prefixSumAddressIfcEvaporatorTypeEnum = new Uint32Array( [0,28,41,70,97,118,130,144] );
+let prefixSumAddressIfcEvaporatorTypeEnum = new Uint32Array( [0,12,41,62,89,106,120,148,161] );
 
-let slotMapIfcEvaporatorTypeEnum = new Int32Array( [2,5,0,1,3,6,4] );
+let slotMapIfcEvaporatorTypeEnum = new Int32Array( [7,1,4,2,0,5,3,6] );
 
-let encodedDataIfcEvaporatorTypeEnum = (new TextEncoder()).encode( ".DIRECTEXPANSIONBRAZEDPLATE..USERDEFINED..DIRECTEXPANSIONSHELLANDTUBE..DIRECTEXPANSIONTUBEINTUBE..FLOODEDSHELLANDTUBE..NOTDEFINED..SHELLANDCOIL." );
+let encodedDataIfcEvaporatorTypeEnum = (new TextEncoder()).encode( ".NOTDEFINED..DIRECTEXPANSIONSHELLANDTUBE..FLOODEDSHELLANDTUBE..DIRECTEXPANSIONTUBEINTUBE..DIRECTEXPANSION..SHELLANDCOIL..DIRECTEXPANSIONBRAZEDPLATE..USERDEFINED." );
 
 let IfcEvaporatorTypeEnumSearch = new MinimalPerfectHash< IfcEvaporatorTypeEnum >( gMapIfcEvaporatorTypeEnum, prefixSumAddressIfcEvaporatorTypeEnum, slotMapIfcEvaporatorTypeEnum, encodedDataIfcEvaporatorTypeEnum );
 

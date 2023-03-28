@@ -1,8 +1,8 @@
 
 import { IfcGeometricRepresentationItem } from "./index"
 import { IfcCurveStyle } from "./index"
-import { IfcOneDirectionRepeatFactor } from "./index"
 import { IfcPositiveLengthMeasure } from "./index"
+import { IfcVector } from "./index"
 import { IfcCartesianPoint } from "./index"
 import { IfcPlaneAngleMeasure } from "./index"
 
@@ -10,8 +10,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, stepExtractLogical, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum, IfcPointListDim, IfcGetBasisSurface } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcfillareastylehatching.htm */
@@ -23,7 +23,7 @@ export  class IfcFillAreaStyleHatching extends IfcGeometricRepresentationItem
     }
 
     private HatchLineAppearance_? : IfcCurveStyle;
-    private StartOfNextHatchLine_? : IfcOneDirectionRepeatFactor|IfcPositiveLengthMeasure;
+    private StartOfNextHatchLine_? : IfcPositiveLengthMeasure|IfcVector;
     private PointOfReferenceHatchLine_? : IfcCartesianPoint | null;
     private PatternStart_? : IfcCartesianPoint | null;
     private HatchLineAngle_? : number;
@@ -61,7 +61,7 @@ export  class IfcFillAreaStyleHatching extends IfcGeometricRepresentationItem
         return this.HatchLineAppearance_ as IfcCurveStyle;
     }
 
-    public get StartOfNextHatchLine() : IfcOneDirectionRepeatFactor|IfcPositiveLengthMeasure
+    public get StartOfNextHatchLine() : IfcPositiveLengthMeasure|IfcVector
     {
         if ( this.StartOfNextHatchLine_ === void 0 )
         {
@@ -83,15 +83,15 @@ export  class IfcFillAreaStyleHatching extends IfcGeometricRepresentationItem
             let expressID = stepExtractReference( buffer, cursor, endCursor );
             let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( !( value instanceof IfcOneDirectionRepeatFactor ) && !( value instanceof IfcPositiveLengthMeasure ) )
+            if ( !( value instanceof IfcPositiveLengthMeasure ) && !( value instanceof IfcVector ) )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed for field' );
             }
 
-            return value as (IfcOneDirectionRepeatFactor | IfcPositiveLengthMeasure); })();
+            return value as (IfcPositiveLengthMeasure | IfcVector); })();
         }
 
-        return this.StartOfNextHatchLine_ as IfcOneDirectionRepeatFactor|IfcPositiveLengthMeasure;
+        return this.StartOfNextHatchLine_ as IfcPositiveLengthMeasure|IfcVector;
     }
 
     public get PointOfReferenceHatchLine() : IfcCartesianPoint | null
@@ -198,7 +198,7 @@ export  class IfcFillAreaStyleHatching extends IfcGeometricRepresentationItem
             if ( value === void 0 )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            }
 
             return value; })();
         }

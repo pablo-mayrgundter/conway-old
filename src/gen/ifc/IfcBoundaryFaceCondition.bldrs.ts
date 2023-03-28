@@ -1,13 +1,14 @@
 
 import { IfcBoundaryCondition } from "./index"
+import { IfcBoolean } from "./index"
 import { IfcModulusOfSubgradeReactionMeasure } from "./index"
 
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, stepExtractLogical, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum, IfcPointListDim, IfcGetBasisSurface } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcboundaryfacecondition.htm */
@@ -18,15 +19,15 @@ export  class IfcBoundaryFaceCondition extends IfcBoundaryCondition
         return EntityTypesIfc.IFCBOUNDARYFACECONDITION;
     }
 
-    private LinearStiffnessByAreaX_? : number | null;
-    private LinearStiffnessByAreaY_? : number | null;
-    private LinearStiffnessByAreaZ_? : number | null;
+    private TranslationalStiffnessByAreaX_? : IfcBoolean|IfcModulusOfSubgradeReactionMeasure | null;
+    private TranslationalStiffnessByAreaY_? : IfcBoolean|IfcModulusOfSubgradeReactionMeasure | null;
+    private TranslationalStiffnessByAreaZ_? : IfcBoolean|IfcModulusOfSubgradeReactionMeasure | null;
 
-    public get LinearStiffnessByAreaX() : number | null
+    public get TranslationalStiffnessByAreaX() : IfcBoolean|IfcModulusOfSubgradeReactionMeasure | null
     {
-        if ( this.LinearStiffnessByAreaX_ === void 0 )
+        if ( this.TranslationalStiffnessByAreaX_ === void 0 )
         {
-            this.LinearStiffnessByAreaX_ = (() => { this.guaranteeVTable();
+            this.TranslationalStiffnessByAreaX_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
@@ -41,31 +42,32 @@ export  class IfcBoundaryFaceCondition extends IfcBoundaryCondition
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = stepExtractNumber( buffer, cursor, endCursor );
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( value === void 0 )
+            if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfSubgradeReactionMeasure ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed' );
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
                 }
 
                 return null;                
             }
             else
             {
-                return value;
+                return value as (IfcBoolean | IfcModulusOfSubgradeReactionMeasure);
             } })();
         }
 
-        return this.LinearStiffnessByAreaX_ as number | null;
+        return this.TranslationalStiffnessByAreaX_ as IfcBoolean|IfcModulusOfSubgradeReactionMeasure | null;
     }
 
-    public get LinearStiffnessByAreaY() : number | null
+    public get TranslationalStiffnessByAreaY() : IfcBoolean|IfcModulusOfSubgradeReactionMeasure | null
     {
-        if ( this.LinearStiffnessByAreaY_ === void 0 )
+        if ( this.TranslationalStiffnessByAreaY_ === void 0 )
         {
-            this.LinearStiffnessByAreaY_ = (() => { this.guaranteeVTable();
+            this.TranslationalStiffnessByAreaY_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
@@ -80,31 +82,32 @@ export  class IfcBoundaryFaceCondition extends IfcBoundaryCondition
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = stepExtractNumber( buffer, cursor, endCursor );
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( value === void 0 )
+            if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfSubgradeReactionMeasure ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed' );
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
                 }
 
                 return null;                
             }
             else
             {
-                return value;
+                return value as (IfcBoolean | IfcModulusOfSubgradeReactionMeasure);
             } })();
         }
 
-        return this.LinearStiffnessByAreaY_ as number | null;
+        return this.TranslationalStiffnessByAreaY_ as IfcBoolean|IfcModulusOfSubgradeReactionMeasure | null;
     }
 
-    public get LinearStiffnessByAreaZ() : number | null
+    public get TranslationalStiffnessByAreaZ() : IfcBoolean|IfcModulusOfSubgradeReactionMeasure | null
     {
-        if ( this.LinearStiffnessByAreaZ_ === void 0 )
+        if ( this.TranslationalStiffnessByAreaZ_ === void 0 )
         {
-            this.LinearStiffnessByAreaZ_ = (() => { this.guaranteeVTable();
+            this.TranslationalStiffnessByAreaZ_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
@@ -119,24 +122,25 @@ export  class IfcBoundaryFaceCondition extends IfcBoundaryCondition
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = stepExtractNumber( buffer, cursor, endCursor );
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( value === void 0 )
+            if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfSubgradeReactionMeasure ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed' );
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
                 }
 
                 return null;                
             }
             else
             {
-                return value;
+                return value as (IfcBoolean | IfcModulusOfSubgradeReactionMeasure);
             } })();
         }
 
-        return this.LinearStiffnessByAreaZ_ as number | null;
+        return this.TranslationalStiffnessByAreaZ_ as IfcBoolean|IfcModulusOfSubgradeReactionMeasure | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

@@ -1,5 +1,6 @@
 
 import { IfcBoundaryCondition } from "./index"
+import { IfcBoolean } from "./index"
 import { IfcLinearStiffnessMeasure } from "./index"
 import { IfcRotationalStiffnessMeasure } from "./index"
 
@@ -7,8 +8,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, stepExtractLogical, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum, IfcPointListDim, IfcGetBasisSurface } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcboundarynodecondition.htm */
@@ -19,18 +20,18 @@ export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
         return EntityTypesIfc.IFCBOUNDARYNODECONDITION;
     }
 
-    private LinearStiffnessX_? : number | null;
-    private LinearStiffnessY_? : number | null;
-    private LinearStiffnessZ_? : number | null;
-    private RotationalStiffnessX_? : number | null;
-    private RotationalStiffnessY_? : number | null;
-    private RotationalStiffnessZ_? : number | null;
+    private TranslationalStiffnessX_? : IfcBoolean|IfcLinearStiffnessMeasure | null;
+    private TranslationalStiffnessY_? : IfcBoolean|IfcLinearStiffnessMeasure | null;
+    private TranslationalStiffnessZ_? : IfcBoolean|IfcLinearStiffnessMeasure | null;
+    private RotationalStiffnessX_? : IfcBoolean|IfcRotationalStiffnessMeasure | null;
+    private RotationalStiffnessY_? : IfcBoolean|IfcRotationalStiffnessMeasure | null;
+    private RotationalStiffnessZ_? : IfcBoolean|IfcRotationalStiffnessMeasure | null;
 
-    public get LinearStiffnessX() : number | null
+    public get TranslationalStiffnessX() : IfcBoolean|IfcLinearStiffnessMeasure | null
     {
-        if ( this.LinearStiffnessX_ === void 0 )
+        if ( this.TranslationalStiffnessX_ === void 0 )
         {
-            this.LinearStiffnessX_ = (() => { this.guaranteeVTable();
+            this.TranslationalStiffnessX_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
@@ -45,31 +46,32 @@ export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = stepExtractNumber( buffer, cursor, endCursor );
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( value === void 0 )
+            if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcLinearStiffnessMeasure ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed' );
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
                 }
 
                 return null;                
             }
             else
             {
-                return value;
+                return value as (IfcBoolean | IfcLinearStiffnessMeasure);
             } })();
         }
 
-        return this.LinearStiffnessX_ as number | null;
+        return this.TranslationalStiffnessX_ as IfcBoolean|IfcLinearStiffnessMeasure | null;
     }
 
-    public get LinearStiffnessY() : number | null
+    public get TranslationalStiffnessY() : IfcBoolean|IfcLinearStiffnessMeasure | null
     {
-        if ( this.LinearStiffnessY_ === void 0 )
+        if ( this.TranslationalStiffnessY_ === void 0 )
         {
-            this.LinearStiffnessY_ = (() => { this.guaranteeVTable();
+            this.TranslationalStiffnessY_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
@@ -84,31 +86,32 @@ export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = stepExtractNumber( buffer, cursor, endCursor );
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( value === void 0 )
+            if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcLinearStiffnessMeasure ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed' );
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
                 }
 
                 return null;                
             }
             else
             {
-                return value;
+                return value as (IfcBoolean | IfcLinearStiffnessMeasure);
             } })();
         }
 
-        return this.LinearStiffnessY_ as number | null;
+        return this.TranslationalStiffnessY_ as IfcBoolean|IfcLinearStiffnessMeasure | null;
     }
 
-    public get LinearStiffnessZ() : number | null
+    public get TranslationalStiffnessZ() : IfcBoolean|IfcLinearStiffnessMeasure | null
     {
-        if ( this.LinearStiffnessZ_ === void 0 )
+        if ( this.TranslationalStiffnessZ_ === void 0 )
         {
-            this.LinearStiffnessZ_ = (() => { this.guaranteeVTable();
+            this.TranslationalStiffnessZ_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
@@ -123,27 +126,28 @@ export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = stepExtractNumber( buffer, cursor, endCursor );
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( value === void 0 )
+            if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcLinearStiffnessMeasure ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed' );
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
                 }
 
                 return null;                
             }
             else
             {
-                return value;
+                return value as (IfcBoolean | IfcLinearStiffnessMeasure);
             } })();
         }
 
-        return this.LinearStiffnessZ_ as number | null;
+        return this.TranslationalStiffnessZ_ as IfcBoolean|IfcLinearStiffnessMeasure | null;
     }
 
-    public get RotationalStiffnessX() : number | null
+    public get RotationalStiffnessX() : IfcBoolean|IfcRotationalStiffnessMeasure | null
     {
         if ( this.RotationalStiffnessX_ === void 0 )
         {
@@ -162,27 +166,28 @@ export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = stepExtractNumber( buffer, cursor, endCursor );
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( value === void 0 )
+            if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcRotationalStiffnessMeasure ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed' );
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
                 }
 
                 return null;                
             }
             else
             {
-                return value;
+                return value as (IfcBoolean | IfcRotationalStiffnessMeasure);
             } })();
         }
 
-        return this.RotationalStiffnessX_ as number | null;
+        return this.RotationalStiffnessX_ as IfcBoolean|IfcRotationalStiffnessMeasure | null;
     }
 
-    public get RotationalStiffnessY() : number | null
+    public get RotationalStiffnessY() : IfcBoolean|IfcRotationalStiffnessMeasure | null
     {
         if ( this.RotationalStiffnessY_ === void 0 )
         {
@@ -201,27 +206,28 @@ export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = stepExtractNumber( buffer, cursor, endCursor );
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( value === void 0 )
+            if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcRotationalStiffnessMeasure ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed' );
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
                 }
 
                 return null;                
             }
             else
             {
-                return value;
+                return value as (IfcBoolean | IfcRotationalStiffnessMeasure);
             } })();
         }
 
-        return this.RotationalStiffnessY_ as number | null;
+        return this.RotationalStiffnessY_ as IfcBoolean|IfcRotationalStiffnessMeasure | null;
     }
 
-    public get RotationalStiffnessZ() : number | null
+    public get RotationalStiffnessZ() : IfcBoolean|IfcRotationalStiffnessMeasure | null
     {
         if ( this.RotationalStiffnessZ_ === void 0 )
         {
@@ -240,24 +246,25 @@ export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = stepExtractNumber( buffer, cursor, endCursor );
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( value === void 0 )
+            if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcRotationalStiffnessMeasure ) )
             {
                 if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
                 {
-                    throw new Error( 'Value in STEP was incorrectly typed' );
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
                 }
 
                 return null;                
             }
             else
             {
-                return value;
+                return value as (IfcBoolean | IfcRotationalStiffnessMeasure);
             } })();
         }
 
-        return this.RotationalStiffnessZ_ as number | null;
+        return this.RotationalStiffnessZ_ as IfcBoolean|IfcRotationalStiffnessMeasure | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

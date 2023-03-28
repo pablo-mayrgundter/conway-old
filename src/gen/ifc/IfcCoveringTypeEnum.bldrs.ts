@@ -3,24 +3,26 @@ enum IfcCoveringTypeEnum {
     FLOORING = 1,
     CLADDING = 2,
     ROOFING = 3,
-    INSULATION = 4,
-    MEMBRANE = 5,
-    SLEEVING = 6,
-    WRAPPING = 7,
-    USERDEFINED = 8,
-    NOTDEFINED = 9,
+    MOLDING = 4,
+    SKIRTINGBOARD = 5,
+    INSULATION = 6,
+    MEMBRANE = 7,
+    SLEEVING = 8,
+    WRAPPING = 9,
+    USERDEFINED = 10,
+    NOTDEFINED = 11,
 }
 export { IfcCoveringTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcCoveringTypeEnum = new Int32Array( [33,10,1] );
+let gMapIfcCoveringTypeEnum = new Int32Array( [317,3,6] );
 
-let prefixSumAddressIfcCoveringTypeEnum = new Uint32Array( [0,13,25,35,44,54,64,73,85,95,105] );
+let prefixSumAddressIfcCoveringTypeEnum = new Uint32Array( [0,10,19,28,41,50,62,72,84,99,109,119,129] );
 
-let slotMapIfcCoveringTypeEnum = new Int32Array( [8,9,7,3,1,5,0,4,2,6] );
+let slotMapIfcCoveringTypeEnum = new Int32Array( [8,0,3,10,4,6,2,11,5,9,1,7] );
 
-let encodedDataIfcCoveringTypeEnum = (new TextEncoder()).encode( ".USERDEFINED..NOTDEFINED..WRAPPING..ROOFING..FLOORING..MEMBRANE..CEILING..INSULATION..CLADDING..SLEEVING." );
+let encodedDataIfcCoveringTypeEnum = (new TextEncoder()).encode( ".SLEEVING..CEILING..ROOFING..USERDEFINED..MOLDING..INSULATION..CLADDING..NOTDEFINED..SKIRTINGBOARD..WRAPPING..FLOORING..MEMBRANE." );
 
 let IfcCoveringTypeEnumSearch = new MinimalPerfectHash< IfcCoveringTypeEnum >( gMapIfcCoveringTypeEnum, prefixSumAddressIfcCoveringTypeEnum, slotMapIfcCoveringTypeEnum, encodedDataIfcCoveringTypeEnum );
 

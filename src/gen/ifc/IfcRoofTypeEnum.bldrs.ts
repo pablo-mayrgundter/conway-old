@@ -12,19 +12,20 @@ enum IfcRoofTypeEnum {
     PAVILION_ROOF = 10,
     DOME_ROOF = 11,
     FREEFORM = 12,
-    NOTDEFINED = 13,
+    USERDEFINED = 13,
+    NOTDEFINED = 14,
 }
 export { IfcRoofTypeEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcRoofTypeEnum = new Int32Array( [-8,95,1,97] );
+let gMapIfcRoofTypeEnum = new Int32Array( [-5,82,1,13] );
 
-let prefixSumAddressIfcRoofTypeEnum = new Uint32Array( [0,11,21,33,46,58,72,83,97,108,123,133,152,166,182] );
+let prefixSumAddressIfcRoofTypeEnum = new Uint32Array( [0,13,23,35,46,59,70,84,95,109,125,137,147,161,176,195] );
 
-let slotMapIfcRoofTypeEnum = new Int32Array( [11,12,2,7,13,5,0,6,1,10,3,4,8,9] );
+let slotMapIfcRoofTypeEnum = new Int32Array( [13,3,2,11,7,1,5,0,6,9,14,12,8,10,4] );
 
-let encodedDataIfcRoofTypeEnum = (new TextEncoder()).encode( ".DOME_ROOF..FREEFORM..GABLE_ROOF..BARREL_ROOF..NOTDEFINED..GAMBREL_ROOF..FLAT_ROOF..MANSARD_ROOF..SHED_ROOF..PAVILION_ROOF..HIP_ROOF..HIPPED_GABLE_ROOF..RAINBOW_ROOF..BUTTERFLY_ROOF." );
+let encodedDataIfcRoofTypeEnum = (new TextEncoder()).encode( ".USERDEFINED..HIP_ROOF..GABLE_ROOF..DOME_ROOF..BARREL_ROOF..SHED_ROOF..GAMBREL_ROOF..FLAT_ROOF..MANSARD_ROOF..BUTTERFLY_ROOF..NOTDEFINED..FREEFORM..RAINBOW_ROOF..PAVILION_ROOF..HIPPED_GABLE_ROOF." );
 
 let IfcRoofTypeEnumSearch = new MinimalPerfectHash< IfcRoofTypeEnum >( gMapIfcRoofTypeEnum, prefixSumAddressIfcRoofTypeEnum, slotMapIfcRoofTypeEnum, encodedDataIfcRoofTypeEnum );
 

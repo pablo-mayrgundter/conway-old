@@ -2,14 +2,16 @@
 import { IfcShapeModel } from "./index"
 import { IfcLabel } from "./index"
 import { IfcText } from "./index"
+import { IfcLogical } from "./index"
 import { IfcProductDefinitionShape } from "./index"
+import { IfcRepresentationMap } from "./index"
 
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, stepExtractLogical, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum, IfcPointListDim, IfcGetBasisSurface } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcshapeaspect.htm */
@@ -23,8 +25,8 @@ export  class IfcShapeAspect extends StepEntityBase< EntityTypesIfc >
     private ShapeRepresentations_? : Array<IfcShapeModel>;
     private Name_? : string | null;
     private Description_? : string | null;
-    private ProductDefinitional_? : boolean;
-    private PartOfProductDefinitionShape_? : IfcProductDefinitionShape;
+    private ProductDefinitional_? : boolean | null;
+    private PartOfProductDefinitionShape_? : IfcProductDefinitionShape|IfcRepresentationMap | null;
 
     public get ShapeRepresentations() : Array<IfcShapeModel>
     {
@@ -64,12 +66,7 @@ export  class IfcShapeAspect extends StepEntityBase< EntityTypesIfc >
                 })() );
             }
 
-            if ( value === void 0 )
-            {                
-                throw new Error( 'Value in STEP was incorrectly typed' );
-            };
-
-            return value; })();
+return value; })();
         }
 
         return this.ShapeRepresentations_ as Array<IfcShapeModel>;
@@ -153,7 +150,7 @@ export  class IfcShapeAspect extends StepEntityBase< EntityTypesIfc >
         return this.Description_ as string | null;
     }
 
-    public get ProductDefinitional() : boolean
+    public get ProductDefinitional() : boolean | null
     {
         if ( this.ProductDefinitional_ === void 0 )
         {
@@ -172,20 +169,20 @@ export  class IfcShapeAspect extends StepEntityBase< EntityTypesIfc >
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = stepExtractBoolean( buffer, cursor, endCursor );
+            let value = stepExtractLogical( buffer, cursor, endCursor );
 
             if ( value === void 0 )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            }
 
             return value; })();
         }
 
-        return this.ProductDefinitional_ as boolean;
+        return this.ProductDefinitional_ as boolean | null;
     }
 
-    public get PartOfProductDefinitionShape() : IfcProductDefinitionShape
+    public get PartOfProductDefinitionShape() : IfcProductDefinitionShape|IfcRepresentationMap | null
     {
         if ( this.PartOfProductDefinitionShape_ === void 0 )
         {
@@ -205,17 +202,24 @@ export  class IfcShapeAspect extends StepEntityBase< EntityTypesIfc >
             let endCursor = buffer.length;
 
             let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
-            if ( !( value instanceof IfcProductDefinitionShape ) )
-            {                
-                throw new Error( 'Value in STEP was incorrectly typed for field' );
-            };
+            if ( !( value instanceof IfcProductDefinitionShape ) && !( value instanceof IfcRepresentationMap ) )
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
+                }
 
-            return value; })();
+                return null;                
+            }
+            else
+            {
+                return value as (IfcProductDefinitionShape | IfcRepresentationMap);
+            } })();
         }
 
-        return this.PartOfProductDefinitionShape_ as IfcProductDefinitionShape;
+        return this.PartOfProductDefinitionShape_ as IfcProductDefinitionShape|IfcRepresentationMap | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

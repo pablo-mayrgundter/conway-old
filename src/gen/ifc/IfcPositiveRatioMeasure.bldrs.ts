@@ -1,5 +1,5 @@
 
-import { IfcRatioMeasure } from "./IfcRatioMeasure.bldrs"
+import { IfcRatioMeasure } from "./index"
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
@@ -42,7 +42,7 @@ export class IfcPositiveRatioMeasure extends StepEntityBase< EntityTypesIfc >
             if ( value === void 0 )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            }
 
             return value; })();
         }

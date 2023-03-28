@@ -42,7 +42,7 @@ export class IfcModulusOfRotationalSubgradeReactionMeasure extends StepEntityBas
             if ( value === void 0 )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            }
 
             return value; })();
         }

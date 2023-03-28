@@ -1,17 +1,18 @@
 
-import { IfcText } from "./index"
-import { IfcCalendarDate } from "./index"
-import { IfcLocalTime } from "./index"
-import { IfcDateAndTime } from "./index"
-import { IfcLabel } from "./index"
 import { IfcIdentifier } from "./index"
+import { IfcLabel } from "./index"
+import { IfcText } from "./index"
+import { IfcDateTime } from "./index"
+import { IfcOrganization } from "./index"
+import { IfcPerson } from "./index"
+import { IfcPersonAndOrganization } from "./index"
 
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, stepExtractLogical, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum, IfcPointListDim, IfcGetBasisSurface } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcapproval.htm */
@@ -22,19 +23,21 @@ export  class IfcApproval extends StepEntityBase< EntityTypesIfc >
         return EntityTypesIfc.IFCAPPROVAL;
     }
 
+    private Identifier_? : string | null;
+    private Name_? : string | null;
     private Description_? : string | null;
-    private ApprovalDateTime_? : IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
-    private ApprovalStatus_? : string | null;
-    private ApprovalLevel_? : string | null;
-    private ApprovalQualifier_? : string | null;
-    private Name_? : string;
-    private Identifier_? : string;
+    private TimeOfApproval_? : string | null;
+    private Status_? : string | null;
+    private Level_? : string | null;
+    private Qualifier_? : string | null;
+    private RequestingApproval_? : IfcOrganization|IfcPerson|IfcPersonAndOrganization | null;
+    private GivingApproval_? : IfcOrganization|IfcPerson|IfcPersonAndOrganization | null;
 
-    public get Description() : string | null
+    public get Identifier() : string | null
     {
-        if ( this.Description_ === void 0 )
+        if ( this.Identifier_ === void 0 )
         {
-            this.Description_ = (() => { this.guaranteeVTable();
+            this.Identifier_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
@@ -66,14 +69,14 @@ export  class IfcApproval extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.Description_ as string | null;
+        return this.Identifier_ as string | null;
     }
 
-    public get ApprovalDateTime() : IfcCalendarDate|IfcLocalTime|IfcDateAndTime
+    public get Name() : string | null
     {
-        if ( this.ApprovalDateTime_ === void 0 )
+        if ( this.Name_ === void 0 )
         {
-            this.ApprovalDateTime_ = (() => { this.guaranteeVTable();
+            this.Name_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
@@ -88,25 +91,31 @@ export  class IfcApproval extends StepEntityBase< EntityTypesIfc >
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
+            let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( !( value instanceof IfcCalendarDate ) && !( value instanceof IfcLocalTime ) && !( value instanceof IfcDateAndTime ) )
-            {                
-                throw new Error( 'Value in STEP was incorrectly typed for field' );
+            if ( value === void 0 )
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed' );
+                }
+
+                return null;                
             }
-
-            return value as (IfcCalendarDate | IfcLocalTime | IfcDateAndTime); })();
+            else
+            {
+                return value;
+            } })();
         }
 
-        return this.ApprovalDateTime_ as IfcCalendarDate|IfcLocalTime|IfcDateAndTime;
+        return this.Name_ as string | null;
     }
 
-    public get ApprovalStatus() : string | null
+    public get Description() : string | null
     {
-        if ( this.ApprovalStatus_ === void 0 )
+        if ( this.Description_ === void 0 )
         {
-            this.ApprovalStatus_ = (() => { this.guaranteeVTable();
+            this.Description_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
@@ -138,14 +147,14 @@ export  class IfcApproval extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.ApprovalStatus_ as string | null;
+        return this.Description_ as string | null;
     }
 
-    public get ApprovalLevel() : string | null
+    public get TimeOfApproval() : string | null
     {
-        if ( this.ApprovalLevel_ === void 0 )
+        if ( this.TimeOfApproval_ === void 0 )
         {
-            this.ApprovalLevel_ = (() => { this.guaranteeVTable();
+            this.TimeOfApproval_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
@@ -177,14 +186,14 @@ export  class IfcApproval extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.ApprovalLevel_ as string | null;
+        return this.TimeOfApproval_ as string | null;
     }
 
-    public get ApprovalQualifier() : string | null
+    public get Status() : string | null
     {
-        if ( this.ApprovalQualifier_ === void 0 )
+        if ( this.Status_ === void 0 )
         {
-            this.ApprovalQualifier_ = (() => { this.guaranteeVTable();
+            this.Status_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
@@ -216,14 +225,14 @@ export  class IfcApproval extends StepEntityBase< EntityTypesIfc >
             } })();
         }
 
-        return this.ApprovalQualifier_ as string | null;
+        return this.Status_ as string | null;
     }
 
-    public get Name() : string
+    public get Level() : string | null
     {
-        if ( this.Name_ === void 0 )
+        if ( this.Level_ === void 0 )
         {
-            this.Name_ = (() => { this.guaranteeVTable();
+            this.Level_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
@@ -241,21 +250,28 @@ export  class IfcApproval extends StepEntityBase< EntityTypesIfc >
             let value = stepExtractString( buffer, cursor, endCursor );
 
             if ( value === void 0 )
-            {                
-                throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed' );
+                }
 
-            return value; })();
+                return null;                
+            }
+            else
+            {
+                return value;
+            } })();
         }
 
-        return this.Name_ as string;
+        return this.Level_ as string | null;
     }
 
-    public get Identifier() : string
+    public get Qualifier() : string | null
     {
-        if ( this.Identifier_ === void 0 )
+        if ( this.Qualifier_ === void 0 )
         {
-            this.Identifier_ = (() => { this.guaranteeVTable();
+            this.Qualifier_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
@@ -273,15 +289,104 @@ export  class IfcApproval extends StepEntityBase< EntityTypesIfc >
             let value = stepExtractString( buffer, cursor, endCursor );
 
             if ( value === void 0 )
-            {                
-                throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed' );
+                }
 
-            return value; })();
+                return null;                
+            }
+            else
+            {
+                return value;
+            } })();
         }
 
-        return this.Identifier_ as string;
+        return this.Qualifier_ as string | null;
     }
+
+    public get RequestingApproval() : IfcOrganization|IfcPerson|IfcPersonAndOrganization | null
+    {
+        if ( this.RequestingApproval_ === void 0 )
+        {
+            this.RequestingApproval_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 7 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
+            
+            let vtableSlot = internalReference.vtableIndex + 7;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
+
+            if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) )
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
+                }
+
+                return null;                
+            }
+            else
+            {
+                return value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization);
+            } })();
+        }
+
+        return this.RequestingApproval_ as IfcOrganization|IfcPerson|IfcPersonAndOrganization | null;
+    }
+
+    public get GivingApproval() : IfcOrganization|IfcPerson|IfcPersonAndOrganization | null
+    {
+        if ( this.GivingApproval_ === void 0 )
+        {
+            this.GivingApproval_ = (() => { this.guaranteeVTable();
+
+            let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
+
+            if ( 8 >= internalReference.vtableCount )
+            {
+                throw new Error( "Couldn't read field due to too few fields in record" ); 
+            }
+            
+            let vtableSlot = internalReference.vtableIndex + 8;
+
+            let cursor    = internalReference.vtable[ vtableSlot ];
+            let buffer    = internalReference.buffer;
+            let endCursor = buffer.length;
+
+            let expressID = stepExtractReference( buffer, cursor, endCursor );
+            let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
+
+            if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) )
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
+                }
+
+                return null;                
+            }
+            else
+            {
+                return value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization);
+            } })();
+        }
+
+        return this.GivingApproval_ as IfcOrganization|IfcPerson|IfcPersonAndOrganization | null;
+    }
+
+
 
 
 

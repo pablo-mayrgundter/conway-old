@@ -6,20 +6,21 @@ enum IfcReinforcingBarRoleEnum {
     PUNCHING = 4,
     EDGE = 5,
     RING = 6,
-    USERDEFINED = 7,
-    NOTDEFINED = 8,
+    ANCHORING = 7,
+    USERDEFINED = 8,
+    NOTDEFINED = 9,
 }
 export { IfcReinforcingBarRoleEnum };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 
-let gMapIfcReinforcingBarRoleEnum = new Int32Array( [1,1,88] );
+let gMapIfcReinforcingBarRoleEnum = new Int32Array( [2,15,11] );
 
-let prefixSumAddressIfcReinforcingBarRoleEnum = new Uint32Array( [0,6,12,22,28,35,45,58,70,76] );
+let prefixSumAddressIfcReinforcingBarRoleEnum = new Uint32Array( [0,10,22,29,40,50,56,62,68,74,87] );
 
-let slotMapIfcReinforcingBarRoleEnum = new Int32Array( [0,6,2,5,1,4,7,8,3] );
+let slotMapIfcReinforcingBarRoleEnum = new Int32Array( [4,9,1,7,2,3,6,5,0,8] );
 
-let encodedDataIfcReinforcingBarRoleEnum = (new TextEncoder()).encode( ".MAIN..RING..LIGATURE..EDGE..SHEAR..PUNCHING..USERDEFINED..NOTDEFINED..STUD." );
+let encodedDataIfcReinforcingBarRoleEnum = (new TextEncoder()).encode( ".PUNCHING..NOTDEFINED..SHEAR..ANCHORING..LIGATURE..STUD..RING..EDGE..MAIN..USERDEFINED." );
 
 let IfcReinforcingBarRoleEnumSearch = new MinimalPerfectHash< IfcReinforcingBarRoleEnum >( gMapIfcReinforcingBarRoleEnum, prefixSumAddressIfcReinforcingBarRoleEnum, slotMapIfcReinforcingBarRoleEnum, encodedDataIfcReinforcingBarRoleEnum );
 

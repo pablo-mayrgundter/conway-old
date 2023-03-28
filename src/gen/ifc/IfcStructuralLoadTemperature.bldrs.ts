@@ -6,8 +6,8 @@ import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, stepExtractLogical, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum, IfcPointListDim, IfcGetBasisSurface } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcstructuralloadtemperature.htm */
@@ -18,15 +18,15 @@ export  class IfcStructuralLoadTemperature extends IfcStructuralLoadStatic
         return EntityTypesIfc.IFCSTRUCTURALLOADTEMPERATURE;
     }
 
-    private DeltaT_Constant_? : number | null;
-    private DeltaT_Y_? : number | null;
-    private DeltaT_Z_? : number | null;
+    private DeltaTConstant_? : number | null;
+    private DeltaTY_? : number | null;
+    private DeltaTZ_? : number | null;
 
-    public get DeltaT_Constant() : number | null
+    public get DeltaTConstant() : number | null
     {
-        if ( this.DeltaT_Constant_ === void 0 )
+        if ( this.DeltaTConstant_ === void 0 )
         {
-            this.DeltaT_Constant_ = (() => { this.guaranteeVTable();
+            this.DeltaTConstant_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
@@ -58,14 +58,14 @@ export  class IfcStructuralLoadTemperature extends IfcStructuralLoadStatic
             } })();
         }
 
-        return this.DeltaT_Constant_ as number | null;
+        return this.DeltaTConstant_ as number | null;
     }
 
-    public get DeltaT_Y() : number | null
+    public get DeltaTY() : number | null
     {
-        if ( this.DeltaT_Y_ === void 0 )
+        if ( this.DeltaTY_ === void 0 )
         {
-            this.DeltaT_Y_ = (() => { this.guaranteeVTable();
+            this.DeltaTY_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
@@ -97,14 +97,14 @@ export  class IfcStructuralLoadTemperature extends IfcStructuralLoadStatic
             } })();
         }
 
-        return this.DeltaT_Y_ as number | null;
+        return this.DeltaTY_ as number | null;
     }
 
-    public get DeltaT_Z() : number | null
+    public get DeltaTZ() : number | null
     {
-        if ( this.DeltaT_Z_ === void 0 )
+        if ( this.DeltaTZ_ === void 0 )
         {
-            this.DeltaT_Z_ = (() => { this.guaranteeVTable();
+            this.DeltaTZ_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
@@ -136,7 +136,7 @@ export  class IfcStructuralLoadTemperature extends IfcStructuralLoadStatic
             } })();
         }
 
-        return this.DeltaT_Z_ as number | null;
+        return this.DeltaTZ_ as number | null;
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {

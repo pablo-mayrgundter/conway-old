@@ -4,15 +4,15 @@ import { IfcInventoryTypeEnum, IfcInventoryTypeEnumDeserializeStep } from "./ind
 import { IfcOrganization } from "./index"
 import { IfcPerson } from "./index"
 import { IfcPersonAndOrganization } from "./index"
-import { IfcCalendarDate } from "./index"
+import { IfcDate } from "./index"
 import { IfcCostValue } from "./index"
 
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, stepExtractLogical, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum, IfcPointListDim, IfcGetBasisSurface } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcinventory.htm */
@@ -23,18 +23,18 @@ export  class IfcInventory extends IfcGroup
         return EntityTypesIfc.IFCINVENTORY;
     }
 
-    private InventoryType_? : IfcInventoryTypeEnum;
-    private Jurisdiction_? : IfcOrganization|IfcPerson|IfcPersonAndOrganization;
-    private ResponsiblePersons_? : Array<IfcPerson>;
-    private LastUpdateDate_? : IfcCalendarDate;
+    private PredefinedType_? : IfcInventoryTypeEnum | null;
+    private Jurisdiction_? : IfcOrganization|IfcPerson|IfcPersonAndOrganization | null;
+    private ResponsiblePersons_? : Array<IfcPerson> | null;
+    private LastUpdateDate_? : string | null;
     private CurrentValue_? : IfcCostValue | null;
     private OriginalValue_? : IfcCostValue | null;
 
-    public get InventoryType() : IfcInventoryTypeEnum
+    public get PredefinedType() : IfcInventoryTypeEnum | null
     {
-        if ( this.InventoryType_ === void 0 )
+        if ( this.PredefinedType_ === void 0 )
         {
-            this.InventoryType_ = (() => { this.guaranteeVTable();
+            this.PredefinedType_ = (() => { this.guaranteeVTable();
 
             let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >;
 
@@ -52,17 +52,24 @@ export  class IfcInventory extends IfcGroup
             let value = IfcInventoryTypeEnumDeserializeStep( buffer, cursor, endCursor );
 
             if ( value === void 0 )
-            {                
-                throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed' );
+                }
 
-            return value; })();
+                return null;                
+            }
+            else
+            {
+                return value;
+            } })();
         }
 
-        return this.InventoryType_ as IfcInventoryTypeEnum;
+        return this.PredefinedType_ as IfcInventoryTypeEnum | null;
     }
 
-    public get Jurisdiction() : IfcOrganization|IfcPerson|IfcPersonAndOrganization
+    public get Jurisdiction() : IfcOrganization|IfcPerson|IfcPersonAndOrganization | null
     {
         if ( this.Jurisdiction_ === void 0 )
         {
@@ -85,17 +92,24 @@ export  class IfcInventory extends IfcGroup
             let value : StepEntityBase< EntityTypesIfc > | undefined = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )));           
 
             if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) )
-            {                
-                throw new Error( 'Value in STEP was incorrectly typed for field' );
-            }
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed for field' );
+                }
 
-            return value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization); })();
+                return null;                
+            }
+            else
+            {
+                return value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization);
+            } })();
         }
 
-        return this.Jurisdiction_ as IfcOrganization|IfcPerson|IfcPersonAndOrganization;
+        return this.Jurisdiction_ as IfcOrganization|IfcPerson|IfcPersonAndOrganization | null;
     }
 
-    public get ResponsiblePersons() : Array<IfcPerson>
+    public get ResponsiblePersons() : Array<IfcPerson> | null
     {
         if ( this.ResponsiblePersons_ === void 0 )
         {
@@ -113,6 +127,11 @@ export  class IfcInventory extends IfcGroup
             let cursor    = internalReference.vtable[ vtableSlot ];
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
+            
+            if ( stepExtractOptional( buffer, cursor, endCursor ) === null )
+            {
+                return null;
+            }
 
             let value : Array<IfcPerson> = [];
 
@@ -133,18 +152,13 @@ export  class IfcInventory extends IfcGroup
                 })() );
             }
 
-            if ( value === void 0 )
-            {                
-                throw new Error( 'Value in STEP was incorrectly typed' );
-            };
-
-            return value; })();
+return value; })();
         }
 
-        return this.ResponsiblePersons_ as Array<IfcPerson>;
+        return this.ResponsiblePersons_ as Array<IfcPerson> | null;
     }
 
-    public get LastUpdateDate() : IfcCalendarDate
+    public get LastUpdateDate() : string | null
     {
         if ( this.LastUpdateDate_ === void 0 )
         {
@@ -163,18 +177,24 @@ export  class IfcInventory extends IfcGroup
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let expressID = stepExtractReference( buffer, cursor, endCursor );
-            let value = expressID !== void 0 ? this.model.getElementByExpressID( expressID ) : this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) );           
+            let value = stepExtractString( buffer, cursor, endCursor );
 
-            if ( !( value instanceof IfcCalendarDate ) )
-            {                
-                throw new Error( 'Value in STEP was incorrectly typed for field' );
-            };
+            if ( value === void 0 )
+            {
+                if ( stepExtractOptional( buffer, cursor, endCursor ) !== null )
+                {
+                    throw new Error( 'Value in STEP was incorrectly typed' );
+                }
 
-            return value; })();
+                return null;                
+            }
+            else
+            {
+                return value;
+            } })();
         }
 
-        return this.LastUpdateDate_ as IfcCalendarDate;
+        return this.LastUpdateDate_ as string | null;
     }
 
     public get CurrentValue() : IfcCostValue | null

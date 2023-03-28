@@ -1,14 +1,16 @@
 
 import { IfcBoundedCurve } from "./index"
+import { IfcInteger } from "./index"
 import { IfcCartesianPoint } from "./index"
 import { IfcBSplineCurveForm, IfcBSplineCurveFormDeserializeStep } from "./index"
+import { IfcLogical } from "./index"
 
 import EntityTypesIfc from "./entity_types_ifc.bldrs"
 import StepEntityInternalReference from "../../core/step_entity_internal_reference"
 import StepEntityBase from "../../core/step_entity_base"
 import StepModelBase from "../../core/step_model_base"
-import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
-import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum } from "../../core/ifc/ifc_functions"
+import {stepExtractBoolean, stepExtractEnum, stepExtractString, stepExtractOptional, stepExtractBinary, stepExtractReference, stepExtractNumber, stepExtractInlineElemement, stepExtractArray, stepExtractLogical, NVL, HIINDEX, SIZEOF} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions';
+import {IfcBaseAxis, IfcBooleanChoose, IfcBuild2Axes, IfcBuildAxes, IfcConstraintsParamBSpline, IfcConvertDirectionInto2D, IfcCorrectDimensions, IfcCorrectFillAreaStyle, IfcCorrectLocalPlacement, IfcCorrectObjectAssignment, IfcCorrectUnitAssignment, IfcCrossProduct, IfcCurveDim, IfcDeriveDimensionalExponents, IfcDimensionsForSiUnit, IfcDotProduct, IfcFirstProjAxis, IfcListToArray, IfcLoopHeadToTail, IfcMakeArrayOfArray, IfcMlsTotalThickness, IfcNormalise, IfcOrthogonalComplement, IfcPathHeadToTail, IfcSameAxis2Placement, IfcSameCartesianPoint, IfcSameDirection, IfcSameValidPrecision, IfcSameValue, IfcScalarTimesVector, IfcSecondProjAxis, IfcShapeRepresentationTypes, IfcTaperedSweptAreaProfiles, IfcTopologyRepresentationTypes, IfcUniqueDefinitionNames, IfcUniquePropertyName, IfcUniquePropertySetNames, IfcUniqueQuantityNames, IfcVectorDifference, IfcVectorSum, IfcPointListDim, IfcGetBasisSurface } from "../../core/ifc/ifc_functions"
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcbsplinecurve.htm */
@@ -22,8 +24,8 @@ export abstract class IfcBSplineCurve extends IfcBoundedCurve
     private Degree_? : number;
     private ControlPointsList_? : Array<IfcCartesianPoint>;
     private CurveForm_? : IfcBSplineCurveForm;
-    private ClosedCurve_? : boolean;
-    private SelfIntersect_? : boolean;
+    private ClosedCurve_? : boolean | null;
+    private SelfIntersect_? : boolean | null;
 
     public get Degree() : number
     {
@@ -49,7 +51,7 @@ export abstract class IfcBSplineCurve extends IfcBoundedCurve
             if ( value === void 0 )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            }
 
             return value; })();
         }
@@ -95,12 +97,7 @@ export abstract class IfcBSplineCurve extends IfcBoundedCurve
                 })() );
             }
 
-            if ( value === void 0 )
-            {                
-                throw new Error( 'Value in STEP was incorrectly typed' );
-            };
-
-            return value; })();
+return value; })();
         }
 
         return this.ControlPointsList_ as Array<IfcCartesianPoint>;
@@ -130,7 +127,7 @@ export abstract class IfcBSplineCurve extends IfcBoundedCurve
             if ( value === void 0 )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            }
 
             return value; })();
         }
@@ -138,7 +135,7 @@ export abstract class IfcBSplineCurve extends IfcBoundedCurve
         return this.CurveForm_ as IfcBSplineCurveForm;
     }
 
-    public get ClosedCurve() : boolean
+    public get ClosedCurve() : boolean | null
     {
         if ( this.ClosedCurve_ === void 0 )
         {
@@ -157,20 +154,20 @@ export abstract class IfcBSplineCurve extends IfcBoundedCurve
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = stepExtractBoolean( buffer, cursor, endCursor );
+            let value = stepExtractLogical( buffer, cursor, endCursor );
 
             if ( value === void 0 )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            }
 
             return value; })();
         }
 
-        return this.ClosedCurve_ as boolean;
+        return this.ClosedCurve_ as boolean | null;
     }
 
-    public get SelfIntersect() : boolean
+    public get SelfIntersect() : boolean | null
     {
         if ( this.SelfIntersect_ === void 0 )
         {
@@ -189,27 +186,27 @@ export abstract class IfcBSplineCurve extends IfcBoundedCurve
             let buffer    = internalReference.buffer;
             let endCursor = buffer.length;
 
-            let value = stepExtractBoolean( buffer, cursor, endCursor );
+            let value = stepExtractLogical( buffer, cursor, endCursor );
 
             if ( value === void 0 )
             {                
                 throw new Error( 'Value in STEP was incorrectly typed' );
-            };
+            }
 
             return value; })();
         }
 
-        return this.SelfIntersect_ as boolean;
-    }
-
-    public get ControlPoints() : Array<IfcCartesianPoint>
-    {
-        return IfcListToArray(this?.ControlPointsList,0,this?.UpperIndexOnControlPoints);
+        return this.SelfIntersect_ as boolean | null;
     }
 
     public get UpperIndexOnControlPoints() : number
     {
         return (SIZEOF(this?.ControlPointsList)-1);
+    }
+
+    public get ControlPoints() : Array<IfcCartesianPoint>
+    {
+        return IfcListToArray(this?.ControlPointsList,0,this?.UpperIndexOnControlPoints);
     }
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
