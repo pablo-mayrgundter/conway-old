@@ -18,7 +18,6 @@ export  class IfcApplication extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCAPPLICATION;
     }
-
     private ApplicationDeveloper_? : IfcOrganization;
     private Version_? : string;
     private ApplicationFullName_? : string;
@@ -156,4 +155,8 @@ export  class IfcApplication extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCAPPLICATION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCAPPLICATION;
 }

@@ -17,7 +17,6 @@ export  class IfcCircle extends IfcConic
     {
         return EntityTypesIfc.IFCCIRCLE;
     }
-
     private Radius_? : number;
 
     public get Radius() : number
@@ -55,4 +54,8 @@ export  class IfcCircle extends IfcConic
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCIRCLE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCIRCLE;
 }

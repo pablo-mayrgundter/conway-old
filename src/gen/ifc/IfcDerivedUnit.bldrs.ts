@@ -19,7 +19,6 @@ export  class IfcDerivedUnit extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCDERIVEDUNIT;
     }
-
     private Elements_? : Array<IfcDerivedUnitElement>;
     private UnitType_? : IfcDerivedUnitEnum;
     private UserDefinedType_? : string | null;
@@ -147,4 +146,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDERIVEDUNIT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDERIVEDUNIT;
 }

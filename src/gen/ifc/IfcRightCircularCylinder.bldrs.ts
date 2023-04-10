@@ -17,7 +17,6 @@ export  class IfcRightCircularCylinder extends IfcCsgPrimitive3D
     {
         return EntityTypesIfc.IFCRIGHTCIRCULARCYLINDER;
     }
-
     private Height_? : number;
     private Radius_? : number;
 
@@ -88,4 +87,8 @@ export  class IfcRightCircularCylinder extends IfcCsgPrimitive3D
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRIGHTCIRCULARCYLINDER ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRIGHTCIRCULARCYLINDER;
 }

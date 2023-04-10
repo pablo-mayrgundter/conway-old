@@ -19,7 +19,6 @@ export  class IfcLightSourcePositional extends IfcLightSource
     {
         return EntityTypesIfc.IFCLIGHTSOURCEPOSITIONAL;
     }
-
     private Position_? : IfcCartesianPoint;
     private Radius_? : number;
     private ConstantAttenuation_? : number;
@@ -190,4 +189,8 @@ export  class IfcLightSourcePositional extends IfcLightSource
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCLIGHTSOURCEPOSITIONAL, EntityTypesIfc.IFCLIGHTSOURCESPOT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCLIGHTSOURCEPOSITIONAL;
 }

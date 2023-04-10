@@ -54,4 +54,8 @@ export class IfcRadioActivityMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRADIOACTIVITYMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRADIOACTIVITYMEASURE;
 }

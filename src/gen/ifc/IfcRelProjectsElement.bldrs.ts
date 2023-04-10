@@ -18,7 +18,6 @@ export  class IfcRelProjectsElement extends IfcRelDecomposes
     {
         return EntityTypesIfc.IFCRELPROJECTSELEMENT;
     }
-
     private RelatingElement_? : IfcElement;
     private RelatedFeatureElement_? : IfcFeatureElementAddition;
 
@@ -91,4 +90,8 @@ export  class IfcRelProjectsElement extends IfcRelDecomposes
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELPROJECTSELEMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELPROJECTSELEMENT;
 }

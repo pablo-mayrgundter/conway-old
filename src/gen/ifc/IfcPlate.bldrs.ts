@@ -17,7 +17,6 @@ export  class IfcPlate extends IfcBuildingElement
     {
         return EntityTypesIfc.IFCPLATE;
     }
-
     private PredefinedType_? : IfcPlateTypeEnum | null;
 
     public get PredefinedType() : IfcPlateTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcPlate extends IfcBuildingElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPLATE, EntityTypesIfc.IFCPLATESTANDARDCASE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPLATE;
 }

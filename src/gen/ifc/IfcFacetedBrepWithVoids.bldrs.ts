@@ -17,7 +17,6 @@ export  class IfcFacetedBrepWithVoids extends IfcFacetedBrep
     {
         return EntityTypesIfc.IFCFACETEDBREPWITHVOIDS;
     }
-
     private Voids_? : Array<IfcClosedShell>;
 
     public get Voids() : Array<IfcClosedShell>
@@ -67,4 +66,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFACETEDBREPWITHVOIDS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFACETEDBREPWITHVOIDS;
 }

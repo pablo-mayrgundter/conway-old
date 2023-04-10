@@ -17,7 +17,6 @@ export  class IfcTankType extends IfcFlowStorageDeviceType
     {
         return EntityTypesIfc.IFCTANKTYPE;
     }
-
     private PredefinedType_? : IfcTankTypeEnum;
 
     public get PredefinedType() : IfcTankTypeEnum
@@ -55,4 +54,8 @@ export  class IfcTankType extends IfcFlowStorageDeviceType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTANKTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTANKTYPE;
 }

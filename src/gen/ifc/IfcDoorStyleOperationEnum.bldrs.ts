@@ -18,7 +18,9 @@ enum IfcDoorStyleOperationEnum {
     USERDEFINED = 16,
     NOTDEFINED = 17,
 }
-export { IfcDoorStyleOperationEnum };
+const IfcDoorStyleOperationEnumCount = 18;
+
+export { IfcDoorStyleOperationEnum, IfcDoorStyleOperationEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

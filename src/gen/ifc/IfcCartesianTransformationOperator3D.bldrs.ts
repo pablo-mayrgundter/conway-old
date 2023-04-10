@@ -17,7 +17,6 @@ export  class IfcCartesianTransformationOperator3D extends IfcCartesianTransform
     {
         return EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR3D;
     }
-
     private Axis3_? : IfcDirection | null;
 
     public get Axis3() : IfcDirection | null
@@ -64,4 +63,8 @@ export  class IfcCartesianTransformationOperator3D extends IfcCartesianTransform
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR3D, EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR3DNONUNIFORM ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR3D;
 }

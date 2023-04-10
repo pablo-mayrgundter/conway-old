@@ -17,7 +17,6 @@ export  class IfcBlock extends IfcCsgPrimitive3D
     {
         return EntityTypesIfc.IFCBLOCK;
     }
-
     private XLength_? : number;
     private YLength_? : number;
     private ZLength_? : number;
@@ -121,4 +120,8 @@ export  class IfcBlock extends IfcCsgPrimitive3D
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBLOCK ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBLOCK;
 }

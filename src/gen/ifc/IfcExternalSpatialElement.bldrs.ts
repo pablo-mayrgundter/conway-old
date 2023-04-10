@@ -17,7 +17,6 @@ export  class IfcExternalSpatialElement extends IfcExternalSpatialStructureEleme
     {
         return EntityTypesIfc.IFCEXTERNALSPATIALELEMENT;
     }
-
     private PredefinedType_? : IfcExternalSpatialElementTypeEnum | null;
 
     public get PredefinedType() : IfcExternalSpatialElementTypeEnum | null
@@ -63,4 +62,8 @@ export  class IfcExternalSpatialElement extends IfcExternalSpatialStructureEleme
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCEXTERNALSPATIALELEMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCEXTERNALSPATIALELEMENT;
 }

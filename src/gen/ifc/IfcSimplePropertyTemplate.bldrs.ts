@@ -23,7 +23,6 @@ export  class IfcSimplePropertyTemplate extends IfcPropertyTemplate
     {
         return EntityTypesIfc.IFCSIMPLEPROPERTYTEMPLATE;
     }
-
     private TemplateType_? : IfcSimplePropertyTemplateTypeEnum | null;
     private PrimaryMeasureType_? : string | null;
     private SecondaryMeasureType_? : string | null;
@@ -351,4 +350,8 @@ export  class IfcSimplePropertyTemplate extends IfcPropertyTemplate
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSIMPLEPROPERTYTEMPLATE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSIMPLEPROPERTYTEMPLATE;
 }

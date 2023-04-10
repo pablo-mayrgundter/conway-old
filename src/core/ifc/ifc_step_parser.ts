@@ -4,6 +4,7 @@ import EntityTypesIfc from "../../gen/ifc/entity_types_ifc.bldrs";
 import EntitTypesIfcSearch from "../../gen/ifc/entity_types_search.bldrs";
 import IfcStepModel from "./ifc_step_model";
 
+
 export default class IfcStepParser extends StepParser< EntityTypesIfc >
 {
     constructor()

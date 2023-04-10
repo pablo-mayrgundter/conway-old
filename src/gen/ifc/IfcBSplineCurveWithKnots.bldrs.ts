@@ -19,7 +19,6 @@ export  class IfcBSplineCurveWithKnots extends IfcBSplineCurve
     {
         return EntityTypesIfc.IFCBSPLINECURVEWITHKNOTS;
     }
-
     private KnotMultiplicities_? : Array< number >;
     private Knots_? : Array< number >;
     private KnotSpec_? : IfcKnotType;
@@ -150,4 +149,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBSPLINECURVEWITHKNOTS, EntityTypesIfc.IFCRATIONALBSPLINECURVEWITHKNOTS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBSPLINECURVEWITHKNOTS;
 }

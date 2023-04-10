@@ -54,4 +54,8 @@ export class IfcSectionModulusMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSECTIONMODULUSMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSECTIONMODULUSMEASURE;
 }

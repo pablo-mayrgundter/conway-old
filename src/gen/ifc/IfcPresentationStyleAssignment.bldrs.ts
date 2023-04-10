@@ -20,7 +20,6 @@ export  class IfcPresentationStyleAssignment extends StepEntityBase< EntityTypes
     {
         return EntityTypesIfc.IFCPRESENTATIONSTYLEASSIGNMENT;
     }
-
     private Styles_? : Array<IfcCurveStyle|IfcFillAreaStyle|IfcNullStyle|IfcSurfaceStyle|IfcTextStyle>;
 
     public get Styles() : Array<IfcCurveStyle|IfcFillAreaStyle|IfcNullStyle|IfcSurfaceStyle|IfcTextStyle>
@@ -70,4 +69,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPRESENTATIONSTYLEASSIGNMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPRESENTATIONSTYLEASSIGNMENT;
 }

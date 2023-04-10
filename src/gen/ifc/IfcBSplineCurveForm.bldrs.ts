@@ -6,7 +6,9 @@ enum IfcBSplineCurveForm {
     HYPERBOLIC_ARC = 4,
     UNSPECIFIED = 5,
 }
-export { IfcBSplineCurveForm };
+const IfcBSplineCurveFormCount = 6;
+
+export { IfcBSplineCurveForm, IfcBSplineCurveFormCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

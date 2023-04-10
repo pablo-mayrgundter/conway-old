@@ -5,7 +5,9 @@ enum IfcDocumentStatusEnum {
     REVISION = 3,
     NOTDEFINED = 4,
 }
-export { IfcDocumentStatusEnum };
+const IfcDocumentStatusEnumCount = 5;
+
+export { IfcDocumentStatusEnum, IfcDocumentStatusEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

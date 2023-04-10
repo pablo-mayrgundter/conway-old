@@ -18,7 +18,6 @@ export  class IfcMaterialLayerWithOffsets extends IfcMaterialLayer
     {
         return EntityTypesIfc.IFCMATERIALLAYERWITHOFFSETS;
     }
-
     private OffsetDirection_? : IfcLayerSetDirectionEnum;
     private OffsetValues_? : Array< number >;
 
@@ -100,4 +99,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMATERIALLAYERWITHOFFSETS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMATERIALLAYERWITHOFFSETS;
 }

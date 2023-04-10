@@ -54,4 +54,8 @@ export class IfcDate extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDATE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDATE;
 }

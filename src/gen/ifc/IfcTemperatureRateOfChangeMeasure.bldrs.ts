@@ -54,4 +54,8 @@ export class IfcTemperatureRateOfChangeMeasure extends StepEntityBase< EntityTyp
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTEMPERATURERATEOFCHANGEMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTEMPERATURERATEOFCHANGEMEASURE;
 }

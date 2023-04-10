@@ -17,7 +17,6 @@ export  class IfcFace extends IfcTopologicalRepresentationItem
     {
         return EntityTypesIfc.IFCFACE;
     }
-
     private Bounds_? : Array<IfcFaceBound>;
 
     public get Bounds() : Array<IfcFaceBound>
@@ -68,4 +67,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFACE, EntityTypesIfc.IFCFACESURFACE, EntityTypesIfc.IFCADVANCEDFACE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFACE;
 }

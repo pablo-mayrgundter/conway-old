@@ -18,7 +18,6 @@ export abstract class IfcProperty extends IfcPropertyAbstraction
     {
         return EntityTypesIfc.IFCPROPERTY;
     }
-
     private Name_? : string;
     private Description_? : string | null;
 
@@ -102,4 +101,8 @@ export abstract class IfcProperty extends IfcPropertyAbstraction
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCOMPLEXPROPERTY, EntityTypesIfc.IFCPROPERTYBOUNDEDVALUE, EntityTypesIfc.IFCPROPERTYENUMERATEDVALUE, EntityTypesIfc.IFCPROPERTYLISTVALUE, EntityTypesIfc.IFCPROPERTYREFERENCEVALUE, EntityTypesIfc.IFCPROPERTYSINGLEVALUE, EntityTypesIfc.IFCPROPERTYTABLEVALUE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPROPERTY;
 }

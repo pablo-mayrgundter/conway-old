@@ -65,4 +65,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCARCINDEX ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCARCINDEX;
 }

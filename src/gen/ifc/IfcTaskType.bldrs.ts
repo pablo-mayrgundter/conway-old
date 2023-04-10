@@ -18,7 +18,6 @@ export  class IfcTaskType extends IfcTypeProcess
     {
         return EntityTypesIfc.IFCTASKTYPE;
     }
-
     private PredefinedType_? : IfcTaskTypeEnum;
     private WorkMethod_? : string | null;
 
@@ -96,4 +95,8 @@ export  class IfcTaskType extends IfcTypeProcess
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTASKTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTASKTYPE;
 }

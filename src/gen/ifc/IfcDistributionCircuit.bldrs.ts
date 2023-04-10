@@ -18,9 +18,12 @@ export  class IfcDistributionCircuit extends IfcDistributionSystem
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDISTRIBUTIONCIRCUIT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDISTRIBUTIONCIRCUIT;
 }

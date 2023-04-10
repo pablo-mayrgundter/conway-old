@@ -17,7 +17,6 @@ export  class IfcPolyLoop extends IfcLoop
     {
         return EntityTypesIfc.IFCPOLYLOOP;
     }
-
     private Polygon_? : Array<IfcCartesianPoint>;
 
     public get Polygon() : Array<IfcCartesianPoint>
@@ -67,4 +66,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPOLYLOOP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPOLYLOOP;
 }

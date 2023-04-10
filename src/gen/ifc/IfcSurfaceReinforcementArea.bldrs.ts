@@ -18,7 +18,6 @@ export  class IfcSurfaceReinforcementArea extends IfcStructuralLoadOrResult
     {
         return EntityTypesIfc.IFCSURFACEREINFORCEMENTAREA;
     }
-
     private SurfaceReinforcement1_? : Array< number > | null;
     private SurfaceReinforcement2_? : Array< number > | null;
     private ShearReinforcement_? : number | null;
@@ -161,4 +160,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSURFACEREINFORCEMENTAREA ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSURFACEREINFORCEMENTAREA;
 }

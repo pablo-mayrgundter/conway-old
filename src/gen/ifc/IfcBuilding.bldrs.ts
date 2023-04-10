@@ -18,7 +18,6 @@ export  class IfcBuilding extends IfcSpatialStructureElement
     {
         return EntityTypesIfc.IFCBUILDING;
     }
-
     private ElevationOfRefHeight_? : number | null;
     private ElevationOfTerrain_? : number | null;
     private BuildingAddress_? : IfcPostalAddress | null;
@@ -144,4 +143,8 @@ export  class IfcBuilding extends IfcSpatialStructureElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBUILDING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBUILDING;
 }

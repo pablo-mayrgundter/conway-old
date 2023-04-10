@@ -8,7 +8,9 @@ enum IfcEvaporatorTypeEnum {
     USERDEFINED = 6,
     NOTDEFINED = 7,
 }
-export { IfcEvaporatorTypeEnum };
+const IfcEvaporatorTypeEnumCount = 8;
+
+export { IfcEvaporatorTypeEnum, IfcEvaporatorTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

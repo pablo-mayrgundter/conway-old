@@ -17,7 +17,6 @@ export  class IfcAlarmType extends IfcDistributionControlElementType
     {
         return EntityTypesIfc.IFCALARMTYPE;
     }
-
     private PredefinedType_? : IfcAlarmTypeEnum;
 
     public get PredefinedType() : IfcAlarmTypeEnum
@@ -55,4 +54,8 @@ export  class IfcAlarmType extends IfcDistributionControlElementType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCALARMTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCALARMTYPE;
 }

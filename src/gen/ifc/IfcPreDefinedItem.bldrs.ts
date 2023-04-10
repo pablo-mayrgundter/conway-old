@@ -17,7 +17,6 @@ export abstract class IfcPreDefinedItem extends IfcPresentationItem
     {
         return EntityTypesIfc.IFCPREDEFINEDITEM;
     }
-
     private Name_? : string;
 
     public get Name() : string
@@ -55,4 +54,8 @@ export abstract class IfcPreDefinedItem extends IfcPresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDRAUGHTINGPREDEFINEDCOLOUR, EntityTypesIfc.IFCDRAUGHTINGPREDEFINEDCURVEFONT, EntityTypesIfc.IFCTEXTSTYLEFONTMODEL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPREDEFINEDITEM;
 }

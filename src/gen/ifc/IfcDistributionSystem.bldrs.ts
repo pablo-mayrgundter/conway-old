@@ -18,7 +18,6 @@ export  class IfcDistributionSystem extends IfcSystem
     {
         return EntityTypesIfc.IFCDISTRIBUTIONSYSTEM;
     }
-
     private LongName_? : string | null;
     private PredefinedType_? : IfcDistributionSystemEnum | null;
 
@@ -103,4 +102,8 @@ export  class IfcDistributionSystem extends IfcSystem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDISTRIBUTIONSYSTEM, EntityTypesIfc.IFCDISTRIBUTIONCIRCUIT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDISTRIBUTIONSYSTEM;
 }

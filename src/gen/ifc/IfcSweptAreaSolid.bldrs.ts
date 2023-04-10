@@ -18,7 +18,6 @@ export abstract class IfcSweptAreaSolid extends IfcSolidModel
     {
         return EntityTypesIfc.IFCSWEPTAREASOLID;
     }
-
     private SweptArea_? : IfcProfileDef;
     private Position_? : IfcAxis2Placement3D | null;
 
@@ -98,4 +97,8 @@ export abstract class IfcSweptAreaSolid extends IfcSolidModel
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCEXTRUDEDAREASOLID, EntityTypesIfc.IFCFIXEDREFERENCESWEPTAREASOLID, EntityTypesIfc.IFCREVOLVEDAREASOLID, EntityTypesIfc.IFCSURFACECURVESWEPTAREASOLID, EntityTypesIfc.IFCEXTRUDEDAREASOLIDTAPERED, EntityTypesIfc.IFCREVOLVEDAREASOLIDTAPERED ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSWEPTAREASOLID;
 }

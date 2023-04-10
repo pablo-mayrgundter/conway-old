@@ -17,7 +17,6 @@ export  class IfcUnitaryControlElement extends IfcDistributionControlElement
     {
         return EntityTypesIfc.IFCUNITARYCONTROLELEMENT;
     }
-
     private PredefinedType_? : IfcUnitaryControlElementTypeEnum | null;
 
     public get PredefinedType() : IfcUnitaryControlElementTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcUnitaryControlElement extends IfcDistributionControlElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCUNITARYCONTROLELEMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCUNITARYCONTROLELEMENT;
 }

@@ -20,7 +20,6 @@ export  class IfcWindowPanelProperties extends IfcPreDefinedPropertySet
     {
         return EntityTypesIfc.IFCWINDOWPANELPROPERTIES;
     }
-
     private OperationType_? : IfcWindowPanelOperationEnum;
     private PanelPosition_? : IfcWindowPanelPositionEnum;
     private FrameDepth_? : number | null;
@@ -212,4 +211,8 @@ export  class IfcWindowPanelProperties extends IfcPreDefinedPropertySet
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCWINDOWPANELPROPERTIES ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCWINDOWPANELPROPERTIES;
 }

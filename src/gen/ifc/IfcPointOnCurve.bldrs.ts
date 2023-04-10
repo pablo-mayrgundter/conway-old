@@ -19,7 +19,6 @@ export  class IfcPointOnCurve extends IfcPoint
     {
         return EntityTypesIfc.IFCPOINTONCURVE;
     }
-
     private BasisCurve_? : IfcCurve;
     private PointParameter_? : number;
 
@@ -96,4 +95,8 @@ export  class IfcPointOnCurve extends IfcPoint
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPOINTONCURVE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPOINTONCURVE;
 }

@@ -18,7 +18,6 @@ export abstract class IfcProductRepresentation extends StepEntityBase< EntityTyp
     {
         return EntityTypesIfc.IFCPRODUCTREPRESENTATION;
     }
-
     private Name_? : string | null;
     private Description_? : string | null;
     private Representations_? : Array<IfcRepresentation>;
@@ -148,4 +147,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMATERIALDEFINITIONREPRESENTATION, EntityTypesIfc.IFCPRODUCTDEFINITIONSHAPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPRODUCTREPRESENTATION;
 }

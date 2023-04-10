@@ -19,7 +19,6 @@ export  class IfcLightSourceSpot extends IfcLightSourcePositional
     {
         return EntityTypesIfc.IFCLIGHTSOURCESPOT;
     }
-
     private Orientation_? : IfcDirection;
     private ConcentrationExponent_? : number | null;
     private SpreadAngle_? : number;
@@ -164,4 +163,8 @@ export  class IfcLightSourceSpot extends IfcLightSourcePositional
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCLIGHTSOURCESPOT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCLIGHTSOURCESPOT;
 }

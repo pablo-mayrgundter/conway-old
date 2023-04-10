@@ -17,7 +17,6 @@ export  class IfcStructuralSurfaceReaction extends IfcStructuralReaction
     {
         return EntityTypesIfc.IFCSTRUCTURALSURFACEREACTION;
     }
-
     private PredefinedType_? : IfcStructuralSurfaceActivityTypeEnum;
 
     public get PredefinedType() : IfcStructuralSurfaceActivityTypeEnum
@@ -55,4 +54,8 @@ export  class IfcStructuralSurfaceReaction extends IfcStructuralReaction
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALSURFACEREACTION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALSURFACEREACTION;
 }

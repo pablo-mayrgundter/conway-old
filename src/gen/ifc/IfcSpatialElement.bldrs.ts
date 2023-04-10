@@ -17,7 +17,6 @@ export abstract class IfcSpatialElement extends IfcProduct
     {
         return EntityTypesIfc.IFCSPATIALELEMENT;
     }
-
     private LongName_? : string | null;
 
     public get LongName() : string | null
@@ -65,4 +64,8 @@ export abstract class IfcSpatialElement extends IfcProduct
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSPATIALZONE, EntityTypesIfc.IFCEXTERNALSPATIALELEMENT, EntityTypesIfc.IFCBUILDING, EntityTypesIfc.IFCBUILDINGSTOREY, EntityTypesIfc.IFCSITE, EntityTypesIfc.IFCSPACE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSPATIALELEMENT;
 }

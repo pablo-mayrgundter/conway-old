@@ -17,7 +17,6 @@ export  class IfcConnectionPointEccentricity extends IfcConnectionPointGeometry
     {
         return EntityTypesIfc.IFCCONNECTIONPOINTECCENTRICITY;
     }
-
     private EccentricityInX_? : number | null;
     private EccentricityInY_? : number | null;
     private EccentricityInZ_? : number | null;
@@ -142,4 +141,8 @@ export  class IfcConnectionPointEccentricity extends IfcConnectionPointGeometry
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCONNECTIONPOINTECCENTRICITY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCONNECTIONPOINTECCENTRICITY;
 }

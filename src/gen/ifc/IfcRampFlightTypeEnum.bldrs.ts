@@ -4,7 +4,9 @@ enum IfcRampFlightTypeEnum {
     USERDEFINED = 2,
     NOTDEFINED = 3,
 }
-export { IfcRampFlightTypeEnum };
+const IfcRampFlightTypeEnumCount = 4;
+
+export { IfcRampFlightTypeEnum, IfcRampFlightTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

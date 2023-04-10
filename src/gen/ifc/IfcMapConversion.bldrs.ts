@@ -18,7 +18,6 @@ export  class IfcMapConversion extends IfcCoordinateOperation
     {
         return EntityTypesIfc.IFCMAPCONVERSION;
     }
-
     private Eastings_? : number;
     private Northings_? : number;
     private OrthogonalHeight_? : number;
@@ -242,4 +241,8 @@ export  class IfcMapConversion extends IfcCoordinateOperation
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMAPCONVERSION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMAPCONVERSION;
 }

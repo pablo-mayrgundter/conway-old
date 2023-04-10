@@ -21,7 +21,6 @@ export  class IfcFillAreaStyleHatching extends IfcGeometricRepresentationItem
     {
         return EntityTypesIfc.IFCFILLAREASTYLEHATCHING;
     }
-
     private HatchLineAppearance_? : IfcCurveStyle;
     private StartOfNextHatchLine_? : IfcPositiveLengthMeasure|IfcVector;
     private PointOfReferenceHatchLine_? : IfcCartesianPoint | null;
@@ -209,4 +208,8 @@ export  class IfcFillAreaStyleHatching extends IfcGeometricRepresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFILLAREASTYLEHATCHING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFILLAREASTYLEHATCHING;
 }

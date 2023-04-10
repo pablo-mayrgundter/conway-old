@@ -17,7 +17,6 @@ export  class IfcRelAssociatesApproval extends IfcRelAssociates
     {
         return EntityTypesIfc.IFCRELASSOCIATESAPPROVAL;
     }
-
     private RelatingApproval_? : IfcApproval;
 
     public get RelatingApproval() : IfcApproval
@@ -56,4 +55,8 @@ export  class IfcRelAssociatesApproval extends IfcRelAssociates
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELASSOCIATESAPPROVAL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELASSOCIATESAPPROVAL;
 }

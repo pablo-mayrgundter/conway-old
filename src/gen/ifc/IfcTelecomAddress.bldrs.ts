@@ -18,7 +18,6 @@ export  class IfcTelecomAddress extends IfcAddress
     {
         return EntityTypesIfc.IFCTELECOMADDRESS;
     }
-
     private TelephoneNumbers_? : Array< string > | null;
     private FacsimileNumbers_? : Array< string > | null;
     private PagerNumber_? : string | null;
@@ -299,4 +298,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTELECOMADDRESS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTELECOMADDRESS;
 }

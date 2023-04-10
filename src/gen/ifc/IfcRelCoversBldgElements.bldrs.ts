@@ -18,7 +18,6 @@ export  class IfcRelCoversBldgElements extends IfcRelConnects
     {
         return EntityTypesIfc.IFCRELCOVERSBLDGELEMENTS;
     }
-
     private RelatingBuildingElement_? : IfcElement;
     private RelatedCoverings_? : Array<IfcCovering>;
 
@@ -102,4 +101,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELCOVERSBLDGELEMENTS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELCOVERSBLDGELEMENTS;
 }

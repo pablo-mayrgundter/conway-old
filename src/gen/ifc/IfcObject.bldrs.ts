@@ -17,7 +17,6 @@ export abstract class IfcObject extends IfcObjectDefinition
     {
         return EntityTypesIfc.IFCOBJECT;
     }
-
     private ObjectType_? : string | null;
 
     public get ObjectType() : string | null
@@ -66,4 +65,8 @@ export abstract class IfcObject extends IfcObjectDefinition
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCACTOR, EntityTypesIfc.IFCGROUP, EntityTypesIfc.IFCOCCUPANT, EntityTypesIfc.IFCACTIONREQUEST, EntityTypesIfc.IFCCOSTITEM, EntityTypesIfc.IFCCOSTSCHEDULE, EntityTypesIfc.IFCPERFORMANCEHISTORY, EntityTypesIfc.IFCPERMIT, EntityTypesIfc.IFCPROJECTORDER, EntityTypesIfc.IFCWORKCALENDAR, EntityTypesIfc.IFCASSET, EntityTypesIfc.IFCINVENTORY, EntityTypesIfc.IFCSTRUCTURALLOADGROUP, EntityTypesIfc.IFCSTRUCTURALRESULTGROUP, EntityTypesIfc.IFCSYSTEM, EntityTypesIfc.IFCEVENT, EntityTypesIfc.IFCPROCEDURE, EntityTypesIfc.IFCTASK, EntityTypesIfc.IFCANNOTATION, EntityTypesIfc.IFCGRID, EntityTypesIfc.IFCPROXY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCOBJECT;
 }

@@ -17,7 +17,6 @@ export  class IfcSurfaceStyleWithTextures extends IfcPresentationItem
     {
         return EntityTypesIfc.IFCSURFACESTYLEWITHTEXTURES;
     }
-
     private Textures_? : Array<IfcSurfaceTexture>;
 
     public get Textures() : Array<IfcSurfaceTexture>
@@ -67,4 +66,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSURFACESTYLEWITHTEXTURES ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSURFACESTYLEWITHTEXTURES;
 }

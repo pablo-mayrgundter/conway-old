@@ -13,7 +13,9 @@ enum IfcAudioVisualApplianceTypeEnum {
     USERDEFINED = 11,
     NOTDEFINED = 12,
 }
-export { IfcAudioVisualApplianceTypeEnum };
+const IfcAudioVisualApplianceTypeEnumCount = 13;
+
+export { IfcAudioVisualApplianceTypeEnum, IfcAudioVisualApplianceTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

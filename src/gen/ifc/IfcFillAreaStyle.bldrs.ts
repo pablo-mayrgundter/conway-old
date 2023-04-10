@@ -22,7 +22,6 @@ export  class IfcFillAreaStyle extends IfcPresentationStyle
     {
         return EntityTypesIfc.IFCFILLAREASTYLE;
     }
-
     private FillStyles_? : Array<IfcColourSpecification|IfcPreDefinedColour|IfcExternallyDefinedHatchStyle|IfcFillAreaStyleHatching|IfcFillAreaStyleTiles>;
     private ModelorDraughting_? : boolean | null;
 
@@ -112,4 +111,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFILLAREASTYLE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFILLAREASTYLE;
 }

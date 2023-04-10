@@ -22,7 +22,6 @@ export  class IfcApproval extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCAPPROVAL;
     }
-
     private Identifier_? : string | null;
     private Name_? : string | null;
     private Description_? : string | null;
@@ -394,4 +393,8 @@ export  class IfcApproval extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCAPPROVAL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCAPPROVAL;
 }

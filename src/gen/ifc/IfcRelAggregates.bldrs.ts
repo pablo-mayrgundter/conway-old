@@ -17,7 +17,6 @@ export  class IfcRelAggregates extends IfcRelDecomposes
     {
         return EntityTypesIfc.IFCRELAGGREGATES;
     }
-
     private RelatingObject_? : IfcObjectDefinition;
     private RelatedObjects_? : Array<IfcObjectDefinition>;
 
@@ -101,4 +100,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELAGGREGATES ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELAGGREGATES;
 }

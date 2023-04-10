@@ -54,4 +54,8 @@ export class IfcIdentifier extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCIDENTIFIER ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCIDENTIFIER;
 }

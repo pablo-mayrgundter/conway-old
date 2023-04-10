@@ -5,7 +5,9 @@ enum IfcStructuralSurfaceMemberTypeEnum {
     USERDEFINED = 3,
     NOTDEFINED = 4,
 }
-export { IfcStructuralSurfaceMemberTypeEnum };
+const IfcStructuralSurfaceMemberTypeEnumCount = 5;
+
+export { IfcStructuralSurfaceMemberTypeEnum, IfcStructuralSurfaceMemberTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -17,7 +17,6 @@ export  class IfcElectricApplianceType extends IfcFlowTerminalType
     {
         return EntityTypesIfc.IFCELECTRICAPPLIANCETYPE;
     }
-
     private PredefinedType_? : IfcElectricApplianceTypeEnum;
 
     public get PredefinedType() : IfcElectricApplianceTypeEnum
@@ -55,4 +54,8 @@ export  class IfcElectricApplianceType extends IfcFlowTerminalType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCELECTRICAPPLIANCETYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCELECTRICAPPLIANCETYPE;
 }

@@ -19,7 +19,6 @@ export  class IfcPolygonalFaceSet extends IfcTessellatedFaceSet
     {
         return EntityTypesIfc.IFCPOLYGONALFACESET;
     }
-
     private Closed_? : boolean | null;
     private Faces_? : Array<IfcIndexedPolygonalFace>;
     private PnIndex_? : Array< number > | null;
@@ -158,4 +157,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPOLYGONALFACESET ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPOLYGONALFACESET;
 }

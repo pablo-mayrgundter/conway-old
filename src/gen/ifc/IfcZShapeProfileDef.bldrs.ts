@@ -18,7 +18,6 @@ export  class IfcZShapeProfileDef extends IfcParameterizedProfileDef
     {
         return EntityTypesIfc.IFCZSHAPEPROFILEDEF;
     }
-
     private Depth_? : number;
     private FlangeWidth_? : number;
     private WebThickness_? : number;
@@ -235,4 +234,8 @@ export  class IfcZShapeProfileDef extends IfcParameterizedProfileDef
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCZSHAPEPROFILEDEF ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCZSHAPEPROFILEDEF;
 }

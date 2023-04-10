@@ -19,7 +19,6 @@ export  class IfcMaterialProfileSetUsage extends IfcMaterialUsageDefinition
     {
         return EntityTypesIfc.IFCMATERIALPROFILESETUSAGE;
     }
-
     private ForProfileSet_? : IfcMaterialProfileSet;
     private CardinalPoint_? : number | null;
     private ReferenceExtent_? : number | null;
@@ -138,4 +137,8 @@ export  class IfcMaterialProfileSetUsage extends IfcMaterialUsageDefinition
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMATERIALPROFILESETUSAGE, EntityTypesIfc.IFCMATERIALPROFILESETUSAGETAPERING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMATERIALPROFILESETUSAGE;
 }

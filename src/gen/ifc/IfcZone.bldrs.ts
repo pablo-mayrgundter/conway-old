@@ -17,7 +17,6 @@ export  class IfcZone extends IfcSystem
     {
         return EntityTypesIfc.IFCZONE;
     }
-
     private LongName_? : string | null;
 
     public get LongName() : string | null
@@ -62,4 +61,8 @@ export  class IfcZone extends IfcSystem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCZONE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCZONE;
 }

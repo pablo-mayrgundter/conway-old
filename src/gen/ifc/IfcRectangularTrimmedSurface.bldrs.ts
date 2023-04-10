@@ -19,7 +19,6 @@ export  class IfcRectangularTrimmedSurface extends IfcBoundedSurface
     {
         return EntityTypesIfc.IFCRECTANGULARTRIMMEDSURFACE;
     }
-
     private BasisSurface_? : IfcSurface;
     private U1_? : number;
     private V1_? : number;
@@ -256,4 +255,8 @@ export  class IfcRectangularTrimmedSurface extends IfcBoundedSurface
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRECTANGULARTRIMMEDSURFACE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRECTANGULARTRIMMEDSURFACE;
 }

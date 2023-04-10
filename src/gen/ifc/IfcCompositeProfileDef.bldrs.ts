@@ -17,7 +17,6 @@ export  class IfcCompositeProfileDef extends IfcProfileDef
     {
         return EntityTypesIfc.IFCCOMPOSITEPROFILEDEF;
     }
-
     private Profiles_? : Array<IfcProfileDef>;
     private Label_? : string | null;
 
@@ -107,4 +106,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCOMPOSITEPROFILEDEF ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCOMPOSITEPROFILEDEF;
 }

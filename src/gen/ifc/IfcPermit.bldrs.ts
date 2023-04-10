@@ -19,7 +19,6 @@ export  class IfcPermit extends IfcControl
     {
         return EntityTypesIfc.IFCPERMIT;
     }
-
     private PredefinedType_? : IfcPermitTypeEnum | null;
     private Status_? : string | null;
     private LongDescription_? : string | null;
@@ -144,4 +143,8 @@ export  class IfcPermit extends IfcControl
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPERMIT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPERMIT;
 }

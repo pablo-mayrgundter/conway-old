@@ -5,7 +5,9 @@ enum IfcInventoryTypeEnum {
     USERDEFINED = 3,
     NOTDEFINED = 4,
 }
-export { IfcInventoryTypeEnum };
+const IfcInventoryTypeEnumCount = 5;
+
+export { IfcInventoryTypeEnum, IfcInventoryTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

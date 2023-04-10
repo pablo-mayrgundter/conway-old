@@ -6,7 +6,9 @@ enum IfcSequenceEnum {
     USERDEFINED = 4,
     NOTDEFINED = 5,
 }
-export { IfcSequenceEnum };
+const IfcSequenceEnumCount = 6;
+
+export { IfcSequenceEnum, IfcSequenceEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

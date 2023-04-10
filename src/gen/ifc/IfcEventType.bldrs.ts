@@ -19,7 +19,6 @@ export  class IfcEventType extends IfcTypeProcess
     {
         return EntityTypesIfc.IFCEVENTTYPE;
     }
-
     private PredefinedType_? : IfcEventTypeEnum;
     private EventTriggerType_? : IfcEventTriggerTypeEnum;
     private UserDefinedEventTriggerType_? : string | null;
@@ -130,4 +129,8 @@ export  class IfcEventType extends IfcTypeProcess
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCEVENTTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCEVENTTYPE;
 }

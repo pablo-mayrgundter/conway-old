@@ -54,4 +54,8 @@ export class IfcLanguageId extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCLANGUAGEID ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCLANGUAGEID;
 }

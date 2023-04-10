@@ -12,7 +12,9 @@ enum IfcSanitaryTerminalTypeEnum {
     USERDEFINED = 10,
     NOTDEFINED = 11,
 }
-export { IfcSanitaryTerminalTypeEnum };
+const IfcSanitaryTerminalTypeEnumCount = 12;
+
+export { IfcSanitaryTerminalTypeEnum, IfcSanitaryTerminalTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -17,7 +17,6 @@ export  class IfcSlippageConnectionCondition extends IfcStructuralConnectionCond
     {
         return EntityTypesIfc.IFCSLIPPAGECONNECTIONCONDITION;
     }
-
     private SlippageX_? : number | null;
     private SlippageY_? : number | null;
     private SlippageZ_? : number | null;
@@ -142,4 +141,8 @@ export  class IfcSlippageConnectionCondition extends IfcStructuralConnectionCond
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSLIPPAGECONNECTIONCONDITION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSLIPPAGECONNECTIONCONDITION;
 }

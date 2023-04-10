@@ -7,7 +7,9 @@ enum IfcFootingTypeEnum {
     USERDEFINED = 5,
     NOTDEFINED = 6,
 }
-export { IfcFootingTypeEnum };
+const IfcFootingTypeEnumCount = 7;
+
+export { IfcFootingTypeEnum, IfcFootingTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -18,9 +18,12 @@ export  class IfcSeamCurve extends IfcSurfaceCurve
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSEAMCURVE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSEAMCURVE;
 }

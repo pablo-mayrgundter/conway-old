@@ -16,7 +16,6 @@ export  class IfcSubedge extends IfcEdge
     {
         return EntityTypesIfc.IFCSUBEDGE;
     }
-
     private ParentEdge_? : IfcEdge;
 
     public get ParentEdge() : IfcEdge
@@ -55,4 +54,8 @@ export  class IfcSubedge extends IfcEdge
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSUBEDGE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSUBEDGE;
 }

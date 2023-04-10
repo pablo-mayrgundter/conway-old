@@ -18,7 +18,6 @@ export  class IfcComplexPropertyTemplate extends IfcPropertyTemplate
     {
         return EntityTypesIfc.IFCCOMPLEXPROPERTYTEMPLATE;
     }
-
     private UsageName_? : string | null;
     private TemplateType_? : IfcComplexPropertyTemplateTypeEnum | null;
     private HasPropertyTemplates_? : Array<IfcPropertyTemplate> | null;
@@ -153,4 +152,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCOMPLEXPROPERTYTEMPLATE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCOMPLEXPROPERTYTEMPLATE;
 }

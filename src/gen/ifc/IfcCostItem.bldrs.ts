@@ -19,7 +19,6 @@ export  class IfcCostItem extends IfcControl
     {
         return EntityTypesIfc.IFCCOSTITEM;
     }
-
     private PredefinedType_? : IfcCostItemTypeEnum | null;
     private CostValues_? : Array<IfcCostValue> | null;
     private CostQuantities_? : Array<IfcPhysicalQuantity> | null;
@@ -164,4 +163,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCOSTITEM ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCOSTITEM;
 }

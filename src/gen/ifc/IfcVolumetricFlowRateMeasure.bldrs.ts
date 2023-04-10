@@ -54,4 +54,8 @@ export class IfcVolumetricFlowRateMeasure extends StepEntityBase< EntityTypesIfc
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCVOLUMETRICFLOWRATEMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCVOLUMETRICFLOWRATEMEASURE;
 }

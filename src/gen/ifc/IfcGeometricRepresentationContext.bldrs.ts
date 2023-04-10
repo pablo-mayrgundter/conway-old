@@ -21,7 +21,6 @@ export  class IfcGeometricRepresentationContext extends IfcRepresentationContext
     {
         return EntityTypesIfc.IFCGEOMETRICREPRESENTATIONCONTEXT;
     }
-
     private CoordinateSpaceDimension_? : number;
     private Precision_? : number | null;
     private WorldCoordinateSystem_? : IfcAxis2Placement2D|IfcAxis2Placement3D;
@@ -176,4 +175,8 @@ export  class IfcGeometricRepresentationContext extends IfcRepresentationContext
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCGEOMETRICREPRESENTATIONCONTEXT, EntityTypesIfc.IFCGEOMETRICREPRESENTATIONSUBCONTEXT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCGEOMETRICREPRESENTATIONCONTEXT;
 }

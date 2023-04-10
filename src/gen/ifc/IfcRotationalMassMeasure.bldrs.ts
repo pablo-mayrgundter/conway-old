@@ -54,4 +54,8 @@ export class IfcRotationalMassMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCROTATIONALMASSMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCROTATIONALMASSMEASURE;
 }

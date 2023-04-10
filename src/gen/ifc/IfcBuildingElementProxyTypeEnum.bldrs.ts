@@ -7,7 +7,9 @@ enum IfcBuildingElementProxyTypeEnum {
     USERDEFINED = 5,
     NOTDEFINED = 6,
 }
-export { IfcBuildingElementProxyTypeEnum };
+const IfcBuildingElementProxyTypeEnumCount = 7;
+
+export { IfcBuildingElementProxyTypeEnum, IfcBuildingElementProxyTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

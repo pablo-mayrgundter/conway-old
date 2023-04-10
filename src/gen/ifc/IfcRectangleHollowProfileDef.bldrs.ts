@@ -18,7 +18,6 @@ export  class IfcRectangleHollowProfileDef extends IfcRectangleProfileDef
     {
         return EntityTypesIfc.IFCRECTANGLEHOLLOWPROFILEDEF;
     }
-
     private WallThickness_? : number;
     private InnerFilletRadius_? : number | null;
     private OuterFilletRadius_? : number | null;
@@ -136,4 +135,8 @@ export  class IfcRectangleHollowProfileDef extends IfcRectangleProfileDef
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRECTANGLEHOLLOWPROFILEDEF ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRECTANGLEHOLLOWPROFILEDEF;
 }

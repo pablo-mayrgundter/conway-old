@@ -22,7 +22,6 @@ export  class IfcTableColumn extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCTABLECOLUMN;
     }
-
     private Identifier_? : string | null;
     private Name_? : string | null;
     private Description_? : string | null;
@@ -229,4 +228,8 @@ export  class IfcTableColumn extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTABLECOLUMN ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTABLECOLUMN;
 }

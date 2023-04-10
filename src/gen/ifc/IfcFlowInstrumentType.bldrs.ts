@@ -17,7 +17,6 @@ export  class IfcFlowInstrumentType extends IfcDistributionControlElementType
     {
         return EntityTypesIfc.IFCFLOWINSTRUMENTTYPE;
     }
-
     private PredefinedType_? : IfcFlowInstrumentTypeEnum;
 
     public get PredefinedType() : IfcFlowInstrumentTypeEnum
@@ -55,4 +54,8 @@ export  class IfcFlowInstrumentType extends IfcDistributionControlElementType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFLOWINSTRUMENTTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFLOWINSTRUMENTTYPE;
 }

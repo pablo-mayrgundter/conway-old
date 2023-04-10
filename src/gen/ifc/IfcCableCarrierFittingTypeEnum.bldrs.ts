@@ -6,7 +6,9 @@ enum IfcCableCarrierFittingTypeEnum {
     USERDEFINED = 4,
     NOTDEFINED = 5,
 }
-export { IfcCableCarrierFittingTypeEnum };
+const IfcCableCarrierFittingTypeEnumCount = 6;
+
+export { IfcCableCarrierFittingTypeEnum, IfcCableCarrierFittingTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

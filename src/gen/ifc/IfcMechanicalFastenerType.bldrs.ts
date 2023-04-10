@@ -18,7 +18,6 @@ export  class IfcMechanicalFastenerType extends IfcElementComponentType
     {
         return EntityTypesIfc.IFCMECHANICALFASTENERTYPE;
     }
-
     private PredefinedType_? : IfcMechanicalFastenerTypeEnum;
     private NominalDiameter_? : number | null;
     private NominalLength_? : number | null;
@@ -136,4 +135,8 @@ export  class IfcMechanicalFastenerType extends IfcElementComponentType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMECHANICALFASTENERTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMECHANICALFASTENERTYPE;
 }

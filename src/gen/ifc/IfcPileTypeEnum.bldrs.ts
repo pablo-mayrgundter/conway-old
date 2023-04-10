@@ -8,7 +8,9 @@ enum IfcPileTypeEnum {
     USERDEFINED = 6,
     NOTDEFINED = 7,
 }
-export { IfcPileTypeEnum };
+const IfcPileTypeEnumCount = 8;
+
+export { IfcPileTypeEnum, IfcPileTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -18,7 +18,6 @@ export  class IfcRelAssignsToResource extends IfcRelAssigns
     {
         return EntityTypesIfc.IFCRELASSIGNSTORESOURCE;
     }
-
     private RelatingResource_? : IfcResource|IfcTypeResource;
 
     public get RelatingResource() : IfcResource|IfcTypeResource
@@ -57,4 +56,8 @@ export  class IfcRelAssignsToResource extends IfcRelAssigns
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELASSIGNSTORESOURCE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELASSIGNSTORESOURCE;
 }

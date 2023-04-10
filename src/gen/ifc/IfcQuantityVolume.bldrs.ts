@@ -18,7 +18,6 @@ export  class IfcQuantityVolume extends IfcPhysicalSimpleQuantity
     {
         return EntityTypesIfc.IFCQUANTITYVOLUME;
     }
-
     private VolumeValue_? : number;
     private Formula_? : string | null;
 
@@ -96,4 +95,8 @@ export  class IfcQuantityVolume extends IfcPhysicalSimpleQuantity
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCQUANTITYVOLUME ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCQUANTITYVOLUME;
 }

@@ -17,7 +17,6 @@ export  class IfcArbitraryClosedProfileDef extends IfcProfileDef
     {
         return EntityTypesIfc.IFCARBITRARYCLOSEDPROFILEDEF;
     }
-
     private OuterCurve_? : IfcCurve;
 
     public get OuterCurve() : IfcCurve
@@ -56,4 +55,8 @@ export  class IfcArbitraryClosedProfileDef extends IfcProfileDef
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCARBITRARYCLOSEDPROFILEDEF, EntityTypesIfc.IFCARBITRARYPROFILEDEFWITHVOIDS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCARBITRARYCLOSEDPROFILEDEF;
 }

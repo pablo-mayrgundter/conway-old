@@ -27,7 +27,6 @@ export  class IfcDocumentInformation extends IfcExternalInformation
     {
         return EntityTypesIfc.IFCDOCUMENTINFORMATION;
     }
-
     private Identification_? : string;
     private Name_? : string;
     private Description_? : string | null;
@@ -713,4 +712,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDOCUMENTINFORMATION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDOCUMENTINFORMATION;
 }

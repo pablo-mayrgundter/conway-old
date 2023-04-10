@@ -18,7 +18,6 @@ export  class IfcBuildingSystem extends IfcSystem
     {
         return EntityTypesIfc.IFCBUILDINGSYSTEM;
     }
-
     private PredefinedType_? : IfcBuildingSystemTypeEnum | null;
     private LongName_? : string | null;
 
@@ -103,4 +102,8 @@ export  class IfcBuildingSystem extends IfcSystem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBUILDINGSYSTEM ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBUILDINGSYSTEM;
 }

@@ -6,7 +6,9 @@ enum IfcDistributionPortTypeEnum {
     USERDEFINED = 4,
     NOTDEFINED = 5,
 }
-export { IfcDistributionPortTypeEnum };
+const IfcDistributionPortTypeEnumCount = 6;
+
+export { IfcDistributionPortTypeEnum, IfcDistributionPortTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

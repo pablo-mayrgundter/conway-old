@@ -4,7 +4,9 @@ enum IfcArithmeticOperatorEnum {
     MULTIPLY = 2,
     SUBTRACT = 3,
 }
-export { IfcArithmeticOperatorEnum };
+const IfcArithmeticOperatorEnumCount = 4;
+
+export { IfcArithmeticOperatorEnum, IfcArithmeticOperatorEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -7,7 +7,9 @@ enum IfcStructuralCurveMemberTypeEnum {
     USERDEFINED = 5,
     NOTDEFINED = 6,
 }
-export { IfcStructuralCurveMemberTypeEnum };
+const IfcStructuralCurveMemberTypeEnumCount = 7;
+
+export { IfcStructuralCurveMemberTypeEnum, IfcStructuralCurveMemberTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -17,7 +17,6 @@ export abstract class IfcStructuralConnection extends IfcStructuralItem
     {
         return EntityTypesIfc.IFCSTRUCTURALCONNECTION;
     }
-
     private AppliedCondition_? : IfcBoundaryCondition | null;
 
     public get AppliedCondition() : IfcBoundaryCondition | null
@@ -64,4 +63,8 @@ export abstract class IfcStructuralConnection extends IfcStructuralItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALCURVECONNECTION, EntityTypesIfc.IFCSTRUCTURALPOINTCONNECTION, EntityTypesIfc.IFCSTRUCTURALSURFACECONNECTION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALCONNECTION;
 }

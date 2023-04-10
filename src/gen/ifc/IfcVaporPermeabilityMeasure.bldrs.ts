@@ -54,4 +54,8 @@ export class IfcVaporPermeabilityMeasure extends StepEntityBase< EntityTypesIfc 
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCVAPORPERMEABILITYMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCVAPORPERMEABILITYMEASURE;
 }

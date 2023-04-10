@@ -17,7 +17,6 @@ export  class IfcRoofType extends IfcBuildingElementType
     {
         return EntityTypesIfc.IFCROOFTYPE;
     }
-
     private PredefinedType_? : IfcRoofTypeEnum;
 
     public get PredefinedType() : IfcRoofTypeEnum
@@ -55,4 +54,8 @@ export  class IfcRoofType extends IfcBuildingElementType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCROOFTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCROOFTYPE;
 }

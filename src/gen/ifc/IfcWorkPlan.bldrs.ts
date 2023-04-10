@@ -17,7 +17,6 @@ export  class IfcWorkPlan extends IfcWorkControl
     {
         return EntityTypesIfc.IFCWORKPLAN;
     }
-
     private PredefinedType_? : IfcWorkPlanTypeEnum | null;
 
     public get PredefinedType() : IfcWorkPlanTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcWorkPlan extends IfcWorkControl
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCWORKPLAN ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCWORKPLAN;
 }

@@ -17,7 +17,6 @@ export  class IfcPlanarExtent extends IfcGeometricRepresentationItem
     {
         return EntityTypesIfc.IFCPLANAREXTENT;
     }
-
     private SizeInX_? : number;
     private SizeInY_? : number;
 
@@ -88,4 +87,8 @@ export  class IfcPlanarExtent extends IfcGeometricRepresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPLANAREXTENT, EntityTypesIfc.IFCPLANARBOX ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPLANAREXTENT;
 }

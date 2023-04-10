@@ -11,7 +11,9 @@ enum IfcBSplineSurfaceForm {
     SURF_OF_LINEAR_EXTRUSION = 9,
     UNSPECIFIED = 10,
 }
-export { IfcBSplineSurfaceForm };
+const IfcBSplineSurfaceFormCount = 11;
+
+export { IfcBSplineSurfaceForm, IfcBSplineSurfaceFormCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

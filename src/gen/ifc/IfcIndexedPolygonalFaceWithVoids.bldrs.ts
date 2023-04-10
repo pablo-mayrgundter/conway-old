@@ -17,7 +17,6 @@ export  class IfcIndexedPolygonalFaceWithVoids extends IfcIndexedPolygonalFace
     {
         return EntityTypesIfc.IFCINDEXEDPOLYGONALFACEWITHVOIDS;
     }
-
     private InnerCoordIndices_? : Array< Array< number > >;
 
     public get InnerCoordIndices() : Array< Array< number > >
@@ -77,4 +76,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCINDEXEDPOLYGONALFACEWITHVOIDS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCINDEXEDPOLYGONALFACEWITHVOIDS;
 }

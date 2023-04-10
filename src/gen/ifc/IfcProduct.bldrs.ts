@@ -18,7 +18,6 @@ export abstract class IfcProduct extends IfcObject
     {
         return EntityTypesIfc.IFCPRODUCT;
     }
-
     private ObjectPlacement_? : IfcObjectPlacement | null;
     private Representation_? : IfcProductRepresentation | null;
 
@@ -106,4 +105,8 @@ export abstract class IfcProduct extends IfcObject
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCANNOTATION, EntityTypesIfc.IFCGRID, EntityTypesIfc.IFCPROXY, EntityTypesIfc.IFCCIVILELEMENT, EntityTypesIfc.IFCDISTRIBUTIONELEMENT, EntityTypesIfc.IFCELEMENTASSEMBLY, EntityTypesIfc.IFCFURNISHINGELEMENT, EntityTypesIfc.IFCGEOGRAPHICELEMENT, EntityTypesIfc.IFCTRANSPORTELEMENT, EntityTypesIfc.IFCVIRTUALELEMENT, EntityTypesIfc.IFCDISTRIBUTIONPORT, EntityTypesIfc.IFCSPATIALZONE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPRODUCT;
 }

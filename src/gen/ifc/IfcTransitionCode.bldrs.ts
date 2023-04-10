@@ -4,7 +4,9 @@ enum IfcTransitionCode {
     CONTSAMEGRADIENT = 2,
     CONTSAMEGRADIENTSAMECURVATURE = 3,
 }
-export { IfcTransitionCode };
+const IfcTransitionCodeCount = 4;
+
+export { IfcTransitionCode, IfcTransitionCodeCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

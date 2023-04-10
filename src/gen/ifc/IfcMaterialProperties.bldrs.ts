@@ -17,7 +17,6 @@ export  class IfcMaterialProperties extends IfcExtendedProperties
     {
         return EntityTypesIfc.IFCMATERIALPROPERTIES;
     }
-
     private Material_? : IfcMaterialDefinition;
 
     public get Material() : IfcMaterialDefinition
@@ -56,4 +55,8 @@ export  class IfcMaterialProperties extends IfcExtendedProperties
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMATERIALPROPERTIES ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMATERIALPROPERTIES;
 }

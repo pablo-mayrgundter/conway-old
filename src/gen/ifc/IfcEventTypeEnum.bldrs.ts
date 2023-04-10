@@ -5,7 +5,9 @@ enum IfcEventTypeEnum {
     USERDEFINED = 3,
     NOTDEFINED = 4,
 }
-export { IfcEventTypeEnum };
+const IfcEventTypeEnumCount = 5;
+
+export { IfcEventTypeEnum, IfcEventTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

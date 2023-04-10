@@ -54,4 +54,8 @@ export class IfcMomentOfInertiaMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMOMENTOFINERTIAMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMOMENTOFINERTIAMEASURE;
 }

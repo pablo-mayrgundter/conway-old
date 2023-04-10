@@ -18,7 +18,6 @@ export  class IfcStructuralSurfaceMember extends IfcStructuralMember
     {
         return EntityTypesIfc.IFCSTRUCTURALSURFACEMEMBER;
     }
-
     private PredefinedType_? : IfcStructuralSurfaceMemberTypeEnum;
     private Thickness_? : number | null;
 
@@ -96,4 +95,8 @@ export  class IfcStructuralSurfaceMember extends IfcStructuralMember
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALSURFACEMEMBER, EntityTypesIfc.IFCSTRUCTURALSURFACEMEMBERVARYING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALSURFACEMEMBER;
 }

@@ -17,7 +17,6 @@ export  class IfcReparametrisedCompositeCurveSegment extends IfcCompositeCurveSe
     {
         return EntityTypesIfc.IFCREPARAMETRISEDCOMPOSITECURVESEGMENT;
     }
-
     private ParamLength_? : number;
 
     public get ParamLength() : number
@@ -55,4 +54,8 @@ export  class IfcReparametrisedCompositeCurveSegment extends IfcCompositeCurveSe
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCREPARAMETRISEDCOMPOSITECURVESEGMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCREPARAMETRISEDCOMPOSITECURVESEGMENT;
 }

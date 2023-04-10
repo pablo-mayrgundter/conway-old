@@ -5,7 +5,9 @@ enum IfcElectricGeneratorTypeEnum {
     USERDEFINED = 3,
     NOTDEFINED = 4,
 }
-export { IfcElectricGeneratorTypeEnum };
+const IfcElectricGeneratorTypeEnumCount = 5;
+
+export { IfcElectricGeneratorTypeEnum, IfcElectricGeneratorTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

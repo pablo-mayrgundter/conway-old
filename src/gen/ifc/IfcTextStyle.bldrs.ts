@@ -21,7 +21,6 @@ export  class IfcTextStyle extends IfcPresentationStyle
     {
         return EntityTypesIfc.IFCTEXTSTYLE;
     }
-
     private TextCharacterAppearance_? : IfcTextStyleForDefinedFont | null;
     private TextStyle_? : IfcTextStyleTextModel | null;
     private TextFontStyle_? : IfcExternallyDefinedTextFont|IfcPreDefinedTextFont;
@@ -182,4 +181,8 @@ export  class IfcTextStyle extends IfcPresentationStyle
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTEXTSTYLE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTEXTSTYLE;
 }

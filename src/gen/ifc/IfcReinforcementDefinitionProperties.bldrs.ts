@@ -18,7 +18,6 @@ export  class IfcReinforcementDefinitionProperties extends IfcPreDefinedProperty
     {
         return EntityTypesIfc.IFCREINFORCEMENTDEFINITIONPROPERTIES;
     }
-
     private DefinitionType_? : string | null;
     private ReinforcementSectionDefinitions_? : Array<IfcSectionReinforcementProperties>;
 
@@ -108,4 +107,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCREINFORCEMENTDEFINITIONPROPERTIES ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCREINFORCEMENTDEFINITIONPROPERTIES;
 }

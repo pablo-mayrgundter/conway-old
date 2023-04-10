@@ -21,7 +21,6 @@ export  class IfcTaskTime extends IfcSchedulingTime
     {
         return EntityTypesIfc.IFCTASKTIME;
     }
-
     private DurationType_? : IfcTaskDurationEnum | null;
     private ScheduleDuration_? : string | null;
     private ScheduleStart_? : string | null;
@@ -706,4 +705,8 @@ export  class IfcTaskTime extends IfcSchedulingTime
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTASKTIME, EntityTypesIfc.IFCTASKTIMERECURRING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTASKTIME;
 }

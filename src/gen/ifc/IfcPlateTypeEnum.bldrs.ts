@@ -4,7 +4,9 @@ enum IfcPlateTypeEnum {
     USERDEFINED = 2,
     NOTDEFINED = 3,
 }
-export { IfcPlateTypeEnum };
+const IfcPlateTypeEnumCount = 4;
+
+export { IfcPlateTypeEnum, IfcPlateTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

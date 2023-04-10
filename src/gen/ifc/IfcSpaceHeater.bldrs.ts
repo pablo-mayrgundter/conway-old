@@ -17,7 +17,6 @@ export  class IfcSpaceHeater extends IfcFlowTerminal
     {
         return EntityTypesIfc.IFCSPACEHEATER;
     }
-
     private PredefinedType_? : IfcSpaceHeaterTypeEnum | null;
 
     public get PredefinedType() : IfcSpaceHeaterTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcSpaceHeater extends IfcFlowTerminal
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSPACEHEATER ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSPACEHEATER;
 }

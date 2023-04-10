@@ -19,7 +19,6 @@ export  class IfcShellBasedSurfaceModel extends IfcGeometricRepresentationItem
     {
         return EntityTypesIfc.IFCSHELLBASEDSURFACEMODEL;
     }
-
     private SbsmBoundary_? : Array<IfcClosedShell|IfcOpenShell>;
 
     public get SbsmBoundary() : Array<IfcClosedShell|IfcOpenShell>
@@ -74,4 +73,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSHELLBASEDSURFACEMODEL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSHELLBASEDSURFACEMODEL;
 }

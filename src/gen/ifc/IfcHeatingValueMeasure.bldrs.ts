@@ -54,4 +54,8 @@ export class IfcHeatingValueMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCHEATINGVALUEMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCHEATINGVALUEMEASURE;
 }

@@ -17,7 +17,6 @@ export  class IfcMotorConnectionType extends IfcEnergyConversionDeviceType
     {
         return EntityTypesIfc.IFCMOTORCONNECTIONTYPE;
     }
-
     private PredefinedType_? : IfcMotorConnectionTypeEnum;
 
     public get PredefinedType() : IfcMotorConnectionTypeEnum
@@ -55,4 +54,8 @@ export  class IfcMotorConnectionType extends IfcEnergyConversionDeviceType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMOTORCONNECTIONTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMOTORCONNECTIONTYPE;
 }

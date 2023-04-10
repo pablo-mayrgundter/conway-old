@@ -16,7 +16,6 @@ export  class IfcTimePeriod extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCTIMEPERIOD;
     }
-
     private StartTime_? : string;
     private EndTime_? : string;
 
@@ -87,4 +86,8 @@ export  class IfcTimePeriod extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTIMEPERIOD ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTIMEPERIOD;
 }

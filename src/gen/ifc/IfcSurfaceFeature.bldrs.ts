@@ -17,7 +17,6 @@ export  class IfcSurfaceFeature extends IfcFeatureElement
     {
         return EntityTypesIfc.IFCSURFACEFEATURE;
     }
-
     private PredefinedType_? : IfcSurfaceFeatureTypeEnum | null;
 
     public get PredefinedType() : IfcSurfaceFeatureTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcSurfaceFeature extends IfcFeatureElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSURFACEFEATURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSURFACEFEATURE;
 }

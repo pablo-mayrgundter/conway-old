@@ -17,7 +17,6 @@ export abstract class IfcManifoldSolidBrep extends IfcSolidModel
     {
         return EntityTypesIfc.IFCMANIFOLDSOLIDBREP;
     }
-
     private Outer_? : IfcClosedShell;
 
     public get Outer() : IfcClosedShell
@@ -56,4 +55,8 @@ export abstract class IfcManifoldSolidBrep extends IfcSolidModel
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCADVANCEDBREP, EntityTypesIfc.IFCFACETEDBREP, EntityTypesIfc.IFCADVANCEDBREPWITHVOIDS, EntityTypesIfc.IFCFACETEDBREPWITHVOIDS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMANIFOLDSOLIDBREP;
 }

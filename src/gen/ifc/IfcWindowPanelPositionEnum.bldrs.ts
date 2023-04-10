@@ -6,7 +6,9 @@ enum IfcWindowPanelPositionEnum {
     TOP = 4,
     NOTDEFINED = 5,
 }
-export { IfcWindowPanelPositionEnum };
+const IfcWindowPanelPositionEnumCount = 6;
+
+export { IfcWindowPanelPositionEnum, IfcWindowPanelPositionEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

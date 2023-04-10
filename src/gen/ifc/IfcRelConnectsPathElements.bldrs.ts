@@ -18,7 +18,6 @@ export  class IfcRelConnectsPathElements extends IfcRelConnectsElements
     {
         return EntityTypesIfc.IFCRELCONNECTSPATHELEMENTS;
     }
-
     private RelatingPriorities_? : Array< number >;
     private RelatedPriorities_? : Array< number >;
     private RelatedConnectionType_? : IfcConnectionTypeEnum;
@@ -177,4 +176,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELCONNECTSPATHELEMENTS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELCONNECTSPATHELEMENTS;
 }

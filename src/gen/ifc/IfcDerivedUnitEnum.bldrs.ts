@@ -53,7 +53,9 @@ enum IfcDerivedUnitEnum {
     WARPINGMOMENTUNIT = 51,
     USERDEFINED = 52,
 }
-export { IfcDerivedUnitEnum };
+const IfcDerivedUnitEnumCount = 53;
+
+export { IfcDerivedUnitEnum, IfcDerivedUnitEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

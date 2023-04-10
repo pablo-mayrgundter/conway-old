@@ -17,7 +17,6 @@ export  class IfcApprovalRelationship extends IfcResourceLevelRelationship
     {
         return EntityTypesIfc.IFCAPPROVALRELATIONSHIP;
     }
-
     private RelatingApproval_? : IfcApproval;
     private RelatedApprovals_? : Array<IfcApproval>;
 
@@ -101,4 +100,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCAPPROVALRELATIONSHIP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCAPPROVALRELATIONSHIP;
 }

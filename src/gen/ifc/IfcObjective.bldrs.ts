@@ -19,7 +19,6 @@ export  class IfcObjective extends IfcConstraint
     {
         return EntityTypesIfc.IFCOBJECTIVE;
     }
-
     private BenchmarkValues_? : Array<IfcConstraint> | null;
     private LogicalAggregator_? : IfcLogicalOperatorEnum | null;
     private ObjectiveQualifier_? : IfcObjectiveEnum;
@@ -187,4 +186,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCOBJECTIVE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCOBJECTIVE;
 }

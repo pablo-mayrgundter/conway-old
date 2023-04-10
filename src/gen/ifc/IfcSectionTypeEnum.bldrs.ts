@@ -2,7 +2,9 @@ enum IfcSectionTypeEnum {
     UNIFORM = 0,
     TAPERED = 1,
 }
-export { IfcSectionTypeEnum };
+const IfcSectionTypeEnumCount = 2;
+
+export { IfcSectionTypeEnum, IfcSectionTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

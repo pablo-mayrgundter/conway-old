@@ -17,7 +17,6 @@ export abstract class IfcElement extends IfcProduct
     {
         return EntityTypesIfc.IFCELEMENT;
     }
-
     private Tag_? : string | null;
 
     public get Tag() : string | null
@@ -74,4 +73,8 @@ export abstract class IfcElement extends IfcProduct
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCIVILELEMENT, EntityTypesIfc.IFCDISTRIBUTIONELEMENT, EntityTypesIfc.IFCELEMENTASSEMBLY, EntityTypesIfc.IFCFURNISHINGELEMENT, EntityTypesIfc.IFCGEOGRAPHICELEMENT, EntityTypesIfc.IFCTRANSPORTELEMENT, EntityTypesIfc.IFCVIRTUALELEMENT, EntityTypesIfc.IFCBEAM, EntityTypesIfc.IFCBUILDINGELEMENTPROXY, EntityTypesIfc.IFCCHIMNEY, EntityTypesIfc.IFCCOLUMN, EntityTypesIfc.IFCCOVERING, EntityTypesIfc.IFCCURTAINWALL, EntityTypesIfc.IFCDOOR, EntityTypesIfc.IFCFOOTING, EntityTypesIfc.IFCMEMBER, EntityTypesIfc.IFCPILE, EntityTypesIfc.IFCPLATE, EntityTypesIfc.IFCRAILING, EntityTypesIfc.IFCRAMP, EntityTypesIfc.IFCRAMPFLIGHT, EntityTypesIfc.IFCROOF, EntityTypesIfc.IFCSHADINGDEVICE, EntityTypesIfc.IFCSLAB, EntityTypesIfc.IFCSTAIR, EntityTypesIfc.IFCSTAIRFLIGHT, EntityTypesIfc.IFCWALL, EntityTypesIfc.IFCWINDOW, EntityTypesIfc.IFCDISTRIBUTIONCONTROLELEMENT, EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENT, EntityTypesIfc.IFCBUILDINGELEMENTPART, EntityTypesIfc.IFCDISCRETEACCESSORY, EntityTypesIfc.IFCFASTENER, EntityTypesIfc.IFCMECHANICALFASTENER, EntityTypesIfc.IFCVIBRATIONISOLATOR, EntityTypesIfc.IFCSURFACEFEATURE, EntityTypesIfc.IFCFURNITURE, EntityTypesIfc.IFCSYSTEMFURNITUREELEMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCELEMENT;
 }

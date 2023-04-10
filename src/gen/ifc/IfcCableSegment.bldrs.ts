@@ -17,7 +17,6 @@ export  class IfcCableSegment extends IfcFlowSegment
     {
         return EntityTypesIfc.IFCCABLESEGMENT;
     }
-
     private PredefinedType_? : IfcCableSegmentTypeEnum | null;
 
     public get PredefinedType() : IfcCableSegmentTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcCableSegment extends IfcFlowSegment
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCABLESEGMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCABLESEGMENT;
 }

@@ -2,7 +2,9 @@ enum IfcBurnerTypeEnum {
     USERDEFINED = 0,
     NOTDEFINED = 1,
 }
-export { IfcBurnerTypeEnum };
+const IfcBurnerTypeEnumCount = 2;
+
+export { IfcBurnerTypeEnum, IfcBurnerTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

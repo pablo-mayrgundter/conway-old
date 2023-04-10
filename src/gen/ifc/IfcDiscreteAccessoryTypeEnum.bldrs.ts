@@ -5,7 +5,9 @@ enum IfcDiscreteAccessoryTypeEnum {
     USERDEFINED = 3,
     NOTDEFINED = 4,
 }
-export { IfcDiscreteAccessoryTypeEnum };
+const IfcDiscreteAccessoryTypeEnumCount = 5;
+
+export { IfcDiscreteAccessoryTypeEnum, IfcDiscreteAccessoryTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

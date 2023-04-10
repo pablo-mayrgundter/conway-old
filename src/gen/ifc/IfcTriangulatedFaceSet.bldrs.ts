@@ -20,7 +20,6 @@ export  class IfcTriangulatedFaceSet extends IfcTessellatedFaceSet
     {
         return EntityTypesIfc.IFCTRIANGULATEDFACESET;
     }
-
     private Normals_? : Array< Array< number > > | null;
     private Closed_? : boolean | null;
     private CoordIndex_? : Array< Array< number > >;
@@ -234,4 +233,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTRIANGULATEDFACESET ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTRIANGULATEDFACESET;
 }

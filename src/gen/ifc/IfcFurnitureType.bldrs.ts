@@ -18,7 +18,6 @@ export  class IfcFurnitureType extends IfcFurnishingElementType
     {
         return EntityTypesIfc.IFCFURNITURETYPE;
     }
-
     private AssemblyPlace_? : IfcAssemblyPlaceEnum;
     private PredefinedType_? : IfcFurnitureTypeEnum | null;
 
@@ -96,4 +95,8 @@ export  class IfcFurnitureType extends IfcFurnishingElementType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFURNITURETYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFURNITURETYPE;
 }

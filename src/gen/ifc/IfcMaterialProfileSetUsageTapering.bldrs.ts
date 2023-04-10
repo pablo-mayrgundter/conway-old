@@ -18,7 +18,6 @@ export  class IfcMaterialProfileSetUsageTapering extends IfcMaterialProfileSetUs
     {
         return EntityTypesIfc.IFCMATERIALPROFILESETUSAGETAPERING;
     }
-
     private ForProfileEndSet_? : IfcMaterialProfileSet;
     private CardinalEndPoint_? : number | null;
 
@@ -97,4 +96,8 @@ export  class IfcMaterialProfileSetUsageTapering extends IfcMaterialProfileSetUs
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMATERIALPROFILESETUSAGETAPERING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMATERIALPROFILESETUSAGETAPERING;
 }

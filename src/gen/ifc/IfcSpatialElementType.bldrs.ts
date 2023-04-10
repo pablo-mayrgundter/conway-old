@@ -17,7 +17,6 @@ export abstract class IfcSpatialElementType extends IfcTypeProduct
     {
         return EntityTypesIfc.IFCSPATIALELEMENTTYPE;
     }
-
     private ElementType_? : string | null;
 
     public get ElementType() : string | null
@@ -62,4 +61,8 @@ export abstract class IfcSpatialElementType extends IfcTypeProduct
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSPATIALZONETYPE, EntityTypesIfc.IFCSPACETYPE, EntityTypesIfc.IFCTYPEPRODUCT, EntityTypesIfc.IFCTYPEOBJECT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSPATIALELEMENTTYPE;
 }

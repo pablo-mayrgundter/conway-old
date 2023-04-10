@@ -18,7 +18,6 @@ export  class IfcDerivedProfileDef extends IfcProfileDef
     {
         return EntityTypesIfc.IFCDERIVEDPROFILEDEF;
     }
-
     private ParentProfile_? : IfcProfileDef;
     private Operator_? : IfcCartesianTransformationOperator2D;
     private Label_? : string | null;
@@ -131,4 +130,8 @@ export  class IfcDerivedProfileDef extends IfcProfileDef
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDERIVEDPROFILEDEF, EntityTypesIfc.IFCMIRROREDPROFILEDEF ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDERIVEDPROFILEDEF;
 }

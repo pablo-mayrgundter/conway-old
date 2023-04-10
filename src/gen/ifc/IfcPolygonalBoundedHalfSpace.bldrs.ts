@@ -18,7 +18,6 @@ export  class IfcPolygonalBoundedHalfSpace extends IfcHalfSpaceSolid
     {
         return EntityTypesIfc.IFCPOLYGONALBOUNDEDHALFSPACE;
     }
-
     private Position_? : IfcAxis2Placement3D;
     private PolygonalBoundary_? : IfcBoundedCurve;
 
@@ -91,4 +90,8 @@ export  class IfcPolygonalBoundedHalfSpace extends IfcHalfSpaceSolid
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPOLYGONALBOUNDEDHALFSPACE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPOLYGONALBOUNDEDHALFSPACE;
 }

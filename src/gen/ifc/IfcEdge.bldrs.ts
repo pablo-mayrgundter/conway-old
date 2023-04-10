@@ -17,7 +17,6 @@ export  class IfcEdge extends IfcTopologicalRepresentationItem
     {
         return EntityTypesIfc.IFCEDGE;
     }
-
     private EdgeStart_? : IfcVertex;
     private EdgeEnd_? : IfcVertex;
 
@@ -90,4 +89,8 @@ export  class IfcEdge extends IfcTopologicalRepresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCEDGE, EntityTypesIfc.IFCEDGECURVE, EntityTypesIfc.IFCORIENTEDEDGE, EntityTypesIfc.IFCSUBEDGE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCEDGE;
 }

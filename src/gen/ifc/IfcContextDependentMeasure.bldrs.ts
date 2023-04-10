@@ -54,4 +54,8 @@ export class IfcContextDependentMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCONTEXTDEPENDENTMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCONTEXTDEPENDENTMEASURE;
 }

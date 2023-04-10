@@ -17,7 +17,6 @@ export  class IfcBeam extends IfcBuildingElement
     {
         return EntityTypesIfc.IFCBEAM;
     }
-
     private PredefinedType_? : IfcBeamTypeEnum | null;
 
     public get PredefinedType() : IfcBeamTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcBeam extends IfcBuildingElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBEAM, EntityTypesIfc.IFCBEAMSTANDARDCASE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBEAM;
 }

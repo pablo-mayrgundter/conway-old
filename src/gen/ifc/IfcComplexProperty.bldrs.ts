@@ -17,7 +17,6 @@ export  class IfcComplexProperty extends IfcProperty
     {
         return EntityTypesIfc.IFCCOMPLEXPROPERTY;
     }
-
     private UsageName_? : string;
     private HasProperties_? : Array<IfcProperty>;
 
@@ -100,4 +99,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCOMPLEXPROPERTY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCOMPLEXPROPERTY;
 }

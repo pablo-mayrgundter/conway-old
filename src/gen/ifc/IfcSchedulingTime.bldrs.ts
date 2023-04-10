@@ -17,7 +17,6 @@ export abstract class IfcSchedulingTime extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCSCHEDULINGTIME;
     }
-
     private Name_? : string | null;
     private DataOrigin_? : IfcDataOriginEnum | null;
     private UserDefinedDataOrigin_? : string | null;
@@ -142,4 +141,8 @@ export abstract class IfcSchedulingTime extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCEVENTTIME, EntityTypesIfc.IFCLAGTIME, EntityTypesIfc.IFCRESOURCETIME, EntityTypesIfc.IFCTASKTIME, EntityTypesIfc.IFCWORKTIME, EntityTypesIfc.IFCTASKTIMERECURRING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSCHEDULINGTIME;
 }

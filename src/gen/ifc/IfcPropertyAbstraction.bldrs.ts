@@ -17,9 +17,12 @@ export abstract class IfcPropertyAbstraction extends StepEntityBase< EntityTypes
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPROPERTYENUMERATION, EntityTypesIfc.IFCMATERIALPROPERTIES, EntityTypesIfc.IFCPROFILEPROPERTIES, EntityTypesIfc.IFCREINFORCEMENTBARPROPERTIES, EntityTypesIfc.IFCSECTIONPROPERTIES, EntityTypesIfc.IFCSECTIONREINFORCEMENTPROPERTIES, EntityTypesIfc.IFCCOMPLEXPROPERTY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPROPERTYABSTRACTION;
 }

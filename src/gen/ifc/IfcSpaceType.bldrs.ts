@@ -18,7 +18,6 @@ export  class IfcSpaceType extends IfcSpatialStructureElementType
     {
         return EntityTypesIfc.IFCSPACETYPE;
     }
-
     private PredefinedType_? : IfcSpaceTypeEnum;
     private LongName_? : string | null;
 
@@ -96,4 +95,8 @@ export  class IfcSpaceType extends IfcSpatialStructureElementType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSPACETYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSPACETYPE;
 }

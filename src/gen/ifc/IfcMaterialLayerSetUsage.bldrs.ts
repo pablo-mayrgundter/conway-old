@@ -21,7 +21,6 @@ export  class IfcMaterialLayerSetUsage extends IfcMaterialUsageDefinition
     {
         return EntityTypesIfc.IFCMATERIALLAYERSETUSAGE;
     }
-
     private ForLayerSet_? : IfcMaterialLayerSet;
     private LayerSetDirection_? : IfcLayerSetDirectionEnum;
     private DirectionSense_? : IfcDirectionSenseEnum;
@@ -199,4 +198,8 @@ export  class IfcMaterialLayerSetUsage extends IfcMaterialUsageDefinition
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMATERIALLAYERSETUSAGE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMATERIALLAYERSETUSAGE;
 }

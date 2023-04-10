@@ -4,7 +4,9 @@ enum IfcLightDistributionCurveEnum {
     TYPE_C = 2,
     NOTDEFINED = 3,
 }
-export { IfcLightDistributionCurveEnum };
+const IfcLightDistributionCurveEnumCount = 4;
+
+export { IfcLightDistributionCurveEnum, IfcLightDistributionCurveEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

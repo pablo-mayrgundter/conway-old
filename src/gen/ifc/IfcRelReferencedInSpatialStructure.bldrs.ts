@@ -18,7 +18,6 @@ export  class IfcRelReferencedInSpatialStructure extends IfcRelConnects
     {
         return EntityTypesIfc.IFCRELREFERENCEDINSPATIALSTRUCTURE;
     }
-
     private RelatedElements_? : Array<IfcProduct>;
     private RelatingStructure_? : IfcSpatialElement;
 
@@ -102,4 +101,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELREFERENCEDINSPATIALSTRUCTURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELREFERENCEDINSPATIALSTRUCTURE;
 }

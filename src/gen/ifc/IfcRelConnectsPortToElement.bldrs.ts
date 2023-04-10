@@ -18,7 +18,6 @@ export  class IfcRelConnectsPortToElement extends IfcRelConnects
     {
         return EntityTypesIfc.IFCRELCONNECTSPORTTOELEMENT;
     }
-
     private RelatingPort_? : IfcPort;
     private RelatedElement_? : IfcDistributionElement;
 
@@ -91,4 +90,8 @@ export  class IfcRelConnectsPortToElement extends IfcRelConnects
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELCONNECTSPORTTOELEMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELCONNECTSPORTTOELEMENT;
 }

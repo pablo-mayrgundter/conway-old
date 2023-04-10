@@ -19,7 +19,6 @@ export  class IfcCostSchedule extends IfcControl
     {
         return EntityTypesIfc.IFCCOSTSCHEDULE;
     }
-
     private PredefinedType_? : IfcCostScheduleTypeEnum | null;
     private Status_? : string | null;
     private SubmittedOn_? : string | null;
@@ -184,4 +183,8 @@ export  class IfcCostSchedule extends IfcControl
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCOSTSCHEDULE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCOSTSCHEDULE;
 }

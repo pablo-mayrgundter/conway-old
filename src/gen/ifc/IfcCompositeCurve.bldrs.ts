@@ -19,7 +19,6 @@ export  class IfcCompositeCurve extends IfcBoundedCurve
     {
         return EntityTypesIfc.IFCCOMPOSITECURVE;
     }
-
     private Segments_? : Array<IfcCompositeCurveSegment>;
     private SelfIntersect_? : boolean | null;
 
@@ -108,4 +107,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCOMPOSITECURVE, EntityTypesIfc.IFCCOMPOSITECURVEONSURFACE, EntityTypesIfc.IFCBOUNDARYCURVE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCOMPOSITECURVE;
 }

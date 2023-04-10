@@ -18,7 +18,6 @@ export  class IfcOffsetCurve2D extends IfcCurve
     {
         return EntityTypesIfc.IFCOFFSETCURVE2D;
     }
-
     private BasisCurve_? : IfcCurve;
     private Distance_? : number;
     private SelfIntersect_? : boolean | null;
@@ -123,4 +122,8 @@ export  class IfcOffsetCurve2D extends IfcCurve
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCOFFSETCURVE2D ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCOFFSETCURVE2D;
 }

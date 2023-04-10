@@ -18,7 +18,6 @@ export  class IfcProxy extends IfcProduct
     {
         return EntityTypesIfc.IFCPROXY;
     }
-
     private ProxyType_? : IfcObjectTypeEnum;
     private Tag_? : string | null;
 
@@ -96,4 +95,8 @@ export  class IfcProxy extends IfcProduct
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPROXY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPROXY;
 }

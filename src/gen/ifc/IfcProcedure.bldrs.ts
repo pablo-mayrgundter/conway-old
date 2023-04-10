@@ -17,7 +17,6 @@ export  class IfcProcedure extends IfcProcess
     {
         return EntityTypesIfc.IFCPROCEDURE;
     }
-
     private PredefinedType_? : IfcProcedureTypeEnum | null;
 
     public get PredefinedType() : IfcProcedureTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcProcedure extends IfcProcess
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPROCEDURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPROCEDURE;
 }

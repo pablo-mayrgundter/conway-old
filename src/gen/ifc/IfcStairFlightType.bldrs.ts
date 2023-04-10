@@ -17,7 +17,6 @@ export  class IfcStairFlightType extends IfcBuildingElementType
     {
         return EntityTypesIfc.IFCSTAIRFLIGHTTYPE;
     }
-
     private PredefinedType_? : IfcStairFlightTypeEnum;
 
     public get PredefinedType() : IfcStairFlightTypeEnum
@@ -55,4 +54,8 @@ export  class IfcStairFlightType extends IfcBuildingElementType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTAIRFLIGHTTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTAIRFLIGHTTYPE;
 }

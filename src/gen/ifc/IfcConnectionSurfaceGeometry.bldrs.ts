@@ -19,7 +19,6 @@ export  class IfcConnectionSurfaceGeometry extends IfcConnectionGeometry
     {
         return EntityTypesIfc.IFCCONNECTIONSURFACEGEOMETRY;
     }
-
     private SurfaceOnRelatingElement_? : IfcFaceBasedSurfaceModel|IfcFaceSurface|IfcSurface;
     private SurfaceOnRelatedElement_? : IfcFaceBasedSurfaceModel|IfcFaceSurface|IfcSurface | null;
 
@@ -99,4 +98,8 @@ export  class IfcConnectionSurfaceGeometry extends IfcConnectionGeometry
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCONNECTIONSURFACEGEOMETRY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCONNECTIONSURFACEGEOMETRY;
 }

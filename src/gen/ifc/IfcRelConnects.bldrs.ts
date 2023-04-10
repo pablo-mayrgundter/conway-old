@@ -18,9 +18,12 @@ export abstract class IfcRelConnects extends IfcRelationship
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELCONNECTSELEMENTS, EntityTypesIfc.IFCRELCONNECTSPORTTOELEMENT, EntityTypesIfc.IFCRELCONNECTSPORTS, EntityTypesIfc.IFCRELCONNECTSSTRUCTURALACTIVITY, EntityTypesIfc.IFCRELCONNECTSSTRUCTURALMEMBER, EntityTypesIfc.IFCRELCONTAINEDINSPATIALSTRUCTURE, EntityTypesIfc.IFCRELCOVERSBLDGELEMENTS, EntityTypesIfc.IFCRELCOVERSSPACES, EntityTypesIfc.IFCRELFILLSELEMENT, EntityTypesIfc.IFCRELFLOWCONTROLELEMENTS, EntityTypesIfc.IFCRELINTERFERESELEMENTS, EntityTypesIfc.IFCRELREFERENCEDINSPATIALSTRUCTURE, EntityTypesIfc.IFCRELSEQUENCE, EntityTypesIfc.IFCRELSERVICESBUILDINGS, EntityTypesIfc.IFCRELSPACEBOUNDARY, EntityTypesIfc.IFCRELCONNECTSPATHELEMENTS, EntityTypesIfc.IFCRELCONNECTSWITHREALIZINGELEMENTS, EntityTypesIfc.IFCRELCONNECTSWITHECCENTRICITY, EntityTypesIfc.IFCRELSPACEBOUNDARY1STLEVEL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELCONNECTS;
 }

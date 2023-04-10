@@ -18,7 +18,6 @@ export abstract class IfcRepresentation extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCREPRESENTATION;
     }
-
     private ContextOfItems_? : IfcRepresentationContext;
     private RepresentationIdentifier_? : string | null;
     private RepresentationType_? : string | null;
@@ -185,4 +184,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSHAPEREPRESENTATION, EntityTypesIfc.IFCTOPOLOGYREPRESENTATION, EntityTypesIfc.IFCSTYLEDREPRESENTATION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCREPRESENTATION;
 }

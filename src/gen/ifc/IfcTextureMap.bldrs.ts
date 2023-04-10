@@ -18,7 +18,6 @@ export  class IfcTextureMap extends IfcTextureCoordinate
     {
         return EntityTypesIfc.IFCTEXTUREMAP;
     }
-
     private Vertices_? : Array<IfcTextureVertex>;
     private MappedTo_? : IfcFace;
 
@@ -102,4 +101,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTEXTUREMAP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTEXTUREMAP;
 }

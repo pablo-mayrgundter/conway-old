@@ -17,7 +17,6 @@ export  class IfcBoiler extends IfcEnergyConversionDevice
     {
         return EntityTypesIfc.IFCBOILER;
     }
-
     private PredefinedType_? : IfcBoilerTypeEnum | null;
 
     public get PredefinedType() : IfcBoilerTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcBoiler extends IfcEnergyConversionDevice
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBOILER ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBOILER;
 }

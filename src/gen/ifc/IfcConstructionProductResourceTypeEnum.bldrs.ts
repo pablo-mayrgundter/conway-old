@@ -4,7 +4,9 @@ enum IfcConstructionProductResourceTypeEnum {
     USERDEFINED = 2,
     NOTDEFINED = 3,
 }
-export { IfcConstructionProductResourceTypeEnum };
+const IfcConstructionProductResourceTypeEnumCount = 4;
+
+export { IfcConstructionProductResourceTypeEnum, IfcConstructionProductResourceTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

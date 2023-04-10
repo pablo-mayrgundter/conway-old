@@ -54,4 +54,8 @@ export class IfcModulusOfSubgradeReactionMeasure extends StepEntityBase< EntityT
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMODULUSOFSUBGRADEREACTIONMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMODULUSOFSUBGRADEREACTIONMEASURE;
 }

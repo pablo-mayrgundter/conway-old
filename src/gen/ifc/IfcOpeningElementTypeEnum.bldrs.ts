@@ -4,7 +4,9 @@ enum IfcOpeningElementTypeEnum {
     USERDEFINED = 2,
     NOTDEFINED = 3,
 }
-export { IfcOpeningElementTypeEnum };
+const IfcOpeningElementTypeEnumCount = 4;
+
+export { IfcOpeningElementTypeEnum, IfcOpeningElementTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

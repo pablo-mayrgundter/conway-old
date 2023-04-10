@@ -8,7 +8,9 @@ enum IfcAlarmTypeEnum {
     USERDEFINED = 6,
     NOTDEFINED = 7,
 }
-export { IfcAlarmTypeEnum };
+const IfcAlarmTypeEnumCount = 8;
+
+export { IfcAlarmTypeEnum, IfcAlarmTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -18,7 +18,6 @@ export  class IfcWorkTime extends IfcSchedulingTime
     {
         return EntityTypesIfc.IFCWORKTIME;
     }
-
     private RecurrencePattern_? : IfcRecurrencePattern | null;
     private Start_? : string | null;
     private Finish_? : string | null;
@@ -144,4 +143,8 @@ export  class IfcWorkTime extends IfcSchedulingTime
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCWORKTIME ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCWORKTIME;
 }

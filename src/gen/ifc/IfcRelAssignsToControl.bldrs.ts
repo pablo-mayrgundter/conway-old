@@ -17,7 +17,6 @@ export  class IfcRelAssignsToControl extends IfcRelAssigns
     {
         return EntityTypesIfc.IFCRELASSIGNSTOCONTROL;
     }
-
     private RelatingControl_? : IfcControl;
 
     public get RelatingControl() : IfcControl
@@ -56,4 +55,8 @@ export  class IfcRelAssignsToControl extends IfcRelAssigns
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELASSIGNSTOCONTROL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELASSIGNSTOCONTROL;
 }

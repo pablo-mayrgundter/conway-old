@@ -2,7 +2,9 @@ enum IfcPerformanceHistoryTypeEnum {
     USERDEFINED = 0,
     NOTDEFINED = 1,
 }
-export { IfcPerformanceHistoryTypeEnum };
+const IfcPerformanceHistoryTypeEnumCount = 2;
+
+export { IfcPerformanceHistoryTypeEnum, IfcPerformanceHistoryTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

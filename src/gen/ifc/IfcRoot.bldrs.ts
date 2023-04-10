@@ -19,7 +19,6 @@ export abstract class IfcRoot extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCROOT;
     }
-
     private GlobalId_? : string;
     private OwnerHistory_? : IfcOwnerHistory | null;
     private Name_? : string | null;
@@ -178,4 +177,8 @@ export abstract class IfcRoot extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTYPEOBJECT, EntityTypesIfc.IFCRELDECLARES ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCROOT;
 }

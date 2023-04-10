@@ -17,7 +17,6 @@ export  class IfcAirToAirHeatRecovery extends IfcEnergyConversionDevice
     {
         return EntityTypesIfc.IFCAIRTOAIRHEATRECOVERY;
     }
-
     private PredefinedType_? : IfcAirToAirHeatRecoveryTypeEnum | null;
 
     public get PredefinedType() : IfcAirToAirHeatRecoveryTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcAirToAirHeatRecovery extends IfcEnergyConversionDevice
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCAIRTOAIRHEATRECOVERY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCAIRTOAIRHEATRECOVERY;
 }

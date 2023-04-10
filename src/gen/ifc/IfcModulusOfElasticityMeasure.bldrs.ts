@@ -54,4 +54,8 @@ export class IfcModulusOfElasticityMeasure extends StepEntityBase< EntityTypesIf
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMODULUSOFELASTICITYMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMODULUSOFELASTICITYMEASURE;
 }

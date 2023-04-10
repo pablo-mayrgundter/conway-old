@@ -24,9 +24,12 @@ export abstract class IfcObjectDefinition extends IfcRoot
 
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTYPEOBJECT, EntityTypesIfc.IFCPROJECT, EntityTypesIfc.IFCPROJECTLIBRARY, EntityTypesIfc.IFCACTOR, EntityTypesIfc.IFCGROUP, EntityTypesIfc.IFCTYPEPRODUCT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCOBJECTDEFINITION;
 }

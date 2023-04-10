@@ -54,4 +54,8 @@ export class IfcPositiveInteger extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPOSITIVEINTEGER ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPOSITIVEINTEGER;
 }

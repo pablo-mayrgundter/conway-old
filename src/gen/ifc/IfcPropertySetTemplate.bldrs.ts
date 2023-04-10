@@ -19,7 +19,6 @@ export  class IfcPropertySetTemplate extends IfcPropertyTemplateDefinition
     {
         return EntityTypesIfc.IFCPROPERTYSETTEMPLATE;
     }
-
     private TemplateType_? : IfcPropertySetTemplateTypeEnum | null;
     private ApplicableEntity_? : string | null;
     private HasPropertyTemplates_? : Array<IfcPropertyTemplate>;
@@ -150,4 +149,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPROPERTYSETTEMPLATE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPROPERTYSETTEMPLATE;
 }

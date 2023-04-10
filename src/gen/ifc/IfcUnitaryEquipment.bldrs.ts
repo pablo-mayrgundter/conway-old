@@ -17,7 +17,6 @@ export  class IfcUnitaryEquipment extends IfcEnergyConversionDevice
     {
         return EntityTypesIfc.IFCUNITARYEQUIPMENT;
     }
-
     private PredefinedType_? : IfcUnitaryEquipmentTypeEnum | null;
 
     public get PredefinedType() : IfcUnitaryEquipmentTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcUnitaryEquipment extends IfcEnergyConversionDevice
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCUNITARYEQUIPMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCUNITARYEQUIPMENT;
 }

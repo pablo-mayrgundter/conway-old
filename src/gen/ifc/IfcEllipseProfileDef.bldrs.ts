@@ -17,7 +17,6 @@ export  class IfcEllipseProfileDef extends IfcParameterizedProfileDef
     {
         return EntityTypesIfc.IFCELLIPSEPROFILEDEF;
     }
-
     private SemiAxis1_? : number;
     private SemiAxis2_? : number;
 
@@ -88,4 +87,8 @@ export  class IfcEllipseProfileDef extends IfcParameterizedProfileDef
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCELLIPSEPROFILEDEF ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCELLIPSEPROFILEDEF;
 }

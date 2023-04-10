@@ -54,4 +54,8 @@ export class IfcCardinalPointReference extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCARDINALPOINTREFERENCE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCARDINALPOINTREFERENCE;
 }

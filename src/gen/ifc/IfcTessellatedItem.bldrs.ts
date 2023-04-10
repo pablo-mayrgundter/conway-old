@@ -18,9 +18,12 @@ export abstract class IfcTessellatedItem extends IfcGeometricRepresentationItem
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCINDEXEDPOLYGONALFACE, EntityTypesIfc.IFCINDEXEDPOLYGONALFACEWITHVOIDS, EntityTypesIfc.IFCPOLYGONALFACESET, EntityTypesIfc.IFCTRIANGULATEDFACESET ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTESSELLATEDITEM;
 }

@@ -19,7 +19,6 @@ export  class IfcActionRequest extends IfcControl
     {
         return EntityTypesIfc.IFCACTIONREQUEST;
     }
-
     private PredefinedType_? : IfcActionRequestTypeEnum | null;
     private Status_? : string | null;
     private LongDescription_? : string | null;
@@ -144,4 +143,8 @@ export  class IfcActionRequest extends IfcControl
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCACTIONREQUEST ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCACTIONREQUEST;
 }

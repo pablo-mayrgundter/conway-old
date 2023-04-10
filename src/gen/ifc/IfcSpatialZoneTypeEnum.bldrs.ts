@@ -10,7 +10,9 @@ enum IfcSpatialZoneTypeEnum {
     USERDEFINED = 8,
     NOTDEFINED = 9,
 }
-export { IfcSpatialZoneTypeEnum };
+const IfcSpatialZoneTypeEnumCount = 10;
+
+export { IfcSpatialZoneTypeEnum, IfcSpatialZoneTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -9,7 +9,9 @@ enum IfcPipeFittingTypeEnum {
     USERDEFINED = 7,
     NOTDEFINED = 8,
 }
-export { IfcPipeFittingTypeEnum };
+const IfcPipeFittingTypeEnumCount = 9;
+
+export { IfcPipeFittingTypeEnum, IfcPipeFittingTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

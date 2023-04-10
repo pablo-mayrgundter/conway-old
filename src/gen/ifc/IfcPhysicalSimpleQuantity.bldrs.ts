@@ -17,7 +17,6 @@ export abstract class IfcPhysicalSimpleQuantity extends IfcPhysicalQuantity
     {
         return EntityTypesIfc.IFCPHYSICALSIMPLEQUANTITY;
     }
-
     private Unit_? : IfcNamedUnit | null;
 
     public get Unit() : IfcNamedUnit | null
@@ -63,4 +62,8 @@ export abstract class IfcPhysicalSimpleQuantity extends IfcPhysicalQuantity
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCQUANTITYAREA, EntityTypesIfc.IFCQUANTITYCOUNT, EntityTypesIfc.IFCQUANTITYLENGTH, EntityTypesIfc.IFCQUANTITYTIME, EntityTypesIfc.IFCQUANTITYVOLUME, EntityTypesIfc.IFCQUANTITYWEIGHT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPHYSICALSIMPLEQUANTITY;
 }

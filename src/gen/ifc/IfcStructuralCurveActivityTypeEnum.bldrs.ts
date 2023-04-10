@@ -9,7 +9,9 @@ enum IfcStructuralCurveActivityTypeEnum {
     USERDEFINED = 7,
     NOTDEFINED = 8,
 }
-export { IfcStructuralCurveActivityTypeEnum };
+const IfcStructuralCurveActivityTypeEnumCount = 9;
+
+export { IfcStructuralCurveActivityTypeEnum, IfcStructuralCurveActivityTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

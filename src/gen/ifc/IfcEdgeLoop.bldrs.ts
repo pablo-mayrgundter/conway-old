@@ -18,7 +18,6 @@ export  class IfcEdgeLoop extends IfcLoop
     {
         return EntityTypesIfc.IFCEDGELOOP;
     }
-
     private EdgeList_? : Array<IfcOrientedEdge>;
 
     public get EdgeList() : Array<IfcOrientedEdge>
@@ -73,4 +72,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCEDGELOOP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCEDGELOOP;
 }

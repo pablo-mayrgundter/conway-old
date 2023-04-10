@@ -20,7 +20,6 @@ export  class IfcSectionedSpine extends IfcGeometricRepresentationItem
     {
         return EntityTypesIfc.IFCSECTIONEDSPINE;
     }
-
     private SpineCurve_? : IfcCompositeCurve;
     private CrossSections_? : Array<IfcProfileDef>;
     private CrossSectionPositions_? : Array<IfcAxis2Placement3D>;
@@ -154,4 +153,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSECTIONEDSPINE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSECTIONEDSPINE;
 }

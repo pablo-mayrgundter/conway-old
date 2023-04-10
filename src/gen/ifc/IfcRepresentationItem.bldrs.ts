@@ -18,9 +18,12 @@ export abstract class IfcRepresentationItem extends StepEntityBase< EntityTypesI
 
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMAPPEDITEM, EntityTypesIfc.IFCSTYLEDITEM, EntityTypesIfc.IFCANNOTATIONFILLAREA, EntityTypesIfc.IFCBOOLEANRESULT, EntityTypesIfc.IFCBOUNDINGBOX, EntityTypesIfc.IFCCOMPOSITECURVESEGMENT, EntityTypesIfc.IFCDIRECTION, EntityTypesIfc.IFCFACEBASEDSURFACEMODEL, EntityTypesIfc.IFCFILLAREASTYLEHATCHING, EntityTypesIfc.IFCFILLAREASTYLETILES, EntityTypesIfc.IFCGEOMETRICSET, EntityTypesIfc.IFCHALFSPACESOLID, EntityTypesIfc.IFCPLANAREXTENT, EntityTypesIfc.IFCSECTIONEDSPINE, EntityTypesIfc.IFCSHELLBASEDSURFACEMODEL, EntityTypesIfc.IFCTEXTLITERAL, EntityTypesIfc.IFCVECTOR, EntityTypesIfc.IFCCONNECTEDFACESET, EntityTypesIfc.IFCEDGE, EntityTypesIfc.IFCFACE, EntityTypesIfc.IFCFACEBOUND, EntityTypesIfc.IFCLOOP, EntityTypesIfc.IFCPATH, EntityTypesIfc.IFCVERTEX ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCREPRESENTATIONITEM;
 }

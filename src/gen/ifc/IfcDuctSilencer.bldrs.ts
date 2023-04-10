@@ -17,7 +17,6 @@ export  class IfcDuctSilencer extends IfcFlowTreatmentDevice
     {
         return EntityTypesIfc.IFCDUCTSILENCER;
     }
-
     private PredefinedType_? : IfcDuctSilencerTypeEnum | null;
 
     public get PredefinedType() : IfcDuctSilencerTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcDuctSilencer extends IfcFlowTreatmentDevice
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDUCTSILENCER ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDUCTSILENCER;
 }

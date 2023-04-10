@@ -17,7 +17,6 @@ export  class IfcAxis1Placement extends IfcPlacement
     {
         return EntityTypesIfc.IFCAXIS1PLACEMENT;
     }
-
     private Axis_? : IfcDirection | null;
 
     public get Axis() : IfcDirection | null
@@ -64,4 +63,8 @@ export  class IfcAxis1Placement extends IfcPlacement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCAXIS1PLACEMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCAXIS1PLACEMENT;
 }

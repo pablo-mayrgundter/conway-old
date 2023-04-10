@@ -18,7 +18,6 @@ export  class IfcConversionBasedUnit extends IfcNamedUnit
     {
         return EntityTypesIfc.IFCCONVERSIONBASEDUNIT;
     }
-
     private Name_? : string;
     private ConversionFactor_? : IfcMeasureWithUnit;
 
@@ -91,4 +90,8 @@ export  class IfcConversionBasedUnit extends IfcNamedUnit
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCONVERSIONBASEDUNIT, EntityTypesIfc.IFCCONVERSIONBASEDUNITWITHOFFSET ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCONVERSIONBASEDUNIT;
 }

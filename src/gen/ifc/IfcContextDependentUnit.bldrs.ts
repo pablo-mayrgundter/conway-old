@@ -17,7 +17,6 @@ export  class IfcContextDependentUnit extends IfcNamedUnit
     {
         return EntityTypesIfc.IFCCONTEXTDEPENDENTUNIT;
     }
-
     private Name_? : string;
 
     public get Name() : string
@@ -56,4 +55,8 @@ export  class IfcContextDependentUnit extends IfcNamedUnit
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCONTEXTDEPENDENTUNIT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCONTEXTDEPENDENTUNIT;
 }

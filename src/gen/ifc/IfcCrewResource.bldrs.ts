@@ -17,7 +17,6 @@ export  class IfcCrewResource extends IfcConstructionResource
     {
         return EntityTypesIfc.IFCCREWRESOURCE;
     }
-
     private PredefinedType_? : IfcCrewResourceTypeEnum | null;
 
     public get PredefinedType() : IfcCrewResourceTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcCrewResource extends IfcConstructionResource
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCREWRESOURCE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCREWRESOURCE;
 }

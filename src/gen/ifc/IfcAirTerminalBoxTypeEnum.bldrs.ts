@@ -5,7 +5,9 @@ enum IfcAirTerminalBoxTypeEnum {
     USERDEFINED = 3,
     NOTDEFINED = 4,
 }
-export { IfcAirTerminalBoxTypeEnum };
+const IfcAirTerminalBoxTypeEnumCount = 5;
+
+export { IfcAirTerminalBoxTypeEnum, IfcAirTerminalBoxTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

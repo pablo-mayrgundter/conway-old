@@ -8,7 +8,9 @@ enum IfcObjectTypeEnum {
     PROJECT = 6,
     NOTDEFINED = 7,
 }
-export { IfcObjectTypeEnum };
+const IfcObjectTypeEnumCount = 8;
+
+export { IfcObjectTypeEnum, IfcObjectTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

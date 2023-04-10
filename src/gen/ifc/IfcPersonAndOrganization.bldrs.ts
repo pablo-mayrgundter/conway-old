@@ -18,7 +18,6 @@ export  class IfcPersonAndOrganization extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCPERSONANDORGANIZATION;
     }
-
     private ThePerson_? : IfcPerson;
     private TheOrganization_? : IfcOrganization;
     private Roles_? : Array<IfcActorRole> | null;
@@ -141,4 +140,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPERSONANDORGANIZATION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPERSONANDORGANIZATION;
 }

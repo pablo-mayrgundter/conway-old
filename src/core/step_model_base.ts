@@ -3,9 +3,17 @@ import StepVtableBuilder from "../../dependencies/conway-ds/src/parsing/step/ste
 import StepEntityBase from "./step_entity_base";
 import StepEntitySchema from "./step_entity_schema";
 import { StepEntityInternalReferencePrivate } from "./step_entity_internal_reference";
+import { IIndexSetCursor } from "../../dependencies/conway-ds/src/indexing/i_index_set_cursor";
+import { extractOneHotLow } from "../../dependencies/conway-ds/src/indexing/bit_operations";
+import { MultiIndexSet } from "../../dependencies/conway-ds/src/indexing/multi_index_set";
+import StepEntityConstructor, { StepEntityConstructorAbstract } from "./step_entity_constructor";
 
-export default class StepModelBase< EntityTypeIDs extends number, BaseEntity extends StepEntityBase< EntityTypeIDs > = StepEntityBase< EntityTypeIDs > > implements Iterable< BaseEntity >
+const clz = Math.clz32;
+
+export default abstract class StepModelBase< EntityTypeIDs extends number, BaseEntity extends StepEntityBase< EntityTypeIDs > = StepEntityBase< EntityTypeIDs > > implements Iterable< BaseEntity >
 {
+    public readonly abstract typeIndex: MultiIndexSet< EntityTypeIDs >;
+
     private readonly vtableBuilder_: StepVtableBuilder = new StepVtableBuilder();
     private readonly expressIDMap_                     = new Map< number, number >();
     private readonly inlineAddressMap_                 = new Map< number, number >();
@@ -140,7 +148,7 @@ export default class StepModelBase< EntityTypeIDs extends number, BaseEntity ext
 
         if ( entity === void 0 && element.typeID !== void 0 )
         {
-            // TODO - we actually need to make this handle unknown type IDs by adding an ENTITY_UNKNOWN type.
+            // TODO - we actually need to make this handle unknown type IDs by adding an ENTITY_UNKNOWN type - CS
             let constructorRead = this.schema.constructors[ element.typeID ]; 
 
             if ( constructorRead !== void 0 )
@@ -152,6 +160,78 @@ export default class StepModelBase< EntityTypeIDs extends number, BaseEntity ext
         }
 
         return entity;
+    }
+
+    /**
+     * Use the type index to get set of entities of a set of types including sub-types, acts as a union given the input type list, with lazy
+     * iteration over the set.
+     * @param types The list of types to return 
+     * @returns An iterable corresponding to the lazy set of items.
+     */
+    public types< T extends StepEntityConstructorAbstract< EntityTypeIDs >[] >( ...types: T ): IterableIterator< InstanceType< T[ number ] > >
+    {
+        let distinctTypes = types.length === 1 ? ( types[ 0 ].query ) : ( new Set( types.flatMap( type => type.query ) ) );
+        
+        return this.from( this.typeIndex.cursor( ...distinctTypes ), true ) as IterableIterator< InstanceType< T[ number ] > >;
+    }
+
+    /**
+     * Use the type index to get set of entities of a set of types not including sub-types from the list of type ids, acts as a union given the input type list, with lazy
+     * iteration over the set.
+     * @param types The type ids for the types to get.
+     * @returns An iterable corresponding to the lazy set of items.
+     */
+    public typeIDs( ...types: EntityTypeIDs[] ) : IterableIterator< BaseEntity >
+    {
+        let distinctTypes = types.length === 1 ? ( this.schema.queries[ types[ 0 ] as number ] ) : ( new Set( types.flatMap( type => this.schema.queries[ type as number ] ) ) );
+
+        return this.from( this.typeIndex.cursor( ...distinctTypes ), true );
+    }
+
+    /**
+     * Use the type index to get set of entities of a set of types including sub-types from the list of type ids, acts as a union given the input type list, with lazy
+     * iteration over the set.
+     * @param types The type ids for the types to get.
+     * @returns An iterable corresponding to the lazy set of items.
+     */
+    public typesIDSNoSubtypes( ...types: EntityTypeIDs[] ) : IterableIterator< BaseEntity >
+    {
+        return this.from( this.typeIndex.cursor( ...types ), true );
+    }
+
+    /**
+     * Given a cursor, get the matching entities for it as a lazy iterable iterator.
+     * @param cursor The cursor to iterate over.
+     * @param freeCursor Should the cursor be freed after 
+     */
+    public *from( cursor: IIndexSetCursor, freeCursor: boolean = false ) : IterableIterator< BaseEntity >
+    {
+        while ( cursor.step() )
+        {
+            let high = cursor.high;
+            let low  = cursor.low;
+            
+            while ( low !== 0 )
+            {
+                let lowestOneHot = extractOneHotLow( low );
+
+                low ^= ( 1 << lowestOneHot );
+
+                let localID = ( high | lowestOneHot );
+                
+                let foundElement = this.getElementByLocalID( localID );
+
+                if ( foundElement !== void 0 )
+                {
+                    yield foundElement;
+                }
+            }
+        }
+
+        if ( freeCursor )
+        {
+            cursor.free();
+        }
     }
 
     public *extract( from: Iterable< number > ) : IterableIterator< BaseEntity >

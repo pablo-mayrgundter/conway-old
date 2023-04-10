@@ -17,7 +17,6 @@ export  class IfcChimney extends IfcBuildingElement
     {
         return EntityTypesIfc.IFCCHIMNEY;
     }
-
     private PredefinedType_? : IfcChimneyTypeEnum | null;
 
     public get PredefinedType() : IfcChimneyTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcChimney extends IfcBuildingElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCHIMNEY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCHIMNEY;
 }

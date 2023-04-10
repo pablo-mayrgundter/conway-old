@@ -17,7 +17,6 @@ export  class IfcColourRgbList extends IfcPresentationItem
     {
         return EntityTypesIfc.IFCCOLOURRGBLIST;
     }
-
     private ColourList_? : Array< Array< number > >;
 
     public get ColourList() : Array< Array< number > >
@@ -77,4 +76,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCOLOURRGBLIST ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCOLOURRGBLIST;
 }

@@ -17,9 +17,12 @@ export abstract class IfcMaterialUsageDefinition extends StepEntityBase< EntityT
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMATERIALLAYERSETUSAGE, EntityTypesIfc.IFCMATERIALPROFILESETUSAGE, EntityTypesIfc.IFCMATERIALPROFILESETUSAGETAPERING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMATERIALUSAGEDEFINITION;
 }

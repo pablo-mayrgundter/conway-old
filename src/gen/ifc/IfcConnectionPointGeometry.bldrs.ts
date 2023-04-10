@@ -18,7 +18,6 @@ export  class IfcConnectionPointGeometry extends IfcConnectionGeometry
     {
         return EntityTypesIfc.IFCCONNECTIONPOINTGEOMETRY;
     }
-
     private PointOnRelatingElement_? : IfcPoint|IfcVertexPoint;
     private PointOnRelatedElement_? : IfcPoint|IfcVertexPoint | null;
 
@@ -98,4 +97,8 @@ export  class IfcConnectionPointGeometry extends IfcConnectionGeometry
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCONNECTIONPOINTGEOMETRY, EntityTypesIfc.IFCCONNECTIONPOINTECCENTRICITY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCONNECTIONPOINTGEOMETRY;
 }

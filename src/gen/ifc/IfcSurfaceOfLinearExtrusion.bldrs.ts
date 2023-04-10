@@ -19,7 +19,6 @@ export  class IfcSurfaceOfLinearExtrusion extends IfcSweptSurface
     {
         return EntityTypesIfc.IFCSURFACEOFLINEAREXTRUSION;
     }
-
     private ExtrudedDirection_? : IfcDirection;
     private Depth_? : number;
 
@@ -92,4 +91,8 @@ export  class IfcSurfaceOfLinearExtrusion extends IfcSweptSurface
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSURFACEOFLINEAREXTRUSION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSURFACEOFLINEAREXTRUSION;
 }

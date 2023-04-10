@@ -4,7 +4,9 @@ enum IfcCurveInterpolationEnum {
     LOG_LOG = 2,
     NOTDEFINED = 3,
 }
-export { IfcCurveInterpolationEnum };
+const IfcCurveInterpolationEnumCount = 4;
+
+export { IfcCurveInterpolationEnum, IfcCurveInterpolationEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

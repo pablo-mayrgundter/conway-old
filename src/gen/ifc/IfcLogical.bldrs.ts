@@ -54,4 +54,8 @@ export class IfcLogical extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCLOGICAL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCLOGICAL;
 }

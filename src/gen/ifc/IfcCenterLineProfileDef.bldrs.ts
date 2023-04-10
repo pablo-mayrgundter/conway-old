@@ -17,7 +17,6 @@ export  class IfcCenterLineProfileDef extends IfcArbitraryOpenProfileDef
     {
         return EntityTypesIfc.IFCCENTERLINEPROFILEDEF;
     }
-
     private Thickness_? : number;
 
     public get Thickness() : number
@@ -55,4 +54,8 @@ export  class IfcCenterLineProfileDef extends IfcArbitraryOpenProfileDef
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCENTERLINEPROFILEDEF ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCENTERLINEPROFILEDEF;
 }

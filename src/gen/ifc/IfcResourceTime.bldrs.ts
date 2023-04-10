@@ -21,7 +21,6 @@ export  class IfcResourceTime extends IfcSchedulingTime
     {
         return EntityTypesIfc.IFCRESOURCETIME;
     }
-
     private ScheduleWork_? : string | null;
     private ScheduleUsage_? : number | null;
     private ScheduleStart_? : string | null;
@@ -626,4 +625,8 @@ export  class IfcResourceTime extends IfcSchedulingTime
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRESOURCETIME ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRESOURCETIME;
 }

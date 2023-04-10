@@ -15,7 +15,9 @@ enum IfcHumidifierTypeEnum {
     USERDEFINED = 13,
     NOTDEFINED = 14,
 }
-export { IfcHumidifierTypeEnum };
+const IfcHumidifierTypeEnumCount = 15;
+
+export { IfcHumidifierTypeEnum, IfcHumidifierTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

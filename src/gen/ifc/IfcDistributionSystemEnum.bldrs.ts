@@ -44,7 +44,9 @@ enum IfcDistributionSystemEnum {
     USERDEFINED = 42,
     NOTDEFINED = 43,
 }
-export { IfcDistributionSystemEnum };
+const IfcDistributionSystemEnumCount = 44;
+
+export { IfcDistributionSystemEnum, IfcDistributionSystemEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

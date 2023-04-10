@@ -18,7 +18,6 @@ export  class IfcDirection extends IfcGeometricRepresentationItem
     {
         return EntityTypesIfc.IFCDIRECTION;
     }
-
     private DirectionRatios_? : Array< number >;
 
     public get DirectionRatios() : Array< number >
@@ -72,4 +71,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDIRECTION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDIRECTION;
 }

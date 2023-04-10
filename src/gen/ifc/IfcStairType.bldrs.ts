@@ -17,7 +17,6 @@ export  class IfcStairType extends IfcBuildingElementType
     {
         return EntityTypesIfc.IFCSTAIRTYPE;
     }
-
     private PredefinedType_? : IfcStairTypeEnum;
 
     public get PredefinedType() : IfcStairTypeEnum
@@ -55,4 +54,8 @@ export  class IfcStairType extends IfcBuildingElementType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTAIRTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTAIRTYPE;
 }

@@ -5,7 +5,9 @@ enum IfcPermeableCoveringOperationEnum {
     USERDEFINED = 3,
     NOTDEFINED = 4,
 }
-export { IfcPermeableCoveringOperationEnum };
+const IfcPermeableCoveringOperationEnumCount = 5;
+
+export { IfcPermeableCoveringOperationEnum, IfcPermeableCoveringOperationEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -22,7 +22,6 @@ export  class IfcSurfaceStyle extends IfcPresentationStyle
     {
         return EntityTypesIfc.IFCSURFACESTYLE;
     }
-
     private Side_? : IfcSurfaceSide;
     private Styles_? : Array<IfcExternallyDefinedSurfaceStyle|IfcSurfaceStyleLighting|IfcSurfaceStyleRefraction|IfcSurfaceStyleShading|IfcSurfaceStyleWithTextures>;
 
@@ -105,4 +104,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSURFACESTYLE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSURFACESTYLE;
 }

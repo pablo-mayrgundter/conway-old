@@ -18,7 +18,6 @@ export  class IfcPropertyDependencyRelationship extends IfcResourceLevelRelation
     {
         return EntityTypesIfc.IFCPROPERTYDEPENDENCYRELATIONSHIP;
     }
-
     private DependingProperty_? : IfcProperty;
     private DependantProperty_? : IfcProperty;
     private Expression_? : string | null;
@@ -131,4 +130,8 @@ export  class IfcPropertyDependencyRelationship extends IfcResourceLevelRelation
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPROPERTYDEPENDENCYRELATIONSHIP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPROPERTYDEPENDENCYRELATIONSHIP;
 }

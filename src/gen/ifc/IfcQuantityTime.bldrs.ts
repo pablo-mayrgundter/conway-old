@@ -18,7 +18,6 @@ export  class IfcQuantityTime extends IfcPhysicalSimpleQuantity
     {
         return EntityTypesIfc.IFCQUANTITYTIME;
     }
-
     private TimeValue_? : number;
     private Formula_? : string | null;
 
@@ -96,4 +95,8 @@ export  class IfcQuantityTime extends IfcPhysicalSimpleQuantity
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCQUANTITYTIME ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCQUANTITYTIME;
 }

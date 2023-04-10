@@ -19,7 +19,6 @@ export  class IfcBoundaryEdgeCondition extends IfcBoundaryCondition
     {
         return EntityTypesIfc.IFCBOUNDARYEDGECONDITION;
     }
-
     private TranslationalStiffnessByLengthX_? : IfcBoolean|IfcModulusOfLinearSubgradeReactionMeasure | null;
     private TranslationalStiffnessByLengthY_? : IfcBoolean|IfcModulusOfLinearSubgradeReactionMeasure | null;
     private TranslationalStiffnessByLengthZ_? : IfcBoolean|IfcModulusOfLinearSubgradeReactionMeasure | null;
@@ -270,4 +269,8 @@ export  class IfcBoundaryEdgeCondition extends IfcBoundaryCondition
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBOUNDARYEDGECONDITION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBOUNDARYEDGECONDITION;
 }

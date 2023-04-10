@@ -21,7 +21,6 @@ export  class IfcShapeAspect extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCSHAPEASPECT;
     }
-
     private ShapeRepresentations_? : Array<IfcShapeModel>;
     private Name_? : string | null;
     private Description_? : string | null;
@@ -225,4 +224,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSHAPEASPECT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSHAPEASPECT;
 }

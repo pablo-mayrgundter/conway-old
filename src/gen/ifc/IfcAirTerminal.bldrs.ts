@@ -17,7 +17,6 @@ export  class IfcAirTerminal extends IfcFlowTerminal
     {
         return EntityTypesIfc.IFCAIRTERMINAL;
     }
-
     private PredefinedType_? : IfcAirTerminalTypeEnum | null;
 
     public get PredefinedType() : IfcAirTerminalTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcAirTerminal extends IfcFlowTerminal
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCAIRTERMINAL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCAIRTERMINAL;
 }

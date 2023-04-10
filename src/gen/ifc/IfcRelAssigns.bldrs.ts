@@ -18,7 +18,6 @@ export abstract class IfcRelAssigns extends IfcRelationship
     {
         return EntityTypesIfc.IFCRELASSIGNS;
     }
-
     private RelatedObjects_? : Array<IfcObjectDefinition>;
     private RelatedObjectsType_? : IfcObjectTypeEnum | null;
 
@@ -108,4 +107,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELASSIGNSTOACTOR, EntityTypesIfc.IFCRELASSIGNSTOCONTROL, EntityTypesIfc.IFCRELASSIGNSTOGROUP, EntityTypesIfc.IFCRELASSIGNSTOPROCESS, EntityTypesIfc.IFCRELASSIGNSTOPRODUCT, EntityTypesIfc.IFCRELASSIGNSTORESOURCE, EntityTypesIfc.IFCRELASSIGNSTOGROUPBYFACTOR ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELASSIGNS;
 }

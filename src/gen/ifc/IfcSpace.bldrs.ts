@@ -18,7 +18,6 @@ export  class IfcSpace extends IfcSpatialStructureElement
     {
         return EntityTypesIfc.IFCSPACE;
     }
-
     private PredefinedType_? : IfcSpaceTypeEnum | null;
     private ElevationWithFlooring_? : number | null;
 
@@ -105,4 +104,8 @@ export  class IfcSpace extends IfcSpatialStructureElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSPACE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSPACE;
 }

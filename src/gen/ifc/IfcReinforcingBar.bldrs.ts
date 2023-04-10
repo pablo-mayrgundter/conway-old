@@ -20,7 +20,6 @@ export  class IfcReinforcingBar extends IfcReinforcingElement
     {
         return EntityTypesIfc.IFCREINFORCINGBAR;
     }
-
     private NominalDiameter_? : number | null;
     private CrossSectionArea_? : number | null;
     private BarLength_? : number | null;
@@ -225,4 +224,8 @@ export  class IfcReinforcingBar extends IfcReinforcingElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCREINFORCINGBAR ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCREINFORCINGBAR;
 }

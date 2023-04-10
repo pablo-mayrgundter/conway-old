@@ -18,7 +18,6 @@ export  class IfcStructuralLoadSingleDisplacement extends IfcStructuralLoadStati
     {
         return EntityTypesIfc.IFCSTRUCTURALLOADSINGLEDISPLACEMENT;
     }
-
     private DisplacementX_? : number | null;
     private DisplacementY_? : number | null;
     private DisplacementZ_? : number | null;
@@ -263,4 +262,8 @@ export  class IfcStructuralLoadSingleDisplacement extends IfcStructuralLoadStati
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALLOADSINGLEDISPLACEMENT, EntityTypesIfc.IFCSTRUCTURALLOADSINGLEDISPLACEMENTDISTORTION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALLOADSINGLEDISPLACEMENT;
 }

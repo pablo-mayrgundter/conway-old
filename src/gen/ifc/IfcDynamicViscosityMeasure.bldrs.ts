@@ -54,4 +54,8 @@ export class IfcDynamicViscosityMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDYNAMICVISCOSITYMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDYNAMICVISCOSITYMEASURE;
 }

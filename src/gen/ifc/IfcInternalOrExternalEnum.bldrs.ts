@@ -6,7 +6,9 @@ enum IfcInternalOrExternalEnum {
     EXTERNAL_FIRE = 4,
     NOTDEFINED = 5,
 }
-export { IfcInternalOrExternalEnum };
+const IfcInternalOrExternalEnumCount = 6;
+
+export { IfcInternalOrExternalEnum, IfcInternalOrExternalEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

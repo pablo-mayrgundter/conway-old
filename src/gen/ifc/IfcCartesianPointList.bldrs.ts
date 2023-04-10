@@ -19,7 +19,6 @@ export abstract class IfcCartesianPointList extends IfcGeometricRepresentationIt
     }
 
 
-
     public get Dim() : number
     {
         return IfcPointListDim(this);
@@ -28,4 +27,8 @@ export abstract class IfcCartesianPointList extends IfcGeometricRepresentationIt
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCARTESIANPOINTLIST2D, EntityTypesIfc.IFCCARTESIANPOINTLIST3D ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCARTESIANPOINTLIST;
 }

@@ -19,7 +19,6 @@ export  class IfcAsymmetricIShapeProfileDef extends IfcParameterizedProfileDef
     {
         return EntityTypesIfc.IFCASYMMETRICISHAPEPROFILEDEF;
     }
-
     private BottomFlangeWidth_? : number;
     private OverallDepth_? : number;
     private WebThickness_? : number;
@@ -469,4 +468,8 @@ export  class IfcAsymmetricIShapeProfileDef extends IfcParameterizedProfileDef
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCASYMMETRICISHAPEPROFILEDEF ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCASYMMETRICISHAPEPROFILEDEF;
 }

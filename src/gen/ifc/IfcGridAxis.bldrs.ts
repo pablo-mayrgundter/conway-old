@@ -18,7 +18,6 @@ export  class IfcGridAxis extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCGRIDAXIS;
     }
-
     private AxisTag_? : string | null;
     private AxisCurve_? : IfcCurve;
     private SameSense_? : boolean;
@@ -134,4 +133,8 @@ export  class IfcGridAxis extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCGRIDAXIS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCGRIDAXIS;
 }

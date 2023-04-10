@@ -17,7 +17,6 @@ export  class IfcCircleProfileDef extends IfcParameterizedProfileDef
     {
         return EntityTypesIfc.IFCCIRCLEPROFILEDEF;
     }
-
     private Radius_? : number;
 
     public get Radius() : number
@@ -55,4 +54,8 @@ export  class IfcCircleProfileDef extends IfcParameterizedProfileDef
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCIRCLEPROFILEDEF, EntityTypesIfc.IFCCIRCLEHOLLOWPROFILEDEF ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCIRCLEPROFILEDEF;
 }

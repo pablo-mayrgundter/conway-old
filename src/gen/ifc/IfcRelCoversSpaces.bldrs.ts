@@ -18,7 +18,6 @@ export  class IfcRelCoversSpaces extends IfcRelConnects
     {
         return EntityTypesIfc.IFCRELCOVERSSPACES;
     }
-
     private RelatingSpace_? : IfcSpace;
     private RelatedCoverings_? : Array<IfcCovering>;
 
@@ -102,4 +101,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELCOVERSSPACES ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELCOVERSSPACES;
 }

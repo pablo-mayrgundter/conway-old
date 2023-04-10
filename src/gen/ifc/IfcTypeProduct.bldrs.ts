@@ -18,7 +18,6 @@ export  class IfcTypeProduct extends IfcTypeObject
     {
         return EntityTypesIfc.IFCTYPEPRODUCT;
     }
-
     private RepresentationMaps_? : Array<IfcRepresentationMap> | null;
     private Tag_? : string | null;
 
@@ -114,4 +113,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTYPEPRODUCT, EntityTypesIfc.IFCDOORSTYLE, EntityTypesIfc.IFCWINDOWSTYLE, EntityTypesIfc.IFCCIVILELEMENTTYPE, EntityTypesIfc.IFCDISTRIBUTIONELEMENTTYPE, EntityTypesIfc.IFCELEMENTASSEMBLYTYPE, EntityTypesIfc.IFCFURNISHINGELEMENTTYPE, EntityTypesIfc.IFCGEOGRAPHICELEMENTTYPE, EntityTypesIfc.IFCTRANSPORTELEMENTTYPE, EntityTypesIfc.IFCTYPEOBJECT, EntityTypesIfc.IFCSPATIALZONETYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTYPEPRODUCT;
 }

@@ -18,7 +18,6 @@ export abstract class IfcRelAssociates extends IfcRelationship
     {
         return EntityTypesIfc.IFCRELASSOCIATES;
     }
-
     private RelatedObjects_? : Array<IfcObjectDefinition|IfcPropertyDefinition>;
 
     public get RelatedObjects() : Array<IfcObjectDefinition|IfcPropertyDefinition>
@@ -68,4 +67,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELASSOCIATESAPPROVAL, EntityTypesIfc.IFCRELASSOCIATESCLASSIFICATION, EntityTypesIfc.IFCRELASSOCIATESCONSTRAINT, EntityTypesIfc.IFCRELASSOCIATESDOCUMENT, EntityTypesIfc.IFCRELASSOCIATESLIBRARY, EntityTypesIfc.IFCRELASSOCIATESMATERIAL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELASSOCIATES;
 }

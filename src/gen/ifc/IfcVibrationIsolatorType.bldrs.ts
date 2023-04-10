@@ -17,7 +17,6 @@ export  class IfcVibrationIsolatorType extends IfcElementComponentType
     {
         return EntityTypesIfc.IFCVIBRATIONISOLATORTYPE;
     }
-
     private PredefinedType_? : IfcVibrationIsolatorTypeEnum;
 
     public get PredefinedType() : IfcVibrationIsolatorTypeEnum
@@ -55,4 +54,8 @@ export  class IfcVibrationIsolatorType extends IfcElementComponentType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCVIBRATIONISOLATORTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCVIBRATIONISOLATORTYPE;
 }

@@ -17,7 +17,6 @@ export abstract class IfcStructuralAction extends IfcStructuralActivity
     {
         return EntityTypesIfc.IFCSTRUCTURALACTION;
     }
-
     private DestabilizingLoad_? : boolean | null;
 
     public get DestabilizingLoad() : boolean | null
@@ -62,4 +61,8 @@ export abstract class IfcStructuralAction extends IfcStructuralActivity
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALCURVEACTION, EntityTypesIfc.IFCSTRUCTURALPOINTACTION, EntityTypesIfc.IFCSTRUCTURALSURFACEACTION, EntityTypesIfc.IFCSTRUCTURALLINEARACTION, EntityTypesIfc.IFCSTRUCTURALPLANARACTION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALACTION;
 }

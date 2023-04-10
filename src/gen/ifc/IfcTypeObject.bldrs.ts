@@ -18,7 +18,6 @@ export  class IfcTypeObject extends IfcObjectDefinition
     {
         return EntityTypesIfc.IFCTYPEOBJECT;
     }
-
     private ApplicableOccurrence_? : string | null;
     private HasPropertySets_? : Array<IfcPropertySetDefinition> | null;
 
@@ -114,4 +113,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTYPEOBJECT, EntityTypesIfc.IFCTYPEPRODUCT, EntityTypesIfc.IFCEVENTTYPE, EntityTypesIfc.IFCPROCEDURETYPE, EntityTypesIfc.IFCTASKTYPE, EntityTypesIfc.IFCDOORSTYLE, EntityTypesIfc.IFCWINDOWSTYLE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTYPEOBJECT;
 }

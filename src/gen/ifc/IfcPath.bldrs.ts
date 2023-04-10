@@ -17,7 +17,6 @@ export  class IfcPath extends IfcTopologicalRepresentationItem
     {
         return EntityTypesIfc.IFCPATH;
     }
-
     private EdgeList_? : Array<IfcOrientedEdge>;
 
     public get EdgeList() : Array<IfcOrientedEdge>
@@ -67,4 +66,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPATH ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPATH;
 }

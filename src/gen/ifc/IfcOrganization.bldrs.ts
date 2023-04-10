@@ -20,7 +20,6 @@ export  class IfcOrganization extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCORGANIZATION;
     }
-
     private Identification_? : string | null;
     private Name_? : string;
     private Description_? : string | null;
@@ -241,4 +240,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCORGANIZATION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCORGANIZATION;
 }

@@ -8,7 +8,9 @@ enum IfcPropertySetTemplateTypeEnum {
     QTO_OCCURRENCEDRIVEN = 6,
     NOTDEFINED = 7,
 }
-export { IfcPropertySetTemplateTypeEnum };
+const IfcPropertySetTemplateTypeEnumCount = 8;
+
+export { IfcPropertySetTemplateTypeEnum, IfcPropertySetTemplateTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

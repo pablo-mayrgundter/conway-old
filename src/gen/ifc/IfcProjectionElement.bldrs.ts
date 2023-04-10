@@ -17,7 +17,6 @@ export  class IfcProjectionElement extends IfcFeatureElementAddition
     {
         return EntityTypesIfc.IFCPROJECTIONELEMENT;
     }
-
     private PredefinedType_? : IfcProjectionElementTypeEnum | null;
 
     public get PredefinedType() : IfcProjectionElementTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcProjectionElement extends IfcFeatureElementAddition
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPROJECTIONELEMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPROJECTIONELEMENT;
 }

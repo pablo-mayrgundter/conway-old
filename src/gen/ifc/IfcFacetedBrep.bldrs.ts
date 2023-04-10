@@ -18,9 +18,12 @@ export  class IfcFacetedBrep extends IfcManifoldSolidBrep
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFACETEDBREP, EntityTypesIfc.IFCFACETEDBREPWITHVOIDS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFACETEDBREP;
 }

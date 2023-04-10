@@ -17,7 +17,6 @@ export  class IfcStructuralLoadTemperature extends IfcStructuralLoadStatic
     {
         return EntityTypesIfc.IFCSTRUCTURALLOADTEMPERATURE;
     }
-
     private DeltaTConstant_? : number | null;
     private DeltaTY_? : number | null;
     private DeltaTZ_? : number | null;
@@ -142,4 +141,8 @@ export  class IfcStructuralLoadTemperature extends IfcStructuralLoadStatic
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALLOADTEMPERATURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALLOADTEMPERATURE;
 }

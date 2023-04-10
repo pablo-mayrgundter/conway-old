@@ -7,7 +7,9 @@ enum IfcFireSuppressionTerminalTypeEnum {
     USERDEFINED = 5,
     NOTDEFINED = 6,
 }
-export { IfcFireSuppressionTerminalTypeEnum };
+const IfcFireSuppressionTerminalTypeEnumCount = 7;
+
+export { IfcFireSuppressionTerminalTypeEnum, IfcFireSuppressionTerminalTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

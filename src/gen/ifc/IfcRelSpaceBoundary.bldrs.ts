@@ -22,7 +22,6 @@ export  class IfcRelSpaceBoundary extends IfcRelConnects
     {
         return EntityTypesIfc.IFCRELSPACEBOUNDARY;
     }
-
     private RelatingSpace_? : IfcExternalSpatialElement|IfcSpace;
     private RelatedBuildingElement_? : IfcElement;
     private ConnectionGeometry_? : IfcConnectionGeometry | null;
@@ -202,4 +201,8 @@ export  class IfcRelSpaceBoundary extends IfcRelConnects
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELSPACEBOUNDARY, EntityTypesIfc.IFCRELSPACEBOUNDARY1STLEVEL, EntityTypesIfc.IFCRELSPACEBOUNDARY2NDLEVEL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELSPACEBOUNDARY;
 }

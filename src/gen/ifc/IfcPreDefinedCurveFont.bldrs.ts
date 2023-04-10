@@ -18,9 +18,12 @@ export abstract class IfcPreDefinedCurveFont extends IfcPreDefinedItem
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDRAUGHTINGPREDEFINEDCURVEFONT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPREDEFINEDCURVEFONT;
 }

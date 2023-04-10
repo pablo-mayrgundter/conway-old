@@ -6,7 +6,9 @@ enum IfcFlowMeterTypeEnum {
     USERDEFINED = 4,
     NOTDEFINED = 5,
 }
-export { IfcFlowMeterTypeEnum };
+const IfcFlowMeterTypeEnumCount = 6;
+
+export { IfcFlowMeterTypeEnum, IfcFlowMeterTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

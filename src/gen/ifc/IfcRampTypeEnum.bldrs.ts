@@ -8,7 +8,9 @@ enum IfcRampTypeEnum {
     USERDEFINED = 6,
     NOTDEFINED = 7,
 }
-export { IfcRampTypeEnum };
+const IfcRampTypeEnumCount = 8;
+
+export { IfcRampTypeEnum, IfcRampTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

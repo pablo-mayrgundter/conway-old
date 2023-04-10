@@ -18,9 +18,12 @@ export  class IfcFurnishingElement extends IfcElement
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFURNISHINGELEMENT, EntityTypesIfc.IFCFURNITURE, EntityTypesIfc.IFCSYSTEMFURNITUREELEMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFURNISHINGELEMENT;
 }

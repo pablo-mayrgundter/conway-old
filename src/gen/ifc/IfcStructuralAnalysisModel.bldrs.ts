@@ -21,7 +21,6 @@ export  class IfcStructuralAnalysisModel extends IfcSystem
     {
         return EntityTypesIfc.IFCSTRUCTURALANALYSISMODEL;
     }
-
     private PredefinedType_? : IfcAnalysisModelTypeEnum;
     private OrientationOf2DPlane_? : IfcAxis2Placement3D | null;
     private LoadedBy_? : Array<IfcStructuralLoadGroup> | null;
@@ -241,4 +240,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALANALYSISMODEL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALANALYSISMODEL;
 }

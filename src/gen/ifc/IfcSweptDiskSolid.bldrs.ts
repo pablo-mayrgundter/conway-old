@@ -19,7 +19,6 @@ export  class IfcSweptDiskSolid extends IfcSolidModel
     {
         return EntityTypesIfc.IFCSWEPTDISKSOLID;
     }
-
     private Directrix_? : IfcCurve;
     private Radius_? : number;
     private InnerRadius_? : number | null;
@@ -211,4 +210,8 @@ export  class IfcSweptDiskSolid extends IfcSolidModel
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSWEPTDISKSOLID, EntityTypesIfc.IFCSWEPTDISKSOLIDPOLYGONAL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSWEPTDISKSOLID;
 }

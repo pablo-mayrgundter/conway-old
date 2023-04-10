@@ -11,7 +11,9 @@ enum IfcConstructionMaterialResourceTypeEnum {
     NOTDEFINED = 9,
     USERDEFINED = 10,
 }
-export { IfcConstructionMaterialResourceTypeEnum };
+const IfcConstructionMaterialResourceTypeEnumCount = 11;
+
+export { IfcConstructionMaterialResourceTypeEnum, IfcConstructionMaterialResourceTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

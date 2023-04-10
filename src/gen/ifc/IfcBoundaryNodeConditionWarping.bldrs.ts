@@ -18,7 +18,6 @@ export  class IfcBoundaryNodeConditionWarping extends IfcBoundaryNodeCondition
     {
         return EntityTypesIfc.IFCBOUNDARYNODECONDITIONWARPING;
     }
-
     private WarpingStiffness_? : IfcBoolean|IfcWarpingMomentMeasure | null;
 
     public get WarpingStiffness() : IfcBoolean|IfcWarpingMomentMeasure | null
@@ -64,4 +63,8 @@ export  class IfcBoundaryNodeConditionWarping extends IfcBoundaryNodeCondition
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBOUNDARYNODECONDITIONWARPING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBOUNDARYNODECONDITIONWARPING;
 }

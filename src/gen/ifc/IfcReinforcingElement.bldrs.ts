@@ -17,7 +17,6 @@ export abstract class IfcReinforcingElement extends IfcElementComponent
     {
         return EntityTypesIfc.IFCREINFORCINGELEMENT;
     }
-
     private SteelGrade_? : string | null;
 
     public get SteelGrade() : string | null
@@ -62,4 +61,8 @@ export abstract class IfcReinforcingElement extends IfcElementComponent
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCREINFORCINGBAR, EntityTypesIfc.IFCREINFORCINGMESH, EntityTypesIfc.IFCTENDON, EntityTypesIfc.IFCTENDONANCHOR ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCREINFORCINGELEMENT;
 }

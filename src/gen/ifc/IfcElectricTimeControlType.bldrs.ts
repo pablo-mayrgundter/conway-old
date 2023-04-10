@@ -17,7 +17,6 @@ export  class IfcElectricTimeControlType extends IfcFlowControllerType
     {
         return EntityTypesIfc.IFCELECTRICTIMECONTROLTYPE;
     }
-
     private PredefinedType_? : IfcElectricTimeControlTypeEnum;
 
     public get PredefinedType() : IfcElectricTimeControlTypeEnum
@@ -55,4 +54,8 @@ export  class IfcElectricTimeControlType extends IfcFlowControllerType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCELECTRICTIMECONTROLTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCELECTRICTIMECONTROLTYPE;
 }

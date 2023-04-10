@@ -17,7 +17,6 @@ export  class IfcTransformerType extends IfcEnergyConversionDeviceType
     {
         return EntityTypesIfc.IFCTRANSFORMERTYPE;
     }
-
     private PredefinedType_? : IfcTransformerTypeEnum;
 
     public get PredefinedType() : IfcTransformerTypeEnum
@@ -55,4 +54,8 @@ export  class IfcTransformerType extends IfcEnergyConversionDeviceType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTRANSFORMERTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTRANSFORMERTYPE;
 }

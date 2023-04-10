@@ -18,7 +18,6 @@ export  class IfcBoundaryFaceCondition extends IfcBoundaryCondition
     {
         return EntityTypesIfc.IFCBOUNDARYFACECONDITION;
     }
-
     private TranslationalStiffnessByAreaX_? : IfcBoolean|IfcModulusOfSubgradeReactionMeasure | null;
     private TranslationalStiffnessByAreaY_? : IfcBoolean|IfcModulusOfSubgradeReactionMeasure | null;
     private TranslationalStiffnessByAreaZ_? : IfcBoolean|IfcModulusOfSubgradeReactionMeasure | null;
@@ -146,4 +145,8 @@ export  class IfcBoundaryFaceCondition extends IfcBoundaryCondition
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBOUNDARYFACECONDITION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBOUNDARYFACECONDITION;
 }

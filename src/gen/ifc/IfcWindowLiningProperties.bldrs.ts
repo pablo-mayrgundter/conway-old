@@ -21,7 +21,6 @@ export  class IfcWindowLiningProperties extends IfcPreDefinedPropertySet
     {
         return EntityTypesIfc.IFCWINDOWLININGPROPERTIES;
     }
-
     private LiningDepth_? : number | null;
     private LiningThickness_? : number | null;
     private TransomThickness_? : number | null;
@@ -507,4 +506,8 @@ export  class IfcWindowLiningProperties extends IfcPreDefinedPropertySet
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCWINDOWLININGPROPERTIES ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCWINDOWLININGPROPERTIES;
 }

@@ -54,4 +54,8 @@ export class IfcStrippedOptional extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRIPPEDOPTIONAL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRIPPEDOPTIONAL;
 }

@@ -6,7 +6,9 @@ enum IfcProtectiveDeviceTrippingUnitTypeEnum {
     USERDEFINED = 4,
     NOTDEFINED = 5,
 }
-export { IfcProtectiveDeviceTrippingUnitTypeEnum };
+const IfcProtectiveDeviceTrippingUnitTypeEnumCount = 6;
+
+export { IfcProtectiveDeviceTrippingUnitTypeEnum, IfcProtectiveDeviceTrippingUnitTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

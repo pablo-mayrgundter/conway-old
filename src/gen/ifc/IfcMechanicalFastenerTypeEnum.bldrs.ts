@@ -12,7 +12,9 @@ enum IfcMechanicalFastenerTypeEnum {
     USERDEFINED = 10,
     NOTDEFINED = 11,
 }
-export { IfcMechanicalFastenerTypeEnum };
+const IfcMechanicalFastenerTypeEnumCount = 12;
+
+export { IfcMechanicalFastenerTypeEnum, IfcMechanicalFastenerTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

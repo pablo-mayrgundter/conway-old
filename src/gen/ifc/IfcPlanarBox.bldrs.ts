@@ -18,7 +18,6 @@ export  class IfcPlanarBox extends IfcPlanarExtent
     {
         return EntityTypesIfc.IFCPLANARBOX;
     }
-
     private Placement_? : IfcAxis2Placement2D|IfcAxis2Placement3D;
 
     public get Placement() : IfcAxis2Placement2D|IfcAxis2Placement3D
@@ -57,4 +56,8 @@ export  class IfcPlanarBox extends IfcPlanarExtent
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPLANARBOX ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPLANARBOX;
 }

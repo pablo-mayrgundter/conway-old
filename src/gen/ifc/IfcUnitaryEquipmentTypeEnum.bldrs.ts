@@ -7,7 +7,9 @@ enum IfcUnitaryEquipmentTypeEnum {
     USERDEFINED = 5,
     NOTDEFINED = 6,
 }
-export { IfcUnitaryEquipmentTypeEnum };
+const IfcUnitaryEquipmentTypeEnumCount = 7;
+
+export { IfcUnitaryEquipmentTypeEnum, IfcUnitaryEquipmentTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

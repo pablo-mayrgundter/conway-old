@@ -19,7 +19,6 @@ export  class IfcClassificationReference extends IfcExternalReference
     {
         return EntityTypesIfc.IFCCLASSIFICATIONREFERENCE;
     }
-
     private ReferencedSource_? : IfcClassification|IfcClassificationReference | null;
     private Description_? : string | null;
     private Sort_? : string | null;
@@ -147,4 +146,8 @@ export  class IfcClassificationReference extends IfcExternalReference
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCLASSIFICATIONREFERENCE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCLASSIFICATIONREFERENCE;
 }
