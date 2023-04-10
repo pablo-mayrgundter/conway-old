@@ -24,7 +24,7 @@ export abstract class IfcPropertyDefinition extends IfcRoot
         super( localID, internalReference, model );
     }
 
-    public static readonly query = [ EntityTypesIfc.IFCPROPERTYSET, EntityTypesIfc.IFCPROPERTYSETTEMPLATE ];
+    public static readonly query = [ EntityTypesIfc.IFCPROPERTYSET, EntityTypesIfc.IFCDOORLININGPROPERTIES, EntityTypesIfc.IFCDOORPANELPROPERTIES, EntityTypesIfc.IFCPERMEABLECOVERINGPROPERTIES, EntityTypesIfc.IFCREINFORCEMENTDEFINITIONPROPERTIES, EntityTypesIfc.IFCWINDOWLININGPROPERTIES, EntityTypesIfc.IFCWINDOWPANELPROPERTIES, EntityTypesIfc.IFCELEMENTQUANTITY, EntityTypesIfc.IFCPROPERTYSETTEMPLATE, EntityTypesIfc.IFCCOMPLEXPROPERTYTEMPLATE, EntityTypesIfc.IFCSIMPLEPROPERTYTEMPLATE ];
 
     public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPROPERTYDEFINITION;
 }

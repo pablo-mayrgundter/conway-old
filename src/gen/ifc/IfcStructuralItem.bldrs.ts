@@ -23,7 +23,7 @@ export abstract class IfcStructuralItem extends IfcProduct
         super( localID, internalReference, model );
     }
 
-    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALCURVECONNECTION, EntityTypesIfc.IFCSTRUCTURALPOINTCONNECTION, EntityTypesIfc.IFCSTRUCTURALSURFACECONNECTION, EntityTypesIfc.IFCSTRUCTURALCURVEMEMBER, EntityTypesIfc.IFCSTRUCTURALSURFACEMEMBER ];
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALCURVECONNECTION, EntityTypesIfc.IFCSTRUCTURALPOINTCONNECTION, EntityTypesIfc.IFCSTRUCTURALSURFACECONNECTION, EntityTypesIfc.IFCSTRUCTURALCURVEMEMBER, EntityTypesIfc.IFCSTRUCTURALSURFACEMEMBER, EntityTypesIfc.IFCSTRUCTURALCURVEMEMBERVARYING, EntityTypesIfc.IFCSTRUCTURALSURFACEMEMBERVARYING ];
 
     public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALITEM;
 }

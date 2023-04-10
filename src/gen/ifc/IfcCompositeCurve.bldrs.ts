@@ -108,7 +108,7 @@ return value; })();
         super( localID, internalReference, model );
     }
 
-    public static readonly query = [ EntityTypesIfc.IFCCOMPOSITECURVE, EntityTypesIfc.IFCCOMPOSITECURVEONSURFACE, EntityTypesIfc.IFCBOUNDARYCURVE ];
+    public static readonly query = [ EntityTypesIfc.IFCCOMPOSITECURVE, EntityTypesIfc.IFCCOMPOSITECURVEONSURFACE, EntityTypesIfc.IFCBOUNDARYCURVE, EntityTypesIfc.IFCOUTERBOUNDARYCURVE ];
 
     public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCOMPOSITECURVE;
 }

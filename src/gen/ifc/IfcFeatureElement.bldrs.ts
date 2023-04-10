@@ -23,7 +23,7 @@ export abstract class IfcFeatureElement extends IfcElement
         super( localID, internalReference, model );
     }
 
-    public static readonly query = [ EntityTypesIfc.IFCSURFACEFEATURE, EntityTypesIfc.IFCPROJECTIONELEMENT, EntityTypesIfc.IFCOPENINGELEMENT, EntityTypesIfc.IFCVOIDINGFEATURE ];
+    public static readonly query = [ EntityTypesIfc.IFCSURFACEFEATURE, EntityTypesIfc.IFCPROJECTIONELEMENT, EntityTypesIfc.IFCOPENINGELEMENT, EntityTypesIfc.IFCVOIDINGFEATURE, EntityTypesIfc.IFCOPENINGSTANDARDCASE ];
 
     public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFEATUREELEMENT;
 }

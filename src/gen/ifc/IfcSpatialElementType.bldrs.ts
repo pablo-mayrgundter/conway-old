@@ -62,7 +62,7 @@ export abstract class IfcSpatialElementType extends IfcTypeProduct
         super( localID, internalReference, model );
     }
 
-    public static readonly query = [ EntityTypesIfc.IFCSPATIALZONETYPE, EntityTypesIfc.IFCSPACETYPE, EntityTypesIfc.IFCTYPEPRODUCT, EntityTypesIfc.IFCTYPEOBJECT ];
+    public static readonly query = [ EntityTypesIfc.IFCSPATIALZONETYPE, EntityTypesIfc.IFCSPACETYPE ];
 
     public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSPATIALELEMENTTYPE;
 }

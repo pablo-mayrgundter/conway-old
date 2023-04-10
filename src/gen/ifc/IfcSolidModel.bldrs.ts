@@ -28,7 +28,7 @@ export abstract class IfcSolidModel extends IfcGeometricRepresentationItem
         super( localID, internalReference, model );
     }
 
-    public static readonly query = [ EntityTypesIfc.IFCCSGSOLID, EntityTypesIfc.IFCSWEPTDISKSOLID, EntityTypesIfc.IFCADVANCEDBREP, EntityTypesIfc.IFCFACETEDBREP, EntityTypesIfc.IFCEXTRUDEDAREASOLID, EntityTypesIfc.IFCFIXEDREFERENCESWEPTAREASOLID, EntityTypesIfc.IFCREVOLVEDAREASOLID, EntityTypesIfc.IFCSURFACECURVESWEPTAREASOLID, EntityTypesIfc.IFCSWEPTDISKSOLIDPOLYGONAL ];
+    public static readonly query = [ EntityTypesIfc.IFCCSGSOLID, EntityTypesIfc.IFCSWEPTDISKSOLID, EntityTypesIfc.IFCADVANCEDBREP, EntityTypesIfc.IFCFACETEDBREP, EntityTypesIfc.IFCADVANCEDBREPWITHVOIDS, EntityTypesIfc.IFCFACETEDBREPWITHVOIDS, EntityTypesIfc.IFCEXTRUDEDAREASOLID, EntityTypesIfc.IFCFIXEDREFERENCESWEPTAREASOLID, EntityTypesIfc.IFCREVOLVEDAREASOLID, EntityTypesIfc.IFCSURFACECURVESWEPTAREASOLID, EntityTypesIfc.IFCEXTRUDEDAREASOLIDTAPERED, EntityTypesIfc.IFCREVOLVEDAREASOLIDTAPERED, EntityTypesIfc.IFCSWEPTDISKSOLIDPOLYGONAL ];
 
     public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSOLIDMODEL;
 }

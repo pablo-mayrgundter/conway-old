@@ -23,7 +23,7 @@ export abstract class IfcBoundedSurface extends IfcSurface
         super( localID, internalReference, model );
     }
 
-    public static readonly query = [ EntityTypesIfc.IFCCURVEBOUNDEDPLANE, EntityTypesIfc.IFCCURVEBOUNDEDSURFACE, EntityTypesIfc.IFCRECTANGULARTRIMMEDSURFACE, EntityTypesIfc.IFCBSPLINESURFACEWITHKNOTS ];
+    public static readonly query = [ EntityTypesIfc.IFCCURVEBOUNDEDPLANE, EntityTypesIfc.IFCCURVEBOUNDEDSURFACE, EntityTypesIfc.IFCRECTANGULARTRIMMEDSURFACE, EntityTypesIfc.IFCBSPLINESURFACEWITHKNOTS, EntityTypesIfc.IFCRATIONALBSPLINESURFACEWITHKNOTS ];
 
     public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBOUNDEDSURFACE;
 }

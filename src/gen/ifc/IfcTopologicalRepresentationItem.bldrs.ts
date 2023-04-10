@@ -23,7 +23,7 @@ export abstract class IfcTopologicalRepresentationItem extends IfcRepresentation
         super( localID, internalReference, model );
     }
 
-    public static readonly query = [ EntityTypesIfc.IFCCONNECTEDFACESET, EntityTypesIfc.IFCEDGE, EntityTypesIfc.IFCFACE, EntityTypesIfc.IFCFACEBOUND, EntityTypesIfc.IFCLOOP, EntityTypesIfc.IFCPATH, EntityTypesIfc.IFCVERTEX, EntityTypesIfc.IFCCLOSEDSHELL, EntityTypesIfc.IFCOPENSHELL, EntityTypesIfc.IFCEDGECURVE, EntityTypesIfc.IFCORIENTEDEDGE, EntityTypesIfc.IFCSUBEDGE, EntityTypesIfc.IFCFACESURFACE, EntityTypesIfc.IFCFACEOUTERBOUND, EntityTypesIfc.IFCEDGELOOP, EntityTypesIfc.IFCPOLYLOOP, EntityTypesIfc.IFCVERTEXLOOP, EntityTypesIfc.IFCVERTEXPOINT ];
+    public static readonly query = [ EntityTypesIfc.IFCCONNECTEDFACESET, EntityTypesIfc.IFCEDGE, EntityTypesIfc.IFCFACE, EntityTypesIfc.IFCFACEBOUND, EntityTypesIfc.IFCLOOP, EntityTypesIfc.IFCPATH, EntityTypesIfc.IFCVERTEX, EntityTypesIfc.IFCCLOSEDSHELL, EntityTypesIfc.IFCOPENSHELL, EntityTypesIfc.IFCEDGECURVE, EntityTypesIfc.IFCORIENTEDEDGE, EntityTypesIfc.IFCSUBEDGE, EntityTypesIfc.IFCFACESURFACE, EntityTypesIfc.IFCADVANCEDFACE, EntityTypesIfc.IFCFACEOUTERBOUND, EntityTypesIfc.IFCEDGELOOP, EntityTypesIfc.IFCPOLYLOOP, EntityTypesIfc.IFCVERTEXLOOP, EntityTypesIfc.IFCVERTEXPOINT ];
 
     public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTOPOLOGICALREPRESENTATIONITEM;
 }

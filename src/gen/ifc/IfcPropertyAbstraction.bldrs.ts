@@ -22,7 +22,7 @@ export abstract class IfcPropertyAbstraction extends StepEntityBase< EntityTypes
         super( localID, internalReference, model );
     }
 
-    public static readonly query = [ EntityTypesIfc.IFCPROPERTYENUMERATION, EntityTypesIfc.IFCMATERIALPROPERTIES, EntityTypesIfc.IFCPROFILEPROPERTIES, EntityTypesIfc.IFCREINFORCEMENTBARPROPERTIES, EntityTypesIfc.IFCSECTIONPROPERTIES, EntityTypesIfc.IFCSECTIONREINFORCEMENTPROPERTIES, EntityTypesIfc.IFCCOMPLEXPROPERTY ];
+    public static readonly query = [ EntityTypesIfc.IFCPROPERTYENUMERATION, EntityTypesIfc.IFCMATERIALPROPERTIES, EntityTypesIfc.IFCPROFILEPROPERTIES, EntityTypesIfc.IFCREINFORCEMENTBARPROPERTIES, EntityTypesIfc.IFCSECTIONPROPERTIES, EntityTypesIfc.IFCSECTIONREINFORCEMENTPROPERTIES, EntityTypesIfc.IFCCOMPLEXPROPERTY, EntityTypesIfc.IFCPROPERTYBOUNDEDVALUE, EntityTypesIfc.IFCPROPERTYENUMERATEDVALUE, EntityTypesIfc.IFCPROPERTYLISTVALUE, EntityTypesIfc.IFCPROPERTYREFERENCEVALUE, EntityTypesIfc.IFCPROPERTYSINGLEVALUE, EntityTypesIfc.IFCPROPERTYTABLEVALUE ];
 
     public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPROPERTYABSTRACTION;
 }

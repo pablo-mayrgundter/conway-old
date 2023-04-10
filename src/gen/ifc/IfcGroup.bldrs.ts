@@ -23,7 +23,7 @@ export  class IfcGroup extends IfcObject
         super( localID, internalReference, model );
     }
 
-    public static readonly query = [ EntityTypesIfc.IFCGROUP, EntityTypesIfc.IFCASSET, EntityTypesIfc.IFCINVENTORY, EntityTypesIfc.IFCSTRUCTURALLOADGROUP, EntityTypesIfc.IFCSTRUCTURALRESULTGROUP, EntityTypesIfc.IFCSYSTEM, EntityTypesIfc.IFCSTRUCTURALLOADCASE, EntityTypesIfc.IFCBUILDINGSYSTEM, EntityTypesIfc.IFCDISTRIBUTIONSYSTEM, EntityTypesIfc.IFCSTRUCTURALANALYSISMODEL, EntityTypesIfc.IFCZONE ];
+    public static readonly query = [ EntityTypesIfc.IFCGROUP, EntityTypesIfc.IFCASSET, EntityTypesIfc.IFCINVENTORY, EntityTypesIfc.IFCSTRUCTURALLOADGROUP, EntityTypesIfc.IFCSTRUCTURALRESULTGROUP, EntityTypesIfc.IFCSYSTEM, EntityTypesIfc.IFCSTRUCTURALLOADCASE, EntityTypesIfc.IFCBUILDINGSYSTEM, EntityTypesIfc.IFCDISTRIBUTIONSYSTEM, EntityTypesIfc.IFCSTRUCTURALANALYSISMODEL, EntityTypesIfc.IFCZONE, EntityTypesIfc.IFCDISTRIBUTIONCIRCUIT ];
 
     public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCGROUP;
 }

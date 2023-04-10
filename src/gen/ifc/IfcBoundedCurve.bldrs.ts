@@ -23,7 +23,7 @@ export abstract class IfcBoundedCurve extends IfcCurve
         super( localID, internalReference, model );
     }
 
-    public static readonly query = [ EntityTypesIfc.IFCCOMPOSITECURVE, EntityTypesIfc.IFCINDEXEDPOLYCURVE, EntityTypesIfc.IFCPOLYLINE, EntityTypesIfc.IFCTRIMMEDCURVE, EntityTypesIfc.IFCBSPLINECURVEWITHKNOTS, EntityTypesIfc.IFCCOMPOSITECURVEONSURFACE ];
+    public static readonly query = [ EntityTypesIfc.IFCCOMPOSITECURVE, EntityTypesIfc.IFCINDEXEDPOLYCURVE, EntityTypesIfc.IFCPOLYLINE, EntityTypesIfc.IFCTRIMMEDCURVE, EntityTypesIfc.IFCBSPLINECURVEWITHKNOTS, EntityTypesIfc.IFCRATIONALBSPLINECURVEWITHKNOTS, EntityTypesIfc.IFCCOMPOSITECURVEONSURFACE, EntityTypesIfc.IFCBOUNDARYCURVE, EntityTypesIfc.IFCOUTERBOUNDARYCURVE ];
 
     public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBOUNDEDCURVE;
 }
