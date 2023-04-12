@@ -7,8 +7,8 @@ import { ConwayGeometry, ParamsPolygonalFaceSet, GeometryObject } from "../../..
 import IfcStepParser from './ifc_step_parser';
 import { IfcPolygonalFaceSet, IfcIndexedPolygonalFace } from '../../gen/ifc';
 
-type GlmVec3Array = any;
-type UintVector   = any;
+type NativeVectorGlmVec3 = any;
+type NativeUintVector   = any;
 
 
 
@@ -33,24 +33,61 @@ export class IfcGeometryExtraction {
         }
     }
 
-    async initialize() {
+    async initialize() 
+    {
         await this.conwayGeom.initialize();
-        console.log("Testing...");
     }
 
-    getGeometry() : GeometryObject[] {
+    getGeometry() : GeometryObject[] 
+    {
         return this.geometryArray;
     }
 
-    getWasmModule() : any {
+    getWasmModule() : any 
+    {
         return this.conwayGeom.wasmModule;
     }
 
-    isInitialized() : Boolean {
+    /*
+    These native memory helpers should probably be in their own class ...
+     */
+    nativeVectorGlmVec3(initialSize?: number) : NativeVectorGlmVec3 
+    {
+        let nativeVectorGlmVec3_ = new (this.getWasmModule().glmVec3Array as NativeVectorGlmVec3)();
+
+        if (initialSize)
+        {
+            //resize has a required second parameter to set default values if new vector size > old vector size
+            nativeVectorGlmVec3_.resize(initialSize, {x:0, y:0, z:0});
+        }
+
+        return nativeVectorGlmVec3_;
+    }
+
+    /*
+    These native memory helpers should probably be in their own class ...
+     */
+    nativeUintVector(initialize?: number) : NativeUintVector 
+    {
+        let nativeUintVector_ = new (this.getWasmModule().UintVector as NativeUintVector)();
+
+        if (initialize)
+        {
+            //resize has a required second parameter to set default values if new vector size > old vector size
+            nativeUintVector_.resize(initialize, 0);
+        }
+
+        return nativeUintVector_;
+    }
+
+
+    isInitialized() : Boolean 
+    {
         return this.conwayGeom.initialized;
     }
 
-    getModelId(): Number {
+    getModelId(): Number 
+    {
         if (this.isInitialized())
         {
             return this.conwayGeom.modelId;
@@ -60,23 +97,28 @@ export class IfcGeometryExtraction {
         }
     }
 
-    addGeometry(geometry: GeometryObject) {
+    addGeometry(geometry: GeometryObject) 
+    {
         this.geometryArray.push(geometry);
     }
 
-    myTestFunction(param: any) : any {
+    myTestFunction(param: any) : any 
+    {
         return this.conwayGeom.myTestFunction(param);
     }
 
-    toObj(geometry:GeometryObject): string {
+    toObj(geometry:GeometryObject): string 
+    {
         return this.conwayGeom.toObj(geometry);
     }
 
-    destroy() {
+    destroy() 
+    {
         this.conwayGeom.destroy();
     }
 
-    printGeometryInfo(geometry: GeometryObject) {
+    printGeometryInfo(geometry: GeometryObject) 
+    {
         const vertexDataPtr = geometry.GetVertexData();
         const vertexDataSize = geometry.GetVertexDataSize();
         const indexDataPtr = geometry.GetIndexData();
@@ -100,7 +142,7 @@ export class IfcGeometryExtraction {
         console.log("returnedIndexData[0]: " + returnedIndexData[0]); // prints the first element of indexData
     }
 
-    extractIFCGeometryData()
+    extractIFCGeometryData(logTime:boolean = false) : ParseResult
     {
         let bufferInput = new ParsingBuffer( this.indexIfcBuffer );
         let result0     = this.parser.parseHeader( bufferInput )[ 1 ];
@@ -114,16 +156,17 @@ export class IfcGeometryExtraction {
 
         if ( model === void 0 )
         {
-            return;
+            return ParseResult.INCOMPLETE;
         }
 
         let entities = Array.from( model );
 
         if ( entities.length !== 287 )
         {
-            return;
+            return ParseResult.INCOMPLETE;
         }
 
+        const startTime = process.hrtime();
         for (const entity of entities)
         {
             if (entity instanceof IfcPolygonalFaceSet)
@@ -136,29 +179,34 @@ export class IfcGeometryExtraction {
 
                 let indicesPerFace: number = -1;
 
+                //if the first Face is valid, we can set the indicesPerFace here. 
                 if ( entity.Faces.at(0) != undefined )
                 {
                     indicesPerFace = entity.Faces.at(0)!.CoordIndex.length;
+                } 
+                else
+                {
+                    result = ParseResult.INCOMPLETE;
+                    continue;
                 }
 
                 const indices = Array.from(faces, (face) => face.CoordIndex).flat();            
 
-                //initialize new native glm vec3 array object 
-                const pointsArray:GlmVec3Array = new (this.getWasmModule().glmVec3Array as GlmVec3Array)();
-
-                //TODO: get resize() working
+                //initialize new native glm::vec3 array object (free memory with delete())
+                const pointsArray:NativeVectorGlmVec3 = this.nativeVectorGlmVec3(points.length);
 
                 //populate points array 
-                for (let i = 0; i < points.length; i++) {
-                    pointsArray.push_back(points[i]);
+                for (let i = 0; i < points.length; i++) 
+                {
+                    pointsArray.set(i, points[i]);
                 }
                 
-                //TODO: get resize() working
-                //populate indices array 
-                const indicesArray:UintVector = new (this.getWasmModule().UintVector as UintVector)();
+                //initialize new native indices array (free memory with delete())
+                const indicesArray:NativeUintVector = this.nativeUintVector(indices.length);
+
                 for (let i = 0; i < indices.length; i++)
                 {
-                    indicesArray.push_back(indices[i]);
+                    indicesArray.set(i, indices[i]);
                 }
 
                 const parameters: ParamsPolygonalFaceSet = {
@@ -172,6 +220,7 @@ export class IfcGeometryExtraction {
 
                 const geometry:GeometryObject = this.conwayGeom.getGeometry(parameters);
 
+                //add geometry to the list of geometry objects returned by wasm module 
                 this.addGeometry(geometry);
 
                 //free allocated wasm vectors
@@ -180,13 +229,19 @@ export class IfcGeometryExtraction {
             }
         }
 
+        const endTime = process.hrtime(startTime);
+        const executionTimeInMs = (endTime[0] * 1e9 + endTime[1]) / 1e6;
+
+        if (logTime)
+        {
+            console.log(`Geometry Extraction took ${executionTimeInMs} milliseconds to execute.`);
+        }
+
         return result;
     }
-
-
 }
 
-let ifcGeometryExtraction: IfcGeometryExtraction;
+/*let ifcGeometryExtraction: IfcGeometryExtraction;
 
 async function initializeGeometryExtractor()
 {
@@ -200,12 +255,19 @@ async function initializeGeometryExtractor()
 
 async function testing()
 {
+    //wasm module initialization happens asynchronously ... 
     await initializeGeometryExtractor();
+
+    //parse + extract data model + geometry data
     ifcGeometryExtraction.extractIFCGeometryData();
 
+    //get list of GeometryObjects 
     const geometryArray = ifcGeometryExtraction.getGeometry();
 
-    var fullGeometry = geometryArray[0];
+    console.log("Geometry Array Length: " + ifcGeometryExtraction.getGeometry().length);
+
+    //we can assign the first GeometryObject to another variable here to combine them all.
+    /*var fullGeometry = geometryArray[0];
     for (let i = 0; i < geometryArray.length; i++)
     {
         ifcGeometryExtraction.printGeometryInfo(geometryArray[i]);
@@ -220,8 +282,11 @@ async function testing()
     ifcGeometryExtraction.printGeometryInfo(fullGeometry);
 
     console.log("\nWriting Obj file...");
-    const objResult = ifcGeometryExtraction.toObj(fullGeometry);
 
+    //returns a string containing a full obj
+    /*const objResult = ifcGeometryExtraction.toObj(fullGeometry);
+
+    //write to FS
     const filename = "output.obj";
     fs.writeFile(filename, objResult, function (err) {
         if (err) {
@@ -230,8 +295,6 @@ async function testing()
           console.log("Data written to file:", filename);
         }
       });
-      
-    console.log("Wrote full geometry to " + filename );
 }
 
-testing();
+testing();*/
