@@ -3,9 +3,10 @@
 import fs from 'fs';
 import ParsingBuffer from '../../../dependencies/conway-ds/src/parsing/parsing_buffer';
 import { ParseResult } from '../../../dependencies/conway-ds/src/parsing/step/step_parser';
-import { ConwayGeometry, ParamsPolygonalFaceSet, GeometryObject } from "../../../dependencies/conway-geom/conway_geometry";
+import { ConwayGeometry, ParamsPolygonalFaceSet, GeometryObject, ResultsGltf } from "../../../dependencies/conway-geom/conway_geometry";
 import IfcStepParser from './ifc_step_parser';
 import { IfcPolygonalFaceSet, IfcIndexedPolygonalFace } from '../../gen/ifc';
+import { buffer } from 'stream/consumers';
 
 type NativeVectorGlmVec3 = any;
 type NativeUintVector   = any;
@@ -97,28 +98,27 @@ export class IfcGeometryExtraction {
         }
     }
 
-    addGeometry(geometry: GeometryObject) 
-    {
+    addGeometry(geometry: GeometryObject) {
         this.geometryArray.push(geometry);
     }
 
-    myTestFunction(param: any) : any 
-    {
+    myTestFunction(param: any) : any {
         return this.conwayGeom.myTestFunction(param);
     }
 
-    toObj(geometry:GeometryObject): string 
-    {
+    toObj(geometry:GeometryObject): string {
         return this.conwayGeom.toObj(geometry);
     }
 
-    destroy() 
-    {
+    toGltf(geometry:GeometryObject, isGlb:boolean, outputDraco:boolean, fileUri:string) : ResultsGltf {
+        return this.conwayGeom.toGltf(geometry, isGlb, outputDraco, fileUri);
+    }
+
+    destroy() {
         this.conwayGeom.destroy();
     }
 
-    printGeometryInfo(geometry: GeometryObject) 
-    {
+    printGeometryInfo(geometry: GeometryObject) {
         const vertexDataPtr = geometry.GetVertexData();
         const vertexDataSize = geometry.GetVertexDataSize();
         const indexDataPtr = geometry.GetIndexData();
@@ -142,8 +142,7 @@ export class IfcGeometryExtraction {
         console.log("returnedIndexData[0]: " + returnedIndexData[0]); // prints the first element of indexData
     }
 
-    extractIFCGeometryData(logTime:boolean = false) : ParseResult
-    {
+    extractIFCGeometryData(logTime:boolean = false) : ParseResult {
         let bufferInput = new ParsingBuffer( this.indexIfcBuffer );
         let result0     = this.parser.parseHeader( bufferInput )[ 1 ];
 
@@ -241,7 +240,7 @@ export class IfcGeometryExtraction {
     }
 }
 
-/*let ifcGeometryExtraction: IfcGeometryExtraction;
+let ifcGeometryExtraction: IfcGeometryExtraction;
 
 async function initializeGeometryExtractor()
 {
@@ -264,13 +263,13 @@ async function testing()
     //get list of GeometryObjects 
     const geometryArray = ifcGeometryExtraction.getGeometry();
 
-    console.log("Geometry Array Length: " + ifcGeometryExtraction.getGeometry().length);
+   // console.log("Geometry Array Length: " + ifcGeometryExtraction.getGeometry().length + "\n");
 
     //we can assign the first GeometryObject to another variable here to combine them all.
-    /*var fullGeometry = geometryArray[0];
+    var fullGeometry = geometryArray[0];
     for (let i = 0; i < geometryArray.length; i++)
     {
-        ifcGeometryExtraction.printGeometryInfo(geometryArray[i]);
+        //ifcGeometryExtraction.printGeometryInfo(geometryArray[i]);
 
         if (i > 0)
         {
@@ -278,23 +277,144 @@ async function testing()
         }
     }
 
-    console.log("\n\nfullGeometry: ");
-    ifcGeometryExtraction.printGeometryInfo(fullGeometry);
-
-    console.log("\nWriting Obj file...");
-
     //returns a string containing a full obj
-    /*const objResult = ifcGeometryExtraction.toObj(fullGeometry);
+    const startTimeObj = process.hrtime();
+    const objResult = ifcGeometryExtraction.toObj(fullGeometry);
+    const endTimeObj = process.hrtime(startTimeObj);
+    const executionTimeInMsObj = (endTimeObj[0] * 1e9 + endTimeObj[1]) / 1e6;
 
     //write to FS
-    const filename = "output.obj";
+    const filename = "index_ifc_test.obj";
     fs.writeFile(filename, objResult, function (err) {
         if (err) {
-          console.error("Error writing to file:", err);
+          console.error("Error writing to file: ", err);
         } else {
-          console.log("Data written to file:", filename);
+          console.log("Data written to file: ", filename);
         }
       });
+
+    const startTimeGlb = process.hrtime();
+    const glbResult = ifcGeometryExtraction.toGltf(fullGeometry, true, false, "index_ifc_test");
+    const endTimeGlb = process.hrtime(startTimeGlb);
+    const executionTimeInMsGlb = (endTimeGlb[0] * 1e9 + endTimeGlb[1]) / 1e6;
+
+    if ( glbResult.success ) {
+
+        if (glbResult.buffers.size() != glbResult.bufferUris.size() ) {
+            console.log("Error! Buffer size != Buffer URI size!\n");
+            return; 
+        }
+
+        for (let uriIndex = 0; uriIndex < glbResult.bufferUris.size(); uriIndex++) {
+            let uri = glbResult.bufferUris.get(uriIndex);
+            console.log("Writing " + uri + " ...");
+
+             // Create a memory view from the native vector 
+            const managedBuffer:Uint8Array = ifcGeometryExtraction.getWasmModule().GetUint8Array(glbResult.buffers.get(uriIndex));
+            fs.writeFile(uri, managedBuffer, function (err) {
+                if (err) {
+                  console.error("Error writing to file: ", err);
+                } else {
+                  console.log("Data written to file: ", uri);
+                }
+            });
+        }
+    }
+
+    console.log("Writing GLB (Draco)...");
+    const startTimeGlbDraco = process.hrtime();
+    const glbDracoResult = ifcGeometryExtraction.toGltf(fullGeometry, true, true, "index_ifc_test_draco");
+    const endTimeGlbDraco = process.hrtime(startTimeGlbDraco);
+    const executionTimeInMsGlbDraco = (endTimeGlbDraco[0] * 1e9 + endTimeGlbDraco[1]) / 1e6;
+
+    if ( glbDracoResult.success ) {
+
+        if (glbDracoResult.buffers.size() != glbDracoResult.bufferUris.size() ) {
+            console.log("Error! Buffer size != Buffer URI size!\n");
+            return; 
+        }
+
+        for (let uriIndex = 0; uriIndex < glbDracoResult.bufferUris.size(); uriIndex++) {
+            let uri = glbDracoResult.bufferUris.get(uriIndex);
+            console.log("Writing " + uri + " ...");
+            
+            // Create a memory view from the native vector 
+            const managedBuffer:Uint8Array = ifcGeometryExtraction.getWasmModule().GetUint8Array(glbDracoResult.buffers.get(uriIndex));
+            fs.writeFile(uri, managedBuffer, function (err) {
+                if (err) {
+                  console.error("Error writing to file: ", err);
+                } else {
+                  console.log("Data written to file: ", uri);
+                }
+            });
+        }
+    }
+
+    console.log("Writing GLTF...");
+    const startTimeGltf = process.hrtime();
+    const gltfResult = ifcGeometryExtraction.toGltf(fullGeometry, false, false, "index_ifc_test");
+    const endTimeGltf = process.hrtime(startTimeGltf);
+    const executionTimeInMsGltf = (endTimeGltf[0] * 1e9 + endTimeGltf[1]) / 1e6;
+
+    if ( gltfResult.success ) {
+       
+        if (gltfResult.buffers.size() != gltfResult.bufferUris.size() ) {
+            console.log("Error! Buffer size != Buffer URI size!\n");
+            return; 
+        }
+
+        for (let uriIndex = 0; uriIndex < gltfResult.bufferUris.size(); uriIndex++) {
+            let uri = gltfResult.bufferUris.get(uriIndex);
+            console.log("Writing " + uri + " ...");
+
+            // Create a memory view from the native vector 
+            const managedBuffer:Uint8Array = ifcGeometryExtraction.getWasmModule().GetUint8Array(gltfResult.buffers.get(uriIndex));
+
+            fs.writeFile(uri, managedBuffer, function (err) {
+                if (err) {
+                  console.error("Error writing to file: ", err);
+                } else {
+                  console.log("Data written to file: ", uri);
+                }
+            });
+        }
+    }
+
+    console.log("Writing GLTF (Draco)...");
+    const startTimeGltfDraco = process.hrtime();
+    const gltfDracoResult = ifcGeometryExtraction.toGltf(fullGeometry, false, true, "index_ifc_test_draco");
+    const endTimeGltfDraco = process.hrtime(startTimeGltfDraco);
+    const executionTimeInMsGltfDraco = (endTimeGltfDraco[0] * 1e9 + endTimeGltfDraco[1]) / 1e6;
+
+    console.log(`OBJ Generation took ${executionTimeInMsObj} milliseconds to execute.`);
+    console.log(`GLB Generation took ${executionTimeInMsGlb} milliseconds to execute.`);
+    console.log(`GLB (Draco) Generation took ${executionTimeInMsGlbDraco} milliseconds to execute.`);
+    console.log(`GLTF Generation took ${executionTimeInMsGltf} milliseconds to execute.`);
+    console.log(`GLTF (Draco) Generation took ${executionTimeInMsGltfDraco} milliseconds to execute.`);
+
+    if ( gltfDracoResult.success ) {
+       
+        if (gltfDracoResult.buffers.size() != gltfDracoResult.bufferUris.size() ) {
+            console.log("Error! Buffer size != Buffer URI size!\n");
+            return; 
+        }
+
+        for (let uriIndex = 0; uriIndex < gltfDracoResult.bufferUris.size(); uriIndex++) {
+            let uri = gltfDracoResult.bufferUris.get(uriIndex);
+            console.log("Writing " + uri + " ...");
+
+            // Create a memory view from the native vector 
+            const managedBuffer:Uint8Array = ifcGeometryExtraction.getWasmModule().GetUint8Array(gltfDracoResult.buffers.get(uriIndex));
+
+           fs.writeFile(uri, managedBuffer, function (err) {
+                if (err) {
+                  console.error("Error writing to file: ", err);
+                } else {
+                  console.log("Data written to file: ", uri);
+                }
+            });
+        }
+    }
 }
 
-testing();*/
+testing();
