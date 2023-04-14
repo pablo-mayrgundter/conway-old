@@ -11,7 +11,9 @@ enum IfcLightEmissionSourceEnum {
     TUNGSTENFILAMENT = 9,
     NOTDEFINED = 10,
 }
-export { IfcLightEmissionSourceEnum };
+const IfcLightEmissionSourceEnumCount = 11;
+
+export { IfcLightEmissionSourceEnum, IfcLightEmissionSourceEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -5,7 +5,9 @@ enum IfcStateEnum {
     READWRITELOCKED = 3,
     READONLYLOCKED = 4,
 }
-export { IfcStateEnum };
+const IfcStateEnumCount = 5;
+
+export { IfcStateEnum, IfcStateEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

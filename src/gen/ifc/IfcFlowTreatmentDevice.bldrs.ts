@@ -18,9 +18,12 @@ export  class IfcFlowTreatmentDevice extends IfcDistributionFlowElement
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFLOWTREATMENTDEVICE, EntityTypesIfc.IFCDUCTSILENCER, EntityTypesIfc.IFCFILTER, EntityTypesIfc.IFCINTERCEPTOR ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFLOWTREATMENTDEVICE;
 }

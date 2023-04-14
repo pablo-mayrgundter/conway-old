@@ -3,7 +3,9 @@ enum IfcTaskDurationEnum {
     WORKTIME = 1,
     NOTDEFINED = 2,
 }
-export { IfcTaskDurationEnum };
+const IfcTaskDurationEnumCount = 3;
+
+export { IfcTaskDurationEnum, IfcTaskDurationEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

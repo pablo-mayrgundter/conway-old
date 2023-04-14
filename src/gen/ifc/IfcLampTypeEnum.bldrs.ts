@@ -11,7 +11,9 @@ enum IfcLampTypeEnum {
     USERDEFINED = 9,
     NOTDEFINED = 10,
 }
-export { IfcLampTypeEnum };
+const IfcLampTypeEnumCount = 11;
+
+export { IfcLampTypeEnum, IfcLampTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

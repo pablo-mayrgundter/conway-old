@@ -18,7 +18,6 @@ export  class IfcTextStyleForDefinedFont extends IfcPresentationItem
     {
         return EntityTypesIfc.IFCTEXTSTYLEFORDEFINEDFONT;
     }
-
     private Colour_? : IfcColourSpecification|IfcPreDefinedColour;
     private BackgroundColour_? : IfcColourSpecification|IfcPreDefinedColour | null;
 
@@ -98,4 +97,8 @@ export  class IfcTextStyleForDefinedFont extends IfcPresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTEXTSTYLEFORDEFINEDFONT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTEXTSTYLEFORDEFINEDFONT;
 }

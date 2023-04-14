@@ -54,4 +54,8 @@ export class IfcFontVariant extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFONTVARIANT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFONTVARIANT;
 }

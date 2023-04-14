@@ -17,7 +17,6 @@ export  class IfcFilter extends IfcFlowTreatmentDevice
     {
         return EntityTypesIfc.IFCFILTER;
     }
-
     private PredefinedType_? : IfcFilterTypeEnum | null;
 
     public get PredefinedType() : IfcFilterTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcFilter extends IfcFlowTreatmentDevice
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFILTER ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFILTER;
 }

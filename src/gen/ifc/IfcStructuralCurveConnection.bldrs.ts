@@ -17,7 +17,6 @@ export  class IfcStructuralCurveConnection extends IfcStructuralConnection
     {
         return EntityTypesIfc.IFCSTRUCTURALCURVECONNECTION;
     }
-
     private Axis_? : IfcDirection;
 
     public get Axis() : IfcDirection
@@ -56,4 +55,8 @@ export  class IfcStructuralCurveConnection extends IfcStructuralConnection
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALCURVECONNECTION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALCURVECONNECTION;
 }

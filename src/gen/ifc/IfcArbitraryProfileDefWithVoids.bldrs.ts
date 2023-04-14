@@ -17,7 +17,6 @@ export  class IfcArbitraryProfileDefWithVoids extends IfcArbitraryClosedProfileD
     {
         return EntityTypesIfc.IFCARBITRARYPROFILEDEFWITHVOIDS;
     }
-
     private InnerCurves_? : Array<IfcCurve>;
 
     public get InnerCurves() : Array<IfcCurve>
@@ -67,4 +66,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCARBITRARYPROFILEDEFWITHVOIDS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCARBITRARYPROFILEDEFWITHVOIDS;
 }

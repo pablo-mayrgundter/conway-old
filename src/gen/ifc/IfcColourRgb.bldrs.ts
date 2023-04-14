@@ -17,7 +17,6 @@ export  class IfcColourRgb extends IfcColourSpecification
     {
         return EntityTypesIfc.IFCCOLOURRGB;
     }
-
     private Red_? : number;
     private Green_? : number;
     private Blue_? : number;
@@ -121,4 +120,8 @@ export  class IfcColourRgb extends IfcColourSpecification
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCOLOURRGB ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCOLOURRGB;
 }

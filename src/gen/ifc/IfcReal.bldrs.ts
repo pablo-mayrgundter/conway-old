@@ -54,4 +54,8 @@ export class IfcReal extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCREAL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCREAL;
 }

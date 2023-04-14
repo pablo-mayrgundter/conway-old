@@ -17,7 +17,6 @@ export  class IfcStructuralPointConnection extends IfcStructuralConnection
     {
         return EntityTypesIfc.IFCSTRUCTURALPOINTCONNECTION;
     }
-
     private ConditionCoordinateSystem_? : IfcAxis2Placement3D | null;
 
     public get ConditionCoordinateSystem() : IfcAxis2Placement3D | null
@@ -63,4 +62,8 @@ export  class IfcStructuralPointConnection extends IfcStructuralConnection
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALPOINTCONNECTION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALPOINTCONNECTION;
 }

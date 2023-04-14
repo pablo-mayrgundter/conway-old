@@ -2,7 +2,9 @@ enum IfcReinforcingMeshTypeEnum {
     USERDEFINED = 0,
     NOTDEFINED = 1,
 }
-export { IfcReinforcingMeshTypeEnum };
+const IfcReinforcingMeshTypeEnumCount = 2;
+
+export { IfcReinforcingMeshTypeEnum, IfcReinforcingMeshTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

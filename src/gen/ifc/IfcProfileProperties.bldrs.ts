@@ -17,7 +17,6 @@ export  class IfcProfileProperties extends IfcExtendedProperties
     {
         return EntityTypesIfc.IFCPROFILEPROPERTIES;
     }
-
     private ProfileDefinition_? : IfcProfileDef;
 
     public get ProfileDefinition() : IfcProfileDef
@@ -56,4 +55,8 @@ export  class IfcProfileProperties extends IfcExtendedProperties
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPROFILEPROPERTIES ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPROFILEPROPERTIES;
 }

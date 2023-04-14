@@ -18,9 +18,12 @@ export abstract class IfcStructuralReaction extends IfcStructuralActivity
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALCURVEREACTION, EntityTypesIfc.IFCSTRUCTURALPOINTREACTION, EntityTypesIfc.IFCSTRUCTURALSURFACEREACTION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALREACTION;
 }

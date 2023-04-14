@@ -17,7 +17,6 @@ export  class IfcMember extends IfcBuildingElement
     {
         return EntityTypesIfc.IFCMEMBER;
     }
-
     private PredefinedType_? : IfcMemberTypeEnum | null;
 
     public get PredefinedType() : IfcMemberTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcMember extends IfcBuildingElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMEMBER, EntityTypesIfc.IFCMEMBERSTANDARDCASE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMEMBER;
 }

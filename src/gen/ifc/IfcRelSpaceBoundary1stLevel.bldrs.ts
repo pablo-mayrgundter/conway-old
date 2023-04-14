@@ -16,7 +16,6 @@ export  class IfcRelSpaceBoundary1stLevel extends IfcRelSpaceBoundary
     {
         return EntityTypesIfc.IFCRELSPACEBOUNDARY1STLEVEL;
     }
-
     private ParentBoundary_? : IfcRelSpaceBoundary1stLevel | null;
 
     public get ParentBoundary() : IfcRelSpaceBoundary1stLevel | null
@@ -63,4 +62,8 @@ export  class IfcRelSpaceBoundary1stLevel extends IfcRelSpaceBoundary
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELSPACEBOUNDARY1STLEVEL, EntityTypesIfc.IFCRELSPACEBOUNDARY2NDLEVEL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELSPACEBOUNDARY1STLEVEL;
 }

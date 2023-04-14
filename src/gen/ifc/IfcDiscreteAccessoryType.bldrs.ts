@@ -17,7 +17,6 @@ export  class IfcDiscreteAccessoryType extends IfcElementComponentType
     {
         return EntityTypesIfc.IFCDISCRETEACCESSORYTYPE;
     }
-
     private PredefinedType_? : IfcDiscreteAccessoryTypeEnum;
 
     public get PredefinedType() : IfcDiscreteAccessoryTypeEnum
@@ -55,4 +54,8 @@ export  class IfcDiscreteAccessoryType extends IfcElementComponentType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDISCRETEACCESSORYTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDISCRETEACCESSORYTYPE;
 }

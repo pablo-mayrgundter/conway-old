@@ -18,7 +18,6 @@ export  class IfcPixelTexture extends IfcSurfaceTexture
     {
         return EntityTypesIfc.IFCPIXELTEXTURE;
     }
-
     private Width_? : number;
     private Height_? : number;
     private ColourComponents_? : number;
@@ -166,4 +165,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPIXELTEXTURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPIXELTEXTURE;
 }

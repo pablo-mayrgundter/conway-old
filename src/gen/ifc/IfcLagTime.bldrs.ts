@@ -19,7 +19,6 @@ export  class IfcLagTime extends IfcSchedulingTime
     {
         return EntityTypesIfc.IFCLAGTIME;
     }
-
     private LagValue_? : IfcDuration|IfcRatioMeasure;
     private DurationType_? : IfcTaskDurationEnum;
 
@@ -91,4 +90,8 @@ export  class IfcLagTime extends IfcSchedulingTime
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCLAGTIME ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCLAGTIME;
 }

@@ -6,7 +6,9 @@ enum IfcCableSegmentTypeEnum {
     USERDEFINED = 4,
     NOTDEFINED = 5,
 }
-export { IfcCableSegmentTypeEnum };
+const IfcCableSegmentTypeEnumCount = 6;
+
+export { IfcCableSegmentTypeEnum, IfcCableSegmentTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

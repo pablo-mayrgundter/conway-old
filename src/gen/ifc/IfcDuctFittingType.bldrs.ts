@@ -17,7 +17,6 @@ export  class IfcDuctFittingType extends IfcFlowFittingType
     {
         return EntityTypesIfc.IFCDUCTFITTINGTYPE;
     }
-
     private PredefinedType_? : IfcDuctFittingTypeEnum;
 
     public get PredefinedType() : IfcDuctFittingTypeEnum
@@ -55,4 +54,8 @@ export  class IfcDuctFittingType extends IfcFlowFittingType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDUCTFITTINGTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDUCTFITTINGTYPE;
 }

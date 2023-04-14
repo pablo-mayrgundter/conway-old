@@ -19,7 +19,6 @@ export  class IfcPointOnSurface extends IfcPoint
     {
         return EntityTypesIfc.IFCPOINTONSURFACE;
     }
-
     private BasisSurface_? : IfcSurface;
     private PointParameterU_? : number;
     private PointParameterV_? : number;
@@ -129,4 +128,8 @@ export  class IfcPointOnSurface extends IfcPoint
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPOINTONSURFACE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPOINTONSURFACE;
 }

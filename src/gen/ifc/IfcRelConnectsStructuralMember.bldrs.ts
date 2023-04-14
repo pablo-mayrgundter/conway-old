@@ -22,7 +22,6 @@ export  class IfcRelConnectsStructuralMember extends IfcRelConnects
     {
         return EntityTypesIfc.IFCRELCONNECTSSTRUCTURALMEMBER;
     }
-
     private RelatingStructuralMember_? : IfcStructuralMember;
     private RelatedStructuralConnection_? : IfcStructuralConnection;
     private AppliedCondition_? : IfcBoundaryCondition | null;
@@ -258,4 +257,8 @@ export  class IfcRelConnectsStructuralMember extends IfcRelConnects
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELCONNECTSSTRUCTURALMEMBER, EntityTypesIfc.IFCRELCONNECTSWITHECCENTRICITY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELCONNECTSSTRUCTURALMEMBER;
 }

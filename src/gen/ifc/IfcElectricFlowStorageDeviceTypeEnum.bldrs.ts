@@ -7,7 +7,9 @@ enum IfcElectricFlowStorageDeviceTypeEnum {
     USERDEFINED = 5,
     NOTDEFINED = 6,
 }
-export { IfcElectricFlowStorageDeviceTypeEnum };
+const IfcElectricFlowStorageDeviceTypeEnumCount = 7;
+
+export { IfcElectricFlowStorageDeviceTypeEnum, IfcElectricFlowStorageDeviceTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

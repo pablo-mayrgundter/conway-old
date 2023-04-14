@@ -17,7 +17,6 @@ export  class IfcPropertySet extends IfcPropertySetDefinition
     {
         return EntityTypesIfc.IFCPROPERTYSET;
     }
-
     private HasProperties_? : Array<IfcProperty>;
 
     public get HasProperties() : Array<IfcProperty>
@@ -67,4 +66,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPROPERTYSET ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPROPERTYSET;
 }

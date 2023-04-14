@@ -18,7 +18,6 @@ export  class IfcMaterialClassificationRelationship extends StepEntityBase< Enti
     {
         return EntityTypesIfc.IFCMATERIALCLASSIFICATIONRELATIONSHIP;
     }
-
     private MaterialClassifications_? : Array<IfcClassification|IfcClassificationReference>;
     private ClassifiedMaterial_? : IfcMaterial;
 
@@ -102,4 +101,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMATERIALCLASSIFICATIONRELATIONSHIP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMATERIALCLASSIFICATIONRELATIONSHIP;
 }

@@ -18,7 +18,6 @@ export abstract class IfcPlacement extends IfcGeometricRepresentationItem
     {
         return EntityTypesIfc.IFCPLACEMENT;
     }
-
     private Location_? : IfcCartesianPoint;
 
     public get Location() : IfcCartesianPoint
@@ -62,4 +61,8 @@ export abstract class IfcPlacement extends IfcGeometricRepresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCAXIS1PLACEMENT, EntityTypesIfc.IFCAXIS2PLACEMENT2D, EntityTypesIfc.IFCAXIS2PLACEMENT3D ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPLACEMENT;
 }

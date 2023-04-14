@@ -18,9 +18,12 @@ export abstract class IfcPoint extends IfcGeometricRepresentationItem
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCARTESIANPOINT, EntityTypesIfc.IFCPOINTONCURVE, EntityTypesIfc.IFCPOINTONSURFACE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPOINT;
 }

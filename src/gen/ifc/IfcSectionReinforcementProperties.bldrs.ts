@@ -20,7 +20,6 @@ export  class IfcSectionReinforcementProperties extends IfcPreDefinedProperties
     {
         return EntityTypesIfc.IFCSECTIONREINFORCEMENTPROPERTIES;
     }
-
     private LongitudinalStartPosition_? : number;
     private LongitudinalEndPosition_? : number;
     private TransversePosition_? : number | null;
@@ -243,4 +242,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSECTIONREINFORCEMENTPROPERTIES ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSECTIONREINFORCEMENTPROPERTIES;
 }

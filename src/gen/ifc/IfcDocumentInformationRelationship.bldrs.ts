@@ -18,7 +18,6 @@ export  class IfcDocumentInformationRelationship extends IfcResourceLevelRelatio
     {
         return EntityTypesIfc.IFCDOCUMENTINFORMATIONRELATIONSHIP;
     }
-
     private RelatingDocument_? : IfcDocumentInformation;
     private RelatedDocuments_? : Array<IfcDocumentInformation>;
     private RelationshipType_? : string | null;
@@ -142,4 +141,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDOCUMENTINFORMATIONRELATIONSHIP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDOCUMENTINFORMATIONRELATIONSHIP;
 }

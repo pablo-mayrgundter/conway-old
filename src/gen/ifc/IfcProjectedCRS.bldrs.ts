@@ -18,7 +18,6 @@ export  class IfcProjectedCRS extends IfcCoordinateReferenceSystem
     {
         return EntityTypesIfc.IFCPROJECTEDCRS;
     }
-
     private MapProjection_? : string | null;
     private MapZone_? : string | null;
     private MapUnit_? : IfcNamedUnit | null;
@@ -144,4 +143,8 @@ export  class IfcProjectedCRS extends IfcCoordinateReferenceSystem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPROJECTEDCRS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPROJECTEDCRS;
 }

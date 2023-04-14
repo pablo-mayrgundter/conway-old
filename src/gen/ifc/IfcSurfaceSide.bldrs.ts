@@ -3,7 +3,9 @@ enum IfcSurfaceSide {
     NEGATIVE = 1,
     BOTH = 2,
 }
-export { IfcSurfaceSide };
+const IfcSurfaceSideCount = 3;
+
+export { IfcSurfaceSide, IfcSurfaceSideCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

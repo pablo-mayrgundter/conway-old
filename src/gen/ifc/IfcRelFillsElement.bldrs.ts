@@ -18,7 +18,6 @@ export  class IfcRelFillsElement extends IfcRelConnects
     {
         return EntityTypesIfc.IFCRELFILLSELEMENT;
     }
-
     private RelatingOpeningElement_? : IfcOpeningElement;
     private RelatedBuildingElement_? : IfcElement;
 
@@ -91,4 +90,8 @@ export  class IfcRelFillsElement extends IfcRelConnects
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELFILLSELEMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELFILLSELEMENT;
 }

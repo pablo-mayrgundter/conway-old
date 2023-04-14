@@ -17,7 +17,6 @@ export  class IfcLightSourceDirectional extends IfcLightSource
     {
         return EntityTypesIfc.IFCLIGHTSOURCEDIRECTIONAL;
     }
-
     private Orientation_? : IfcDirection;
 
     public get Orientation() : IfcDirection
@@ -56,4 +55,8 @@ export  class IfcLightSourceDirectional extends IfcLightSource
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCLIGHTSOURCEDIRECTIONAL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCLIGHTSOURCEDIRECTIONAL;
 }

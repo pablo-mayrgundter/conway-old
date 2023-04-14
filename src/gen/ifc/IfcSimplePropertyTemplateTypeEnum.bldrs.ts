@@ -12,7 +12,9 @@ enum IfcSimplePropertyTemplateTypeEnum {
     Q_WEIGHT = 10,
     Q_TIME = 11,
 }
-export { IfcSimplePropertyTemplateTypeEnum };
+const IfcSimplePropertyTemplateTypeEnumCount = 12;
+
+export { IfcSimplePropertyTemplateTypeEnum, IfcSimplePropertyTemplateTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

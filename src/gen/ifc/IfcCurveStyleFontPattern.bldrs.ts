@@ -18,7 +18,6 @@ export  class IfcCurveStyleFontPattern extends IfcPresentationItem
     {
         return EntityTypesIfc.IFCCURVESTYLEFONTPATTERN;
     }
-
     private VisibleSegmentLength_? : number;
     private InvisibleSegmentLength_? : number;
 
@@ -89,4 +88,8 @@ export  class IfcCurveStyleFontPattern extends IfcPresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCURVESTYLEFONTPATTERN ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCURVESTYLEFONTPATTERN;
 }

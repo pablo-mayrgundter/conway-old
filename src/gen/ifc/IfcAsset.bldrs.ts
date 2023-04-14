@@ -22,7 +22,6 @@ export  class IfcAsset extends IfcGroup
     {
         return EntityTypesIfc.IFCASSET;
     }
-
     private Identification_? : string | null;
     private OriginalValue_? : IfcCostValue | null;
     private CurrentValue_? : IfcCostValue | null;
@@ -394,4 +393,8 @@ export  class IfcAsset extends IfcGroup
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCASSET ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCASSET;
 }

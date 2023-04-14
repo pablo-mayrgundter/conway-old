@@ -18,7 +18,6 @@ export  class IfcMaterialRelationship extends IfcResourceLevelRelationship
     {
         return EntityTypesIfc.IFCMATERIALRELATIONSHIP;
     }
-
     private RelatingMaterial_? : IfcMaterial;
     private RelatedMaterials_? : Array<IfcMaterial>;
     private Expression_? : string | null;
@@ -142,4 +141,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMATERIALRELATIONSHIP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMATERIALRELATIONSHIP;
 }

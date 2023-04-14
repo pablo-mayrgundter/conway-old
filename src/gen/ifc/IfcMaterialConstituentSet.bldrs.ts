@@ -19,7 +19,6 @@ export  class IfcMaterialConstituentSet extends IfcMaterialDefinition
     {
         return EntityTypesIfc.IFCMATERIALCONSTITUENTSET;
     }
-
     private Name_? : string | null;
     private Description_? : string | null;
     private MaterialConstituents_? : Array<IfcMaterialConstituent> | null;
@@ -154,4 +153,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMATERIALCONSTITUENTSET ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMATERIALCONSTITUENTSET;
 }

@@ -22,7 +22,6 @@ export  class IfcMaterialLayer extends IfcMaterialDefinition
     {
         return EntityTypesIfc.IFCMATERIALLAYER;
     }
-
     private Material_? : IfcMaterial | null;
     private LayerThickness_? : number;
     private IsVentilated_? : boolean | null;
@@ -302,4 +301,8 @@ export  class IfcMaterialLayer extends IfcMaterialDefinition
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMATERIALLAYER, EntityTypesIfc.IFCMATERIALLAYERWITHOFFSETS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMATERIALLAYER;
 }

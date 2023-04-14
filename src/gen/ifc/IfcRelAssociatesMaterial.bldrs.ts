@@ -19,7 +19,6 @@ export  class IfcRelAssociatesMaterial extends IfcRelAssociates
     {
         return EntityTypesIfc.IFCRELASSOCIATESMATERIAL;
     }
-
     private RelatingMaterial_? : IfcMaterialDefinition|IfcMaterialList|IfcMaterialUsageDefinition;
 
     public get RelatingMaterial() : IfcMaterialDefinition|IfcMaterialList|IfcMaterialUsageDefinition
@@ -58,4 +57,8 @@ export  class IfcRelAssociatesMaterial extends IfcRelAssociates
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELASSOCIATESMATERIAL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELASSOCIATESMATERIAL;
 }

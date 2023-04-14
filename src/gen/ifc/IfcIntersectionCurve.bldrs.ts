@@ -18,9 +18,12 @@ export  class IfcIntersectionCurve extends IfcSurfaceCurve
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCINTERSECTIONCURVE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCINTERSECTIONCURVE;
 }

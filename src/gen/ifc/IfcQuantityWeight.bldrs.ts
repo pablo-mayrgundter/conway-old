@@ -18,7 +18,6 @@ export  class IfcQuantityWeight extends IfcPhysicalSimpleQuantity
     {
         return EntityTypesIfc.IFCQUANTITYWEIGHT;
     }
-
     private WeightValue_? : number;
     private Formula_? : string | null;
 
@@ -96,4 +95,8 @@ export  class IfcQuantityWeight extends IfcPhysicalSimpleQuantity
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCQUANTITYWEIGHT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCQUANTITYWEIGHT;
 }

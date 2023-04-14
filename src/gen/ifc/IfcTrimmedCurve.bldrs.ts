@@ -21,7 +21,6 @@ export  class IfcTrimmedCurve extends IfcBoundedCurve
     {
         return EntityTypesIfc.IFCTRIMMEDCURVE;
     }
-
     private BasisCurve_? : IfcCurve;
     private Trim1_? : Array<IfcCartesianPoint|IfcParameterValue>;
     private Trim2_? : Array<IfcCartesianPoint|IfcParameterValue>;
@@ -216,4 +215,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTRIMMEDCURVE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTRIMMEDCURVE;
 }

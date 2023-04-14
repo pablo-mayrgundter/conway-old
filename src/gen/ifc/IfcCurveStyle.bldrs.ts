@@ -28,7 +28,6 @@ export  class IfcCurveStyle extends IfcPresentationStyle
     {
         return EntityTypesIfc.IFCCURVESTYLE;
     }
-
     private CurveFont_? : IfcCurveStyleFontAndScaling|IfcCurveStyleFont|IfcPreDefinedCurveFont | null;
     private CurveWidth_? : IfcDescriptiveMeasure|IfcLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveLengthMeasure|IfcPositiveRatioMeasure|IfcRatioMeasure | null;
     private CurveColour_? : IfcColourSpecification|IfcPreDefinedColour | null;
@@ -196,4 +195,8 @@ export  class IfcCurveStyle extends IfcPresentationStyle
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCURVESTYLE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCURVESTYLE;
 }

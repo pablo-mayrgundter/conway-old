@@ -17,7 +17,6 @@ export  class IfcDistributionChamberElementType extends IfcDistributionFlowEleme
     {
         return EntityTypesIfc.IFCDISTRIBUTIONCHAMBERELEMENTTYPE;
     }
-
     private PredefinedType_? : IfcDistributionChamberElementTypeEnum;
 
     public get PredefinedType() : IfcDistributionChamberElementTypeEnum
@@ -55,4 +54,8 @@ export  class IfcDistributionChamberElementType extends IfcDistributionFlowEleme
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDISTRIBUTIONCHAMBERELEMENTTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDISTRIBUTIONCHAMBERELEMENTTYPE;
 }

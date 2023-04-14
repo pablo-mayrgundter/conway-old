@@ -19,7 +19,6 @@ export  class IfcFillAreaStyleTiles extends IfcGeometricRepresentationItem
     {
         return EntityTypesIfc.IFCFILLAREASTYLETILES;
     }
-
     private TilingPattern_? : Array<IfcVector>;
     private Tiles_? : Array<IfcStyledItem>;
     private TilingScale_? : number;
@@ -147,4 +146,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFILLAREASTYLETILES ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFILLAREASTYLETILES;
 }

@@ -54,4 +54,8 @@ export class IfcSoundPowerLevelMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSOUNDPOWERLEVELMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSOUNDPOWERLEVELMEASURE;
 }

@@ -32,7 +32,6 @@ export  class IfcResourceApprovalRelationship extends IfcResourceLevelRelationsh
     {
         return EntityTypesIfc.IFCRESOURCEAPPROVALRELATIONSHIP;
     }
-
     private RelatedResourceObjects_? : Array<IfcActorRole|IfcAppliedValue|IfcApproval|IfcConstraint|IfcContextDependentUnit|IfcConversionBasedUnit|IfcExternalInformation|IfcExternalReference|IfcMaterialDefinition|IfcOrganization|IfcPerson|IfcPersonAndOrganization|IfcPhysicalQuantity|IfcProfileDef|IfcPropertyAbstraction|IfcTimeSeries>;
     private RelatingApproval_? : IfcApproval;
 
@@ -116,4 +115,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRESOURCEAPPROVALRELATIONSHIP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRESOURCEAPPROVALRELATIONSHIP;
 }

@@ -20,7 +20,6 @@ export  class IfcWindow extends IfcBuildingElement
     {
         return EntityTypesIfc.IFCWINDOW;
     }
-
     private OverallHeight_? : number | null;
     private OverallWidth_? : number | null;
     private PredefinedType_? : IfcWindowTypeEnum | null;
@@ -225,4 +224,8 @@ export  class IfcWindow extends IfcBuildingElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCWINDOW, EntityTypesIfc.IFCWINDOWSTANDARDCASE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCWINDOW;
 }

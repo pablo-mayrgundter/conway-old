@@ -17,7 +17,6 @@ export  class IfcProfileDef extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCPROFILEDEF;
     }
-
     private ProfileType_? : IfcProfileTypeEnum;
     private ProfileName_? : string | null;
 
@@ -97,4 +96,8 @@ export  class IfcProfileDef extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPROFILEDEF, EntityTypesIfc.IFCARBITRARYCLOSEDPROFILEDEF, EntityTypesIfc.IFCARBITRARYOPENPROFILEDEF, EntityTypesIfc.IFCCOMPOSITEPROFILEDEF, EntityTypesIfc.IFCDERIVEDPROFILEDEF, EntityTypesIfc.IFCARBITRARYPROFILEDEFWITHVOIDS, EntityTypesIfc.IFCCENTERLINEPROFILEDEF, EntityTypesIfc.IFCMIRROREDPROFILEDEF, EntityTypesIfc.IFCASYMMETRICISHAPEPROFILEDEF, EntityTypesIfc.IFCCSHAPEPROFILEDEF, EntityTypesIfc.IFCCIRCLEPROFILEDEF, EntityTypesIfc.IFCELLIPSEPROFILEDEF, EntityTypesIfc.IFCISHAPEPROFILEDEF, EntityTypesIfc.IFCLSHAPEPROFILEDEF, EntityTypesIfc.IFCRECTANGLEPROFILEDEF, EntityTypesIfc.IFCTSHAPEPROFILEDEF, EntityTypesIfc.IFCTRAPEZIUMPROFILEDEF, EntityTypesIfc.IFCUSHAPEPROFILEDEF, EntityTypesIfc.IFCZSHAPEPROFILEDEF, EntityTypesIfc.IFCCIRCLEHOLLOWPROFILEDEF, EntityTypesIfc.IFCRECTANGLEHOLLOWPROFILEDEF, EntityTypesIfc.IFCROUNDEDRECTANGLEPROFILEDEF ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPROFILEDEF;
 }

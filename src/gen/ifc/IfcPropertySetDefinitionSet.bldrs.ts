@@ -66,4 +66,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPROPERTYSETDEFINITIONSET ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPROPERTYSETDEFINITIONSET;
 }

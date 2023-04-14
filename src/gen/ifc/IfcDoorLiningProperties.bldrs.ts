@@ -20,7 +20,6 @@ export  class IfcDoorLiningProperties extends IfcPreDefinedPropertySet
     {
         return EntityTypesIfc.IFCDOORLININGPROPERTIES;
     }
-
     private LiningDepth_? : number | null;
     private LiningThickness_? : number | null;
     private ThresholdDepth_? : number | null;
@@ -546,4 +545,8 @@ export  class IfcDoorLiningProperties extends IfcPreDefinedPropertySet
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDOORLININGPROPERTIES ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDOORLININGPROPERTIES;
 }

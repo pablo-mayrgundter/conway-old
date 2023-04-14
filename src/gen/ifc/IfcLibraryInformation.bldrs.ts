@@ -23,7 +23,6 @@ export  class IfcLibraryInformation extends IfcExternalInformation
     {
         return EntityTypesIfc.IFCLIBRARYINFORMATION;
     }
-
     private Name_? : string;
     private Version_? : string | null;
     private Publisher_? : IfcOrganization|IfcPerson|IfcPersonAndOrganization | null;
@@ -264,4 +263,8 @@ export  class IfcLibraryInformation extends IfcExternalInformation
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCLIBRARYINFORMATION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCLIBRARYINFORMATION;
 }

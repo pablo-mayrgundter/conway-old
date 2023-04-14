@@ -17,7 +17,6 @@ export  class IfcFastenerType extends IfcElementComponentType
     {
         return EntityTypesIfc.IFCFASTENERTYPE;
     }
-
     private PredefinedType_? : IfcFastenerTypeEnum;
 
     public get PredefinedType() : IfcFastenerTypeEnum
@@ -55,4 +54,8 @@ export  class IfcFastenerType extends IfcElementComponentType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFASTENERTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFASTENERTYPE;
 }

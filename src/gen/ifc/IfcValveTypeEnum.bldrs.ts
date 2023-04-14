@@ -23,7 +23,9 @@ enum IfcValveTypeEnum {
     USERDEFINED = 21,
     NOTDEFINED = 22,
 }
-export { IfcValveTypeEnum };
+const IfcValveTypeEnumCount = 23;
+
+export { IfcValveTypeEnum, IfcValveTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

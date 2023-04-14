@@ -17,7 +17,6 @@ export  class IfcPipeSegment extends IfcFlowSegment
     {
         return EntityTypesIfc.IFCPIPESEGMENT;
     }
-
     private PredefinedType_? : IfcPipeSegmentTypeEnum | null;
 
     public get PredefinedType() : IfcPipeSegmentTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcPipeSegment extends IfcFlowSegment
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPIPESEGMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPIPESEGMENT;
 }

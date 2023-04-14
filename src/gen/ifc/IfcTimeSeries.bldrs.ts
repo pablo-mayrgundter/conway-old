@@ -23,7 +23,6 @@ export abstract class IfcTimeSeries extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCTIMESERIES;
     }
-
     private Name_? : string;
     private Description_? : string | null;
     private StartTime_? : string;
@@ -315,4 +314,8 @@ export abstract class IfcTimeSeries extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCIRREGULARTIMESERIES, EntityTypesIfc.IFCREGULARTIMESERIES ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTIMESERIES;
 }

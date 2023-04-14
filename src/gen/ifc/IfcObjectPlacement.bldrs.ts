@@ -18,9 +18,12 @@ export abstract class IfcObjectPlacement extends StepEntityBase< EntityTypesIfc 
 
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCGRIDPLACEMENT, EntityTypesIfc.IFCLOCALPLACEMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCOBJECTPLACEMENT;
 }

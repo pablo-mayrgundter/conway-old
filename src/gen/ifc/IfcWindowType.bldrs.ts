@@ -20,7 +20,6 @@ export  class IfcWindowType extends IfcBuildingElementType
     {
         return EntityTypesIfc.IFCWINDOWTYPE;
     }
-
     private PredefinedType_? : IfcWindowTypeEnum;
     private PartitioningType_? : IfcWindowTypePartitioningEnum;
     private ParameterTakesPrecedence_? : boolean | null;
@@ -171,4 +170,8 @@ export  class IfcWindowType extends IfcBuildingElementType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCWINDOWTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCWINDOWTYPE;
 }

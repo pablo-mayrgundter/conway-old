@@ -18,7 +18,6 @@ export  class IfcStructuralCurveAction extends IfcStructuralAction
     {
         return EntityTypesIfc.IFCSTRUCTURALCURVEACTION;
     }
-
     private ProjectedOrTrue_? : IfcProjectedOrTrueLengthEnum | null;
     private PredefinedType_? : IfcStructuralCurveActivityTypeEnum;
 
@@ -96,4 +95,8 @@ export  class IfcStructuralCurveAction extends IfcStructuralAction
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALCURVEACTION, EntityTypesIfc.IFCSTRUCTURALLINEARACTION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALCURVEACTION;
 }

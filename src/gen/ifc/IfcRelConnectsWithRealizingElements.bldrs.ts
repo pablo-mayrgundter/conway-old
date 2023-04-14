@@ -18,7 +18,6 @@ export  class IfcRelConnectsWithRealizingElements extends IfcRelConnectsElements
     {
         return EntityTypesIfc.IFCRELCONNECTSWITHREALIZINGELEMENTS;
     }
-
     private RealizingElements_? : Array<IfcElement>;
     private ConnectionType_? : string | null;
 
@@ -108,4 +107,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELCONNECTSWITHREALIZINGELEMENTS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELCONNECTSWITHREALIZINGELEMENTS;
 }

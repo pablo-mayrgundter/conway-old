@@ -17,7 +17,6 @@ export  class IfcFlowMeter extends IfcFlowController
     {
         return EntityTypesIfc.IFCFLOWMETER;
     }
-
     private PredefinedType_? : IfcFlowMeterTypeEnum | null;
 
     public get PredefinedType() : IfcFlowMeterTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcFlowMeter extends IfcFlowController
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFLOWMETER ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFLOWMETER;
 }

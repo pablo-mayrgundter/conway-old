@@ -3,7 +3,9 @@ enum IfcPhysicalOrVirtualEnum {
     VIRTUAL = 1,
     NOTDEFINED = 2,
 }
-export { IfcPhysicalOrVirtualEnum };
+const IfcPhysicalOrVirtualEnumCount = 3;
+
+export { IfcPhysicalOrVirtualEnum, IfcPhysicalOrVirtualEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

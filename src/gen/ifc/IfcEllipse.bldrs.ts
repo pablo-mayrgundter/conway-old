@@ -17,7 +17,6 @@ export  class IfcEllipse extends IfcConic
     {
         return EntityTypesIfc.IFCELLIPSE;
     }
-
     private SemiAxis1_? : number;
     private SemiAxis2_? : number;
 
@@ -88,4 +87,8 @@ export  class IfcEllipse extends IfcConic
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCELLIPSE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCELLIPSE;
 }

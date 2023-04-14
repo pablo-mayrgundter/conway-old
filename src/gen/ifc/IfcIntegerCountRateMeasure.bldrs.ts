@@ -54,4 +54,8 @@ export class IfcIntegerCountRateMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCINTEGERCOUNTRATEMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCINTEGERCOUNTRATEMEASURE;
 }

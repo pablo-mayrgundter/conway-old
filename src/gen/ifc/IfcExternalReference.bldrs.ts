@@ -18,7 +18,6 @@ export abstract class IfcExternalReference extends StepEntityBase< EntityTypesIf
     {
         return EntityTypesIfc.IFCEXTERNALREFERENCE;
     }
-
     private Location_? : string | null;
     private Identification_? : string | null;
     private Name_? : string | null;
@@ -144,4 +143,8 @@ export abstract class IfcExternalReference extends StepEntityBase< EntityTypesIf
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCLASSIFICATIONREFERENCE, EntityTypesIfc.IFCDOCUMENTREFERENCE, EntityTypesIfc.IFCEXTERNALLYDEFINEDHATCHSTYLE, EntityTypesIfc.IFCEXTERNALLYDEFINEDSURFACESTYLE, EntityTypesIfc.IFCEXTERNALLYDEFINEDTEXTFONT, EntityTypesIfc.IFCLIBRARYREFERENCE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCEXTERNALREFERENCE;
 }

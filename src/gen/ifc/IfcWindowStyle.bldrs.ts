@@ -19,7 +19,6 @@ export  class IfcWindowStyle extends IfcTypeProduct
     {
         return EntityTypesIfc.IFCWINDOWSTYLE;
     }
-
     private ConstructionType_? : IfcWindowStyleConstructionEnum;
     private OperationType_? : IfcWindowStyleOperationEnum;
     private ParameterTakesPrecedence_? : boolean;
@@ -156,4 +155,8 @@ export  class IfcWindowStyle extends IfcTypeProduct
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCWINDOWSTYLE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCWINDOWSTYLE;
 }

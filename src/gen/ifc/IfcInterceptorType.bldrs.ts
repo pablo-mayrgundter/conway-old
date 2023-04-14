@@ -17,7 +17,6 @@ export  class IfcInterceptorType extends IfcFlowTreatmentDeviceType
     {
         return EntityTypesIfc.IFCINTERCEPTORTYPE;
     }
-
     private PredefinedType_? : IfcInterceptorTypeEnum;
 
     public get PredefinedType() : IfcInterceptorTypeEnum
@@ -55,4 +54,8 @@ export  class IfcInterceptorType extends IfcFlowTreatmentDeviceType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCINTERCEPTORTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCINTERCEPTORTYPE;
 }

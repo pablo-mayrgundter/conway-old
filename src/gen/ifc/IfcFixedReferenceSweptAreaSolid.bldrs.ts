@@ -19,7 +19,6 @@ export  class IfcFixedReferenceSweptAreaSolid extends IfcSweptAreaSolid
     {
         return EntityTypesIfc.IFCFIXEDREFERENCESWEPTAREASOLID;
     }
-
     private Directrix_? : IfcCurve;
     private StartParam_? : number | null;
     private EndParam_? : number | null;
@@ -172,4 +171,8 @@ export  class IfcFixedReferenceSweptAreaSolid extends IfcSweptAreaSolid
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFIXEDREFERENCESWEPTAREASOLID ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFIXEDREFERENCESWEPTAREASOLID;
 }

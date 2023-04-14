@@ -14,7 +14,9 @@ enum IfcWindowPanelOperationEnum {
     OTHEROPERATION = 12,
     NOTDEFINED = 13,
 }
-export { IfcWindowPanelOperationEnum };
+const IfcWindowPanelOperationEnumCount = 14;
+
+export { IfcWindowPanelOperationEnum, IfcWindowPanelOperationEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

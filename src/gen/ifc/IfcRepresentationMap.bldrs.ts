@@ -18,7 +18,6 @@ export  class IfcRepresentationMap extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCREPRESENTATIONMAP;
     }
-
     private MappingOrigin_? : IfcAxis2Placement2D|IfcAxis2Placement3D;
     private MappedRepresentation_? : IfcRepresentation;
 
@@ -93,4 +92,8 @@ export  class IfcRepresentationMap extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCREPRESENTATIONMAP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCREPRESENTATIONMAP;
 }

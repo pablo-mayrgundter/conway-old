@@ -8,7 +8,9 @@ enum IfcBuildingSystemTypeEnum {
     USERDEFINED = 6,
     NOTDEFINED = 7,
 }
-export { IfcBuildingSystemTypeEnum };
+const IfcBuildingSystemTypeEnumCount = 8;
+
+export { IfcBuildingSystemTypeEnum, IfcBuildingSystemTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

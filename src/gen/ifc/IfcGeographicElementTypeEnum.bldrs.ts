@@ -3,7 +3,9 @@ enum IfcGeographicElementTypeEnum {
     USERDEFINED = 1,
     NOTDEFINED = 2,
 }
-export { IfcGeographicElementTypeEnum };
+const IfcGeographicElementTypeEnumCount = 3;
+
+export { IfcGeographicElementTypeEnum, IfcGeographicElementTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

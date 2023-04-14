@@ -17,7 +17,6 @@ export  class IfcStructuralLoadCase extends IfcStructuralLoadGroup
     {
         return EntityTypesIfc.IFCSTRUCTURALLOADCASE;
     }
-
     private SelfWeightCoefficients_? : Array< number > | null;
 
     public get SelfWeightCoefficients() : Array< number > | null
@@ -71,4 +70,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALLOADCASE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALLOADCASE;
 }

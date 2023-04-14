@@ -18,7 +18,6 @@ export abstract class IfcCsgPrimitive3D extends IfcGeometricRepresentationItem
     {
         return EntityTypesIfc.IFCCSGPRIMITIVE3D;
     }
-
     private Position_? : IfcAxis2Placement3D;
 
     public get Position() : IfcAxis2Placement3D
@@ -62,4 +61,8 @@ export abstract class IfcCsgPrimitive3D extends IfcGeometricRepresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBLOCK, EntityTypesIfc.IFCRECTANGULARPYRAMID, EntityTypesIfc.IFCRIGHTCIRCULARCONE, EntityTypesIfc.IFCRIGHTCIRCULARCYLINDER, EntityTypesIfc.IFCSPHERE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCSGPRIMITIVE3D;
 }

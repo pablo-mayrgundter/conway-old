@@ -54,4 +54,8 @@ export class IfcMassPerLengthMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMASSPERLENGTHMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMASSPERLENGTHMEASURE;
 }

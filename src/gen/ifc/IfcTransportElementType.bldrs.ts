@@ -17,7 +17,6 @@ export  class IfcTransportElementType extends IfcElementType
     {
         return EntityTypesIfc.IFCTRANSPORTELEMENTTYPE;
     }
-
     private PredefinedType_? : IfcTransportElementTypeEnum;
 
     public get PredefinedType() : IfcTransportElementTypeEnum
@@ -55,4 +54,8 @@ export  class IfcTransportElementType extends IfcElementType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTRANSPORTELEMENTTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTRANSPORTELEMENTTYPE;
 }

@@ -17,7 +17,6 @@ export  class IfcToroidalSurface extends IfcElementarySurface
     {
         return EntityTypesIfc.IFCTOROIDALSURFACE;
     }
-
     private MajorRadius_? : number;
     private MinorRadius_? : number;
 
@@ -88,4 +87,8 @@ export  class IfcToroidalSurface extends IfcElementarySurface
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTOROIDALSURFACE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTOROIDALSURFACE;
 }

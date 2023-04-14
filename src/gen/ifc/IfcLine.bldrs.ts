@@ -18,7 +18,6 @@ export  class IfcLine extends IfcCurve
     {
         return EntityTypesIfc.IFCLINE;
     }
-
     private Pnt_? : IfcCartesianPoint;
     private Dir_? : IfcVector;
 
@@ -91,4 +90,8 @@ export  class IfcLine extends IfcCurve
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCLINE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCLINE;
 }

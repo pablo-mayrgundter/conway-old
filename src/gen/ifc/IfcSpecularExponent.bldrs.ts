@@ -54,4 +54,8 @@ export class IfcSpecularExponent extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSPECULAREXPONENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSPECULAREXPONENT;
 }

@@ -17,7 +17,6 @@ export  class IfcJunctionBox extends IfcFlowFitting
     {
         return EntityTypesIfc.IFCJUNCTIONBOX;
     }
-
     private PredefinedType_? : IfcJunctionBoxTypeEnum | null;
 
     public get PredefinedType() : IfcJunctionBoxTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcJunctionBox extends IfcFlowFitting
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCJUNCTIONBOX ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCJUNCTIONBOX;
 }

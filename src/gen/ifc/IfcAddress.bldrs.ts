@@ -18,7 +18,6 @@ export abstract class IfcAddress extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCADDRESS;
     }
-
     private Purpose_? : IfcAddressTypeEnum | null;
     private Description_? : string | null;
     private UserDefinedPurpose_? : string | null;
@@ -145,4 +144,8 @@ export abstract class IfcAddress extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPOSTALADDRESS, EntityTypesIfc.IFCTELECOMADDRESS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCADDRESS;
 }

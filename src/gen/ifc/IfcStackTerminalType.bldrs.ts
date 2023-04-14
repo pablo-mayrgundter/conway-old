@@ -17,7 +17,6 @@ export  class IfcStackTerminalType extends IfcFlowTerminalType
     {
         return EntityTypesIfc.IFCSTACKTERMINALTYPE;
     }
-
     private PredefinedType_? : IfcStackTerminalTypeEnum;
 
     public get PredefinedType() : IfcStackTerminalTypeEnum
@@ -55,4 +54,8 @@ export  class IfcStackTerminalType extends IfcFlowTerminalType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTACKTERMINALTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTACKTERMINALTYPE;
 }

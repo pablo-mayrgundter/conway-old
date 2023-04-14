@@ -5,7 +5,9 @@ enum IfcAnalysisModelTypeEnum {
     USERDEFINED = 3,
     NOTDEFINED = 4,
 }
-export { IfcAnalysisModelTypeEnum };
+const IfcAnalysisModelTypeEnumCount = 5;
+
+export { IfcAnalysisModelTypeEnum, IfcAnalysisModelTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -17,7 +17,6 @@ export  class IfcOrganizationRelationship extends IfcResourceLevelRelationship
     {
         return EntityTypesIfc.IFCORGANIZATIONRELATIONSHIP;
     }
-
     private RelatingOrganization_? : IfcOrganization;
     private RelatedOrganizations_? : Array<IfcOrganization>;
 
@@ -101,4 +100,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCORGANIZATIONRELATIONSHIP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCORGANIZATIONRELATIONSHIP;
 }

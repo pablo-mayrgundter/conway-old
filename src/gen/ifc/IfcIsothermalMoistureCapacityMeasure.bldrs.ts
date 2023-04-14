@@ -54,4 +54,8 @@ export class IfcIsothermalMoistureCapacityMeasure extends StepEntityBase< Entity
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCISOTHERMALMOISTURECAPACITYMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCISOTHERMALMOISTURECAPACITYMEASURE;
 }

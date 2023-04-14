@@ -19,7 +19,6 @@ export  class IfcSIUnit extends IfcNamedUnit
     {
         return EntityTypesIfc.IFCSIUNIT;
     }
-
     private Prefix_? : IfcSIPrefix | null;
     private Name_? : IfcSIUnitName;
 
@@ -102,4 +101,8 @@ export  class IfcSIUnit extends IfcNamedUnit
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSIUNIT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSIUNIT;
 }

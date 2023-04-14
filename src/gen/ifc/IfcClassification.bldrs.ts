@@ -21,7 +21,6 @@ export  class IfcClassification extends IfcExternalInformation
     {
         return EntityTypesIfc.IFCCLASSIFICATION;
     }
-
     private Source_? : string | null;
     private Edition_? : string | null;
     private EditionDate_? : string | null;
@@ -310,4 +309,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCLASSIFICATION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCLASSIFICATION;
 }

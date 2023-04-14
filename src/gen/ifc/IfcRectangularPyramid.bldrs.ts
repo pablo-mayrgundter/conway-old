@@ -17,7 +17,6 @@ export  class IfcRectangularPyramid extends IfcCsgPrimitive3D
     {
         return EntityTypesIfc.IFCRECTANGULARPYRAMID;
     }
-
     private XLength_? : number;
     private YLength_? : number;
     private Height_? : number;
@@ -121,4 +120,8 @@ export  class IfcRectangularPyramid extends IfcCsgPrimitive3D
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRECTANGULARPYRAMID ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRECTANGULARPYRAMID;
 }

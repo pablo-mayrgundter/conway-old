@@ -17,7 +17,6 @@ export  class IfcRamp extends IfcBuildingElement
     {
         return EntityTypesIfc.IFCRAMP;
     }
-
     private PredefinedType_? : IfcRampTypeEnum | null;
 
     public get PredefinedType() : IfcRampTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcRamp extends IfcBuildingElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRAMP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRAMP;
 }

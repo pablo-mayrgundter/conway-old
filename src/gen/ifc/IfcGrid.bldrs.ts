@@ -18,7 +18,6 @@ export  class IfcGrid extends IfcProduct
     {
         return EntityTypesIfc.IFCGRID;
     }
-
     private UAxes_? : Array<IfcGridAxis>;
     private VAxes_? : Array<IfcGridAxis>;
     private WAxes_? : Array<IfcGridAxis> | null;
@@ -204,4 +203,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCGRID ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCGRID;
 }

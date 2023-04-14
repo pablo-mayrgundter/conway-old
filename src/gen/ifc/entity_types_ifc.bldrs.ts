@@ -907,4 +907,7 @@ enum EntityTypesIfc {
     IFCWARPINGCONSTANTMEASURE = 905,
     IFCWARPINGMOMENTMEASURE = 906,
 }
+const EntityTypesIfcCount = 907;
+
 export default EntityTypesIfc;
+export { EntityTypesIfcCount };

@@ -18,7 +18,6 @@ export  class IfcMappedItem extends IfcRepresentationItem
     {
         return EntityTypesIfc.IFCMAPPEDITEM;
     }
-
     private MappingSource_? : IfcRepresentationMap;
     private MappingTarget_? : IfcCartesianTransformationOperator;
 
@@ -91,4 +90,8 @@ export  class IfcMappedItem extends IfcRepresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMAPPEDITEM ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMAPPEDITEM;
 }

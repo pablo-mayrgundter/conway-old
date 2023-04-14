@@ -17,7 +17,6 @@ export  class IfcEvaporativeCoolerType extends IfcEnergyConversionDeviceType
     {
         return EntityTypesIfc.IFCEVAPORATIVECOOLERTYPE;
     }
-
     private PredefinedType_? : IfcEvaporativeCoolerTypeEnum;
 
     public get PredefinedType() : IfcEvaporativeCoolerTypeEnum
@@ -55,4 +54,8 @@ export  class IfcEvaporativeCoolerType extends IfcEnergyConversionDeviceType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCEVAPORATIVECOOLERTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCEVAPORATIVECOOLERTYPE;
 }

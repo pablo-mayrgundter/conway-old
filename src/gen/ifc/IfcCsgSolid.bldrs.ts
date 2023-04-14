@@ -18,7 +18,6 @@ export  class IfcCsgSolid extends IfcSolidModel
     {
         return EntityTypesIfc.IFCCSGSOLID;
     }
-
     private TreeRootExpression_? : IfcBooleanResult|IfcCsgPrimitive3D;
 
     public get TreeRootExpression() : IfcBooleanResult|IfcCsgPrimitive3D
@@ -57,4 +56,8 @@ export  class IfcCsgSolid extends IfcSolidModel
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCSGSOLID ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCSGSOLID;
 }

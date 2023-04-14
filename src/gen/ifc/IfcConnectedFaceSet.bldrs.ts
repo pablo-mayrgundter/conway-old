@@ -17,7 +17,6 @@ export  class IfcConnectedFaceSet extends IfcTopologicalRepresentationItem
     {
         return EntityTypesIfc.IFCCONNECTEDFACESET;
     }
-
     private CfsFaces_? : Array<IfcFace>;
 
     public get CfsFaces() : Array<IfcFace>
@@ -67,4 +66,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCONNECTEDFACESET, EntityTypesIfc.IFCCLOSEDSHELL, EntityTypesIfc.IFCOPENSHELL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCONNECTEDFACESET;
 }

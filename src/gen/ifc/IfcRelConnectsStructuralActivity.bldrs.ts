@@ -19,7 +19,6 @@ export  class IfcRelConnectsStructuralActivity extends IfcRelConnects
     {
         return EntityTypesIfc.IFCRELCONNECTSSTRUCTURALACTIVITY;
     }
-
     private RelatingElement_? : IfcElement|IfcStructuralItem;
     private RelatedStructuralActivity_? : IfcStructuralActivity;
 
@@ -92,4 +91,8 @@ export  class IfcRelConnectsStructuralActivity extends IfcRelConnects
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELCONNECTSSTRUCTURALACTIVITY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELCONNECTSSTRUCTURALACTIVITY;
 }

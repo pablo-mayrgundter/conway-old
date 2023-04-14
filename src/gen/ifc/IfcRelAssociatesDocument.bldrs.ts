@@ -18,7 +18,6 @@ export  class IfcRelAssociatesDocument extends IfcRelAssociates
     {
         return EntityTypesIfc.IFCRELASSOCIATESDOCUMENT;
     }
-
     private RelatingDocument_? : IfcDocumentInformation|IfcDocumentReference;
 
     public get RelatingDocument() : IfcDocumentInformation|IfcDocumentReference
@@ -57,4 +56,8 @@ export  class IfcRelAssociatesDocument extends IfcRelAssociates
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELASSOCIATESDOCUMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELASSOCIATESDOCUMENT;
 }

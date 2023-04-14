@@ -54,4 +54,8 @@ export class IfcNormalisedRatioMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCNORMALISEDRATIOMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCNORMALISEDRATIOMEASURE;
 }

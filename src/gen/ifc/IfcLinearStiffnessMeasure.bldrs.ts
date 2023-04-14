@@ -54,4 +54,8 @@ export class IfcLinearStiffnessMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCLINEARSTIFFNESSMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCLINEARSTIFFNESSMEASURE;
 }

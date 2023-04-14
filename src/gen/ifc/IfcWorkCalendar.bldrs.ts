@@ -18,7 +18,6 @@ export  class IfcWorkCalendar extends IfcControl
     {
         return EntityTypesIfc.IFCWORKCALENDAR;
     }
-
     private WorkingTimes_? : Array<IfcWorkTime> | null;
     private ExceptionTimes_? : Array<IfcWorkTime> | null;
     private PredefinedType_? : IfcWorkCalendarTypeEnum | null;
@@ -163,4 +162,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCWORKCALENDAR ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCWORKCALENDAR;
 }

@@ -7,7 +7,9 @@ enum IfcTransformerTypeEnum {
     USERDEFINED = 5,
     NOTDEFINED = 6,
 }
-export { IfcTransformerTypeEnum };
+const IfcTransformerTypeEnumCount = 7;
+
+export { IfcTransformerTypeEnum, IfcTransformerTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

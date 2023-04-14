@@ -19,7 +19,6 @@ export  class IfcSurfaceCurveSweptAreaSolid extends IfcSweptAreaSolid
     {
         return EntityTypesIfc.IFCSURFACECURVESWEPTAREASOLID;
     }
-
     private Directrix_? : IfcCurve;
     private StartParam_? : number | null;
     private EndParam_? : number | null;
@@ -172,4 +171,8 @@ export  class IfcSurfaceCurveSweptAreaSolid extends IfcSweptAreaSolid
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSURFACECURVESWEPTAREASOLID ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSURFACECURVESWEPTAREASOLID;
 }

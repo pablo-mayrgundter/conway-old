@@ -17,7 +17,6 @@ export  class IfcMedicalDevice extends IfcFlowTerminal
     {
         return EntityTypesIfc.IFCMEDICALDEVICE;
     }
-
     private PredefinedType_? : IfcMedicalDeviceTypeEnum | null;
 
     public get PredefinedType() : IfcMedicalDeviceTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcMedicalDevice extends IfcFlowTerminal
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMEDICALDEVICE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMEDICALDEVICE;
 }

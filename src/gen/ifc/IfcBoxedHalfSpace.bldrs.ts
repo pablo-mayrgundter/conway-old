@@ -17,7 +17,6 @@ export  class IfcBoxedHalfSpace extends IfcHalfSpaceSolid
     {
         return EntityTypesIfc.IFCBOXEDHALFSPACE;
     }
-
     private Enclosure_? : IfcBoundingBox;
 
     public get Enclosure() : IfcBoundingBox
@@ -56,4 +55,8 @@ export  class IfcBoxedHalfSpace extends IfcHalfSpaceSolid
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBOXEDHALFSPACE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBOXEDHALFSPACE;
 }

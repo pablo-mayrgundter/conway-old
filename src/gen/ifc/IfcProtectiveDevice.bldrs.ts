@@ -17,7 +17,6 @@ export  class IfcProtectiveDevice extends IfcFlowController
     {
         return EntityTypesIfc.IFCPROTECTIVEDEVICE;
     }
-
     private PredefinedType_? : IfcProtectiveDeviceTypeEnum | null;
 
     public get PredefinedType() : IfcProtectiveDeviceTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcProtectiveDevice extends IfcFlowController
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPROTECTIVEDEVICE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPROTECTIVEDEVICE;
 }

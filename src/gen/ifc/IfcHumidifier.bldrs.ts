@@ -17,7 +17,6 @@ export  class IfcHumidifier extends IfcEnergyConversionDevice
     {
         return EntityTypesIfc.IFCHUMIDIFIER;
     }
-
     private PredefinedType_? : IfcHumidifierTypeEnum | null;
 
     public get PredefinedType() : IfcHumidifierTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcHumidifier extends IfcEnergyConversionDevice
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCHUMIDIFIER ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCHUMIDIFIER;
 }

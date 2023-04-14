@@ -22,7 +22,6 @@ export  class IfcBooleanResult extends IfcGeometricRepresentationItem
     {
         return EntityTypesIfc.IFCBOOLEANRESULT;
     }
-
     private Operator_? : IfcBooleanOperator;
     private FirstOperand_? : IfcBooleanResult|IfcCsgPrimitive3D|IfcHalfSpaceSolid|IfcSolidModel|IfcTessellatedFaceSet;
     private SecondOperand_? : IfcBooleanResult|IfcCsgPrimitive3D|IfcHalfSpaceSolid|IfcSolidModel|IfcTessellatedFaceSet;
@@ -133,4 +132,8 @@ export  class IfcBooleanResult extends IfcGeometricRepresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBOOLEANRESULT, EntityTypesIfc.IFCBOOLEANCLIPPINGRESULT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBOOLEANRESULT;
 }

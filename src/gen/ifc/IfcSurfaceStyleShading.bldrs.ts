@@ -18,7 +18,6 @@ export  class IfcSurfaceStyleShading extends IfcPresentationItem
     {
         return EntityTypesIfc.IFCSURFACESTYLESHADING;
     }
-
     private SurfaceColour_? : IfcColourRgb;
     private Transparency_? : number | null;
 
@@ -97,4 +96,8 @@ export  class IfcSurfaceStyleShading extends IfcPresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSURFACESTYLESHADING, EntityTypesIfc.IFCSURFACESTYLERENDERING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSURFACESTYLESHADING;
 }

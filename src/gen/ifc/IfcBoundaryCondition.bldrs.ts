@@ -16,7 +16,6 @@ export abstract class IfcBoundaryCondition extends StepEntityBase< EntityTypesIf
     {
         return EntityTypesIfc.IFCBOUNDARYCONDITION;
     }
-
     private Name_? : string | null;
 
     public get Name() : string | null
@@ -61,4 +60,8 @@ export abstract class IfcBoundaryCondition extends StepEntityBase< EntityTypesIf
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBOUNDARYEDGECONDITION, EntityTypesIfc.IFCBOUNDARYFACECONDITION, EntityTypesIfc.IFCBOUNDARYNODECONDITION, EntityTypesIfc.IFCBOUNDARYNODECONDITIONWARPING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBOUNDARYCONDITION;
 }

@@ -54,4 +54,8 @@ export class IfcPresentableText extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPRESENTABLETEXT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPRESENTABLETEXT;
 }

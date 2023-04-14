@@ -16,7 +16,6 @@ export abstract class IfcRepresentationContext extends StepEntityBase< EntityTyp
     {
         return EntityTypesIfc.IFCREPRESENTATIONCONTEXT;
     }
-
     private ContextIdentifier_? : string | null;
     private ContextType_? : string | null;
 
@@ -102,4 +101,8 @@ export abstract class IfcRepresentationContext extends StepEntityBase< EntityTyp
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCGEOMETRICREPRESENTATIONCONTEXT, EntityTypesIfc.IFCGEOMETRICREPRESENTATIONSUBCONTEXT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCREPRESENTATIONCONTEXT;
 }

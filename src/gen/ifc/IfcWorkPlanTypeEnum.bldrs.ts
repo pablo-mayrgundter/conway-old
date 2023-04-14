@@ -5,7 +5,9 @@ enum IfcWorkPlanTypeEnum {
     USERDEFINED = 3,
     NOTDEFINED = 4,
 }
-export { IfcWorkPlanTypeEnum };
+const IfcWorkPlanTypeEnumCount = 5;
+
+export { IfcWorkPlanTypeEnum, IfcWorkPlanTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

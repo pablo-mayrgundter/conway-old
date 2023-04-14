@@ -5,7 +5,9 @@ enum IfcChangeActionEnum {
     DELETED = 3,
     NOTDEFINED = 4,
 }
-export { IfcChangeActionEnum };
+const IfcChangeActionEnumCount = 5;
+
+export { IfcChangeActionEnum, IfcChangeActionEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

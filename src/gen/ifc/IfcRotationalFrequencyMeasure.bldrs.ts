@@ -54,4 +54,8 @@ export class IfcRotationalFrequencyMeasure extends StepEntityBase< EntityTypesIf
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCROTATIONALFREQUENCYMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCROTATIONALFREQUENCYMEASURE;
 }

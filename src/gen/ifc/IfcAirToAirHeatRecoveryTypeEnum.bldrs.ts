@@ -11,7 +11,9 @@ enum IfcAirToAirHeatRecoveryTypeEnum {
     USERDEFINED = 9,
     NOTDEFINED = 10,
 }
-export { IfcAirToAirHeatRecoveryTypeEnum };
+const IfcAirToAirHeatRecoveryTypeEnumCount = 11;
+
+export { IfcAirToAirHeatRecoveryTypeEnum, IfcAirToAirHeatRecoveryTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

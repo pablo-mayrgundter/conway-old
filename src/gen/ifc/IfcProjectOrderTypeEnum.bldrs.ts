@@ -7,7 +7,9 @@ enum IfcProjectOrderTypeEnum {
     USERDEFINED = 5,
     NOTDEFINED = 6,
 }
-export { IfcProjectOrderTypeEnum };
+const IfcProjectOrderTypeEnumCount = 7;
+
+export { IfcProjectOrderTypeEnum, IfcProjectOrderTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -7,7 +7,9 @@ enum IfcOutletTypeEnum {
     USERDEFINED = 5,
     NOTDEFINED = 6,
 }
-export { IfcOutletTypeEnum };
+const IfcOutletTypeEnumCount = 7;
+
+export { IfcOutletTypeEnum, IfcOutletTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

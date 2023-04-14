@@ -18,7 +18,6 @@ export  class IfcBlobTexture extends IfcSurfaceTexture
     {
         return EntityTypesIfc.IFCBLOBTEXTURE;
     }
-
     private RasterFormat_? : string;
     private RasterCode_? : [Uint8Array, number];
 
@@ -89,4 +88,8 @@ export  class IfcBlobTexture extends IfcSurfaceTexture
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBLOBTEXTURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBLOBTEXTURE;
 }

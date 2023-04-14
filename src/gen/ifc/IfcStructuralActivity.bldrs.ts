@@ -18,7 +18,6 @@ export abstract class IfcStructuralActivity extends IfcProduct
     {
         return EntityTypesIfc.IFCSTRUCTURALACTIVITY;
     }
-
     private AppliedLoad_? : IfcStructuralLoad;
     private GlobalOrLocal_? : IfcGlobalOrLocalEnum;
 
@@ -91,4 +90,8 @@ export abstract class IfcStructuralActivity extends IfcProduct
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALCURVEACTION, EntityTypesIfc.IFCSTRUCTURALPOINTACTION, EntityTypesIfc.IFCSTRUCTURALSURFACEACTION, EntityTypesIfc.IFCSTRUCTURALLINEARACTION, EntityTypesIfc.IFCSTRUCTURALPLANARACTION, EntityTypesIfc.IFCSTRUCTURALCURVEREACTION, EntityTypesIfc.IFCSTRUCTURALPOINTREACTION, EntityTypesIfc.IFCSTRUCTURALSURFACEREACTION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALACTIVITY;
 }

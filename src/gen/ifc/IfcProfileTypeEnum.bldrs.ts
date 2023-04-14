@@ -2,7 +2,9 @@ enum IfcProfileTypeEnum {
     CURVE = 0,
     AREA = 1,
 }
-export { IfcProfileTypeEnum };
+const IfcProfileTypeEnumCount = 2;
+
+export { IfcProfileTypeEnum, IfcProfileTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -19,7 +19,6 @@ export  class IfcRevolvedAreaSolid extends IfcSweptAreaSolid
     {
         return EntityTypesIfc.IFCREVOLVEDAREASOLID;
     }
-
     private Axis_? : IfcAxis1Placement;
     private Angle_? : number;
 
@@ -92,4 +91,8 @@ export  class IfcRevolvedAreaSolid extends IfcSweptAreaSolid
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCREVOLVEDAREASOLID, EntityTypesIfc.IFCREVOLVEDAREASOLIDTAPERED ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCREVOLVEDAREASOLID;
 }

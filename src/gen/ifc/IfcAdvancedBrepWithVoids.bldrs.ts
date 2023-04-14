@@ -17,7 +17,6 @@ export  class IfcAdvancedBrepWithVoids extends IfcAdvancedBrep
     {
         return EntityTypesIfc.IFCADVANCEDBREPWITHVOIDS;
     }
-
     private Voids_? : Array<IfcClosedShell>;
 
     public get Voids() : Array<IfcClosedShell>
@@ -67,4 +66,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCADVANCEDBREPWITHVOIDS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCADVANCEDBREPWITHVOIDS;
 }

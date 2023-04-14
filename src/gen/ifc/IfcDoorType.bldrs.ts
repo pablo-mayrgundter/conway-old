@@ -20,7 +20,6 @@ export  class IfcDoorType extends IfcBuildingElementType
     {
         return EntityTypesIfc.IFCDOORTYPE;
     }
-
     private PredefinedType_? : IfcDoorTypeEnum;
     private OperationType_? : IfcDoorTypeOperationEnum;
     private ParameterTakesPrecedence_? : boolean | null;
@@ -171,4 +170,8 @@ export  class IfcDoorType extends IfcBuildingElementType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDOORTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDOORTYPE;
 }

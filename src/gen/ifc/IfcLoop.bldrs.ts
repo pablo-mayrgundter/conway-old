@@ -18,9 +18,12 @@ export  class IfcLoop extends IfcTopologicalRepresentationItem
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCLOOP, EntityTypesIfc.IFCEDGELOOP, EntityTypesIfc.IFCPOLYLOOP, EntityTypesIfc.IFCVERTEXLOOP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCLOOP;
 }

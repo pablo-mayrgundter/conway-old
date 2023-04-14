@@ -17,7 +17,6 @@ export  class IfcOpeningElement extends IfcFeatureElementSubtraction
     {
         return EntityTypesIfc.IFCOPENINGELEMENT;
     }
-
     private PredefinedType_? : IfcOpeningElementTypeEnum | null;
 
     public get PredefinedType() : IfcOpeningElementTypeEnum | null
@@ -63,4 +62,8 @@ export  class IfcOpeningElement extends IfcFeatureElementSubtraction
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCOPENINGELEMENT, EntityTypesIfc.IFCOPENINGSTANDARDCASE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCOPENINGELEMENT;
 }

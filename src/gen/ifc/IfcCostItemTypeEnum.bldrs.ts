@@ -2,7 +2,9 @@ enum IfcCostItemTypeEnum {
     USERDEFINED = 0,
     NOTDEFINED = 1,
 }
-export { IfcCostItemTypeEnum };
+const IfcCostItemTypeEnumCount = 2;
+
+export { IfcCostItemTypeEnum, IfcCostItemTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

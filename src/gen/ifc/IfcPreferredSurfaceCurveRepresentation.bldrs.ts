@@ -3,7 +3,9 @@ enum IfcPreferredSurfaceCurveRepresentation {
     PCURVE_S1 = 1,
     PCURVE_S2 = 2,
 }
-export { IfcPreferredSurfaceCurveRepresentation };
+const IfcPreferredSurfaceCurveRepresentationCount = 3;
+
+export { IfcPreferredSurfaceCurveRepresentation, IfcPreferredSurfaceCurveRepresentationCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

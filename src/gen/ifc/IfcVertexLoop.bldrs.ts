@@ -17,7 +17,6 @@ export  class IfcVertexLoop extends IfcLoop
     {
         return EntityTypesIfc.IFCVERTEXLOOP;
     }
-
     private LoopVertex_? : IfcVertex;
 
     public get LoopVertex() : IfcVertex
@@ -56,4 +55,8 @@ export  class IfcVertexLoop extends IfcLoop
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCVERTEXLOOP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCVERTEXLOOP;
 }

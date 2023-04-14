@@ -19,9 +19,12 @@ export abstract class IfcMaterialDefinition extends StepEntityBase< EntityTypesI
 
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMATERIAL, EntityTypesIfc.IFCMATERIALCONSTITUENT, EntityTypesIfc.IFCMATERIALCONSTITUENTSET, EntityTypesIfc.IFCMATERIALLAYER, EntityTypesIfc.IFCMATERIALLAYERSET, EntityTypesIfc.IFCMATERIALPROFILE, EntityTypesIfc.IFCMATERIALPROFILESET, EntityTypesIfc.IFCMATERIALLAYERWITHOFFSETS, EntityTypesIfc.IFCMATERIALPROFILEWITHOFFSETS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMATERIALDEFINITION;
 }

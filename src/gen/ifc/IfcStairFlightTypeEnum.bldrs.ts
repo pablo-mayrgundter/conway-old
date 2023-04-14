@@ -7,7 +7,9 @@ enum IfcStairFlightTypeEnum {
     USERDEFINED = 5,
     NOTDEFINED = 6,
 }
-export { IfcStairFlightTypeEnum };
+const IfcStairFlightTypeEnumCount = 7;
+
+export { IfcStairFlightTypeEnum, IfcStairFlightTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

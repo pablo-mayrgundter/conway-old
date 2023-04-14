@@ -54,4 +54,8 @@ export class IfcSectionalAreaIntegralMeasure extends StepEntityBase< EntityTypes
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSECTIONALAREAINTEGRALMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSECTIONALAREAINTEGRALMEASURE;
 }

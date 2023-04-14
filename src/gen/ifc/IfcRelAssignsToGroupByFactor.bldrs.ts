@@ -17,7 +17,6 @@ export  class IfcRelAssignsToGroupByFactor extends IfcRelAssignsToGroup
     {
         return EntityTypesIfc.IFCRELASSIGNSTOGROUPBYFACTOR;
     }
-
     private Factor_? : number;
 
     public get Factor() : number
@@ -55,4 +54,8 @@ export  class IfcRelAssignsToGroupByFactor extends IfcRelAssignsToGroup
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELASSIGNSTOGROUPBYFACTOR ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELASSIGNSTOGROUPBYFACTOR;
 }

@@ -19,7 +19,6 @@ export  class IfcRelDeclares extends IfcRelationship
     {
         return EntityTypesIfc.IFCRELDECLARES;
     }
-
     private RelatingContext_? : IfcContext;
     private RelatedDefinitions_? : Array<IfcObjectDefinition|IfcPropertyDefinition>;
 
@@ -103,4 +102,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELDECLARES ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELDECLARES;
 }

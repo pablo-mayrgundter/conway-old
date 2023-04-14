@@ -16,7 +16,6 @@ export  class IfcMonetaryUnit extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCMONETARYUNIT;
     }
-
     private Currency_? : string;
 
     public get Currency() : string
@@ -54,4 +53,8 @@ export  class IfcMonetaryUnit extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMONETARYUNIT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMONETARYUNIT;
 }

@@ -11,7 +11,9 @@ enum IfcSwitchingDeviceTypeEnum {
     USERDEFINED = 9,
     NOTDEFINED = 10,
 }
-export { IfcSwitchingDeviceTypeEnum };
+const IfcSwitchingDeviceTypeEnumCount = 11;
+
+export { IfcSwitchingDeviceTypeEnum, IfcSwitchingDeviceTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -6,7 +6,9 @@ enum IfcStructuralSurfaceActivityTypeEnum {
     USERDEFINED = 4,
     NOTDEFINED = 5,
 }
-export { IfcStructuralSurfaceActivityTypeEnum };
+const IfcStructuralSurfaceActivityTypeEnumCount = 6;
+
+export { IfcStructuralSurfaceActivityTypeEnum, IfcStructuralSurfaceActivityTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

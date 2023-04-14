@@ -21,7 +21,6 @@ export  class IfcStructuralLoadGroup extends IfcGroup
     {
         return EntityTypesIfc.IFCSTRUCTURALLOADGROUP;
     }
-
     private PredefinedType_? : IfcLoadGroupTypeEnum;
     private ActionType_? : IfcActionTypeEnum;
     private ActionSource_? : IfcActionSourceTypeEnum;
@@ -207,4 +206,8 @@ export  class IfcStructuralLoadGroup extends IfcGroup
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALLOADGROUP, EntityTypesIfc.IFCSTRUCTURALLOADCASE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALLOADGROUP;
 }

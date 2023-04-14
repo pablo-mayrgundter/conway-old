@@ -54,4 +54,8 @@ export class IfcIonConcentrationMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCIONCONCENTRATIONMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCIONCONCENTRATIONMEASURE;
 }

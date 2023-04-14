@@ -15,7 +15,6 @@ export  class IfcDimensionalExponents extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCDIMENSIONALEXPONENTS;
     }
-
     private LengthExponent_? : number;
     private MassExponent_? : number;
     private TimeExponent_? : number;
@@ -251,4 +250,8 @@ export  class IfcDimensionalExponents extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDIMENSIONALEXPONENTS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDIMENSIONALEXPONENTS;
 }

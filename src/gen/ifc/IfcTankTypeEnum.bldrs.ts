@@ -9,7 +9,9 @@ enum IfcTankTypeEnum {
     USERDEFINED = 7,
     NOTDEFINED = 8,
 }
-export { IfcTankTypeEnum };
+const IfcTankTypeEnumCount = 9;
+
+export { IfcTankTypeEnum, IfcTankTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

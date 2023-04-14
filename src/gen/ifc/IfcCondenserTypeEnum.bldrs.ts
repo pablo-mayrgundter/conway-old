@@ -9,7 +9,9 @@ enum IfcCondenserTypeEnum {
     USERDEFINED = 7,
     NOTDEFINED = 8,
 }
-export { IfcCondenserTypeEnum };
+const IfcCondenserTypeEnumCount = 9;
+
+export { IfcCondenserTypeEnum, IfcCondenserTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -20,7 +20,6 @@ export  class IfcTextLiteral extends IfcGeometricRepresentationItem
     {
         return EntityTypesIfc.IFCTEXTLITERAL;
     }
-
     private Literal_? : string;
     private Placement_? : IfcAxis2Placement2D|IfcAxis2Placement3D;
     private Path_? : IfcTextPath;
@@ -125,4 +124,8 @@ export  class IfcTextLiteral extends IfcGeometricRepresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTEXTLITERAL, EntityTypesIfc.IFCTEXTLITERALWITHEXTENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTEXTLITERAL;
 }

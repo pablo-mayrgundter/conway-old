@@ -9,7 +9,9 @@ enum IfcFurnitureTypeEnum {
     USERDEFINED = 7,
     NOTDEFINED = 8,
 }
-export { IfcFurnitureTypeEnum };
+const IfcFurnitureTypeEnumCount = 9;
+
+export { IfcFurnitureTypeEnum, IfcFurnitureTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

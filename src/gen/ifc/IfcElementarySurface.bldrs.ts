@@ -17,7 +17,6 @@ export abstract class IfcElementarySurface extends IfcSurface
     {
         return EntityTypesIfc.IFCELEMENTARYSURFACE;
     }
-
     private Position_? : IfcAxis2Placement3D;
 
     public get Position() : IfcAxis2Placement3D
@@ -56,4 +55,8 @@ export abstract class IfcElementarySurface extends IfcSurface
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCYLINDRICALSURFACE, EntityTypesIfc.IFCPLANE, EntityTypesIfc.IFCSPHERICALSURFACE, EntityTypesIfc.IFCTOROIDALSURFACE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCELEMENTARYSURFACE;
 }

@@ -5,7 +5,9 @@ enum IfcCoolingTowerTypeEnum {
     USERDEFINED = 3,
     NOTDEFINED = 4,
 }
-export { IfcCoolingTowerTypeEnum };
+const IfcCoolingTowerTypeEnumCount = 5;
+
+export { IfcCoolingTowerTypeEnum, IfcCoolingTowerTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

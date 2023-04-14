@@ -17,7 +17,6 @@ export  class IfcDamper extends IfcFlowController
     {
         return EntityTypesIfc.IFCDAMPER;
     }
-
     private PredefinedType_? : IfcDamperTypeEnum | null;
 
     public get PredefinedType() : IfcDamperTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcDamper extends IfcFlowController
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDAMPER ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDAMPER;
 }

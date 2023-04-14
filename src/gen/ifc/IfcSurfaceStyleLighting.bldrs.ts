@@ -17,7 +17,6 @@ export  class IfcSurfaceStyleLighting extends IfcPresentationItem
     {
         return EntityTypesIfc.IFCSURFACESTYLELIGHTING;
     }
-
     private DiffuseTransmissionColour_? : IfcColourRgb;
     private DiffuseReflectionColour_? : IfcColourRgb;
     private TransmissionColour_? : IfcColourRgb;
@@ -158,4 +157,8 @@ export  class IfcSurfaceStyleLighting extends IfcPresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSURFACESTYLELIGHTING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSURFACESTYLELIGHTING;
 }

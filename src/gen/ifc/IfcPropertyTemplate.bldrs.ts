@@ -19,9 +19,12 @@ export abstract class IfcPropertyTemplate extends IfcPropertyTemplateDefinition
 
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCOMPLEXPROPERTYTEMPLATE, EntityTypesIfc.IFCSIMPLEPROPERTYTEMPLATE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPROPERTYTEMPLATE;
 }

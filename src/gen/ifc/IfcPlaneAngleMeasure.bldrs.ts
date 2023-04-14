@@ -54,4 +54,8 @@ export class IfcPlaneAngleMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPLANEANGLEMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPLANEANGLEMEASURE;
 }

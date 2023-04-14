@@ -18,7 +18,6 @@ export  class IfcPerformanceHistory extends IfcControl
     {
         return EntityTypesIfc.IFCPERFORMANCEHISTORY;
     }
-
     private LifeCyclePhase_? : string;
     private PredefinedType_? : IfcPerformanceHistoryTypeEnum | null;
 
@@ -96,4 +95,8 @@ export  class IfcPerformanceHistory extends IfcControl
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPERFORMANCEHISTORY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPERFORMANCEHISTORY;
 }

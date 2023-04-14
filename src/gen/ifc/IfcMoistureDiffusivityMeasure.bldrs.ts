@@ -54,4 +54,8 @@ export class IfcMoistureDiffusivityMeasure extends StepEntityBase< EntityTypesIf
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMOISTUREDIFFUSIVITYMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMOISTUREDIFFUSIVITYMEASURE;
 }

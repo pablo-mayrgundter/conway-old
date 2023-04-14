@@ -18,7 +18,6 @@ export  class IfcRelAssociatesLibrary extends IfcRelAssociates
     {
         return EntityTypesIfc.IFCRELASSOCIATESLIBRARY;
     }
-
     private RelatingLibrary_? : IfcLibraryInformation|IfcLibraryReference;
 
     public get RelatingLibrary() : IfcLibraryInformation|IfcLibraryReference
@@ -57,4 +56,8 @@ export  class IfcRelAssociatesLibrary extends IfcRelAssociates
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELASSOCIATESLIBRARY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELASSOCIATESLIBRARY;
 }

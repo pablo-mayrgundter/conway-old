@@ -17,7 +17,6 @@ export  class IfcGeographicElement extends IfcElement
     {
         return EntityTypesIfc.IFCGEOGRAPHICELEMENT;
     }
-
     private PredefinedType_? : IfcGeographicElementTypeEnum | null;
 
     public get PredefinedType() : IfcGeographicElementTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcGeographicElement extends IfcElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCGEOGRAPHICELEMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCGEOGRAPHICELEMENT;
 }

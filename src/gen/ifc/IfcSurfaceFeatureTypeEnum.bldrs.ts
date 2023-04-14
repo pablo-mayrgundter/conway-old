@@ -5,7 +5,9 @@ enum IfcSurfaceFeatureTypeEnum {
     USERDEFINED = 3,
     NOTDEFINED = 4,
 }
-export { IfcSurfaceFeatureTypeEnum };
+const IfcSurfaceFeatureTypeEnumCount = 5;
+
+export { IfcSurfaceFeatureTypeEnum, IfcSurfaceFeatureTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

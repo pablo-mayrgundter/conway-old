@@ -19,7 +19,6 @@ export  class IfcLibraryReference extends IfcExternalReference
     {
         return EntityTypesIfc.IFCLIBRARYREFERENCE;
     }
-
     private Description_? : string | null;
     private Language_? : string | null;
     private ReferencedLibrary_? : IfcLibraryInformation | null;
@@ -146,4 +145,8 @@ export  class IfcLibraryReference extends IfcExternalReference
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCLIBRARYREFERENCE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCLIBRARYREFERENCE;
 }

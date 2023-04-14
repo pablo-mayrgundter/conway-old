@@ -17,7 +17,6 @@ export  class IfcActuatorType extends IfcDistributionControlElementType
     {
         return EntityTypesIfc.IFCACTUATORTYPE;
     }
-
     private PredefinedType_? : IfcActuatorTypeEnum;
 
     public get PredefinedType() : IfcActuatorTypeEnum
@@ -55,4 +54,8 @@ export  class IfcActuatorType extends IfcDistributionControlElementType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCACTUATORTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCACTUATORTYPE;
 }

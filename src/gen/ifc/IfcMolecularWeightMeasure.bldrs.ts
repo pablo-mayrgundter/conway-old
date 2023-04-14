@@ -54,4 +54,8 @@ export class IfcMolecularWeightMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMOLECULARWEIGHTMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMOLECULARWEIGHTMEASURE;
 }

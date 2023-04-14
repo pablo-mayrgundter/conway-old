@@ -18,7 +18,6 @@ export abstract class IfcSweptSurface extends IfcSurface
     {
         return EntityTypesIfc.IFCSWEPTSURFACE;
     }
-
     private SweptCurve_? : IfcProfileDef;
     private Position_? : IfcAxis2Placement3D | null;
 
@@ -98,4 +97,8 @@ export abstract class IfcSweptSurface extends IfcSurface
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSURFACEOFLINEAREXTRUSION, EntityTypesIfc.IFCSURFACEOFREVOLUTION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSWEPTSURFACE;
 }

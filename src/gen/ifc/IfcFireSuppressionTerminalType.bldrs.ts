@@ -17,7 +17,6 @@ export  class IfcFireSuppressionTerminalType extends IfcFlowTerminalType
     {
         return EntityTypesIfc.IFCFIRESUPPRESSIONTERMINALTYPE;
     }
-
     private PredefinedType_? : IfcFireSuppressionTerminalTypeEnum;
 
     public get PredefinedType() : IfcFireSuppressionTerminalTypeEnum
@@ -55,4 +54,8 @@ export  class IfcFireSuppressionTerminalType extends IfcFlowTerminalType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFIRESUPPRESSIONTERMINALTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFIRESUPPRESSIONTERMINALTYPE;
 }

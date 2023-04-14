@@ -18,7 +18,6 @@ export  class IfcEdgeCurve extends IfcEdge
     {
         return EntityTypesIfc.IFCEDGECURVE;
     }
-
     private EdgeGeometry_? : IfcCurve;
     private SameSense_? : boolean;
 
@@ -90,4 +89,8 @@ export  class IfcEdgeCurve extends IfcEdge
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCEDGECURVE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCEDGECURVE;
 }

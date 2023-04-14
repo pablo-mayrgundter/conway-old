@@ -2,7 +2,9 @@ enum IfcComplexPropertyTemplateTypeEnum {
     P_COMPLEX = 0,
     Q_COMPLEX = 1,
 }
-export { IfcComplexPropertyTemplateTypeEnum };
+const IfcComplexPropertyTemplateTypeEnumCount = 2;
+
+export { IfcComplexPropertyTemplateTypeEnum, IfcComplexPropertyTemplateTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

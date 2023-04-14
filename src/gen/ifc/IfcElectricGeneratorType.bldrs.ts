@@ -17,7 +17,6 @@ export  class IfcElectricGeneratorType extends IfcEnergyConversionDeviceType
     {
         return EntityTypesIfc.IFCELECTRICGENERATORTYPE;
     }
-
     private PredefinedType_? : IfcElectricGeneratorTypeEnum;
 
     public get PredefinedType() : IfcElectricGeneratorTypeEnum
@@ -55,4 +54,8 @@ export  class IfcElectricGeneratorType extends IfcEnergyConversionDeviceType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCELECTRICGENERATORTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCELECTRICGENERATORTYPE;
 }

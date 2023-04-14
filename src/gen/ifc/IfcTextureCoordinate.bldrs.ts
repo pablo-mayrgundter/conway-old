@@ -17,7 +17,6 @@ export abstract class IfcTextureCoordinate extends IfcPresentationItem
     {
         return EntityTypesIfc.IFCTEXTURECOORDINATE;
     }
-
     private Maps_? : Array<IfcSurfaceTexture>;
 
     public get Maps() : Array<IfcSurfaceTexture>
@@ -67,4 +66,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTEXTURECOORDINATEGENERATOR, EntityTypesIfc.IFCTEXTUREMAP, EntityTypesIfc.IFCINDEXEDTRIANGLETEXTUREMAP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTEXTURECOORDINATE;
 }

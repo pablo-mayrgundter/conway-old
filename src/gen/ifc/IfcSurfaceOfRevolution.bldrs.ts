@@ -18,7 +18,6 @@ export  class IfcSurfaceOfRevolution extends IfcSweptSurface
     {
         return EntityTypesIfc.IFCSURFACEOFREVOLUTION;
     }
-
     private AxisPosition_? : IfcAxis1Placement;
 
     public get AxisPosition() : IfcAxis1Placement
@@ -58,4 +57,8 @@ export  class IfcSurfaceOfRevolution extends IfcSweptSurface
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSURFACEOFREVOLUTION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSURFACEOFREVOLUTION;
 }

@@ -17,7 +17,6 @@ export  class IfcBurnerType extends IfcEnergyConversionDeviceType
     {
         return EntityTypesIfc.IFCBURNERTYPE;
     }
-
     private PredefinedType_? : IfcBurnerTypeEnum;
 
     public get PredefinedType() : IfcBurnerTypeEnum
@@ -55,4 +54,8 @@ export  class IfcBurnerType extends IfcEnergyConversionDeviceType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBURNERTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBURNERTYPE;
 }

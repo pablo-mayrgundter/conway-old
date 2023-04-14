@@ -18,9 +18,12 @@ export  class IfcStyledRepresentation extends IfcStyleModel
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTYLEDREPRESENTATION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTYLEDREPRESENTATION;
 }

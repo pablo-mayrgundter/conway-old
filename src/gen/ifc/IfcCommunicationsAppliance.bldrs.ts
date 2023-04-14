@@ -17,7 +17,6 @@ export  class IfcCommunicationsAppliance extends IfcFlowTerminal
     {
         return EntityTypesIfc.IFCCOMMUNICATIONSAPPLIANCE;
     }
-
     private PredefinedType_? : IfcCommunicationsApplianceTypeEnum | null;
 
     public get PredefinedType() : IfcCommunicationsApplianceTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcCommunicationsAppliance extends IfcFlowTerminal
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCOMMUNICATIONSAPPLIANCE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCOMMUNICATIONSAPPLIANCE;
 }

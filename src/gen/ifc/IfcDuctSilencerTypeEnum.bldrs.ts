@@ -5,7 +5,9 @@ enum IfcDuctSilencerTypeEnum {
     USERDEFINED = 3,
     NOTDEFINED = 4,
 }
-export { IfcDuctSilencerTypeEnum };
+const IfcDuctSilencerTypeEnumCount = 5;
+
+export { IfcDuctSilencerTypeEnum, IfcDuctSilencerTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

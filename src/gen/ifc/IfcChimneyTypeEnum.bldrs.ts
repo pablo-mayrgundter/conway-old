@@ -2,7 +2,9 @@ enum IfcChimneyTypeEnum {
     USERDEFINED = 0,
     NOTDEFINED = 1,
 }
-export { IfcChimneyTypeEnum };
+const IfcChimneyTypeEnumCount = 2;
+
+export { IfcChimneyTypeEnum, IfcChimneyTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

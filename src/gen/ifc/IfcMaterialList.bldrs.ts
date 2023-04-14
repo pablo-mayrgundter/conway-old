@@ -16,7 +16,6 @@ export  class IfcMaterialList extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCMATERIALLIST;
     }
-
     private Materials_? : Array<IfcMaterial>;
 
     public get Materials() : Array<IfcMaterial>
@@ -66,4 +65,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMATERIALLIST ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMATERIALLIST;
 }

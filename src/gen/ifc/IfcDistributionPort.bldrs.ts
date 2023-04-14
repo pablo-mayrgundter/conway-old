@@ -19,7 +19,6 @@ export  class IfcDistributionPort extends IfcPort
     {
         return EntityTypesIfc.IFCDISTRIBUTIONPORT;
     }
-
     private FlowDirection_? : IfcFlowDirectionEnum | null;
     private PredefinedType_? : IfcDistributionPortTypeEnum | null;
     private SystemType_? : IfcDistributionSystemEnum | null;
@@ -144,4 +143,8 @@ export  class IfcDistributionPort extends IfcPort
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDISTRIBUTIONPORT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDISTRIBUTIONPORT;
 }

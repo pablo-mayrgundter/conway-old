@@ -17,7 +17,6 @@ export  class IfcPump extends IfcFlowMovingDevice
     {
         return EntityTypesIfc.IFCPUMP;
     }
-
     private PredefinedType_? : IfcPumpTypeEnum | null;
 
     public get PredefinedType() : IfcPumpTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcPump extends IfcFlowMovingDevice
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPUMP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPUMP;
 }

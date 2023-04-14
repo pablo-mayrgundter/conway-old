@@ -4,7 +4,9 @@ enum IfcSubContractResourceTypeEnum {
     USERDEFINED = 2,
     NOTDEFINED = 3,
 }
-export { IfcSubContractResourceTypeEnum };
+const IfcSubContractResourceTypeEnumCount = 4;
+
+export { IfcSubContractResourceTypeEnum, IfcSubContractResourceTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

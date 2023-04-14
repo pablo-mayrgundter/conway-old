@@ -54,4 +54,8 @@ export class IfcDescriptiveMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDESCRIPTIVEMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDESCRIPTIVEMEASURE;
 }

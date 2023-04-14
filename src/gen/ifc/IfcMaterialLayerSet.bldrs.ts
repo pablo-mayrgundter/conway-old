@@ -20,7 +20,6 @@ export  class IfcMaterialLayerSet extends IfcMaterialDefinition
     {
         return EntityTypesIfc.IFCMATERIALLAYERSET;
     }
-
     private MaterialLayers_? : Array<IfcMaterialLayer>;
     private LayerSetName_? : string | null;
     private Description_? : string | null;
@@ -155,4 +154,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMATERIALLAYERSET ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMATERIALLAYERSET;
 }

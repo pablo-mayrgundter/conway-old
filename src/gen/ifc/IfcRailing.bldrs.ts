@@ -17,7 +17,6 @@ export  class IfcRailing extends IfcBuildingElement
     {
         return EntityTypesIfc.IFCRAILING;
     }
-
     private PredefinedType_? : IfcRailingTypeEnum | null;
 
     public get PredefinedType() : IfcRailingTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcRailing extends IfcBuildingElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRAILING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRAILING;
 }

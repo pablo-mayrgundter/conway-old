@@ -3,7 +3,9 @@ enum IfcAssemblyPlaceEnum {
     FACTORY = 1,
     NOTDEFINED = 2,
 }
-export { IfcAssemblyPlaceEnum };
+const IfcAssemblyPlaceEnumCount = 3;
+
+export { IfcAssemblyPlaceEnum, IfcAssemblyPlaceEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

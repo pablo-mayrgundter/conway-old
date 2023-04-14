@@ -17,7 +17,6 @@ export  class IfcIndexedTriangleTextureMap extends IfcIndexedTextureMap
     {
         return EntityTypesIfc.IFCINDEXEDTRIANGLETEXTUREMAP;
     }
-
     private TexCoordIndex_? : Array< Array< number > > | null;
 
     public get TexCoordIndex() : Array< Array< number > > | null
@@ -82,4 +81,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCINDEXEDTRIANGLETEXTUREMAP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCINDEXEDTRIANGLETEXTUREMAP;
 }

@@ -4,7 +4,9 @@ enum IfcBoilerTypeEnum {
     USERDEFINED = 2,
     NOTDEFINED = 3,
 }
-export { IfcBoilerTypeEnum };
+const IfcBoilerTypeEnumCount = 4;
+
+export { IfcBoilerTypeEnum, IfcBoilerTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

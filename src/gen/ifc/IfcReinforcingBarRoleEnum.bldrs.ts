@@ -10,7 +10,9 @@ enum IfcReinforcingBarRoleEnum {
     USERDEFINED = 8,
     NOTDEFINED = 9,
 }
-export { IfcReinforcingBarRoleEnum };
+const IfcReinforcingBarRoleEnumCount = 10;
+
+export { IfcReinforcingBarRoleEnum, IfcReinforcingBarRoleEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

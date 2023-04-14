@@ -19,7 +19,6 @@ export abstract class IfcExtendedProperties extends IfcPropertyAbstraction
     {
         return EntityTypesIfc.IFCEXTENDEDPROPERTIES;
     }
-
     private Name_? : string | null;
     private Description_? : string | null;
     private Properties_? : Array<IfcProperty>;
@@ -149,4 +148,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMATERIALPROPERTIES, EntityTypesIfc.IFCPROFILEPROPERTIES ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCEXTENDEDPROPERTIES;
 }

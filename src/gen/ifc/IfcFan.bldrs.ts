@@ -17,7 +17,6 @@ export  class IfcFan extends IfcFlowMovingDevice
     {
         return EntityTypesIfc.IFCFAN;
     }
-
     private PredefinedType_? : IfcFanTypeEnum | null;
 
     public get PredefinedType() : IfcFanTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcFan extends IfcFlowMovingDevice
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFAN ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFAN;
 }

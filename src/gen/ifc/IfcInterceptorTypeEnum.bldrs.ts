@@ -6,7 +6,9 @@ enum IfcInterceptorTypeEnum {
     USERDEFINED = 4,
     NOTDEFINED = 5,
 }
-export { IfcInterceptorTypeEnum };
+const IfcInterceptorTypeEnumCount = 6;
+
+export { IfcInterceptorTypeEnum, IfcInterceptorTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

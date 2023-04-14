@@ -9,7 +9,9 @@ enum IfcDoorStyleConstructionEnum {
     USERDEFINED = 7,
     NOTDEFINED = 8,
 }
-export { IfcDoorStyleConstructionEnum };
+const IfcDoorStyleConstructionEnumCount = 9;
+
+export { IfcDoorStyleConstructionEnum, IfcDoorStyleConstructionEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

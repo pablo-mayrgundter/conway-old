@@ -17,7 +17,6 @@ export  class IfcLightIntensityDistribution extends StepEntityBase< EntityTypesI
     {
         return EntityTypesIfc.IFCLIGHTINTENSITYDISTRIBUTION;
     }
-
     private LightDistributionCurve_? : IfcLightDistributionCurveEnum;
     private DistributionData_? : Array<IfcLightDistributionData>;
 
@@ -100,4 +99,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCLIGHTINTENSITYDISTRIBUTION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCLIGHTINTENSITYDISTRIBUTION;
 }

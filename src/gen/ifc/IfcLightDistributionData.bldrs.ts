@@ -17,7 +17,6 @@ export  class IfcLightDistributionData extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCLIGHTDISTRIBUTIONDATA;
     }
-
     private MainPlaneAngle_? : number;
     private SecondaryPlaneAngle_? : Array< number >;
     private LuminousIntensity_? : Array< number >;
@@ -143,4 +142,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCLIGHTDISTRIBUTIONDATA ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCLIGHTDISTRIBUTIONDATA;
 }

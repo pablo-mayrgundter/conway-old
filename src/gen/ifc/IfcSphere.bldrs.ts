@@ -17,7 +17,6 @@ export  class IfcSphere extends IfcCsgPrimitive3D
     {
         return EntityTypesIfc.IFCSPHERE;
     }
-
     private Radius_? : number;
 
     public get Radius() : number
@@ -55,4 +54,8 @@ export  class IfcSphere extends IfcCsgPrimitive3D
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSPHERE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSPHERE;
 }

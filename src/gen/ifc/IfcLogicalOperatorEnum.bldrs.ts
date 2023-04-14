@@ -5,7 +5,9 @@ enum IfcLogicalOperatorEnum {
     LOGICALNOTAND = 3,
     LOGICALNOTOR = 4,
 }
-export { IfcLogicalOperatorEnum };
+const IfcLogicalOperatorEnumCount = 5;
+
+export { IfcLogicalOperatorEnum, IfcLogicalOperatorEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

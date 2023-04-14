@@ -17,7 +17,6 @@ export  class IfcFailureConnectionCondition extends IfcStructuralConnectionCondi
     {
         return EntityTypesIfc.IFCFAILURECONNECTIONCONDITION;
     }
-
     private TensionFailureX_? : number | null;
     private TensionFailureY_? : number | null;
     private TensionFailureZ_? : number | null;
@@ -262,4 +261,8 @@ export  class IfcFailureConnectionCondition extends IfcStructuralConnectionCondi
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFAILURECONNECTIONCONDITION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFAILURECONNECTIONCONDITION;
 }

@@ -17,7 +17,6 @@ export  class IfcLaborResourceType extends IfcConstructionResourceType
     {
         return EntityTypesIfc.IFCLABORRESOURCETYPE;
     }
-
     private PredefinedType_? : IfcLaborResourceTypeEnum;
 
     public get PredefinedType() : IfcLaborResourceTypeEnum
@@ -55,4 +54,8 @@ export  class IfcLaborResourceType extends IfcConstructionResourceType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCLABORRESOURCETYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCLABORRESOURCETYPE;
 }

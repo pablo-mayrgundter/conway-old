@@ -16,7 +16,6 @@ export  class IfcDerivedUnitElement extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCDERIVEDUNITELEMENT;
     }
-
     private Unit_? : IfcNamedUnit;
     private Exponent_? : number;
 
@@ -88,4 +87,8 @@ export  class IfcDerivedUnitElement extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDERIVEDUNITELEMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDERIVEDUNITELEMENT;
 }

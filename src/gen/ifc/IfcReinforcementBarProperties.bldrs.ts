@@ -22,7 +22,6 @@ export  class IfcReinforcementBarProperties extends IfcPreDefinedProperties
     {
         return EntityTypesIfc.IFCREINFORCEMENTBARPROPERTIES;
     }
-
     private TotalCrossSectionArea_? : number;
     private SteelGrade_? : string;
     private BarSurface_? : IfcReinforcingBarSurfaceEnum | null;
@@ -253,4 +252,8 @@ export  class IfcReinforcementBarProperties extends IfcPreDefinedProperties
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCREINFORCEMENTBARPROPERTIES ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCREINFORCEMENTBARPROPERTIES;
 }

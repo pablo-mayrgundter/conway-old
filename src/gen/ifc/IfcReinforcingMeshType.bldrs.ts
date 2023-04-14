@@ -22,7 +22,6 @@ export  class IfcReinforcingMeshType extends IfcReinforcingElementType
     {
         return EntityTypesIfc.IFCREINFORCINGMESHTYPE;
     }
-
     private PredefinedType_? : IfcReinforcingMeshTypeEnum;
     private MeshLength_? : number | null;
     private MeshWidth_? : number | null;
@@ -470,4 +469,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCREINFORCINGMESHTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCREINFORCINGMESHTYPE;
 }

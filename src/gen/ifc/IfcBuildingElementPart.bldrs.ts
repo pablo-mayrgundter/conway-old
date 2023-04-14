@@ -17,7 +17,6 @@ export  class IfcBuildingElementPart extends IfcElementComponent
     {
         return EntityTypesIfc.IFCBUILDINGELEMENTPART;
     }
-
     private PredefinedType_? : IfcBuildingElementPartTypeEnum | null;
 
     public get PredefinedType() : IfcBuildingElementPartTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcBuildingElementPart extends IfcElementComponent
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBUILDINGELEMENTPART ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBUILDINGELEMENTPART;
 }

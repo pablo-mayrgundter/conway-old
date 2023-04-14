@@ -18,7 +18,6 @@ export  class IfcQuantityCount extends IfcPhysicalSimpleQuantity
     {
         return EntityTypesIfc.IFCQUANTITYCOUNT;
     }
-
     private CountValue_? : number;
     private Formula_? : string | null;
 
@@ -96,4 +95,8 @@ export  class IfcQuantityCount extends IfcPhysicalSimpleQuantity
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCQUANTITYCOUNT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCQUANTITYCOUNT;
 }

@@ -17,9 +17,12 @@ export abstract class IfcPresentationItem extends StepEntityBase< EntityTypesIfc
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCOLOURRGBLIST, EntityTypesIfc.IFCCURVESTYLEFONT, EntityTypesIfc.IFCCURVESTYLEFONTANDSCALING, EntityTypesIfc.IFCCURVESTYLEFONTPATTERN, EntityTypesIfc.IFCINDEXEDCOLOURMAP, EntityTypesIfc.IFCSURFACESTYLELIGHTING, EntityTypesIfc.IFCSURFACESTYLEREFRACTION, EntityTypesIfc.IFCSURFACESTYLESHADING, EntityTypesIfc.IFCSURFACESTYLEWITHTEXTURES, EntityTypesIfc.IFCTEXTSTYLEFORDEFINEDFONT, EntityTypesIfc.IFCTEXTSTYLETEXTMODEL, EntityTypesIfc.IFCTEXTUREVERTEX, EntityTypesIfc.IFCTEXTUREVERTEXLIST, EntityTypesIfc.IFCCOLOURRGB, EntityTypesIfc.IFCDRAUGHTINGPREDEFINEDCOLOUR, EntityTypesIfc.IFCDRAUGHTINGPREDEFINEDCURVEFONT, EntityTypesIfc.IFCTEXTSTYLEFONTMODEL, EntityTypesIfc.IFCSURFACESTYLERENDERING, EntityTypesIfc.IFCBLOBTEXTURE, EntityTypesIfc.IFCIMAGETEXTURE, EntityTypesIfc.IFCPIXELTEXTURE, EntityTypesIfc.IFCTEXTURECOORDINATEGENERATOR, EntityTypesIfc.IFCTEXTUREMAP, EntityTypesIfc.IFCINDEXEDTRIANGLETEXTUREMAP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPRESENTATIONITEM;
 }

@@ -17,7 +17,6 @@ export  class IfcRectangleProfileDef extends IfcParameterizedProfileDef
     {
         return EntityTypesIfc.IFCRECTANGLEPROFILEDEF;
     }
-
     private XDim_? : number;
     private YDim_? : number;
 
@@ -88,4 +87,8 @@ export  class IfcRectangleProfileDef extends IfcParameterizedProfileDef
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRECTANGLEPROFILEDEF, EntityTypesIfc.IFCRECTANGLEHOLLOWPROFILEDEF, EntityTypesIfc.IFCROUNDEDRECTANGLEPROFILEDEF ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRECTANGLEPROFILEDEF;
 }

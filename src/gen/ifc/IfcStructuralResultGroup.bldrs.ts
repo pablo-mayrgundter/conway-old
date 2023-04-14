@@ -19,7 +19,6 @@ export  class IfcStructuralResultGroup extends IfcGroup
     {
         return EntityTypesIfc.IFCSTRUCTURALRESULTGROUP;
     }
-
     private TheoryType_? : IfcAnalysisTheoryTypeEnum;
     private ResultForLoadGroup_? : IfcStructuralLoadGroup | null;
     private IsLinear_? : boolean;
@@ -132,4 +131,8 @@ export  class IfcStructuralResultGroup extends IfcGroup
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALRESULTGROUP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALRESULTGROUP;
 }

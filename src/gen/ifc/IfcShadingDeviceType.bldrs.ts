@@ -17,7 +17,6 @@ export  class IfcShadingDeviceType extends IfcBuildingElementType
     {
         return EntityTypesIfc.IFCSHADINGDEVICETYPE;
     }
-
     private PredefinedType_? : IfcShadingDeviceTypeEnum;
 
     public get PredefinedType() : IfcShadingDeviceTypeEnum
@@ -55,4 +54,8 @@ export  class IfcShadingDeviceType extends IfcBuildingElementType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSHADINGDEVICETYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSHADINGDEVICETYPE;
 }

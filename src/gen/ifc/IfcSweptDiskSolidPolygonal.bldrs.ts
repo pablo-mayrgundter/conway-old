@@ -17,7 +17,6 @@ export  class IfcSweptDiskSolidPolygonal extends IfcSweptDiskSolid
     {
         return EntityTypesIfc.IFCSWEPTDISKSOLIDPOLYGONAL;
     }
-
     private FilletRadius_? : number | null;
 
     public get FilletRadius() : number | null
@@ -62,4 +61,8 @@ export  class IfcSweptDiskSolidPolygonal extends IfcSweptDiskSolid
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSWEPTDISKSOLIDPOLYGONAL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSWEPTDISKSOLIDPOLYGONAL;
 }

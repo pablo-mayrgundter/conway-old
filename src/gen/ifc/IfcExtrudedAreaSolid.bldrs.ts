@@ -18,7 +18,6 @@ export  class IfcExtrudedAreaSolid extends IfcSweptAreaSolid
     {
         return EntityTypesIfc.IFCEXTRUDEDAREASOLID;
     }
-
     private ExtrudedDirection_? : IfcDirection;
     private Depth_? : number;
 
@@ -90,4 +89,8 @@ export  class IfcExtrudedAreaSolid extends IfcSweptAreaSolid
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCEXTRUDEDAREASOLID, EntityTypesIfc.IFCEXTRUDEDAREASOLIDTAPERED ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCEXTRUDEDAREASOLID;
 }

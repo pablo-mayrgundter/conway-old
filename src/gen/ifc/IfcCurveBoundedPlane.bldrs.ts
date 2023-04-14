@@ -18,7 +18,6 @@ export  class IfcCurveBoundedPlane extends IfcBoundedSurface
     {
         return EntityTypesIfc.IFCCURVEBOUNDEDPLANE;
     }
-
     private BasisSurface_? : IfcPlane;
     private OuterBoundary_? : IfcCurve;
     private InnerBoundaries_? : Array<IfcCurve>;
@@ -136,4 +135,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCURVEBOUNDEDPLANE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCURVEBOUNDEDPLANE;
 }

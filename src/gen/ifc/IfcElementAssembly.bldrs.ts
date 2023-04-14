@@ -18,7 +18,6 @@ export  class IfcElementAssembly extends IfcElement
     {
         return EntityTypesIfc.IFCELEMENTASSEMBLY;
     }
-
     private AssemblyPlace_? : IfcAssemblyPlaceEnum | null;
     private PredefinedType_? : IfcElementAssemblyTypeEnum | null;
 
@@ -103,4 +102,8 @@ export  class IfcElementAssembly extends IfcElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCELEMENTASSEMBLY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCELEMENTASSEMBLY;
 }

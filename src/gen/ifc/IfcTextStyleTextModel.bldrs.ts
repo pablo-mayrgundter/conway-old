@@ -25,7 +25,6 @@ export  class IfcTextStyleTextModel extends IfcPresentationItem
     {
         return EntityTypesIfc.IFCTEXTSTYLETEXTMODEL;
     }
-
     private TextIndent_? : IfcDescriptiveMeasure|IfcLengthMeasure|IfcNormalisedRatioMeasure|IfcPositiveLengthMeasure|IfcPositiveRatioMeasure|IfcRatioMeasure | null;
     private TextAlign_? : string | null;
     private TextDecoration_? : string | null;
@@ -314,4 +313,8 @@ export  class IfcTextStyleTextModel extends IfcPresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTEXTSTYLETEXTMODEL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTEXTSTYLETEXTMODEL;
 }

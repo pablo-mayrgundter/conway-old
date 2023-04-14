@@ -18,9 +18,12 @@ export  class IfcProjectLibrary extends IfcContext
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPROJECTLIBRARY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPROJECTLIBRARY;
 }

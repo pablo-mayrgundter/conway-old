@@ -17,7 +17,6 @@ export  class IfcColumnType extends IfcBuildingElementType
     {
         return EntityTypesIfc.IFCCOLUMNTYPE;
     }
-
     private PredefinedType_? : IfcColumnTypeEnum;
 
     public get PredefinedType() : IfcColumnTypeEnum
@@ -55,4 +54,8 @@ export  class IfcColumnType extends IfcBuildingElementType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCOLUMNTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCOLUMNTYPE;
 }

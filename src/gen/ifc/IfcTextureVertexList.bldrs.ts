@@ -17,7 +17,6 @@ export  class IfcTextureVertexList extends IfcPresentationItem
     {
         return EntityTypesIfc.IFCTEXTUREVERTEXLIST;
     }
-
     private TexCoordsList_? : Array< Array< number > >;
 
     public get TexCoordsList() : Array< Array< number > >
@@ -77,4 +76,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTEXTUREVERTEXLIST ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTEXTUREVERTEXLIST;
 }

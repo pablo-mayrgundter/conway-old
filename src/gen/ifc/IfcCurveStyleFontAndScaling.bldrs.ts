@@ -20,7 +20,6 @@ export  class IfcCurveStyleFontAndScaling extends IfcPresentationItem
     {
         return EntityTypesIfc.IFCCURVESTYLEFONTANDSCALING;
     }
-
     private Name_? : string | null;
     private CurveFont_? : IfcCurveStyleFont|IfcPreDefinedCurveFont;
     private CurveFontScaling_? : number;
@@ -132,4 +131,8 @@ export  class IfcCurveStyleFontAndScaling extends IfcPresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCURVESTYLEFONTANDSCALING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCURVESTYLEFONTANDSCALING;
 }

@@ -17,7 +17,6 @@ export  class IfcPcurve extends IfcCurve
     {
         return EntityTypesIfc.IFCPCURVE;
     }
-
     private BasisSurface_? : IfcSurface;
     private ReferenceCurve_? : IfcCurve;
 
@@ -90,4 +89,8 @@ export  class IfcPcurve extends IfcCurve
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPCURVE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPCURVE;
 }

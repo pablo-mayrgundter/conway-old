@@ -19,7 +19,6 @@ export  class IfcVector extends IfcGeometricRepresentationItem
     {
         return EntityTypesIfc.IFCVECTOR;
     }
-
     private Orientation_? : IfcDirection;
     private Magnitude_? : number;
 
@@ -96,4 +95,8 @@ export  class IfcVector extends IfcGeometricRepresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCVECTOR ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCVECTOR;
 }

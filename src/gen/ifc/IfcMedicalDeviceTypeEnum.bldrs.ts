@@ -7,7 +7,9 @@ enum IfcMedicalDeviceTypeEnum {
     USERDEFINED = 5,
     NOTDEFINED = 6,
 }
-export { IfcMedicalDeviceTypeEnum };
+const IfcMedicalDeviceTypeEnumCount = 7;
+
+export { IfcMedicalDeviceTypeEnum, IfcMedicalDeviceTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

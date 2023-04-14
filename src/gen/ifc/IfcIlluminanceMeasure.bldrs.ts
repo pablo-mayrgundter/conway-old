@@ -54,4 +54,8 @@ export class IfcIlluminanceMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCILLUMINANCEMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCILLUMINANCEMEASURE;
 }

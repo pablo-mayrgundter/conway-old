@@ -20,7 +20,6 @@ export abstract class IfcCartesianTransformationOperator extends IfcGeometricRep
     {
         return EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR;
     }
-
     private Axis1_? : IfcDirection | null;
     private Axis2_? : IfcDirection | null;
     private LocalOrigin_? : IfcCartesianPoint;
@@ -191,4 +190,8 @@ export abstract class IfcCartesianTransformationOperator extends IfcGeometricRep
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR2D, EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR3D, EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR2DNONUNIFORM, EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR3DNONUNIFORM ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR;
 }

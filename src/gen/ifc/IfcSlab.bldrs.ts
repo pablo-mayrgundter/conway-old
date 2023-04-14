@@ -17,7 +17,6 @@ export  class IfcSlab extends IfcBuildingElement
     {
         return EntityTypesIfc.IFCSLAB;
     }
-
     private PredefinedType_? : IfcSlabTypeEnum | null;
 
     public get PredefinedType() : IfcSlabTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcSlab extends IfcBuildingElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSLAB, EntityTypesIfc.IFCSLABELEMENTEDCASE, EntityTypesIfc.IFCSLABSTANDARDCASE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSLAB;
 }

@@ -17,7 +17,6 @@ export  class IfcTaskTimeRecurring extends IfcTaskTime
     {
         return EntityTypesIfc.IFCTASKTIMERECURRING;
     }
-
     private Recurrence_? : IfcRecurrencePattern;
 
     public get Recurrence() : IfcRecurrencePattern
@@ -56,4 +55,8 @@ export  class IfcTaskTimeRecurring extends IfcTaskTime
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTASKTIMERECURRING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTASKTIMERECURRING;
 }

@@ -7,7 +7,9 @@ enum IfcActionRequestTypeEnum {
     USERDEFINED = 5,
     NOTDEFINED = 6,
 }
-export { IfcActionRequestTypeEnum };
+const IfcActionRequestTypeEnumCount = 7;
+
+export { IfcActionRequestTypeEnum, IfcActionRequestTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

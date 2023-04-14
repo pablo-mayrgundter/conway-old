@@ -18,7 +18,6 @@ export  class IfcRelVoidsElement extends IfcRelDecomposes
     {
         return EntityTypesIfc.IFCRELVOIDSELEMENT;
     }
-
     private RelatingBuildingElement_? : IfcElement;
     private RelatedOpeningElement_? : IfcFeatureElementSubtraction;
 
@@ -91,4 +90,8 @@ export  class IfcRelVoidsElement extends IfcRelDecomposes
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELVOIDSELEMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELVOIDSELEMENT;
 }

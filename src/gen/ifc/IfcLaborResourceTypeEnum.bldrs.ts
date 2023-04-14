@@ -21,7 +21,9 @@ enum IfcLaborResourceTypeEnum {
     USERDEFINED = 19,
     NOTDEFINED = 20,
 }
-export { IfcLaborResourceTypeEnum };
+const IfcLaborResourceTypeEnumCount = 21;
+
+export { IfcLaborResourceTypeEnum, IfcLaborResourceTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

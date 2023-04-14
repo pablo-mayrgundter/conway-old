@@ -54,4 +54,8 @@ export class IfcTextTransformation extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTEXTTRANSFORMATION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTEXTTRANSFORMATION;
 }

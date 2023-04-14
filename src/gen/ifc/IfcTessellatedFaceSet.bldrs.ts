@@ -18,7 +18,6 @@ export abstract class IfcTessellatedFaceSet extends IfcTessellatedItem
     {
         return EntityTypesIfc.IFCTESSELLATEDFACESET;
     }
-
     private Coordinates_? : IfcCartesianPointList3D;
 
     public get Coordinates() : IfcCartesianPointList3D
@@ -64,4 +63,8 @@ export abstract class IfcTessellatedFaceSet extends IfcTessellatedItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPOLYGONALFACESET, EntityTypesIfc.IFCTRIANGULATEDFACESET ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTESSELLATEDFACESET;
 }

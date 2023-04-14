@@ -4,7 +4,9 @@ enum IfcBuildingElementPartTypeEnum {
     USERDEFINED = 2,
     NOTDEFINED = 3,
 }
-export { IfcBuildingElementPartTypeEnum };
+const IfcBuildingElementPartTypeEnumCount = 4;
+
+export { IfcBuildingElementPartTypeEnum, IfcBuildingElementPartTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -17,7 +17,6 @@ export  class IfcFooting extends IfcBuildingElement
     {
         return EntityTypesIfc.IFCFOOTING;
     }
-
     private PredefinedType_? : IfcFootingTypeEnum | null;
 
     public get PredefinedType() : IfcFootingTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcFooting extends IfcBuildingElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFOOTING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFOOTING;
 }

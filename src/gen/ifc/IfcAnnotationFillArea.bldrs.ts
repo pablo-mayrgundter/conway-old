@@ -17,7 +17,6 @@ export  class IfcAnnotationFillArea extends IfcGeometricRepresentationItem
     {
         return EntityTypesIfc.IFCANNOTATIONFILLAREA;
     }
-
     private OuterBoundary_? : IfcCurve;
     private InnerBoundaries_? : Array<IfcCurve> | null;
 
@@ -106,4 +105,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCANNOTATIONFILLAREA ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCANNOTATIONFILLAREA;
 }

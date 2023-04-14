@@ -6,7 +6,9 @@ enum IfcGridTypeEnum {
     USERDEFINED = 4,
     NOTDEFINED = 5,
 }
-export { IfcGridTypeEnum };
+const IfcGridTypeEnumCount = 6;
+
+export { IfcGridTypeEnum, IfcGridTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

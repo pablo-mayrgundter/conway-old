@@ -54,4 +54,8 @@ export class IfcSolidAngleMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSOLIDANGLEMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSOLIDANGLEMEASURE;
 }

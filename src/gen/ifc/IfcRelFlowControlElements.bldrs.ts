@@ -18,7 +18,6 @@ export  class IfcRelFlowControlElements extends IfcRelConnects
     {
         return EntityTypesIfc.IFCRELFLOWCONTROLELEMENTS;
     }
-
     private RelatedControlElements_? : Array<IfcDistributionControlElement>;
     private RelatingFlowElement_? : IfcDistributionFlowElement;
 
@@ -102,4 +101,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELFLOWCONTROLELEMENTS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELFLOWCONTROLELEMENTS;
 }

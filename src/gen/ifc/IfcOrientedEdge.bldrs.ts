@@ -18,7 +18,6 @@ export  class IfcOrientedEdge extends IfcEdge
     {
         return EntityTypesIfc.IFCORIENTEDEDGE;
     }
-
     private EdgeElement_? : IfcEdge;
     private Orientation_? : boolean;
 
@@ -100,4 +99,8 @@ export  class IfcOrientedEdge extends IfcEdge
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCORIENTEDEDGE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCORIENTEDEDGE;
 }

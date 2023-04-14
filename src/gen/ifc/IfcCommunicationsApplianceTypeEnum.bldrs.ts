@@ -14,7 +14,9 @@ enum IfcCommunicationsApplianceTypeEnum {
     USERDEFINED = 12,
     NOTDEFINED = 13,
 }
-export { IfcCommunicationsApplianceTypeEnum };
+const IfcCommunicationsApplianceTypeEnumCount = 14;
+
+export { IfcCommunicationsApplianceTypeEnum, IfcCommunicationsApplianceTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

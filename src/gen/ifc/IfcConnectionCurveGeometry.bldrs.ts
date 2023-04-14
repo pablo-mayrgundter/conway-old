@@ -18,7 +18,6 @@ export  class IfcConnectionCurveGeometry extends IfcConnectionGeometry
     {
         return EntityTypesIfc.IFCCONNECTIONCURVEGEOMETRY;
     }
-
     private CurveOnRelatingElement_? : IfcBoundedCurve|IfcEdgeCurve;
     private CurveOnRelatedElement_? : IfcBoundedCurve|IfcEdgeCurve | null;
 
@@ -98,4 +97,8 @@ export  class IfcConnectionCurveGeometry extends IfcConnectionGeometry
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCONNECTIONCURVEGEOMETRY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCONNECTIONCURVEGEOMETRY;
 }

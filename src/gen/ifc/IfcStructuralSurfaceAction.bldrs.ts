@@ -18,7 +18,6 @@ export  class IfcStructuralSurfaceAction extends IfcStructuralAction
     {
         return EntityTypesIfc.IFCSTRUCTURALSURFACEACTION;
     }
-
     private ProjectedOrTrue_? : IfcProjectedOrTrueLengthEnum | null;
     private PredefinedType_? : IfcStructuralSurfaceActivityTypeEnum;
 
@@ -96,4 +95,8 @@ export  class IfcStructuralSurfaceAction extends IfcStructuralAction
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALSURFACEACTION, EntityTypesIfc.IFCSTRUCTURALPLANARACTION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALSURFACEACTION;
 }

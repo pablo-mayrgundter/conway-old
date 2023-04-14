@@ -17,7 +17,6 @@ export abstract class IfcControl extends IfcObject
     {
         return EntityTypesIfc.IFCCONTROL;
     }
-
     private Identification_? : string | null;
 
     public get Identification() : string | null
@@ -63,4 +62,8 @@ export abstract class IfcControl extends IfcObject
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCACTIONREQUEST, EntityTypesIfc.IFCCOSTITEM, EntityTypesIfc.IFCCOSTSCHEDULE, EntityTypesIfc.IFCPERFORMANCEHISTORY, EntityTypesIfc.IFCPERMIT, EntityTypesIfc.IFCPROJECTORDER, EntityTypesIfc.IFCWORKCALENDAR, EntityTypesIfc.IFCWORKPLAN, EntityTypesIfc.IFCWORKSCHEDULE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCONTROL;
 }

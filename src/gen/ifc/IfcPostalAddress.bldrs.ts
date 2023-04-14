@@ -17,7 +17,6 @@ export  class IfcPostalAddress extends IfcAddress
     {
         return EntityTypesIfc.IFCPOSTALADDRESS;
     }
-
     private InternalLocation_? : string | null;
     private AddressLines_? : Array< string > | null;
     private PostalBox_? : string | null;
@@ -311,4 +310,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPOSTALADDRESS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPOSTALADDRESS;
 }

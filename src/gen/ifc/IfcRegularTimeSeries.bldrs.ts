@@ -18,7 +18,6 @@ export  class IfcRegularTimeSeries extends IfcTimeSeries
     {
         return EntityTypesIfc.IFCREGULARTIMESERIES;
     }
-
     private TimeStep_? : number;
     private Values_? : Array<IfcTimeSeriesValue>;
 
@@ -101,4 +100,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCREGULARTIMESERIES ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCREGULARTIMESERIES;
 }

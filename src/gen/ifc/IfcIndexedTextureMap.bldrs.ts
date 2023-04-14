@@ -18,7 +18,6 @@ export abstract class IfcIndexedTextureMap extends IfcTextureCoordinate
     {
         return EntityTypesIfc.IFCINDEXEDTEXTUREMAP;
     }
-
     private MappedTo_? : IfcTessellatedFaceSet;
     private TexCoords_? : IfcTextureVertexList;
 
@@ -91,4 +90,8 @@ export abstract class IfcIndexedTextureMap extends IfcTextureCoordinate
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCINDEXEDTRIANGLETEXTUREMAP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCINDEXEDTEXTUREMAP;
 }

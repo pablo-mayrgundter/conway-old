@@ -23,7 +23,6 @@ export  class IfcLightSourceGoniometric extends IfcLightSource
     {
         return EntityTypesIfc.IFCLIGHTSOURCEGONIOMETRIC;
     }
-
     private Position_? : IfcAxis2Placement3D;
     private ColourAppearance_? : IfcColourRgb | null;
     private ColourTemperature_? : number;
@@ -236,4 +235,8 @@ export  class IfcLightSourceGoniometric extends IfcLightSource
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCLIGHTSOURCEGONIOMETRIC ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCLIGHTSOURCEGONIOMETRIC;
 }
