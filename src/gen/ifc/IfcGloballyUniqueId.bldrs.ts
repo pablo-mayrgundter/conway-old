@@ -54,4 +54,8 @@ export class IfcGloballyUniqueId extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCGLOBALLYUNIQUEID ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCGLOBALLYUNIQUEID;
 }

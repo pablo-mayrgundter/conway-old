@@ -4,7 +4,9 @@ enum IfcColumnTypeEnum {
     USERDEFINED = 2,
     NOTDEFINED = 3,
 }
-export { IfcColumnTypeEnum };
+const IfcColumnTypeEnumCount = 4;
+
+export { IfcColumnTypeEnum, IfcColumnTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -20,7 +20,6 @@ export  class IfcCompositeCurveSegment extends IfcGeometricRepresentationItem
     {
         return EntityTypesIfc.IFCCOMPOSITECURVESEGMENT;
     }
-
     private Transition_? : IfcTransitionCode;
     private SameSense_? : boolean;
     private ParentCurve_? : IfcCurve;
@@ -131,4 +130,8 @@ export  class IfcCompositeCurveSegment extends IfcGeometricRepresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCOMPOSITECURVESEGMENT, EntityTypesIfc.IFCREPARAMETRISEDCOMPOSITECURVESEGMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCOMPOSITECURVESEGMENT;
 }

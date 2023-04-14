@@ -26,7 +26,6 @@ export  class IfcPropertyReferenceValue extends IfcSimpleProperty
     {
         return EntityTypesIfc.IFCPROPERTYREFERENCEVALUE;
     }
-
     private UsageName_? : string | null;
     private PropertyReference_? : IfcAddress|IfcAppliedValue|IfcExternalReference|IfcMaterialDefinition|IfcOrganization|IfcPerson|IfcPersonAndOrganization|IfcTable|IfcTimeSeries | null;
 
@@ -112,4 +111,8 @@ export  class IfcPropertyReferenceValue extends IfcSimpleProperty
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPROPERTYREFERENCEVALUE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPROPERTYREFERENCEVALUE;
 }

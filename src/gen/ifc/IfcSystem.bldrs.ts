@@ -18,9 +18,12 @@ export  class IfcSystem extends IfcGroup
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSYSTEM, EntityTypesIfc.IFCBUILDINGSYSTEM, EntityTypesIfc.IFCDISTRIBUTIONSYSTEM, EntityTypesIfc.IFCSTRUCTURALANALYSISMODEL, EntityTypesIfc.IFCZONE, EntityTypesIfc.IFCDISTRIBUTIONCIRCUIT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSYSTEM;
 }

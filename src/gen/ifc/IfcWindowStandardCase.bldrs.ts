@@ -18,9 +18,12 @@ export  class IfcWindowStandardCase extends IfcWindow
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCWINDOWSTANDARDCASE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCWINDOWSTANDARDCASE;
 }

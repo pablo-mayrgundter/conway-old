@@ -18,9 +18,12 @@ export abstract class IfcStructuralLoadStatic extends IfcStructuralLoadOrResult
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALLOADLINEARFORCE, EntityTypesIfc.IFCSTRUCTURALLOADPLANARFORCE, EntityTypesIfc.IFCSTRUCTURALLOADSINGLEDISPLACEMENT, EntityTypesIfc.IFCSTRUCTURALLOADSINGLEFORCE, EntityTypesIfc.IFCSTRUCTURALLOADTEMPERATURE, EntityTypesIfc.IFCSTRUCTURALLOADSINGLEDISPLACEMENTDISTORTION, EntityTypesIfc.IFCSTRUCTURALLOADSINGLEFORCEWARPING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALLOADSTATIC;
 }

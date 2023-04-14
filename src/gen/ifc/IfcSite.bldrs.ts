@@ -20,7 +20,6 @@ export  class IfcSite extends IfcSpatialStructureElement
     {
         return EntityTypesIfc.IFCSITE;
     }
-
     private RefLatitude_? : Array< number > | null;
     private RefLongitude_? : Array< number > | null;
     private RefElevation_? : number | null;
@@ -244,4 +243,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSITE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSITE;
 }

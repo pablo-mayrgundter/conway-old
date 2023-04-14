@@ -17,7 +17,6 @@ export  class IfcVirtualGridIntersection extends StepEntityBase< EntityTypesIfc 
     {
         return EntityTypesIfc.IFCVIRTUALGRIDINTERSECTION;
     }
-
     private IntersectingAxes_? : Array<IfcGridAxis>;
     private OffsetDistances_? : Array< number >;
 
@@ -111,4 +110,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCVIRTUALGRIDINTERSECTION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCVIRTUALGRIDINTERSECTION;
 }

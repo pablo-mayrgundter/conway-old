@@ -20,7 +20,6 @@ export abstract class IfcBSplineSurface extends IfcBoundedSurface
     {
         return EntityTypesIfc.IFCBSPLINESURFACE;
     }
-
     private UDegree_? : number;
     private VDegree_? : number;
     private ControlPointsList_? : Array<Array<IfcCartesianPoint>>;
@@ -294,4 +293,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBSPLINESURFACEWITHKNOTS, EntityTypesIfc.IFCRATIONALBSPLINESURFACEWITHKNOTS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBSPLINESURFACE;
 }

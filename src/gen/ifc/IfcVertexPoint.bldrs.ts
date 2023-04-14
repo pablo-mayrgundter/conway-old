@@ -17,7 +17,6 @@ export  class IfcVertexPoint extends IfcVertex
     {
         return EntityTypesIfc.IFCVERTEXPOINT;
     }
-
     private VertexGeometry_? : IfcPoint;
 
     public get VertexGeometry() : IfcPoint
@@ -56,4 +55,8 @@ export  class IfcVertexPoint extends IfcVertex
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCVERTEXPOINT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCVERTEXPOINT;
 }

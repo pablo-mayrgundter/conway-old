@@ -4,7 +4,9 @@ enum IfcKnotType {
     PIECEWISE_BEZIER_KNOTS = 2,
     UNSPECIFIED = 3,
 }
-export { IfcKnotType };
+const IfcKnotTypeCount = 4;
+
+export { IfcKnotType, IfcKnotTypeCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

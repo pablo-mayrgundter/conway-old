@@ -6,7 +6,9 @@ enum IfcSlabTypeEnum {
     USERDEFINED = 4,
     NOTDEFINED = 5,
 }
-export { IfcSlabTypeEnum };
+const IfcSlabTypeEnumCount = 6;
+
+export { IfcSlabTypeEnum, IfcSlabTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

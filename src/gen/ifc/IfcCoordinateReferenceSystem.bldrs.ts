@@ -18,7 +18,6 @@ export abstract class IfcCoordinateReferenceSystem extends StepEntityBase< Entit
     {
         return EntityTypesIfc.IFCCOORDINATEREFERENCESYSTEM;
     }
-
     private Name_? : string;
     private Description_? : string | null;
     private GeodeticDatum_? : string | null;
@@ -177,4 +176,8 @@ export abstract class IfcCoordinateReferenceSystem extends StepEntityBase< Entit
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPROJECTEDCRS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCOORDINATEREFERENCESYSTEM;
 }

@@ -18,7 +18,6 @@ export  class IfcRelAssignsToProduct extends IfcRelAssigns
     {
         return EntityTypesIfc.IFCRELASSIGNSTOPRODUCT;
     }
-
     private RelatingProduct_? : IfcProduct|IfcTypeProduct;
 
     public get RelatingProduct() : IfcProduct|IfcTypeProduct
@@ -57,4 +56,8 @@ export  class IfcRelAssignsToProduct extends IfcRelAssigns
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELASSIGNSTOPRODUCT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELASSIGNSTOPRODUCT;
 }

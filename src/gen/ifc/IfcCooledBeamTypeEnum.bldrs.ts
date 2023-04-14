@@ -4,7 +4,9 @@ enum IfcCooledBeamTypeEnum {
     USERDEFINED = 2,
     NOTDEFINED = 3,
 }
-export { IfcCooledBeamTypeEnum };
+const IfcCooledBeamTypeEnumCount = 4;
+
+export { IfcCooledBeamTypeEnum, IfcCooledBeamTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

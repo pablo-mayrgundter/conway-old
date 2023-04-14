@@ -17,7 +17,6 @@ export  class IfcWorkSchedule extends IfcWorkControl
     {
         return EntityTypesIfc.IFCWORKSCHEDULE;
     }
-
     private PredefinedType_? : IfcWorkScheduleTypeEnum | null;
 
     public get PredefinedType() : IfcWorkScheduleTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcWorkSchedule extends IfcWorkControl
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCWORKSCHEDULE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCWORKSCHEDULE;
 }

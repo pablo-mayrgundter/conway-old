@@ -18,9 +18,12 @@ export  class IfcColumnStandardCase extends IfcColumn
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCOLUMNSTANDARDCASE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCOLUMNSTANDARDCASE;
 }

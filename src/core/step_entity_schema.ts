@@ -5,7 +5,7 @@ import StepEntityConstructor from "./step_entity_constructor";
 
 export default class StepEntitySchema< EntityTypeIDs extends number, BaseEntity extends StepEntityBase< EntityTypeIDs > = StepEntityBase< EntityTypeIDs > >
 {
-    constructor( public readonly constructors: ReadonlyArray< StepEntityConstructor< EntityTypeIDs, BaseEntity > | undefined >, public readonly parser: StepParser< EntityTypeIDs > )
+    constructor( public readonly constructors: ReadonlyArray< StepEntityConstructor< EntityTypeIDs, BaseEntity > | undefined >, public readonly parser: StepParser< EntityTypeIDs >, public readonly queries: ReadonlyArray< ReadonlyArray< EntityTypeIDs > > )
     {
 
     }

@@ -17,7 +17,6 @@ export  class IfcStructuralLoadSingleForceWarping extends IfcStructuralLoadSingl
     {
         return EntityTypesIfc.IFCSTRUCTURALLOADSINGLEFORCEWARPING;
     }
-
     private WarpingMoment_? : number | null;
 
     public get WarpingMoment() : number | null
@@ -62,4 +61,8 @@ export  class IfcStructuralLoadSingleForceWarping extends IfcStructuralLoadSingl
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALLOADSINGLEFORCEWARPING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALLOADSINGLEFORCEWARPING;
 }

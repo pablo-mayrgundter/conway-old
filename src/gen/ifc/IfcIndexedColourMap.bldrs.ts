@@ -20,7 +20,6 @@ export  class IfcIndexedColourMap extends IfcPresentationItem
     {
         return EntityTypesIfc.IFCINDEXEDCOLOURMAP;
     }
-
     private MappedTo_? : IfcTessellatedFaceSet;
     private Opacity_? : number | null;
     private Colours_? : IfcColourRgbList;
@@ -177,4 +176,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCINDEXEDCOLOURMAP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCINDEXEDCOLOURMAP;
 }

@@ -18,7 +18,6 @@ export  class IfcRelDefinesByTemplate extends IfcRelDefines
     {
         return EntityTypesIfc.IFCRELDEFINESBYTEMPLATE;
     }
-
     private RelatedPropertySets_? : Array<IfcPropertySetDefinition>;
     private RelatingTemplate_? : IfcPropertySetTemplate;
 
@@ -102,4 +101,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELDEFINESBYTEMPLATE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELDEFINESBYTEMPLATE;
 }

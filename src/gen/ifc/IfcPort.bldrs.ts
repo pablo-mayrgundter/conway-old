@@ -20,9 +20,12 @@ export abstract class IfcPort extends IfcProduct
 
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDISTRIBUTIONPORT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPORT;
 }

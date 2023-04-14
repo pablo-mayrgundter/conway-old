@@ -54,4 +54,8 @@ export class IfcLinearMomentMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCLINEARMOMENTMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCLINEARMOMENTMEASURE;
 }

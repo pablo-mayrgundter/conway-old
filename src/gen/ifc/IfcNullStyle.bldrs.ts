@@ -1,7 +1,9 @@
 enum IfcNullStyle {
     NULL = 0,
 }
-export { IfcNullStyle };
+const IfcNullStyleCount = 1;
+
+export { IfcNullStyle, IfcNullStyleCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

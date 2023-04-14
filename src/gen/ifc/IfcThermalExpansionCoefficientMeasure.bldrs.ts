@@ -54,4 +54,8 @@ export class IfcThermalExpansionCoefficientMeasure extends StepEntityBase< Entit
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTHERMALEXPANSIONCOEFFICIENTMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTHERMALEXPANSIONCOEFFICIENTMEASURE;
 }

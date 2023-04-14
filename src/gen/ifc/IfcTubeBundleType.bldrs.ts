@@ -17,7 +17,6 @@ export  class IfcTubeBundleType extends IfcEnergyConversionDeviceType
     {
         return EntityTypesIfc.IFCTUBEBUNDLETYPE;
     }
-
     private PredefinedType_? : IfcTubeBundleTypeEnum;
 
     public get PredefinedType() : IfcTubeBundleTypeEnum
@@ -55,4 +54,8 @@ export  class IfcTubeBundleType extends IfcEnergyConversionDeviceType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTUBEBUNDLETYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTUBEBUNDLETYPE;
 }

@@ -9,7 +9,9 @@ enum IfcProcedureTypeEnum {
     USERDEFINED = 7,
     NOTDEFINED = 8,
 }
-export { IfcProcedureTypeEnum };
+const IfcProcedureTypeEnumCount = 9;
+
+export { IfcProcedureTypeEnum, IfcProcedureTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -17,7 +17,6 @@ export  class IfcRationalBSplineSurfaceWithKnots extends IfcBSplineSurfaceWithKn
     {
         return EntityTypesIfc.IFCRATIONALBSPLINESURFACEWITHKNOTS;
     }
-
     private WeightsData_? : Array< Array< number > >;
 
     public get WeightsData() : Array< Array< number > >
@@ -82,4 +81,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRATIONALBSPLINESURFACEWITHKNOTS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRATIONALBSPLINESURFACEWITHKNOTS;
 }

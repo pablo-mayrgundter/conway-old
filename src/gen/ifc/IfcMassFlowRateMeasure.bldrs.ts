@@ -54,4 +54,8 @@ export class IfcMassFlowRateMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMASSFLOWRATEMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMASSFLOWRATEMEASURE;
 }

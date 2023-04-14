@@ -26,7 +26,9 @@ enum IfcSensorTypeEnum {
     USERDEFINED = 24,
     NOTDEFINED = 25,
 }
-export { IfcSensorTypeEnum };
+const IfcSensorTypeEnumCount = 26;
+
+export { IfcSensorTypeEnum, IfcSensorTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

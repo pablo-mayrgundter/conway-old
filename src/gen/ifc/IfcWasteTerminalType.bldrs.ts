@@ -17,7 +17,6 @@ export  class IfcWasteTerminalType extends IfcFlowTerminalType
     {
         return EntityTypesIfc.IFCWASTETERMINALTYPE;
     }
-
     private PredefinedType_? : IfcWasteTerminalTypeEnum;
 
     public get PredefinedType() : IfcWasteTerminalTypeEnum
@@ -55,4 +54,8 @@ export  class IfcWasteTerminalType extends IfcFlowTerminalType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCWASTETERMINALTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCWASTETERMINALTYPE;
 }

@@ -17,7 +17,6 @@ export  class IfcElectricDistributionBoardType extends IfcFlowControllerType
     {
         return EntityTypesIfc.IFCELECTRICDISTRIBUTIONBOARDTYPE;
     }
-
     private PredefinedType_? : IfcElectricDistributionBoardTypeEnum;
 
     public get PredefinedType() : IfcElectricDistributionBoardTypeEnum
@@ -55,4 +54,8 @@ export  class IfcElectricDistributionBoardType extends IfcFlowControllerType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCELECTRICDISTRIBUTIONBOARDTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCELECTRICDISTRIBUTIONBOARDTYPE;
 }

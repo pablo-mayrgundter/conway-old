@@ -17,7 +17,9 @@ enum IfcCompressorTypeEnum {
     USERDEFINED = 15,
     NOTDEFINED = 16,
 }
-export { IfcCompressorTypeEnum };
+const IfcCompressorTypeEnumCount = 17;
+
+export { IfcCompressorTypeEnum, IfcCompressorTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

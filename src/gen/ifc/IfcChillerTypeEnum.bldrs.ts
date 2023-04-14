@@ -5,7 +5,9 @@ enum IfcChillerTypeEnum {
     USERDEFINED = 3,
     NOTDEFINED = 4,
 }
-export { IfcChillerTypeEnum };
+const IfcChillerTypeEnumCount = 5;
+
+export { IfcChillerTypeEnum, IfcChillerTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

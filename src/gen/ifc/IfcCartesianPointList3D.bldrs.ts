@@ -17,7 +17,6 @@ export  class IfcCartesianPointList3D extends IfcCartesianPointList
     {
         return EntityTypesIfc.IFCCARTESIANPOINTLIST3D;
     }
-
     private CoordList_? : Array< Array< number > >;
 
     public get CoordList() : Array< Array< number > >
@@ -77,4 +76,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCARTESIANPOINTLIST3D ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCARTESIANPOINTLIST3D;
 }

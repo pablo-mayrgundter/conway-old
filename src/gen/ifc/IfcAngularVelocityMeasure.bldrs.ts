@@ -54,4 +54,8 @@ export class IfcAngularVelocityMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCANGULARVELOCITYMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCANGULARVELOCITYMEASURE;
 }

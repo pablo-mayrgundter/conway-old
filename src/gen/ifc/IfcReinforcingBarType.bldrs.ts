@@ -23,7 +23,6 @@ export  class IfcReinforcingBarType extends IfcReinforcingElementType
     {
         return EntityTypesIfc.IFCREINFORCINGBARTYPE;
     }
-
     private PredefinedType_? : IfcReinforcingBarTypeEnum;
     private NominalDiameter_? : number | null;
     private CrossSectionArea_? : number | null;
@@ -311,4 +310,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCREINFORCINGBARTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCREINFORCINGBARTYPE;
 }

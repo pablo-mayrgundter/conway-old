@@ -54,4 +54,8 @@ export class IfcLuminousFluxMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCLUMINOUSFLUXMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCLUMINOUSFLUXMEASURE;
 }

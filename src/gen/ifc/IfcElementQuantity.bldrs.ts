@@ -18,7 +18,6 @@ export  class IfcElementQuantity extends IfcQuantitySet
     {
         return EntityTypesIfc.IFCELEMENTQUANTITY;
     }
-
     private MethodOfMeasurement_? : string | null;
     private Quantities_? : Array<IfcPhysicalQuantity>;
 
@@ -108,4 +107,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCELEMENTQUANTITY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCELEMENTQUANTITY;
 }

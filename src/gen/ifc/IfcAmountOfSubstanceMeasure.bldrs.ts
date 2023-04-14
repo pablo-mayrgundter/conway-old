@@ -54,4 +54,8 @@ export class IfcAmountOfSubstanceMeasure extends StepEntityBase< EntityTypesIfc 
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCAMOUNTOFSUBSTANCEMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCAMOUNTOFSUBSTANCEMEASURE;
 }

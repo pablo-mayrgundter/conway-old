@@ -18,9 +18,12 @@ export  class IfcAnnotation extends IfcProduct
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCANNOTATION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCANNOTATION;
 }

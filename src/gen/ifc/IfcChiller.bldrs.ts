@@ -17,7 +17,6 @@ export  class IfcChiller extends IfcEnergyConversionDevice
     {
         return EntityTypesIfc.IFCCHILLER;
     }
-
     private PredefinedType_? : IfcChillerTypeEnum | null;
 
     public get PredefinedType() : IfcChillerTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcChiller extends IfcEnergyConversionDevice
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCHILLER ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCHILLER;
 }

@@ -19,7 +19,6 @@ export  class IfcTable extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCTABLE;
     }
-
     private Name_? : string | null;
     private Rows_? : Array<IfcTableRow> | null;
     private Columns_? : Array<IfcTableColumn> | null;
@@ -171,4 +170,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTABLE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTABLE;
 }

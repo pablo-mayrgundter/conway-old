@@ -18,7 +18,6 @@ export  class IfcRelServicesBuildings extends IfcRelConnects
     {
         return EntityTypesIfc.IFCRELSERVICESBUILDINGS;
     }
-
     private RelatingSystem_? : IfcSystem;
     private RelatedBuildings_? : Array<IfcSpatialElement>;
 
@@ -102,4 +101,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELSERVICESBUILDINGS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELSERVICESBUILDINGS;
 }

@@ -21,7 +21,6 @@ export  class IfcRecurrencePattern extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCRECURRENCEPATTERN;
     }
-
     private RecurrenceType_? : IfcRecurrenceTypeEnum;
     private DayComponent_? : Array< number > | null;
     private WeekdayComponent_? : Array< number > | null;
@@ -376,4 +375,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRECURRENCEPATTERN ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRECURRENCEPATTERN;
 }

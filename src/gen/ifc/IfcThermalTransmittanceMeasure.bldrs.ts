@@ -54,4 +54,8 @@ export class IfcThermalTransmittanceMeasure extends StepEntityBase< EntityTypesI
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTHERMALTRANSMITTANCEMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTHERMALTRANSMITTANCEMEASURE;
 }

@@ -17,7 +17,6 @@ export  class IfcRevolvedAreaSolidTapered extends IfcRevolvedAreaSolid
     {
         return EntityTypesIfc.IFCREVOLVEDAREASOLIDTAPERED;
     }
-
     private EndSweptArea_? : IfcProfileDef;
 
     public get EndSweptArea() : IfcProfileDef
@@ -56,4 +55,8 @@ export  class IfcRevolvedAreaSolidTapered extends IfcRevolvedAreaSolid
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCREVOLVEDAREASOLIDTAPERED ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCREVOLVEDAREASOLIDTAPERED;
 }

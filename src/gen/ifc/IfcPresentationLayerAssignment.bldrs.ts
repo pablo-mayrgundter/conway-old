@@ -20,7 +20,6 @@ export  class IfcPresentationLayerAssignment extends StepEntityBase< EntityTypes
     {
         return EntityTypesIfc.IFCPRESENTATIONLAYERASSIGNMENT;
     }
-
     private Name_? : string;
     private Description_? : string | null;
     private AssignedItems_? : Array<IfcRepresentation|IfcRepresentationItem>;
@@ -183,4 +182,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPRESENTATIONLAYERASSIGNMENT, EntityTypesIfc.IFCPRESENTATIONLAYERWITHSTYLE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPRESENTATIONLAYERASSIGNMENT;
 }

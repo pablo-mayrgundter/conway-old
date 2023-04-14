@@ -4,7 +4,9 @@ enum IfcEngineTypeEnum {
     USERDEFINED = 2,
     NOTDEFINED = 3,
 }
-export { IfcEngineTypeEnum };
+const IfcEngineTypeEnumCount = 4;
+
+export { IfcEngineTypeEnum, IfcEngineTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

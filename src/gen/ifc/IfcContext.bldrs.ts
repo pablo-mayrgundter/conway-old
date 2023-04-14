@@ -19,7 +19,6 @@ export abstract class IfcContext extends IfcObjectDefinition
     {
         return EntityTypesIfc.IFCCONTEXT;
     }
-
     private ObjectType_? : string | null;
     private LongName_? : string | null;
     private Phase_? : string | null;
@@ -237,4 +236,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPROJECT, EntityTypesIfc.IFCPROJECTLIBRARY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCONTEXT;
 }

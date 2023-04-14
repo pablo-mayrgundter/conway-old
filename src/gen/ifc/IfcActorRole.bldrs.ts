@@ -18,7 +18,6 @@ export  class IfcActorRole extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCACTORROLE;
     }
-
     private Role_? : IfcRoleEnum;
     private UserDefinedRole_? : string | null;
     private Description_? : string | null;
@@ -137,4 +136,8 @@ export  class IfcActorRole extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCACTORROLE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCACTORROLE;
 }

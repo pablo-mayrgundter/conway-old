@@ -17,7 +17,6 @@ export  class IfcRampFlight extends IfcBuildingElement
     {
         return EntityTypesIfc.IFCRAMPFLIGHT;
     }
-
     private PredefinedType_? : IfcRampFlightTypeEnum | null;
 
     public get PredefinedType() : IfcRampFlightTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcRampFlight extends IfcBuildingElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRAMPFLIGHT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRAMPFLIGHT;
 }

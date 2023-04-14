@@ -17,7 +17,6 @@ export  class IfcCableFitting extends IfcFlowFitting
     {
         return EntityTypesIfc.IFCCABLEFITTING;
     }
-
     private PredefinedType_? : IfcCableFittingTypeEnum | null;
 
     public get PredefinedType() : IfcCableFittingTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcCableFitting extends IfcFlowFitting
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCABLEFITTING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCABLEFITTING;
 }

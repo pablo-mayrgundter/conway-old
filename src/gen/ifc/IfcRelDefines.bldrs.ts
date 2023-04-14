@@ -18,9 +18,12 @@ export abstract class IfcRelDefines extends IfcRelationship
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELDEFINESBYOBJECT, EntityTypesIfc.IFCRELDEFINESBYPROPERTIES, EntityTypesIfc.IFCRELDEFINESBYTEMPLATE, EntityTypesIfc.IFCRELDEFINESBYTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELDEFINES;
 }

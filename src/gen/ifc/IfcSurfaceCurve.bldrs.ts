@@ -19,7 +19,6 @@ export  class IfcSurfaceCurve extends IfcCurve
     {
         return EntityTypesIfc.IFCSURFACECURVE;
     }
-
     private Curve3D_? : IfcCurve;
     private AssociatedGeometry_? : Array<IfcPcurve>;
     private MasterRepresentation_? : IfcPreferredSurfaceCurveRepresentation;
@@ -141,4 +140,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSURFACECURVE, EntityTypesIfc.IFCINTERSECTIONCURVE, EntityTypesIfc.IFCSEAMCURVE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSURFACECURVE;
 }

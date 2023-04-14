@@ -6,7 +6,9 @@ enum IfcPileConstructionEnum {
     USERDEFINED = 4,
     NOTDEFINED = 5,
 }
-export { IfcPileConstructionEnum };
+const IfcPileConstructionEnumCount = 6;
+
+export { IfcPileConstructionEnum, IfcPileConstructionEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

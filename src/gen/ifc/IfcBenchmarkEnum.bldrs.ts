@@ -10,7 +10,9 @@ enum IfcBenchmarkEnum {
     INCLUDEDIN = 8,
     NOTINCLUDEDIN = 9,
 }
-export { IfcBenchmarkEnum };
+const IfcBenchmarkEnumCount = 10;
+
+export { IfcBenchmarkEnum, IfcBenchmarkEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

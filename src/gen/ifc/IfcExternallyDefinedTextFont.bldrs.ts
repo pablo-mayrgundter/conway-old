@@ -18,9 +18,12 @@ export  class IfcExternallyDefinedTextFont extends IfcExternalReference
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCEXTERNALLYDEFINEDTEXTFONT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCEXTERNALLYDEFINEDTEXTFONT;
 }

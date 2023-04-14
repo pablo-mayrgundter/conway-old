@@ -19,7 +19,6 @@ export abstract class IfcLightSource extends IfcGeometricRepresentationItem
     {
         return EntityTypesIfc.IFCLIGHTSOURCE;
     }
-
     private Name_? : string | null;
     private LightColour_? : IfcColourRgb;
     private AmbientIntensity_? : number | null;
@@ -178,4 +177,8 @@ export abstract class IfcLightSource extends IfcGeometricRepresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCLIGHTSOURCEAMBIENT, EntityTypesIfc.IFCLIGHTSOURCEDIRECTIONAL, EntityTypesIfc.IFCLIGHTSOURCEGONIOMETRIC, EntityTypesIfc.IFCLIGHTSOURCEPOSITIONAL, EntityTypesIfc.IFCLIGHTSOURCESPOT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCLIGHTSOURCE;
 }

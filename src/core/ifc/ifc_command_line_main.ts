@@ -105,13 +105,13 @@ let args =
 
             let rowCount = 0;
 
-            for ( let element of ( expressIDs?.map( ( value ) => model?.getElementByExpressID( value ) )?.filter( value => value !== void 0 ) ?? model ) as StepEntityBase< EntityTypesIfc >[] )
+            let elements = 
+                ( expressIDs?.map( ( value ) => model?.getElementByExpressID( value ) )?.filter( value => value !== void 0 && ( types === void 0 || types.includes( value.type ) ) ) ?? 
+                ( types !== void 0 ? model.typeIDs( ...types ) : void 0 ) ?? 
+                model ) as StepEntityBase< EntityTypesIfc >[] | IterableIterator< StepEntityBase< EntityTypesIfc > >
+
+            for ( let element of elements )
             {
-                if ( types !== void 0 && !types.includes( element.type ) )
-                {
-                    continue;
-                }
-                
                 let elementTypeID = EntityTypesIfc[ element.type ];
 
                 console.log( 

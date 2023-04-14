@@ -54,4 +54,8 @@ export class IfcSpecificHeatCapacityMeasure extends StepEntityBase< EntityTypesI
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSPECIFICHEATCAPACITYMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSPECIFICHEATCAPACITYMEASURE;
 }

@@ -5,7 +5,9 @@ enum IfcWorkCalendarTypeEnum {
     USERDEFINED = 3,
     NOTDEFINED = 4,
 }
-export { IfcWorkCalendarTypeEnum };
+const IfcWorkCalendarTypeEnumCount = 5;
+
+export { IfcWorkCalendarTypeEnum, IfcWorkCalendarTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -20,7 +20,6 @@ export abstract class IfcBSplineCurve extends IfcBoundedCurve
     {
         return EntityTypesIfc.IFCBSPLINECURVE;
     }
-
     private Degree_? : number;
     private ControlPointsList_? : Array<IfcCartesianPoint>;
     private CurveForm_? : IfcBSplineCurveForm;
@@ -212,4 +211,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBSPLINECURVEWITHKNOTS, EntityTypesIfc.IFCRATIONALBSPLINECURVEWITHKNOTS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBSPLINECURVE;
 }

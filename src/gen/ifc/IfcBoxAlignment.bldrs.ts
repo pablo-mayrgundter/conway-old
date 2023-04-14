@@ -54,4 +54,8 @@ export class IfcBoxAlignment extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBOXALIGNMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBOXALIGNMENT;
 }

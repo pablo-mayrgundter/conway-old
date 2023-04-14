@@ -23,7 +23,9 @@ enum IfcRoleEnum {
     RESELLER = 21,
     USERDEFINED = 22,
 }
-export { IfcRoleEnum };
+const IfcRoleEnumCount = 23;
+
+export { IfcRoleEnum, IfcRoleEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

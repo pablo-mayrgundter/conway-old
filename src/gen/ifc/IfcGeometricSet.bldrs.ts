@@ -20,7 +20,6 @@ export  class IfcGeometricSet extends IfcGeometricRepresentationItem
     {
         return EntityTypesIfc.IFCGEOMETRICSET;
     }
-
     private Elements_? : Array<IfcCurve|IfcPoint|IfcSurface>;
 
     public get Elements() : Array<IfcCurve|IfcPoint|IfcSurface>
@@ -75,4 +74,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCGEOMETRICSET, EntityTypesIfc.IFCGEOMETRICCURVESET ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCGEOMETRICSET;
 }

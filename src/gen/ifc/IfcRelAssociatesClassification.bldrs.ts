@@ -18,7 +18,6 @@ export  class IfcRelAssociatesClassification extends IfcRelAssociates
     {
         return EntityTypesIfc.IFCRELASSOCIATESCLASSIFICATION;
     }
-
     private RelatingClassification_? : IfcClassification|IfcClassificationReference;
 
     public get RelatingClassification() : IfcClassification|IfcClassificationReference
@@ -57,4 +56,8 @@ export  class IfcRelAssociatesClassification extends IfcRelAssociates
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELASSOCIATESCLASSIFICATION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELASSOCIATESCLASSIFICATION;
 }

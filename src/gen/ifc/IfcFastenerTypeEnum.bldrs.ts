@@ -5,7 +5,9 @@ enum IfcFastenerTypeEnum {
     USERDEFINED = 3,
     NOTDEFINED = 4,
 }
-export { IfcFastenerTypeEnum };
+const IfcFastenerTypeEnumCount = 5;
+
+export { IfcFastenerTypeEnum, IfcFastenerTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

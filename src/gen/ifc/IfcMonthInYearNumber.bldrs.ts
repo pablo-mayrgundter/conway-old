@@ -54,4 +54,8 @@ export class IfcMonthInYearNumber extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMONTHINYEARNUMBER ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMONTHINYEARNUMBER;
 }

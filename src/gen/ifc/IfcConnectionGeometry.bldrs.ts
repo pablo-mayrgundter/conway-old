@@ -17,9 +17,12 @@ export abstract class IfcConnectionGeometry extends StepEntityBase< EntityTypesI
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCONNECTIONCURVEGEOMETRY, EntityTypesIfc.IFCCONNECTIONPOINTGEOMETRY, EntityTypesIfc.IFCCONNECTIONSURFACEGEOMETRY, EntityTypesIfc.IFCCONNECTIONVOLUMEGEOMETRY, EntityTypesIfc.IFCCONNECTIONPOINTECCENTRICITY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCONNECTIONGEOMETRY;
 }

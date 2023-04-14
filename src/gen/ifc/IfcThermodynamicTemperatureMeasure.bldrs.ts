@@ -54,4 +54,8 @@ export class IfcThermodynamicTemperatureMeasure extends StepEntityBase< EntityTy
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTHERMODYNAMICTEMPERATUREMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTHERMODYNAMICTEMPERATUREMEASURE;
 }

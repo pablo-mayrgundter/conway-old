@@ -17,7 +17,6 @@ export  class IfcIrregularTimeSeries extends IfcTimeSeries
     {
         return EntityTypesIfc.IFCIRREGULARTIMESERIES;
     }
-
     private Values_? : Array<IfcIrregularTimeSeriesValue>;
 
     public get Values() : Array<IfcIrregularTimeSeriesValue>
@@ -67,4 +66,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCIRREGULARTIMESERIES ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCIRREGULARTIMESERIES;
 }

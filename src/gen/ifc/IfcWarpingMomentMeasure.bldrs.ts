@@ -54,4 +54,8 @@ export class IfcWarpingMomentMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCWARPINGMOMENTMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCWARPINGMOMENTMEASURE;
 }

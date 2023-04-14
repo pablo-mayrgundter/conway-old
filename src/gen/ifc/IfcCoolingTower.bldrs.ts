@@ -17,7 +17,6 @@ export  class IfcCoolingTower extends IfcEnergyConversionDevice
     {
         return EntityTypesIfc.IFCCOOLINGTOWER;
     }
-
     private PredefinedType_? : IfcCoolingTowerTypeEnum | null;
 
     public get PredefinedType() : IfcCoolingTowerTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcCoolingTower extends IfcEnergyConversionDevice
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCOOLINGTOWER ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCOOLINGTOWER;
 }

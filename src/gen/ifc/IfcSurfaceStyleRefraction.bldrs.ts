@@ -17,7 +17,6 @@ export  class IfcSurfaceStyleRefraction extends IfcPresentationItem
     {
         return EntityTypesIfc.IFCSURFACESTYLEREFRACTION;
     }
-
     private RefractionIndex_? : number | null;
     private DispersionFactor_? : number | null;
 
@@ -102,4 +101,8 @@ export  class IfcSurfaceStyleRefraction extends IfcPresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSURFACESTYLEREFRACTION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSURFACESTYLEREFRACTION;
 }

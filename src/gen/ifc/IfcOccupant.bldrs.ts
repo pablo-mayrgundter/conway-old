@@ -17,7 +17,6 @@ export  class IfcOccupant extends IfcActor
     {
         return EntityTypesIfc.IFCOCCUPANT;
     }
-
     private PredefinedType_? : IfcOccupantTypeEnum | null;
 
     public get PredefinedType() : IfcOccupantTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcOccupant extends IfcActor
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCOCCUPANT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCOCCUPANT;
 }

@@ -18,7 +18,6 @@ export  class IfcQuantityArea extends IfcPhysicalSimpleQuantity
     {
         return EntityTypesIfc.IFCQUANTITYAREA;
     }
-
     private AreaValue_? : number;
     private Formula_? : string | null;
 
@@ -96,4 +95,8 @@ export  class IfcQuantityArea extends IfcPhysicalSimpleQuantity
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCQUANTITYAREA ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCQUANTITYAREA;
 }

@@ -18,7 +18,9 @@ enum IfcElectricApplianceTypeEnum {
     USERDEFINED = 16,
     NOTDEFINED = 17,
 }
-export { IfcElectricApplianceTypeEnum };
+const IfcElectricApplianceTypeEnumCount = 18;
+
+export { IfcElectricApplianceTypeEnum, IfcElectricApplianceTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

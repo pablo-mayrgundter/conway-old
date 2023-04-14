@@ -18,7 +18,6 @@ export  class IfcCurveStyleFont extends IfcPresentationItem
     {
         return EntityTypesIfc.IFCCURVESTYLEFONT;
     }
-
     private Name_? : string | null;
     private PatternList_? : Array<IfcCurveStyleFontPattern>;
 
@@ -108,4 +107,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCURVESTYLEFONT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCURVESTYLEFONT;
 }

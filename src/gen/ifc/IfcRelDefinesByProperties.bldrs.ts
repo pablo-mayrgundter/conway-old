@@ -19,7 +19,6 @@ export  class IfcRelDefinesByProperties extends IfcRelDefines
     {
         return EntityTypesIfc.IFCRELDEFINESBYPROPERTIES;
     }
-
     private RelatedObjects_? : Array<IfcObjectDefinition>;
     private RelatingPropertyDefinition_? : IfcPropertySetDefinition|IfcPropertySetDefinitionSet;
 
@@ -103,4 +102,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELDEFINESBYPROPERTIES ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELDEFINESBYPROPERTIES;
 }

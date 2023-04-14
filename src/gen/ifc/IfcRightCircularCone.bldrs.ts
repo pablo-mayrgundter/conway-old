@@ -17,7 +17,6 @@ export  class IfcRightCircularCone extends IfcCsgPrimitive3D
     {
         return EntityTypesIfc.IFCRIGHTCIRCULARCONE;
     }
-
     private Height_? : number;
     private BottomRadius_? : number;
 
@@ -88,4 +87,8 @@ export  class IfcRightCircularCone extends IfcCsgPrimitive3D
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRIGHTCIRCULARCONE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRIGHTCIRCULARCONE;
 }

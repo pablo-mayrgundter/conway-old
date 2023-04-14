@@ -17,7 +17,6 @@ export  class IfcSpatialZone extends IfcSpatialElement
     {
         return EntityTypesIfc.IFCSPATIALZONE;
     }
-
     private PredefinedType_? : IfcSpatialZoneTypeEnum | null;
 
     public get PredefinedType() : IfcSpatialZoneTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcSpatialZone extends IfcSpatialElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSPATIALZONE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSPATIALZONE;
 }

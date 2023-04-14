@@ -18,7 +18,6 @@ export  class IfcDocumentReference extends IfcExternalReference
     {
         return EntityTypesIfc.IFCDOCUMENTREFERENCE;
     }
-
     private Description_? : string | null;
     private ReferencedDocument_? : IfcDocumentInformation | null;
 
@@ -105,4 +104,8 @@ export  class IfcDocumentReference extends IfcExternalReference
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDOCUMENTREFERENCE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDOCUMENTREFERENCE;
 }

@@ -17,7 +17,6 @@ export  class IfcEventTime extends IfcSchedulingTime
     {
         return EntityTypesIfc.IFCEVENTTIME;
     }
-
     private ActualDate_? : string | null;
     private EarlyDate_? : string | null;
     private LateDate_? : string | null;
@@ -182,4 +181,8 @@ export  class IfcEventTime extends IfcSchedulingTime
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCEVENTTIME ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCEVENTTIME;
 }

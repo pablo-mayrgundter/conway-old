@@ -17,7 +17,6 @@ export  class IfcValve extends IfcFlowController
     {
         return EntityTypesIfc.IFCVALVE;
     }
-
     private PredefinedType_? : IfcValveTypeEnum | null;
 
     public get PredefinedType() : IfcValveTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcValve extends IfcFlowController
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCVALVE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCVALVE;
 }

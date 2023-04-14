@@ -21,7 +21,6 @@ export  class IfcSurfaceStyleRendering extends IfcSurfaceStyleShading
     {
         return EntityTypesIfc.IFCSURFACESTYLERENDERING;
     }
-
     private DiffuseColour_? : IfcColourRgb|IfcNormalisedRatioMeasure | null;
     private TransmissionColour_? : IfcColourRgb|IfcNormalisedRatioMeasure | null;
     private DiffuseTransmissionColour_? : IfcColourRgb|IfcNormalisedRatioMeasure | null;
@@ -305,4 +304,8 @@ export  class IfcSurfaceStyleRendering extends IfcSurfaceStyleShading
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSURFACESTYLERENDERING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSURFACESTYLERENDERING;
 }

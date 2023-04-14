@@ -54,4 +54,8 @@ export class IfcDoseEquivalentMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDOSEEQUIVALENTMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDOSEEQUIVALENTMEASURE;
 }

@@ -18,9 +18,12 @@ export  class IfcAdvancedFace extends IfcFaceSurface
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCADVANCEDFACE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCADVANCEDFACE;
 }

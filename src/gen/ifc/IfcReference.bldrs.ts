@@ -18,7 +18,6 @@ export  class IfcReference extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCREFERENCE;
     }
-
     private TypeIdentifier_? : string | null;
     private AttributeIdentifier_? : string | null;
     private InstanceName_? : string | null;
@@ -233,4 +232,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCREFERENCE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCREFERENCE;
 }

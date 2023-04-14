@@ -11,7 +11,9 @@ enum IfcWindowTypePartitioningEnum {
     USERDEFINED = 9,
     NOTDEFINED = 10,
 }
-export { IfcWindowTypePartitioningEnum };
+const IfcWindowTypePartitioningEnumCount = 11;
+
+export { IfcWindowTypePartitioningEnum, IfcWindowTypePartitioningEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

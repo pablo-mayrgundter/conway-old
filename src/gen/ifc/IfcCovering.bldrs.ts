@@ -17,7 +17,6 @@ export  class IfcCovering extends IfcBuildingElement
     {
         return EntityTypesIfc.IFCCOVERING;
     }
-
     private PredefinedType_? : IfcCoveringTypeEnum | null;
 
     public get PredefinedType() : IfcCoveringTypeEnum | null
@@ -64,4 +63,8 @@ export  class IfcCovering extends IfcBuildingElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCOVERING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCOVERING;
 }

@@ -18,9 +18,12 @@ export  class IfcBooleanClippingResult extends IfcBooleanResult
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBOOLEANCLIPPINGRESULT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBOOLEANCLIPPINGRESULT;
 }

@@ -17,7 +17,6 @@ export  class IfcCompressor extends IfcFlowMovingDevice
     {
         return EntityTypesIfc.IFCCOMPRESSOR;
     }
-
     private PredefinedType_? : IfcCompressorTypeEnum | null;
 
     public get PredefinedType() : IfcCompressorTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcCompressor extends IfcFlowMovingDevice
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCOMPRESSOR ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCOMPRESSOR;
 }

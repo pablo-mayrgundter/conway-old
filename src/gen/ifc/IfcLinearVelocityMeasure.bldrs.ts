@@ -54,4 +54,8 @@ export class IfcLinearVelocityMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCLINEARVELOCITYMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCLINEARVELOCITYMEASURE;
 }

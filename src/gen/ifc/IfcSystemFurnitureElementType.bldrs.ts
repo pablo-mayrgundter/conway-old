@@ -17,7 +17,6 @@ export  class IfcSystemFurnitureElementType extends IfcFurnishingElementType
     {
         return EntityTypesIfc.IFCSYSTEMFURNITUREELEMENTTYPE;
     }
-
     private PredefinedType_? : IfcSystemFurnitureElementTypeEnum | null;
 
     public get PredefinedType() : IfcSystemFurnitureElementTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcSystemFurnitureElementType extends IfcFurnishingElementType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSYSTEMFURNITUREELEMENTTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSYSTEMFURNITUREELEMENTTYPE;
 }

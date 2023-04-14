@@ -18,7 +18,6 @@ export  class IfcGridPlacement extends IfcObjectPlacement
     {
         return EntityTypesIfc.IFCGRIDPLACEMENT;
     }
-
     private PlacementLocation_? : IfcVirtualGridIntersection;
     private PlacementRefDirection_? : IfcDirection|IfcVirtualGridIntersection | null;
 
@@ -98,4 +97,8 @@ export  class IfcGridPlacement extends IfcObjectPlacement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCGRIDPLACEMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCGRIDPLACEMENT;
 }

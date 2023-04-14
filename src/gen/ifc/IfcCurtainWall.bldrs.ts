@@ -17,7 +17,6 @@ export  class IfcCurtainWall extends IfcBuildingElement
     {
         return EntityTypesIfc.IFCCURTAINWALL;
     }
-
     private PredefinedType_? : IfcCurtainWallTypeEnum | null;
 
     public get PredefinedType() : IfcCurtainWallTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcCurtainWall extends IfcBuildingElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCURTAINWALL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCURTAINWALL;
 }

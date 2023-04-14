@@ -18,7 +18,6 @@ export abstract class IfcResource extends IfcObject
     {
         return EntityTypesIfc.IFCRESOURCE;
     }
-
     private Identification_? : string | null;
     private LongDescription_? : string | null;
 
@@ -104,4 +103,8 @@ export abstract class IfcResource extends IfcObject
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCONSTRUCTIONEQUIPMENTRESOURCE, EntityTypesIfc.IFCCONSTRUCTIONMATERIALRESOURCE, EntityTypesIfc.IFCCONSTRUCTIONPRODUCTRESOURCE, EntityTypesIfc.IFCCREWRESOURCE, EntityTypesIfc.IFCLABORRESOURCE, EntityTypesIfc.IFCSUBCONTRACTRESOURCE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRESOURCE;
 }

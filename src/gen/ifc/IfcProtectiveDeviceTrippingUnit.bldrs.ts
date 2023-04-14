@@ -17,7 +17,6 @@ export  class IfcProtectiveDeviceTrippingUnit extends IfcDistributionControlElem
     {
         return EntityTypesIfc.IFCPROTECTIVEDEVICETRIPPINGUNIT;
     }
-
     private PredefinedType_? : IfcProtectiveDeviceTrippingUnitTypeEnum | null;
 
     public get PredefinedType() : IfcProtectiveDeviceTrippingUnitTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcProtectiveDeviceTrippingUnit extends IfcDistributionControlElem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPROTECTIVEDEVICETRIPPINGUNIT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPROTECTIVEDEVICETRIPPINGUNIT;
 }

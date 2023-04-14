@@ -17,7 +17,6 @@ export  class IfcRelConnectsWithEccentricity extends IfcRelConnectsStructuralMem
     {
         return EntityTypesIfc.IFCRELCONNECTSWITHECCENTRICITY;
     }
-
     private ConnectionConstraint_? : IfcConnectionGeometry;
 
     public get ConnectionConstraint() : IfcConnectionGeometry
@@ -56,4 +55,8 @@ export  class IfcRelConnectsWithEccentricity extends IfcRelConnectsStructuralMem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELCONNECTSWITHECCENTRICITY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELCONNECTSWITHECCENTRICITY;
 }

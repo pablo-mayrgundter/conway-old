@@ -18,7 +18,6 @@ export  class IfcPile extends IfcBuildingElement
     {
         return EntityTypesIfc.IFCPILE;
     }
-
     private PredefinedType_? : IfcPileTypeEnum | null;
     private ConstructionType_? : IfcPileConstructionEnum | null;
 
@@ -103,4 +102,8 @@ export  class IfcPile extends IfcBuildingElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPILE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPILE;
 }

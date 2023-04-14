@@ -54,4 +54,8 @@ export class IfcMassDensityMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMASSDENSITYMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMASSDENSITYMEASURE;
 }

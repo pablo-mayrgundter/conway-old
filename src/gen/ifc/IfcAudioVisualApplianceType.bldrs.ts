@@ -17,7 +17,6 @@ export  class IfcAudioVisualApplianceType extends IfcFlowTerminalType
     {
         return EntityTypesIfc.IFCAUDIOVISUALAPPLIANCETYPE;
     }
-
     private PredefinedType_? : IfcAudioVisualApplianceTypeEnum;
 
     public get PredefinedType() : IfcAudioVisualApplianceTypeEnum
@@ -55,4 +54,8 @@ export  class IfcAudioVisualApplianceType extends IfcFlowTerminalType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCAUDIOVISUALAPPLIANCETYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCAUDIOVISUALAPPLIANCETYPE;
 }

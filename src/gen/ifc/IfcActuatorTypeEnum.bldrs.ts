@@ -7,7 +7,9 @@ enum IfcActuatorTypeEnum {
     USERDEFINED = 5,
     NOTDEFINED = 6,
 }
-export { IfcActuatorTypeEnum };
+const IfcActuatorTypeEnumCount = 7;
+
+export { IfcActuatorTypeEnum, IfcActuatorTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

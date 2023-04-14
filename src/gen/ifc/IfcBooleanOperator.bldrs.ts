@@ -3,7 +3,9 @@ enum IfcBooleanOperator {
     INTERSECTION = 1,
     DIFFERENCE = 2,
 }
-export { IfcBooleanOperator };
+const IfcBooleanOperatorCount = 3;
+
+export { IfcBooleanOperator, IfcBooleanOperatorCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

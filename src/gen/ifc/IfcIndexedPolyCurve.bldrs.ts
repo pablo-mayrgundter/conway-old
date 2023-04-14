@@ -20,7 +20,6 @@ export  class IfcIndexedPolyCurve extends IfcBoundedCurve
     {
         return EntityTypesIfc.IFCINDEXEDPOLYCURVE;
     }
-
     private Points_? : IfcCartesianPointList;
     private Segments_? : Array<IfcArcIndex|IfcLineIndex> | null;
     private SelfIntersect_? : boolean | null;
@@ -149,4 +148,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCINDEXEDPOLYCURVE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCINDEXEDPOLYCURVE;
 }

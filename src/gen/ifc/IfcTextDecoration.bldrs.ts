@@ -54,4 +54,8 @@ export class IfcTextDecoration extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTEXTDECORATION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTEXTDECORATION;
 }

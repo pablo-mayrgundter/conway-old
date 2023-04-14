@@ -17,7 +17,6 @@ export  class IfcTendonAnchorType extends IfcReinforcingElementType
     {
         return EntityTypesIfc.IFCTENDONANCHORTYPE;
     }
-
     private PredefinedType_? : IfcTendonAnchorTypeEnum;
 
     public get PredefinedType() : IfcTendonAnchorTypeEnum
@@ -55,4 +54,8 @@ export  class IfcTendonAnchorType extends IfcReinforcingElementType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTENDONANCHORTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTENDONANCHORTYPE;
 }

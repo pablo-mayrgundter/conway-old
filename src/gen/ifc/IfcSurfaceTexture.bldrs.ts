@@ -19,7 +19,6 @@ export abstract class IfcSurfaceTexture extends IfcPresentationItem
     {
         return EntityTypesIfc.IFCSURFACETEXTURE;
     }
-
     private RepeatS_? : boolean;
     private RepeatT_? : boolean;
     private Mode_? : string | null;
@@ -222,4 +221,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBLOBTEXTURE, EntityTypesIfc.IFCIMAGETEXTURE, EntityTypesIfc.IFCPIXELTEXTURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSURFACETEXTURE;
 }

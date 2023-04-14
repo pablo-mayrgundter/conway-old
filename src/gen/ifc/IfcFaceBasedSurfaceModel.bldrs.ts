@@ -18,7 +18,6 @@ export  class IfcFaceBasedSurfaceModel extends IfcGeometricRepresentationItem
     {
         return EntityTypesIfc.IFCFACEBASEDSURFACEMODEL;
     }
-
     private FbsmFaces_? : Array<IfcConnectedFaceSet>;
 
     public get FbsmFaces() : Array<IfcConnectedFaceSet>
@@ -73,4 +72,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFACEBASEDSURFACEMODEL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFACEBASEDSURFACEMODEL;
 }

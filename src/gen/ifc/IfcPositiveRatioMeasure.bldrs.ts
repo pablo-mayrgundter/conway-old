@@ -54,4 +54,8 @@ export class IfcPositiveRatioMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPOSITIVERATIOMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPOSITIVERATIOMEASURE;
 }

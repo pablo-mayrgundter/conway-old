@@ -20,7 +20,6 @@ export  class IfcPermeableCoveringProperties extends IfcPreDefinedPropertySet
     {
         return EntityTypesIfc.IFCPERMEABLECOVERINGPROPERTIES;
     }
-
     private OperationType_? : IfcPermeableCoveringOperationEnum;
     private PanelPosition_? : IfcWindowPanelPositionEnum;
     private FrameDepth_? : number | null;
@@ -212,4 +211,8 @@ export  class IfcPermeableCoveringProperties extends IfcPreDefinedPropertySet
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPERMEABLECOVERINGPROPERTIES ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPERMEABLECOVERINGPROPERTIES;
 }

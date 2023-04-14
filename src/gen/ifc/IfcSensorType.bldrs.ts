@@ -17,7 +17,6 @@ export  class IfcSensorType extends IfcDistributionControlElementType
     {
         return EntityTypesIfc.IFCSENSORTYPE;
     }
-
     private PredefinedType_? : IfcSensorTypeEnum;
 
     public get PredefinedType() : IfcSensorTypeEnum
@@ -55,4 +54,8 @@ export  class IfcSensorType extends IfcDistributionControlElementType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSENSORTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSENSORTYPE;
 }

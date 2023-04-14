@@ -54,4 +54,8 @@ export class IfcBoolean extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBOOLEAN ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBOOLEAN;
 }

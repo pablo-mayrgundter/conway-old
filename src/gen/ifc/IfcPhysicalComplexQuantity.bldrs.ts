@@ -17,7 +17,6 @@ export  class IfcPhysicalComplexQuantity extends IfcPhysicalQuantity
     {
         return EntityTypesIfc.IFCPHYSICALCOMPLEXQUANTITY;
     }
-
     private HasQuantities_? : Array<IfcPhysicalQuantity>;
     private Discrimination_? : string;
     private Quality_? : string | null;
@@ -180,4 +179,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPHYSICALCOMPLEXQUANTITY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPHYSICALCOMPLEXQUANTITY;
 }

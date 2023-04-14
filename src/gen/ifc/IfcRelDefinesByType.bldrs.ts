@@ -18,7 +18,6 @@ export  class IfcRelDefinesByType extends IfcRelDefines
     {
         return EntityTypesIfc.IFCRELDEFINESBYTYPE;
     }
-
     private RelatedObjects_? : Array<IfcObject>;
     private RelatingType_? : IfcTypeObject;
 
@@ -102,4 +101,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELDEFINESBYTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELDEFINESBYTYPE;
 }

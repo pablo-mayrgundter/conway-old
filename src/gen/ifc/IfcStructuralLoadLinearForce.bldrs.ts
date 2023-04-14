@@ -18,7 +18,6 @@ export  class IfcStructuralLoadLinearForce extends IfcStructuralLoadStatic
     {
         return EntityTypesIfc.IFCSTRUCTURALLOADLINEARFORCE;
     }
-
     private LinearForceX_? : number | null;
     private LinearForceY_? : number | null;
     private LinearForceZ_? : number | null;
@@ -263,4 +262,8 @@ export  class IfcStructuralLoadLinearForce extends IfcStructuralLoadStatic
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALLOADLINEARFORCE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALLOADLINEARFORCE;
 }

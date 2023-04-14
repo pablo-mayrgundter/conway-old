@@ -14,7 +14,9 @@ enum IfcTaskTypeEnum {
     USERDEFINED = 12,
     NOTDEFINED = 13,
 }
-export { IfcTaskTypeEnum };
+const IfcTaskTypeEnumCount = 14;
+
+export { IfcTaskTypeEnum, IfcTaskTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

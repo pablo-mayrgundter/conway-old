@@ -17,7 +17,6 @@ export  class IfcSwitchingDevice extends IfcFlowController
     {
         return EntityTypesIfc.IFCSWITCHINGDEVICE;
     }
-
     private PredefinedType_? : IfcSwitchingDeviceTypeEnum | null;
 
     public get PredefinedType() : IfcSwitchingDeviceTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcSwitchingDevice extends IfcFlowController
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSWITCHINGDEVICE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSWITCHINGDEVICE;
 }

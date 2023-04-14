@@ -18,9 +18,12 @@ export  class IfcBeamStandardCase extends IfcBeam
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBEAMSTANDARDCASE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBEAMSTANDARDCASE;
 }

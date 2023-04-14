@@ -54,4 +54,8 @@ export class IfcPositiveLengthMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPOSITIVELENGTHMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPOSITIVELENGTHMEASURE;
 }

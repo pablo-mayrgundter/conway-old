@@ -6,7 +6,9 @@ enum IfcDocumentConfidentialityEnum {
     USERDEFINED = 4,
     NOTDEFINED = 5,
 }
-export { IfcDocumentConfidentialityEnum };
+const IfcDocumentConfidentialityEnumCount = 6;
+
+export { IfcDocumentConfidentialityEnum, IfcDocumentConfidentialityEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

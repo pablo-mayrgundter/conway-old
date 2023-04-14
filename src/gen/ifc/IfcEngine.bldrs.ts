@@ -17,7 +17,6 @@ export  class IfcEngine extends IfcEnergyConversionDevice
     {
         return EntityTypesIfc.IFCENGINE;
     }
-
     private PredefinedType_? : IfcEngineTypeEnum | null;
 
     public get PredefinedType() : IfcEngineTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcEngine extends IfcEnergyConversionDevice
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCENGINE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCENGINE;
 }

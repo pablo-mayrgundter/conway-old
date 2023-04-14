@@ -18,7 +18,6 @@ export  class IfcTextureCoordinateGenerator extends IfcTextureCoordinate
     {
         return EntityTypesIfc.IFCTEXTURECOORDINATEGENERATOR;
     }
-
     private Mode_? : string;
     private Parameter_? : Array< number > | null;
 
@@ -105,4 +104,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTEXTURECOORDINATEGENERATOR ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTEXTURECOORDINATEGENERATOR;
 }

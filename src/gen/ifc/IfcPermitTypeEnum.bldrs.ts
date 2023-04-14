@@ -5,7 +5,9 @@ enum IfcPermitTypeEnum {
     USERDEFINED = 3,
     NOTDEFINED = 4,
 }
-export { IfcPermitTypeEnum };
+const IfcPermitTypeEnumCount = 5;
+
+export { IfcPermitTypeEnum, IfcPermitTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

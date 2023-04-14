@@ -19,7 +19,6 @@ export  class IfcRelInterferesElements extends IfcRelConnects
     {
         return EntityTypesIfc.IFCRELINTERFERESELEMENTS;
     }
-
     private RelatingElement_? : IfcElement;
     private RelatedElement_? : IfcElement;
     private InterferenceGeometry_? : IfcConnectionGeometry | null;
@@ -206,4 +205,8 @@ export  class IfcRelInterferesElements extends IfcRelConnects
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELINTERFERESELEMENTS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELINTERFERESELEMENTS;
 }

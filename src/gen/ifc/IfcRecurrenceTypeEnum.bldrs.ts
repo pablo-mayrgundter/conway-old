@@ -8,7 +8,9 @@ enum IfcRecurrenceTypeEnum {
     YEARLY_BY_DAY_OF_MONTH = 6,
     YEARLY_BY_POSITION = 7,
 }
-export { IfcRecurrenceTypeEnum };
+const IfcRecurrenceTypeEnumCount = 8;
+
+export { IfcRecurrenceTypeEnum, IfcRecurrenceTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

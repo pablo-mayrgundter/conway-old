@@ -20,7 +20,6 @@ export  class IfcDoor extends IfcBuildingElement
     {
         return EntityTypesIfc.IFCDOOR;
     }
-
     private OverallHeight_? : number | null;
     private OverallWidth_? : number | null;
     private PredefinedType_? : IfcDoorTypeEnum | null;
@@ -225,4 +224,8 @@ export  class IfcDoor extends IfcBuildingElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDOOR, EntityTypesIfc.IFCDOORSTANDARDCASE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDOOR;
 }

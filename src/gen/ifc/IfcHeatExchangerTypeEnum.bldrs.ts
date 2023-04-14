@@ -4,7 +4,9 @@ enum IfcHeatExchangerTypeEnum {
     USERDEFINED = 2,
     NOTDEFINED = 3,
 }
-export { IfcHeatExchangerTypeEnum };
+const IfcHeatExchangerTypeEnumCount = 4;
+
+export { IfcHeatExchangerTypeEnum, IfcHeatExchangerTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

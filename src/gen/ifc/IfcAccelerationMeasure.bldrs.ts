@@ -54,4 +54,8 @@ export class IfcAccelerationMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCACCELERATIONMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCACCELERATIONMEASURE;
 }

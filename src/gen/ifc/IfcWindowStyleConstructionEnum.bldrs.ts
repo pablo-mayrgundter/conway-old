@@ -8,7 +8,9 @@ enum IfcWindowStyleConstructionEnum {
     OTHER_CONSTRUCTION = 6,
     NOTDEFINED = 7,
 }
-export { IfcWindowStyleConstructionEnum };
+const IfcWindowStyleConstructionEnumCount = 8;
+
+export { IfcWindowStyleConstructionEnum, IfcWindowStyleConstructionEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

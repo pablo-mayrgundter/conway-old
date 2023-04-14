@@ -17,7 +17,6 @@ export  class IfcCoil extends IfcEnergyConversionDevice
     {
         return EntityTypesIfc.IFCCOIL;
     }
-
     private PredefinedType_? : IfcCoilTypeEnum | null;
 
     public get PredefinedType() : IfcCoilTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcCoil extends IfcEnergyConversionDevice
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCOIL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCOIL;
 }

@@ -18,9 +18,12 @@ export  class IfcVertex extends IfcTopologicalRepresentationItem
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCVERTEX, EntityTypesIfc.IFCVERTEXPOINT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCVERTEX;
 }

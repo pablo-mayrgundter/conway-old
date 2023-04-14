@@ -14,7 +14,9 @@ enum IfcMemberTypeEnum {
     USERDEFINED = 12,
     NOTDEFINED = 13,
 }
-export { IfcMemberTypeEnum };
+const IfcMemberTypeEnumCount = 14;
+
+export { IfcMemberTypeEnum, IfcMemberTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

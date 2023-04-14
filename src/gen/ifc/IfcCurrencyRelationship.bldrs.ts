@@ -20,7 +20,6 @@ export  class IfcCurrencyRelationship extends IfcResourceLevelRelationship
     {
         return EntityTypesIfc.IFCCURRENCYRELATIONSHIP;
     }
-
     private RelatingMonetaryUnit_? : IfcMonetaryUnit;
     private RelatedMonetaryUnit_? : IfcMonetaryUnit;
     private ExchangeRate_? : number;
@@ -207,4 +206,8 @@ export  class IfcCurrencyRelationship extends IfcResourceLevelRelationship
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCURRENCYRELATIONSHIP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCURRENCYRELATIONSHIP;
 }

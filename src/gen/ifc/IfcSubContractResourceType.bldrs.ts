@@ -17,7 +17,6 @@ export  class IfcSubContractResourceType extends IfcConstructionResourceType
     {
         return EntityTypesIfc.IFCSUBCONTRACTRESOURCETYPE;
     }
-
     private PredefinedType_? : IfcSubContractResourceTypeEnum;
 
     public get PredefinedType() : IfcSubContractResourceTypeEnum
@@ -55,4 +54,8 @@ export  class IfcSubContractResourceType extends IfcConstructionResourceType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSUBCONTRACTRESOURCETYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSUBCONTRACTRESOURCETYPE;
 }

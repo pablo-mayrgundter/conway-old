@@ -17,7 +17,6 @@ export abstract class IfcResourceLevelRelationship extends StepEntityBase< Entit
     {
         return EntityTypesIfc.IFCRESOURCELEVELRELATIONSHIP;
     }
-
     private Name_? : string | null;
     private Description_? : string | null;
 
@@ -102,4 +101,8 @@ export abstract class IfcResourceLevelRelationship extends StepEntityBase< Entit
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCAPPROVALRELATIONSHIP, EntityTypesIfc.IFCCURRENCYRELATIONSHIP, EntityTypesIfc.IFCDOCUMENTINFORMATIONRELATIONSHIP, EntityTypesIfc.IFCEXTERNALREFERENCERELATIONSHIP, EntityTypesIfc.IFCMATERIALRELATIONSHIP, EntityTypesIfc.IFCORGANIZATIONRELATIONSHIP, EntityTypesIfc.IFCPROPERTYDEPENDENCYRELATIONSHIP, EntityTypesIfc.IFCRESOURCEAPPROVALRELATIONSHIP, EntityTypesIfc.IFCRESOURCECONSTRAINTRELATIONSHIP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRESOURCELEVELRELATIONSHIP;
 }

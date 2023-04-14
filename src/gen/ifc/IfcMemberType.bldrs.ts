@@ -17,7 +17,6 @@ export  class IfcMemberType extends IfcBuildingElementType
     {
         return EntityTypesIfc.IFCMEMBERTYPE;
     }
-
     private PredefinedType_? : IfcMemberTypeEnum;
 
     public get PredefinedType() : IfcMemberTypeEnum
@@ -55,4 +54,8 @@ export  class IfcMemberType extends IfcBuildingElementType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMEMBERTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMEMBERTYPE;
 }

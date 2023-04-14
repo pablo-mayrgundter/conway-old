@@ -18,9 +18,12 @@ export abstract class IfcFeatureElementSubtraction extends IfcFeatureElement
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCOPENINGELEMENT, EntityTypesIfc.IFCVOIDINGFEATURE, EntityTypesIfc.IFCOPENINGSTANDARDCASE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFEATUREELEMENTSUBTRACTION;
 }

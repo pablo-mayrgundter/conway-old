@@ -17,7 +17,6 @@ export  class IfcPolyline extends IfcBoundedCurve
     {
         return EntityTypesIfc.IFCPOLYLINE;
     }
-
     private Points_? : Array<IfcCartesianPoint>;
 
     public get Points() : Array<IfcCartesianPoint>
@@ -67,4 +66,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPOLYLINE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPOLYLINE;
 }

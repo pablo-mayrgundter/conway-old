@@ -18,7 +18,6 @@ export  class IfcConnectionVolumeGeometry extends IfcConnectionGeometry
     {
         return EntityTypesIfc.IFCCONNECTIONVOLUMEGEOMETRY;
     }
-
     private VolumeOnRelatingElement_? : IfcClosedShell|IfcSolidModel;
     private VolumeOnRelatedElement_? : IfcClosedShell|IfcSolidModel | null;
 
@@ -98,4 +97,8 @@ export  class IfcConnectionVolumeGeometry extends IfcConnectionGeometry
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCONNECTIONVOLUMEGEOMETRY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCONNECTIONVOLUMEGEOMETRY;
 }

@@ -10,7 +10,9 @@ enum IfcDistributionChamberElementTypeEnum {
     USERDEFINED = 8,
     NOTDEFINED = 9,
 }
-export { IfcDistributionChamberElementTypeEnum };
+const IfcDistributionChamberElementTypeEnumCount = 10;
+
+export { IfcDistributionChamberElementTypeEnum, IfcDistributionChamberElementTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

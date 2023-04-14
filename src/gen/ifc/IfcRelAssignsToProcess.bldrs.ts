@@ -19,7 +19,6 @@ export  class IfcRelAssignsToProcess extends IfcRelAssigns
     {
         return EntityTypesIfc.IFCRELASSIGNSTOPROCESS;
     }
-
     private RelatingProcess_? : IfcProcess|IfcTypeProcess;
     private QuantityInProcess_? : IfcMeasureWithUnit | null;
 
@@ -99,4 +98,8 @@ export  class IfcRelAssignsToProcess extends IfcRelAssigns
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELASSIGNSTOPROCESS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELASSIGNSTOPROCESS;
 }

@@ -19,7 +19,6 @@ export abstract class IfcTypeProcess extends IfcTypeObject
     {
         return EntityTypesIfc.IFCTYPEPROCESS;
     }
-
     private Identification_? : string | null;
     private LongDescription_? : string | null;
     private ProcessType_? : string | null;
@@ -145,4 +144,8 @@ export abstract class IfcTypeProcess extends IfcTypeObject
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCEVENTTYPE, EntityTypesIfc.IFCPROCEDURETYPE, EntityTypesIfc.IFCTASKTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTYPEPROCESS;
 }

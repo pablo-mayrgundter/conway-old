@@ -17,7 +17,6 @@ export  class IfcTextureVertex extends IfcPresentationItem
     {
         return EntityTypesIfc.IFCTEXTUREVERTEX;
     }
-
     private Coordinates_? : Array< number >;
 
     public get Coordinates() : Array< number >
@@ -66,4 +65,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTEXTUREVERTEX ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTEXTUREVERTEX;
 }

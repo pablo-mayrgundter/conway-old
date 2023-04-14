@@ -18,7 +18,6 @@ export  class IfcCartesianPoint extends IfcPoint
     {
         return EntityTypesIfc.IFCCARTESIANPOINT;
     }
-
     private Coordinates_? : Array< number >;
 
     public get Coordinates() : Array< number >
@@ -72,4 +71,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCARTESIANPOINT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCARTESIANPOINT;
 }

@@ -19,7 +19,6 @@ export  class IfcBoundingBox extends IfcGeometricRepresentationItem
     {
         return EntityTypesIfc.IFCBOUNDINGBOX;
     }
-
     private Corner_? : IfcCartesianPoint;
     private XDim_? : number;
     private YDim_? : number;
@@ -162,4 +161,8 @@ export  class IfcBoundingBox extends IfcGeometricRepresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBOUNDINGBOX ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBOUNDINGBOX;
 }

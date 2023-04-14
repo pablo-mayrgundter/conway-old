@@ -17,7 +17,6 @@ export abstract class IfcSpatialStructureElement extends IfcSpatialElement
     {
         return EntityTypesIfc.IFCSPATIALSTRUCTUREELEMENT;
     }
-
     private CompositionType_? : IfcElementCompositionEnum | null;
 
     public get CompositionType() : IfcElementCompositionEnum | null
@@ -62,4 +61,8 @@ export abstract class IfcSpatialStructureElement extends IfcSpatialElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBUILDING, EntityTypesIfc.IFCBUILDINGSTOREY, EntityTypesIfc.IFCSITE, EntityTypesIfc.IFCSPACE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSPATIALSTRUCTUREELEMENT;
 }

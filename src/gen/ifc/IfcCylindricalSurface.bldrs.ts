@@ -17,7 +17,6 @@ export  class IfcCylindricalSurface extends IfcElementarySurface
     {
         return EntityTypesIfc.IFCCYLINDRICALSURFACE;
     }
-
     private Radius_? : number;
 
     public get Radius() : number
@@ -55,4 +54,8 @@ export  class IfcCylindricalSurface extends IfcElementarySurface
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCYLINDRICALSURFACE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCYLINDRICALSURFACE;
 }

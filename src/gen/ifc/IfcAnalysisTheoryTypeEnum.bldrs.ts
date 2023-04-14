@@ -6,7 +6,9 @@ enum IfcAnalysisTheoryTypeEnum {
     USERDEFINED = 4,
     NOTDEFINED = 5,
 }
-export { IfcAnalysisTheoryTypeEnum };
+const IfcAnalysisTheoryTypeEnumCount = 6;
+
+export { IfcAnalysisTheoryTypeEnum, IfcAnalysisTheoryTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

@@ -16,7 +16,6 @@ export abstract class IfcStructuralLoad extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCSTRUCTURALLOAD;
     }
-
     private Name_? : string | null;
 
     public get Name() : string | null
@@ -61,4 +60,8 @@ export abstract class IfcStructuralLoad extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALLOADCONFIGURATION, EntityTypesIfc.IFCSURFACEREINFORCEMENTAREA, EntityTypesIfc.IFCSTRUCTURALLOADLINEARFORCE, EntityTypesIfc.IFCSTRUCTURALLOADPLANARFORCE, EntityTypesIfc.IFCSTRUCTURALLOADSINGLEDISPLACEMENT, EntityTypesIfc.IFCSTRUCTURALLOADSINGLEFORCE, EntityTypesIfc.IFCSTRUCTURALLOADTEMPERATURE, EntityTypesIfc.IFCSTRUCTURALLOADSINGLEDISPLACEMENTDISTORTION, EntityTypesIfc.IFCSTRUCTURALLOADSINGLEFORCEWARPING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALLOAD;
 }

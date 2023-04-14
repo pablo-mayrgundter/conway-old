@@ -54,4 +54,8 @@ export class IfcDayInMonthNumber extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDAYINMONTHNUMBER ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDAYINMONTHNUMBER;
 }

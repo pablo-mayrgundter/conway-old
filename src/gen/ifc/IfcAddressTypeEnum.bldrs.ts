@@ -5,7 +5,9 @@ enum IfcAddressTypeEnum {
     DISTRIBUTIONPOINT = 3,
     USERDEFINED = 4,
 }
-export { IfcAddressTypeEnum };
+const IfcAddressTypeEnumCount = 5;
+
+export { IfcAddressTypeEnum, IfcAddressTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

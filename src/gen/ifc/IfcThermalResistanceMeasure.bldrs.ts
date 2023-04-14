@@ -54,4 +54,8 @@ export class IfcThermalResistanceMeasure extends StepEntityBase< EntityTypesIfc 
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTHERMALRESISTANCEMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTHERMALRESISTANCEMEASURE;
 }

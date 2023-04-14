@@ -20,9 +20,12 @@ export abstract class IfcPropertySetDefinition extends IfcPropertyDefinition
 
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPROPERTYSET, EntityTypesIfc.IFCDOORLININGPROPERTIES, EntityTypesIfc.IFCDOORPANELPROPERTIES, EntityTypesIfc.IFCPERMEABLECOVERINGPROPERTIES, EntityTypesIfc.IFCREINFORCEMENTDEFINITIONPROPERTIES, EntityTypesIfc.IFCWINDOWLININGPROPERTIES, EntityTypesIfc.IFCWINDOWPANELPROPERTIES, EntityTypesIfc.IFCELEMENTQUANTITY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPROPERTYSETDEFINITION;
 }

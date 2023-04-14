@@ -19,7 +19,6 @@ export  class IfcHalfSpaceSolid extends IfcGeometricRepresentationItem
     {
         return EntityTypesIfc.IFCHALFSPACESOLID;
     }
-
     private BaseSurface_? : IfcSurface;
     private AgreementFlag_? : boolean;
 
@@ -96,4 +95,8 @@ export  class IfcHalfSpaceSolid extends IfcGeometricRepresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCHALFSPACESOLID, EntityTypesIfc.IFCBOXEDHALFSPACE, EntityTypesIfc.IFCPOLYGONALBOUNDEDHALFSPACE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCHALFSPACESOLID;
 }

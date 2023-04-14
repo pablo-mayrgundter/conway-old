@@ -17,7 +17,6 @@ export  class IfcAxis2Placement2D extends IfcPlacement
     {
         return EntityTypesIfc.IFCAXIS2PLACEMENT2D;
     }
-
     private RefDirection_? : IfcDirection | null;
 
     public get RefDirection() : IfcDirection | null
@@ -68,4 +67,8 @@ export  class IfcAxis2Placement2D extends IfcPlacement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCAXIS2PLACEMENT2D ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCAXIS2PLACEMENT2D;
 }

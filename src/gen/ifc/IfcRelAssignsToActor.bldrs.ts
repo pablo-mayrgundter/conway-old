@@ -18,7 +18,6 @@ export  class IfcRelAssignsToActor extends IfcRelAssigns
     {
         return EntityTypesIfc.IFCRELASSIGNSTOACTOR;
     }
-
     private RelatingActor_? : IfcActor;
     private ActingRole_? : IfcActorRole | null;
 
@@ -98,4 +97,8 @@ export  class IfcRelAssignsToActor extends IfcRelAssigns
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELASSIGNSTOACTOR ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELASSIGNSTOACTOR;
 }

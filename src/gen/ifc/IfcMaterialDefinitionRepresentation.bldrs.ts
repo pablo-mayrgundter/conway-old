@@ -17,7 +17,6 @@ export  class IfcMaterialDefinitionRepresentation extends IfcProductRepresentati
     {
         return EntityTypesIfc.IFCMATERIALDEFINITIONREPRESENTATION;
     }
-
     private RepresentedMaterial_? : IfcMaterial;
 
     public get RepresentedMaterial() : IfcMaterial
@@ -56,4 +55,8 @@ export  class IfcMaterialDefinitionRepresentation extends IfcProductRepresentati
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMATERIALDEFINITIONREPRESENTATION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMATERIALDEFINITIONREPRESENTATION;
 }

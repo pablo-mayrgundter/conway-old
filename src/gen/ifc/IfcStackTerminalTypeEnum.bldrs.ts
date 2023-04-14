@@ -5,7 +5,9 @@ enum IfcStackTerminalTypeEnum {
     USERDEFINED = 3,
     NOTDEFINED = 4,
 }
-export { IfcStackTerminalTypeEnum };
+const IfcStackTerminalTypeEnumCount = 5;
+
+export { IfcStackTerminalTypeEnum, IfcStackTerminalTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

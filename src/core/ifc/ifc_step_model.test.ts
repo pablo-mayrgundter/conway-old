@@ -4,7 +4,7 @@ import fs from 'fs';
 import ParsingBuffer from '../../../dependencies/conway-ds/src/parsing/parsing_buffer';
 import { ParseResult } from '../../../dependencies/conway-ds/src/parsing/step/step_parser';
 import IfcStepParser from './ifc_step_parser';
-import { IfcAddressTypeEnum, IfcCartesianPoint, IfcCartesianPointList3D, IfcClassification, IfcGeometricRepresentationSubContext, IfcPerson, IfcPostalAddress, IfcShapeAspect, IfcTelecomAddress } from '../../gen/ifc';
+import { IfcAddressTypeEnum, IfcCartesianPoint, IfcCartesianPointList, IfcCartesianPointList3D, IfcClassification, IfcGeometricRepresentationSubContext, IfcPerson, IfcPostalAddress, IfcShapeAspect, IfcTelecomAddress } from '../../gen/ifc';
 
 let parser = IfcStepParser.Instance;
 let indexIfcBuffer = fs.readFileSync( 'index.ifc' );
@@ -72,7 +72,8 @@ const ifcCartesianPoint3DString = "#171= IFCCARTESIANPOINTLIST3D(((76.,-11.45040
 const ifcCartesianPoint3DStringBuffer = new TextEncoder().encode( ifcCartesianPoint3DString );
 
 function extractCartesianPointList3D()
-{ let bufferInput = new ParsingBuffer( ifcCartesianPoint3DStringBuffer );
+{ 
+    let bufferInput = new ParsingBuffer( ifcCartesianPoint3DStringBuffer );
 
     let [result, model] = parser.parseDataToModel( bufferInput );
 
@@ -382,6 +383,29 @@ function extractStringTest()
     return true;
 }
 
+function indexTypeTest()
+{
+    let bufferInput = new ParsingBuffer( indexIfcBuffer );
+    let result0     = parser.parseHeader( bufferInput )[ 1 ];
+
+    if ( result0 !== ParseResult.COMPLETE )
+    {
+        return false;
+    }
+
+    let [result, model] = parser.parseDataToModel( bufferInput );
+
+    if ( model === void 0 || ( result !== ParseResult.COMPLETE && result !== ParseResult.INCOMPLETE ) )
+    {
+        return false;
+    }
+
+    let pointListsAndPeople = model.types( IfcCartesianPointList, IfcPerson );
+    let entities            = Array.from( pointListsAndPeople );
+    
+    return entities.every( entity => entity instanceof IfcCartesianPointList3D || entity instanceof IfcPerson ) && entities.length === 8;
+}
+
 describe( "IFC Step Model Test", () => {
 
      test( "extractIFCData()" , () =>{
@@ -429,6 +453,12 @@ describe( "IFC Step Model Test", () => {
     test( "extractStringTest()" , () =>{
 
         expect( extractStringTest() ).toBe( true );
+
+    } );
+            
+    test( "indexTypeTest()" , () =>{
+
+        expect( indexTypeTest() ).toBe( true );
 
     } );
 });

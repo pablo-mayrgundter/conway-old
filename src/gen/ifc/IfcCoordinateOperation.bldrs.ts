@@ -17,7 +17,6 @@ export abstract class IfcCoordinateOperation extends StepEntityBase< EntityTypes
     {
         return EntityTypesIfc.IFCCOORDINATEOPERATION;
     }
-
     private SourceCRS_? : IfcCoordinateReferenceSystem|IfcGeometricRepresentationContext;
     private TargetCRS_? : IfcCoordinateReferenceSystem;
 
@@ -90,4 +89,8 @@ export abstract class IfcCoordinateOperation extends StepEntityBase< EntityTypes
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMAPCONVERSION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCOORDINATEOPERATION;
 }

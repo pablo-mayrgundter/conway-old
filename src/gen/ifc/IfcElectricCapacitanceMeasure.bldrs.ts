@@ -54,4 +54,8 @@ export class IfcElectricCapacitanceMeasure extends StepEntityBase< EntityTypesIf
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCELECTRICCAPACITANCEMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCELECTRICCAPACITANCEMEASURE;
 }

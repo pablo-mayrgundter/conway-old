@@ -20,7 +20,6 @@ export abstract class IfcWorkControl extends IfcControl
     {
         return EntityTypesIfc.IFCWORKCONTROL;
     }
-
     private CreationDate_? : string;
     private Creators_? : Array<IfcPerson> | null;
     private Purpose_? : string | null;
@@ -301,4 +300,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCWORKPLAN, EntityTypesIfc.IFCWORKSCHEDULE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCWORKCONTROL;
 }

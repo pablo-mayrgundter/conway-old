@@ -17,7 +17,6 @@ export  class IfcStructuralCurveReaction extends IfcStructuralReaction
     {
         return EntityTypesIfc.IFCSTRUCTURALCURVEREACTION;
     }
-
     private PredefinedType_? : IfcStructuralCurveActivityTypeEnum;
 
     public get PredefinedType() : IfcStructuralCurveActivityTypeEnum
@@ -55,4 +54,8 @@ export  class IfcStructuralCurveReaction extends IfcStructuralReaction
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALCURVEREACTION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALCURVEREACTION;
 }

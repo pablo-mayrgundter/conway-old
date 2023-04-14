@@ -18,9 +18,12 @@ export abstract class IfcRelDecomposes extends IfcRelationship
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELAGGREGATES, EntityTypesIfc.IFCRELNESTS, EntityTypesIfc.IFCRELPROJECTSELEMENT, EntityTypesIfc.IFCRELVOIDSELEMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELDECOMPOSES;
 }

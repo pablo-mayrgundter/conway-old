@@ -17,7 +17,6 @@ export  class IfcBuildingElementProxyType extends IfcBuildingElementType
     {
         return EntityTypesIfc.IFCBUILDINGELEMENTPROXYTYPE;
     }
-
     private PredefinedType_? : IfcBuildingElementProxyTypeEnum;
 
     public get PredefinedType() : IfcBuildingElementProxyTypeEnum
@@ -55,4 +54,8 @@ export  class IfcBuildingElementProxyType extends IfcBuildingElementType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBUILDINGELEMENTPROXYTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBUILDINGELEMENTPROXYTYPE;
 }

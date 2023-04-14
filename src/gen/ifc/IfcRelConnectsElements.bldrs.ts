@@ -18,7 +18,6 @@ export  class IfcRelConnectsElements extends IfcRelConnects
     {
         return EntityTypesIfc.IFCRELCONNECTSELEMENTS;
     }
-
     private ConnectionGeometry_? : IfcConnectionGeometry | null;
     private RelatingElement_? : IfcElement;
     private RelatedElement_? : IfcElement;
@@ -132,4 +131,8 @@ export  class IfcRelConnectsElements extends IfcRelConnects
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELCONNECTSELEMENTS, EntityTypesIfc.IFCRELCONNECTSPATHELEMENTS, EntityTypesIfc.IFCRELCONNECTSWITHREALIZINGELEMENTS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELCONNECTSELEMENTS;
 }

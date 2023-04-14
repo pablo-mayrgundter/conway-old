@@ -17,7 +17,6 @@ export  class IfcElementAssemblyType extends IfcElementType
     {
         return EntityTypesIfc.IFCELEMENTASSEMBLYTYPE;
     }
-
     private PredefinedType_? : IfcElementAssemblyTypeEnum;
 
     public get PredefinedType() : IfcElementAssemblyTypeEnum
@@ -55,4 +54,8 @@ export  class IfcElementAssemblyType extends IfcElementType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCELEMENTASSEMBLYTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCELEMENTASSEMBLYTYPE;
 }

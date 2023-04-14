@@ -17,7 +17,6 @@ export abstract class IfcNamedUnit extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCNAMEDUNIT;
     }
-
     private Dimensions_? : IfcDimensionalExponents;
     private UnitType_? : IfcUnitEnum;
 
@@ -89,4 +88,8 @@ export abstract class IfcNamedUnit extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCONTEXTDEPENDENTUNIT, EntityTypesIfc.IFCCONVERSIONBASEDUNIT, EntityTypesIfc.IFCSIUNIT, EntityTypesIfc.IFCCONVERSIONBASEDUNITWITHOFFSET ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCNAMEDUNIT;
 }

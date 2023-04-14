@@ -32,7 +32,6 @@ export  class IfcExternalReferenceRelationship extends IfcResourceLevelRelations
     {
         return EntityTypesIfc.IFCEXTERNALREFERENCERELATIONSHIP;
     }
-
     private RelatingReference_? : IfcExternalReference;
     private RelatedResourceObjects_? : Array<IfcActorRole|IfcAppliedValue|IfcApproval|IfcConstraint|IfcContextDependentUnit|IfcConversionBasedUnit|IfcExternalInformation|IfcExternalReference|IfcMaterialDefinition|IfcOrganization|IfcPerson|IfcPersonAndOrganization|IfcPhysicalQuantity|IfcProfileDef|IfcPropertyAbstraction|IfcTimeSeries>;
 
@@ -116,4 +115,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCEXTERNALREFERENCERELATIONSHIP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCEXTERNALREFERENCERELATIONSHIP;
 }

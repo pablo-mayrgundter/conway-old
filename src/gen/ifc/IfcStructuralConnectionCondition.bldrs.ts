@@ -16,7 +16,6 @@ export abstract class IfcStructuralConnectionCondition extends StepEntityBase< E
     {
         return EntityTypesIfc.IFCSTRUCTURALCONNECTIONCONDITION;
     }
-
     private Name_? : string | null;
 
     public get Name() : string | null
@@ -61,4 +60,8 @@ export abstract class IfcStructuralConnectionCondition extends StepEntityBase< E
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFAILURECONNECTIONCONDITION, EntityTypesIfc.IFCSLIPPAGECONNECTIONCONDITION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALCONNECTIONCONDITION;
 }

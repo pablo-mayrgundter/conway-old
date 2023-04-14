@@ -5,7 +5,9 @@ enum IfcShadingDeviceTypeEnum {
     USERDEFINED = 3,
     NOTDEFINED = 4,
 }
-export { IfcShadingDeviceTypeEnum };
+const IfcShadingDeviceTypeEnumCount = 5;
+
+export { IfcShadingDeviceTypeEnum, IfcShadingDeviceTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

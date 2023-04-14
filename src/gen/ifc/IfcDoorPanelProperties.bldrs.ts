@@ -21,7 +21,6 @@ export  class IfcDoorPanelProperties extends IfcPreDefinedPropertySet
     {
         return EntityTypesIfc.IFCDOORPANELPROPERTIES;
     }
-
     private PanelDepth_? : number | null;
     private PanelOperation_? : IfcDoorPanelOperationEnum;
     private PanelWidth_? : number | null;
@@ -213,4 +212,8 @@ export  class IfcDoorPanelProperties extends IfcPreDefinedPropertySet
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDOORPANELPROPERTIES ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDOORPANELPROPERTIES;
 }

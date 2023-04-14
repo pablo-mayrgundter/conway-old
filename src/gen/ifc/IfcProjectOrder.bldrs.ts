@@ -19,7 +19,6 @@ export  class IfcProjectOrder extends IfcControl
     {
         return EntityTypesIfc.IFCPROJECTORDER;
     }
-
     private PredefinedType_? : IfcProjectOrderTypeEnum | null;
     private Status_? : string | null;
     private LongDescription_? : string | null;
@@ -144,4 +143,8 @@ export  class IfcProjectOrder extends IfcControl
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPROJECTORDER ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPROJECTORDER;
 }

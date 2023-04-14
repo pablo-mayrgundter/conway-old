@@ -17,7 +17,6 @@ export  class IfcIndexedPolygonalFace extends IfcTessellatedItem
     {
         return EntityTypesIfc.IFCINDEXEDPOLYGONALFACE;
     }
-
     private CoordIndex_? : Array< number >;
 
     public get CoordIndex() : Array< number >
@@ -67,4 +66,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCINDEXEDPOLYGONALFACE, EntityTypesIfc.IFCINDEXEDPOLYGONALFACEWITHVOIDS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCINDEXEDPOLYGONALFACE;
 }

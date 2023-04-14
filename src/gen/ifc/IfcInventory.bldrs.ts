@@ -22,7 +22,6 @@ export  class IfcInventory extends IfcGroup
     {
         return EntityTypesIfc.IFCINVENTORY;
     }
-
     private PredefinedType_? : IfcInventoryTypeEnum | null;
     private Jurisdiction_? : IfcOrganization|IfcPerson|IfcPersonAndOrganization | null;
     private ResponsiblePersons_? : Array<IfcPerson> | null;
@@ -280,4 +279,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCINVENTORY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCINVENTORY;
 }

@@ -17,7 +17,6 @@ export  class IfcMaterialProfileWithOffsets extends IfcMaterialProfile
     {
         return EntityTypesIfc.IFCMATERIALPROFILEWITHOFFSETS;
     }
-
     private OffsetValues_? : Array< number >;
 
     public get OffsetValues() : Array< number >
@@ -66,4 +65,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMATERIALPROFILEWITHOFFSETS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMATERIALPROFILEWITHOFFSETS;
 }

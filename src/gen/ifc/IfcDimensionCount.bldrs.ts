@@ -54,4 +54,8 @@ export class IfcDimensionCount extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDIMENSIONCOUNT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDIMENSIONCOUNT;
 }

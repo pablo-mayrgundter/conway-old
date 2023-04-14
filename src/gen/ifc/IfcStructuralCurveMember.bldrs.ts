@@ -18,7 +18,6 @@ export  class IfcStructuralCurveMember extends IfcStructuralMember
     {
         return EntityTypesIfc.IFCSTRUCTURALCURVEMEMBER;
     }
-
     private PredefinedType_? : IfcStructuralCurveMemberTypeEnum;
     private Axis_? : IfcDirection;
 
@@ -90,4 +89,8 @@ export  class IfcStructuralCurveMember extends IfcStructuralMember
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALCURVEMEMBER, EntityTypesIfc.IFCSTRUCTURALCURVEMEMBERVARYING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALCURVEMEMBER;
 }

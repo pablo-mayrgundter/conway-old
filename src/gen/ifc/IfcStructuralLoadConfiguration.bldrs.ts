@@ -18,7 +18,6 @@ export  class IfcStructuralLoadConfiguration extends IfcStructuralLoad
     {
         return EntityTypesIfc.IFCSTRUCTURALLOADCONFIGURATION;
     }
-
     private Values_? : Array<IfcStructuralLoadOrResult>;
     private Locations_? : Array< Array< number > > | null;
 
@@ -128,4 +127,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALLOADCONFIGURATION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALLOADCONFIGURATION;
 }

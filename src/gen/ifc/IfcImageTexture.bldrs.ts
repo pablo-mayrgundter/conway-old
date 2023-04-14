@@ -17,7 +17,6 @@ export  class IfcImageTexture extends IfcSurfaceTexture
     {
         return EntityTypesIfc.IFCIMAGETEXTURE;
     }
-
     private URLReference_? : string;
 
     public get URLReference() : string
@@ -55,4 +54,8 @@ export  class IfcImageTexture extends IfcSurfaceTexture
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCIMAGETEXTURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCIMAGETEXTURE;
 }

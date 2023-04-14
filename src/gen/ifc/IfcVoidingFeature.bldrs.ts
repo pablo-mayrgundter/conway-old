@@ -17,7 +17,6 @@ export  class IfcVoidingFeature extends IfcFeatureElementSubtraction
     {
         return EntityTypesIfc.IFCVOIDINGFEATURE;
     }
-
     private PredefinedType_? : IfcVoidingFeatureTypeEnum | null;
 
     public get PredefinedType() : IfcVoidingFeatureTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcVoidingFeature extends IfcFeatureElementSubtraction
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCVOIDINGFEATURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCVOIDINGFEATURE;
 }

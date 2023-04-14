@@ -19,7 +19,6 @@ export  class IfcReinforcingMesh extends IfcReinforcingElement
     {
         return EntityTypesIfc.IFCREINFORCINGMESH;
     }
-
     private MeshLength_? : number | null;
     private MeshWidth_? : number | null;
     private LongitudinalBarNominalDiameter_? : number | null;
@@ -384,4 +383,8 @@ export  class IfcReinforcingMesh extends IfcReinforcingElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCREINFORCINGMESH ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCREINFORCINGMESH;
 }

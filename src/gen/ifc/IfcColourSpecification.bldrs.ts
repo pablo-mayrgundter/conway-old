@@ -17,7 +17,6 @@ export abstract class IfcColourSpecification extends IfcPresentationItem
     {
         return EntityTypesIfc.IFCCOLOURSPECIFICATION;
     }
-
     private Name_? : string | null;
 
     public get Name() : string | null
@@ -62,4 +61,8 @@ export abstract class IfcColourSpecification extends IfcPresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCOLOURRGB ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCOLOURSPECIFICATION;
 }

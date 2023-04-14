@@ -17,7 +17,6 @@ export  class IfcHeatExchangerType extends IfcEnergyConversionDeviceType
     {
         return EntityTypesIfc.IFCHEATEXCHANGERTYPE;
     }
-
     private PredefinedType_? : IfcHeatExchangerTypeEnum;
 
     public get PredefinedType() : IfcHeatExchangerTypeEnum
@@ -55,4 +54,8 @@ export  class IfcHeatExchangerType extends IfcEnergyConversionDeviceType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCHEATEXCHANGERTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCHEATEXCHANGERTYPE;
 }

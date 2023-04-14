@@ -19,7 +19,6 @@ export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
     {
         return EntityTypesIfc.IFCBOUNDARYNODECONDITION;
     }
-
     private TranslationalStiffnessX_? : IfcBoolean|IfcLinearStiffnessMeasure | null;
     private TranslationalStiffnessY_? : IfcBoolean|IfcLinearStiffnessMeasure | null;
     private TranslationalStiffnessZ_? : IfcBoolean|IfcLinearStiffnessMeasure | null;
@@ -270,4 +269,8 @@ export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBOUNDARYNODECONDITION, EntityTypesIfc.IFCBOUNDARYNODECONDITIONWARPING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBOUNDARYNODECONDITION;
 }

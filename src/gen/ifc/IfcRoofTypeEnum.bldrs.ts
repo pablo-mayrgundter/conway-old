@@ -15,7 +15,9 @@ enum IfcRoofTypeEnum {
     USERDEFINED = 13,
     NOTDEFINED = 14,
 }
-export { IfcRoofTypeEnum };
+const IfcRoofTypeEnumCount = 15;
+
+export { IfcRoofTypeEnum, IfcRoofTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

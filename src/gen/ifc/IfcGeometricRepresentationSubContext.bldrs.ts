@@ -24,7 +24,6 @@ export  class IfcGeometricRepresentationSubContext extends IfcGeometricRepresent
     {
         return EntityTypesIfc.IFCGEOMETRICREPRESENTATIONSUBCONTEXT;
     }
-
     private ParentContext_? : IfcGeometricRepresentationContext;
     private TargetScale_? : number | null;
     private TargetView_? : IfcGeometricProjectionEnum;
@@ -192,4 +191,8 @@ export  class IfcGeometricRepresentationSubContext extends IfcGeometricRepresent
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCGEOMETRICREPRESENTATIONSUBCONTEXT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCGEOMETRICREPRESENTATIONSUBCONTEXT;
 }

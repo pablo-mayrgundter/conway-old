@@ -18,7 +18,6 @@ export  class IfcLocalPlacement extends IfcObjectPlacement
     {
         return EntityTypesIfc.IFCLOCALPLACEMENT;
     }
-
     private PlacementRelTo_? : IfcObjectPlacement | null;
     private RelativePlacement_? : IfcAxis2Placement2D|IfcAxis2Placement3D;
 
@@ -98,4 +97,8 @@ export  class IfcLocalPlacement extends IfcObjectPlacement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCLOCALPLACEMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCLOCALPLACEMENT;
 }

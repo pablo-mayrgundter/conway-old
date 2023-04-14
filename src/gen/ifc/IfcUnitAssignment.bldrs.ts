@@ -18,7 +18,6 @@ export  class IfcUnitAssignment extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCUNITASSIGNMENT;
     }
-
     private Units_? : Array<IfcDerivedUnit|IfcMonetaryUnit|IfcNamedUnit>;
 
     public get Units() : Array<IfcDerivedUnit|IfcMonetaryUnit|IfcNamedUnit>
@@ -68,4 +67,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCUNITASSIGNMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCUNITASSIGNMENT;
 }

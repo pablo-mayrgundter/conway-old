@@ -18,7 +18,6 @@ export  class IfcPresentationLayerWithStyle extends IfcPresentationLayerAssignme
     {
         return EntityTypesIfc.IFCPRESENTATIONLAYERWITHSTYLE;
     }
-
     private LayerOn_? : boolean | null;
     private LayerFrozen_? : boolean | null;
     private LayerBlocked_? : boolean | null;
@@ -167,4 +166,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPRESENTATIONLAYERWITHSTYLE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPRESENTATIONLAYERWITHSTYLE;
 }

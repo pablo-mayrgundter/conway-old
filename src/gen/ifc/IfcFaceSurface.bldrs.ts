@@ -18,7 +18,6 @@ export  class IfcFaceSurface extends IfcFace
     {
         return EntityTypesIfc.IFCFACESURFACE;
     }
-
     private FaceSurface_? : IfcSurface;
     private SameSense_? : boolean;
 
@@ -90,4 +89,8 @@ export  class IfcFaceSurface extends IfcFace
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFACESURFACE, EntityTypesIfc.IFCADVANCEDFACE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFACESURFACE;
 }

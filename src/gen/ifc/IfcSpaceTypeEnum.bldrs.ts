@@ -7,7 +7,9 @@ enum IfcSpaceTypeEnum {
     USERDEFINED = 5,
     NOTDEFINED = 6,
 }
-export { IfcSpaceTypeEnum };
+const IfcSpaceTypeEnumCount = 7;
+
+export { IfcSpaceTypeEnum, IfcSpaceTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

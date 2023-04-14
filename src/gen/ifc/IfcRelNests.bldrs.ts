@@ -17,7 +17,6 @@ export  class IfcRelNests extends IfcRelDecomposes
     {
         return EntityTypesIfc.IFCRELNESTS;
     }
-
     private RelatingObject_? : IfcObjectDefinition;
     private RelatedObjects_? : Array<IfcObjectDefinition>;
 
@@ -101,4 +100,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELNESTS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELNESTS;
 }

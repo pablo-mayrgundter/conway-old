@@ -18,9 +18,12 @@ export abstract class IfcFlowStorageDeviceType extends IfcDistributionFlowElemen
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCELECTRICFLOWSTORAGEDEVICETYPE, EntityTypesIfc.IFCTANKTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFLOWSTORAGEDEVICETYPE;
 }

@@ -13,7 +13,9 @@ enum IfcObjectiveEnum {
     USERDEFINED = 11,
     NOTDEFINED = 12,
 }
-export { IfcObjectiveEnum };
+const IfcObjectiveEnumCount = 13;
+
+export { IfcObjectiveEnum, IfcObjectiveEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

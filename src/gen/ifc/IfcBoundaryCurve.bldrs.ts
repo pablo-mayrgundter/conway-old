@@ -18,9 +18,12 @@ export  class IfcBoundaryCurve extends IfcCompositeCurveOnSurface
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBOUNDARYCURVE, EntityTypesIfc.IFCOUTERBOUNDARYCURVE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBOUNDARYCURVE;
 }

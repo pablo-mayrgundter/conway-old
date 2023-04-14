@@ -54,4 +54,8 @@ export class IfcLabel extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCLABEL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCLABEL;
 }

@@ -17,7 +17,6 @@ export abstract class IfcPhysicalQuantity extends StepEntityBase< EntityTypesIfc
     {
         return EntityTypesIfc.IFCPHYSICALQUANTITY;
     }
-
     private Name_? : string;
     private Description_? : string | null;
 
@@ -97,4 +96,8 @@ export abstract class IfcPhysicalQuantity extends StepEntityBase< EntityTypesIfc
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPHYSICALCOMPLEXQUANTITY, EntityTypesIfc.IFCQUANTITYAREA, EntityTypesIfc.IFCQUANTITYCOUNT, EntityTypesIfc.IFCQUANTITYLENGTH, EntityTypesIfc.IFCQUANTITYTIME, EntityTypesIfc.IFCQUANTITYVOLUME, EntityTypesIfc.IFCQUANTITYWEIGHT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPHYSICALQUANTITY;
 }

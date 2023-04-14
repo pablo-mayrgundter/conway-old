@@ -10,7 +10,9 @@ enum IfcFlowInstrumentTypeEnum {
     USERDEFINED = 8,
     NOTDEFINED = 9,
 }
-export { IfcFlowInstrumentTypeEnum };
+const IfcFlowInstrumentTypeEnumCount = 10;
+
+export { IfcFlowInstrumentTypeEnum, IfcFlowInstrumentTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

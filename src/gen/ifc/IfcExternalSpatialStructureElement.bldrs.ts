@@ -18,9 +18,12 @@ export abstract class IfcExternalSpatialStructureElement extends IfcSpatialEleme
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCEXTERNALSPATIALELEMENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCEXTERNALSPATIALSTRUCTUREELEMENT;
 }

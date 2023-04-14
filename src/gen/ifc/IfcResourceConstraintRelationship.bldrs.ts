@@ -32,7 +32,6 @@ export  class IfcResourceConstraintRelationship extends IfcResourceLevelRelation
     {
         return EntityTypesIfc.IFCRESOURCECONSTRAINTRELATIONSHIP;
     }
-
     private RelatingConstraint_? : IfcConstraint;
     private RelatedResourceObjects_? : Array<IfcActorRole|IfcAppliedValue|IfcApproval|IfcConstraint|IfcContextDependentUnit|IfcConversionBasedUnit|IfcExternalInformation|IfcExternalReference|IfcMaterialDefinition|IfcOrganization|IfcPerson|IfcPersonAndOrganization|IfcPhysicalQuantity|IfcProfileDef|IfcPropertyAbstraction|IfcTimeSeries>;
 
@@ -116,4 +115,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRESOURCECONSTRAINTRELATIONSHIP ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRESOURCECONSTRAINTRELATIONSHIP;
 }

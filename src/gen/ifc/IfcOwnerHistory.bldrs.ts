@@ -20,7 +20,6 @@ export  class IfcOwnerHistory extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCOWNERHISTORY;
     }
-
     private OwningUser_? : IfcPersonAndOrganization;
     private OwningApplication_? : IfcApplication;
     private State_? : IfcStateEnum | null;
@@ -328,4 +327,8 @@ export  class IfcOwnerHistory extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCOWNERHISTORY ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCOWNERHISTORY;
 }

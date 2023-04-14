@@ -20,7 +20,6 @@ export  class IfcRelSequence extends IfcRelConnects
     {
         return EntityTypesIfc.IFCRELSEQUENCE;
     }
-
     private RelatingProcess_? : IfcProcess;
     private RelatedProcess_? : IfcProcess;
     private TimeLag_? : IfcLagTime | null;
@@ -214,4 +213,8 @@ export  class IfcRelSequence extends IfcRelConnects
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELSEQUENCE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELSEQUENCE;
 }

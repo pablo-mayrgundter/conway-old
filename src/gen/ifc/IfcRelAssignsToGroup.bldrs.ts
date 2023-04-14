@@ -17,7 +17,6 @@ export  class IfcRelAssignsToGroup extends IfcRelAssigns
     {
         return EntityTypesIfc.IFCRELASSIGNSTOGROUP;
     }
-
     private RelatingGroup_? : IfcGroup;
 
     public get RelatingGroup() : IfcGroup
@@ -56,4 +55,8 @@ export  class IfcRelAssignsToGroup extends IfcRelAssigns
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELASSIGNSTOGROUP, EntityTypesIfc.IFCRELASSIGNSTOGROUPBYFACTOR ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELASSIGNSTOGROUP;
 }

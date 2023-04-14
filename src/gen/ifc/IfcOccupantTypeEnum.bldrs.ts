@@ -9,7 +9,9 @@ enum IfcOccupantTypeEnum {
     USERDEFINED = 7,
     NOTDEFINED = 8,
 }
-export { IfcOccupantTypeEnum };
+const IfcOccupantTypeEnumCount = 9;
+
+export { IfcOccupantTypeEnum, IfcOccupantTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

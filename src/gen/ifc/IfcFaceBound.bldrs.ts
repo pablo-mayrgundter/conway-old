@@ -18,7 +18,6 @@ export  class IfcFaceBound extends IfcTopologicalRepresentationItem
     {
         return EntityTypesIfc.IFCFACEBOUND;
     }
-
     private Bound_? : IfcLoop;
     private Orientation_? : boolean;
 
@@ -90,4 +89,8 @@ export  class IfcFaceBound extends IfcTopologicalRepresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCFACEBOUND, EntityTypesIfc.IFCFACEOUTERBOUND ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFACEBOUND;
 }

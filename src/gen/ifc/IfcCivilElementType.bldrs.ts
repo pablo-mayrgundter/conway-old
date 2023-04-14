@@ -18,9 +18,12 @@ export  class IfcCivilElementType extends IfcElementType
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCIVILELEMENTTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCIVILELEMENTTYPE;
 }

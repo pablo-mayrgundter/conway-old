@@ -54,4 +54,8 @@ export class IfcRotationalStiffnessMeasure extends StepEntityBase< EntityTypesIf
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCROTATIONALSTIFFNESSMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCROTATIONALSTIFFNESSMEASURE;
 }

@@ -2,7 +2,9 @@ enum IfcProjectionElementTypeEnum {
     USERDEFINED = 0,
     NOTDEFINED = 1,
 }
-export { IfcProjectionElementTypeEnum };
+const IfcProjectionElementTypeEnumCount = 2;
+
+export { IfcProjectionElementTypeEnum, IfcProjectionElementTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

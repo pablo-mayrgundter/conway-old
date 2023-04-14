@@ -18,7 +18,6 @@ export  class IfcSectionProperties extends IfcPreDefinedProperties
     {
         return EntityTypesIfc.IFCSECTIONPROPERTIES;
     }
-
     private SectionType_? : IfcSectionTypeEnum;
     private StartProfile_? : IfcProfileDef;
     private EndProfile_? : IfcProfileDef | null;
@@ -131,4 +130,8 @@ export  class IfcSectionProperties extends IfcPreDefinedProperties
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSECTIONPROPERTIES ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSECTIONPROPERTIES;
 }

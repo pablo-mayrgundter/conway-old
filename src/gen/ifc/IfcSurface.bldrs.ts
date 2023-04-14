@@ -19,7 +19,6 @@ export abstract class IfcSurface extends IfcGeometricRepresentationItem
     }
 
 
-
     public get Dim() : number
     {
         return 3;
@@ -28,4 +27,8 @@ export abstract class IfcSurface extends IfcGeometricRepresentationItem
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCURVEBOUNDEDPLANE, EntityTypesIfc.IFCCURVEBOUNDEDSURFACE, EntityTypesIfc.IFCRECTANGULARTRIMMEDSURFACE, EntityTypesIfc.IFCBSPLINESURFACEWITHKNOTS, EntityTypesIfc.IFCRATIONALBSPLINESURFACEWITHKNOTS, EntityTypesIfc.IFCCYLINDRICALSURFACE, EntityTypesIfc.IFCPLANE, EntityTypesIfc.IFCSPHERICALSURFACE, EntityTypesIfc.IFCTOROIDALSURFACE, EntityTypesIfc.IFCSURFACEOFLINEAREXTRUSION, EntityTypesIfc.IFCSURFACEOFREVOLUTION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSURFACE;
 }

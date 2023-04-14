@@ -18,7 +18,6 @@ export  class IfcTrapeziumProfileDef extends IfcParameterizedProfileDef
     {
         return EntityTypesIfc.IFCTRAPEZIUMPROFILEDEF;
     }
-
     private BottomXDim_? : number;
     private TopXDim_? : number;
     private YDim_? : number;
@@ -155,4 +154,8 @@ export  class IfcTrapeziumProfileDef extends IfcParameterizedProfileDef
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTRAPEZIUMPROFILEDEF ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTRAPEZIUMPROFILEDEF;
 }

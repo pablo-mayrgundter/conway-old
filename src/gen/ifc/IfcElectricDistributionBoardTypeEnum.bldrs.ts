@@ -6,7 +6,9 @@ enum IfcElectricDistributionBoardTypeEnum {
     USERDEFINED = 4,
     NOTDEFINED = 5,
 }
-export { IfcElectricDistributionBoardTypeEnum };
+const IfcElectricDistributionBoardTypeEnumCount = 6;
+
+export { IfcElectricDistributionBoardTypeEnum, IfcElectricDistributionBoardTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

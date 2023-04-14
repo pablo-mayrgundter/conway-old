@@ -17,7 +17,6 @@ export  class IfcConstructionProductResource extends IfcConstructionResource
     {
         return EntityTypesIfc.IFCCONSTRUCTIONPRODUCTRESOURCE;
     }
-
     private PredefinedType_? : IfcConstructionProductResourceTypeEnum | null;
 
     public get PredefinedType() : IfcConstructionProductResourceTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcConstructionProductResource extends IfcConstructionResource
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCONSTRUCTIONPRODUCTRESOURCE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCONSTRUCTIONPRODUCTRESOURCE;
 }

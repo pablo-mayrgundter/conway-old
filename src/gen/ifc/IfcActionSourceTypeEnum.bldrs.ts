@@ -27,7 +27,9 @@ enum IfcActionSourceTypeEnum {
     USERDEFINED = 25,
     NOTDEFINED = 26,
 }
-export { IfcActionSourceTypeEnum };
+const IfcActionSourceTypeEnumCount = 27;
+
+export { IfcActionSourceTypeEnum, IfcActionSourceTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

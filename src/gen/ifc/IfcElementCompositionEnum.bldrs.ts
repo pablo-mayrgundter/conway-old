@@ -3,7 +3,9 @@ enum IfcElementCompositionEnum {
     ELEMENT = 1,
     PARTIAL = 2,
 }
-export { IfcElementCompositionEnum };
+const IfcElementCompositionEnumCount = 3;
+
+export { IfcElementCompositionEnum, IfcElementCompositionEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

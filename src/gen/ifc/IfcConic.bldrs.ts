@@ -18,7 +18,6 @@ export abstract class IfcConic extends IfcCurve
     {
         return EntityTypesIfc.IFCCONIC;
     }
-
     private Position_? : IfcAxis2Placement2D|IfcAxis2Placement3D;
 
     public get Position() : IfcAxis2Placement2D|IfcAxis2Placement3D
@@ -57,4 +56,8 @@ export abstract class IfcConic extends IfcCurve
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCIRCLE, EntityTypesIfc.IFCELLIPSE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCONIC;
 }

@@ -17,7 +17,6 @@ export  class IfcSolarDeviceType extends IfcEnergyConversionDeviceType
     {
         return EntityTypesIfc.IFCSOLARDEVICETYPE;
     }
-
     private PredefinedType_? : IfcSolarDeviceTypeEnum;
 
     public get PredefinedType() : IfcSolarDeviceTypeEnum
@@ -55,4 +54,8 @@ export  class IfcSolarDeviceType extends IfcEnergyConversionDeviceType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSOLARDEVICETYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSOLARDEVICETYPE;
 }

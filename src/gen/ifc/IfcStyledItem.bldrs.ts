@@ -19,7 +19,6 @@ export  class IfcStyledItem extends IfcRepresentationItem
     {
         return EntityTypesIfc.IFCSTYLEDITEM;
     }
-
     private Item_? : IfcRepresentationItem | null;
     private Styles_? : Array<IfcPresentationStyle|IfcPresentationStyleAssignment>;
     private Name_? : string | null;
@@ -150,4 +149,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTYLEDITEM ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTYLEDITEM;
 }

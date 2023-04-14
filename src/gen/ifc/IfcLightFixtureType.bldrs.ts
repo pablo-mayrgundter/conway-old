@@ -17,7 +17,6 @@ export  class IfcLightFixtureType extends IfcFlowTerminalType
     {
         return EntityTypesIfc.IFCLIGHTFIXTURETYPE;
     }
-
     private PredefinedType_? : IfcLightFixtureTypeEnum;
 
     public get PredefinedType() : IfcLightFixtureTypeEnum
@@ -55,4 +54,8 @@ export  class IfcLightFixtureType extends IfcFlowTerminalType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCLIGHTFIXTURETYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCLIGHTFIXTURETYPE;
 }

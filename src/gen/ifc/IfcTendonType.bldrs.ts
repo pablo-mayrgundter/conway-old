@@ -19,7 +19,6 @@ export  class IfcTendonType extends IfcReinforcingElementType
     {
         return EntityTypesIfc.IFCTENDONTYPE;
     }
-
     private PredefinedType_? : IfcTendonTypeEnum;
     private NominalDiameter_? : number | null;
     private CrossSectionArea_? : number | null;
@@ -177,4 +176,8 @@ export  class IfcTendonType extends IfcReinforcingElementType
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTENDONTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTENDONTYPE;
 }

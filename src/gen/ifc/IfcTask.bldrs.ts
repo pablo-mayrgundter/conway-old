@@ -21,7 +21,6 @@ export  class IfcTask extends IfcProcess
     {
         return EntityTypesIfc.IFCTASK;
     }
-
     private Status_? : string | null;
     private WorkMethod_? : string | null;
     private IsMilestone_? : boolean;
@@ -260,4 +259,8 @@ export  class IfcTask extends IfcProcess
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTASK ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTASK;
 }

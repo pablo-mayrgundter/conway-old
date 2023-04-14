@@ -22,7 +22,6 @@ export abstract class IfcConstraint extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCCONSTRAINT;
     }
-
     private Name_? : string;
     private Description_? : string | null;
     private ConstraintGrade_? : IfcConstraintEnum;
@@ -296,4 +295,8 @@ export abstract class IfcConstraint extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMETRIC, EntityTypesIfc.IFCOBJECTIVE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCONSTRAINT;
 }

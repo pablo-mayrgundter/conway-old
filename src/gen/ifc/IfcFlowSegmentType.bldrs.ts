@@ -18,9 +18,12 @@ export abstract class IfcFlowSegmentType extends IfcDistributionFlowElementType
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCABLECARRIERSEGMENTTYPE, EntityTypesIfc.IFCCABLESEGMENTTYPE, EntityTypesIfc.IFCDUCTSEGMENTTYPE, EntityTypesIfc.IFCPIPESEGMENTTYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCFLOWSEGMENTTYPE;
 }

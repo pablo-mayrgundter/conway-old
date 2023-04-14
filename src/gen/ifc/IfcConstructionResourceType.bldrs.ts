@@ -18,7 +18,6 @@ export abstract class IfcConstructionResourceType extends IfcTypeResource
     {
         return EntityTypesIfc.IFCCONSTRUCTIONRESOURCETYPE;
     }
-
     private BaseCosts_? : Array<IfcAppliedValue> | null;
     private BaseQuantity_? : IfcPhysicalQuantity | null;
 
@@ -114,4 +113,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCONSTRUCTIONEQUIPMENTRESOURCETYPE, EntityTypesIfc.IFCCONSTRUCTIONMATERIALRESOURCETYPE, EntityTypesIfc.IFCCONSTRUCTIONPRODUCTRESOURCETYPE, EntityTypesIfc.IFCCREWRESOURCETYPE, EntityTypesIfc.IFCLABORRESOURCETYPE, EntityTypesIfc.IFCSUBCONTRACTRESOURCETYPE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCONSTRUCTIONRESOURCETYPE;
 }

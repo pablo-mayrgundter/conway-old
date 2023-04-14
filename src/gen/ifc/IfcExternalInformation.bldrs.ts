@@ -17,9 +17,12 @@ export abstract class IfcExternalInformation extends StepEntityBase< EntityTypes
     }
 
 
-
     constructor(localID: number, internalReference: StepEntityInternalReference< EntityTypesIfc >, model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > )
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCLASSIFICATION, EntityTypesIfc.IFCDOCUMENTINFORMATION, EntityTypesIfc.IFCLIBRARYINFORMATION ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCEXTERNALINFORMATION;
 }

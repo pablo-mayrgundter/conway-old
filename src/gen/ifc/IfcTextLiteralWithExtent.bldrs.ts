@@ -18,7 +18,6 @@ export  class IfcTextLiteralWithExtent extends IfcTextLiteral
     {
         return EntityTypesIfc.IFCTEXTLITERALWITHEXTENT;
     }
-
     private Extent_? : IfcPlanarExtent;
     private BoxAlignment_? : string;
 
@@ -90,4 +89,8 @@ export  class IfcTextLiteralWithExtent extends IfcTextLiteral
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTEXTLITERALWITHEXTENT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTEXTLITERALWITHEXTENT;
 }

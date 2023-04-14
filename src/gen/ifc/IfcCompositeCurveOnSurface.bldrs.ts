@@ -19,7 +19,6 @@ export  class IfcCompositeCurveOnSurface extends IfcCompositeCurve
     }
 
 
-
     public get BasisSurface() : Array<IfcSurface>
     {
         return IfcGetBasisSurface(this);
@@ -28,4 +27,8 @@ export  class IfcCompositeCurveOnSurface extends IfcCompositeCurve
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCOMPOSITECURVEONSURFACE, EntityTypesIfc.IFCBOUNDARYCURVE, EntityTypesIfc.IFCOUTERBOUNDARYCURVE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCOMPOSITECURVEONSURFACE;
 }

@@ -8,7 +8,9 @@ enum IfcVoidingFeatureTypeEnum {
     USERDEFINED = 6,
     NOTDEFINED = 7,
 }
-export { IfcVoidingFeatureTypeEnum };
+const IfcVoidingFeatureTypeEnumCount = 8;
+
+export { IfcVoidingFeatureTypeEnum, IfcVoidingFeatureTypeEnumCount };
 
 import MinimalPerfectHash from '../../../dependencies/conway-ds/src/indexing/minimal_perfect_hash';
 

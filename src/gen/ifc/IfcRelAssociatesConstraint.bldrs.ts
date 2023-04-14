@@ -18,7 +18,6 @@ export  class IfcRelAssociatesConstraint extends IfcRelAssociates
     {
         return EntityTypesIfc.IFCRELASSOCIATESCONSTRAINT;
     }
-
     private Intent_? : string | null;
     private RelatingConstraint_? : IfcConstraint;
 
@@ -97,4 +96,8 @@ export  class IfcRelAssociatesConstraint extends IfcRelAssociates
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRELASSOCIATESCONSTRAINT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRELASSOCIATESCONSTRAINT;
 }

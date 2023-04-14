@@ -18,7 +18,6 @@ export  class IfcStructuralLoadSingleForce extends IfcStructuralLoadStatic
     {
         return EntityTypesIfc.IFCSTRUCTURALLOADSINGLEFORCE;
     }
-
     private ForceX_? : number | null;
     private ForceY_? : number | null;
     private ForceZ_? : number | null;
@@ -263,4 +262,8 @@ export  class IfcStructuralLoadSingleForce extends IfcStructuralLoadStatic
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTRUCTURALLOADSINGLEFORCE, EntityTypesIfc.IFCSTRUCTURALLOADSINGLEFORCEWARPING ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTRUCTURALLOADSINGLEFORCE;
 }

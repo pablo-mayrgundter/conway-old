@@ -19,7 +19,6 @@ export  class IfcBSplineSurfaceWithKnots extends IfcBSplineSurface
     {
         return EntityTypesIfc.IFCBSPLINESURFACEWITHKNOTS;
     }
-
     private UMultiplicities_? : Array< number >;
     private VMultiplicities_? : Array< number >;
     private UKnots_? : Array< number >;
@@ -243,4 +242,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCBSPLINESURFACEWITHKNOTS, EntityTypesIfc.IFCRATIONALBSPLINESURFACEWITHKNOTS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCBSPLINESURFACEWITHKNOTS;
 }

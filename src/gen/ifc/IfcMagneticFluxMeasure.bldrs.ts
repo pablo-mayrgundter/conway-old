@@ -54,4 +54,8 @@ export class IfcMagneticFluxMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMAGNETICFLUXMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMAGNETICFLUXMEASURE;
 }

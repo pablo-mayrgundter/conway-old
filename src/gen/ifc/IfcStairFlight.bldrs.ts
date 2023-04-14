@@ -19,7 +19,6 @@ export  class IfcStairFlight extends IfcBuildingElement
     {
         return EntityTypesIfc.IFCSTAIRFLIGHT;
     }
-
     private NumberOfRisers_? : number | null;
     private NumberOfTreads_? : number | null;
     private RiserHeight_? : number | null;
@@ -224,4 +223,8 @@ export  class IfcStairFlight extends IfcBuildingElement
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCSTAIRFLIGHT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCSTAIRFLIGHT;
 }

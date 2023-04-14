@@ -17,7 +17,6 @@ export  class IfcCartesianTransformationOperator2DnonUniform extends IfcCartesia
     {
         return EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR2DNONUNIFORM;
     }
-
     private Scale2_? : number | null;
 
     public get Scale2() : number | null
@@ -63,4 +62,8 @@ export  class IfcCartesianTransformationOperator2DnonUniform extends IfcCartesia
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR2DNONUNIFORM ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR2DNONUNIFORM;
 }

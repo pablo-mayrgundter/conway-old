@@ -19,7 +19,6 @@ export  class IfcActor extends IfcObject
     {
         return EntityTypesIfc.IFCACTOR;
     }
-
     private TheActor_? : IfcOrganization|IfcPerson|IfcPersonAndOrganization;
 
     public get TheActor() : IfcOrganization|IfcPerson|IfcPersonAndOrganization
@@ -59,4 +58,8 @@ export  class IfcActor extends IfcObject
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCACTOR, EntityTypesIfc.IFCOCCUPANT ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCACTOR;
 }

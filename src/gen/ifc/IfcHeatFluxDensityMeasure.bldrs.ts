@@ -54,4 +54,8 @@ export class IfcHeatFluxDensityMeasure extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCHEATFLUXDENSITYMEASURE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCHEATFLUXDENSITYMEASURE;
 }

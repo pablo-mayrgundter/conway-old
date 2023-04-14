@@ -54,4 +54,8 @@ export class IfcDayInWeekNumber extends StepEntityBase< EntityTypesIfc >
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCDAYINWEEKNUMBER ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCDAYINWEEKNUMBER;
 }

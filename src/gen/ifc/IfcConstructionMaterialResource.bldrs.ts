@@ -17,7 +17,6 @@ export  class IfcConstructionMaterialResource extends IfcConstructionResource
     {
         return EntityTypesIfc.IFCCONSTRUCTIONMATERIALRESOURCE;
     }
-
     private PredefinedType_? : IfcConstructionMaterialResourceTypeEnum | null;
 
     public get PredefinedType() : IfcConstructionMaterialResourceTypeEnum | null
@@ -62,4 +61,8 @@ export  class IfcConstructionMaterialResource extends IfcConstructionResource
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCONSTRUCTIONMATERIALRESOURCE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCCONSTRUCTIONMATERIALRESOURCE;
 }

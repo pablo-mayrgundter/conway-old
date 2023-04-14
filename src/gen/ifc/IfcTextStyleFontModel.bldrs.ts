@@ -26,7 +26,6 @@ export  class IfcTextStyleFontModel extends IfcPreDefinedTextFont
     {
         return EntityTypesIfc.IFCTEXTSTYLEFONTMODEL;
     }
-
     private FontFamily_? : Array< string >;
     private FontStyle_? : string | null;
     private FontVariant_? : string | null;
@@ -229,4 +228,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCTEXTSTYLEFONTMODEL ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCTEXTSTYLEFONTMODEL;
 }

@@ -19,7 +19,6 @@ export  class IfcPerson extends StepEntityBase< EntityTypesIfc >
     {
         return EntityTypesIfc.IFCPERSON;
     }
-
     private Identification_? : string | null;
     private FamilyName_? : string | null;
     private GivenName_? : string | null;
@@ -392,4 +391,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCPERSON ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPERSON;
 }

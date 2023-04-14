@@ -16,7 +16,6 @@ export abstract class IfcPresentationStyle extends StepEntityBase< EntityTypesIf
     {
         return EntityTypesIfc.IFCPRESENTATIONSTYLE;
     }
-
     private Name_? : string | null;
 
     public get Name() : string | null
@@ -61,4 +60,8 @@ export abstract class IfcPresentationStyle extends StepEntityBase< EntityTypesIf
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCCURVESTYLE, EntityTypesIfc.IFCFILLAREASTYLE, EntityTypesIfc.IFCSURFACESTYLE, EntityTypesIfc.IFCTEXTSTYLE ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCPRESENTATIONSTYLE;
 }

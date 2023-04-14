@@ -17,7 +17,6 @@ export  class IfcRationalBSplineCurveWithKnots extends IfcBSplineCurveWithKnots
     {
         return EntityTypesIfc.IFCRATIONALBSPLINECURVEWITHKNOTS;
     }
-
     private WeightsData_? : Array< number >;
 
     public get WeightsData() : Array< number >
@@ -67,4 +66,8 @@ return value; })();
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCRATIONALBSPLINECURVEWITHKNOTS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCRATIONALBSPLINECURVEWITHKNOTS;
 }

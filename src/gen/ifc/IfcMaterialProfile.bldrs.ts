@@ -21,7 +21,6 @@ export  class IfcMaterialProfile extends IfcMaterialDefinition
     {
         return EntityTypesIfc.IFCMATERIALPROFILE;
     }
-
     private Name_? : string | null;
     private Description_? : string | null;
     private Material_? : IfcMaterial | null;
@@ -262,4 +261,8 @@ export  class IfcMaterialProfile extends IfcMaterialDefinition
     {
         super( localID, internalReference, model );
     }
+
+    public static readonly query = [ EntityTypesIfc.IFCMATERIALPROFILE, EntityTypesIfc.IFCMATERIALPROFILEWITHOFFSETS ];
+
+    public static readonly expectedType: EntityTypesIfc = EntityTypesIfc.IFCMATERIALPROFILE;
 }
