@@ -1,34 +1,30 @@
 
 
-import fs from 'fs'
-import ParsingBuffer from '../../../dependencies/conway-ds/src/parsing/parsing_buffer'
-import { ParseResult } from '../../../dependencies/conway-ds/src/parsing/step/step_parser'
 import { ConwayGeometry, ParamsPolygonalFaceSet, GeometryObject, ResultsGltf } from "../../../dependencies/conway-geom/conway_geometry"
-import IfcStepParser from './ifc_step_parser'
 import { IfcPolygonalFaceSet } from '../../gen/ifc'
+import IfcStepModel from './ifc_step_model'
 
 type NativeVectorGlmVec3 = any
 type NativeUintVector = any
 
+export enum ExtractResult {
+
+  COMPLETE     = 0,
+  INCOMPLETE   = 1,
+  SYNTAX_ERROR = 2,
+  MISSING_TYPE = 3,
+  INVALID_STEP = 4 
+}
 
 
 export class IfcGeometryExtraction {
   private conwayGeom: ConwayGeometry
-  private parser = IfcStepParser.Instance
-  private indexIfcBuffer: Buffer
 
   private geometryArray: GeometryObject[]
 
-  constructor(optionalPath?: string) {
+  constructor() {
     this.conwayGeom = new ConwayGeometry()
     this.geometryArray = []
-
-    if (optionalPath) {
-      this.indexIfcBuffer = fs.readFileSync(optionalPath)
-    }
-    else {
-      this.indexIfcBuffer = fs.readFileSync('index.ifc')
-    }
   }
 
   async initialize() {
@@ -88,10 +84,6 @@ export class IfcGeometryExtraction {
     this.geometryArray.push(geometry)
   }
 
-  myTestFunction(param: any): any {
-    return this.conwayGeom.myTestFunction(param)
-  }
-
   toObj(geometry: GeometryObject): string {
     return this.conwayGeom.toObj(geometry)
   }
@@ -102,6 +94,7 @@ export class IfcGeometryExtraction {
 
   destroy() {
     this.conwayGeom.destroy()
+    this.conwayGeom.initialized = false;
   }
 
   printGeometryInfo(geometry: GeometryObject) {
@@ -128,21 +121,10 @@ export class IfcGeometryExtraction {
     console.log("returnedIndexData[0]: " + returnedIndexData[0]) // prints the first element of indexData
   }
 
-  extractIFCGeometryData(logTime: boolean = false): ParseResult {
-    let bufferInput = new ParsingBuffer(this.indexIfcBuffer)
-    let result0 = this.parser.parseHeader(bufferInput)[1]
+  extractIFCGeometryData(model: IfcStepModel, logTime: boolean = false): ExtractResult {
+    let result: ExtractResult = ExtractResult.COMPLETE
 
-    if (result0 !== ParseResult.COMPLETE) {
-      return result0
-    }
-
-    let [result, model] = this.parser.parseDataToModel(bufferInput)
-
-    if (model === void 0) {
-      return ParseResult.INCOMPLETE
-    }
-
-    const startTime = process.hrtime()
+    const startTime = Date.now()
 
     let polygonalFaceSets = model.types(IfcPolygonalFaceSet)
     let entities = Array.from(polygonalFaceSets)
@@ -162,7 +144,7 @@ export class IfcGeometryExtraction {
         indicesPerFace = entity.Faces.at(0)!.CoordIndex.length
       }
       else {
-        result = ParseResult.INCOMPLETE
+        result = ExtractResult.INCOMPLETE
         continue
       }
 
@@ -202,8 +184,8 @@ export class IfcGeometryExtraction {
       indicesArray.delete()
     }
 
-    const endTime = process.hrtime(startTime)
-    const executionTimeInMs = (endTime[0] * 1e9 + endTime[1]) / 1e6
+    const endTime = Date.now()
+    const executionTimeInMs = endTime - startTime
 
     if (logTime) {
       console.log(`Geometry Extraction took ${executionTimeInMs} milliseconds to execute.`)
@@ -212,168 +194,3 @@ export class IfcGeometryExtraction {
     return result
   }
 }
-
-let ifcGeometryExtraction: IfcGeometryExtraction
-
-async function initializeGeometryExtractor() {
-  ifcGeometryExtraction = new IfcGeometryExtraction()
-
-  console.log("Initializing...")
-  await ifcGeometryExtraction.initialize()
-
-  return ifcGeometryExtraction.isInitialized()
-}
-
-async function testing() {
-  //wasm module initialization happens asynchronously ... 
-  await initializeGeometryExtractor()
-
-  //parse + extract data model + geometry data
-  ifcGeometryExtraction.extractIFCGeometryData(true)
-
-  //get list of GeometryObjects 
-  const geometryArray = ifcGeometryExtraction.getGeometry()
-
-  //we can assign the first GeometryObject to another variable here to combine them all.
-  var fullGeometry = geometryArray[0]
-  for (let i = 0; i < geometryArray.length; i++) {
-
-    if (i > 0) {
-      fullGeometry.AddGeometry(geometryArray[i])
-    }
-  }
-
-  //returns a string containing a full obj
-  const startTimeObj = process.hrtime()
-  const objResult = ifcGeometryExtraction.toObj(fullGeometry)
-  const endTimeObj = process.hrtime(startTimeObj)
-  const executionTimeInMsObj = (endTimeObj[0] * 1e9 + endTimeObj[1]) / 1e6
-
-  //write to FS
-  const filename = "index_ifc_test.obj"
-  fs.writeFile(filename, objResult, function (err) {
-    if (err) {
-      console.error("Error writing to file: ", err)
-    } else {
-      console.log("Data written to file: ", filename)
-    }
-  })
-
-  const startTimeGlb = process.hrtime()
-  const glbResult = ifcGeometryExtraction.toGltf(fullGeometry, true, false, "index_ifc_test")
-  const endTimeGlb = process.hrtime(startTimeGlb)
-  const executionTimeInMsGlb = (endTimeGlb[0] * 1e9 + endTimeGlb[1]) / 1e6
-
-  if (glbResult.success) {
-
-    if (glbResult.buffers.size() != glbResult.bufferUris.size()) {
-      console.log("Error! Buffer size != Buffer URI size!\n")
-      return
-    }
-
-    for (let uriIndex = 0; uriIndex < glbResult.bufferUris.size(); uriIndex++) {
-      let uri = glbResult.bufferUris.get(uriIndex)
-
-      // Create a (zero copy!) memory view from the native vector 
-      const managedBuffer: Uint8Array = ifcGeometryExtraction.getWasmModule().GetUint8Array(glbResult.buffers.get(uriIndex))
-      fs.writeFile(uri, managedBuffer, function (err) {
-        if (err) {
-          console.error("Error writing to file: ", err)
-        } else {
-          console.log("Data written to file: ", uri)
-        }
-      })
-    }
-  }
-
-  const startTimeGlbDraco = process.hrtime()
-  const glbDracoResult = ifcGeometryExtraction.toGltf(fullGeometry, true, true, "index_ifc_test_draco")
-  const endTimeGlbDraco = process.hrtime(startTimeGlbDraco)
-  const executionTimeInMsGlbDraco = (endTimeGlbDraco[0] * 1e9 + endTimeGlbDraco[1]) / 1e6
-
-  if (glbDracoResult.success) {
-
-    if (glbDracoResult.buffers.size() != glbDracoResult.bufferUris.size()) {
-      console.log("Error! Buffer size != Buffer URI size!\n")
-      return
-    }
-
-    for (let uriIndex = 0; uriIndex < glbDracoResult.bufferUris.size(); uriIndex++) {
-      let uri = glbDracoResult.bufferUris.get(uriIndex)
-
-      // Create a memory view from the native vector 
-      const managedBuffer: Uint8Array = ifcGeometryExtraction.getWasmModule().GetUint8Array(glbDracoResult.buffers.get(uriIndex))
-      fs.writeFile(uri, managedBuffer, function (err) {
-        if (err) {
-          console.error("Error writing to file: ", err)
-        } else {
-          console.log("Data written to file: ", uri)
-        }
-      })
-    }
-  }
-
-  const startTimeGltf = process.hrtime()
-  const gltfResult = ifcGeometryExtraction.toGltf(fullGeometry, false, false, "index_ifc_test")
-  const endTimeGltf = process.hrtime(startTimeGltf)
-  const executionTimeInMsGltf = (endTimeGltf[0] * 1e9 + endTimeGltf[1]) / 1e6
-
-  if (gltfResult.success) {
-
-    if (gltfResult.buffers.size() != gltfResult.bufferUris.size()) {
-      console.log("Error! Buffer size != Buffer URI size!\n")
-      return
-    }
-
-    for (let uriIndex = 0; uriIndex < gltfResult.bufferUris.size(); uriIndex++) {
-      let uri = gltfResult.bufferUris.get(uriIndex)
-
-      // Create a memory view from the native vector 
-      const managedBuffer: Uint8Array = ifcGeometryExtraction.getWasmModule().GetUint8Array(gltfResult.buffers.get(uriIndex))
-
-      fs.writeFile(uri, managedBuffer, function (err) {
-        if (err) {
-          console.error("Error writing to file: ", err)
-        } else {
-          console.log("Data written to file: ", uri)
-        }
-      })
-    }
-  }
-
-  const startTimeGltfDraco = process.hrtime()
-  const gltfDracoResult = ifcGeometryExtraction.toGltf(fullGeometry, false, true, "index_ifc_test_draco")
-  const endTimeGltfDraco = process.hrtime(startTimeGltfDraco)
-  const executionTimeInMsGltfDraco = (endTimeGltfDraco[0] * 1e9 + endTimeGltfDraco[1]) / 1e6
-
-  console.log(`OBJ Generation took ${executionTimeInMsObj} milliseconds to execute.`)
-  console.log(`GLB Generation took ${executionTimeInMsGlb} milliseconds to execute.`)
-  console.log(`GLB (Draco) Generation took ${executionTimeInMsGlbDraco} milliseconds to execute.`)
-  console.log(`GLTF Generation took ${executionTimeInMsGltf} milliseconds to execute.`)
-  console.log(`GLTF (Draco) Generation took ${executionTimeInMsGltfDraco} milliseconds to execute.`)
-
-  if (gltfDracoResult.success) {
-
-    if (gltfDracoResult.buffers.size() != gltfDracoResult.bufferUris.size()) {
-      console.log("Error! Buffer size != Buffer URI size!\n")
-      return
-    }
-
-    for (let uriIndex = 0; uriIndex < gltfDracoResult.bufferUris.size(); uriIndex++) {
-      let uri = gltfDracoResult.bufferUris.get(uriIndex)
-
-      // Create a memory view from the native vector 
-      const managedBuffer: Uint8Array = ifcGeometryExtraction.getWasmModule().GetUint8Array(gltfDracoResult.buffers.get(uriIndex))
-
-      fs.writeFile(uri, managedBuffer, function (err) {
-        if (err) {
-          console.error("Error writing to file: ", err)
-        } else {
-          console.log("Data written to file: ", uri)
-        }
-      })
-    }
-  }
-}
-
-testing()
