@@ -30,6 +30,7 @@ module.exports = {
     'object-curly-spacing': 'off',
     'computed-property-spacing': 'off',
     'no-multi-spaces': 'off',
+    'padded-blocks': 'off',
     'import/newline-after-import': ['error', {count: 2}],
     'max-len': ['error', 100], // eslint-disable-line no-magic-numbers
     'no-irregular-whitespace': ['error'],

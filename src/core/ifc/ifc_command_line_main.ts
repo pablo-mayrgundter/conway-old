@@ -14,9 +14,22 @@ const SKIP_PARAMS = 2
 const args = // eslint-disable-line no-unused-vars
   yargs(process.argv.slice(SKIP_PARAMS))
       .command('$0 <filename>', 'Query file', (yargs2) => {
-        yargs2.option('express_ids', { describe: 'A list of express IDs', type: 'number', array: true, alias: 'e' })
-        yargs2.option('types', { describe: 'A list of express IDs', type: 'string', array: true, alias: 't' })
-        yargs2.option('fields', { describe: 'A list of fields to extract', type: 'string', array: true, alias: 'f' })
+        yargs2.option('express_ids', {
+          describe: 'A list of express IDs',
+          type: 'number',
+          array: true,
+          alias: 'e',
+        })
+        yargs2.option('types', {
+          describe: 'A list of express IDs',
+          type: 'string',
+          array: true, alias: 't' })
+        yargs2.option('fields', {
+          describe: 'A list of fields to extract',
+          type: 'string',
+          array: true,
+          alias: 'f',
+        })
         yargs2.positional('filename', { describe: 'IFC File Paths', type: 'string' })
       }, (argv) => {
         const ifcFile = argv['filename'] as string
@@ -32,12 +45,14 @@ const args = // eslint-disable-line no-unused-vars
         try {
           indexIfcBuffer = fs.readFileSync(ifcFile)
         } catch (ex) {
-          console.log('Error: couldn\'t read file into memory, check that it is accessible at the specified path.')
+          console.log(
+              'Error: couldn\'t read file, check that it is accessible at the specified path.')
           exit()
         }
 
         if (indexIfcBuffer === void 0) {
-          console.log('Error: couldn\'t read file into memory, check that it is accessible at the specified path.')
+          console.log(
+              'Error: couldn\'t read file, check that it is accessible at the specified path.')
           exit()
         }
 
@@ -99,9 +114,11 @@ const args = // eslint-disable-line no-unused-vars
         let rowCount = 0
 
         const elements =
-        (expressIDs?.map((value) => model?.getElementByExpressID(value))?.filter((value) => value !== void 0 && (types === void 0 || types.includes(value.type))) ??
+        (expressIDs?.map((value) => model?.getElementByExpressID( value ))?.filter(
+            (value) => value !== void 0 && (types === void 0 || types.includes(value.type))) ??
           (types !== void 0 ? model.typeIDs(...types) : void 0) ??
-          model) as StepEntityBase<EntityTypesIfc>[] | IterableIterator<StepEntityBase<EntityTypesIfc>>
+          model) as StepEntityBase<EntityTypesIfc>[] |
+          IterableIterator<StepEntityBase<EntityTypesIfc>>
 
         for (const element of elements) {
           const elementTypeID = EntityTypesIfc[element.type]
