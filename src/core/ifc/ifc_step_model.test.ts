@@ -68,7 +68,7 @@ function extractLogical() {
 
   const [result, model] = parser.parseDataToModel( bufferInput )
 
-  if ( result !== ParseResult.COMPLETE ) {
+  if ( result !== ParseResult.INCOMPLETE ) {
     return false
   }
 
@@ -106,7 +106,7 @@ function extractCartesianPointList3D() {
 
   const [result, model] = parser.parseDataToModel( bufferInput )
 
-  if ( result !== ParseResult.COMPLETE ) {
+  if ( result !== ParseResult.INCOMPLETE ) {
     return false
   }
 
