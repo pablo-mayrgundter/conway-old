@@ -15,7 +15,7 @@ import {
   IfcPostalAddress,
   IfcShapeAspect,
   IfcTelecomAddress,
-} from '../../gen/ifc'
+} from '../../gen/ifc/index'
 
 
 const parser = IfcStepParser.Instance

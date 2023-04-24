@@ -2,7 +2,7 @@ import { exit } from 'process'
 import IfcStepParser from './ifc_step_parser'
 import ParsingBuffer from '../../../dependencies/conway-ds/src/parsing/parsing_buffer'
 import { ParseResult } from '../../../dependencies/conway-ds/src/parsing/step/step_parser'
-import EntityTypesIfc from '../../gen/ifc/entity_types_ifc.bldrs'
+import EntityTypesIfc from '../../gen/ifc/entity_types_ifc.gen'
 import yargs from 'yargs/yargs'
 
 import fs from 'fs'
