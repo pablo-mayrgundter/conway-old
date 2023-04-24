@@ -1,63 +1,50 @@
-import {describe, expect, test} from '@jest/globals';
+import {describe, expect, test} from '@jest/globals'
 
-import fs from 'fs';
-import ParsingBuffer from '../../../dependencies/conway-ds/src/parsing/parsing_buffer';
-import { ParseResult } from '../../../dependencies/conway-ds/src/parsing/step/step_parser';
-import StepModelBase from '../step_model_base';
-import EntityTypesIfc from '../../gen/ifc/entity_types_ifc.bldrs';
-import SchemaIfc from '../../gen/ifc/schema_ifc.bldrs';
-import IfcStepParser from './ifc_step_parser';
+import fs from 'fs'
+import ParsingBuffer from '../../../dependencies/conway-ds/src/parsing/parsing_buffer'
+import {ParseResult} from '../../../dependencies/conway-ds/src/parsing/step/step_parser'
+import IfcStepParser from './ifc_step_parser'
 
-let parser = IfcStepParser.Instance;
-let indexIfcBuffer = fs.readFileSync( 'index.ifc' );
 
-function parseIndexIfcHeader()
-{
-    let bufferInput      = new ParsingBuffer( indexIfcBuffer );
-    let [_, result] = parser.parseHeader( bufferInput );
-    
-    // console.log( "IFC header" );
+const parser = IfcStepParser.Instance
+const indexIfcBuffer = fs.readFileSync( 'index.ifc' )
 
-    // for ( let [key,value] of header.headers )
-    // {
-    //     console.log( `${key} is ${value}` );
-    // }
+/**
+ * Test parsing an index header.
+ *
+ * @return {ParseResult} Returns the parse result from parsing the header from the index IFC buffer.
+ */
+function parseIndexIfcHeader() {
+  const bufferInput = new ParsingBuffer( indexIfcBuffer )
+  const result = parser.parseHeader( bufferInput )[ 1 ]
 
-    return result;
+  return result
 }
 
-function parseIndexIfcData()
-{
-    let bufferInput = new ParsingBuffer( indexIfcBuffer );
-    let result0     = parser.parseHeader( bufferInput )[ 1 ];
+/**
+ * Test parsing the data block from index IFC.
+ *
+ * @return {ParseResult} Returns the parse result from parsing the data block.
+ */
+function parseIndexIfcData() {
+  const bufferInput = new ParsingBuffer( indexIfcBuffer )
+  const result0 = parser.parseHeader( bufferInput )[ 1 ]
 
-    if ( result0 !== ParseResult.COMPLETE )
-    {
-        return result0;
-    }
+  if ( result0 !== ParseResult.COMPLETE ) {
+    return result0
+  }
 
-    let [items, result] = parser.parseDataBlock( bufferInput );
+  const result = parser.parseDataBlock( bufferInput )[ 1 ]
 
-    // console.log( "IFC Data" );
-
-    // for ( let element of items.elements )
-    // {
-    //     console.log( `${element.expressID} is type ${element.typeID ?? "Unknown"} as ${element.address}` );
-    // }
-
-    return result;
+  return result
 }
 
-describe( "IFC Step Parsing Test", () => {
-    test( "parseIndexIfcHeader()" , () =>{
+describe( 'IFC Step Parsing Test', () => {
+  test( 'parseIndexIfcHeader()', () => {
+    expect( parseIndexIfcHeader() ).toBe( ParseResult.COMPLETE )
+  } )
 
-        expect( parseIndexIfcHeader() ).toBe( ParseResult.COMPLETE );
-
-     } );
-
-     test( "parseIndexIfcData()" , () =>{
-
-         expect( parseIndexIfcData() ).toBe( ParseResult.COMPLETE );
-
-     } );
-});
+  test( 'parseIndexIfcData()', () => {
+    expect( parseIndexIfcData() ).toBe( ParseResult.COMPLETE )
+  } )
+})
