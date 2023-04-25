@@ -1,1114 +1,1114 @@
-export { IfcActionRequestTypeEnum, IfcActionRequestTypeEnumDeserializeStep } from './IfcActionRequestTypeEnum.bldrs';
-export { IfcActionSourceTypeEnum, IfcActionSourceTypeEnumDeserializeStep } from './IfcActionSourceTypeEnum.bldrs';
-export { IfcActionTypeEnum, IfcActionTypeEnumDeserializeStep } from './IfcActionTypeEnum.bldrs';
-export { IfcActuatorTypeEnum, IfcActuatorTypeEnumDeserializeStep } from './IfcActuatorTypeEnum.bldrs';
-export { IfcAddressTypeEnum, IfcAddressTypeEnumDeserializeStep } from './IfcAddressTypeEnum.bldrs';
-export { IfcAirTerminalBoxTypeEnum, IfcAirTerminalBoxTypeEnumDeserializeStep } from './IfcAirTerminalBoxTypeEnum.bldrs';
-export { IfcAirTerminalTypeEnum, IfcAirTerminalTypeEnumDeserializeStep } from './IfcAirTerminalTypeEnum.bldrs';
-export { IfcAirToAirHeatRecoveryTypeEnum, IfcAirToAirHeatRecoveryTypeEnumDeserializeStep } from './IfcAirToAirHeatRecoveryTypeEnum.bldrs';
-export { IfcAlarmTypeEnum, IfcAlarmTypeEnumDeserializeStep } from './IfcAlarmTypeEnum.bldrs';
-export { IfcAnalysisModelTypeEnum, IfcAnalysisModelTypeEnumDeserializeStep } from './IfcAnalysisModelTypeEnum.bldrs';
-export { IfcAnalysisTheoryTypeEnum, IfcAnalysisTheoryTypeEnumDeserializeStep } from './IfcAnalysisTheoryTypeEnum.bldrs';
-export { IfcArithmeticOperatorEnum, IfcArithmeticOperatorEnumDeserializeStep } from './IfcArithmeticOperatorEnum.bldrs';
-export { IfcAssemblyPlaceEnum, IfcAssemblyPlaceEnumDeserializeStep } from './IfcAssemblyPlaceEnum.bldrs';
-export { IfcAudioVisualApplianceTypeEnum, IfcAudioVisualApplianceTypeEnumDeserializeStep } from './IfcAudioVisualApplianceTypeEnum.bldrs';
-export { IfcBeamTypeEnum, IfcBeamTypeEnumDeserializeStep } from './IfcBeamTypeEnum.bldrs';
-export { IfcBenchmarkEnum, IfcBenchmarkEnumDeserializeStep } from './IfcBenchmarkEnum.bldrs';
-export { IfcBoilerTypeEnum, IfcBoilerTypeEnumDeserializeStep } from './IfcBoilerTypeEnum.bldrs';
-export { IfcBooleanOperator, IfcBooleanOperatorDeserializeStep } from './IfcBooleanOperator.bldrs';
-export { IfcBSplineCurveForm, IfcBSplineCurveFormDeserializeStep } from './IfcBSplineCurveForm.bldrs';
-export { IfcBSplineSurfaceForm, IfcBSplineSurfaceFormDeserializeStep } from './IfcBSplineSurfaceForm.bldrs';
-export { IfcBuildingElementPartTypeEnum, IfcBuildingElementPartTypeEnumDeserializeStep } from './IfcBuildingElementPartTypeEnum.bldrs';
-export { IfcBuildingElementProxyTypeEnum, IfcBuildingElementProxyTypeEnumDeserializeStep } from './IfcBuildingElementProxyTypeEnum.bldrs';
-export { IfcBuildingSystemTypeEnum, IfcBuildingSystemTypeEnumDeserializeStep } from './IfcBuildingSystemTypeEnum.bldrs';
-export { IfcBurnerTypeEnum, IfcBurnerTypeEnumDeserializeStep } from './IfcBurnerTypeEnum.bldrs';
-export { IfcCableCarrierFittingTypeEnum, IfcCableCarrierFittingTypeEnumDeserializeStep } from './IfcCableCarrierFittingTypeEnum.bldrs';
-export { IfcCableCarrierSegmentTypeEnum, IfcCableCarrierSegmentTypeEnumDeserializeStep } from './IfcCableCarrierSegmentTypeEnum.bldrs';
-export { IfcCableFittingTypeEnum, IfcCableFittingTypeEnumDeserializeStep } from './IfcCableFittingTypeEnum.bldrs';
-export { IfcCableSegmentTypeEnum, IfcCableSegmentTypeEnumDeserializeStep } from './IfcCableSegmentTypeEnum.bldrs';
-export { IfcChangeActionEnum, IfcChangeActionEnumDeserializeStep } from './IfcChangeActionEnum.bldrs';
-export { IfcChillerTypeEnum, IfcChillerTypeEnumDeserializeStep } from './IfcChillerTypeEnum.bldrs';
-export { IfcChimneyTypeEnum, IfcChimneyTypeEnumDeserializeStep } from './IfcChimneyTypeEnum.bldrs';
-export { IfcCoilTypeEnum, IfcCoilTypeEnumDeserializeStep } from './IfcCoilTypeEnum.bldrs';
-export { IfcColumnTypeEnum, IfcColumnTypeEnumDeserializeStep } from './IfcColumnTypeEnum.bldrs';
-export { IfcCommunicationsApplianceTypeEnum, IfcCommunicationsApplianceTypeEnumDeserializeStep } from './IfcCommunicationsApplianceTypeEnum.bldrs';
-export { IfcComplexPropertyTemplateTypeEnum, IfcComplexPropertyTemplateTypeEnumDeserializeStep } from './IfcComplexPropertyTemplateTypeEnum.bldrs';
-export { IfcCompressorTypeEnum, IfcCompressorTypeEnumDeserializeStep } from './IfcCompressorTypeEnum.bldrs';
-export { IfcCondenserTypeEnum, IfcCondenserTypeEnumDeserializeStep } from './IfcCondenserTypeEnum.bldrs';
-export { IfcConnectionTypeEnum, IfcConnectionTypeEnumDeserializeStep } from './IfcConnectionTypeEnum.bldrs';
-export { IfcConstraintEnum, IfcConstraintEnumDeserializeStep } from './IfcConstraintEnum.bldrs';
-export { IfcConstructionEquipmentResourceTypeEnum, IfcConstructionEquipmentResourceTypeEnumDeserializeStep } from './IfcConstructionEquipmentResourceTypeEnum.bldrs';
-export { IfcConstructionMaterialResourceTypeEnum, IfcConstructionMaterialResourceTypeEnumDeserializeStep } from './IfcConstructionMaterialResourceTypeEnum.bldrs';
-export { IfcConstructionProductResourceTypeEnum, IfcConstructionProductResourceTypeEnumDeserializeStep } from './IfcConstructionProductResourceTypeEnum.bldrs';
-export { IfcControllerTypeEnum, IfcControllerTypeEnumDeserializeStep } from './IfcControllerTypeEnum.bldrs';
-export { IfcCooledBeamTypeEnum, IfcCooledBeamTypeEnumDeserializeStep } from './IfcCooledBeamTypeEnum.bldrs';
-export { IfcCoolingTowerTypeEnum, IfcCoolingTowerTypeEnumDeserializeStep } from './IfcCoolingTowerTypeEnum.bldrs';
-export { IfcCostItemTypeEnum, IfcCostItemTypeEnumDeserializeStep } from './IfcCostItemTypeEnum.bldrs';
-export { IfcCostScheduleTypeEnum, IfcCostScheduleTypeEnumDeserializeStep } from './IfcCostScheduleTypeEnum.bldrs';
-export { IfcCoveringTypeEnum, IfcCoveringTypeEnumDeserializeStep } from './IfcCoveringTypeEnum.bldrs';
-export { IfcCrewResourceTypeEnum, IfcCrewResourceTypeEnumDeserializeStep } from './IfcCrewResourceTypeEnum.bldrs';
-export { IfcCurtainWallTypeEnum, IfcCurtainWallTypeEnumDeserializeStep } from './IfcCurtainWallTypeEnum.bldrs';
-export { IfcCurveInterpolationEnum, IfcCurveInterpolationEnumDeserializeStep } from './IfcCurveInterpolationEnum.bldrs';
-export { IfcDamperTypeEnum, IfcDamperTypeEnumDeserializeStep } from './IfcDamperTypeEnum.bldrs';
-export { IfcDataOriginEnum, IfcDataOriginEnumDeserializeStep } from './IfcDataOriginEnum.bldrs';
-export { IfcDerivedUnitEnum, IfcDerivedUnitEnumDeserializeStep } from './IfcDerivedUnitEnum.bldrs';
-export { IfcDirectionSenseEnum, IfcDirectionSenseEnumDeserializeStep } from './IfcDirectionSenseEnum.bldrs';
-export { IfcDiscreteAccessoryTypeEnum, IfcDiscreteAccessoryTypeEnumDeserializeStep } from './IfcDiscreteAccessoryTypeEnum.bldrs';
-export { IfcDistributionChamberElementTypeEnum, IfcDistributionChamberElementTypeEnumDeserializeStep } from './IfcDistributionChamberElementTypeEnum.bldrs';
-export { IfcDistributionPortTypeEnum, IfcDistributionPortTypeEnumDeserializeStep } from './IfcDistributionPortTypeEnum.bldrs';
-export { IfcDistributionSystemEnum, IfcDistributionSystemEnumDeserializeStep } from './IfcDistributionSystemEnum.bldrs';
-export { IfcDocumentConfidentialityEnum, IfcDocumentConfidentialityEnumDeserializeStep } from './IfcDocumentConfidentialityEnum.bldrs';
-export { IfcDocumentStatusEnum, IfcDocumentStatusEnumDeserializeStep } from './IfcDocumentStatusEnum.bldrs';
-export { IfcDoorPanelOperationEnum, IfcDoorPanelOperationEnumDeserializeStep } from './IfcDoorPanelOperationEnum.bldrs';
-export { IfcDoorPanelPositionEnum, IfcDoorPanelPositionEnumDeserializeStep } from './IfcDoorPanelPositionEnum.bldrs';
-export { IfcDoorStyleConstructionEnum, IfcDoorStyleConstructionEnumDeserializeStep } from './IfcDoorStyleConstructionEnum.bldrs';
-export { IfcDoorStyleOperationEnum, IfcDoorStyleOperationEnumDeserializeStep } from './IfcDoorStyleOperationEnum.bldrs';
-export { IfcDoorTypeEnum, IfcDoorTypeEnumDeserializeStep } from './IfcDoorTypeEnum.bldrs';
-export { IfcDoorTypeOperationEnum, IfcDoorTypeOperationEnumDeserializeStep } from './IfcDoorTypeOperationEnum.bldrs';
-export { IfcDuctFittingTypeEnum, IfcDuctFittingTypeEnumDeserializeStep } from './IfcDuctFittingTypeEnum.bldrs';
-export { IfcDuctSegmentTypeEnum, IfcDuctSegmentTypeEnumDeserializeStep } from './IfcDuctSegmentTypeEnum.bldrs';
-export { IfcDuctSilencerTypeEnum, IfcDuctSilencerTypeEnumDeserializeStep } from './IfcDuctSilencerTypeEnum.bldrs';
-export { IfcElectricApplianceTypeEnum, IfcElectricApplianceTypeEnumDeserializeStep } from './IfcElectricApplianceTypeEnum.bldrs';
-export { IfcElectricDistributionBoardTypeEnum, IfcElectricDistributionBoardTypeEnumDeserializeStep } from './IfcElectricDistributionBoardTypeEnum.bldrs';
-export { IfcElectricFlowStorageDeviceTypeEnum, IfcElectricFlowStorageDeviceTypeEnumDeserializeStep } from './IfcElectricFlowStorageDeviceTypeEnum.bldrs';
-export { IfcElectricGeneratorTypeEnum, IfcElectricGeneratorTypeEnumDeserializeStep } from './IfcElectricGeneratorTypeEnum.bldrs';
-export { IfcElectricMotorTypeEnum, IfcElectricMotorTypeEnumDeserializeStep } from './IfcElectricMotorTypeEnum.bldrs';
-export { IfcElectricTimeControlTypeEnum, IfcElectricTimeControlTypeEnumDeserializeStep } from './IfcElectricTimeControlTypeEnum.bldrs';
-export { IfcElementAssemblyTypeEnum, IfcElementAssemblyTypeEnumDeserializeStep } from './IfcElementAssemblyTypeEnum.bldrs';
-export { IfcElementCompositionEnum, IfcElementCompositionEnumDeserializeStep } from './IfcElementCompositionEnum.bldrs';
-export { IfcEngineTypeEnum, IfcEngineTypeEnumDeserializeStep } from './IfcEngineTypeEnum.bldrs';
-export { IfcEvaporativeCoolerTypeEnum, IfcEvaporativeCoolerTypeEnumDeserializeStep } from './IfcEvaporativeCoolerTypeEnum.bldrs';
-export { IfcEvaporatorTypeEnum, IfcEvaporatorTypeEnumDeserializeStep } from './IfcEvaporatorTypeEnum.bldrs';
-export { IfcEventTriggerTypeEnum, IfcEventTriggerTypeEnumDeserializeStep } from './IfcEventTriggerTypeEnum.bldrs';
-export { IfcEventTypeEnum, IfcEventTypeEnumDeserializeStep } from './IfcEventTypeEnum.bldrs';
-export { IfcExternalSpatialElementTypeEnum, IfcExternalSpatialElementTypeEnumDeserializeStep } from './IfcExternalSpatialElementTypeEnum.bldrs';
-export { IfcFanTypeEnum, IfcFanTypeEnumDeserializeStep } from './IfcFanTypeEnum.bldrs';
-export { IfcFastenerTypeEnum, IfcFastenerTypeEnumDeserializeStep } from './IfcFastenerTypeEnum.bldrs';
-export { IfcFilterTypeEnum, IfcFilterTypeEnumDeserializeStep } from './IfcFilterTypeEnum.bldrs';
-export { IfcFireSuppressionTerminalTypeEnum, IfcFireSuppressionTerminalTypeEnumDeserializeStep } from './IfcFireSuppressionTerminalTypeEnum.bldrs';
-export { IfcFlowDirectionEnum, IfcFlowDirectionEnumDeserializeStep } from './IfcFlowDirectionEnum.bldrs';
-export { IfcFlowInstrumentTypeEnum, IfcFlowInstrumentTypeEnumDeserializeStep } from './IfcFlowInstrumentTypeEnum.bldrs';
-export { IfcFlowMeterTypeEnum, IfcFlowMeterTypeEnumDeserializeStep } from './IfcFlowMeterTypeEnum.bldrs';
-export { IfcFootingTypeEnum, IfcFootingTypeEnumDeserializeStep } from './IfcFootingTypeEnum.bldrs';
-export { IfcFurnitureTypeEnum, IfcFurnitureTypeEnumDeserializeStep } from './IfcFurnitureTypeEnum.bldrs';
-export { IfcGeographicElementTypeEnum, IfcGeographicElementTypeEnumDeserializeStep } from './IfcGeographicElementTypeEnum.bldrs';
-export { IfcGeometricProjectionEnum, IfcGeometricProjectionEnumDeserializeStep } from './IfcGeometricProjectionEnum.bldrs';
-export { IfcGlobalOrLocalEnum, IfcGlobalOrLocalEnumDeserializeStep } from './IfcGlobalOrLocalEnum.bldrs';
-export { IfcGridTypeEnum, IfcGridTypeEnumDeserializeStep } from './IfcGridTypeEnum.bldrs';
-export { IfcHeatExchangerTypeEnum, IfcHeatExchangerTypeEnumDeserializeStep } from './IfcHeatExchangerTypeEnum.bldrs';
-export { IfcHumidifierTypeEnum, IfcHumidifierTypeEnumDeserializeStep } from './IfcHumidifierTypeEnum.bldrs';
-export { IfcInterceptorTypeEnum, IfcInterceptorTypeEnumDeserializeStep } from './IfcInterceptorTypeEnum.bldrs';
-export { IfcInternalOrExternalEnum, IfcInternalOrExternalEnumDeserializeStep } from './IfcInternalOrExternalEnum.bldrs';
-export { IfcInventoryTypeEnum, IfcInventoryTypeEnumDeserializeStep } from './IfcInventoryTypeEnum.bldrs';
-export { IfcJunctionBoxTypeEnum, IfcJunctionBoxTypeEnumDeserializeStep } from './IfcJunctionBoxTypeEnum.bldrs';
-export { IfcKnotType, IfcKnotTypeDeserializeStep } from './IfcKnotType.bldrs';
-export { IfcLaborResourceTypeEnum, IfcLaborResourceTypeEnumDeserializeStep } from './IfcLaborResourceTypeEnum.bldrs';
-export { IfcLampTypeEnum, IfcLampTypeEnumDeserializeStep } from './IfcLampTypeEnum.bldrs';
-export { IfcLayerSetDirectionEnum, IfcLayerSetDirectionEnumDeserializeStep } from './IfcLayerSetDirectionEnum.bldrs';
-export { IfcLightDistributionCurveEnum, IfcLightDistributionCurveEnumDeserializeStep } from './IfcLightDistributionCurveEnum.bldrs';
-export { IfcLightEmissionSourceEnum, IfcLightEmissionSourceEnumDeserializeStep } from './IfcLightEmissionSourceEnum.bldrs';
-export { IfcLightFixtureTypeEnum, IfcLightFixtureTypeEnumDeserializeStep } from './IfcLightFixtureTypeEnum.bldrs';
-export { IfcLoadGroupTypeEnum, IfcLoadGroupTypeEnumDeserializeStep } from './IfcLoadGroupTypeEnum.bldrs';
-export { IfcLogicalOperatorEnum, IfcLogicalOperatorEnumDeserializeStep } from './IfcLogicalOperatorEnum.bldrs';
-export { IfcMechanicalFastenerTypeEnum, IfcMechanicalFastenerTypeEnumDeserializeStep } from './IfcMechanicalFastenerTypeEnum.bldrs';
-export { IfcMedicalDeviceTypeEnum, IfcMedicalDeviceTypeEnumDeserializeStep } from './IfcMedicalDeviceTypeEnum.bldrs';
-export { IfcMemberTypeEnum, IfcMemberTypeEnumDeserializeStep } from './IfcMemberTypeEnum.bldrs';
-export { IfcMotorConnectionTypeEnum, IfcMotorConnectionTypeEnumDeserializeStep } from './IfcMotorConnectionTypeEnum.bldrs';
-export { IfcNullStyle, IfcNullStyleDeserializeStep } from './IfcNullStyle.bldrs';
-export { IfcObjectiveEnum, IfcObjectiveEnumDeserializeStep } from './IfcObjectiveEnum.bldrs';
-export { IfcObjectTypeEnum, IfcObjectTypeEnumDeserializeStep } from './IfcObjectTypeEnum.bldrs';
-export { IfcOccupantTypeEnum, IfcOccupantTypeEnumDeserializeStep } from './IfcOccupantTypeEnum.bldrs';
-export { IfcOpeningElementTypeEnum, IfcOpeningElementTypeEnumDeserializeStep } from './IfcOpeningElementTypeEnum.bldrs';
-export { IfcOutletTypeEnum, IfcOutletTypeEnumDeserializeStep } from './IfcOutletTypeEnum.bldrs';
-export { IfcPerformanceHistoryTypeEnum, IfcPerformanceHistoryTypeEnumDeserializeStep } from './IfcPerformanceHistoryTypeEnum.bldrs';
-export { IfcPermeableCoveringOperationEnum, IfcPermeableCoveringOperationEnumDeserializeStep } from './IfcPermeableCoveringOperationEnum.bldrs';
-export { IfcPermitTypeEnum, IfcPermitTypeEnumDeserializeStep } from './IfcPermitTypeEnum.bldrs';
-export { IfcPhysicalOrVirtualEnum, IfcPhysicalOrVirtualEnumDeserializeStep } from './IfcPhysicalOrVirtualEnum.bldrs';
-export { IfcPileConstructionEnum, IfcPileConstructionEnumDeserializeStep } from './IfcPileConstructionEnum.bldrs';
-export { IfcPileTypeEnum, IfcPileTypeEnumDeserializeStep } from './IfcPileTypeEnum.bldrs';
-export { IfcPipeFittingTypeEnum, IfcPipeFittingTypeEnumDeserializeStep } from './IfcPipeFittingTypeEnum.bldrs';
-export { IfcPipeSegmentTypeEnum, IfcPipeSegmentTypeEnumDeserializeStep } from './IfcPipeSegmentTypeEnum.bldrs';
-export { IfcPlateTypeEnum, IfcPlateTypeEnumDeserializeStep } from './IfcPlateTypeEnum.bldrs';
-export { IfcPreferredSurfaceCurveRepresentation, IfcPreferredSurfaceCurveRepresentationDeserializeStep } from './IfcPreferredSurfaceCurveRepresentation.bldrs';
-export { IfcProcedureTypeEnum, IfcProcedureTypeEnumDeserializeStep } from './IfcProcedureTypeEnum.bldrs';
-export { IfcProfileTypeEnum, IfcProfileTypeEnumDeserializeStep } from './IfcProfileTypeEnum.bldrs';
-export { IfcProjectedOrTrueLengthEnum, IfcProjectedOrTrueLengthEnumDeserializeStep } from './IfcProjectedOrTrueLengthEnum.bldrs';
-export { IfcProjectionElementTypeEnum, IfcProjectionElementTypeEnumDeserializeStep } from './IfcProjectionElementTypeEnum.bldrs';
-export { IfcProjectOrderTypeEnum, IfcProjectOrderTypeEnumDeserializeStep } from './IfcProjectOrderTypeEnum.bldrs';
-export { IfcPropertySetTemplateTypeEnum, IfcPropertySetTemplateTypeEnumDeserializeStep } from './IfcPropertySetTemplateTypeEnum.bldrs';
-export { IfcProtectiveDeviceTrippingUnitTypeEnum, IfcProtectiveDeviceTrippingUnitTypeEnumDeserializeStep } from './IfcProtectiveDeviceTrippingUnitTypeEnum.bldrs';
-export { IfcProtectiveDeviceTypeEnum, IfcProtectiveDeviceTypeEnumDeserializeStep } from './IfcProtectiveDeviceTypeEnum.bldrs';
-export { IfcPumpTypeEnum, IfcPumpTypeEnumDeserializeStep } from './IfcPumpTypeEnum.bldrs';
-export { IfcRailingTypeEnum, IfcRailingTypeEnumDeserializeStep } from './IfcRailingTypeEnum.bldrs';
-export { IfcRampFlightTypeEnum, IfcRampFlightTypeEnumDeserializeStep } from './IfcRampFlightTypeEnum.bldrs';
-export { IfcRampTypeEnum, IfcRampTypeEnumDeserializeStep } from './IfcRampTypeEnum.bldrs';
-export { IfcRecurrenceTypeEnum, IfcRecurrenceTypeEnumDeserializeStep } from './IfcRecurrenceTypeEnum.bldrs';
-export { IfcReflectanceMethodEnum, IfcReflectanceMethodEnumDeserializeStep } from './IfcReflectanceMethodEnum.bldrs';
-export { IfcReinforcingBarRoleEnum, IfcReinforcingBarRoleEnumDeserializeStep } from './IfcReinforcingBarRoleEnum.bldrs';
-export { IfcReinforcingBarSurfaceEnum, IfcReinforcingBarSurfaceEnumDeserializeStep } from './IfcReinforcingBarSurfaceEnum.bldrs';
-export { IfcReinforcingBarTypeEnum, IfcReinforcingBarTypeEnumDeserializeStep } from './IfcReinforcingBarTypeEnum.bldrs';
-export { IfcReinforcingMeshTypeEnum, IfcReinforcingMeshTypeEnumDeserializeStep } from './IfcReinforcingMeshTypeEnum.bldrs';
-export { IfcRoleEnum, IfcRoleEnumDeserializeStep } from './IfcRoleEnum.bldrs';
-export { IfcRoofTypeEnum, IfcRoofTypeEnumDeserializeStep } from './IfcRoofTypeEnum.bldrs';
-export { IfcSanitaryTerminalTypeEnum, IfcSanitaryTerminalTypeEnumDeserializeStep } from './IfcSanitaryTerminalTypeEnum.bldrs';
-export { IfcSectionTypeEnum, IfcSectionTypeEnumDeserializeStep } from './IfcSectionTypeEnum.bldrs';
-export { IfcSensorTypeEnum, IfcSensorTypeEnumDeserializeStep } from './IfcSensorTypeEnum.bldrs';
-export { IfcSequenceEnum, IfcSequenceEnumDeserializeStep } from './IfcSequenceEnum.bldrs';
-export { IfcShadingDeviceTypeEnum, IfcShadingDeviceTypeEnumDeserializeStep } from './IfcShadingDeviceTypeEnum.bldrs';
-export { IfcSimplePropertyTemplateTypeEnum, IfcSimplePropertyTemplateTypeEnumDeserializeStep } from './IfcSimplePropertyTemplateTypeEnum.bldrs';
-export { IfcSIPrefix, IfcSIPrefixDeserializeStep } from './IfcSIPrefix.bldrs';
-export { IfcSIUnitName, IfcSIUnitNameDeserializeStep } from './IfcSIUnitName.bldrs';
-export { IfcSlabTypeEnum, IfcSlabTypeEnumDeserializeStep } from './IfcSlabTypeEnum.bldrs';
-export { IfcSolarDeviceTypeEnum, IfcSolarDeviceTypeEnumDeserializeStep } from './IfcSolarDeviceTypeEnum.bldrs';
-export { IfcSpaceHeaterTypeEnum, IfcSpaceHeaterTypeEnumDeserializeStep } from './IfcSpaceHeaterTypeEnum.bldrs';
-export { IfcSpaceTypeEnum, IfcSpaceTypeEnumDeserializeStep } from './IfcSpaceTypeEnum.bldrs';
-export { IfcSpatialZoneTypeEnum, IfcSpatialZoneTypeEnumDeserializeStep } from './IfcSpatialZoneTypeEnum.bldrs';
-export { IfcStackTerminalTypeEnum, IfcStackTerminalTypeEnumDeserializeStep } from './IfcStackTerminalTypeEnum.bldrs';
-export { IfcStairFlightTypeEnum, IfcStairFlightTypeEnumDeserializeStep } from './IfcStairFlightTypeEnum.bldrs';
-export { IfcStairTypeEnum, IfcStairTypeEnumDeserializeStep } from './IfcStairTypeEnum.bldrs';
-export { IfcStateEnum, IfcStateEnumDeserializeStep } from './IfcStateEnum.bldrs';
-export { IfcStructuralCurveActivityTypeEnum, IfcStructuralCurveActivityTypeEnumDeserializeStep } from './IfcStructuralCurveActivityTypeEnum.bldrs';
-export { IfcStructuralCurveMemberTypeEnum, IfcStructuralCurveMemberTypeEnumDeserializeStep } from './IfcStructuralCurveMemberTypeEnum.bldrs';
-export { IfcStructuralSurfaceActivityTypeEnum, IfcStructuralSurfaceActivityTypeEnumDeserializeStep } from './IfcStructuralSurfaceActivityTypeEnum.bldrs';
-export { IfcStructuralSurfaceMemberTypeEnum, IfcStructuralSurfaceMemberTypeEnumDeserializeStep } from './IfcStructuralSurfaceMemberTypeEnum.bldrs';
-export { IfcSubContractResourceTypeEnum, IfcSubContractResourceTypeEnumDeserializeStep } from './IfcSubContractResourceTypeEnum.bldrs';
-export { IfcSurfaceFeatureTypeEnum, IfcSurfaceFeatureTypeEnumDeserializeStep } from './IfcSurfaceFeatureTypeEnum.bldrs';
-export { IfcSurfaceSide, IfcSurfaceSideDeserializeStep } from './IfcSurfaceSide.bldrs';
-export { IfcSwitchingDeviceTypeEnum, IfcSwitchingDeviceTypeEnumDeserializeStep } from './IfcSwitchingDeviceTypeEnum.bldrs';
-export { IfcSystemFurnitureElementTypeEnum, IfcSystemFurnitureElementTypeEnumDeserializeStep } from './IfcSystemFurnitureElementTypeEnum.bldrs';
-export { IfcTankTypeEnum, IfcTankTypeEnumDeserializeStep } from './IfcTankTypeEnum.bldrs';
-export { IfcTaskDurationEnum, IfcTaskDurationEnumDeserializeStep } from './IfcTaskDurationEnum.bldrs';
-export { IfcTaskTypeEnum, IfcTaskTypeEnumDeserializeStep } from './IfcTaskTypeEnum.bldrs';
-export { IfcTendonAnchorTypeEnum, IfcTendonAnchorTypeEnumDeserializeStep } from './IfcTendonAnchorTypeEnum.bldrs';
-export { IfcTendonTypeEnum, IfcTendonTypeEnumDeserializeStep } from './IfcTendonTypeEnum.bldrs';
-export { IfcTextPath, IfcTextPathDeserializeStep } from './IfcTextPath.bldrs';
-export { IfcTimeSeriesDataTypeEnum, IfcTimeSeriesDataTypeEnumDeserializeStep } from './IfcTimeSeriesDataTypeEnum.bldrs';
-export { IfcTransformerTypeEnum, IfcTransformerTypeEnumDeserializeStep } from './IfcTransformerTypeEnum.bldrs';
-export { IfcTransitionCode, IfcTransitionCodeDeserializeStep } from './IfcTransitionCode.bldrs';
-export { IfcTransportElementTypeEnum, IfcTransportElementTypeEnumDeserializeStep } from './IfcTransportElementTypeEnum.bldrs';
-export { IfcTrimmingPreference, IfcTrimmingPreferenceDeserializeStep } from './IfcTrimmingPreference.bldrs';
-export { IfcTubeBundleTypeEnum, IfcTubeBundleTypeEnumDeserializeStep } from './IfcTubeBundleTypeEnum.bldrs';
-export { IfcUnitaryControlElementTypeEnum, IfcUnitaryControlElementTypeEnumDeserializeStep } from './IfcUnitaryControlElementTypeEnum.bldrs';
-export { IfcUnitaryEquipmentTypeEnum, IfcUnitaryEquipmentTypeEnumDeserializeStep } from './IfcUnitaryEquipmentTypeEnum.bldrs';
-export { IfcUnitEnum, IfcUnitEnumDeserializeStep } from './IfcUnitEnum.bldrs';
-export { IfcValveTypeEnum, IfcValveTypeEnumDeserializeStep } from './IfcValveTypeEnum.bldrs';
-export { IfcVibrationIsolatorTypeEnum, IfcVibrationIsolatorTypeEnumDeserializeStep } from './IfcVibrationIsolatorTypeEnum.bldrs';
-export { IfcVoidingFeatureTypeEnum, IfcVoidingFeatureTypeEnumDeserializeStep } from './IfcVoidingFeatureTypeEnum.bldrs';
-export { IfcWallTypeEnum, IfcWallTypeEnumDeserializeStep } from './IfcWallTypeEnum.bldrs';
-export { IfcWasteTerminalTypeEnum, IfcWasteTerminalTypeEnumDeserializeStep } from './IfcWasteTerminalTypeEnum.bldrs';
-export { IfcWindowPanelOperationEnum, IfcWindowPanelOperationEnumDeserializeStep } from './IfcWindowPanelOperationEnum.bldrs';
-export { IfcWindowPanelPositionEnum, IfcWindowPanelPositionEnumDeserializeStep } from './IfcWindowPanelPositionEnum.bldrs';
-export { IfcWindowStyleConstructionEnum, IfcWindowStyleConstructionEnumDeserializeStep } from './IfcWindowStyleConstructionEnum.bldrs';
-export { IfcWindowStyleOperationEnum, IfcWindowStyleOperationEnumDeserializeStep } from './IfcWindowStyleOperationEnum.bldrs';
-export { IfcWindowTypeEnum, IfcWindowTypeEnumDeserializeStep } from './IfcWindowTypeEnum.bldrs';
-export { IfcWindowTypePartitioningEnum, IfcWindowTypePartitioningEnumDeserializeStep } from './IfcWindowTypePartitioningEnum.bldrs';
-export { IfcWorkCalendarTypeEnum, IfcWorkCalendarTypeEnumDeserializeStep } from './IfcWorkCalendarTypeEnum.bldrs';
-export { IfcWorkPlanTypeEnum, IfcWorkPlanTypeEnumDeserializeStep } from './IfcWorkPlanTypeEnum.bldrs';
-export { IfcWorkScheduleTypeEnum, IfcWorkScheduleTypeEnumDeserializeStep } from './IfcWorkScheduleTypeEnum.bldrs';
-export { IfcActorRole } from './IfcActorRole.bldrs';
-export { IfcAddress } from './IfcAddress.bldrs';
-export { IfcApplication } from './IfcApplication.bldrs';
-export { IfcAppliedValue } from './IfcAppliedValue.bldrs';
-export { IfcApproval } from './IfcApproval.bldrs';
-export { IfcResourceLevelRelationship } from './IfcResourceLevelRelationship.bldrs';
-export { IfcProfileDef } from './IfcProfileDef.bldrs';
-export { IfcBoundaryCondition } from './IfcBoundaryCondition.bldrs';
-export { IfcExternalInformation } from './IfcExternalInformation.bldrs';
-export { IfcExternalReference } from './IfcExternalReference.bldrs';
-export { IfcPresentationItem } from './IfcPresentationItem.bldrs';
-export { IfcConnectionGeometry } from './IfcConnectionGeometry.bldrs';
-export { IfcConstraint } from './IfcConstraint.bldrs';
-export { IfcNamedUnit } from './IfcNamedUnit.bldrs';
-export { IfcCoordinateOperation } from './IfcCoordinateOperation.bldrs';
-export { IfcCoordinateReferenceSystem } from './IfcCoordinateReferenceSystem.bldrs';
-export { IfcPresentationStyle } from './IfcPresentationStyle.bldrs';
-export { IfcDerivedUnit } from './IfcDerivedUnit.bldrs';
-export { IfcDerivedUnitElement } from './IfcDerivedUnitElement.bldrs';
-export { IfcDimensionalExponents } from './IfcDimensionalExponents.bldrs';
-export { IfcSchedulingTime } from './IfcSchedulingTime.bldrs';
-export { IfcPropertyAbstraction } from './IfcPropertyAbstraction.bldrs';
-export { IfcStructuralConnectionCondition } from './IfcStructuralConnectionCondition.bldrs';
-export { IfcRepresentationContext } from './IfcRepresentationContext.bldrs';
-export { IfcRepresentationItem } from './IfcRepresentationItem.bldrs';
-export { IfcGridAxis } from './IfcGridAxis.bldrs';
-export { IfcObjectPlacement } from './IfcObjectPlacement.bldrs';
-export { IfcTimeSeries } from './IfcTimeSeries.bldrs';
-export { IfcIrregularTimeSeriesValue } from './IfcIrregularTimeSeriesValue.bldrs';
-export { IfcLightDistributionData } from './IfcLightDistributionData.bldrs';
-export { IfcLightIntensityDistribution } from './IfcLightIntensityDistribution.bldrs';
-export { IfcMaterialDefinition } from './IfcMaterialDefinition.bldrs';
-export { IfcMaterialClassificationRelationship } from './IfcMaterialClassificationRelationship.bldrs';
-export { IfcProductRepresentation } from './IfcProductRepresentation.bldrs';
-export { IfcMaterialUsageDefinition } from './IfcMaterialUsageDefinition.bldrs';
-export { IfcMaterialList } from './IfcMaterialList.bldrs';
-export { IfcMeasureWithUnit } from './IfcMeasureWithUnit.bldrs';
-export { IfcMonetaryUnit } from './IfcMonetaryUnit.bldrs';
-export { IfcRoot } from './IfcRoot.bldrs';
-export { IfcOrganization } from './IfcOrganization.bldrs';
-export { IfcOwnerHistory } from './IfcOwnerHistory.bldrs';
-export { IfcPerson } from './IfcPerson.bldrs';
-export { IfcPersonAndOrganization } from './IfcPersonAndOrganization.bldrs';
-export { IfcPhysicalQuantity } from './IfcPhysicalQuantity.bldrs';
-export { IfcPresentationLayerAssignment } from './IfcPresentationLayerAssignment.bldrs';
-export { IfcPresentationStyleAssignment } from './IfcPresentationStyleAssignment.bldrs';
-export { IfcRecurrencePattern } from './IfcRecurrencePattern.bldrs';
-export { IfcReference } from './IfcReference.bldrs';
-export { IfcRepresentation } from './IfcRepresentation.bldrs';
-export { IfcRepresentationMap } from './IfcRepresentationMap.bldrs';
-export { IfcShapeAspect } from './IfcShapeAspect.bldrs';
-export { IfcStructuralLoad } from './IfcStructuralLoad.bldrs';
-export { IfcTable } from './IfcTable.bldrs';
-export { IfcTableColumn } from './IfcTableColumn.bldrs';
-export { IfcTableRow } from './IfcTableRow.bldrs';
-export { IfcTimePeriod } from './IfcTimePeriod.bldrs';
-export { IfcTimeSeriesValue } from './IfcTimeSeriesValue.bldrs';
-export { IfcUnitAssignment } from './IfcUnitAssignment.bldrs';
-export { IfcVirtualGridIntersection } from './IfcVirtualGridIntersection.bldrs';
-export { IfcStrippedOptional } from './IfcStrippedOptional.bldrs';
-export { IfcAbsorbedDoseMeasure } from './IfcAbsorbedDoseMeasure.bldrs';
-export { IfcAccelerationMeasure } from './IfcAccelerationMeasure.bldrs';
-export { IfcAmountOfSubstanceMeasure } from './IfcAmountOfSubstanceMeasure.bldrs';
-export { IfcAngularVelocityMeasure } from './IfcAngularVelocityMeasure.bldrs';
-export { IfcArcIndex } from './IfcArcIndex.bldrs';
-export { IfcAreaDensityMeasure } from './IfcAreaDensityMeasure.bldrs';
-export { IfcAreaMeasure } from './IfcAreaMeasure.bldrs';
-export { IfcBinary } from './IfcBinary.bldrs';
-export { IfcBoolean } from './IfcBoolean.bldrs';
-export { IfcBoxAlignment } from './IfcBoxAlignment.bldrs';
-export { IfcCardinalPointReference } from './IfcCardinalPointReference.bldrs';
-export { IfcComplexNumber } from './IfcComplexNumber.bldrs';
-export { IfcCompoundPlaneAngleMeasure } from './IfcCompoundPlaneAngleMeasure.bldrs';
-export { IfcContextDependentMeasure } from './IfcContextDependentMeasure.bldrs';
-export { IfcCountMeasure } from './IfcCountMeasure.bldrs';
-export { IfcCurvatureMeasure } from './IfcCurvatureMeasure.bldrs';
-export { IfcDate } from './IfcDate.bldrs';
-export { IfcDateTime } from './IfcDateTime.bldrs';
-export { IfcDayInMonthNumber } from './IfcDayInMonthNumber.bldrs';
-export { IfcDayInWeekNumber } from './IfcDayInWeekNumber.bldrs';
-export { IfcDescriptiveMeasure } from './IfcDescriptiveMeasure.bldrs';
-export { IfcDimensionCount } from './IfcDimensionCount.bldrs';
-export { IfcDoseEquivalentMeasure } from './IfcDoseEquivalentMeasure.bldrs';
-export { IfcDuration } from './IfcDuration.bldrs';
-export { IfcDynamicViscosityMeasure } from './IfcDynamicViscosityMeasure.bldrs';
-export { IfcElectricCapacitanceMeasure } from './IfcElectricCapacitanceMeasure.bldrs';
-export { IfcElectricChargeMeasure } from './IfcElectricChargeMeasure.bldrs';
-export { IfcElectricConductanceMeasure } from './IfcElectricConductanceMeasure.bldrs';
-export { IfcElectricCurrentMeasure } from './IfcElectricCurrentMeasure.bldrs';
-export { IfcElectricResistanceMeasure } from './IfcElectricResistanceMeasure.bldrs';
-export { IfcElectricVoltageMeasure } from './IfcElectricVoltageMeasure.bldrs';
-export { IfcEnergyMeasure } from './IfcEnergyMeasure.bldrs';
-export { IfcFontStyle } from './IfcFontStyle.bldrs';
-export { IfcFontVariant } from './IfcFontVariant.bldrs';
-export { IfcFontWeight } from './IfcFontWeight.bldrs';
-export { IfcForceMeasure } from './IfcForceMeasure.bldrs';
-export { IfcFrequencyMeasure } from './IfcFrequencyMeasure.bldrs';
-export { IfcGloballyUniqueId } from './IfcGloballyUniqueId.bldrs';
-export { IfcHeatFluxDensityMeasure } from './IfcHeatFluxDensityMeasure.bldrs';
-export { IfcHeatingValueMeasure } from './IfcHeatingValueMeasure.bldrs';
-export { IfcIdentifier } from './IfcIdentifier.bldrs';
-export { IfcIlluminanceMeasure } from './IfcIlluminanceMeasure.bldrs';
-export { IfcInductanceMeasure } from './IfcInductanceMeasure.bldrs';
-export { IfcInteger } from './IfcInteger.bldrs';
-export { IfcIntegerCountRateMeasure } from './IfcIntegerCountRateMeasure.bldrs';
-export { IfcIonConcentrationMeasure } from './IfcIonConcentrationMeasure.bldrs';
-export { IfcIsothermalMoistureCapacityMeasure } from './IfcIsothermalMoistureCapacityMeasure.bldrs';
-export { IfcKinematicViscosityMeasure } from './IfcKinematicViscosityMeasure.bldrs';
-export { IfcLabel } from './IfcLabel.bldrs';
-export { IfcLanguageId } from './IfcLanguageId.bldrs';
-export { IfcLengthMeasure } from './IfcLengthMeasure.bldrs';
-export { IfcLineIndex } from './IfcLineIndex.bldrs';
-export { IfcLinearForceMeasure } from './IfcLinearForceMeasure.bldrs';
-export { IfcLinearMomentMeasure } from './IfcLinearMomentMeasure.bldrs';
-export { IfcLinearStiffnessMeasure } from './IfcLinearStiffnessMeasure.bldrs';
-export { IfcLinearVelocityMeasure } from './IfcLinearVelocityMeasure.bldrs';
-export { IfcLogical } from './IfcLogical.bldrs';
-export { IfcLuminousFluxMeasure } from './IfcLuminousFluxMeasure.bldrs';
-export { IfcLuminousIntensityDistributionMeasure } from './IfcLuminousIntensityDistributionMeasure.bldrs';
-export { IfcLuminousIntensityMeasure } from './IfcLuminousIntensityMeasure.bldrs';
-export { IfcMagneticFluxDensityMeasure } from './IfcMagneticFluxDensityMeasure.bldrs';
-export { IfcMagneticFluxMeasure } from './IfcMagneticFluxMeasure.bldrs';
-export { IfcMassDensityMeasure } from './IfcMassDensityMeasure.bldrs';
-export { IfcMassFlowRateMeasure } from './IfcMassFlowRateMeasure.bldrs';
-export { IfcMassMeasure } from './IfcMassMeasure.bldrs';
-export { IfcMassPerLengthMeasure } from './IfcMassPerLengthMeasure.bldrs';
-export { IfcModulusOfElasticityMeasure } from './IfcModulusOfElasticityMeasure.bldrs';
-export { IfcModulusOfLinearSubgradeReactionMeasure } from './IfcModulusOfLinearSubgradeReactionMeasure.bldrs';
-export { IfcModulusOfRotationalSubgradeReactionMeasure } from './IfcModulusOfRotationalSubgradeReactionMeasure.bldrs';
-export { IfcModulusOfSubgradeReactionMeasure } from './IfcModulusOfSubgradeReactionMeasure.bldrs';
-export { IfcMoistureDiffusivityMeasure } from './IfcMoistureDiffusivityMeasure.bldrs';
-export { IfcMolecularWeightMeasure } from './IfcMolecularWeightMeasure.bldrs';
-export { IfcMomentOfInertiaMeasure } from './IfcMomentOfInertiaMeasure.bldrs';
-export { IfcMonetaryMeasure } from './IfcMonetaryMeasure.bldrs';
-export { IfcMonthInYearNumber } from './IfcMonthInYearNumber.bldrs';
-export { IfcNonNegativeLengthMeasure } from './IfcNonNegativeLengthMeasure.bldrs';
-export { IfcNormalisedRatioMeasure } from './IfcNormalisedRatioMeasure.bldrs';
-export { IfcNumericMeasure } from './IfcNumericMeasure.bldrs';
-export { IfcPHMeasure } from './IfcPHMeasure.bldrs';
-export { IfcParameterValue } from './IfcParameterValue.bldrs';
-export { IfcPlanarForceMeasure } from './IfcPlanarForceMeasure.bldrs';
-export { IfcPlaneAngleMeasure } from './IfcPlaneAngleMeasure.bldrs';
-export { IfcPositiveInteger } from './IfcPositiveInteger.bldrs';
-export { IfcPositiveLengthMeasure } from './IfcPositiveLengthMeasure.bldrs';
-export { IfcPositivePlaneAngleMeasure } from './IfcPositivePlaneAngleMeasure.bldrs';
-export { IfcPositiveRatioMeasure } from './IfcPositiveRatioMeasure.bldrs';
-export { IfcPowerMeasure } from './IfcPowerMeasure.bldrs';
-export { IfcPresentableText } from './IfcPresentableText.bldrs';
-export { IfcPressureMeasure } from './IfcPressureMeasure.bldrs';
-export { IfcPropertySetDefinitionSet } from './IfcPropertySetDefinitionSet.bldrs';
-export { IfcRadioActivityMeasure } from './IfcRadioActivityMeasure.bldrs';
-export { IfcRatioMeasure } from './IfcRatioMeasure.bldrs';
-export { IfcReal } from './IfcReal.bldrs';
-export { IfcRotationalFrequencyMeasure } from './IfcRotationalFrequencyMeasure.bldrs';
-export { IfcRotationalMassMeasure } from './IfcRotationalMassMeasure.bldrs';
-export { IfcRotationalStiffnessMeasure } from './IfcRotationalStiffnessMeasure.bldrs';
-export { IfcSectionModulusMeasure } from './IfcSectionModulusMeasure.bldrs';
-export { IfcSectionalAreaIntegralMeasure } from './IfcSectionalAreaIntegralMeasure.bldrs';
-export { IfcShearModulusMeasure } from './IfcShearModulusMeasure.bldrs';
-export { IfcSolidAngleMeasure } from './IfcSolidAngleMeasure.bldrs';
-export { IfcSoundPowerLevelMeasure } from './IfcSoundPowerLevelMeasure.bldrs';
-export { IfcSoundPowerMeasure } from './IfcSoundPowerMeasure.bldrs';
-export { IfcSoundPressureLevelMeasure } from './IfcSoundPressureLevelMeasure.bldrs';
-export { IfcSoundPressureMeasure } from './IfcSoundPressureMeasure.bldrs';
-export { IfcSpecificHeatCapacityMeasure } from './IfcSpecificHeatCapacityMeasure.bldrs';
-export { IfcSpecularExponent } from './IfcSpecularExponent.bldrs';
-export { IfcSpecularRoughness } from './IfcSpecularRoughness.bldrs';
-export { IfcTemperatureGradientMeasure } from './IfcTemperatureGradientMeasure.bldrs';
-export { IfcTemperatureRateOfChangeMeasure } from './IfcTemperatureRateOfChangeMeasure.bldrs';
-export { IfcText } from './IfcText.bldrs';
-export { IfcTextAlignment } from './IfcTextAlignment.bldrs';
-export { IfcTextDecoration } from './IfcTextDecoration.bldrs';
-export { IfcTextFontName } from './IfcTextFontName.bldrs';
-export { IfcTextTransformation } from './IfcTextTransformation.bldrs';
-export { IfcThermalAdmittanceMeasure } from './IfcThermalAdmittanceMeasure.bldrs';
-export { IfcThermalConductivityMeasure } from './IfcThermalConductivityMeasure.bldrs';
-export { IfcThermalExpansionCoefficientMeasure } from './IfcThermalExpansionCoefficientMeasure.bldrs';
-export { IfcThermalResistanceMeasure } from './IfcThermalResistanceMeasure.bldrs';
-export { IfcThermalTransmittanceMeasure } from './IfcThermalTransmittanceMeasure.bldrs';
-export { IfcThermodynamicTemperatureMeasure } from './IfcThermodynamicTemperatureMeasure.bldrs';
-export { IfcTime } from './IfcTime.bldrs';
-export { IfcTimeMeasure } from './IfcTimeMeasure.bldrs';
-export { IfcTimeStamp } from './IfcTimeStamp.bldrs';
-export { IfcTorqueMeasure } from './IfcTorqueMeasure.bldrs';
-export { IfcURIReference } from './IfcURIReference.bldrs';
-export { IfcVaporPermeabilityMeasure } from './IfcVaporPermeabilityMeasure.bldrs';
-export { IfcVolumeMeasure } from './IfcVolumeMeasure.bldrs';
-export { IfcVolumetricFlowRateMeasure } from './IfcVolumetricFlowRateMeasure.bldrs';
-export { IfcWarpingConstantMeasure } from './IfcWarpingConstantMeasure.bldrs';
-export { IfcWarpingMomentMeasure } from './IfcWarpingMomentMeasure.bldrs';
-export { IfcPostalAddress } from './IfcPostalAddress.bldrs';
-export { IfcTelecomAddress } from './IfcTelecomAddress.bldrs';
-export { IfcGeometricRepresentationItem } from './IfcGeometricRepresentationItem.bldrs';
-export { IfcCostValue } from './IfcCostValue.bldrs';
-export { IfcApprovalRelationship } from './IfcApprovalRelationship.bldrs';
-export { IfcArbitraryClosedProfileDef } from './IfcArbitraryClosedProfileDef.bldrs';
-export { IfcArbitraryOpenProfileDef } from './IfcArbitraryOpenProfileDef.bldrs';
-export { IfcParameterizedProfileDef } from './IfcParameterizedProfileDef.bldrs';
-export { IfcSurfaceTexture } from './IfcSurfaceTexture.bldrs';
-export { IfcBoundaryEdgeCondition } from './IfcBoundaryEdgeCondition.bldrs';
-export { IfcBoundaryFaceCondition } from './IfcBoundaryFaceCondition.bldrs';
-export { IfcBoundaryNodeCondition } from './IfcBoundaryNodeCondition.bldrs';
-export { IfcClassification } from './IfcClassification.bldrs';
-export { IfcClassificationReference } from './IfcClassificationReference.bldrs';
-export { IfcColourSpecification } from './IfcColourSpecification.bldrs';
-export { IfcColourRgbList } from './IfcColourRgbList.bldrs';
-export { IfcProperty } from './IfcProperty.bldrs';
-export { IfcCompositeProfileDef } from './IfcCompositeProfileDef.bldrs';
-export { IfcTopologicalRepresentationItem } from './IfcTopologicalRepresentationItem.bldrs';
-export { IfcConnectionCurveGeometry } from './IfcConnectionCurveGeometry.bldrs';
-export { IfcConnectionPointGeometry } from './IfcConnectionPointGeometry.bldrs';
-export { IfcConnectionSurfaceGeometry } from './IfcConnectionSurfaceGeometry.bldrs';
-export { IfcConnectionVolumeGeometry } from './IfcConnectionVolumeGeometry.bldrs';
-export { IfcMetric } from './IfcMetric.bldrs';
-export { IfcObjective } from './IfcObjective.bldrs';
-export { IfcObjectDefinition } from './IfcObjectDefinition.bldrs';
-export { IfcContextDependentUnit } from './IfcContextDependentUnit.bldrs';
-export { IfcConversionBasedUnit } from './IfcConversionBasedUnit.bldrs';
-export { IfcMapConversion } from './IfcMapConversion.bldrs';
-export { IfcProjectedCRS } from './IfcProjectedCRS.bldrs';
-export { IfcCurrencyRelationship } from './IfcCurrencyRelationship.bldrs';
-export { IfcCurveStyle } from './IfcCurveStyle.bldrs';
-export { IfcCurveStyleFont } from './IfcCurveStyleFont.bldrs';
-export { IfcCurveStyleFontAndScaling } from './IfcCurveStyleFontAndScaling.bldrs';
-export { IfcCurveStyleFontPattern } from './IfcCurveStyleFontPattern.bldrs';
-export { IfcDerivedProfileDef } from './IfcDerivedProfileDef.bldrs';
-export { IfcDocumentInformation } from './IfcDocumentInformation.bldrs';
-export { IfcDocumentInformationRelationship } from './IfcDocumentInformationRelationship.bldrs';
-export { IfcDocumentReference } from './IfcDocumentReference.bldrs';
-export { IfcEventTime } from './IfcEventTime.bldrs';
-export { IfcExtendedProperties } from './IfcExtendedProperties.bldrs';
-export { IfcLibraryInformation } from './IfcLibraryInformation.bldrs';
-export { IfcExternallyDefinedHatchStyle } from './IfcExternallyDefinedHatchStyle.bldrs';
-export { IfcExternallyDefinedSurfaceStyle } from './IfcExternallyDefinedSurfaceStyle.bldrs';
-export { IfcExternallyDefinedTextFont } from './IfcExternallyDefinedTextFont.bldrs';
-export { IfcLibraryReference } from './IfcLibraryReference.bldrs';
-export { IfcExternalReferenceRelationship } from './IfcExternalReferenceRelationship.bldrs';
-export { IfcFailureConnectionCondition } from './IfcFailureConnectionCondition.bldrs';
-export { IfcFillAreaStyle } from './IfcFillAreaStyle.bldrs';
-export { IfcGeometricRepresentationContext } from './IfcGeometricRepresentationContext.bldrs';
-export { IfcGridPlacement } from './IfcGridPlacement.bldrs';
-export { IfcIndexedColourMap } from './IfcIndexedColourMap.bldrs';
-export { IfcTextureCoordinate } from './IfcTextureCoordinate.bldrs';
-export { IfcIrregularTimeSeries } from './IfcIrregularTimeSeries.bldrs';
-export { IfcLagTime } from './IfcLagTime.bldrs';
-export { IfcLocalPlacement } from './IfcLocalPlacement.bldrs';
-export { IfcMappedItem } from './IfcMappedItem.bldrs';
-export { IfcMaterial } from './IfcMaterial.bldrs';
-export { IfcMaterialConstituent } from './IfcMaterialConstituent.bldrs';
-export { IfcMaterialConstituentSet } from './IfcMaterialConstituentSet.bldrs';
-export { IfcMaterialLayer } from './IfcMaterialLayer.bldrs';
-export { IfcMaterialLayerSet } from './IfcMaterialLayerSet.bldrs';
-export { IfcMaterialProfile } from './IfcMaterialProfile.bldrs';
-export { IfcMaterialProfileSet } from './IfcMaterialProfileSet.bldrs';
-export { IfcMaterialDefinitionRepresentation } from './IfcMaterialDefinitionRepresentation.bldrs';
-export { IfcMaterialLayerSetUsage } from './IfcMaterialLayerSetUsage.bldrs';
-export { IfcMaterialProfileSetUsage } from './IfcMaterialProfileSetUsage.bldrs';
-export { IfcMaterialRelationship } from './IfcMaterialRelationship.bldrs';
-export { IfcSIUnit } from './IfcSIUnit.bldrs';
-export { IfcOrganizationRelationship } from './IfcOrganizationRelationship.bldrs';
-export { IfcPhysicalComplexQuantity } from './IfcPhysicalComplexQuantity.bldrs';
-export { IfcPhysicalSimpleQuantity } from './IfcPhysicalSimpleQuantity.bldrs';
-export { IfcPreDefinedItem } from './IfcPreDefinedItem.bldrs';
-export { IfcPreDefinedProperties } from './IfcPreDefinedProperties.bldrs';
-export { IfcSurfaceStyleLighting } from './IfcSurfaceStyleLighting.bldrs';
-export { IfcSurfaceStyleRefraction } from './IfcSurfaceStyleRefraction.bldrs';
-export { IfcSurfaceStyleShading } from './IfcSurfaceStyleShading.bldrs';
-export { IfcSurfaceStyleWithTextures } from './IfcSurfaceStyleWithTextures.bldrs';
-export { IfcTextStyleForDefinedFont } from './IfcTextStyleForDefinedFont.bldrs';
-export { IfcTextStyleTextModel } from './IfcTextStyleTextModel.bldrs';
-export { IfcTextureVertex } from './IfcTextureVertex.bldrs';
-export { IfcTextureVertexList } from './IfcTextureVertexList.bldrs';
-export { IfcPresentationLayerWithStyle } from './IfcPresentationLayerWithStyle.bldrs';
-export { IfcSurfaceStyle } from './IfcSurfaceStyle.bldrs';
-export { IfcTextStyle } from './IfcTextStyle.bldrs';
-export { IfcProductDefinitionShape } from './IfcProductDefinitionShape.bldrs';
-export { IfcPropertyEnumeration } from './IfcPropertyEnumeration.bldrs';
-export { IfcPropertyDefinition } from './IfcPropertyDefinition.bldrs';
-export { IfcPropertyDependencyRelationship } from './IfcPropertyDependencyRelationship.bldrs';
-export { IfcRegularTimeSeries } from './IfcRegularTimeSeries.bldrs';
-export { IfcRelationship } from './IfcRelationship.bldrs';
-export { IfcShapeModel } from './IfcShapeModel.bldrs';
-export { IfcStyleModel } from './IfcStyleModel.bldrs';
-export { IfcStyledItem } from './IfcStyledItem.bldrs';
-export { IfcResourceApprovalRelationship } from './IfcResourceApprovalRelationship.bldrs';
-export { IfcResourceConstraintRelationship } from './IfcResourceConstraintRelationship.bldrs';
-export { IfcResourceTime } from './IfcResourceTime.bldrs';
-export { IfcTaskTime } from './IfcTaskTime.bldrs';
-export { IfcWorkTime } from './IfcWorkTime.bldrs';
-export { IfcSlippageConnectionCondition } from './IfcSlippageConnectionCondition.bldrs';
-export { IfcStructuralLoadConfiguration } from './IfcStructuralLoadConfiguration.bldrs';
-export { IfcStructuralLoadOrResult } from './IfcStructuralLoadOrResult.bldrs';
-export { IfcObject } from './IfcObject.bldrs';
-export { IfcAnnotationFillArea } from './IfcAnnotationFillArea.bldrs';
-export { IfcArbitraryProfileDefWithVoids } from './IfcArbitraryProfileDefWithVoids.bldrs';
-export { IfcCenterLineProfileDef } from './IfcCenterLineProfileDef.bldrs';
-export { IfcAsymmetricIShapeProfileDef } from './IfcAsymmetricIShapeProfileDef.bldrs';
-export { IfcPlacement } from './IfcPlacement.bldrs';
-export { IfcBlobTexture } from './IfcBlobTexture.bldrs';
-export { IfcCsgPrimitive3D } from './IfcCsgPrimitive3D.bldrs';
-export { IfcBooleanResult } from './IfcBooleanResult.bldrs';
-export { IfcBoundaryNodeConditionWarping } from './IfcBoundaryNodeConditionWarping.bldrs';
-export { IfcCurve } from './IfcCurve.bldrs';
-export { IfcSurface } from './IfcSurface.bldrs';
-export { IfcBoundingBox } from './IfcBoundingBox.bldrs';
-export { IfcHalfSpaceSolid } from './IfcHalfSpaceSolid.bldrs';
-export { IfcCShapeProfileDef } from './IfcCShapeProfileDef.bldrs';
-export { IfcPoint } from './IfcPoint.bldrs';
-export { IfcCartesianPointList } from './IfcCartesianPointList.bldrs';
-export { IfcCartesianTransformationOperator } from './IfcCartesianTransformationOperator.bldrs';
-export { IfcCircleProfileDef } from './IfcCircleProfileDef.bldrs';
-export { IfcConnectedFaceSet } from './IfcConnectedFaceSet.bldrs';
-export { IfcColourRgb } from './IfcColourRgb.bldrs';
-export { IfcComplexProperty } from './IfcComplexProperty.bldrs';
-export { IfcCompositeCurveSegment } from './IfcCompositeCurveSegment.bldrs';
-export { IfcConnectionPointEccentricity } from './IfcConnectionPointEccentricity.bldrs';
-export { IfcContext } from './IfcContext.bldrs';
-export { IfcConversionBasedUnitWithOffset } from './IfcConversionBasedUnitWithOffset.bldrs';
-export { IfcSolidModel } from './IfcSolidModel.bldrs';
-export { IfcMirroredProfileDef } from './IfcMirroredProfileDef.bldrs';
-export { IfcDirection } from './IfcDirection.bldrs';
-export { IfcPreDefinedColour } from './IfcPreDefinedColour.bldrs';
-export { IfcPreDefinedCurveFont } from './IfcPreDefinedCurveFont.bldrs';
-export { IfcEdge } from './IfcEdge.bldrs';
-export { IfcLoop } from './IfcLoop.bldrs';
-export { IfcEllipseProfileDef } from './IfcEllipseProfileDef.bldrs';
-export { IfcMaterialProperties } from './IfcMaterialProperties.bldrs';
-export { IfcProfileProperties } from './IfcProfileProperties.bldrs';
-export { IfcFace } from './IfcFace.bldrs';
-export { IfcFaceBasedSurfaceModel } from './IfcFaceBasedSurfaceModel.bldrs';
-export { IfcFaceBound } from './IfcFaceBound.bldrs';
-export { IfcFillAreaStyleHatching } from './IfcFillAreaStyleHatching.bldrs';
-export { IfcFillAreaStyleTiles } from './IfcFillAreaStyleTiles.bldrs';
-export { IfcGeometricSet } from './IfcGeometricSet.bldrs';
-export { IfcGeometricRepresentationSubContext } from './IfcGeometricRepresentationSubContext.bldrs';
-export { IfcLightSource } from './IfcLightSource.bldrs';
-export { IfcPlanarExtent } from './IfcPlanarExtent.bldrs';
-export { IfcSectionedSpine } from './IfcSectionedSpine.bldrs';
-export { IfcShellBasedSurfaceModel } from './IfcShellBasedSurfaceModel.bldrs';
-export { IfcTessellatedItem } from './IfcTessellatedItem.bldrs';
-export { IfcTextLiteral } from './IfcTextLiteral.bldrs';
-export { IfcVector } from './IfcVector.bldrs';
-export { IfcIShapeProfileDef } from './IfcIShapeProfileDef.bldrs';
-export { IfcImageTexture } from './IfcImageTexture.bldrs';
-export { IfcIndexedTextureMap } from './IfcIndexedTextureMap.bldrs';
-export { IfcLShapeProfileDef } from './IfcLShapeProfileDef.bldrs';
-export { IfcMaterialLayerWithOffsets } from './IfcMaterialLayerWithOffsets.bldrs';
-export { IfcMaterialProfileWithOffsets } from './IfcMaterialProfileWithOffsets.bldrs';
-export { IfcMaterialProfileSetUsageTapering } from './IfcMaterialProfileSetUsageTapering.bldrs';
-export { IfcTypeObject } from './IfcTypeObject.bldrs';
-export { IfcRectangleProfileDef } from './IfcRectangleProfileDef.bldrs';
-export { IfcTShapeProfileDef } from './IfcTShapeProfileDef.bldrs';
-export { IfcTrapeziumProfileDef } from './IfcTrapeziumProfileDef.bldrs';
-export { IfcUShapeProfileDef } from './IfcUShapeProfileDef.bldrs';
-export { IfcZShapeProfileDef } from './IfcZShapeProfileDef.bldrs';
-export { IfcPath } from './IfcPath.bldrs';
-export { IfcQuantityArea } from './IfcQuantityArea.bldrs';
-export { IfcQuantityCount } from './IfcQuantityCount.bldrs';
-export { IfcQuantityLength } from './IfcQuantityLength.bldrs';
-export { IfcQuantityTime } from './IfcQuantityTime.bldrs';
-export { IfcQuantityVolume } from './IfcQuantityVolume.bldrs';
-export { IfcQuantityWeight } from './IfcQuantityWeight.bldrs';
-export { IfcPixelTexture } from './IfcPixelTexture.bldrs';
-export { IfcPreDefinedTextFont } from './IfcPreDefinedTextFont.bldrs';
-export { IfcReinforcementBarProperties } from './IfcReinforcementBarProperties.bldrs';
-export { IfcSectionProperties } from './IfcSectionProperties.bldrs';
-export { IfcSectionReinforcementProperties } from './IfcSectionReinforcementProperties.bldrs';
-export { IfcPropertySetDefinition } from './IfcPropertySetDefinition.bldrs';
-export { IfcSimpleProperty } from './IfcSimpleProperty.bldrs';
-export { IfcPropertyTemplateDefinition } from './IfcPropertyTemplateDefinition.bldrs';
-export { IfcRelDecomposes } from './IfcRelDecomposes.bldrs';
-export { IfcRelAssigns } from './IfcRelAssigns.bldrs';
-export { IfcRelAssociates } from './IfcRelAssociates.bldrs';
-export { IfcRelConnects } from './IfcRelConnects.bldrs';
-export { IfcRelDeclares } from './IfcRelDeclares.bldrs';
-export { IfcRelDefines } from './IfcRelDefines.bldrs';
-export { IfcShapeRepresentation } from './IfcShapeRepresentation.bldrs';
-export { IfcTopologyRepresentation } from './IfcTopologyRepresentation.bldrs';
-export { IfcStructuralLoadStatic } from './IfcStructuralLoadStatic.bldrs';
-export { IfcSurfaceReinforcementArea } from './IfcSurfaceReinforcementArea.bldrs';
-export { IfcStyledRepresentation } from './IfcStyledRepresentation.bldrs';
-export { IfcSurfaceStyleRendering } from './IfcSurfaceStyleRendering.bldrs';
-export { IfcTaskTimeRecurring } from './IfcTaskTimeRecurring.bldrs';
-export { IfcTextureCoordinateGenerator } from './IfcTextureCoordinateGenerator.bldrs';
-export { IfcTextureMap } from './IfcTextureMap.bldrs';
-export { IfcVertex } from './IfcVertex.bldrs';
-export { IfcControl } from './IfcControl.bldrs';
-export { IfcActor } from './IfcActor.bldrs';
-export { IfcManifoldSolidBrep } from './IfcManifoldSolidBrep.bldrs';
-export { IfcFaceSurface } from './IfcFaceSurface.bldrs';
-export { IfcProduct } from './IfcProduct.bldrs';
-export { IfcGroup } from './IfcGroup.bldrs';
-export { IfcAxis1Placement } from './IfcAxis1Placement.bldrs';
-export { IfcAxis2Placement2D } from './IfcAxis2Placement2D.bldrs';
-export { IfcAxis2Placement3D } from './IfcAxis2Placement3D.bldrs';
-export { IfcBoundedCurve } from './IfcBoundedCurve.bldrs';
-export { IfcBoundedSurface } from './IfcBoundedSurface.bldrs';
-export { IfcBlock } from './IfcBlock.bldrs';
-export { IfcBooleanClippingResult } from './IfcBooleanClippingResult.bldrs';
-export { IfcBoxedHalfSpace } from './IfcBoxedHalfSpace.bldrs';
-export { IfcCartesianPoint } from './IfcCartesianPoint.bldrs';
-export { IfcCartesianPointList2D } from './IfcCartesianPointList2D.bldrs';
-export { IfcCartesianPointList3D } from './IfcCartesianPointList3D.bldrs';
-export { IfcCartesianTransformationOperator2D } from './IfcCartesianTransformationOperator2D.bldrs';
-export { IfcCartesianTransformationOperator3D } from './IfcCartesianTransformationOperator3D.bldrs';
-export { IfcConic } from './IfcConic.bldrs';
-export { IfcCircleHollowProfileDef } from './IfcCircleHollowProfileDef.bldrs';
-export { IfcClosedShell } from './IfcClosedShell.bldrs';
-export { IfcPropertyTemplate } from './IfcPropertyTemplate.bldrs';
-export { IfcReparametrisedCompositeCurveSegment } from './IfcReparametrisedCompositeCurveSegment.bldrs';
-export { IfcOpenShell } from './IfcOpenShell.bldrs';
-export { IfcResource } from './IfcResource.bldrs';
-export { IfcTypeResource } from './IfcTypeResource.bldrs';
-export { IfcProject } from './IfcProject.bldrs';
-export { IfcProjectLibrary } from './IfcProjectLibrary.bldrs';
-export { IfcRectangularPyramid } from './IfcRectangularPyramid.bldrs';
-export { IfcRightCircularCone } from './IfcRightCircularCone.bldrs';
-export { IfcRightCircularCylinder } from './IfcRightCircularCylinder.bldrs';
-export { IfcSphere } from './IfcSphere.bldrs';
-export { IfcCsgSolid } from './IfcCsgSolid.bldrs';
-export { IfcLine } from './IfcLine.bldrs';
-export { IfcOffsetCurve2D } from './IfcOffsetCurve2D.bldrs';
-export { IfcOffsetCurve3D } from './IfcOffsetCurve3D.bldrs';
-export { IfcPcurve } from './IfcPcurve.bldrs';
-export { IfcSurfaceCurve } from './IfcSurfaceCurve.bldrs';
-export { IfcElementarySurface } from './IfcElementarySurface.bldrs';
-export { IfcPreDefinedPropertySet } from './IfcPreDefinedPropertySet.bldrs';
-export { IfcTypeProduct } from './IfcTypeProduct.bldrs';
-export { IfcDraughtingPreDefinedColour } from './IfcDraughtingPreDefinedColour.bldrs';
-export { IfcDraughtingPreDefinedCurveFont } from './IfcDraughtingPreDefinedCurveFont.bldrs';
-export { IfcEdgeCurve } from './IfcEdgeCurve.bldrs';
-export { IfcOrientedEdge } from './IfcOrientedEdge.bldrs';
-export { IfcSubedge } from './IfcSubedge.bldrs';
-export { IfcEdgeLoop } from './IfcEdgeLoop.bldrs';
-export { IfcQuantitySet } from './IfcQuantitySet.bldrs';
-export { IfcProcess } from './IfcProcess.bldrs';
-export { IfcTypeProcess } from './IfcTypeProcess.bldrs';
-export { IfcSweptAreaSolid } from './IfcSweptAreaSolid.bldrs';
-export { IfcFaceOuterBound } from './IfcFaceOuterBound.bldrs';
-export { IfcGeometricCurveSet } from './IfcGeometricCurveSet.bldrs';
-export { IfcPolygonalBoundedHalfSpace } from './IfcPolygonalBoundedHalfSpace.bldrs';
-export { IfcIndexedPolygonalFace } from './IfcIndexedPolygonalFace.bldrs';
-export { IfcIndexedTriangleTextureMap } from './IfcIndexedTriangleTextureMap.bldrs';
-export { IfcLightSourceAmbient } from './IfcLightSourceAmbient.bldrs';
-export { IfcLightSourceDirectional } from './IfcLightSourceDirectional.bldrs';
-export { IfcLightSourceGoniometric } from './IfcLightSourceGoniometric.bldrs';
-export { IfcLightSourcePositional } from './IfcLightSourcePositional.bldrs';
-export { IfcPolyLoop } from './IfcPolyLoop.bldrs';
-export { IfcVertexLoop } from './IfcVertexLoop.bldrs';
-export { IfcPlanarBox } from './IfcPlanarBox.bldrs';
-export { IfcPointOnCurve } from './IfcPointOnCurve.bldrs';
-export { IfcPointOnSurface } from './IfcPointOnSurface.bldrs';
-export { IfcTessellatedFaceSet } from './IfcTessellatedFaceSet.bldrs';
-export { IfcTextStyleFontModel } from './IfcTextStyleFontModel.bldrs';
-export { IfcPropertyBoundedValue } from './IfcPropertyBoundedValue.bldrs';
-export { IfcPropertyEnumeratedValue } from './IfcPropertyEnumeratedValue.bldrs';
-export { IfcPropertyListValue } from './IfcPropertyListValue.bldrs';
-export { IfcPropertyReferenceValue } from './IfcPropertyReferenceValue.bldrs';
-export { IfcPropertySet } from './IfcPropertySet.bldrs';
-export { IfcPropertySetTemplate } from './IfcPropertySetTemplate.bldrs';
-export { IfcPropertySingleValue } from './IfcPropertySingleValue.bldrs';
-export { IfcPropertyTableValue } from './IfcPropertyTableValue.bldrs';
-export { IfcRectangleHollowProfileDef } from './IfcRectangleHollowProfileDef.bldrs';
-export { IfcRoundedRectangleProfileDef } from './IfcRoundedRectangleProfileDef.bldrs';
-export { IfcRelAggregates } from './IfcRelAggregates.bldrs';
-export { IfcRelAssignsToActor } from './IfcRelAssignsToActor.bldrs';
-export { IfcRelAssignsToControl } from './IfcRelAssignsToControl.bldrs';
-export { IfcRelAssignsToGroup } from './IfcRelAssignsToGroup.bldrs';
-export { IfcRelAssignsToProcess } from './IfcRelAssignsToProcess.bldrs';
-export { IfcRelAssignsToProduct } from './IfcRelAssignsToProduct.bldrs';
-export { IfcRelAssignsToResource } from './IfcRelAssignsToResource.bldrs';
-export { IfcRelAssociatesApproval } from './IfcRelAssociatesApproval.bldrs';
-export { IfcRelAssociatesClassification } from './IfcRelAssociatesClassification.bldrs';
-export { IfcRelAssociatesConstraint } from './IfcRelAssociatesConstraint.bldrs';
-export { IfcRelAssociatesDocument } from './IfcRelAssociatesDocument.bldrs';
-export { IfcRelAssociatesLibrary } from './IfcRelAssociatesLibrary.bldrs';
-export { IfcRelAssociatesMaterial } from './IfcRelAssociatesMaterial.bldrs';
-export { IfcRelConnectsElements } from './IfcRelConnectsElements.bldrs';
-export { IfcRelConnectsPortToElement } from './IfcRelConnectsPortToElement.bldrs';
-export { IfcRelConnectsPorts } from './IfcRelConnectsPorts.bldrs';
-export { IfcRelConnectsStructuralActivity } from './IfcRelConnectsStructuralActivity.bldrs';
-export { IfcRelConnectsStructuralMember } from './IfcRelConnectsStructuralMember.bldrs';
-export { IfcRelContainedInSpatialStructure } from './IfcRelContainedInSpatialStructure.bldrs';
-export { IfcRelCoversBldgElements } from './IfcRelCoversBldgElements.bldrs';
-export { IfcRelCoversSpaces } from './IfcRelCoversSpaces.bldrs';
-export { IfcRelFillsElement } from './IfcRelFillsElement.bldrs';
-export { IfcRelFlowControlElements } from './IfcRelFlowControlElements.bldrs';
-export { IfcRelInterferesElements } from './IfcRelInterferesElements.bldrs';
-export { IfcRelReferencedInSpatialStructure } from './IfcRelReferencedInSpatialStructure.bldrs';
-export { IfcRelSequence } from './IfcRelSequence.bldrs';
-export { IfcRelServicesBuildings } from './IfcRelServicesBuildings.bldrs';
-export { IfcRelSpaceBoundary } from './IfcRelSpaceBoundary.bldrs';
-export { IfcRelNests } from './IfcRelNests.bldrs';
-export { IfcRelProjectsElement } from './IfcRelProjectsElement.bldrs';
-export { IfcRelVoidsElement } from './IfcRelVoidsElement.bldrs';
-export { IfcRelDefinesByObject } from './IfcRelDefinesByObject.bldrs';
-export { IfcRelDefinesByProperties } from './IfcRelDefinesByProperties.bldrs';
-export { IfcRelDefinesByTemplate } from './IfcRelDefinesByTemplate.bldrs';
-export { IfcRelDefinesByType } from './IfcRelDefinesByType.bldrs';
-export { IfcSweptDiskSolid } from './IfcSweptDiskSolid.bldrs';
-export { IfcStructuralLoadLinearForce } from './IfcStructuralLoadLinearForce.bldrs';
-export { IfcStructuralLoadPlanarForce } from './IfcStructuralLoadPlanarForce.bldrs';
-export { IfcStructuralLoadSingleDisplacement } from './IfcStructuralLoadSingleDisplacement.bldrs';
-export { IfcStructuralLoadSingleForce } from './IfcStructuralLoadSingleForce.bldrs';
-export { IfcStructuralLoadTemperature } from './IfcStructuralLoadTemperature.bldrs';
-export { IfcSweptSurface } from './IfcSweptSurface.bldrs';
-export { IfcTextLiteralWithExtent } from './IfcTextLiteralWithExtent.bldrs';
-export { IfcVertexPoint } from './IfcVertexPoint.bldrs';
-export { IfcActionRequest } from './IfcActionRequest.bldrs';
-export { IfcOccupant } from './IfcOccupant.bldrs';
-export { IfcAdvancedBrep } from './IfcAdvancedBrep.bldrs';
-export { IfcAdvancedFace } from './IfcAdvancedFace.bldrs';
-export { IfcAnnotation } from './IfcAnnotation.bldrs';
-export { IfcAsset } from './IfcAsset.bldrs';
-export { IfcBSplineCurve } from './IfcBSplineCurve.bldrs';
-export { IfcBSplineSurface } from './IfcBSplineSurface.bldrs';
-export { IfcCompositeCurve } from './IfcCompositeCurve.bldrs';
-export { IfcIndexedPolyCurve } from './IfcIndexedPolyCurve.bldrs';
-export { IfcPolyline } from './IfcPolyline.bldrs';
-export { IfcTrimmedCurve } from './IfcTrimmedCurve.bldrs';
-export { IfcCurveBoundedPlane } from './IfcCurveBoundedPlane.bldrs';
-export { IfcCurveBoundedSurface } from './IfcCurveBoundedSurface.bldrs';
-export { IfcRectangularTrimmedSurface } from './IfcRectangularTrimmedSurface.bldrs';
-export { IfcElement } from './IfcElement.bldrs';
-export { IfcElementType } from './IfcElementType.bldrs';
-export { IfcSystem } from './IfcSystem.bldrs';
-export { IfcCartesianTransformationOperator2DnonUniform } from './IfcCartesianTransformationOperator2DnonUniform.bldrs';
-export { IfcCartesianTransformationOperator3DnonUniform } from './IfcCartesianTransformationOperator3DnonUniform.bldrs';
-export { IfcCircle } from './IfcCircle.bldrs';
-export { IfcComplexPropertyTemplate } from './IfcComplexPropertyTemplate.bldrs';
-export { IfcEllipse } from './IfcEllipse.bldrs';
-export { IfcConstructionResource } from './IfcConstructionResource.bldrs';
-export { IfcConstructionResourceType } from './IfcConstructionResourceType.bldrs';
-export { IfcCostItem } from './IfcCostItem.bldrs';
-export { IfcCostSchedule } from './IfcCostSchedule.bldrs';
-export { IfcPerformanceHistory } from './IfcPerformanceHistory.bldrs';
-export { IfcPermit } from './IfcPermit.bldrs';
-export { IfcProjectOrder } from './IfcProjectOrder.bldrs';
-export { IfcWorkCalendar } from './IfcWorkCalendar.bldrs';
-export { IfcWorkControl } from './IfcWorkControl.bldrs';
-export { IfcCylindricalSurface } from './IfcCylindricalSurface.bldrs';
-export { IfcPort } from './IfcPort.bldrs';
-export { IfcDoorLiningProperties } from './IfcDoorLiningProperties.bldrs';
-export { IfcDoorPanelProperties } from './IfcDoorPanelProperties.bldrs';
-export { IfcDoorStyle } from './IfcDoorStyle.bldrs';
-export { IfcElementQuantity } from './IfcElementQuantity.bldrs';
-export { IfcPlane } from './IfcPlane.bldrs';
-export { IfcSphericalSurface } from './IfcSphericalSurface.bldrs';
-export { IfcToroidalSurface } from './IfcToroidalSurface.bldrs';
-export { IfcEvent } from './IfcEvent.bldrs';
-export { IfcEventType } from './IfcEventType.bldrs';
-export { IfcSpatialElement } from './IfcSpatialElement.bldrs';
-export { IfcExtrudedAreaSolid } from './IfcExtrudedAreaSolid.bldrs';
-export { IfcFacetedBrep } from './IfcFacetedBrep.bldrs';
-export { IfcFixedReferenceSweptAreaSolid } from './IfcFixedReferenceSweptAreaSolid.bldrs';
-export { IfcGrid } from './IfcGrid.bldrs';
-export { IfcInventory } from './IfcInventory.bldrs';
-export { IfcStructuralLoadGroup } from './IfcStructuralLoadGroup.bldrs';
-export { IfcStructuralResultGroup } from './IfcStructuralResultGroup.bldrs';
-export { IfcIndexedPolygonalFaceWithVoids } from './IfcIndexedPolygonalFaceWithVoids.bldrs';
-export { IfcIntersectionCurve } from './IfcIntersectionCurve.bldrs';
-export { IfcLightSourceSpot } from './IfcLightSourceSpot.bldrs';
-export { IfcPermeableCoveringProperties } from './IfcPermeableCoveringProperties.bldrs';
-export { IfcPolygonalFaceSet } from './IfcPolygonalFaceSet.bldrs';
-export { IfcReinforcementDefinitionProperties } from './IfcReinforcementDefinitionProperties.bldrs';
-export { IfcWindowLiningProperties } from './IfcWindowLiningProperties.bldrs';
-export { IfcWindowPanelProperties } from './IfcWindowPanelProperties.bldrs';
-export { IfcProcedure } from './IfcProcedure.bldrs';
-export { IfcProcedureType } from './IfcProcedureType.bldrs';
-export { IfcTask } from './IfcTask.bldrs';
-export { IfcProxy } from './IfcProxy.bldrs';
-export { IfcStructuralActivity } from './IfcStructuralActivity.bldrs';
-export { IfcStructuralItem } from './IfcStructuralItem.bldrs';
-export { IfcSimplePropertyTemplate } from './IfcSimplePropertyTemplate.bldrs';
-export { IfcRelAssignsToGroupByFactor } from './IfcRelAssignsToGroupByFactor.bldrs';
-export { IfcRelConnectsPathElements } from './IfcRelConnectsPathElements.bldrs';
-export { IfcRelConnectsWithRealizingElements } from './IfcRelConnectsWithRealizingElements.bldrs';
-export { IfcRelConnectsWithEccentricity } from './IfcRelConnectsWithEccentricity.bldrs';
-export { IfcRelSpaceBoundary1stLevel } from './IfcRelSpaceBoundary1stLevel.bldrs';
-export { IfcRevolvedAreaSolid } from './IfcRevolvedAreaSolid.bldrs';
-export { IfcSeamCurve } from './IfcSeamCurve.bldrs';
-export { IfcSpatialElementType } from './IfcSpatialElementType.bldrs';
-export { IfcStructuralLoadSingleDisplacementDistortion } from './IfcStructuralLoadSingleDisplacementDistortion.bldrs';
-export { IfcStructuralLoadSingleForceWarping } from './IfcStructuralLoadSingleForceWarping.bldrs';
-export { IfcSurfaceCurveSweptAreaSolid } from './IfcSurfaceCurveSweptAreaSolid.bldrs';
-export { IfcSurfaceOfLinearExtrusion } from './IfcSurfaceOfLinearExtrusion.bldrs';
-export { IfcSurfaceOfRevolution } from './IfcSurfaceOfRevolution.bldrs';
-export { IfcSweptDiskSolidPolygonal } from './IfcSweptDiskSolidPolygonal.bldrs';
-export { IfcTaskType } from './IfcTaskType.bldrs';
-export { IfcTriangulatedFaceSet } from './IfcTriangulatedFaceSet.bldrs';
-export { IfcWindowStyle } from './IfcWindowStyle.bldrs';
-export { IfcAdvancedBrepWithVoids } from './IfcAdvancedBrepWithVoids.bldrs';
-export { IfcBSplineCurveWithKnots } from './IfcBSplineCurveWithKnots.bldrs';
-export { IfcBSplineSurfaceWithKnots } from './IfcBSplineSurfaceWithKnots.bldrs';
-export { IfcBuildingElement } from './IfcBuildingElement.bldrs';
-export { IfcBuildingElementType } from './IfcBuildingElementType.bldrs';
-export { IfcCompositeCurveOnSurface } from './IfcCompositeCurveOnSurface.bldrs';
-export { IfcSpatialStructureElement } from './IfcSpatialStructureElement.bldrs';
-export { IfcElementComponent } from './IfcElementComponent.bldrs';
-export { IfcElementComponentType } from './IfcElementComponentType.bldrs';
-export { IfcBuildingSystem } from './IfcBuildingSystem.bldrs';
-export { IfcCivilElement } from './IfcCivilElement.bldrs';
-export { IfcCivilElementType } from './IfcCivilElementType.bldrs';
-export { IfcConstructionEquipmentResource } from './IfcConstructionEquipmentResource.bldrs';
-export { IfcConstructionEquipmentResourceType } from './IfcConstructionEquipmentResourceType.bldrs';
-export { IfcConstructionMaterialResource } from './IfcConstructionMaterialResource.bldrs';
-export { IfcConstructionMaterialResourceType } from './IfcConstructionMaterialResourceType.bldrs';
-export { IfcConstructionProductResource } from './IfcConstructionProductResource.bldrs';
-export { IfcConstructionProductResourceType } from './IfcConstructionProductResourceType.bldrs';
-export { IfcCrewResource } from './IfcCrewResource.bldrs';
-export { IfcLaborResource } from './IfcLaborResource.bldrs';
-export { IfcSubContractResource } from './IfcSubContractResource.bldrs';
-export { IfcCrewResourceType } from './IfcCrewResourceType.bldrs';
-export { IfcLaborResourceType } from './IfcLaborResourceType.bldrs';
-export { IfcSubContractResourceType } from './IfcSubContractResourceType.bldrs';
-export { IfcDistributionSystem } from './IfcDistributionSystem.bldrs';
-export { IfcDistributionElement } from './IfcDistributionElement.bldrs';
-export { IfcDistributionElementType } from './IfcDistributionElementType.bldrs';
-export { IfcDistributionPort } from './IfcDistributionPort.bldrs';
-export { IfcElementAssembly } from './IfcElementAssembly.bldrs';
-export { IfcFeatureElement } from './IfcFeatureElement.bldrs';
-export { IfcFurnishingElement } from './IfcFurnishingElement.bldrs';
-export { IfcGeographicElement } from './IfcGeographicElement.bldrs';
-export { IfcTransportElement } from './IfcTransportElement.bldrs';
-export { IfcVirtualElement } from './IfcVirtualElement.bldrs';
-export { IfcElementAssemblyType } from './IfcElementAssemblyType.bldrs';
-export { IfcFurnishingElementType } from './IfcFurnishingElementType.bldrs';
-export { IfcGeographicElementType } from './IfcGeographicElementType.bldrs';
-export { IfcTransportElementType } from './IfcTransportElementType.bldrs';
-export { IfcExternalSpatialStructureElement } from './IfcExternalSpatialStructureElement.bldrs';
-export { IfcExtrudedAreaSolidTapered } from './IfcExtrudedAreaSolidTapered.bldrs';
-export { IfcFacetedBrepWithVoids } from './IfcFacetedBrepWithVoids.bldrs';
-export { IfcRelSpaceBoundary2ndLevel } from './IfcRelSpaceBoundary2ndLevel.bldrs';
-export { IfcRevolvedAreaSolidTapered } from './IfcRevolvedAreaSolidTapered.bldrs';
-export { IfcSpatialStructureElementType } from './IfcSpatialStructureElementType.bldrs';
-export { IfcSpatialZone } from './IfcSpatialZone.bldrs';
-export { IfcSpatialZoneType } from './IfcSpatialZoneType.bldrs';
-export { IfcStructuralAction } from './IfcStructuralAction.bldrs';
-export { IfcStructuralReaction } from './IfcStructuralReaction.bldrs';
-export { IfcStructuralAnalysisModel } from './IfcStructuralAnalysisModel.bldrs';
-export { IfcStructuralConnection } from './IfcStructuralConnection.bldrs';
-export { IfcStructuralMember } from './IfcStructuralMember.bldrs';
-export { IfcStructuralLoadCase } from './IfcStructuralLoadCase.bldrs';
-export { IfcZone } from './IfcZone.bldrs';
-export { IfcWorkPlan } from './IfcWorkPlan.bldrs';
-export { IfcWorkSchedule } from './IfcWorkSchedule.bldrs';
-export { IfcDistributionControlElement } from './IfcDistributionControlElement.bldrs';
-export { IfcDistributionControlElementType } from './IfcDistributionControlElementType.bldrs';
-export { IfcRationalBSplineCurveWithKnots } from './IfcRationalBSplineCurveWithKnots.bldrs';
-export { IfcRationalBSplineSurfaceWithKnots } from './IfcRationalBSplineSurfaceWithKnots.bldrs';
-export { IfcBeam } from './IfcBeam.bldrs';
-export { IfcBeamType } from './IfcBeamType.bldrs';
-export { IfcBoundaryCurve } from './IfcBoundaryCurve.bldrs';
-export { IfcBuilding } from './IfcBuilding.bldrs';
-export { IfcBuildingElementProxy } from './IfcBuildingElementProxy.bldrs';
-export { IfcChimney } from './IfcChimney.bldrs';
-export { IfcColumn } from './IfcColumn.bldrs';
-export { IfcCovering } from './IfcCovering.bldrs';
-export { IfcCurtainWall } from './IfcCurtainWall.bldrs';
-export { IfcDoor } from './IfcDoor.bldrs';
-export { IfcFooting } from './IfcFooting.bldrs';
-export { IfcMember } from './IfcMember.bldrs';
-export { IfcPile } from './IfcPile.bldrs';
-export { IfcPlate } from './IfcPlate.bldrs';
-export { IfcRailing } from './IfcRailing.bldrs';
-export { IfcRamp } from './IfcRamp.bldrs';
-export { IfcRampFlight } from './IfcRampFlight.bldrs';
-export { IfcRoof } from './IfcRoof.bldrs';
-export { IfcShadingDevice } from './IfcShadingDevice.bldrs';
-export { IfcSlab } from './IfcSlab.bldrs';
-export { IfcStair } from './IfcStair.bldrs';
-export { IfcStairFlight } from './IfcStairFlight.bldrs';
-export { IfcWall } from './IfcWall.bldrs';
-export { IfcWindow } from './IfcWindow.bldrs';
-export { IfcBuildingElementPart } from './IfcBuildingElementPart.bldrs';
-export { IfcBuildingElementPartType } from './IfcBuildingElementPartType.bldrs';
-export { IfcBuildingElementProxyType } from './IfcBuildingElementProxyType.bldrs';
-export { IfcChimneyType } from './IfcChimneyType.bldrs';
-export { IfcColumnType } from './IfcColumnType.bldrs';
-export { IfcCoveringType } from './IfcCoveringType.bldrs';
-export { IfcCurtainWallType } from './IfcCurtainWallType.bldrs';
-export { IfcDoorType } from './IfcDoorType.bldrs';
-export { IfcFootingType } from './IfcFootingType.bldrs';
-export { IfcMemberType } from './IfcMemberType.bldrs';
-export { IfcPileType } from './IfcPileType.bldrs';
-export { IfcPlateType } from './IfcPlateType.bldrs';
-export { IfcRailingType } from './IfcRailingType.bldrs';
-export { IfcRampFlightType } from './IfcRampFlightType.bldrs';
-export { IfcRampType } from './IfcRampType.bldrs';
-export { IfcRoofType } from './IfcRoofType.bldrs';
-export { IfcShadingDeviceType } from './IfcShadingDeviceType.bldrs';
-export { IfcSlabType } from './IfcSlabType.bldrs';
-export { IfcStairFlightType } from './IfcStairFlightType.bldrs';
-export { IfcStairType } from './IfcStairType.bldrs';
-export { IfcWallType } from './IfcWallType.bldrs';
-export { IfcWindowType } from './IfcWindowType.bldrs';
-export { IfcBuildingStorey } from './IfcBuildingStorey.bldrs';
-export { IfcDiscreteAccessory } from './IfcDiscreteAccessory.bldrs';
-export { IfcDiscreteAccessoryType } from './IfcDiscreteAccessoryType.bldrs';
-export { IfcDistributionFlowElement } from './IfcDistributionFlowElement.bldrs';
-export { IfcDistributionFlowElementType } from './IfcDistributionFlowElementType.bldrs';
-export { IfcDistributionCircuit } from './IfcDistributionCircuit.bldrs';
-export { IfcFastener } from './IfcFastener.bldrs';
-export { IfcMechanicalFastener } from './IfcMechanicalFastener.bldrs';
-export { IfcReinforcingElement } from './IfcReinforcingElement.bldrs';
-export { IfcVibrationIsolator } from './IfcVibrationIsolator.bldrs';
-export { IfcFastenerType } from './IfcFastenerType.bldrs';
-export { IfcMechanicalFastenerType } from './IfcMechanicalFastenerType.bldrs';
-export { IfcReinforcingElementType } from './IfcReinforcingElementType.bldrs';
-export { IfcVibrationIsolatorType } from './IfcVibrationIsolatorType.bldrs';
-export { IfcExternalSpatialElement } from './IfcExternalSpatialElement.bldrs';
-export { IfcFeatureElementAddition } from './IfcFeatureElementAddition.bldrs';
-export { IfcFeatureElementSubtraction } from './IfcFeatureElementSubtraction.bldrs';
-export { IfcSurfaceFeature } from './IfcSurfaceFeature.bldrs';
-export { IfcFurniture } from './IfcFurniture.bldrs';
-export { IfcSystemFurnitureElement } from './IfcSystemFurnitureElement.bldrs';
-export { IfcFurnitureType } from './IfcFurnitureType.bldrs';
-export { IfcSystemFurnitureElementType } from './IfcSystemFurnitureElementType.bldrs';
-export { IfcSite } from './IfcSite.bldrs';
-export { IfcSpace } from './IfcSpace.bldrs';
-export { IfcSpaceType } from './IfcSpaceType.bldrs';
-export { IfcStructuralCurveAction } from './IfcStructuralCurveAction.bldrs';
-export { IfcStructuralPointAction } from './IfcStructuralPointAction.bldrs';
-export { IfcStructuralSurfaceAction } from './IfcStructuralSurfaceAction.bldrs';
-export { IfcStructuralCurveConnection } from './IfcStructuralCurveConnection.bldrs';
-export { IfcStructuralPointConnection } from './IfcStructuralPointConnection.bldrs';
-export { IfcStructuralSurfaceConnection } from './IfcStructuralSurfaceConnection.bldrs';
-export { IfcStructuralCurveMember } from './IfcStructuralCurveMember.bldrs';
-export { IfcStructuralCurveReaction } from './IfcStructuralCurveReaction.bldrs';
-export { IfcStructuralSurfaceMember } from './IfcStructuralSurfaceMember.bldrs';
-export { IfcStructuralPointReaction } from './IfcStructuralPointReaction.bldrs';
-export { IfcStructuralSurfaceReaction } from './IfcStructuralSurfaceReaction.bldrs';
-export { IfcActuator } from './IfcActuator.bldrs';
-export { IfcActuatorType } from './IfcActuatorType.bldrs';
-export { IfcFlowTerminal } from './IfcFlowTerminal.bldrs';
-export { IfcFlowController } from './IfcFlowController.bldrs';
-export { IfcFlowControllerType } from './IfcFlowControllerType.bldrs';
-export { IfcFlowTerminalType } from './IfcFlowTerminalType.bldrs';
-export { IfcEnergyConversionDevice } from './IfcEnergyConversionDevice.bldrs';
-export { IfcEnergyConversionDeviceType } from './IfcEnergyConversionDeviceType.bldrs';
-export { IfcAlarm } from './IfcAlarm.bldrs';
-export { IfcAlarmType } from './IfcAlarmType.bldrs';
-export { IfcBeamStandardCase } from './IfcBeamStandardCase.bldrs';
-export { IfcOuterBoundaryCurve } from './IfcOuterBoundaryCurve.bldrs';
-export { IfcFlowFitting } from './IfcFlowFitting.bldrs';
-export { IfcFlowFittingType } from './IfcFlowFittingType.bldrs';
-export { IfcFlowSegment } from './IfcFlowSegment.bldrs';
-export { IfcFlowSegmentType } from './IfcFlowSegmentType.bldrs';
-export { IfcColumnStandardCase } from './IfcColumnStandardCase.bldrs';
-export { IfcFlowMovingDevice } from './IfcFlowMovingDevice.bldrs';
-export { IfcFlowMovingDeviceType } from './IfcFlowMovingDeviceType.bldrs';
-export { IfcController } from './IfcController.bldrs';
-export { IfcControllerType } from './IfcControllerType.bldrs';
-export { IfcDistributionChamberElement } from './IfcDistributionChamberElement.bldrs';
-export { IfcDistributionChamberElementType } from './IfcDistributionChamberElementType.bldrs';
-export { IfcFlowInstrument } from './IfcFlowInstrument.bldrs';
-export { IfcProtectiveDeviceTrippingUnit } from './IfcProtectiveDeviceTrippingUnit.bldrs';
-export { IfcSensor } from './IfcSensor.bldrs';
-export { IfcUnitaryControlElement } from './IfcUnitaryControlElement.bldrs';
-export { IfcFlowInstrumentType } from './IfcFlowInstrumentType.bldrs';
-export { IfcProtectiveDeviceTrippingUnitType } from './IfcProtectiveDeviceTrippingUnitType.bldrs';
-export { IfcSensorType } from './IfcSensorType.bldrs';
-export { IfcUnitaryControlElementType } from './IfcUnitaryControlElementType.bldrs';
-export { IfcFlowStorageDevice } from './IfcFlowStorageDevice.bldrs';
-export { IfcFlowTreatmentDevice } from './IfcFlowTreatmentDevice.bldrs';
-export { IfcFlowStorageDeviceType } from './IfcFlowStorageDeviceType.bldrs';
-export { IfcFlowTreatmentDeviceType } from './IfcFlowTreatmentDeviceType.bldrs';
-export { IfcDoorStandardCase } from './IfcDoorStandardCase.bldrs';
-export { IfcProjectionElement } from './IfcProjectionElement.bldrs';
-export { IfcOpeningElement } from './IfcOpeningElement.bldrs';
-export { IfcVoidingFeature } from './IfcVoidingFeature.bldrs';
-export { IfcMemberStandardCase } from './IfcMemberStandardCase.bldrs';
-export { IfcPlateStandardCase } from './IfcPlateStandardCase.bldrs';
-export { IfcReinforcingBar } from './IfcReinforcingBar.bldrs';
-export { IfcReinforcingBarType } from './IfcReinforcingBarType.bldrs';
-export { IfcReinforcingMesh } from './IfcReinforcingMesh.bldrs';
-export { IfcTendon } from './IfcTendon.bldrs';
-export { IfcTendonAnchor } from './IfcTendonAnchor.bldrs';
-export { IfcReinforcingMeshType } from './IfcReinforcingMeshType.bldrs';
-export { IfcTendonAnchorType } from './IfcTendonAnchorType.bldrs';
-export { IfcTendonType } from './IfcTendonType.bldrs';
-export { IfcSlabElementedCase } from './IfcSlabElementedCase.bldrs';
-export { IfcSlabStandardCase } from './IfcSlabStandardCase.bldrs';
-export { IfcStructuralLinearAction } from './IfcStructuralLinearAction.bldrs';
-export { IfcStructuralCurveMemberVarying } from './IfcStructuralCurveMemberVarying.bldrs';
-export { IfcStructuralPlanarAction } from './IfcStructuralPlanarAction.bldrs';
-export { IfcStructuralSurfaceMemberVarying } from './IfcStructuralSurfaceMemberVarying.bldrs';
-export { IfcWallElementedCase } from './IfcWallElementedCase.bldrs';
-export { IfcWallStandardCase } from './IfcWallStandardCase.bldrs';
-export { IfcWindowStandardCase } from './IfcWindowStandardCase.bldrs';
-export { IfcAirTerminal } from './IfcAirTerminal.bldrs';
-export { IfcAirTerminalBox } from './IfcAirTerminalBox.bldrs';
-export { IfcAirTerminalBoxType } from './IfcAirTerminalBoxType.bldrs';
-export { IfcAirTerminalType } from './IfcAirTerminalType.bldrs';
-export { IfcAirToAirHeatRecovery } from './IfcAirToAirHeatRecovery.bldrs';
-export { IfcAirToAirHeatRecoveryType } from './IfcAirToAirHeatRecoveryType.bldrs';
-export { IfcAudioVisualAppliance } from './IfcAudioVisualAppliance.bldrs';
-export { IfcAudioVisualApplianceType } from './IfcAudioVisualApplianceType.bldrs';
-export { IfcBoiler } from './IfcBoiler.bldrs';
-export { IfcBoilerType } from './IfcBoilerType.bldrs';
-export { IfcBurner } from './IfcBurner.bldrs';
-export { IfcBurnerType } from './IfcBurnerType.bldrs';
-export { IfcCableCarrierFitting } from './IfcCableCarrierFitting.bldrs';
-export { IfcCableCarrierFittingType } from './IfcCableCarrierFittingType.bldrs';
-export { IfcCableCarrierSegment } from './IfcCableCarrierSegment.bldrs';
-export { IfcCableCarrierSegmentType } from './IfcCableCarrierSegmentType.bldrs';
-export { IfcCableFitting } from './IfcCableFitting.bldrs';
-export { IfcCableFittingType } from './IfcCableFittingType.bldrs';
-export { IfcCableSegment } from './IfcCableSegment.bldrs';
-export { IfcCableSegmentType } from './IfcCableSegmentType.bldrs';
-export { IfcChiller } from './IfcChiller.bldrs';
-export { IfcChillerType } from './IfcChillerType.bldrs';
-export { IfcCoil } from './IfcCoil.bldrs';
-export { IfcCoilType } from './IfcCoilType.bldrs';
-export { IfcCommunicationsAppliance } from './IfcCommunicationsAppliance.bldrs';
-export { IfcCommunicationsApplianceType } from './IfcCommunicationsApplianceType.bldrs';
-export { IfcCompressor } from './IfcCompressor.bldrs';
-export { IfcCompressorType } from './IfcCompressorType.bldrs';
-export { IfcCondenser } from './IfcCondenser.bldrs';
-export { IfcCondenserType } from './IfcCondenserType.bldrs';
-export { IfcCooledBeam } from './IfcCooledBeam.bldrs';
-export { IfcCooledBeamType } from './IfcCooledBeamType.bldrs';
-export { IfcCoolingTower } from './IfcCoolingTower.bldrs';
-export { IfcCoolingTowerType } from './IfcCoolingTowerType.bldrs';
-export { IfcDamper } from './IfcDamper.bldrs';
-export { IfcDamperType } from './IfcDamperType.bldrs';
-export { IfcDuctFitting } from './IfcDuctFitting.bldrs';
-export { IfcDuctFittingType } from './IfcDuctFittingType.bldrs';
-export { IfcDuctSegment } from './IfcDuctSegment.bldrs';
-export { IfcDuctSegmentType } from './IfcDuctSegmentType.bldrs';
-export { IfcDuctSilencer } from './IfcDuctSilencer.bldrs';
-export { IfcDuctSilencerType } from './IfcDuctSilencerType.bldrs';
-export { IfcElectricAppliance } from './IfcElectricAppliance.bldrs';
-export { IfcElectricApplianceType } from './IfcElectricApplianceType.bldrs';
-export { IfcElectricDistributionBoard } from './IfcElectricDistributionBoard.bldrs';
-export { IfcElectricDistributionBoardType } from './IfcElectricDistributionBoardType.bldrs';
-export { IfcElectricFlowStorageDevice } from './IfcElectricFlowStorageDevice.bldrs';
-export { IfcElectricFlowStorageDeviceType } from './IfcElectricFlowStorageDeviceType.bldrs';
-export { IfcElectricGenerator } from './IfcElectricGenerator.bldrs';
-export { IfcElectricGeneratorType } from './IfcElectricGeneratorType.bldrs';
-export { IfcElectricMotor } from './IfcElectricMotor.bldrs';
-export { IfcElectricMotorType } from './IfcElectricMotorType.bldrs';
-export { IfcElectricTimeControl } from './IfcElectricTimeControl.bldrs';
-export { IfcElectricTimeControlType } from './IfcElectricTimeControlType.bldrs';
-export { IfcEngine } from './IfcEngine.bldrs';
-export { IfcEvaporativeCooler } from './IfcEvaporativeCooler.bldrs';
-export { IfcEvaporator } from './IfcEvaporator.bldrs';
-export { IfcHeatExchanger } from './IfcHeatExchanger.bldrs';
-export { IfcHumidifier } from './IfcHumidifier.bldrs';
-export { IfcMotorConnection } from './IfcMotorConnection.bldrs';
-export { IfcSolarDevice } from './IfcSolarDevice.bldrs';
-export { IfcTransformer } from './IfcTransformer.bldrs';
-export { IfcTubeBundle } from './IfcTubeBundle.bldrs';
-export { IfcUnitaryEquipment } from './IfcUnitaryEquipment.bldrs';
-export { IfcEngineType } from './IfcEngineType.bldrs';
-export { IfcEvaporativeCoolerType } from './IfcEvaporativeCoolerType.bldrs';
-export { IfcEvaporatorType } from './IfcEvaporatorType.bldrs';
-export { IfcHeatExchangerType } from './IfcHeatExchangerType.bldrs';
-export { IfcHumidifierType } from './IfcHumidifierType.bldrs';
-export { IfcMotorConnectionType } from './IfcMotorConnectionType.bldrs';
-export { IfcSolarDeviceType } from './IfcSolarDeviceType.bldrs';
-export { IfcTransformerType } from './IfcTransformerType.bldrs';
-export { IfcTubeBundleType } from './IfcTubeBundleType.bldrs';
-export { IfcUnitaryEquipmentType } from './IfcUnitaryEquipmentType.bldrs';
-export { IfcFan } from './IfcFan.bldrs';
-export { IfcFanType } from './IfcFanType.bldrs';
-export { IfcFilter } from './IfcFilter.bldrs';
-export { IfcFilterType } from './IfcFilterType.bldrs';
-export { IfcFireSuppressionTerminal } from './IfcFireSuppressionTerminal.bldrs';
-export { IfcFireSuppressionTerminalType } from './IfcFireSuppressionTerminalType.bldrs';
-export { IfcFlowMeter } from './IfcFlowMeter.bldrs';
-export { IfcProtectiveDevice } from './IfcProtectiveDevice.bldrs';
-export { IfcSwitchingDevice } from './IfcSwitchingDevice.bldrs';
-export { IfcValve } from './IfcValve.bldrs';
-export { IfcFlowMeterType } from './IfcFlowMeterType.bldrs';
-export { IfcProtectiveDeviceType } from './IfcProtectiveDeviceType.bldrs';
-export { IfcSwitchingDeviceType } from './IfcSwitchingDeviceType.bldrs';
-export { IfcValveType } from './IfcValveType.bldrs';
-export { IfcJunctionBox } from './IfcJunctionBox.bldrs';
-export { IfcPipeFitting } from './IfcPipeFitting.bldrs';
-export { IfcJunctionBoxType } from './IfcJunctionBoxType.bldrs';
-export { IfcPipeFittingType } from './IfcPipeFittingType.bldrs';
-export { IfcPump } from './IfcPump.bldrs';
-export { IfcPumpType } from './IfcPumpType.bldrs';
-export { IfcPipeSegment } from './IfcPipeSegment.bldrs';
-export { IfcPipeSegmentType } from './IfcPipeSegmentType.bldrs';
-export { IfcTank } from './IfcTank.bldrs';
-export { IfcTankType } from './IfcTankType.bldrs';
-export { IfcLamp } from './IfcLamp.bldrs';
-export { IfcLightFixture } from './IfcLightFixture.bldrs';
-export { IfcMedicalDevice } from './IfcMedicalDevice.bldrs';
-export { IfcOutlet } from './IfcOutlet.bldrs';
-export { IfcSanitaryTerminal } from './IfcSanitaryTerminal.bldrs';
-export { IfcSpaceHeater } from './IfcSpaceHeater.bldrs';
-export { IfcStackTerminal } from './IfcStackTerminal.bldrs';
-export { IfcWasteTerminal } from './IfcWasteTerminal.bldrs';
-export { IfcLampType } from './IfcLampType.bldrs';
-export { IfcLightFixtureType } from './IfcLightFixtureType.bldrs';
-export { IfcMedicalDeviceType } from './IfcMedicalDeviceType.bldrs';
-export { IfcOutletType } from './IfcOutletType.bldrs';
-export { IfcSanitaryTerminalType } from './IfcSanitaryTerminalType.bldrs';
-export { IfcSpaceHeaterType } from './IfcSpaceHeaterType.bldrs';
-export { IfcStackTerminalType } from './IfcStackTerminalType.bldrs';
-export { IfcWasteTerminalType } from './IfcWasteTerminalType.bldrs';
-export { IfcInterceptor } from './IfcInterceptor.bldrs';
-export { IfcInterceptorType } from './IfcInterceptorType.bldrs';
-export { IfcOpeningStandardCase } from './IfcOpeningStandardCase.bldrs';
+export { IfcActionRequestTypeEnum, IfcActionRequestTypeEnumDeserializeStep } from './IfcActionRequestTypeEnum.gen'
+export { IfcActionSourceTypeEnum, IfcActionSourceTypeEnumDeserializeStep } from './IfcActionSourceTypeEnum.gen'
+export { IfcActionTypeEnum, IfcActionTypeEnumDeserializeStep } from './IfcActionTypeEnum.gen'
+export { IfcActuatorTypeEnum, IfcActuatorTypeEnumDeserializeStep } from './IfcActuatorTypeEnum.gen'
+export { IfcAddressTypeEnum, IfcAddressTypeEnumDeserializeStep } from './IfcAddressTypeEnum.gen'
+export { IfcAirTerminalBoxTypeEnum, IfcAirTerminalBoxTypeEnumDeserializeStep } from './IfcAirTerminalBoxTypeEnum.gen'
+export { IfcAirTerminalTypeEnum, IfcAirTerminalTypeEnumDeserializeStep } from './IfcAirTerminalTypeEnum.gen'
+export { IfcAirToAirHeatRecoveryTypeEnum, IfcAirToAirHeatRecoveryTypeEnumDeserializeStep } from './IfcAirToAirHeatRecoveryTypeEnum.gen'
+export { IfcAlarmTypeEnum, IfcAlarmTypeEnumDeserializeStep } from './IfcAlarmTypeEnum.gen'
+export { IfcAnalysisModelTypeEnum, IfcAnalysisModelTypeEnumDeserializeStep } from './IfcAnalysisModelTypeEnum.gen'
+export { IfcAnalysisTheoryTypeEnum, IfcAnalysisTheoryTypeEnumDeserializeStep } from './IfcAnalysisTheoryTypeEnum.gen'
+export { IfcArithmeticOperatorEnum, IfcArithmeticOperatorEnumDeserializeStep } from './IfcArithmeticOperatorEnum.gen'
+export { IfcAssemblyPlaceEnum, IfcAssemblyPlaceEnumDeserializeStep } from './IfcAssemblyPlaceEnum.gen'
+export { IfcAudioVisualApplianceTypeEnum, IfcAudioVisualApplianceTypeEnumDeserializeStep } from './IfcAudioVisualApplianceTypeEnum.gen'
+export { IfcBeamTypeEnum, IfcBeamTypeEnumDeserializeStep } from './IfcBeamTypeEnum.gen'
+export { IfcBenchmarkEnum, IfcBenchmarkEnumDeserializeStep } from './IfcBenchmarkEnum.gen'
+export { IfcBoilerTypeEnum, IfcBoilerTypeEnumDeserializeStep } from './IfcBoilerTypeEnum.gen'
+export { IfcBooleanOperator, IfcBooleanOperatorDeserializeStep } from './IfcBooleanOperator.gen'
+export { IfcBSplineCurveForm, IfcBSplineCurveFormDeserializeStep } from './IfcBSplineCurveForm.gen'
+export { IfcBSplineSurfaceForm, IfcBSplineSurfaceFormDeserializeStep } from './IfcBSplineSurfaceForm.gen'
+export { IfcBuildingElementPartTypeEnum, IfcBuildingElementPartTypeEnumDeserializeStep } from './IfcBuildingElementPartTypeEnum.gen'
+export { IfcBuildingElementProxyTypeEnum, IfcBuildingElementProxyTypeEnumDeserializeStep } from './IfcBuildingElementProxyTypeEnum.gen'
+export { IfcBuildingSystemTypeEnum, IfcBuildingSystemTypeEnumDeserializeStep } from './IfcBuildingSystemTypeEnum.gen'
+export { IfcBurnerTypeEnum, IfcBurnerTypeEnumDeserializeStep } from './IfcBurnerTypeEnum.gen'
+export { IfcCableCarrierFittingTypeEnum, IfcCableCarrierFittingTypeEnumDeserializeStep } from './IfcCableCarrierFittingTypeEnum.gen'
+export { IfcCableCarrierSegmentTypeEnum, IfcCableCarrierSegmentTypeEnumDeserializeStep } from './IfcCableCarrierSegmentTypeEnum.gen'
+export { IfcCableFittingTypeEnum, IfcCableFittingTypeEnumDeserializeStep } from './IfcCableFittingTypeEnum.gen'
+export { IfcCableSegmentTypeEnum, IfcCableSegmentTypeEnumDeserializeStep } from './IfcCableSegmentTypeEnum.gen'
+export { IfcChangeActionEnum, IfcChangeActionEnumDeserializeStep } from './IfcChangeActionEnum.gen'
+export { IfcChillerTypeEnum, IfcChillerTypeEnumDeserializeStep } from './IfcChillerTypeEnum.gen'
+export { IfcChimneyTypeEnum, IfcChimneyTypeEnumDeserializeStep } from './IfcChimneyTypeEnum.gen'
+export { IfcCoilTypeEnum, IfcCoilTypeEnumDeserializeStep } from './IfcCoilTypeEnum.gen'
+export { IfcColumnTypeEnum, IfcColumnTypeEnumDeserializeStep } from './IfcColumnTypeEnum.gen'
+export { IfcCommunicationsApplianceTypeEnum, IfcCommunicationsApplianceTypeEnumDeserializeStep } from './IfcCommunicationsApplianceTypeEnum.gen'
+export { IfcComplexPropertyTemplateTypeEnum, IfcComplexPropertyTemplateTypeEnumDeserializeStep } from './IfcComplexPropertyTemplateTypeEnum.gen'
+export { IfcCompressorTypeEnum, IfcCompressorTypeEnumDeserializeStep } from './IfcCompressorTypeEnum.gen'
+export { IfcCondenserTypeEnum, IfcCondenserTypeEnumDeserializeStep } from './IfcCondenserTypeEnum.gen'
+export { IfcConnectionTypeEnum, IfcConnectionTypeEnumDeserializeStep } from './IfcConnectionTypeEnum.gen'
+export { IfcConstraintEnum, IfcConstraintEnumDeserializeStep } from './IfcConstraintEnum.gen'
+export { IfcConstructionEquipmentResourceTypeEnum, IfcConstructionEquipmentResourceTypeEnumDeserializeStep } from './IfcConstructionEquipmentResourceTypeEnum.gen'
+export { IfcConstructionMaterialResourceTypeEnum, IfcConstructionMaterialResourceTypeEnumDeserializeStep } from './IfcConstructionMaterialResourceTypeEnum.gen'
+export { IfcConstructionProductResourceTypeEnum, IfcConstructionProductResourceTypeEnumDeserializeStep } from './IfcConstructionProductResourceTypeEnum.gen'
+export { IfcControllerTypeEnum, IfcControllerTypeEnumDeserializeStep } from './IfcControllerTypeEnum.gen'
+export { IfcCooledBeamTypeEnum, IfcCooledBeamTypeEnumDeserializeStep } from './IfcCooledBeamTypeEnum.gen'
+export { IfcCoolingTowerTypeEnum, IfcCoolingTowerTypeEnumDeserializeStep } from './IfcCoolingTowerTypeEnum.gen'
+export { IfcCostItemTypeEnum, IfcCostItemTypeEnumDeserializeStep } from './IfcCostItemTypeEnum.gen'
+export { IfcCostScheduleTypeEnum, IfcCostScheduleTypeEnumDeserializeStep } from './IfcCostScheduleTypeEnum.gen'
+export { IfcCoveringTypeEnum, IfcCoveringTypeEnumDeserializeStep } from './IfcCoveringTypeEnum.gen'
+export { IfcCrewResourceTypeEnum, IfcCrewResourceTypeEnumDeserializeStep } from './IfcCrewResourceTypeEnum.gen'
+export { IfcCurtainWallTypeEnum, IfcCurtainWallTypeEnumDeserializeStep } from './IfcCurtainWallTypeEnum.gen'
+export { IfcCurveInterpolationEnum, IfcCurveInterpolationEnumDeserializeStep } from './IfcCurveInterpolationEnum.gen'
+export { IfcDamperTypeEnum, IfcDamperTypeEnumDeserializeStep } from './IfcDamperTypeEnum.gen'
+export { IfcDataOriginEnum, IfcDataOriginEnumDeserializeStep } from './IfcDataOriginEnum.gen'
+export { IfcDerivedUnitEnum, IfcDerivedUnitEnumDeserializeStep } from './IfcDerivedUnitEnum.gen'
+export { IfcDirectionSenseEnum, IfcDirectionSenseEnumDeserializeStep } from './IfcDirectionSenseEnum.gen'
+export { IfcDiscreteAccessoryTypeEnum, IfcDiscreteAccessoryTypeEnumDeserializeStep } from './IfcDiscreteAccessoryTypeEnum.gen'
+export { IfcDistributionChamberElementTypeEnum, IfcDistributionChamberElementTypeEnumDeserializeStep } from './IfcDistributionChamberElementTypeEnum.gen'
+export { IfcDistributionPortTypeEnum, IfcDistributionPortTypeEnumDeserializeStep } from './IfcDistributionPortTypeEnum.gen'
+export { IfcDistributionSystemEnum, IfcDistributionSystemEnumDeserializeStep } from './IfcDistributionSystemEnum.gen'
+export { IfcDocumentConfidentialityEnum, IfcDocumentConfidentialityEnumDeserializeStep } from './IfcDocumentConfidentialityEnum.gen'
+export { IfcDocumentStatusEnum, IfcDocumentStatusEnumDeserializeStep } from './IfcDocumentStatusEnum.gen'
+export { IfcDoorPanelOperationEnum, IfcDoorPanelOperationEnumDeserializeStep } from './IfcDoorPanelOperationEnum.gen'
+export { IfcDoorPanelPositionEnum, IfcDoorPanelPositionEnumDeserializeStep } from './IfcDoorPanelPositionEnum.gen'
+export { IfcDoorStyleConstructionEnum, IfcDoorStyleConstructionEnumDeserializeStep } from './IfcDoorStyleConstructionEnum.gen'
+export { IfcDoorStyleOperationEnum, IfcDoorStyleOperationEnumDeserializeStep } from './IfcDoorStyleOperationEnum.gen'
+export { IfcDoorTypeEnum, IfcDoorTypeEnumDeserializeStep } from './IfcDoorTypeEnum.gen'
+export { IfcDoorTypeOperationEnum, IfcDoorTypeOperationEnumDeserializeStep } from './IfcDoorTypeOperationEnum.gen'
+export { IfcDuctFittingTypeEnum, IfcDuctFittingTypeEnumDeserializeStep } from './IfcDuctFittingTypeEnum.gen'
+export { IfcDuctSegmentTypeEnum, IfcDuctSegmentTypeEnumDeserializeStep } from './IfcDuctSegmentTypeEnum.gen'
+export { IfcDuctSilencerTypeEnum, IfcDuctSilencerTypeEnumDeserializeStep } from './IfcDuctSilencerTypeEnum.gen'
+export { IfcElectricApplianceTypeEnum, IfcElectricApplianceTypeEnumDeserializeStep } from './IfcElectricApplianceTypeEnum.gen'
+export { IfcElectricDistributionBoardTypeEnum, IfcElectricDistributionBoardTypeEnumDeserializeStep } from './IfcElectricDistributionBoardTypeEnum.gen'
+export { IfcElectricFlowStorageDeviceTypeEnum, IfcElectricFlowStorageDeviceTypeEnumDeserializeStep } from './IfcElectricFlowStorageDeviceTypeEnum.gen'
+export { IfcElectricGeneratorTypeEnum, IfcElectricGeneratorTypeEnumDeserializeStep } from './IfcElectricGeneratorTypeEnum.gen'
+export { IfcElectricMotorTypeEnum, IfcElectricMotorTypeEnumDeserializeStep } from './IfcElectricMotorTypeEnum.gen'
+export { IfcElectricTimeControlTypeEnum, IfcElectricTimeControlTypeEnumDeserializeStep } from './IfcElectricTimeControlTypeEnum.gen'
+export { IfcElementAssemblyTypeEnum, IfcElementAssemblyTypeEnumDeserializeStep } from './IfcElementAssemblyTypeEnum.gen'
+export { IfcElementCompositionEnum, IfcElementCompositionEnumDeserializeStep } from './IfcElementCompositionEnum.gen'
+export { IfcEngineTypeEnum, IfcEngineTypeEnumDeserializeStep } from './IfcEngineTypeEnum.gen'
+export { IfcEvaporativeCoolerTypeEnum, IfcEvaporativeCoolerTypeEnumDeserializeStep } from './IfcEvaporativeCoolerTypeEnum.gen'
+export { IfcEvaporatorTypeEnum, IfcEvaporatorTypeEnumDeserializeStep } from './IfcEvaporatorTypeEnum.gen'
+export { IfcEventTriggerTypeEnum, IfcEventTriggerTypeEnumDeserializeStep } from './IfcEventTriggerTypeEnum.gen'
+export { IfcEventTypeEnum, IfcEventTypeEnumDeserializeStep } from './IfcEventTypeEnum.gen'
+export { IfcExternalSpatialElementTypeEnum, IfcExternalSpatialElementTypeEnumDeserializeStep } from './IfcExternalSpatialElementTypeEnum.gen'
+export { IfcFanTypeEnum, IfcFanTypeEnumDeserializeStep } from './IfcFanTypeEnum.gen'
+export { IfcFastenerTypeEnum, IfcFastenerTypeEnumDeserializeStep } from './IfcFastenerTypeEnum.gen'
+export { IfcFilterTypeEnum, IfcFilterTypeEnumDeserializeStep } from './IfcFilterTypeEnum.gen'
+export { IfcFireSuppressionTerminalTypeEnum, IfcFireSuppressionTerminalTypeEnumDeserializeStep } from './IfcFireSuppressionTerminalTypeEnum.gen'
+export { IfcFlowDirectionEnum, IfcFlowDirectionEnumDeserializeStep } from './IfcFlowDirectionEnum.gen'
+export { IfcFlowInstrumentTypeEnum, IfcFlowInstrumentTypeEnumDeserializeStep } from './IfcFlowInstrumentTypeEnum.gen'
+export { IfcFlowMeterTypeEnum, IfcFlowMeterTypeEnumDeserializeStep } from './IfcFlowMeterTypeEnum.gen'
+export { IfcFootingTypeEnum, IfcFootingTypeEnumDeserializeStep } from './IfcFootingTypeEnum.gen'
+export { IfcFurnitureTypeEnum, IfcFurnitureTypeEnumDeserializeStep } from './IfcFurnitureTypeEnum.gen'
+export { IfcGeographicElementTypeEnum, IfcGeographicElementTypeEnumDeserializeStep } from './IfcGeographicElementTypeEnum.gen'
+export { IfcGeometricProjectionEnum, IfcGeometricProjectionEnumDeserializeStep } from './IfcGeometricProjectionEnum.gen'
+export { IfcGlobalOrLocalEnum, IfcGlobalOrLocalEnumDeserializeStep } from './IfcGlobalOrLocalEnum.gen'
+export { IfcGridTypeEnum, IfcGridTypeEnumDeserializeStep } from './IfcGridTypeEnum.gen'
+export { IfcHeatExchangerTypeEnum, IfcHeatExchangerTypeEnumDeserializeStep } from './IfcHeatExchangerTypeEnum.gen'
+export { IfcHumidifierTypeEnum, IfcHumidifierTypeEnumDeserializeStep } from './IfcHumidifierTypeEnum.gen'
+export { IfcInterceptorTypeEnum, IfcInterceptorTypeEnumDeserializeStep } from './IfcInterceptorTypeEnum.gen'
+export { IfcInternalOrExternalEnum, IfcInternalOrExternalEnumDeserializeStep } from './IfcInternalOrExternalEnum.gen'
+export { IfcInventoryTypeEnum, IfcInventoryTypeEnumDeserializeStep } from './IfcInventoryTypeEnum.gen'
+export { IfcJunctionBoxTypeEnum, IfcJunctionBoxTypeEnumDeserializeStep } from './IfcJunctionBoxTypeEnum.gen'
+export { IfcKnotType, IfcKnotTypeDeserializeStep } from './IfcKnotType.gen'
+export { IfcLaborResourceTypeEnum, IfcLaborResourceTypeEnumDeserializeStep } from './IfcLaborResourceTypeEnum.gen'
+export { IfcLampTypeEnum, IfcLampTypeEnumDeserializeStep } from './IfcLampTypeEnum.gen'
+export { IfcLayerSetDirectionEnum, IfcLayerSetDirectionEnumDeserializeStep } from './IfcLayerSetDirectionEnum.gen'
+export { IfcLightDistributionCurveEnum, IfcLightDistributionCurveEnumDeserializeStep } from './IfcLightDistributionCurveEnum.gen'
+export { IfcLightEmissionSourceEnum, IfcLightEmissionSourceEnumDeserializeStep } from './IfcLightEmissionSourceEnum.gen'
+export { IfcLightFixtureTypeEnum, IfcLightFixtureTypeEnumDeserializeStep } from './IfcLightFixtureTypeEnum.gen'
+export { IfcLoadGroupTypeEnum, IfcLoadGroupTypeEnumDeserializeStep } from './IfcLoadGroupTypeEnum.gen'
+export { IfcLogicalOperatorEnum, IfcLogicalOperatorEnumDeserializeStep } from './IfcLogicalOperatorEnum.gen'
+export { IfcMechanicalFastenerTypeEnum, IfcMechanicalFastenerTypeEnumDeserializeStep } from './IfcMechanicalFastenerTypeEnum.gen'
+export { IfcMedicalDeviceTypeEnum, IfcMedicalDeviceTypeEnumDeserializeStep } from './IfcMedicalDeviceTypeEnum.gen'
+export { IfcMemberTypeEnum, IfcMemberTypeEnumDeserializeStep } from './IfcMemberTypeEnum.gen'
+export { IfcMotorConnectionTypeEnum, IfcMotorConnectionTypeEnumDeserializeStep } from './IfcMotorConnectionTypeEnum.gen'
+export { IfcNullStyle, IfcNullStyleDeserializeStep } from './IfcNullStyle.gen'
+export { IfcObjectiveEnum, IfcObjectiveEnumDeserializeStep } from './IfcObjectiveEnum.gen'
+export { IfcObjectTypeEnum, IfcObjectTypeEnumDeserializeStep } from './IfcObjectTypeEnum.gen'
+export { IfcOccupantTypeEnum, IfcOccupantTypeEnumDeserializeStep } from './IfcOccupantTypeEnum.gen'
+export { IfcOpeningElementTypeEnum, IfcOpeningElementTypeEnumDeserializeStep } from './IfcOpeningElementTypeEnum.gen'
+export { IfcOutletTypeEnum, IfcOutletTypeEnumDeserializeStep } from './IfcOutletTypeEnum.gen'
+export { IfcPerformanceHistoryTypeEnum, IfcPerformanceHistoryTypeEnumDeserializeStep } from './IfcPerformanceHistoryTypeEnum.gen'
+export { IfcPermeableCoveringOperationEnum, IfcPermeableCoveringOperationEnumDeserializeStep } from './IfcPermeableCoveringOperationEnum.gen'
+export { IfcPermitTypeEnum, IfcPermitTypeEnumDeserializeStep } from './IfcPermitTypeEnum.gen'
+export { IfcPhysicalOrVirtualEnum, IfcPhysicalOrVirtualEnumDeserializeStep } from './IfcPhysicalOrVirtualEnum.gen'
+export { IfcPileConstructionEnum, IfcPileConstructionEnumDeserializeStep } from './IfcPileConstructionEnum.gen'
+export { IfcPileTypeEnum, IfcPileTypeEnumDeserializeStep } from './IfcPileTypeEnum.gen'
+export { IfcPipeFittingTypeEnum, IfcPipeFittingTypeEnumDeserializeStep } from './IfcPipeFittingTypeEnum.gen'
+export { IfcPipeSegmentTypeEnum, IfcPipeSegmentTypeEnumDeserializeStep } from './IfcPipeSegmentTypeEnum.gen'
+export { IfcPlateTypeEnum, IfcPlateTypeEnumDeserializeStep } from './IfcPlateTypeEnum.gen'
+export { IfcPreferredSurfaceCurveRepresentation, IfcPreferredSurfaceCurveRepresentationDeserializeStep } from './IfcPreferredSurfaceCurveRepresentation.gen'
+export { IfcProcedureTypeEnum, IfcProcedureTypeEnumDeserializeStep } from './IfcProcedureTypeEnum.gen'
+export { IfcProfileTypeEnum, IfcProfileTypeEnumDeserializeStep } from './IfcProfileTypeEnum.gen'
+export { IfcProjectedOrTrueLengthEnum, IfcProjectedOrTrueLengthEnumDeserializeStep } from './IfcProjectedOrTrueLengthEnum.gen'
+export { IfcProjectionElementTypeEnum, IfcProjectionElementTypeEnumDeserializeStep } from './IfcProjectionElementTypeEnum.gen'
+export { IfcProjectOrderTypeEnum, IfcProjectOrderTypeEnumDeserializeStep } from './IfcProjectOrderTypeEnum.gen'
+export { IfcPropertySetTemplateTypeEnum, IfcPropertySetTemplateTypeEnumDeserializeStep } from './IfcPropertySetTemplateTypeEnum.gen'
+export { IfcProtectiveDeviceTrippingUnitTypeEnum, IfcProtectiveDeviceTrippingUnitTypeEnumDeserializeStep } from './IfcProtectiveDeviceTrippingUnitTypeEnum.gen'
+export { IfcProtectiveDeviceTypeEnum, IfcProtectiveDeviceTypeEnumDeserializeStep } from './IfcProtectiveDeviceTypeEnum.gen'
+export { IfcPumpTypeEnum, IfcPumpTypeEnumDeserializeStep } from './IfcPumpTypeEnum.gen'
+export { IfcRailingTypeEnum, IfcRailingTypeEnumDeserializeStep } from './IfcRailingTypeEnum.gen'
+export { IfcRampFlightTypeEnum, IfcRampFlightTypeEnumDeserializeStep } from './IfcRampFlightTypeEnum.gen'
+export { IfcRampTypeEnum, IfcRampTypeEnumDeserializeStep } from './IfcRampTypeEnum.gen'
+export { IfcRecurrenceTypeEnum, IfcRecurrenceTypeEnumDeserializeStep } from './IfcRecurrenceTypeEnum.gen'
+export { IfcReflectanceMethodEnum, IfcReflectanceMethodEnumDeserializeStep } from './IfcReflectanceMethodEnum.gen'
+export { IfcReinforcingBarRoleEnum, IfcReinforcingBarRoleEnumDeserializeStep } from './IfcReinforcingBarRoleEnum.gen'
+export { IfcReinforcingBarSurfaceEnum, IfcReinforcingBarSurfaceEnumDeserializeStep } from './IfcReinforcingBarSurfaceEnum.gen'
+export { IfcReinforcingBarTypeEnum, IfcReinforcingBarTypeEnumDeserializeStep } from './IfcReinforcingBarTypeEnum.gen'
+export { IfcReinforcingMeshTypeEnum, IfcReinforcingMeshTypeEnumDeserializeStep } from './IfcReinforcingMeshTypeEnum.gen'
+export { IfcRoleEnum, IfcRoleEnumDeserializeStep } from './IfcRoleEnum.gen'
+export { IfcRoofTypeEnum, IfcRoofTypeEnumDeserializeStep } from './IfcRoofTypeEnum.gen'
+export { IfcSanitaryTerminalTypeEnum, IfcSanitaryTerminalTypeEnumDeserializeStep } from './IfcSanitaryTerminalTypeEnum.gen'
+export { IfcSectionTypeEnum, IfcSectionTypeEnumDeserializeStep } from './IfcSectionTypeEnum.gen'
+export { IfcSensorTypeEnum, IfcSensorTypeEnumDeserializeStep } from './IfcSensorTypeEnum.gen'
+export { IfcSequenceEnum, IfcSequenceEnumDeserializeStep } from './IfcSequenceEnum.gen'
+export { IfcShadingDeviceTypeEnum, IfcShadingDeviceTypeEnumDeserializeStep } from './IfcShadingDeviceTypeEnum.gen'
+export { IfcSimplePropertyTemplateTypeEnum, IfcSimplePropertyTemplateTypeEnumDeserializeStep } from './IfcSimplePropertyTemplateTypeEnum.gen'
+export { IfcSIPrefix, IfcSIPrefixDeserializeStep } from './IfcSIPrefix.gen'
+export { IfcSIUnitName, IfcSIUnitNameDeserializeStep } from './IfcSIUnitName.gen'
+export { IfcSlabTypeEnum, IfcSlabTypeEnumDeserializeStep } from './IfcSlabTypeEnum.gen'
+export { IfcSolarDeviceTypeEnum, IfcSolarDeviceTypeEnumDeserializeStep } from './IfcSolarDeviceTypeEnum.gen'
+export { IfcSpaceHeaterTypeEnum, IfcSpaceHeaterTypeEnumDeserializeStep } from './IfcSpaceHeaterTypeEnum.gen'
+export { IfcSpaceTypeEnum, IfcSpaceTypeEnumDeserializeStep } from './IfcSpaceTypeEnum.gen'
+export { IfcSpatialZoneTypeEnum, IfcSpatialZoneTypeEnumDeserializeStep } from './IfcSpatialZoneTypeEnum.gen'
+export { IfcStackTerminalTypeEnum, IfcStackTerminalTypeEnumDeserializeStep } from './IfcStackTerminalTypeEnum.gen'
+export { IfcStairFlightTypeEnum, IfcStairFlightTypeEnumDeserializeStep } from './IfcStairFlightTypeEnum.gen'
+export { IfcStairTypeEnum, IfcStairTypeEnumDeserializeStep } from './IfcStairTypeEnum.gen'
+export { IfcStateEnum, IfcStateEnumDeserializeStep } from './IfcStateEnum.gen'
+export { IfcStructuralCurveActivityTypeEnum, IfcStructuralCurveActivityTypeEnumDeserializeStep } from './IfcStructuralCurveActivityTypeEnum.gen'
+export { IfcStructuralCurveMemberTypeEnum, IfcStructuralCurveMemberTypeEnumDeserializeStep } from './IfcStructuralCurveMemberTypeEnum.gen'
+export { IfcStructuralSurfaceActivityTypeEnum, IfcStructuralSurfaceActivityTypeEnumDeserializeStep } from './IfcStructuralSurfaceActivityTypeEnum.gen'
+export { IfcStructuralSurfaceMemberTypeEnum, IfcStructuralSurfaceMemberTypeEnumDeserializeStep } from './IfcStructuralSurfaceMemberTypeEnum.gen'
+export { IfcSubContractResourceTypeEnum, IfcSubContractResourceTypeEnumDeserializeStep } from './IfcSubContractResourceTypeEnum.gen'
+export { IfcSurfaceFeatureTypeEnum, IfcSurfaceFeatureTypeEnumDeserializeStep } from './IfcSurfaceFeatureTypeEnum.gen'
+export { IfcSurfaceSide, IfcSurfaceSideDeserializeStep } from './IfcSurfaceSide.gen'
+export { IfcSwitchingDeviceTypeEnum, IfcSwitchingDeviceTypeEnumDeserializeStep } from './IfcSwitchingDeviceTypeEnum.gen'
+export { IfcSystemFurnitureElementTypeEnum, IfcSystemFurnitureElementTypeEnumDeserializeStep } from './IfcSystemFurnitureElementTypeEnum.gen'
+export { IfcTankTypeEnum, IfcTankTypeEnumDeserializeStep } from './IfcTankTypeEnum.gen'
+export { IfcTaskDurationEnum, IfcTaskDurationEnumDeserializeStep } from './IfcTaskDurationEnum.gen'
+export { IfcTaskTypeEnum, IfcTaskTypeEnumDeserializeStep } from './IfcTaskTypeEnum.gen'
+export { IfcTendonAnchorTypeEnum, IfcTendonAnchorTypeEnumDeserializeStep } from './IfcTendonAnchorTypeEnum.gen'
+export { IfcTendonTypeEnum, IfcTendonTypeEnumDeserializeStep } from './IfcTendonTypeEnum.gen'
+export { IfcTextPath, IfcTextPathDeserializeStep } from './IfcTextPath.gen'
+export { IfcTimeSeriesDataTypeEnum, IfcTimeSeriesDataTypeEnumDeserializeStep } from './IfcTimeSeriesDataTypeEnum.gen'
+export { IfcTransformerTypeEnum, IfcTransformerTypeEnumDeserializeStep } from './IfcTransformerTypeEnum.gen'
+export { IfcTransitionCode, IfcTransitionCodeDeserializeStep } from './IfcTransitionCode.gen'
+export { IfcTransportElementTypeEnum, IfcTransportElementTypeEnumDeserializeStep } from './IfcTransportElementTypeEnum.gen'
+export { IfcTrimmingPreference, IfcTrimmingPreferenceDeserializeStep } from './IfcTrimmingPreference.gen'
+export { IfcTubeBundleTypeEnum, IfcTubeBundleTypeEnumDeserializeStep } from './IfcTubeBundleTypeEnum.gen'
+export { IfcUnitaryControlElementTypeEnum, IfcUnitaryControlElementTypeEnumDeserializeStep } from './IfcUnitaryControlElementTypeEnum.gen'
+export { IfcUnitaryEquipmentTypeEnum, IfcUnitaryEquipmentTypeEnumDeserializeStep } from './IfcUnitaryEquipmentTypeEnum.gen'
+export { IfcUnitEnum, IfcUnitEnumDeserializeStep } from './IfcUnitEnum.gen'
+export { IfcValveTypeEnum, IfcValveTypeEnumDeserializeStep } from './IfcValveTypeEnum.gen'
+export { IfcVibrationIsolatorTypeEnum, IfcVibrationIsolatorTypeEnumDeserializeStep } from './IfcVibrationIsolatorTypeEnum.gen'
+export { IfcVoidingFeatureTypeEnum, IfcVoidingFeatureTypeEnumDeserializeStep } from './IfcVoidingFeatureTypeEnum.gen'
+export { IfcWallTypeEnum, IfcWallTypeEnumDeserializeStep } from './IfcWallTypeEnum.gen'
+export { IfcWasteTerminalTypeEnum, IfcWasteTerminalTypeEnumDeserializeStep } from './IfcWasteTerminalTypeEnum.gen'
+export { IfcWindowPanelOperationEnum, IfcWindowPanelOperationEnumDeserializeStep } from './IfcWindowPanelOperationEnum.gen'
+export { IfcWindowPanelPositionEnum, IfcWindowPanelPositionEnumDeserializeStep } from './IfcWindowPanelPositionEnum.gen'
+export { IfcWindowStyleConstructionEnum, IfcWindowStyleConstructionEnumDeserializeStep } from './IfcWindowStyleConstructionEnum.gen'
+export { IfcWindowStyleOperationEnum, IfcWindowStyleOperationEnumDeserializeStep } from './IfcWindowStyleOperationEnum.gen'
+export { IfcWindowTypeEnum, IfcWindowTypeEnumDeserializeStep } from './IfcWindowTypeEnum.gen'
+export { IfcWindowTypePartitioningEnum, IfcWindowTypePartitioningEnumDeserializeStep } from './IfcWindowTypePartitioningEnum.gen'
+export { IfcWorkCalendarTypeEnum, IfcWorkCalendarTypeEnumDeserializeStep } from './IfcWorkCalendarTypeEnum.gen'
+export { IfcWorkPlanTypeEnum, IfcWorkPlanTypeEnumDeserializeStep } from './IfcWorkPlanTypeEnum.gen'
+export { IfcWorkScheduleTypeEnum, IfcWorkScheduleTypeEnumDeserializeStep } from './IfcWorkScheduleTypeEnum.gen'
+export { IfcActorRole } from './IfcActorRole.gen'
+export { IfcAddress } from './IfcAddress.gen'
+export { IfcApplication } from './IfcApplication.gen'
+export { IfcAppliedValue } from './IfcAppliedValue.gen'
+export { IfcApproval } from './IfcApproval.gen'
+export { IfcResourceLevelRelationship } from './IfcResourceLevelRelationship.gen'
+export { IfcProfileDef } from './IfcProfileDef.gen'
+export { IfcBoundaryCondition } from './IfcBoundaryCondition.gen'
+export { IfcExternalInformation } from './IfcExternalInformation.gen'
+export { IfcExternalReference } from './IfcExternalReference.gen'
+export { IfcPresentationItem } from './IfcPresentationItem.gen'
+export { IfcConnectionGeometry } from './IfcConnectionGeometry.gen'
+export { IfcConstraint } from './IfcConstraint.gen'
+export { IfcNamedUnit } from './IfcNamedUnit.gen'
+export { IfcCoordinateOperation } from './IfcCoordinateOperation.gen'
+export { IfcCoordinateReferenceSystem } from './IfcCoordinateReferenceSystem.gen'
+export { IfcPresentationStyle } from './IfcPresentationStyle.gen'
+export { IfcDerivedUnit } from './IfcDerivedUnit.gen'
+export { IfcDerivedUnitElement } from './IfcDerivedUnitElement.gen'
+export { IfcDimensionalExponents } from './IfcDimensionalExponents.gen'
+export { IfcSchedulingTime } from './IfcSchedulingTime.gen'
+export { IfcPropertyAbstraction } from './IfcPropertyAbstraction.gen'
+export { IfcStructuralConnectionCondition } from './IfcStructuralConnectionCondition.gen'
+export { IfcRepresentationContext } from './IfcRepresentationContext.gen'
+export { IfcRepresentationItem } from './IfcRepresentationItem.gen'
+export { IfcGridAxis } from './IfcGridAxis.gen'
+export { IfcObjectPlacement } from './IfcObjectPlacement.gen'
+export { IfcTimeSeries } from './IfcTimeSeries.gen'
+export { IfcIrregularTimeSeriesValue } from './IfcIrregularTimeSeriesValue.gen'
+export { IfcLightDistributionData } from './IfcLightDistributionData.gen'
+export { IfcLightIntensityDistribution } from './IfcLightIntensityDistribution.gen'
+export { IfcMaterialDefinition } from './IfcMaterialDefinition.gen'
+export { IfcMaterialClassificationRelationship } from './IfcMaterialClassificationRelationship.gen'
+export { IfcProductRepresentation } from './IfcProductRepresentation.gen'
+export { IfcMaterialUsageDefinition } from './IfcMaterialUsageDefinition.gen'
+export { IfcMaterialList } from './IfcMaterialList.gen'
+export { IfcMeasureWithUnit } from './IfcMeasureWithUnit.gen'
+export { IfcMonetaryUnit } from './IfcMonetaryUnit.gen'
+export { IfcRoot } from './IfcRoot.gen'
+export { IfcOrganization } from './IfcOrganization.gen'
+export { IfcOwnerHistory } from './IfcOwnerHistory.gen'
+export { IfcPerson } from './IfcPerson.gen'
+export { IfcPersonAndOrganization } from './IfcPersonAndOrganization.gen'
+export { IfcPhysicalQuantity } from './IfcPhysicalQuantity.gen'
+export { IfcPresentationLayerAssignment } from './IfcPresentationLayerAssignment.gen'
+export { IfcPresentationStyleAssignment } from './IfcPresentationStyleAssignment.gen'
+export { IfcRecurrencePattern } from './IfcRecurrencePattern.gen'
+export { IfcReference } from './IfcReference.gen'
+export { IfcRepresentation } from './IfcRepresentation.gen'
+export { IfcRepresentationMap } from './IfcRepresentationMap.gen'
+export { IfcShapeAspect } from './IfcShapeAspect.gen'
+export { IfcStructuralLoad } from './IfcStructuralLoad.gen'
+export { IfcTable } from './IfcTable.gen'
+export { IfcTableColumn } from './IfcTableColumn.gen'
+export { IfcTableRow } from './IfcTableRow.gen'
+export { IfcTimePeriod } from './IfcTimePeriod.gen'
+export { IfcTimeSeriesValue } from './IfcTimeSeriesValue.gen'
+export { IfcUnitAssignment } from './IfcUnitAssignment.gen'
+export { IfcVirtualGridIntersection } from './IfcVirtualGridIntersection.gen'
+export { IfcStrippedOptional } from './IfcStrippedOptional.gen'
+export { IfcAbsorbedDoseMeasure } from './IfcAbsorbedDoseMeasure.gen'
+export { IfcAccelerationMeasure } from './IfcAccelerationMeasure.gen'
+export { IfcAmountOfSubstanceMeasure } from './IfcAmountOfSubstanceMeasure.gen'
+export { IfcAngularVelocityMeasure } from './IfcAngularVelocityMeasure.gen'
+export { IfcArcIndex } from './IfcArcIndex.gen'
+export { IfcAreaDensityMeasure } from './IfcAreaDensityMeasure.gen'
+export { IfcAreaMeasure } from './IfcAreaMeasure.gen'
+export { IfcBinary } from './IfcBinary.gen'
+export { IfcBoolean } from './IfcBoolean.gen'
+export { IfcBoxAlignment } from './IfcBoxAlignment.gen'
+export { IfcCardinalPointReference } from './IfcCardinalPointReference.gen'
+export { IfcComplexNumber } from './IfcComplexNumber.gen'
+export { IfcCompoundPlaneAngleMeasure } from './IfcCompoundPlaneAngleMeasure.gen'
+export { IfcContextDependentMeasure } from './IfcContextDependentMeasure.gen'
+export { IfcCountMeasure } from './IfcCountMeasure.gen'
+export { IfcCurvatureMeasure } from './IfcCurvatureMeasure.gen'
+export { IfcDate } from './IfcDate.gen'
+export { IfcDateTime } from './IfcDateTime.gen'
+export { IfcDayInMonthNumber } from './IfcDayInMonthNumber.gen'
+export { IfcDayInWeekNumber } from './IfcDayInWeekNumber.gen'
+export { IfcDescriptiveMeasure } from './IfcDescriptiveMeasure.gen'
+export { IfcDimensionCount } from './IfcDimensionCount.gen'
+export { IfcDoseEquivalentMeasure } from './IfcDoseEquivalentMeasure.gen'
+export { IfcDuration } from './IfcDuration.gen'
+export { IfcDynamicViscosityMeasure } from './IfcDynamicViscosityMeasure.gen'
+export { IfcElectricCapacitanceMeasure } from './IfcElectricCapacitanceMeasure.gen'
+export { IfcElectricChargeMeasure } from './IfcElectricChargeMeasure.gen'
+export { IfcElectricConductanceMeasure } from './IfcElectricConductanceMeasure.gen'
+export { IfcElectricCurrentMeasure } from './IfcElectricCurrentMeasure.gen'
+export { IfcElectricResistanceMeasure } from './IfcElectricResistanceMeasure.gen'
+export { IfcElectricVoltageMeasure } from './IfcElectricVoltageMeasure.gen'
+export { IfcEnergyMeasure } from './IfcEnergyMeasure.gen'
+export { IfcFontStyle } from './IfcFontStyle.gen'
+export { IfcFontVariant } from './IfcFontVariant.gen'
+export { IfcFontWeight } from './IfcFontWeight.gen'
+export { IfcForceMeasure } from './IfcForceMeasure.gen'
+export { IfcFrequencyMeasure } from './IfcFrequencyMeasure.gen'
+export { IfcGloballyUniqueId } from './IfcGloballyUniqueId.gen'
+export { IfcHeatFluxDensityMeasure } from './IfcHeatFluxDensityMeasure.gen'
+export { IfcHeatingValueMeasure } from './IfcHeatingValueMeasure.gen'
+export { IfcIdentifier } from './IfcIdentifier.gen'
+export { IfcIlluminanceMeasure } from './IfcIlluminanceMeasure.gen'
+export { IfcInductanceMeasure } from './IfcInductanceMeasure.gen'
+export { IfcInteger } from './IfcInteger.gen'
+export { IfcIntegerCountRateMeasure } from './IfcIntegerCountRateMeasure.gen'
+export { IfcIonConcentrationMeasure } from './IfcIonConcentrationMeasure.gen'
+export { IfcIsothermalMoistureCapacityMeasure } from './IfcIsothermalMoistureCapacityMeasure.gen'
+export { IfcKinematicViscosityMeasure } from './IfcKinematicViscosityMeasure.gen'
+export { IfcLabel } from './IfcLabel.gen'
+export { IfcLanguageId } from './IfcLanguageId.gen'
+export { IfcLengthMeasure } from './IfcLengthMeasure.gen'
+export { IfcLineIndex } from './IfcLineIndex.gen'
+export { IfcLinearForceMeasure } from './IfcLinearForceMeasure.gen'
+export { IfcLinearMomentMeasure } from './IfcLinearMomentMeasure.gen'
+export { IfcLinearStiffnessMeasure } from './IfcLinearStiffnessMeasure.gen'
+export { IfcLinearVelocityMeasure } from './IfcLinearVelocityMeasure.gen'
+export { IfcLogical } from './IfcLogical.gen'
+export { IfcLuminousFluxMeasure } from './IfcLuminousFluxMeasure.gen'
+export { IfcLuminousIntensityDistributionMeasure } from './IfcLuminousIntensityDistributionMeasure.gen'
+export { IfcLuminousIntensityMeasure } from './IfcLuminousIntensityMeasure.gen'
+export { IfcMagneticFluxDensityMeasure } from './IfcMagneticFluxDensityMeasure.gen'
+export { IfcMagneticFluxMeasure } from './IfcMagneticFluxMeasure.gen'
+export { IfcMassDensityMeasure } from './IfcMassDensityMeasure.gen'
+export { IfcMassFlowRateMeasure } from './IfcMassFlowRateMeasure.gen'
+export { IfcMassMeasure } from './IfcMassMeasure.gen'
+export { IfcMassPerLengthMeasure } from './IfcMassPerLengthMeasure.gen'
+export { IfcModulusOfElasticityMeasure } from './IfcModulusOfElasticityMeasure.gen'
+export { IfcModulusOfLinearSubgradeReactionMeasure } from './IfcModulusOfLinearSubgradeReactionMeasure.gen'
+export { IfcModulusOfRotationalSubgradeReactionMeasure } from './IfcModulusOfRotationalSubgradeReactionMeasure.gen'
+export { IfcModulusOfSubgradeReactionMeasure } from './IfcModulusOfSubgradeReactionMeasure.gen'
+export { IfcMoistureDiffusivityMeasure } from './IfcMoistureDiffusivityMeasure.gen'
+export { IfcMolecularWeightMeasure } from './IfcMolecularWeightMeasure.gen'
+export { IfcMomentOfInertiaMeasure } from './IfcMomentOfInertiaMeasure.gen'
+export { IfcMonetaryMeasure } from './IfcMonetaryMeasure.gen'
+export { IfcMonthInYearNumber } from './IfcMonthInYearNumber.gen'
+export { IfcNonNegativeLengthMeasure } from './IfcNonNegativeLengthMeasure.gen'
+export { IfcNormalisedRatioMeasure } from './IfcNormalisedRatioMeasure.gen'
+export { IfcNumericMeasure } from './IfcNumericMeasure.gen'
+export { IfcPHMeasure } from './IfcPHMeasure.gen'
+export { IfcParameterValue } from './IfcParameterValue.gen'
+export { IfcPlanarForceMeasure } from './IfcPlanarForceMeasure.gen'
+export { IfcPlaneAngleMeasure } from './IfcPlaneAngleMeasure.gen'
+export { IfcPositiveInteger } from './IfcPositiveInteger.gen'
+export { IfcPositiveLengthMeasure } from './IfcPositiveLengthMeasure.gen'
+export { IfcPositivePlaneAngleMeasure } from './IfcPositivePlaneAngleMeasure.gen'
+export { IfcPositiveRatioMeasure } from './IfcPositiveRatioMeasure.gen'
+export { IfcPowerMeasure } from './IfcPowerMeasure.gen'
+export { IfcPresentableText } from './IfcPresentableText.gen'
+export { IfcPressureMeasure } from './IfcPressureMeasure.gen'
+export { IfcPropertySetDefinitionSet } from './IfcPropertySetDefinitionSet.gen'
+export { IfcRadioActivityMeasure } from './IfcRadioActivityMeasure.gen'
+export { IfcRatioMeasure } from './IfcRatioMeasure.gen'
+export { IfcReal } from './IfcReal.gen'
+export { IfcRotationalFrequencyMeasure } from './IfcRotationalFrequencyMeasure.gen'
+export { IfcRotationalMassMeasure } from './IfcRotationalMassMeasure.gen'
+export { IfcRotationalStiffnessMeasure } from './IfcRotationalStiffnessMeasure.gen'
+export { IfcSectionModulusMeasure } from './IfcSectionModulusMeasure.gen'
+export { IfcSectionalAreaIntegralMeasure } from './IfcSectionalAreaIntegralMeasure.gen'
+export { IfcShearModulusMeasure } from './IfcShearModulusMeasure.gen'
+export { IfcSolidAngleMeasure } from './IfcSolidAngleMeasure.gen'
+export { IfcSoundPowerLevelMeasure } from './IfcSoundPowerLevelMeasure.gen'
+export { IfcSoundPowerMeasure } from './IfcSoundPowerMeasure.gen'
+export { IfcSoundPressureLevelMeasure } from './IfcSoundPressureLevelMeasure.gen'
+export { IfcSoundPressureMeasure } from './IfcSoundPressureMeasure.gen'
+export { IfcSpecificHeatCapacityMeasure } from './IfcSpecificHeatCapacityMeasure.gen'
+export { IfcSpecularExponent } from './IfcSpecularExponent.gen'
+export { IfcSpecularRoughness } from './IfcSpecularRoughness.gen'
+export { IfcTemperatureGradientMeasure } from './IfcTemperatureGradientMeasure.gen'
+export { IfcTemperatureRateOfChangeMeasure } from './IfcTemperatureRateOfChangeMeasure.gen'
+export { IfcText } from './IfcText.gen'
+export { IfcTextAlignment } from './IfcTextAlignment.gen'
+export { IfcTextDecoration } from './IfcTextDecoration.gen'
+export { IfcTextFontName } from './IfcTextFontName.gen'
+export { IfcTextTransformation } from './IfcTextTransformation.gen'
+export { IfcThermalAdmittanceMeasure } from './IfcThermalAdmittanceMeasure.gen'
+export { IfcThermalConductivityMeasure } from './IfcThermalConductivityMeasure.gen'
+export { IfcThermalExpansionCoefficientMeasure } from './IfcThermalExpansionCoefficientMeasure.gen'
+export { IfcThermalResistanceMeasure } from './IfcThermalResistanceMeasure.gen'
+export { IfcThermalTransmittanceMeasure } from './IfcThermalTransmittanceMeasure.gen'
+export { IfcThermodynamicTemperatureMeasure } from './IfcThermodynamicTemperatureMeasure.gen'
+export { IfcTime } from './IfcTime.gen'
+export { IfcTimeMeasure } from './IfcTimeMeasure.gen'
+export { IfcTimeStamp } from './IfcTimeStamp.gen'
+export { IfcTorqueMeasure } from './IfcTorqueMeasure.gen'
+export { IfcURIReference } from './IfcURIReference.gen'
+export { IfcVaporPermeabilityMeasure } from './IfcVaporPermeabilityMeasure.gen'
+export { IfcVolumeMeasure } from './IfcVolumeMeasure.gen'
+export { IfcVolumetricFlowRateMeasure } from './IfcVolumetricFlowRateMeasure.gen'
+export { IfcWarpingConstantMeasure } from './IfcWarpingConstantMeasure.gen'
+export { IfcWarpingMomentMeasure } from './IfcWarpingMomentMeasure.gen'
+export { IfcPostalAddress } from './IfcPostalAddress.gen'
+export { IfcTelecomAddress } from './IfcTelecomAddress.gen'
+export { IfcGeometricRepresentationItem } from './IfcGeometricRepresentationItem.gen'
+export { IfcCostValue } from './IfcCostValue.gen'
+export { IfcApprovalRelationship } from './IfcApprovalRelationship.gen'
+export { IfcArbitraryClosedProfileDef } from './IfcArbitraryClosedProfileDef.gen'
+export { IfcArbitraryOpenProfileDef } from './IfcArbitraryOpenProfileDef.gen'
+export { IfcParameterizedProfileDef } from './IfcParameterizedProfileDef.gen'
+export { IfcSurfaceTexture } from './IfcSurfaceTexture.gen'
+export { IfcBoundaryEdgeCondition } from './IfcBoundaryEdgeCondition.gen'
+export { IfcBoundaryFaceCondition } from './IfcBoundaryFaceCondition.gen'
+export { IfcBoundaryNodeCondition } from './IfcBoundaryNodeCondition.gen'
+export { IfcClassification } from './IfcClassification.gen'
+export { IfcClassificationReference } from './IfcClassificationReference.gen'
+export { IfcColourSpecification } from './IfcColourSpecification.gen'
+export { IfcColourRgbList } from './IfcColourRgbList.gen'
+export { IfcProperty } from './IfcProperty.gen'
+export { IfcCompositeProfileDef } from './IfcCompositeProfileDef.gen'
+export { IfcTopologicalRepresentationItem } from './IfcTopologicalRepresentationItem.gen'
+export { IfcConnectionCurveGeometry } from './IfcConnectionCurveGeometry.gen'
+export { IfcConnectionPointGeometry } from './IfcConnectionPointGeometry.gen'
+export { IfcConnectionSurfaceGeometry } from './IfcConnectionSurfaceGeometry.gen'
+export { IfcConnectionVolumeGeometry } from './IfcConnectionVolumeGeometry.gen'
+export { IfcMetric } from './IfcMetric.gen'
+export { IfcObjective } from './IfcObjective.gen'
+export { IfcObjectDefinition } from './IfcObjectDefinition.gen'
+export { IfcContextDependentUnit } from './IfcContextDependentUnit.gen'
+export { IfcConversionBasedUnit } from './IfcConversionBasedUnit.gen'
+export { IfcMapConversion } from './IfcMapConversion.gen'
+export { IfcProjectedCRS } from './IfcProjectedCRS.gen'
+export { IfcCurrencyRelationship } from './IfcCurrencyRelationship.gen'
+export { IfcCurveStyle } from './IfcCurveStyle.gen'
+export { IfcCurveStyleFont } from './IfcCurveStyleFont.gen'
+export { IfcCurveStyleFontAndScaling } from './IfcCurveStyleFontAndScaling.gen'
+export { IfcCurveStyleFontPattern } from './IfcCurveStyleFontPattern.gen'
+export { IfcDerivedProfileDef } from './IfcDerivedProfileDef.gen'
+export { IfcDocumentInformation } from './IfcDocumentInformation.gen'
+export { IfcDocumentInformationRelationship } from './IfcDocumentInformationRelationship.gen'
+export { IfcDocumentReference } from './IfcDocumentReference.gen'
+export { IfcEventTime } from './IfcEventTime.gen'
+export { IfcExtendedProperties } from './IfcExtendedProperties.gen'
+export { IfcLibraryInformation } from './IfcLibraryInformation.gen'
+export { IfcExternallyDefinedHatchStyle } from './IfcExternallyDefinedHatchStyle.gen'
+export { IfcExternallyDefinedSurfaceStyle } from './IfcExternallyDefinedSurfaceStyle.gen'
+export { IfcExternallyDefinedTextFont } from './IfcExternallyDefinedTextFont.gen'
+export { IfcLibraryReference } from './IfcLibraryReference.gen'
+export { IfcExternalReferenceRelationship } from './IfcExternalReferenceRelationship.gen'
+export { IfcFailureConnectionCondition } from './IfcFailureConnectionCondition.gen'
+export { IfcFillAreaStyle } from './IfcFillAreaStyle.gen'
+export { IfcGeometricRepresentationContext } from './IfcGeometricRepresentationContext.gen'
+export { IfcGridPlacement } from './IfcGridPlacement.gen'
+export { IfcIndexedColourMap } from './IfcIndexedColourMap.gen'
+export { IfcTextureCoordinate } from './IfcTextureCoordinate.gen'
+export { IfcIrregularTimeSeries } from './IfcIrregularTimeSeries.gen'
+export { IfcLagTime } from './IfcLagTime.gen'
+export { IfcLocalPlacement } from './IfcLocalPlacement.gen'
+export { IfcMappedItem } from './IfcMappedItem.gen'
+export { IfcMaterial } from './IfcMaterial.gen'
+export { IfcMaterialConstituent } from './IfcMaterialConstituent.gen'
+export { IfcMaterialConstituentSet } from './IfcMaterialConstituentSet.gen'
+export { IfcMaterialLayer } from './IfcMaterialLayer.gen'
+export { IfcMaterialLayerSet } from './IfcMaterialLayerSet.gen'
+export { IfcMaterialProfile } from './IfcMaterialProfile.gen'
+export { IfcMaterialProfileSet } from './IfcMaterialProfileSet.gen'
+export { IfcMaterialDefinitionRepresentation } from './IfcMaterialDefinitionRepresentation.gen'
+export { IfcMaterialLayerSetUsage } from './IfcMaterialLayerSetUsage.gen'
+export { IfcMaterialProfileSetUsage } from './IfcMaterialProfileSetUsage.gen'
+export { IfcMaterialRelationship } from './IfcMaterialRelationship.gen'
+export { IfcSIUnit } from './IfcSIUnit.gen'
+export { IfcOrganizationRelationship } from './IfcOrganizationRelationship.gen'
+export { IfcPhysicalComplexQuantity } from './IfcPhysicalComplexQuantity.gen'
+export { IfcPhysicalSimpleQuantity } from './IfcPhysicalSimpleQuantity.gen'
+export { IfcPreDefinedItem } from './IfcPreDefinedItem.gen'
+export { IfcPreDefinedProperties } from './IfcPreDefinedProperties.gen'
+export { IfcSurfaceStyleLighting } from './IfcSurfaceStyleLighting.gen'
+export { IfcSurfaceStyleRefraction } from './IfcSurfaceStyleRefraction.gen'
+export { IfcSurfaceStyleShading } from './IfcSurfaceStyleShading.gen'
+export { IfcSurfaceStyleWithTextures } from './IfcSurfaceStyleWithTextures.gen'
+export { IfcTextStyleForDefinedFont } from './IfcTextStyleForDefinedFont.gen'
+export { IfcTextStyleTextModel } from './IfcTextStyleTextModel.gen'
+export { IfcTextureVertex } from './IfcTextureVertex.gen'
+export { IfcTextureVertexList } from './IfcTextureVertexList.gen'
+export { IfcPresentationLayerWithStyle } from './IfcPresentationLayerWithStyle.gen'
+export { IfcSurfaceStyle } from './IfcSurfaceStyle.gen'
+export { IfcTextStyle } from './IfcTextStyle.gen'
+export { IfcProductDefinitionShape } from './IfcProductDefinitionShape.gen'
+export { IfcPropertyEnumeration } from './IfcPropertyEnumeration.gen'
+export { IfcPropertyDefinition } from './IfcPropertyDefinition.gen'
+export { IfcPropertyDependencyRelationship } from './IfcPropertyDependencyRelationship.gen'
+export { IfcRegularTimeSeries } from './IfcRegularTimeSeries.gen'
+export { IfcRelationship } from './IfcRelationship.gen'
+export { IfcShapeModel } from './IfcShapeModel.gen'
+export { IfcStyleModel } from './IfcStyleModel.gen'
+export { IfcStyledItem } from './IfcStyledItem.gen'
+export { IfcResourceApprovalRelationship } from './IfcResourceApprovalRelationship.gen'
+export { IfcResourceConstraintRelationship } from './IfcResourceConstraintRelationship.gen'
+export { IfcResourceTime } from './IfcResourceTime.gen'
+export { IfcTaskTime } from './IfcTaskTime.gen'
+export { IfcWorkTime } from './IfcWorkTime.gen'
+export { IfcSlippageConnectionCondition } from './IfcSlippageConnectionCondition.gen'
+export { IfcStructuralLoadConfiguration } from './IfcStructuralLoadConfiguration.gen'
+export { IfcStructuralLoadOrResult } from './IfcStructuralLoadOrResult.gen'
+export { IfcObject } from './IfcObject.gen'
+export { IfcAnnotationFillArea } from './IfcAnnotationFillArea.gen'
+export { IfcArbitraryProfileDefWithVoids } from './IfcArbitraryProfileDefWithVoids.gen'
+export { IfcCenterLineProfileDef } from './IfcCenterLineProfileDef.gen'
+export { IfcAsymmetricIShapeProfileDef } from './IfcAsymmetricIShapeProfileDef.gen'
+export { IfcPlacement } from './IfcPlacement.gen'
+export { IfcBlobTexture } from './IfcBlobTexture.gen'
+export { IfcCsgPrimitive3D } from './IfcCsgPrimitive3D.gen'
+export { IfcBooleanResult } from './IfcBooleanResult.gen'
+export { IfcBoundaryNodeConditionWarping } from './IfcBoundaryNodeConditionWarping.gen'
+export { IfcCurve } from './IfcCurve.gen'
+export { IfcSurface } from './IfcSurface.gen'
+export { IfcBoundingBox } from './IfcBoundingBox.gen'
+export { IfcHalfSpaceSolid } from './IfcHalfSpaceSolid.gen'
+export { IfcCShapeProfileDef } from './IfcCShapeProfileDef.gen'
+export { IfcPoint } from './IfcPoint.gen'
+export { IfcCartesianPointList } from './IfcCartesianPointList.gen'
+export { IfcCartesianTransformationOperator } from './IfcCartesianTransformationOperator.gen'
+export { IfcCircleProfileDef } from './IfcCircleProfileDef.gen'
+export { IfcConnectedFaceSet } from './IfcConnectedFaceSet.gen'
+export { IfcColourRgb } from './IfcColourRgb.gen'
+export { IfcComplexProperty } from './IfcComplexProperty.gen'
+export { IfcCompositeCurveSegment } from './IfcCompositeCurveSegment.gen'
+export { IfcConnectionPointEccentricity } from './IfcConnectionPointEccentricity.gen'
+export { IfcContext } from './IfcContext.gen'
+export { IfcConversionBasedUnitWithOffset } from './IfcConversionBasedUnitWithOffset.gen'
+export { IfcSolidModel } from './IfcSolidModel.gen'
+export { IfcMirroredProfileDef } from './IfcMirroredProfileDef.gen'
+export { IfcDirection } from './IfcDirection.gen'
+export { IfcPreDefinedColour } from './IfcPreDefinedColour.gen'
+export { IfcPreDefinedCurveFont } from './IfcPreDefinedCurveFont.gen'
+export { IfcEdge } from './IfcEdge.gen'
+export { IfcLoop } from './IfcLoop.gen'
+export { IfcEllipseProfileDef } from './IfcEllipseProfileDef.gen'
+export { IfcMaterialProperties } from './IfcMaterialProperties.gen'
+export { IfcProfileProperties } from './IfcProfileProperties.gen'
+export { IfcFace } from './IfcFace.gen'
+export { IfcFaceBasedSurfaceModel } from './IfcFaceBasedSurfaceModel.gen'
+export { IfcFaceBound } from './IfcFaceBound.gen'
+export { IfcFillAreaStyleHatching } from './IfcFillAreaStyleHatching.gen'
+export { IfcFillAreaStyleTiles } from './IfcFillAreaStyleTiles.gen'
+export { IfcGeometricSet } from './IfcGeometricSet.gen'
+export { IfcGeometricRepresentationSubContext } from './IfcGeometricRepresentationSubContext.gen'
+export { IfcLightSource } from './IfcLightSource.gen'
+export { IfcPlanarExtent } from './IfcPlanarExtent.gen'
+export { IfcSectionedSpine } from './IfcSectionedSpine.gen'
+export { IfcShellBasedSurfaceModel } from './IfcShellBasedSurfaceModel.gen'
+export { IfcTessellatedItem } from './IfcTessellatedItem.gen'
+export { IfcTextLiteral } from './IfcTextLiteral.gen'
+export { IfcVector } from './IfcVector.gen'
+export { IfcIShapeProfileDef } from './IfcIShapeProfileDef.gen'
+export { IfcImageTexture } from './IfcImageTexture.gen'
+export { IfcIndexedTextureMap } from './IfcIndexedTextureMap.gen'
+export { IfcLShapeProfileDef } from './IfcLShapeProfileDef.gen'
+export { IfcMaterialLayerWithOffsets } from './IfcMaterialLayerWithOffsets.gen'
+export { IfcMaterialProfileWithOffsets } from './IfcMaterialProfileWithOffsets.gen'
+export { IfcMaterialProfileSetUsageTapering } from './IfcMaterialProfileSetUsageTapering.gen'
+export { IfcTypeObject } from './IfcTypeObject.gen'
+export { IfcRectangleProfileDef } from './IfcRectangleProfileDef.gen'
+export { IfcTShapeProfileDef } from './IfcTShapeProfileDef.gen'
+export { IfcTrapeziumProfileDef } from './IfcTrapeziumProfileDef.gen'
+export { IfcUShapeProfileDef } from './IfcUShapeProfileDef.gen'
+export { IfcZShapeProfileDef } from './IfcZShapeProfileDef.gen'
+export { IfcPath } from './IfcPath.gen'
+export { IfcQuantityArea } from './IfcQuantityArea.gen'
+export { IfcQuantityCount } from './IfcQuantityCount.gen'
+export { IfcQuantityLength } from './IfcQuantityLength.gen'
+export { IfcQuantityTime } from './IfcQuantityTime.gen'
+export { IfcQuantityVolume } from './IfcQuantityVolume.gen'
+export { IfcQuantityWeight } from './IfcQuantityWeight.gen'
+export { IfcPixelTexture } from './IfcPixelTexture.gen'
+export { IfcPreDefinedTextFont } from './IfcPreDefinedTextFont.gen'
+export { IfcReinforcementBarProperties } from './IfcReinforcementBarProperties.gen'
+export { IfcSectionProperties } from './IfcSectionProperties.gen'
+export { IfcSectionReinforcementProperties } from './IfcSectionReinforcementProperties.gen'
+export { IfcPropertySetDefinition } from './IfcPropertySetDefinition.gen'
+export { IfcSimpleProperty } from './IfcSimpleProperty.gen'
+export { IfcPropertyTemplateDefinition } from './IfcPropertyTemplateDefinition.gen'
+export { IfcRelDecomposes } from './IfcRelDecomposes.gen'
+export { IfcRelAssigns } from './IfcRelAssigns.gen'
+export { IfcRelAssociates } from './IfcRelAssociates.gen'
+export { IfcRelConnects } from './IfcRelConnects.gen'
+export { IfcRelDeclares } from './IfcRelDeclares.gen'
+export { IfcRelDefines } from './IfcRelDefines.gen'
+export { IfcShapeRepresentation } from './IfcShapeRepresentation.gen'
+export { IfcTopologyRepresentation } from './IfcTopologyRepresentation.gen'
+export { IfcStructuralLoadStatic } from './IfcStructuralLoadStatic.gen'
+export { IfcSurfaceReinforcementArea } from './IfcSurfaceReinforcementArea.gen'
+export { IfcStyledRepresentation } from './IfcStyledRepresentation.gen'
+export { IfcSurfaceStyleRendering } from './IfcSurfaceStyleRendering.gen'
+export { IfcTaskTimeRecurring } from './IfcTaskTimeRecurring.gen'
+export { IfcTextureCoordinateGenerator } from './IfcTextureCoordinateGenerator.gen'
+export { IfcTextureMap } from './IfcTextureMap.gen'
+export { IfcVertex } from './IfcVertex.gen'
+export { IfcControl } from './IfcControl.gen'
+export { IfcActor } from './IfcActor.gen'
+export { IfcManifoldSolidBrep } from './IfcManifoldSolidBrep.gen'
+export { IfcFaceSurface } from './IfcFaceSurface.gen'
+export { IfcProduct } from './IfcProduct.gen'
+export { IfcGroup } from './IfcGroup.gen'
+export { IfcAxis1Placement } from './IfcAxis1Placement.gen'
+export { IfcAxis2Placement2D } from './IfcAxis2Placement2D.gen'
+export { IfcAxis2Placement3D } from './IfcAxis2Placement3D.gen'
+export { IfcBoundedCurve } from './IfcBoundedCurve.gen'
+export { IfcBoundedSurface } from './IfcBoundedSurface.gen'
+export { IfcBlock } from './IfcBlock.gen'
+export { IfcBooleanClippingResult } from './IfcBooleanClippingResult.gen'
+export { IfcBoxedHalfSpace } from './IfcBoxedHalfSpace.gen'
+export { IfcCartesianPoint } from './IfcCartesianPoint.gen'
+export { IfcCartesianPointList2D } from './IfcCartesianPointList2D.gen'
+export { IfcCartesianPointList3D } from './IfcCartesianPointList3D.gen'
+export { IfcCartesianTransformationOperator2D } from './IfcCartesianTransformationOperator2D.gen'
+export { IfcCartesianTransformationOperator3D } from './IfcCartesianTransformationOperator3D.gen'
+export { IfcConic } from './IfcConic.gen'
+export { IfcCircleHollowProfileDef } from './IfcCircleHollowProfileDef.gen'
+export { IfcClosedShell } from './IfcClosedShell.gen'
+export { IfcPropertyTemplate } from './IfcPropertyTemplate.gen'
+export { IfcReparametrisedCompositeCurveSegment } from './IfcReparametrisedCompositeCurveSegment.gen'
+export { IfcOpenShell } from './IfcOpenShell.gen'
+export { IfcResource } from './IfcResource.gen'
+export { IfcTypeResource } from './IfcTypeResource.gen'
+export { IfcProject } from './IfcProject.gen'
+export { IfcProjectLibrary } from './IfcProjectLibrary.gen'
+export { IfcRectangularPyramid } from './IfcRectangularPyramid.gen'
+export { IfcRightCircularCone } from './IfcRightCircularCone.gen'
+export { IfcRightCircularCylinder } from './IfcRightCircularCylinder.gen'
+export { IfcSphere } from './IfcSphere.gen'
+export { IfcCsgSolid } from './IfcCsgSolid.gen'
+export { IfcLine } from './IfcLine.gen'
+export { IfcOffsetCurve2D } from './IfcOffsetCurve2D.gen'
+export { IfcOffsetCurve3D } from './IfcOffsetCurve3D.gen'
+export { IfcPcurve } from './IfcPcurve.gen'
+export { IfcSurfaceCurve } from './IfcSurfaceCurve.gen'
+export { IfcElementarySurface } from './IfcElementarySurface.gen'
+export { IfcPreDefinedPropertySet } from './IfcPreDefinedPropertySet.gen'
+export { IfcTypeProduct } from './IfcTypeProduct.gen'
+export { IfcDraughtingPreDefinedColour } from './IfcDraughtingPreDefinedColour.gen'
+export { IfcDraughtingPreDefinedCurveFont } from './IfcDraughtingPreDefinedCurveFont.gen'
+export { IfcEdgeCurve } from './IfcEdgeCurve.gen'
+export { IfcOrientedEdge } from './IfcOrientedEdge.gen'
+export { IfcSubedge } from './IfcSubedge.gen'
+export { IfcEdgeLoop } from './IfcEdgeLoop.gen'
+export { IfcQuantitySet } from './IfcQuantitySet.gen'
+export { IfcProcess } from './IfcProcess.gen'
+export { IfcTypeProcess } from './IfcTypeProcess.gen'
+export { IfcSweptAreaSolid } from './IfcSweptAreaSolid.gen'
+export { IfcFaceOuterBound } from './IfcFaceOuterBound.gen'
+export { IfcGeometricCurveSet } from './IfcGeometricCurveSet.gen'
+export { IfcPolygonalBoundedHalfSpace } from './IfcPolygonalBoundedHalfSpace.gen'
+export { IfcIndexedPolygonalFace } from './IfcIndexedPolygonalFace.gen'
+export { IfcIndexedTriangleTextureMap } from './IfcIndexedTriangleTextureMap.gen'
+export { IfcLightSourceAmbient } from './IfcLightSourceAmbient.gen'
+export { IfcLightSourceDirectional } from './IfcLightSourceDirectional.gen'
+export { IfcLightSourceGoniometric } from './IfcLightSourceGoniometric.gen'
+export { IfcLightSourcePositional } from './IfcLightSourcePositional.gen'
+export { IfcPolyLoop } from './IfcPolyLoop.gen'
+export { IfcVertexLoop } from './IfcVertexLoop.gen'
+export { IfcPlanarBox } from './IfcPlanarBox.gen'
+export { IfcPointOnCurve } from './IfcPointOnCurve.gen'
+export { IfcPointOnSurface } from './IfcPointOnSurface.gen'
+export { IfcTessellatedFaceSet } from './IfcTessellatedFaceSet.gen'
+export { IfcTextStyleFontModel } from './IfcTextStyleFontModel.gen'
+export { IfcPropertyBoundedValue } from './IfcPropertyBoundedValue.gen'
+export { IfcPropertyEnumeratedValue } from './IfcPropertyEnumeratedValue.gen'
+export { IfcPropertyListValue } from './IfcPropertyListValue.gen'
+export { IfcPropertyReferenceValue } from './IfcPropertyReferenceValue.gen'
+export { IfcPropertySet } from './IfcPropertySet.gen'
+export { IfcPropertySetTemplate } from './IfcPropertySetTemplate.gen'
+export { IfcPropertySingleValue } from './IfcPropertySingleValue.gen'
+export { IfcPropertyTableValue } from './IfcPropertyTableValue.gen'
+export { IfcRectangleHollowProfileDef } from './IfcRectangleHollowProfileDef.gen'
+export { IfcRoundedRectangleProfileDef } from './IfcRoundedRectangleProfileDef.gen'
+export { IfcRelAggregates } from './IfcRelAggregates.gen'
+export { IfcRelAssignsToActor } from './IfcRelAssignsToActor.gen'
+export { IfcRelAssignsToControl } from './IfcRelAssignsToControl.gen'
+export { IfcRelAssignsToGroup } from './IfcRelAssignsToGroup.gen'
+export { IfcRelAssignsToProcess } from './IfcRelAssignsToProcess.gen'
+export { IfcRelAssignsToProduct } from './IfcRelAssignsToProduct.gen'
+export { IfcRelAssignsToResource } from './IfcRelAssignsToResource.gen'
+export { IfcRelAssociatesApproval } from './IfcRelAssociatesApproval.gen'
+export { IfcRelAssociatesClassification } from './IfcRelAssociatesClassification.gen'
+export { IfcRelAssociatesConstraint } from './IfcRelAssociatesConstraint.gen'
+export { IfcRelAssociatesDocument } from './IfcRelAssociatesDocument.gen'
+export { IfcRelAssociatesLibrary } from './IfcRelAssociatesLibrary.gen'
+export { IfcRelAssociatesMaterial } from './IfcRelAssociatesMaterial.gen'
+export { IfcRelConnectsElements } from './IfcRelConnectsElements.gen'
+export { IfcRelConnectsPortToElement } from './IfcRelConnectsPortToElement.gen'
+export { IfcRelConnectsPorts } from './IfcRelConnectsPorts.gen'
+export { IfcRelConnectsStructuralActivity } from './IfcRelConnectsStructuralActivity.gen'
+export { IfcRelConnectsStructuralMember } from './IfcRelConnectsStructuralMember.gen'
+export { IfcRelContainedInSpatialStructure } from './IfcRelContainedInSpatialStructure.gen'
+export { IfcRelCoversBldgElements } from './IfcRelCoversBldgElements.gen'
+export { IfcRelCoversSpaces } from './IfcRelCoversSpaces.gen'
+export { IfcRelFillsElement } from './IfcRelFillsElement.gen'
+export { IfcRelFlowControlElements } from './IfcRelFlowControlElements.gen'
+export { IfcRelInterferesElements } from './IfcRelInterferesElements.gen'
+export { IfcRelReferencedInSpatialStructure } from './IfcRelReferencedInSpatialStructure.gen'
+export { IfcRelSequence } from './IfcRelSequence.gen'
+export { IfcRelServicesBuildings } from './IfcRelServicesBuildings.gen'
+export { IfcRelSpaceBoundary } from './IfcRelSpaceBoundary.gen'
+export { IfcRelNests } from './IfcRelNests.gen'
+export { IfcRelProjectsElement } from './IfcRelProjectsElement.gen'
+export { IfcRelVoidsElement } from './IfcRelVoidsElement.gen'
+export { IfcRelDefinesByObject } from './IfcRelDefinesByObject.gen'
+export { IfcRelDefinesByProperties } from './IfcRelDefinesByProperties.gen'
+export { IfcRelDefinesByTemplate } from './IfcRelDefinesByTemplate.gen'
+export { IfcRelDefinesByType } from './IfcRelDefinesByType.gen'
+export { IfcSweptDiskSolid } from './IfcSweptDiskSolid.gen'
+export { IfcStructuralLoadLinearForce } from './IfcStructuralLoadLinearForce.gen'
+export { IfcStructuralLoadPlanarForce } from './IfcStructuralLoadPlanarForce.gen'
+export { IfcStructuralLoadSingleDisplacement } from './IfcStructuralLoadSingleDisplacement.gen'
+export { IfcStructuralLoadSingleForce } from './IfcStructuralLoadSingleForce.gen'
+export { IfcStructuralLoadTemperature } from './IfcStructuralLoadTemperature.gen'
+export { IfcSweptSurface } from './IfcSweptSurface.gen'
+export { IfcTextLiteralWithExtent } from './IfcTextLiteralWithExtent.gen'
+export { IfcVertexPoint } from './IfcVertexPoint.gen'
+export { IfcActionRequest } from './IfcActionRequest.gen'
+export { IfcOccupant } from './IfcOccupant.gen'
+export { IfcAdvancedBrep } from './IfcAdvancedBrep.gen'
+export { IfcAdvancedFace } from './IfcAdvancedFace.gen'
+export { IfcAnnotation } from './IfcAnnotation.gen'
+export { IfcAsset } from './IfcAsset.gen'
+export { IfcBSplineCurve } from './IfcBSplineCurve.gen'
+export { IfcBSplineSurface } from './IfcBSplineSurface.gen'
+export { IfcCompositeCurve } from './IfcCompositeCurve.gen'
+export { IfcIndexedPolyCurve } from './IfcIndexedPolyCurve.gen'
+export { IfcPolyline } from './IfcPolyline.gen'
+export { IfcTrimmedCurve } from './IfcTrimmedCurve.gen'
+export { IfcCurveBoundedPlane } from './IfcCurveBoundedPlane.gen'
+export { IfcCurveBoundedSurface } from './IfcCurveBoundedSurface.gen'
+export { IfcRectangularTrimmedSurface } from './IfcRectangularTrimmedSurface.gen'
+export { IfcElement } from './IfcElement.gen'
+export { IfcElementType } from './IfcElementType.gen'
+export { IfcSystem } from './IfcSystem.gen'
+export { IfcCartesianTransformationOperator2DnonUniform } from './IfcCartesianTransformationOperator2DnonUniform.gen'
+export { IfcCartesianTransformationOperator3DnonUniform } from './IfcCartesianTransformationOperator3DnonUniform.gen'
+export { IfcCircle } from './IfcCircle.gen'
+export { IfcComplexPropertyTemplate } from './IfcComplexPropertyTemplate.gen'
+export { IfcEllipse } from './IfcEllipse.gen'
+export { IfcConstructionResource } from './IfcConstructionResource.gen'
+export { IfcConstructionResourceType } from './IfcConstructionResourceType.gen'
+export { IfcCostItem } from './IfcCostItem.gen'
+export { IfcCostSchedule } from './IfcCostSchedule.gen'
+export { IfcPerformanceHistory } from './IfcPerformanceHistory.gen'
+export { IfcPermit } from './IfcPermit.gen'
+export { IfcProjectOrder } from './IfcProjectOrder.gen'
+export { IfcWorkCalendar } from './IfcWorkCalendar.gen'
+export { IfcWorkControl } from './IfcWorkControl.gen'
+export { IfcCylindricalSurface } from './IfcCylindricalSurface.gen'
+export { IfcPort } from './IfcPort.gen'
+export { IfcDoorLiningProperties } from './IfcDoorLiningProperties.gen'
+export { IfcDoorPanelProperties } from './IfcDoorPanelProperties.gen'
+export { IfcDoorStyle } from './IfcDoorStyle.gen'
+export { IfcElementQuantity } from './IfcElementQuantity.gen'
+export { IfcPlane } from './IfcPlane.gen'
+export { IfcSphericalSurface } from './IfcSphericalSurface.gen'
+export { IfcToroidalSurface } from './IfcToroidalSurface.gen'
+export { IfcEvent } from './IfcEvent.gen'
+export { IfcEventType } from './IfcEventType.gen'
+export { IfcSpatialElement } from './IfcSpatialElement.gen'
+export { IfcExtrudedAreaSolid } from './IfcExtrudedAreaSolid.gen'
+export { IfcFacetedBrep } from './IfcFacetedBrep.gen'
+export { IfcFixedReferenceSweptAreaSolid } from './IfcFixedReferenceSweptAreaSolid.gen'
+export { IfcGrid } from './IfcGrid.gen'
+export { IfcInventory } from './IfcInventory.gen'
+export { IfcStructuralLoadGroup } from './IfcStructuralLoadGroup.gen'
+export { IfcStructuralResultGroup } from './IfcStructuralResultGroup.gen'
+export { IfcIndexedPolygonalFaceWithVoids } from './IfcIndexedPolygonalFaceWithVoids.gen'
+export { IfcIntersectionCurve } from './IfcIntersectionCurve.gen'
+export { IfcLightSourceSpot } from './IfcLightSourceSpot.gen'
+export { IfcPermeableCoveringProperties } from './IfcPermeableCoveringProperties.gen'
+export { IfcPolygonalFaceSet } from './IfcPolygonalFaceSet.gen'
+export { IfcReinforcementDefinitionProperties } from './IfcReinforcementDefinitionProperties.gen'
+export { IfcWindowLiningProperties } from './IfcWindowLiningProperties.gen'
+export { IfcWindowPanelProperties } from './IfcWindowPanelProperties.gen'
+export { IfcProcedure } from './IfcProcedure.gen'
+export { IfcProcedureType } from './IfcProcedureType.gen'
+export { IfcTask } from './IfcTask.gen'
+export { IfcProxy } from './IfcProxy.gen'
+export { IfcStructuralActivity } from './IfcStructuralActivity.gen'
+export { IfcStructuralItem } from './IfcStructuralItem.gen'
+export { IfcSimplePropertyTemplate } from './IfcSimplePropertyTemplate.gen'
+export { IfcRelAssignsToGroupByFactor } from './IfcRelAssignsToGroupByFactor.gen'
+export { IfcRelConnectsPathElements } from './IfcRelConnectsPathElements.gen'
+export { IfcRelConnectsWithRealizingElements } from './IfcRelConnectsWithRealizingElements.gen'
+export { IfcRelConnectsWithEccentricity } from './IfcRelConnectsWithEccentricity.gen'
+export { IfcRelSpaceBoundary1stLevel } from './IfcRelSpaceBoundary1stLevel.gen'
+export { IfcRevolvedAreaSolid } from './IfcRevolvedAreaSolid.gen'
+export { IfcSeamCurve } from './IfcSeamCurve.gen'
+export { IfcSpatialElementType } from './IfcSpatialElementType.gen'
+export { IfcStructuralLoadSingleDisplacementDistortion } from './IfcStructuralLoadSingleDisplacementDistortion.gen'
+export { IfcStructuralLoadSingleForceWarping } from './IfcStructuralLoadSingleForceWarping.gen'
+export { IfcSurfaceCurveSweptAreaSolid } from './IfcSurfaceCurveSweptAreaSolid.gen'
+export { IfcSurfaceOfLinearExtrusion } from './IfcSurfaceOfLinearExtrusion.gen'
+export { IfcSurfaceOfRevolution } from './IfcSurfaceOfRevolution.gen'
+export { IfcSweptDiskSolidPolygonal } from './IfcSweptDiskSolidPolygonal.gen'
+export { IfcTaskType } from './IfcTaskType.gen'
+export { IfcTriangulatedFaceSet } from './IfcTriangulatedFaceSet.gen'
+export { IfcWindowStyle } from './IfcWindowStyle.gen'
+export { IfcAdvancedBrepWithVoids } from './IfcAdvancedBrepWithVoids.gen'
+export { IfcBSplineCurveWithKnots } from './IfcBSplineCurveWithKnots.gen'
+export { IfcBSplineSurfaceWithKnots } from './IfcBSplineSurfaceWithKnots.gen'
+export { IfcBuildingElement } from './IfcBuildingElement.gen'
+export { IfcBuildingElementType } from './IfcBuildingElementType.gen'
+export { IfcCompositeCurveOnSurface } from './IfcCompositeCurveOnSurface.gen'
+export { IfcSpatialStructureElement } from './IfcSpatialStructureElement.gen'
+export { IfcElementComponent } from './IfcElementComponent.gen'
+export { IfcElementComponentType } from './IfcElementComponentType.gen'
+export { IfcBuildingSystem } from './IfcBuildingSystem.gen'
+export { IfcCivilElement } from './IfcCivilElement.gen'
+export { IfcCivilElementType } from './IfcCivilElementType.gen'
+export { IfcConstructionEquipmentResource } from './IfcConstructionEquipmentResource.gen'
+export { IfcConstructionEquipmentResourceType } from './IfcConstructionEquipmentResourceType.gen'
+export { IfcConstructionMaterialResource } from './IfcConstructionMaterialResource.gen'
+export { IfcConstructionMaterialResourceType } from './IfcConstructionMaterialResourceType.gen'
+export { IfcConstructionProductResource } from './IfcConstructionProductResource.gen'
+export { IfcConstructionProductResourceType } from './IfcConstructionProductResourceType.gen'
+export { IfcCrewResource } from './IfcCrewResource.gen'
+export { IfcLaborResource } from './IfcLaborResource.gen'
+export { IfcSubContractResource } from './IfcSubContractResource.gen'
+export { IfcCrewResourceType } from './IfcCrewResourceType.gen'
+export { IfcLaborResourceType } from './IfcLaborResourceType.gen'
+export { IfcSubContractResourceType } from './IfcSubContractResourceType.gen'
+export { IfcDistributionSystem } from './IfcDistributionSystem.gen'
+export { IfcDistributionElement } from './IfcDistributionElement.gen'
+export { IfcDistributionElementType } from './IfcDistributionElementType.gen'
+export { IfcDistributionPort } from './IfcDistributionPort.gen'
+export { IfcElementAssembly } from './IfcElementAssembly.gen'
+export { IfcFeatureElement } from './IfcFeatureElement.gen'
+export { IfcFurnishingElement } from './IfcFurnishingElement.gen'
+export { IfcGeographicElement } from './IfcGeographicElement.gen'
+export { IfcTransportElement } from './IfcTransportElement.gen'
+export { IfcVirtualElement } from './IfcVirtualElement.gen'
+export { IfcElementAssemblyType } from './IfcElementAssemblyType.gen'
+export { IfcFurnishingElementType } from './IfcFurnishingElementType.gen'
+export { IfcGeographicElementType } from './IfcGeographicElementType.gen'
+export { IfcTransportElementType } from './IfcTransportElementType.gen'
+export { IfcExternalSpatialStructureElement } from './IfcExternalSpatialStructureElement.gen'
+export { IfcExtrudedAreaSolidTapered } from './IfcExtrudedAreaSolidTapered.gen'
+export { IfcFacetedBrepWithVoids } from './IfcFacetedBrepWithVoids.gen'
+export { IfcRelSpaceBoundary2ndLevel } from './IfcRelSpaceBoundary2ndLevel.gen'
+export { IfcRevolvedAreaSolidTapered } from './IfcRevolvedAreaSolidTapered.gen'
+export { IfcSpatialStructureElementType } from './IfcSpatialStructureElementType.gen'
+export { IfcSpatialZone } from './IfcSpatialZone.gen'
+export { IfcSpatialZoneType } from './IfcSpatialZoneType.gen'
+export { IfcStructuralAction } from './IfcStructuralAction.gen'
+export { IfcStructuralReaction } from './IfcStructuralReaction.gen'
+export { IfcStructuralAnalysisModel } from './IfcStructuralAnalysisModel.gen'
+export { IfcStructuralConnection } from './IfcStructuralConnection.gen'
+export { IfcStructuralMember } from './IfcStructuralMember.gen'
+export { IfcStructuralLoadCase } from './IfcStructuralLoadCase.gen'
+export { IfcZone } from './IfcZone.gen'
+export { IfcWorkPlan } from './IfcWorkPlan.gen'
+export { IfcWorkSchedule } from './IfcWorkSchedule.gen'
+export { IfcDistributionControlElement } from './IfcDistributionControlElement.gen'
+export { IfcDistributionControlElementType } from './IfcDistributionControlElementType.gen'
+export { IfcRationalBSplineCurveWithKnots } from './IfcRationalBSplineCurveWithKnots.gen'
+export { IfcRationalBSplineSurfaceWithKnots } from './IfcRationalBSplineSurfaceWithKnots.gen'
+export { IfcBeam } from './IfcBeam.gen'
+export { IfcBeamType } from './IfcBeamType.gen'
+export { IfcBoundaryCurve } from './IfcBoundaryCurve.gen'
+export { IfcBuilding } from './IfcBuilding.gen'
+export { IfcBuildingElementProxy } from './IfcBuildingElementProxy.gen'
+export { IfcChimney } from './IfcChimney.gen'
+export { IfcColumn } from './IfcColumn.gen'
+export { IfcCovering } from './IfcCovering.gen'
+export { IfcCurtainWall } from './IfcCurtainWall.gen'
+export { IfcDoor } from './IfcDoor.gen'
+export { IfcFooting } from './IfcFooting.gen'
+export { IfcMember } from './IfcMember.gen'
+export { IfcPile } from './IfcPile.gen'
+export { IfcPlate } from './IfcPlate.gen'
+export { IfcRailing } from './IfcRailing.gen'
+export { IfcRamp } from './IfcRamp.gen'
+export { IfcRampFlight } from './IfcRampFlight.gen'
+export { IfcRoof } from './IfcRoof.gen'
+export { IfcShadingDevice } from './IfcShadingDevice.gen'
+export { IfcSlab } from './IfcSlab.gen'
+export { IfcStair } from './IfcStair.gen'
+export { IfcStairFlight } from './IfcStairFlight.gen'
+export { IfcWall } from './IfcWall.gen'
+export { IfcWindow } from './IfcWindow.gen'
+export { IfcBuildingElementPart } from './IfcBuildingElementPart.gen'
+export { IfcBuildingElementPartType } from './IfcBuildingElementPartType.gen'
+export { IfcBuildingElementProxyType } from './IfcBuildingElementProxyType.gen'
+export { IfcChimneyType } from './IfcChimneyType.gen'
+export { IfcColumnType } from './IfcColumnType.gen'
+export { IfcCoveringType } from './IfcCoveringType.gen'
+export { IfcCurtainWallType } from './IfcCurtainWallType.gen'
+export { IfcDoorType } from './IfcDoorType.gen'
+export { IfcFootingType } from './IfcFootingType.gen'
+export { IfcMemberType } from './IfcMemberType.gen'
+export { IfcPileType } from './IfcPileType.gen'
+export { IfcPlateType } from './IfcPlateType.gen'
+export { IfcRailingType } from './IfcRailingType.gen'
+export { IfcRampFlightType } from './IfcRampFlightType.gen'
+export { IfcRampType } from './IfcRampType.gen'
+export { IfcRoofType } from './IfcRoofType.gen'
+export { IfcShadingDeviceType } from './IfcShadingDeviceType.gen'
+export { IfcSlabType } from './IfcSlabType.gen'
+export { IfcStairFlightType } from './IfcStairFlightType.gen'
+export { IfcStairType } from './IfcStairType.gen'
+export { IfcWallType } from './IfcWallType.gen'
+export { IfcWindowType } from './IfcWindowType.gen'
+export { IfcBuildingStorey } from './IfcBuildingStorey.gen'
+export { IfcDiscreteAccessory } from './IfcDiscreteAccessory.gen'
+export { IfcDiscreteAccessoryType } from './IfcDiscreteAccessoryType.gen'
+export { IfcDistributionFlowElement } from './IfcDistributionFlowElement.gen'
+export { IfcDistributionFlowElementType } from './IfcDistributionFlowElementType.gen'
+export { IfcDistributionCircuit } from './IfcDistributionCircuit.gen'
+export { IfcFastener } from './IfcFastener.gen'
+export { IfcMechanicalFastener } from './IfcMechanicalFastener.gen'
+export { IfcReinforcingElement } from './IfcReinforcingElement.gen'
+export { IfcVibrationIsolator } from './IfcVibrationIsolator.gen'
+export { IfcFastenerType } from './IfcFastenerType.gen'
+export { IfcMechanicalFastenerType } from './IfcMechanicalFastenerType.gen'
+export { IfcReinforcingElementType } from './IfcReinforcingElementType.gen'
+export { IfcVibrationIsolatorType } from './IfcVibrationIsolatorType.gen'
+export { IfcExternalSpatialElement } from './IfcExternalSpatialElement.gen'
+export { IfcFeatureElementAddition } from './IfcFeatureElementAddition.gen'
+export { IfcFeatureElementSubtraction } from './IfcFeatureElementSubtraction.gen'
+export { IfcSurfaceFeature } from './IfcSurfaceFeature.gen'
+export { IfcFurniture } from './IfcFurniture.gen'
+export { IfcSystemFurnitureElement } from './IfcSystemFurnitureElement.gen'
+export { IfcFurnitureType } from './IfcFurnitureType.gen'
+export { IfcSystemFurnitureElementType } from './IfcSystemFurnitureElementType.gen'
+export { IfcSite } from './IfcSite.gen'
+export { IfcSpace } from './IfcSpace.gen'
+export { IfcSpaceType } from './IfcSpaceType.gen'
+export { IfcStructuralCurveAction } from './IfcStructuralCurveAction.gen'
+export { IfcStructuralPointAction } from './IfcStructuralPointAction.gen'
+export { IfcStructuralSurfaceAction } from './IfcStructuralSurfaceAction.gen'
+export { IfcStructuralCurveConnection } from './IfcStructuralCurveConnection.gen'
+export { IfcStructuralPointConnection } from './IfcStructuralPointConnection.gen'
+export { IfcStructuralSurfaceConnection } from './IfcStructuralSurfaceConnection.gen'
+export { IfcStructuralCurveMember } from './IfcStructuralCurveMember.gen'
+export { IfcStructuralCurveReaction } from './IfcStructuralCurveReaction.gen'
+export { IfcStructuralSurfaceMember } from './IfcStructuralSurfaceMember.gen'
+export { IfcStructuralPointReaction } from './IfcStructuralPointReaction.gen'
+export { IfcStructuralSurfaceReaction } from './IfcStructuralSurfaceReaction.gen'
+export { IfcActuator } from './IfcActuator.gen'
+export { IfcActuatorType } from './IfcActuatorType.gen'
+export { IfcFlowTerminal } from './IfcFlowTerminal.gen'
+export { IfcFlowController } from './IfcFlowController.gen'
+export { IfcFlowControllerType } from './IfcFlowControllerType.gen'
+export { IfcFlowTerminalType } from './IfcFlowTerminalType.gen'
+export { IfcEnergyConversionDevice } from './IfcEnergyConversionDevice.gen'
+export { IfcEnergyConversionDeviceType } from './IfcEnergyConversionDeviceType.gen'
+export { IfcAlarm } from './IfcAlarm.gen'
+export { IfcAlarmType } from './IfcAlarmType.gen'
+export { IfcBeamStandardCase } from './IfcBeamStandardCase.gen'
+export { IfcOuterBoundaryCurve } from './IfcOuterBoundaryCurve.gen'
+export { IfcFlowFitting } from './IfcFlowFitting.gen'
+export { IfcFlowFittingType } from './IfcFlowFittingType.gen'
+export { IfcFlowSegment } from './IfcFlowSegment.gen'
+export { IfcFlowSegmentType } from './IfcFlowSegmentType.gen'
+export { IfcColumnStandardCase } from './IfcColumnStandardCase.gen'
+export { IfcFlowMovingDevice } from './IfcFlowMovingDevice.gen'
+export { IfcFlowMovingDeviceType } from './IfcFlowMovingDeviceType.gen'
+export { IfcController } from './IfcController.gen'
+export { IfcControllerType } from './IfcControllerType.gen'
+export { IfcDistributionChamberElement } from './IfcDistributionChamberElement.gen'
+export { IfcDistributionChamberElementType } from './IfcDistributionChamberElementType.gen'
+export { IfcFlowInstrument } from './IfcFlowInstrument.gen'
+export { IfcProtectiveDeviceTrippingUnit } from './IfcProtectiveDeviceTrippingUnit.gen'
+export { IfcSensor } from './IfcSensor.gen'
+export { IfcUnitaryControlElement } from './IfcUnitaryControlElement.gen'
+export { IfcFlowInstrumentType } from './IfcFlowInstrumentType.gen'
+export { IfcProtectiveDeviceTrippingUnitType } from './IfcProtectiveDeviceTrippingUnitType.gen'
+export { IfcSensorType } from './IfcSensorType.gen'
+export { IfcUnitaryControlElementType } from './IfcUnitaryControlElementType.gen'
+export { IfcFlowStorageDevice } from './IfcFlowStorageDevice.gen'
+export { IfcFlowTreatmentDevice } from './IfcFlowTreatmentDevice.gen'
+export { IfcFlowStorageDeviceType } from './IfcFlowStorageDeviceType.gen'
+export { IfcFlowTreatmentDeviceType } from './IfcFlowTreatmentDeviceType.gen'
+export { IfcDoorStandardCase } from './IfcDoorStandardCase.gen'
+export { IfcProjectionElement } from './IfcProjectionElement.gen'
+export { IfcOpeningElement } from './IfcOpeningElement.gen'
+export { IfcVoidingFeature } from './IfcVoidingFeature.gen'
+export { IfcMemberStandardCase } from './IfcMemberStandardCase.gen'
+export { IfcPlateStandardCase } from './IfcPlateStandardCase.gen'
+export { IfcReinforcingBar } from './IfcReinforcingBar.gen'
+export { IfcReinforcingBarType } from './IfcReinforcingBarType.gen'
+export { IfcReinforcingMesh } from './IfcReinforcingMesh.gen'
+export { IfcTendon } from './IfcTendon.gen'
+export { IfcTendonAnchor } from './IfcTendonAnchor.gen'
+export { IfcReinforcingMeshType } from './IfcReinforcingMeshType.gen'
+export { IfcTendonAnchorType } from './IfcTendonAnchorType.gen'
+export { IfcTendonType } from './IfcTendonType.gen'
+export { IfcSlabElementedCase } from './IfcSlabElementedCase.gen'
+export { IfcSlabStandardCase } from './IfcSlabStandardCase.gen'
+export { IfcStructuralLinearAction } from './IfcStructuralLinearAction.gen'
+export { IfcStructuralCurveMemberVarying } from './IfcStructuralCurveMemberVarying.gen'
+export { IfcStructuralPlanarAction } from './IfcStructuralPlanarAction.gen'
+export { IfcStructuralSurfaceMemberVarying } from './IfcStructuralSurfaceMemberVarying.gen'
+export { IfcWallElementedCase } from './IfcWallElementedCase.gen'
+export { IfcWallStandardCase } from './IfcWallStandardCase.gen'
+export { IfcWindowStandardCase } from './IfcWindowStandardCase.gen'
+export { IfcAirTerminal } from './IfcAirTerminal.gen'
+export { IfcAirTerminalBox } from './IfcAirTerminalBox.gen'
+export { IfcAirTerminalBoxType } from './IfcAirTerminalBoxType.gen'
+export { IfcAirTerminalType } from './IfcAirTerminalType.gen'
+export { IfcAirToAirHeatRecovery } from './IfcAirToAirHeatRecovery.gen'
+export { IfcAirToAirHeatRecoveryType } from './IfcAirToAirHeatRecoveryType.gen'
+export { IfcAudioVisualAppliance } from './IfcAudioVisualAppliance.gen'
+export { IfcAudioVisualApplianceType } from './IfcAudioVisualApplianceType.gen'
+export { IfcBoiler } from './IfcBoiler.gen'
+export { IfcBoilerType } from './IfcBoilerType.gen'
+export { IfcBurner } from './IfcBurner.gen'
+export { IfcBurnerType } from './IfcBurnerType.gen'
+export { IfcCableCarrierFitting } from './IfcCableCarrierFitting.gen'
+export { IfcCableCarrierFittingType } from './IfcCableCarrierFittingType.gen'
+export { IfcCableCarrierSegment } from './IfcCableCarrierSegment.gen'
+export { IfcCableCarrierSegmentType } from './IfcCableCarrierSegmentType.gen'
+export { IfcCableFitting } from './IfcCableFitting.gen'
+export { IfcCableFittingType } from './IfcCableFittingType.gen'
+export { IfcCableSegment } from './IfcCableSegment.gen'
+export { IfcCableSegmentType } from './IfcCableSegmentType.gen'
+export { IfcChiller } from './IfcChiller.gen'
+export { IfcChillerType } from './IfcChillerType.gen'
+export { IfcCoil } from './IfcCoil.gen'
+export { IfcCoilType } from './IfcCoilType.gen'
+export { IfcCommunicationsAppliance } from './IfcCommunicationsAppliance.gen'
+export { IfcCommunicationsApplianceType } from './IfcCommunicationsApplianceType.gen'
+export { IfcCompressor } from './IfcCompressor.gen'
+export { IfcCompressorType } from './IfcCompressorType.gen'
+export { IfcCondenser } from './IfcCondenser.gen'
+export { IfcCondenserType } from './IfcCondenserType.gen'
+export { IfcCooledBeam } from './IfcCooledBeam.gen'
+export { IfcCooledBeamType } from './IfcCooledBeamType.gen'
+export { IfcCoolingTower } from './IfcCoolingTower.gen'
+export { IfcCoolingTowerType } from './IfcCoolingTowerType.gen'
+export { IfcDamper } from './IfcDamper.gen'
+export { IfcDamperType } from './IfcDamperType.gen'
+export { IfcDuctFitting } from './IfcDuctFitting.gen'
+export { IfcDuctFittingType } from './IfcDuctFittingType.gen'
+export { IfcDuctSegment } from './IfcDuctSegment.gen'
+export { IfcDuctSegmentType } from './IfcDuctSegmentType.gen'
+export { IfcDuctSilencer } from './IfcDuctSilencer.gen'
+export { IfcDuctSilencerType } from './IfcDuctSilencerType.gen'
+export { IfcElectricAppliance } from './IfcElectricAppliance.gen'
+export { IfcElectricApplianceType } from './IfcElectricApplianceType.gen'
+export { IfcElectricDistributionBoard } from './IfcElectricDistributionBoard.gen'
+export { IfcElectricDistributionBoardType } from './IfcElectricDistributionBoardType.gen'
+export { IfcElectricFlowStorageDevice } from './IfcElectricFlowStorageDevice.gen'
+export { IfcElectricFlowStorageDeviceType } from './IfcElectricFlowStorageDeviceType.gen'
+export { IfcElectricGenerator } from './IfcElectricGenerator.gen'
+export { IfcElectricGeneratorType } from './IfcElectricGeneratorType.gen'
+export { IfcElectricMotor } from './IfcElectricMotor.gen'
+export { IfcElectricMotorType } from './IfcElectricMotorType.gen'
+export { IfcElectricTimeControl } from './IfcElectricTimeControl.gen'
+export { IfcElectricTimeControlType } from './IfcElectricTimeControlType.gen'
+export { IfcEngine } from './IfcEngine.gen'
+export { IfcEvaporativeCooler } from './IfcEvaporativeCooler.gen'
+export { IfcEvaporator } from './IfcEvaporator.gen'
+export { IfcHeatExchanger } from './IfcHeatExchanger.gen'
+export { IfcHumidifier } from './IfcHumidifier.gen'
+export { IfcMotorConnection } from './IfcMotorConnection.gen'
+export { IfcSolarDevice } from './IfcSolarDevice.gen'
+export { IfcTransformer } from './IfcTransformer.gen'
+export { IfcTubeBundle } from './IfcTubeBundle.gen'
+export { IfcUnitaryEquipment } from './IfcUnitaryEquipment.gen'
+export { IfcEngineType } from './IfcEngineType.gen'
+export { IfcEvaporativeCoolerType } from './IfcEvaporativeCoolerType.gen'
+export { IfcEvaporatorType } from './IfcEvaporatorType.gen'
+export { IfcHeatExchangerType } from './IfcHeatExchangerType.gen'
+export { IfcHumidifierType } from './IfcHumidifierType.gen'
+export { IfcMotorConnectionType } from './IfcMotorConnectionType.gen'
+export { IfcSolarDeviceType } from './IfcSolarDeviceType.gen'
+export { IfcTransformerType } from './IfcTransformerType.gen'
+export { IfcTubeBundleType } from './IfcTubeBundleType.gen'
+export { IfcUnitaryEquipmentType } from './IfcUnitaryEquipmentType.gen'
+export { IfcFan } from './IfcFan.gen'
+export { IfcFanType } from './IfcFanType.gen'
+export { IfcFilter } from './IfcFilter.gen'
+export { IfcFilterType } from './IfcFilterType.gen'
+export { IfcFireSuppressionTerminal } from './IfcFireSuppressionTerminal.gen'
+export { IfcFireSuppressionTerminalType } from './IfcFireSuppressionTerminalType.gen'
+export { IfcFlowMeter } from './IfcFlowMeter.gen'
+export { IfcProtectiveDevice } from './IfcProtectiveDevice.gen'
+export { IfcSwitchingDevice } from './IfcSwitchingDevice.gen'
+export { IfcValve } from './IfcValve.gen'
+export { IfcFlowMeterType } from './IfcFlowMeterType.gen'
+export { IfcProtectiveDeviceType } from './IfcProtectiveDeviceType.gen'
+export { IfcSwitchingDeviceType } from './IfcSwitchingDeviceType.gen'
+export { IfcValveType } from './IfcValveType.gen'
+export { IfcJunctionBox } from './IfcJunctionBox.gen'
+export { IfcPipeFitting } from './IfcPipeFitting.gen'
+export { IfcJunctionBoxType } from './IfcJunctionBoxType.gen'
+export { IfcPipeFittingType } from './IfcPipeFittingType.gen'
+export { IfcPump } from './IfcPump.gen'
+export { IfcPumpType } from './IfcPumpType.gen'
+export { IfcPipeSegment } from './IfcPipeSegment.gen'
+export { IfcPipeSegmentType } from './IfcPipeSegmentType.gen'
+export { IfcTank } from './IfcTank.gen'
+export { IfcTankType } from './IfcTankType.gen'
+export { IfcLamp } from './IfcLamp.gen'
+export { IfcLightFixture } from './IfcLightFixture.gen'
+export { IfcMedicalDevice } from './IfcMedicalDevice.gen'
+export { IfcOutlet } from './IfcOutlet.gen'
+export { IfcSanitaryTerminal } from './IfcSanitaryTerminal.gen'
+export { IfcSpaceHeater } from './IfcSpaceHeater.gen'
+export { IfcStackTerminal } from './IfcStackTerminal.gen'
+export { IfcWasteTerminal } from './IfcWasteTerminal.gen'
+export { IfcLampType } from './IfcLampType.gen'
+export { IfcLightFixtureType } from './IfcLightFixtureType.gen'
+export { IfcMedicalDeviceType } from './IfcMedicalDeviceType.gen'
+export { IfcOutletType } from './IfcOutletType.gen'
+export { IfcSanitaryTerminalType } from './IfcSanitaryTerminalType.gen'
+export { IfcSpaceHeaterType } from './IfcSpaceHeaterType.gen'
+export { IfcStackTerminalType } from './IfcStackTerminalType.gen'
+export { IfcWasteTerminalType } from './IfcWasteTerminalType.gen'
+export { IfcInterceptor } from './IfcInterceptor.gen'
+export { IfcInterceptorType } from './IfcInterceptorType.gen'
+export { IfcOpeningStandardCase } from './IfcOpeningStandardCase.gen'

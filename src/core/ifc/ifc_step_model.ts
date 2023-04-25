@@ -1,6 +1,6 @@
-import EntityTypesIfc, {EntityTypesIfcCount} from '../../gen/ifc/entity_types_ifc.bldrs'
+import EntityTypesIfc, {EntityTypesIfcCount} from '../../gen/ifc/entity_types_ifc.gen'
 import StepModelBase from '../step_model_base'
-import SchemaIfc from '../../gen/ifc/schema_ifc.bldrs'
+import SchemaIfc from '../../gen/ifc/schema_ifc.gen'
 import {StepIndexEntry} from '../../../dependencies/conway-ds/src/parsing/step/step_parser'
 import {StepTypeIndexer} from '../../../dependencies/conway-ds/src/parsing/step/step_type_indexer'
 import {MultiIndexSet} from '../../../dependencies/conway-ds/src/indexing/multi_index_set'
