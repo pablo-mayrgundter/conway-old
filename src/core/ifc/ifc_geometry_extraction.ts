@@ -166,7 +166,7 @@ export class IfcGeometryExtraction {
   }
 
   /**
-   * Destroy wasm module and deinitialize
+   * Destroy geometry processor and deinitialize
    */
   destroy(modelId:number = 0) {
     if (this.conwayGeomMap.get(modelId)) {
