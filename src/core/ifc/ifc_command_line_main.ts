@@ -16,312 +16,326 @@ const SKIP_PARAMS = 2
 const args = // eslint-disable-line no-unused-vars
     yargs(process.argv.slice(SKIP_PARAMS))
         .command('$0 <filename>', 'Query file', (yargs2) => {
-            yargs2.option('express_ids', {
-                describe: 'A list of express IDs',
-                type: 'number',
-                array: true,
-                alias: 'e',
-            })
-            yargs2.option('types', {
-                describe: 'A list of express IDs',
-                type: 'string',
-                array: true, alias: 't'
-            })
-            yargs2.option('fields', {
-                describe: 'A list of fields to extract',
-                type: 'string',
-                array: true,
-                alias: 'f',
-            })
-            yargs2.option('geometry', {
-                describe: 'Output Geometry in OBJ + GLTF + GLB formats',
-                type: 'boolean',
-                alias: 'g'
-            })
-            yargs2.positional('filename', { describe: 'IFC File Paths', type: 'string' })
+          yargs2.option('express_ids', {
+            describe: 'A list of express IDs',
+            type: 'number',
+            array: true,
+            alias: 'e',
+          })
+          yargs2.option('types', {
+            describe: 'A list of express IDs',
+            type: 'string',
+            array: true, alias: 't',
+          })
+          yargs2.option('fields', {
+            describe: 'A list of fields to extract',
+            type: 'string',
+            array: true,
+            alias: 'f',
+          })
+          yargs2.option('geometry', {
+            describe: 'Output Geometry in OBJ + GLTF + GLB formats',
+            type: 'boolean',
+            alias: 'g',
+          })
+          yargs2.positional('filename', { describe: 'IFC File Paths', type: 'string' })
         }, (argv) => {
-            const ifcFile = argv['filename'] as string
+          const ifcFile = argv['filename'] as string
 
-            let indexIfcBuffer: Buffer | undefined
+          let indexIfcBuffer: Buffer | undefined
 
-            const expressIDs = (argv['express_ids'] as number[] | undefined)
-            const types = (argv['types'] as string[] | undefined)?.map((value) => {
-                return EntityTypesIfc[value.toLocaleUpperCase() as keyof typeof EntityTypesIfc]
-            }).filter((value) => value !== void 0)
-            const fields = (argv['fields'] as string[] | undefined) ?? ['expressID', 'type', 'localID']
-            let geometry = (argv['geometry'] as boolean | undefined)
+          const expressIDs = (argv['express_ids'] as number[] | undefined)
+          const types = (argv['types'] as string[] | undefined)?.map((value) => {
+            return EntityTypesIfc[value.toLocaleUpperCase() as keyof typeof EntityTypesIfc]
+          }).filter((value) => value !== void 0)
+          const fields = (argv['fields'] as string[] | undefined) ??
+          ['expressID', 'type', 'localID']
+          const geometry = (argv['geometry'] as boolean | undefined)
 
-            try {
-                indexIfcBuffer = fs.readFileSync(ifcFile)
-            } catch (ex) {
-                console.log(
-                    'Error: couldn\'t read file, check that it is accessible at the specified path.')
-                exit()
-            }
+          try {
+            indexIfcBuffer = fs.readFileSync(ifcFile)
+          } catch (ex) {
+            console.log(
+                'Error: couldn\'t read file, check that it is accessible at the specified path.')
+            exit()
+          }
 
-            if (indexIfcBuffer === void 0) {
-                console.log(
-                    'Error: couldn\'t read file, check that it is accessible at the specified path.')
-                exit()
-            }
+          if (indexIfcBuffer === void 0) {
+            console.log(
+                'Error: couldn\'t read file, check that it is accessible at the specified path.')
+            exit()
+          }
 
-            const parser = IfcStepParser.Instance
-            const bufferInput = new ParsingBuffer(indexIfcBuffer)
+          const parser = IfcStepParser.Instance
+          const bufferInput = new ParsingBuffer(indexIfcBuffer)
 
-            const headerDataTimeStart = Date.now()
+          const headerDataTimeStart = Date.now()
 
-            const result0 = parser.parseHeader(bufferInput)[1]
+          const result0 = parser.parseHeader(bufferInput)[1]
 
-            const headerDataTimeEnd = Date.now()
+          const headerDataTimeEnd = Date.now()
 
-            switch (result0) {
-                case ParseResult.COMPLETE:
+          switch (result0) {
+            case ParseResult.COMPLETE:
 
-                    break
+              break
 
-                case ParseResult.INCOMPLETE:
+            case ParseResult.INCOMPLETE:
 
-                    console.log('Parse incomplete but no errors')
-                    break
+              console.log('Parse incomplete but no errors')
+              break
 
-                case ParseResult.INVALID_STEP:
+            case ParseResult.INVALID_STEP:
 
-                    console.log('Error: Invalid STEP detected in parse, but no syntax error detected')
-                    break
+              console.log('Error: Invalid STEP detected in parse, but no syntax error detected')
+              break
 
-                case ParseResult.MISSING_TYPE:
+            case ParseResult.MISSING_TYPE:
 
-                    console.log('Error: missing STEP type, but no syntax error detected')
-                    break
+              console.log('Error: missing STEP type, but no syntax error detected')
+              break
 
-                case ParseResult.SYNTAX_ERROR:
+            case ParseResult.SYNTAX_ERROR:
 
-                    console.log(`Error: Syntax error detected on line ${bufferInput.lineCount}`)
-                    break
+              console.log(`Error: Syntax error detected on line ${bufferInput.lineCount}`)
+              break
 
-                default:
-            }
+            default:
+          }
 
-            const parseDataTimeStart = Date.now()
-            const model = parser.parseDataToModel(bufferInput)[1]
-            const parseDataTimeEnd = Date.now()
+          const parseDataTimeStart = Date.now()
+          const model = parser.parseDataToModel(bufferInput)[1]
+          const parseDataTimeEnd = Date.now()
 
-            if (model === void 0) {
-                return
-            }
+          if (model === void 0) {
+            return
+          }
 
-            console.log('\n')
+          console.log('\n')
 
-            console.log(fields.reduce((previous, current, currentIndex) => {
-                return `${previous}${(currentIndex === 0) ? '|' : ''}${current}|`
-            }, ''))
+          console.log(fields.reduce((previous, current, currentIndex) => {
+            return `${previous}${(currentIndex === 0) ? '|' : ''}${current}|`
+          }, ''))
 
-            console.log(fields.reduce((previous, current, currentIndex) => {
-                return `${previous}${(currentIndex === 0) ? '|' : ''}---|`
-            }, ''))
+          console.log(fields.reduce((previous, current, currentIndex) => {
+            return `${previous}${(currentIndex === 0) ? '|' : ''}---|`
+          }, ''))
 
-            let rowCount = 0
+          let rowCount = 0
 
-            const elements =
+          const elements =
                 (expressIDs?.map((value) => model?.getElementByExpressID(value))?.filter(
-                    (value) => value !== void 0 && (types === void 0 || types.includes(value.type))) ??
+                    (value) => value !== void 0 && (types === void 0 ||
+                        types.includes(value.type))) ??
                     (types !== void 0 ? model.typeIDs(...types) : void 0) ??
                     model) as StepEntityBase<EntityTypesIfc>[] |
                 IterableIterator<StepEntityBase<EntityTypesIfc>>
 
-            for (const element of elements) {
-                const elementTypeID = EntityTypesIfc[element.type]
+          for (const element of elements) {
+            const elementTypeID = EntityTypesIfc[element.type]
 
-                console.log(
-                    fields.reduce((previous, current, currentIndex) => {
-                        let result
+            console.log(
+                fields.reduce((previous, current, currentIndex) => {
+                  let result
 
-                        try {
-                            if (current === 'type') {
-                                result = elementTypeID
-                            } else {
-                                result = ((element as { [key: string]: any })[current])
+                  try {
+                    if (current === 'type') {
+                      result = elementTypeID
+                    } else {
+                      result = ((element as { [key: string]: any })[current])
 
-                                if (result === null) {
-                                    result = 'null'
-                                } else if (result === void 0) {
-                                    result = '   '
-                                } else if (current === 'expressID') {
-                                    result = `#${result}`
-                                }
-                            }
-                        } catch (ex) {
-                            result = 'err'
-                        }
+                      if (result === null) {
+                        result = 'null'
+                      } else if (result === void 0) {
+                        result = '   '
+                      } else if (current === 'expressID') {
+                        result = `#${result}`
+                      }
+                    }
+                  } catch (ex) {
+                    result = 'err'
+                  }
 
-                        return `${previous}${(currentIndex === 0) ? '|' : ''}${result}|`
-                    }, ''))
+                  return `${previous}${(currentIndex === 0) ? '|' : ''}${result}|`
+                }, ''))
 
-                ++rowCount
-            }
+            ++rowCount
+          }
 
-            console.log('\n')
-            console.log(`Row Count: ${rowCount}`)
-            console.log(`Header parse time ${headerDataTimeEnd - headerDataTimeStart} ms`)
-            console.log(`Data parse time ${parseDataTimeEnd - parseDataTimeStart} ms`)
+          console.log('\n')
+          console.log(`Row Count: ${rowCount}`)
+          console.log(`Header parse time ${headerDataTimeEnd - headerDataTimeStart} ms`)
+          console.log(`Data parse time ${parseDataTimeEnd - parseDataTimeStart} ms`)
 
-            if (geometry) {
-                geometryExtraction(model)
-            }
+          if (geometry) {
+            geometryExtraction(model)
+          }
         })
         .help().argv
 
+/**
+ *
+ */
 async function geometryExtraction(model: IfcStepModel) {
 
-    let ifcGeometryExtraction = new IfcGeometryExtraction()
+  const ifcGeometryExtraction = new IfcGeometryExtraction()
 
-    await ifcGeometryExtraction.initialize()
+  await ifcGeometryExtraction.initialize()
 
-    //parse + extract data model + geometry data
-    ifcGeometryExtraction.extractIFCGeometryData(model, true)
+  // parse + extract data model + geometry data
+  ifcGeometryExtraction.extractIFCGeometryData(model, true)
 
-    //get list of GeometryObjects 
-    const geometryArray = ifcGeometryExtraction.getGeometry()
+  // get list of GeometryObjects
+  const geometryArray = ifcGeometryExtraction.getGeometry()
 
-    //we can assign the first GeometryObject to another variable here to combine them all.
-    var fullGeometry = geometryArray[0]
-    for (let i = 0; i < geometryArray.length; i++) {
+  // we can assign the first GeometryObject to another variable here to combine them all.
+  const fullGeometry = geometryArray[0]
+  for (let i = 0; i < geometryArray.length; i++) {
 
-        if (i > 0) {
-            fullGeometry.AddGeometry(geometryArray[i])
-        }
+    if (i > 0) {
+      fullGeometry.addGeometry(geometryArray[i])
+    }
+  }
+
+  // returns a string containing a full obj
+  const startTimeObj = Date.now()
+  const objResult = ifcGeometryExtraction.toObj(fullGeometry)
+  const endTimeObj = Date.now()
+  const executionTimeInMsObj = endTimeObj - startTimeObj
+
+  // write to FS
+  const filename = 'index_ifc_test.obj'
+  fs.writeFile(filename, objResult, function(err) {
+    if (err) {
+      console.error('Error writing to file: ', err)
+    } else {
+      console.log('Data written to file: ', filename)
+    }
+  })
+
+  const startTimeGlb = Date.now()
+  const glbResult = ifcGeometryExtraction.toGltf(fullGeometry, true, false, 'index_ifc_test')
+  const endTimeGlb = Date.now()
+  const executionTimeInMsGlb = endTimeGlb - startTimeGlb
+
+  if (glbResult.success) {
+
+    if (glbResult.buffers.size() !== glbResult.bufferUris.size()) {
+      console.log('Error! Buffer size != Buffer URI size!\n')
+      return
     }
 
-    //returns a string containing a full obj
-    const startTimeObj = Date.now()
-    const objResult = ifcGeometryExtraction.toObj(fullGeometry)
-    const endTimeObj = Date.now()
-    const executionTimeInMsObj = endTimeObj - startTimeObj
+    for (let uriIndex = 0; uriIndex < glbResult.bufferUris.size(); uriIndex++) {
+      const uri = glbResult.bufferUris.get(uriIndex)
 
-    //write to FS
-    const filename = "index_ifc_test.obj"
-    fs.writeFile(filename, objResult, function (err) {
+      // Create a (zero copy!) memory view from the native vector
+      const managedBuffer: Uint8Array =
+      ifcGeometryExtraction.getWasmModule().getUint8Array(glbResult.buffers.get(uriIndex))
+      fs.writeFile(uri, managedBuffer, function(err) {
         if (err) {
-            console.error("Error writing to file: ", err)
+          console.error('Error writing to file: ', err)
         } else {
-            console.log("Data written to file: ", filename)
+          console.log('Data written to file: ', uri)
         }
-    })
+      })
+    }
+  }
 
-    const startTimeGlb = Date.now()
-    const glbResult = ifcGeometryExtraction.toGltf(fullGeometry, true, false, "index_ifc_test")
-    const endTimeGlb = Date.now()
-    const executionTimeInMsGlb = endTimeGlb - startTimeGlb
+  const startTimeGlbDraco = Date.now()
+  const glbDracoResult =
+  ifcGeometryExtraction.toGltf(fullGeometry, true, true, 'index_ifc_test_draco')
+  const endTimeGlbDraco = Date.now()
+  const executionTimeInMsGlbDraco = endTimeGlbDraco - startTimeGlbDraco
 
-    if (glbResult.success) {
+  if (glbDracoResult.success) {
 
-        if (glbResult.buffers.size() != glbResult.bufferUris.size()) {
-            console.log("Error! Buffer size != Buffer URI size!\n")
-            return
-        }
-
-        for (let uriIndex = 0; uriIndex < glbResult.bufferUris.size(); uriIndex++) {
-            let uri = glbResult.bufferUris.get(uriIndex)
-
-            // Create a (zero copy!) memory view from the native vector 
-            const managedBuffer: Uint8Array = ifcGeometryExtraction.getWasmModule().GetUint8Array(glbResult.buffers.get(uriIndex))
-            fs.writeFile(uri, managedBuffer, function (err) {
-                if (err) {
-                    console.error("Error writing to file: ", err)
-                } else {
-                    console.log("Data written to file: ", uri)
-                }
-            })
-        }
+    if (glbDracoResult.buffers.size() !== glbDracoResult.bufferUris.size()) {
+      console.log('Error! Buffer size !== Buffer URI size!\n')
+      return
     }
 
-    const startTimeGlbDraco = Date.now()
-    const glbDracoResult = ifcGeometryExtraction.toGltf(fullGeometry, true, true, "index_ifc_test_draco")
-    const endTimeGlbDraco = Date.now()
-    const executionTimeInMsGlbDraco = endTimeGlbDraco - startTimeGlbDraco
+    for (let uriIndex = 0; uriIndex < glbDracoResult.bufferUris.size(); uriIndex++) {
+      const uri = glbDracoResult.bufferUris.get(uriIndex)
 
-    if (glbDracoResult.success) {
-
-        if (glbDracoResult.buffers.size() != glbDracoResult.bufferUris.size()) {
-            console.log("Error! Buffer size != Buffer URI size!\n")
-            return
+      // Create a memory view from the native vector
+      const managedBuffer: Uint8Array =
+      ifcGeometryExtraction.getWasmModule().getUint8Array(glbDracoResult.buffers.get(uriIndex))
+      fs.writeFile(uri, managedBuffer, function(err) {
+        if (err) {
+          console.error('Error writing to file: ', err)
+        } else {
+          console.log('Data written to file: ', uri)
         }
+      })
+    }
+  }
 
-        for (let uriIndex = 0; uriIndex < glbDracoResult.bufferUris.size(); uriIndex++) {
-            let uri = glbDracoResult.bufferUris.get(uriIndex)
+  const startTimeGltf = Date.now()
+  const gltfResult = ifcGeometryExtraction.toGltf(fullGeometry, false, false, 'index_ifc_test')
+  const endTimeGltf = Date.now()
+  const executionTimeInMsGltf = endTimeGltf - startTimeGltf
 
-            // Create a memory view from the native vector 
-            const managedBuffer: Uint8Array = ifcGeometryExtraction.getWasmModule().GetUint8Array(glbDracoResult.buffers.get(uriIndex))
-            fs.writeFile(uri, managedBuffer, function (err) {
-                if (err) {
-                    console.error("Error writing to file: ", err)
-                } else {
-                    console.log("Data written to file: ", uri)
-                }
-            })
-        }
+  if (gltfResult.success) {
+
+    if (gltfResult.buffers.size() !== gltfResult.bufferUris.size()) {
+      console.log('Error! Buffer size !== Buffer URI size!\n')
+      return
     }
 
-    const startTimeGltf = Date.now()
-    const gltfResult = ifcGeometryExtraction.toGltf(fullGeometry, false, false, "index_ifc_test")
-    const endTimeGltf = Date.now()
-    const executionTimeInMsGltf = endTimeGltf - startTimeGltf
+    for (let uriIndex = 0; uriIndex < gltfResult.bufferUris.size(); uriIndex++) {
+      const uri = gltfResult.bufferUris.get(uriIndex)
 
-    if (gltfResult.success) {
+      // Create a memory view from the native vector
+      const managedBuffer: Uint8Array =
+                ifcGeometryExtraction.getWasmModule().
+                    getUint8Array(gltfResult.buffers.get(uriIndex))
 
-        if (gltfResult.buffers.size() != gltfResult.bufferUris.size()) {
-            console.log("Error! Buffer size != Buffer URI size!\n")
-            return
+      fs.writeFile(uri, managedBuffer, function(err) {
+        if (err) {
+          console.error('Error writing to file: ', err)
+        } else {
+          console.log('Data written to file: ', uri)
         }
+      })
+    }
+  }
 
-        for (let uriIndex = 0; uriIndex < gltfResult.bufferUris.size(); uriIndex++) {
-            let uri = gltfResult.bufferUris.get(uriIndex)
+  const startTimeGltfDraco = Date.now()
+  const gltfDracoResult =
+  ifcGeometryExtraction
+      .toGltf(fullGeometry, false, true, 'index_ifc_test_draco')
+  const endTimeGltfDraco = Date.now()
+  const executionTimeInMsGltfDraco = endTimeGltfDraco - startTimeGltfDraco
 
-            // Create a memory view from the native vector 
-            const managedBuffer: Uint8Array =
-                ifcGeometryExtraction.getWasmModule().GetUint8Array(gltfResult.buffers.get(uriIndex))
+  console.log(`OBJ Generation took ${executionTimeInMsObj} milliseconds to execute.`)
+  console.log(`GLB Generation took ${executionTimeInMsGlb} milliseconds to execute.`)
+  console.log(`GLB (Draco) Generation took ${executionTimeInMsGlbDraco} milliseconds to execute.`)
+  console.log(`GLTF Generation took ${executionTimeInMsGltf} milliseconds to execute.`)
+  console.log(`GLTF (Draco) Generation took ${executionTimeInMsGltfDraco}
+   milliseconds to execute.`)
 
-            fs.writeFile(uri, managedBuffer, function (err) {
-                if (err) {
-                    console.error("Error writing to file: ", err)
-                } else {
-                    console.log("Data written to file: ", uri)
-                }
-            })
-        }
+  if (gltfDracoResult.success) {
+
+    if (gltfDracoResult.buffers.size() !== gltfDracoResult.bufferUris.size()) {
+      console.log('Error! Buffer size !== Buffer URI size!\n')
+      return
     }
 
-    const startTimeGltfDraco = Date.now()
-    const gltfDracoResult = ifcGeometryExtraction.toGltf(fullGeometry, false, true, "index_ifc_test_draco")
-    const endTimeGltfDraco = Date.now()
-    const executionTimeInMsGltfDraco = endTimeGltfDraco - startTimeGltfDraco
+    for (let uriIndex = 0; uriIndex < gltfDracoResult.bufferUris.size(); uriIndex++) {
+      const uri = gltfDracoResult.bufferUris.get(uriIndex)
 
-    console.log(`OBJ Generation took ${executionTimeInMsObj} milliseconds to execute.`)
-    console.log(`GLB Generation took ${executionTimeInMsGlb} milliseconds to execute.`)
-    console.log(`GLB (Draco) Generation took ${executionTimeInMsGlbDraco} milliseconds to execute.`)
-    console.log(`GLTF Generation took ${executionTimeInMsGltf} milliseconds to execute.`)
-    console.log(`GLTF (Draco) Generation took ${executionTimeInMsGltfDraco} milliseconds to execute.`)
+      // Create a memory view from the native vector
+      const managedBuffer: Uint8Array =
+      ifcGeometryExtraction.getWasmModule()
+          .getUint8Array(gltfDracoResult.buffers.get(uriIndex))
 
-    if (gltfDracoResult.success) {
-
-        if (gltfDracoResult.buffers.size() != gltfDracoResult.bufferUris.size()) {
-            console.log("Error! Buffer size != Buffer URI size!\n")
-            return
+      fs.writeFile(uri, managedBuffer, function(err) {
+        if (err) {
+          console.error('Error writing to file: ', err)
+        } else {
+          console.log('Data written to file: ', uri)
         }
-
-        for (let uriIndex = 0; uriIndex < gltfDracoResult.bufferUris.size(); uriIndex++) {
-            let uri = gltfDracoResult.bufferUris.get(uriIndex)
-
-            // Create a memory view from the native vector 
-            const managedBuffer: Uint8Array = ifcGeometryExtraction.getWasmModule().GetUint8Array(gltfDracoResult.buffers.get(uriIndex))
-
-            fs.writeFile(uri, managedBuffer, function (err) {
-                if (err) {
-                    console.error("Error writing to file: ", err)
-                } else {
-                    console.log("Data written to file: ", uri)
-                }
-            })
-        }
+      })
     }
+  }
 }

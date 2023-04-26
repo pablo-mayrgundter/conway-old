@@ -1,66 +1,108 @@
-
-
-import { ConwayGeometry, ParamsPolygonalFaceSet, GeometryObject, ResultsGltf } from "../../../dependencies/conway-geom/conway_geometry"
+import { ConwayGeometry, ParamsPolygonalFaceSet, GeometryObject, ResultsGltf }
+  from '../../../dependencies/conway-geom/conway_geometry'
 import { IfcPolygonalFaceSet } from '../../gen/ifc'
 import IfcStepModel from './ifc_step_model'
 
+
 type NativeVectorGlmVec3 = any
 type NativeUintVector = any
+type WasmModule = any
 
+/**
+ *
+ */
+/* eslint-disable no-shadow, no-unused-vars, no-magic-numbers */
+// -- eslint doesn't understand enums properly.
 export enum ExtractResult {
 
   COMPLETE     = 0,
   INCOMPLETE   = 1,
   SYNTAX_ERROR = 2,
   MISSING_TYPE = 3,
-  INVALID_STEP = 4 
+  INVALID_STEP = 4
 }
+/* eslint-enable no-shadow, no-unused-vars, no-magic-numbers */
 
 
+/**
+ * Handles Geometry data extraction from a populated IfcStepModel
+ * Can export to OBJ, GLTF (Draco), GLB (Draco)
+ */
 export class IfcGeometryExtraction {
-  private conwayGeom: ConwayGeometry
 
-  private geometryArray: GeometryObject[]
+  // Define the map
+  private conwayGeomMap = new Map<number, ConwayGeometry>()
 
-  constructor() {
-    this.conwayGeom = new ConwayGeometry()
-    this.geometryArray = []
+  private geometryMap:Map<number, GeometryObject[]> = new Map<number, GeometryObject[]>
+
+  private wasmModule:WasmModule
+
+  /**
+   * NOTE* Must be called before any other functions in this class
+   */
+  async initialize():Promise<number> {
+
+    // Check if the map is empty
+    if (this.conwayGeomMap.size === 0) {
+      const temp:ConwayGeometry = new ConwayGeometry()
+      const modelId = await temp.initialize()
+      this.conwayGeomMap.set(modelId, temp)
+      this.geometryMap.set(modelId, [])
+      // set wasm module
+      this.wasmModule = temp.wasmModule
+      return modelId
+    } else {
+    // initialize new ConwayGeometry module passing in the wasm module
+      const temp:ConwayGeometry = new ConwayGeometry(this.wasmModule)
+      const modelId = await temp.initialize()
+      this.conwayGeomMap.set(modelId, temp)
+      this.geometryMap.set(modelId, [])
+      return modelId
+    }
   }
 
-  async initialize() {
-    await this.conwayGeom.initialize()
+  /**
+   *
+   * @return {GeometryObject[]} - Array containing all geometry data that was extracted
+   */
+  getGeometry(modelId:number = 0): GeometryObject[] {
+    return this.geometryMap.get(modelId)!
   }
 
-  getGeometry(): GeometryObject[] {
-    return this.geometryArray
+  /**
+   *
+   * @return {WasmModule} - A handle to the loaded wasm module
+   */
+  getWasmModule(): WasmModule {
+    return this.wasmModule
   }
 
-  getWasmModule(): any {
-    return this.conwayGeom.wasmModule
-  }
-
-  /*
-  These native memory helpers should probably be in their own class ...
+  /**
+   *
+   * @param initialSize number - initial size of the vector (optional)
+   * @return {NativeVectorGlmVec3} - a native std::vector<glm::vec3> from the wasm module
    */
   nativeVectorGlmVec3(initialSize?: number): NativeVectorGlmVec3 {
-    let nativeVectorGlmVec3_ = new (this.getWasmModule().glmVec3Array as NativeVectorGlmVec3)()
+    const nativeVectorGlmVec3_ = new (this.wasmModule.glmVec3Array as NativeVectorGlmVec3)()
 
     if (initialSize) {
-      //resize has a required second parameter to set default values if new vector size > old vector size
+      // resize has a required second parameter to set default values
       nativeVectorGlmVec3_.resize(initialSize, { x: 0, y: 0, z: 0 })
     }
 
     return nativeVectorGlmVec3_
   }
 
-  /*
-  These native memory helpers should probably be in their own class ...
+  /**
+   *
+   * @param initialSize number - initial size of the vector (optional)
+   * @return {NativeUintVector} - a native std::vector<uint32_t> from the wasm module
    */
   nativeUintVector(initialize?: number): NativeUintVector {
-    let nativeUintVector_ = new (this.getWasmModule().UintVector as NativeUintVector)()
+    const nativeUintVector_ = new (this.wasmModule.UintVector as NativeUintVector)()
 
     if (initialize) {
-      //resize has a required second parameter to set default values if new vector size > old vector size
+      // resize has a required second parameter to set default values
       nativeUintVector_.resize(initialize, 0)
     }
 
@@ -68,97 +110,145 @@ export class IfcGeometryExtraction {
   }
 
 
-  isInitialized(): Boolean {
-    return this.conwayGeom.initialized
+  /**
+   * @param modelId - model ID
+   * @return {boolean} indicating if the wasm module has been initialized
+   */
+  isInitialized(modelId:number = 0): Boolean {
+    if (this.conwayGeomMap.get(modelId)) {
+      return this.conwayGeomMap.get(modelId)!.initialized
+    }
+
+    return false
   }
 
-  getModelId(): Number {
-    if (this.isInitialized()) {
-      return this.conwayGeom.modelId
-    } else {
-      return -1
+  /**
+   *
+   * @param geometry GeometryObject to add to the geometry array
+   */
+  addGeometry(geometry: GeometryObject, modelId:number = 0) {
+
+    if (this.geometryMap.get(modelId)) {
+      this.geometryMap.get(modelId)!.push(geometry)
     }
   }
 
-  addGeometry(geometry: GeometryObject) {
-    this.geometryArray.push(geometry)
+  /**
+   * @param modelId - model ID
+   * @param geometry - GeometryObject to convert to OBJ
+   * @return {string} - Obj string or blank string
+   */
+  toObj(geometry: GeometryObject, modelId:number = 0): string {
+    if (this.conwayGeomMap.get(modelId)) {
+      return this.conwayGeomMap.get(modelId)!.toObj(geometry)
+    }
+
+    return ''
   }
 
-  toObj(geometry: GeometryObject): string {
-    return this.conwayGeom.toObj(geometry)
+  /**
+   *
+   * @param geometry - GeometryObject to convert to GLTF / GLB
+   * @param isGlb boolean - Should the output be a single GLB file?
+   * @param outputDraco boolean - Should the output be Draco compressed?
+   * @param fileUri string - base filenames for GLTF / GLB files
+   * @return {ResultsGltf} - Structure containing GLTF / GLB filenames + data vectors
+   */
+  toGltf(geometry: GeometryObject, isGlb: boolean,
+      outputDraco: boolean, fileUri: string, modelId:number = 0): ResultsGltf {
+    const noResults:ResultsGltf = {success: false, bufferUris: undefined, buffers: undefined}
+    noResults.success = false
+    if (this.conwayGeomMap.get(modelId)) {
+      return this.conwayGeomMap.get(modelId)!.toGltf(geometry, isGlb, outputDraco, fileUri)
+    }
+
+    return noResults
   }
 
-  toGltf(geometry: GeometryObject, isGlb: boolean, outputDraco: boolean, fileUri: string): ResultsGltf {
-    return this.conwayGeom.toGltf(geometry, isGlb, outputDraco, fileUri)
+  /**
+   * Destroy wasm module and deinitialize
+   */
+  destroy(modelId:number = 0) {
+    if (this.conwayGeomMap.get(modelId)) {
+    this.conwayGeomMap.get(modelId)!.destroy()
+    this.conwayGeomMap.get(modelId)!.initialized = false
+    }
   }
 
-  destroy() {
-    this.conwayGeom.destroy()
-    this.conwayGeom.initialized = false;
-  }
-
+  /**
+   *
+   * @param geometry - GeometryObject to print information from
+   */
   printGeometryInfo(geometry: GeometryObject) {
-    const vertexDataPtr = geometry.GetVertexData()
-    const vertexDataSize = geometry.GetVertexDataSize()
-    const indexDataPtr = geometry.GetIndexData()
-    const indexDataSize = geometry.GetIndexDataSize()
+    const vertexDataPtr = geometry.getVertexData()
+    const vertexDataSize = geometry.getVertexDataSize()
+    const indexDataPtr = geometry.getIndexData()
+    const indexDataSize = geometry.getIndexDataSize()
 
-    //unwrap vertex data
-    const returnedVertexData = new Float32Array(this.getWasmModule().HEAPF32.buffer, vertexDataPtr, vertexDataPtr.length)
+    // unwrap vertex data
+    const returnedVertexData =
+    new Float32Array(this.wasmModule.HEAPF32.buffer, vertexDataPtr, vertexDataPtr.length)
 
-    //unwrap index data
-    const returnedIndexData = new Uint32Array(this.getWasmModule().HEAPU32.buffer, indexDataPtr, indexDataPtr.length)
+    // unwrap index data
+    const returnedIndexData =
+    new Uint32Array(this.wasmModule.HEAPU32.buffer, indexDataPtr, indexDataPtr.length)
 
-    console.log("VertexData Ptr: " + vertexDataPtr)
-    console.log("VertexData Size: " + vertexDataSize)
-    console.log("IndexData Ptr: " + indexDataPtr)
-    console.log("IndexData Size: " + indexDataSize)
+    console.log(`VertexData Ptr: ${  vertexDataPtr}`)
+    console.log(`VertexData Size: ${  vertexDataSize}`)
+    console.log(`IndexData Ptr: ${  indexDataPtr}`)
+    console.log(`IndexData Size: ${  indexDataSize}`)
 
     // Now you can access the vertex Data array in TypeScript using the returnedVertexData object
-    console.log("returnedVertexData[0]: " + returnedVertexData[0]) // prints the first element of vertexData
+    console.log(`returnedVertexData[0]: ${  returnedVertexData[0]}`)
 
     // Now you can access the indexData array in TypeScript using the returnedIndexData object
-    console.log("returnedIndexData[0]: " + returnedIndexData[0]) // prints the first element of indexData
+    console.log(`returnedIndexData[0]: ${  returnedIndexData[0]}`)
   }
 
-  extractIFCGeometryData(model: IfcStepModel, logTime: boolean = false): ExtractResult {
+  /**
+   *
+   * @param model - Input IfcStepModel to extract geometry data from
+   * @param logTime boolean - print execution time (default no)
+   * @return {ExtractResult} - Enum indicating extraction status
+   */
+  extractIFCGeometryData(model: IfcStepModel, logTime: boolean = false, modelId:number = 0):
+  ExtractResult {
     let result: ExtractResult = ExtractResult.COMPLETE
 
     const startTime = Date.now()
 
-    let polygonalFaceSets = model.types(IfcPolygonalFaceSet)
-    let entities = Array.from(polygonalFaceSets)
+    const polygonalFaceSets = model.types(IfcPolygonalFaceSet)
+    const entities = Array.from(polygonalFaceSets)
 
 
     for (const entity of entities) {
-      //map points 
+      // map points
       const points = entity.Coordinates.CoordList.map(([x, y, z]) => ({ x, y, z }))
 
-      //map indices 
+      // map indices
       const faces = entity.Faces.values()
 
       let indicesPerFace: number = -1
 
-      //if the first Face is valid, we can set the indicesPerFace here. 
-      if (entity.Faces.at(0) != undefined) {
+      // if the first Face is valid, we can set the indicesPerFace here.
+      if (entity.Faces.at(0) !== undefined) {
         indicesPerFace = entity.Faces.at(0)!.CoordIndex.length
-      }
-      else {
+      } else {
         result = ExtractResult.INCOMPLETE
         continue
       }
 
       const indices = Array.from(faces, (face) => face.CoordIndex).flat()
 
-      //initialize new native glm::vec3 array object (free memory with delete())
+      // initialize new native glm::vec3 array object (free memory with delete())
       const pointsArray: NativeVectorGlmVec3 = this.nativeVectorGlmVec3(points.length)
 
-      //populate points array 
+      // populate points array
       for (let i = 0; i < points.length; i++) {
         pointsArray.set(i, points[i])
       }
 
-      //initialize new native indices array (free memory with delete())
+      // initialize new native indices array (free memory with delete())
       const indicesArray: NativeUintVector = this.nativeUintVector(indices.length)
 
       for (let i = 0; i < indices.length; i++) {
@@ -174,12 +264,12 @@ export class IfcGeometryExtraction {
         indices: indicesArray,
       }
 
-      const geometry: GeometryObject = this.conwayGeom.getGeometry(parameters)
+      const geometry: GeometryObject = this.conwayGeomMap.get(modelId)!.getGeometry(parameters)
 
-      //add geometry to the list of geometry objects returned by wasm module 
-      this.addGeometry(geometry)
+      // add geometry to the list of geometry objects returned by wasm module
+      this.addGeometry(geometry, modelId)
 
-      //free allocated wasm vectors
+      // free allocated wasm vectors
       pointsArray.delete()
       indicesArray.delete()
     }
