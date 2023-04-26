@@ -1,7 +1,7 @@
 import ParsingBuffer from '../../../dependencies/conway-ds/src/parsing/parsing_buffer'
 import StepParser, {ParseResult} from '../../../dependencies/conway-ds/src/parsing/step/step_parser'
-import EntityTypesIfc from '../../gen/ifc/entity_types_ifc.bldrs'
-import EntitTypesIfcSearch from '../../gen/ifc/entity_types_search.bldrs'
+import EntityTypesIfc from '../../gen/ifc/entity_types_ifc.gen'
+import EntitTypesIfcSearch from '../../gen/ifc/entity_types_search.gen'
 import IfcStepModel from './ifc_step_model'
 
 /**
