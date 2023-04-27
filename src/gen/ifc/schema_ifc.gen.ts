@@ -2966,6 +2966,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCACTIONREQUEST,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONTROL,
   },
   {
     fields: {
@@ -2983,6 +2985,18 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONTROL,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCOBJECT,
+    subTypes: [
+       EntityTypesIfc.IFCACTIONREQUEST,
+       EntityTypesIfc.IFCCOSTITEM,
+       EntityTypesIfc.IFCCOSTSCHEDULE,
+       EntityTypesIfc.IFCPERFORMANCEHISTORY,
+       EntityTypesIfc.IFCPERMIT,
+       EntityTypesIfc.IFCPROJECTORDER,
+       EntityTypesIfc.IFCWORKCALENDAR,
+       EntityTypesIfc.IFCWORKCONTROL,
+    ],
   },
   {
     fields: {
@@ -3020,6 +3034,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCACTOR,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCOBJECT,
+    subTypes: [
+       EntityTypesIfc.IFCOCCUPANT,
+    ],
   },
   {
     fields: {
@@ -3031,6 +3050,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCOCCUPANT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCACTOR,
   },
   {
     fields: {
@@ -3069,6 +3090,16 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCOBJECT,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCOBJECTDEFINITION,
+    subTypes: [
+       EntityTypesIfc.IFCACTOR,
+       EntityTypesIfc.IFCCONTROL,
+       EntityTypesIfc.IFCGROUP,
+       EntityTypesIfc.IFCPROCESS,
+       EntityTypesIfc.IFCPRODUCT,
+       EntityTypesIfc.IFCRESOURCE,
+    ],
   },
   {
     fields: {
@@ -3097,6 +3128,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCACTORROLE,
+    isAbstract: false,
   },
   {
     fields: {
@@ -3108,6 +3140,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCACTUATOR,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONCONTROLELEMENT,
   },
   {
     fields: {
@@ -3120,6 +3154,17 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDISTRIBUTIONCONTROLELEMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCACTUATOR,
+       EntityTypesIfc.IFCALARM,
+       EntityTypesIfc.IFCCONTROLLER,
+       EntityTypesIfc.IFCFLOWINSTRUMENT,
+       EntityTypesIfc.IFCPROTECTIVEDEVICETRIPPINGUNIT,
+       EntityTypesIfc.IFCSENSOR,
+       EntityTypesIfc.IFCUNITARYCONTROLELEMENT,
+    ],
   },
   {
     fields: {
@@ -3131,11 +3176,24 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCACTUATORTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONCONTROLELEMENTTYPE,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCDISTRIBUTIONCONTROLELEMENTTYPE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONELEMENTTYPE,
+    subTypes: [
+       EntityTypesIfc.IFCACTUATORTYPE,
+       EntityTypesIfc.IFCALARMTYPE,
+       EntityTypesIfc.IFCCONTROLLERTYPE,
+       EntityTypesIfc.IFCFLOWINSTRUMENTTYPE,
+       EntityTypesIfc.IFCPROTECTIVEDEVICETRIPPINGUNITTYPE,
+       EntityTypesIfc.IFCSENSORTYPE,
+       EntityTypesIfc.IFCUNITARYCONTROLELEMENTTYPE,
+    ],
   },
   {
     fields: {
@@ -3171,6 +3229,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCADDRESS,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCPOSTALADDRESS,
+       EntityTypesIfc.IFCTELECOMADDRESS,
+    ],
   },
   {
     fields: {
@@ -3212,6 +3275,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPOSTALADDRESS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCADDRESS,
   },
   {
     fields: {
@@ -3251,11 +3316,18 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTELECOMADDRESS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCADDRESS,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCADVANCEDBREP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCMANIFOLDSOLIDBREP,
+    subTypes: [
+       EntityTypesIfc.IFCADVANCEDBREPWITHVOIDS,
+    ],
   },
   {
     fields: {
@@ -3268,6 +3340,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCADVANCEDBREPWITHVOIDS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCADVANCEDBREP,
   },
   {
     fields: {
@@ -3279,11 +3353,19 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMANIFOLDSOLIDBREP,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCSOLIDMODEL,
+    subTypes: [
+       EntityTypesIfc.IFCADVANCEDBREP,
+       EntityTypesIfc.IFCFACETEDBREP,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCADVANCEDFACE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFACESURFACE,
   },
   {
     fields: {
@@ -3300,6 +3382,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFACESURFACE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFACE,
+    subTypes: [
+       EntityTypesIfc.IFCADVANCEDFACE,
+    ],
   },
   {
     fields: {
@@ -3311,11 +3398,30 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCAIRTERMINAL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINAL,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCFLOWTERMINAL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCAIRTERMINAL,
+       EntityTypesIfc.IFCAUDIOVISUALAPPLIANCE,
+       EntityTypesIfc.IFCCOMMUNICATIONSAPPLIANCE,
+       EntityTypesIfc.IFCELECTRICAPPLIANCE,
+       EntityTypesIfc.IFCFIRESUPPRESSIONTERMINAL,
+       EntityTypesIfc.IFCLAMP,
+       EntityTypesIfc.IFCLIGHTFIXTURE,
+       EntityTypesIfc.IFCMEDICALDEVICE,
+       EntityTypesIfc.IFCOUTLET,
+       EntityTypesIfc.IFCSANITARYTERMINAL,
+       EntityTypesIfc.IFCSPACEHEATER,
+       EntityTypesIfc.IFCSTACKTERMINAL,
+       EntityTypesIfc.IFCWASTETERMINAL,
+    ],
   },
   {
     fields: {
@@ -3327,11 +3433,25 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCAIRTERMINALBOX,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWCONTROLLER,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCFLOWCONTROLLER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCAIRTERMINALBOX,
+       EntityTypesIfc.IFCDAMPER,
+       EntityTypesIfc.IFCELECTRICDISTRIBUTIONBOARD,
+       EntityTypesIfc.IFCELECTRICTIMECONTROL,
+       EntityTypesIfc.IFCFLOWMETER,
+       EntityTypesIfc.IFCPROTECTIVEDEVICE,
+       EntityTypesIfc.IFCSWITCHINGDEVICE,
+       EntityTypesIfc.IFCVALVE,
+    ],
   },
   {
     fields: {
@@ -3343,11 +3463,25 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCAIRTERMINALBOXTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWCONTROLLERTYPE,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCFLOWCONTROLLERTYPE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENTTYPE,
+    subTypes: [
+       EntityTypesIfc.IFCAIRTERMINALBOXTYPE,
+       EntityTypesIfc.IFCDAMPERTYPE,
+       EntityTypesIfc.IFCELECTRICDISTRIBUTIONBOARDTYPE,
+       EntityTypesIfc.IFCELECTRICTIMECONTROLTYPE,
+       EntityTypesIfc.IFCFLOWMETERTYPE,
+       EntityTypesIfc.IFCPROTECTIVEDEVICETYPE,
+       EntityTypesIfc.IFCSWITCHINGDEVICETYPE,
+       EntityTypesIfc.IFCVALVETYPE,
+    ],
   },
   {
     fields: {
@@ -3359,11 +3493,30 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCAIRTERMINALTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINALTYPE,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCFLOWTERMINALTYPE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENTTYPE,
+    subTypes: [
+       EntityTypesIfc.IFCAIRTERMINALTYPE,
+       EntityTypesIfc.IFCAUDIOVISUALAPPLIANCETYPE,
+       EntityTypesIfc.IFCCOMMUNICATIONSAPPLIANCETYPE,
+       EntityTypesIfc.IFCELECTRICAPPLIANCETYPE,
+       EntityTypesIfc.IFCFIRESUPPRESSIONTERMINALTYPE,
+       EntityTypesIfc.IFCLAMPTYPE,
+       EntityTypesIfc.IFCLIGHTFIXTURETYPE,
+       EntityTypesIfc.IFCMEDICALDEVICETYPE,
+       EntityTypesIfc.IFCOUTLETTYPE,
+       EntityTypesIfc.IFCSANITARYTERMINALTYPE,
+       EntityTypesIfc.IFCSPACEHEATERTYPE,
+       EntityTypesIfc.IFCSTACKTERMINALTYPE,
+       EntityTypesIfc.IFCWASTETERMINALTYPE,
+    ],
   },
   {
     fields: {
@@ -3375,11 +3528,37 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCAIRTOAIRHEATRECOVERY,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICE,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCENERGYCONVERSIONDEVICE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCAIRTOAIRHEATRECOVERY,
+       EntityTypesIfc.IFCBOILER,
+       EntityTypesIfc.IFCBURNER,
+       EntityTypesIfc.IFCCHILLER,
+       EntityTypesIfc.IFCCOIL,
+       EntityTypesIfc.IFCCONDENSER,
+       EntityTypesIfc.IFCCOOLEDBEAM,
+       EntityTypesIfc.IFCCOOLINGTOWER,
+       EntityTypesIfc.IFCELECTRICGENERATOR,
+       EntityTypesIfc.IFCELECTRICMOTOR,
+       EntityTypesIfc.IFCENGINE,
+       EntityTypesIfc.IFCEVAPORATIVECOOLER,
+       EntityTypesIfc.IFCEVAPORATOR,
+       EntityTypesIfc.IFCHEATEXCHANGER,
+       EntityTypesIfc.IFCHUMIDIFIER,
+       EntityTypesIfc.IFCMOTORCONNECTION,
+       EntityTypesIfc.IFCSOLARDEVICE,
+       EntityTypesIfc.IFCTRANSFORMER,
+       EntityTypesIfc.IFCTUBEBUNDLE,
+       EntityTypesIfc.IFCUNITARYEQUIPMENT,
+    ],
   },
   {
     fields: {
@@ -3391,11 +3570,37 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCAIRTOAIRHEATRECOVERYTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICETYPE,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCENERGYCONVERSIONDEVICETYPE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENTTYPE,
+    subTypes: [
+       EntityTypesIfc.IFCAIRTOAIRHEATRECOVERYTYPE,
+       EntityTypesIfc.IFCBOILERTYPE,
+       EntityTypesIfc.IFCBURNERTYPE,
+       EntityTypesIfc.IFCCHILLERTYPE,
+       EntityTypesIfc.IFCCOILTYPE,
+       EntityTypesIfc.IFCCONDENSERTYPE,
+       EntityTypesIfc.IFCCOOLEDBEAMTYPE,
+       EntityTypesIfc.IFCCOOLINGTOWERTYPE,
+       EntityTypesIfc.IFCELECTRICGENERATORTYPE,
+       EntityTypesIfc.IFCELECTRICMOTORTYPE,
+       EntityTypesIfc.IFCENGINETYPE,
+       EntityTypesIfc.IFCEVAPORATIVECOOLERTYPE,
+       EntityTypesIfc.IFCEVAPORATORTYPE,
+       EntityTypesIfc.IFCHEATEXCHANGERTYPE,
+       EntityTypesIfc.IFCHUMIDIFIERTYPE,
+       EntityTypesIfc.IFCMOTORCONNECTIONTYPE,
+       EntityTypesIfc.IFCSOLARDEVICETYPE,
+       EntityTypesIfc.IFCTRANSFORMERTYPE,
+       EntityTypesIfc.IFCTUBEBUNDLETYPE,
+       EntityTypesIfc.IFCUNITARYEQUIPMENTTYPE,
+    ],
   },
   {
     fields: {
@@ -3407,6 +3612,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCALARM,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONCONTROLELEMENT,
   },
   {
     fields: {
@@ -3418,6 +3625,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCALARMTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONCONTROLELEMENTTYPE,
   },
   {
     fields: {
@@ -3430,6 +3639,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCANNOTATION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRODUCT,
   },
   {
     fields: {
@@ -3454,6 +3665,18 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPRODUCT,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCOBJECT,
+    subTypes: [
+       EntityTypesIfc.IFCANNOTATION,
+       EntityTypesIfc.IFCELEMENT,
+       EntityTypesIfc.IFCGRID,
+       EntityTypesIfc.IFCPORT,
+       EntityTypesIfc.IFCPROXY,
+       EntityTypesIfc.IFCSPATIALELEMENT,
+       EntityTypesIfc.IFCSTRUCTURALACTIVITY,
+       EntityTypesIfc.IFCSTRUCTURALITEM,
+    ],
   },
   {
     fields: {
@@ -3472,11 +3695,42 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCANNOTATIONFILLAREA,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCANNOTATIONFILLAREA,
+       EntityTypesIfc.IFCBOOLEANRESULT,
+       EntityTypesIfc.IFCBOUNDINGBOX,
+       EntityTypesIfc.IFCCARTESIANPOINTLIST,
+       EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR,
+       EntityTypesIfc.IFCCOMPOSITECURVESEGMENT,
+       EntityTypesIfc.IFCCSGPRIMITIVE3D,
+       EntityTypesIfc.IFCCURVE,
+       EntityTypesIfc.IFCDIRECTION,
+       EntityTypesIfc.IFCFACEBASEDSURFACEMODEL,
+       EntityTypesIfc.IFCFILLAREASTYLEHATCHING,
+       EntityTypesIfc.IFCFILLAREASTYLETILES,
+       EntityTypesIfc.IFCGEOMETRICSET,
+       EntityTypesIfc.IFCHALFSPACESOLID,
+       EntityTypesIfc.IFCLIGHTSOURCE,
+       EntityTypesIfc.IFCPLACEMENT,
+       EntityTypesIfc.IFCPLANAREXTENT,
+       EntityTypesIfc.IFCPOINT,
+       EntityTypesIfc.IFCSECTIONEDSPINE,
+       EntityTypesIfc.IFCSHELLBASEDSURFACEMODEL,
+       EntityTypesIfc.IFCSOLIDMODEL,
+       EntityTypesIfc.IFCSURFACE,
+       EntityTypesIfc.IFCTESSELLATEDITEM,
+       EntityTypesIfc.IFCTEXTLITERAL,
+       EntityTypesIfc.IFCVECTOR,
+    ],
   },
   {
     fields: {
@@ -3503,6 +3757,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCAPPLICATION,
+    isAbstract: false,
   },
   {
     fields: {
@@ -4231,11 +4486,17 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCAPPLIEDVALUE,
+    isAbstract: false,
+    subTypes: [
+       EntityTypesIfc.IFCCOSTVALUE,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCCOSTVALUE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCAPPLIEDVALUE,
   },
   {
     fields: {
@@ -4361,6 +4622,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCAPPROVAL,
+    isAbstract: false,
   },
   {
     fields: {
@@ -4379,6 +4641,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCAPPROVALRELATIONSHIP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRESOURCELEVELRELATIONSHIP,
   },
   {
     fields: {
@@ -4394,6 +4658,18 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRESOURCELEVELRELATIONSHIP,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCAPPROVALRELATIONSHIP,
+       EntityTypesIfc.IFCCURRENCYRELATIONSHIP,
+       EntityTypesIfc.IFCDOCUMENTINFORMATIONRELATIONSHIP,
+       EntityTypesIfc.IFCEXTERNALREFERENCERELATIONSHIP,
+       EntityTypesIfc.IFCMATERIALRELATIONSHIP,
+       EntityTypesIfc.IFCORGANIZATIONRELATIONSHIP,
+       EntityTypesIfc.IFCPROPERTYDEPENDENCYRELATIONSHIP,
+       EntityTypesIfc.IFCRESOURCEAPPROVALRELATIONSHIP,
+       EntityTypesIfc.IFCRESOURCECONSTRAINTRELATIONSHIP,
+    ],
   },
   {
     fields: {
@@ -4405,6 +4681,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCARBITRARYCLOSEDPROFILEDEF,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPROFILEDEF,
+    subTypes: [
+       EntityTypesIfc.IFCARBITRARYPROFILEDEFWITHVOIDS,
+    ],
   },
   {
     fields: {
@@ -4417,6 +4698,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCARBITRARYPROFILEDEFWITHVOIDS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCARBITRARYCLOSEDPROFILEDEF,
   },
   {
     fields: {
@@ -4447,6 +4730,14 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROFILEDEF,
+    isAbstract: false,
+    subTypes: [
+       EntityTypesIfc.IFCARBITRARYCLOSEDPROFILEDEF,
+       EntityTypesIfc.IFCARBITRARYOPENPROFILEDEF,
+       EntityTypesIfc.IFCCOMPOSITEPROFILEDEF,
+       EntityTypesIfc.IFCDERIVEDPROFILEDEF,
+       EntityTypesIfc.IFCPARAMETERIZEDPROFILEDEF,
+    ],
   },
   {
     fields: {
@@ -4458,6 +4749,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCARBITRARYOPENPROFILEDEF,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPROFILEDEF,
+    subTypes: [
+       EntityTypesIfc.IFCCENTERLINEPROFILEDEF,
+    ],
   },
   {
     fields: {
@@ -4468,6 +4764,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCENTERLINEPROFILEDEF,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCARBITRARYOPENPROFILEDEF,
   },
   {
     fields: {
@@ -4563,6 +4861,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCASSET,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCGROUP,
   },
   {
     fields: {
@@ -4575,6 +4875,15 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCGROUP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCOBJECT,
+    subTypes: [
+       EntityTypesIfc.IFCASSET,
+       EntityTypesIfc.IFCINVENTORY,
+       EntityTypesIfc.IFCSTRUCTURALLOADGROUP,
+       EntityTypesIfc.IFCSTRUCTURALRESULTGROUP,
+       EntityTypesIfc.IFCSYSTEM,
+    ],
   },
   {
     fields: {
@@ -4640,6 +4949,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCASYMMETRICISHAPEPROFILEDEF,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPARAMETERIZEDPROFILEDEF,
   },
   {
     fields: {
@@ -4651,6 +4962,21 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPARAMETERIZEDPROFILEDEF,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPROFILEDEF,
+    subTypes: [
+       EntityTypesIfc.IFCASYMMETRICISHAPEPROFILEDEF,
+       EntityTypesIfc.IFCCSHAPEPROFILEDEF,
+       EntityTypesIfc.IFCCIRCLEPROFILEDEF,
+       EntityTypesIfc.IFCELLIPSEPROFILEDEF,
+       EntityTypesIfc.IFCISHAPEPROFILEDEF,
+       EntityTypesIfc.IFCLSHAPEPROFILEDEF,
+       EntityTypesIfc.IFCRECTANGLEPROFILEDEF,
+       EntityTypesIfc.IFCTSHAPEPROFILEDEF,
+       EntityTypesIfc.IFCTRAPEZIUMPROFILEDEF,
+       EntityTypesIfc.IFCUSHAPEPROFILEDEF,
+       EntityTypesIfc.IFCZSHAPEPROFILEDEF,
+    ],
   },
   {
     fields: {
@@ -4662,6 +4988,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCAUDIOVISUALAPPLIANCE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINAL,
   },
   {
     fields: {
@@ -4673,6 +5001,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCAUDIOVISUALAPPLIANCETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINALTYPE,
   },
   {
     fields: {
@@ -4690,6 +5020,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCAXIS1PLACEMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPLACEMENT,
   },
   {
     fields: {
@@ -4706,6 +5038,13 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPLACEMENT,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCAXIS1PLACEMENT,
+       EntityTypesIfc.IFCAXIS2PLACEMENT2D,
+       EntityTypesIfc.IFCAXIS2PLACEMENT3D,
+    ],
   },
   {
     fields: {
@@ -4724,6 +5063,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCAXIS2PLACEMENT2D,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPLACEMENT,
   },
   {
     fields: {
@@ -4748,6 +5089,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCAXIS2PLACEMENT3D,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPLACEMENT,
   },
   {
     fields: {
@@ -4793,6 +5136,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBSPLINECURVE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCBOUNDEDCURVE,
+    subTypes: [
+       EntityTypesIfc.IFCBSPLINECURVEWITHKNOTS,
+    ],
   },
   {
     fields: {
@@ -4821,11 +5169,25 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBSPLINECURVEWITHKNOTS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBSPLINECURVE,
+    subTypes: [
+       EntityTypesIfc.IFCRATIONALBSPLINECURVEWITHKNOTS,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCBOUNDEDCURVE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCCURVE,
+    subTypes: [
+       EntityTypesIfc.IFCBSPLINECURVE,
+       EntityTypesIfc.IFCCOMPOSITECURVE,
+       EntityTypesIfc.IFCINDEXEDPOLYCURVE,
+       EntityTypesIfc.IFCPOLYLINE,
+       EntityTypesIfc.IFCTRIMMEDCURVE,
+    ],
   },
   {
     fields: {
@@ -4843,6 +5205,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRATIONALBSPLINECURVEWITHKNOTS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBSPLINECURVEWITHKNOTS,
   },
   {
     fields: {
@@ -4903,6 +5267,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBSPLINESURFACE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCBOUNDEDSURFACE,
+    subTypes: [
+       EntityTypesIfc.IFCBSPLINESURFACEWITHKNOTS,
+    ],
   },
   {
     fields: {
@@ -4948,11 +5317,24 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBSPLINESURFACEWITHKNOTS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBSPLINESURFACE,
+    subTypes: [
+       EntityTypesIfc.IFCRATIONALBSPLINESURFACEWITHKNOTS,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCBOUNDEDSURFACE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCSURFACE,
+    subTypes: [
+       EntityTypesIfc.IFCBSPLINESURFACE,
+       EntityTypesIfc.IFCCURVEBOUNDEDPLANE,
+       EntityTypesIfc.IFCCURVEBOUNDEDSURFACE,
+       EntityTypesIfc.IFCRECTANGULARTRIMMEDSURFACE,
+    ],
   },
   {
     fields: {
@@ -4970,6 +5352,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRATIONALBSPLINESURFACEWITHKNOTS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBSPLINESURFACEWITHKNOTS,
   },
   {
     fields: {
@@ -4981,16 +5365,48 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBEAM,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCBEAMSTANDARDCASE,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCBEAMSTANDARDCASE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBEAM,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCBUILDINGELEMENT,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCBEAM,
+       EntityTypesIfc.IFCBUILDINGELEMENTPROXY,
+       EntityTypesIfc.IFCCHIMNEY,
+       EntityTypesIfc.IFCCOLUMN,
+       EntityTypesIfc.IFCCOVERING,
+       EntityTypesIfc.IFCCURTAINWALL,
+       EntityTypesIfc.IFCDOOR,
+       EntityTypesIfc.IFCFOOTING,
+       EntityTypesIfc.IFCMEMBER,
+       EntityTypesIfc.IFCPILE,
+       EntityTypesIfc.IFCPLATE,
+       EntityTypesIfc.IFCRAILING,
+       EntityTypesIfc.IFCRAMP,
+       EntityTypesIfc.IFCRAMPFLIGHT,
+       EntityTypesIfc.IFCROOF,
+       EntityTypesIfc.IFCSHADINGDEVICE,
+       EntityTypesIfc.IFCSLAB,
+       EntityTypesIfc.IFCSTAIR,
+       EntityTypesIfc.IFCSTAIRFLIGHT,
+       EntityTypesIfc.IFCWALL,
+       EntityTypesIfc.IFCWINDOW,
+    ],
   },
   {
     fields: {
@@ -5002,11 +5418,38 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBEAMTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCELEMENTTYPE,
+    subTypes: [
+       EntityTypesIfc.IFCBEAMTYPE,
+       EntityTypesIfc.IFCBUILDINGELEMENTPROXYTYPE,
+       EntityTypesIfc.IFCCHIMNEYTYPE,
+       EntityTypesIfc.IFCCOLUMNTYPE,
+       EntityTypesIfc.IFCCOVERINGTYPE,
+       EntityTypesIfc.IFCCURTAINWALLTYPE,
+       EntityTypesIfc.IFCDOORTYPE,
+       EntityTypesIfc.IFCFOOTINGTYPE,
+       EntityTypesIfc.IFCMEMBERTYPE,
+       EntityTypesIfc.IFCPILETYPE,
+       EntityTypesIfc.IFCPLATETYPE,
+       EntityTypesIfc.IFCRAILINGTYPE,
+       EntityTypesIfc.IFCRAMPFLIGHTTYPE,
+       EntityTypesIfc.IFCRAMPTYPE,
+       EntityTypesIfc.IFCROOFTYPE,
+       EntityTypesIfc.IFCSHADINGDEVICETYPE,
+       EntityTypesIfc.IFCSLABTYPE,
+       EntityTypesIfc.IFCSTAIRFLIGHTTYPE,
+       EntityTypesIfc.IFCSTAIRTYPE,
+       EntityTypesIfc.IFCWALLTYPE,
+       EntityTypesIfc.IFCWINDOWTYPE,
+    ],
   },
   {
     fields: {
@@ -5022,6 +5465,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBLOBTEXTURE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSURFACETEXTURE,
   },
   {
     fields: {
@@ -5068,6 +5513,13 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSURFACETEXTURE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCBLOBTEXTURE,
+       EntityTypesIfc.IFCIMAGETEXTURE,
+       EntityTypesIfc.IFCPIXELTEXTURE,
+    ],
   },
   {
     fields: {
@@ -5088,6 +5540,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBLOCK,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCSGPRIMITIVE3D,
   },
   {
     fields: {
@@ -5104,6 +5558,15 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCSGPRIMITIVE3D,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCBLOCK,
+       EntityTypesIfc.IFCRECTANGULARPYRAMID,
+       EntityTypesIfc.IFCRIGHTCIRCULARCONE,
+       EntityTypesIfc.IFCRIGHTCIRCULARCYLINDER,
+       EntityTypesIfc.IFCSPHERE,
+    ],
   },
   {
     fields: {
@@ -5115,6 +5578,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBOILER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICE,
   },
   {
     fields: {
@@ -5126,11 +5591,15 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBOILERTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICETYPE,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCBOOLEANCLIPPINGRESULT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBOOLEANRESULT,
   },
   {
     fields: {
@@ -5221,6 +5690,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBOOLEANRESULT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCBOOLEANCLIPPINGRESULT,
+    ],
   },
   {
     fields: {
@@ -5231,6 +5705,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBOUNDARYCONDITION,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCBOUNDARYEDGECONDITION,
+       EntityTypesIfc.IFCBOUNDARYFACECONDITION,
+       EntityTypesIfc.IFCBOUNDARYNODECONDITION,
+    ],
   },
   {
     fields: {
@@ -5350,6 +5830,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBOUNDARYEDGECONDITION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBOUNDARYCONDITION,
   },
   {
     fields: {
@@ -5412,6 +5894,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBOUNDARYFACECONDITION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBOUNDARYCONDITION,
   },
   {
     fields: {
@@ -5531,16 +6015,28 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBOUNDARYNODECONDITION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBOUNDARYCONDITION,
+    subTypes: [
+       EntityTypesIfc.IFCBOUNDARYNODECONDITIONWARPING,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCBOUNDARYCURVE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCOMPOSITECURVEONSURFACE,
+    subTypes: [
+       EntityTypesIfc.IFCOUTERBOUNDARYCURVE,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCOUTERBOUNDARYCURVE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBOUNDARYCURVE,
   },
   {
     fields: {
@@ -5553,6 +6049,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOMPOSITECURVEONSURFACE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCOMPOSITECURVE,
+    subTypes: [
+       EntityTypesIfc.IFCBOUNDARYCURVE,
+    ],
   },
   {
     fields: {
@@ -5577,6 +6078,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBOUNDARYNODECONDITIONWARPING,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBOUNDARYNODECONDITION,
   },
   {
     fields: {
@@ -5604,6 +6107,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOMPOSITECURVE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBOUNDEDCURVE,
+    subTypes: [
+       EntityTypesIfc.IFCCOMPOSITECURVEONSURFACE,
+    ],
   },
   {
     fields: {
@@ -5640,6 +6148,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCINDEXEDPOLYCURVE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBOUNDEDCURVE,
   },
   {
     fields: {
@@ -5652,6 +6162,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPOLYLINE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBOUNDEDCURVE,
   },
   {
     fields: {
@@ -5714,6 +6226,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTRIMMEDCURVE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBOUNDEDCURVE,
   },
   {
     fields: {
@@ -5724,6 +6238,17 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCURVE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCBOUNDEDCURVE,
+       EntityTypesIfc.IFCCONIC,
+       EntityTypesIfc.IFCLINE,
+       EntityTypesIfc.IFCOFFSETCURVE2D,
+       EntityTypesIfc.IFCOFFSETCURVE3D,
+       EntityTypesIfc.IFCPCURVE,
+       EntityTypesIfc.IFCSURFACECURVE,
+    ],
   },
   {
     fields: {
@@ -5748,6 +6273,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCURVEBOUNDEDPLANE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBOUNDEDSURFACE,
   },
   {
     fields: {
@@ -5771,6 +6298,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCURVEBOUNDEDSURFACE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBOUNDEDSURFACE,
   },
   {
     fields: {
@@ -5812,6 +6341,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRECTANGULARTRIMMEDSURFACE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBOUNDEDSURFACE,
   },
   {
     fields: {
@@ -5822,6 +6353,13 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSURFACE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCBOUNDEDSURFACE,
+       EntityTypesIfc.IFCELEMENTARYSURFACE,
+       EntityTypesIfc.IFCSWEPTSURFACE,
+    ],
   },
   {
     fields: {
@@ -5853,6 +6391,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBOUNDINGBOX,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
   },
   {
     fields: {
@@ -5864,6 +6404,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBOXEDHALFSPACE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCHALFSPACESOLID,
   },
   {
     fields: {
@@ -5885,6 +6427,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCHALFSPACESOLID,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCBOXEDHALFSPACE,
+       EntityTypesIfc.IFCPOLYGONALBOUNDEDHALFSPACE,
+    ],
   },
   {
     fields: {
@@ -5906,6 +6454,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBUILDING,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSPATIALSTRUCTUREELEMENT,
   },
   {
     fields: {
@@ -5917,6 +6467,14 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSPATIALSTRUCTUREELEMENT,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCSPATIALELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCBUILDING,
+       EntityTypesIfc.IFCBUILDINGSTOREY,
+       EntityTypesIfc.IFCSITE,
+       EntityTypesIfc.IFCSPACE,
+    ],
   },
   {
     fields: {
@@ -5928,6 +6486,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBUILDINGELEMENTPROXY,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENT,
   },
   {
     fields: {
@@ -5939,6 +6499,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCHIMNEY,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENT,
   },
   {
     fields: {
@@ -5950,6 +6512,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOLUMN,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCCOLUMNSTANDARDCASE,
+    ],
   },
   {
     fields: {
@@ -5975,6 +6542,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOVERING,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENT,
   },
   {
     fields: {
@@ -5986,6 +6555,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCURTAINWALL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENT,
   },
   {
     fields: {
@@ -6018,6 +6589,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDOOR,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCDOORSTANDARDCASE,
+    ],
   },
   {
     fields: {
@@ -6029,6 +6605,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFOOTING,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENT,
   },
   {
     fields: {
@@ -6040,6 +6618,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMEMBER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCMEMBERSTANDARDCASE,
+    ],
   },
   {
     fields: {
@@ -6057,6 +6640,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPILE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENT,
   },
   {
     fields: {
@@ -6068,6 +6653,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPLATE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCPLATESTANDARDCASE,
+    ],
   },
   {
     fields: {
@@ -6079,6 +6669,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRAILING,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENT,
   },
   {
     fields: {
@@ -6090,6 +6682,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRAMP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENT,
   },
   {
     fields: {
@@ -6101,6 +6695,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRAMPFLIGHT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENT,
   },
   {
     fields: {
@@ -6112,6 +6708,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCROOF,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENT,
   },
   {
     fields: {
@@ -6123,6 +6721,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSHADINGDEVICE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENT,
   },
   {
     fields: {
@@ -6134,6 +6734,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSLAB,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCSLABELEMENTEDCASE,
+       EntityTypesIfc.IFCSLABSTANDARDCASE,
+    ],
   },
   {
     fields: {
@@ -6145,6 +6751,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTAIR,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENT,
   },
   {
     fields: {
@@ -6176,6 +6784,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTAIRFLIGHT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENT,
   },
   {
     fields: {
@@ -6187,6 +6797,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCWALL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCWALLELEMENTEDCASE,
+       EntityTypesIfc.IFCWALLSTANDARDCASE,
+    ],
   },
   {
     fields: {
@@ -6219,6 +6835,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCWINDOW,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCWINDOWSTANDARDCASE,
+    ],
   },
   {
     fields: {
@@ -6313,6 +6934,20 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCELEMENT,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPRODUCT,
+    subTypes: [
+       EntityTypesIfc.IFCBUILDINGELEMENT,
+       EntityTypesIfc.IFCCIVILELEMENT,
+       EntityTypesIfc.IFCDISTRIBUTIONELEMENT,
+       EntityTypesIfc.IFCELEMENTASSEMBLY,
+       EntityTypesIfc.IFCELEMENTCOMPONENT,
+       EntityTypesIfc.IFCFEATUREELEMENT,
+       EntityTypesIfc.IFCFURNISHINGELEMENT,
+       EntityTypesIfc.IFCGEOGRAPHICELEMENT,
+       EntityTypesIfc.IFCTRANSPORTELEMENT,
+       EntityTypesIfc.IFCVIRTUALELEMENT,
+    ],
   },
   {
     fields: {
@@ -6324,11 +6959,23 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBUILDINGELEMENTPART,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENTCOMPONENT,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCELEMENTCOMPONENT,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCBUILDINGELEMENTPART,
+       EntityTypesIfc.IFCDISCRETEACCESSORY,
+       EntityTypesIfc.IFCFASTENER,
+       EntityTypesIfc.IFCMECHANICALFASTENER,
+       EntityTypesIfc.IFCREINFORCINGELEMENT,
+       EntityTypesIfc.IFCVIBRATIONISOLATOR,
+    ],
   },
   {
     fields: {
@@ -6340,11 +6987,23 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBUILDINGELEMENTPARTTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENTCOMPONENTTYPE,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCELEMENTCOMPONENTTYPE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCELEMENTTYPE,
+    subTypes: [
+       EntityTypesIfc.IFCBUILDINGELEMENTPARTTYPE,
+       EntityTypesIfc.IFCDISCRETEACCESSORYTYPE,
+       EntityTypesIfc.IFCFASTENERTYPE,
+       EntityTypesIfc.IFCMECHANICALFASTENERTYPE,
+       EntityTypesIfc.IFCREINFORCINGELEMENTTYPE,
+       EntityTypesIfc.IFCVIBRATIONISOLATORTYPE,
+    ],
   },
   {
     fields: {
@@ -6356,6 +7015,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBUILDINGELEMENTPROXYTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
   },
   {
     fields: {
@@ -6367,6 +7028,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCHIMNEYTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
   },
   {
     fields: {
@@ -6378,6 +7041,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOLUMNTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
   },
   {
     fields: {
@@ -6389,6 +7054,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOVERINGTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
   },
   {
     fields: {
@@ -6400,6 +7067,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCURTAINWALLTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
   },
   {
     fields: {
@@ -6427,6 +7096,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDOORTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
   },
   {
     fields: {
@@ -6438,6 +7109,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFOOTINGTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
   },
   {
     fields: {
@@ -6449,6 +7122,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMEMBERTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
   },
   {
     fields: {
@@ -6460,6 +7135,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPILETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
   },
   {
     fields: {
@@ -6471,6 +7148,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPLATETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
   },
   {
     fields: {
@@ -6482,6 +7161,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRAILINGTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
   },
   {
     fields: {
@@ -6493,6 +7174,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRAMPFLIGHTTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
   },
   {
     fields: {
@@ -6504,6 +7187,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRAMPTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
   },
   {
     fields: {
@@ -6515,6 +7200,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCROOFTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
   },
   {
     fields: {
@@ -6526,6 +7213,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSHADINGDEVICETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
   },
   {
     fields: {
@@ -6537,6 +7226,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSLABTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
   },
   {
     fields: {
@@ -6548,6 +7239,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTAIRFLIGHTTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
   },
   {
     fields: {
@@ -6559,6 +7252,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTAIRTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
   },
   {
     fields: {
@@ -6570,6 +7265,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCWALLTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
   },
   {
     fields: {
@@ -6597,6 +7294,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCWINDOWTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
   },
   {
     fields: {
@@ -6607,6 +7306,18 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCELEMENTTYPE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCTYPEPRODUCT,
+    subTypes: [
+       EntityTypesIfc.IFCBUILDINGELEMENTTYPE,
+       EntityTypesIfc.IFCCIVILELEMENTTYPE,
+       EntityTypesIfc.IFCDISTRIBUTIONELEMENTTYPE,
+       EntityTypesIfc.IFCELEMENTASSEMBLYTYPE,
+       EntityTypesIfc.IFCELEMENTCOMPONENTTYPE,
+       EntityTypesIfc.IFCFURNISHINGELEMENTTYPE,
+       EntityTypesIfc.IFCGEOGRAPHICELEMENTTYPE,
+       EntityTypesIfc.IFCTRANSPORTELEMENTTYPE,
+    ],
   },
   {
     fields: {
@@ -6617,6 +7328,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBUILDINGSTOREY,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSPATIALSTRUCTUREELEMENT,
   },
   {
     fields: {
@@ -6633,6 +7346,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBUILDINGSYSTEM,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSYSTEM,
   },
   {
     fields: {
@@ -6645,6 +7360,14 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSYSTEM,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCGROUP,
+    subTypes: [
+       EntityTypesIfc.IFCBUILDINGSYSTEM,
+       EntityTypesIfc.IFCDISTRIBUTIONSYSTEM,
+       EntityTypesIfc.IFCSTRUCTURALANALYSISMODEL,
+       EntityTypesIfc.IFCZONE,
+    ],
   },
   {
     fields: {
@@ -6656,6 +7379,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBURNER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICE,
   },
   {
     fields: {
@@ -6667,6 +7392,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCBURNERTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICETYPE,
   },
   {
     fields: {
@@ -6697,6 +7424,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCSHAPEPROFILEDEF,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPARAMETERIZEDPROFILEDEF,
   },
   {
     fields: {
@@ -6708,11 +7437,22 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCABLECARRIERFITTING,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWFITTING,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCFLOWFITTING,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCCABLECARRIERFITTING,
+       EntityTypesIfc.IFCCABLEFITTING,
+       EntityTypesIfc.IFCDUCTFITTING,
+       EntityTypesIfc.IFCJUNCTIONBOX,
+       EntityTypesIfc.IFCPIPEFITTING,
+    ],
   },
   {
     fields: {
@@ -6724,11 +7464,22 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCABLECARRIERFITTINGTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWFITTINGTYPE,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCFLOWFITTINGTYPE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENTTYPE,
+    subTypes: [
+       EntityTypesIfc.IFCCABLECARRIERFITTINGTYPE,
+       EntityTypesIfc.IFCCABLEFITTINGTYPE,
+       EntityTypesIfc.IFCDUCTFITTINGTYPE,
+       EntityTypesIfc.IFCJUNCTIONBOXTYPE,
+       EntityTypesIfc.IFCPIPEFITTINGTYPE,
+    ],
   },
   {
     fields: {
@@ -6740,11 +7491,21 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCABLECARRIERSEGMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWSEGMENT,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCFLOWSEGMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCCABLECARRIERSEGMENT,
+       EntityTypesIfc.IFCCABLESEGMENT,
+       EntityTypesIfc.IFCDUCTSEGMENT,
+       EntityTypesIfc.IFCPIPESEGMENT,
+    ],
   },
   {
     fields: {
@@ -6756,11 +7517,21 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCABLECARRIERSEGMENTTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWSEGMENTTYPE,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCFLOWSEGMENTTYPE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENTTYPE,
+    subTypes: [
+       EntityTypesIfc.IFCCABLECARRIERSEGMENTTYPE,
+       EntityTypesIfc.IFCCABLESEGMENTTYPE,
+       EntityTypesIfc.IFCDUCTSEGMENTTYPE,
+       EntityTypesIfc.IFCPIPESEGMENTTYPE,
+    ],
   },
   {
     fields: {
@@ -6772,6 +7543,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCABLEFITTING,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWFITTING,
   },
   {
     fields: {
@@ -6783,6 +7556,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCABLEFITTINGTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWFITTINGTYPE,
   },
   {
     fields: {
@@ -6794,6 +7569,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCABLESEGMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWSEGMENT,
   },
   {
     fields: {
@@ -6805,6 +7582,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCABLESEGMENTTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWSEGMENTTYPE,
   },
   {
     fields: {
@@ -6821,11 +7600,20 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCARTESIANPOINT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPOINT,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCPOINT,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCCARTESIANPOINT,
+       EntityTypesIfc.IFCPOINTONCURVE,
+       EntityTypesIfc.IFCPOINTONSURFACE,
+    ],
   },
   {
     fields: {
@@ -6836,6 +7624,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCARTESIANPOINTLIST,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCCARTESIANPOINTLIST2D,
+       EntityTypesIfc.IFCCARTESIANPOINTLIST3D,
+    ],
   },
   {
     fields: {
@@ -6847,6 +7641,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCARTESIANPOINTLIST2D,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCARTESIANPOINTLIST,
   },
   {
     fields: {
@@ -6858,6 +7654,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCARTESIANPOINTLIST3D,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCARTESIANPOINTLIST,
   },
   {
     fields: {
@@ -6896,6 +7694,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR2D,
+       EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR3D,
+    ],
   },
   {
     fields: {
@@ -6908,6 +7712,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR2D,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR,
+    subTypes: [
+       EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR2DNONUNIFORM,
+    ],
   },
   {
     fields: {
@@ -6926,6 +7735,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR3D,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR,
+    subTypes: [
+       EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR3DNONUNIFORM,
+    ],
   },
   {
     fields: {
@@ -6941,6 +7755,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR2DNONUNIFORM,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR2D,
   },
   {
     fields: {
@@ -6966,6 +7782,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR3DNONUNIFORM,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCARTESIANTRANSFORMATIONOPERATOR3D,
   },
   {
     fields: {
@@ -6977,6 +7795,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCHILLER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICE,
   },
   {
     fields: {
@@ -6988,6 +7808,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCHILLERTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICETYPE,
   },
   {
     fields: {
@@ -6998,6 +7820,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCIRCLE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONIC,
   },
   {
     fields: {
@@ -7022,6 +7846,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONIC,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCCURVE,
+    subTypes: [
+       EntityTypesIfc.IFCCIRCLE,
+       EntityTypesIfc.IFCELLIPSE,
+    ],
   },
   {
     fields: {
@@ -7032,6 +7862,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCIRCLEHOLLOWPROFILEDEF,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCIRCLEPROFILEDEF,
   },
   {
     fields: {
@@ -7042,16 +7874,25 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCIRCLEPROFILEDEF,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPARAMETERIZEDPROFILEDEF,
+    subTypes: [
+       EntityTypesIfc.IFCCIRCLEHOLLOWPROFILEDEF,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCCIVILELEMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENT,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCCIVILELEMENTTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENTTYPE,
   },
   {
     fields: {
@@ -7107,11 +7948,19 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCLASSIFICATION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCEXTERNALINFORMATION,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCEXTERNALINFORMATION,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCCLASSIFICATION,
+       EntityTypesIfc.IFCDOCUMENTINFORMATION,
+       EntityTypesIfc.IFCLIBRARYINFORMATION,
+    ],
   },
   {
     fields: {
@@ -7160,6 +8009,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCLASSIFICATIONREFERENCE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCEXTERNALREFERENCE,
   },
   {
     fields: {
@@ -7187,11 +8038,22 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCEXTERNALREFERENCE,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCCLASSIFICATIONREFERENCE,
+       EntityTypesIfc.IFCDOCUMENTREFERENCE,
+       EntityTypesIfc.IFCEXTERNALLYDEFINEDHATCHSTYLE,
+       EntityTypesIfc.IFCEXTERNALLYDEFINEDSURFACESTYLE,
+       EntityTypesIfc.IFCEXTERNALLYDEFINEDTEXTFONT,
+       EntityTypesIfc.IFCLIBRARYREFERENCE,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCCLOSEDSHELL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONNECTEDFACESET,
   },
   {
     fields: {
@@ -7204,6 +8066,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONNECTEDFACESET,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCTOPOLOGICALREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCCLOSEDSHELL,
+       EntityTypesIfc.IFCOPENSHELL,
+    ],
   },
   {
     fields: {
@@ -7215,6 +8083,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOIL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICE,
   },
   {
     fields: {
@@ -7226,6 +8096,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOILTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICETYPE,
   },
   {
     fields: {
@@ -7246,6 +8118,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOLOURRGB,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCOLOURSPECIFICATION,
   },
   {
     fields: {
@@ -7256,6 +8130,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOLOURSPECIFICATION,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCCOLOURRGB,
+    ],
   },
   {
     fields: {
@@ -7267,16 +8146,40 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOLOURRGBLIST,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRESENTATIONITEM,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCPRESENTATIONITEM,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCCOLOURRGBLIST,
+       EntityTypesIfc.IFCCOLOURSPECIFICATION,
+       EntityTypesIfc.IFCCURVESTYLEFONT,
+       EntityTypesIfc.IFCCURVESTYLEFONTANDSCALING,
+       EntityTypesIfc.IFCCURVESTYLEFONTPATTERN,
+       EntityTypesIfc.IFCINDEXEDCOLOURMAP,
+       EntityTypesIfc.IFCPREDEFINEDITEM,
+       EntityTypesIfc.IFCSURFACESTYLELIGHTING,
+       EntityTypesIfc.IFCSURFACESTYLEREFRACTION,
+       EntityTypesIfc.IFCSURFACESTYLESHADING,
+       EntityTypesIfc.IFCSURFACESTYLEWITHTEXTURES,
+       EntityTypesIfc.IFCSURFACETEXTURE,
+       EntityTypesIfc.IFCTEXTSTYLEFORDEFINEDFONT,
+       EntityTypesIfc.IFCTEXTSTYLETEXTMODEL,
+       EntityTypesIfc.IFCTEXTURECOORDINATE,
+       EntityTypesIfc.IFCTEXTUREVERTEX,
+       EntityTypesIfc.IFCTEXTUREVERTEXLIST,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCCOLUMNSTANDARDCASE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCOLUMN,
   },
   {
     fields: {
@@ -7288,6 +8191,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOMMUNICATIONSAPPLIANCE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINAL,
   },
   {
     fields: {
@@ -7299,6 +8204,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOMMUNICATIONSAPPLIANCETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINALTYPE,
   },
   {
     fields: {
@@ -7316,6 +8223,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOMPLEXPROPERTY,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPROPERTY,
   },
   {
     fields: {
@@ -7373,6 +8282,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROPERTY,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPROPERTYABSTRACTION,
+    subTypes: [
+       EntityTypesIfc.IFCCOMPLEXPROPERTY,
+       EntityTypesIfc.IFCSIMPLEPROPERTY,
+    ],
   },
   {
     fields: {
@@ -7396,6 +8311,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOMPLEXPROPERTYTEMPLATE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPROPERTYTEMPLATE,
   },
   {
     fields: {
@@ -7415,6 +8332,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROPERTYTEMPLATE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPROPERTYTEMPLATEDEFINITION,
+    subTypes: [
+       EntityTypesIfc.IFCCOMPLEXPROPERTYTEMPLATE,
+       EntityTypesIfc.IFCSIMPLEPROPERTYTEMPLATE,
+    ],
   },
   {
     fields: {
@@ -7449,6 +8372,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOMPOSITECURVESEGMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCREPARAMETRISEDCOMPOSITECURVESEGMENT,
+    ],
   },
   {
     fields: {
@@ -7459,6 +8387,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCREPARAMETRISEDCOMPOSITECURVESEGMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCOMPOSITECURVESEGMENT,
   },
   {
     fields: {
@@ -7476,6 +8406,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOMPOSITEPROFILEDEF,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPROFILEDEF,
   },
   {
     fields: {
@@ -7487,11 +8419,20 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOMPRESSOR,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWMOVINGDEVICE,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCFLOWMOVINGDEVICE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCCOMPRESSOR,
+       EntityTypesIfc.IFCFAN,
+       EntityTypesIfc.IFCPUMP,
+    ],
   },
   {
     fields: {
@@ -7503,11 +8444,20 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOMPRESSORTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWMOVINGDEVICETYPE,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCFLOWMOVINGDEVICETYPE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENTTYPE,
+    subTypes: [
+       EntityTypesIfc.IFCCOMPRESSORTYPE,
+       EntityTypesIfc.IFCFANTYPE,
+       EntityTypesIfc.IFCPUMPTYPE,
+    ],
   },
   {
     fields: {
@@ -7519,6 +8469,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONDENSER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICE,
   },
   {
     fields: {
@@ -7530,6 +8482,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONDENSERTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICETYPE,
   },
   {
     fields: {
@@ -7545,16 +8499,31 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCELLIPSE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONIC,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCOPENSHELL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONNECTEDFACESET,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCTOPOLOGICALREPRESENTATIONITEM,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCCONNECTEDFACESET,
+       EntityTypesIfc.IFCEDGE,
+       EntityTypesIfc.IFCFACE,
+       EntityTypesIfc.IFCFACEBOUND,
+       EntityTypesIfc.IFCLOOP,
+       EntityTypesIfc.IFCPATH,
+       EntityTypesIfc.IFCVERTEX,
+    ],
   },
   {
     fields: {
@@ -7598,11 +8567,20 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONNECTIONCURVEGEOMETRY,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONNECTIONGEOMETRY,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCCONNECTIONGEOMETRY,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCCONNECTIONCURVEGEOMETRY,
+       EntityTypesIfc.IFCCONNECTIONPOINTGEOMETRY,
+       EntityTypesIfc.IFCCONNECTIONSURFACEGEOMETRY,
+       EntityTypesIfc.IFCCONNECTIONVOLUMEGEOMETRY,
+    ],
   },
   {
     fields: {
@@ -7646,6 +8624,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONNECTIONPOINTGEOMETRY,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONNECTIONGEOMETRY,
+    subTypes: [
+       EntityTypesIfc.IFCCONNECTIONPOINTECCENTRICITY,
+    ],
   },
   {
     fields: {
@@ -7701,6 +8684,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONNECTIONSURFACEGEOMETRY,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONNECTIONGEOMETRY,
   },
   {
     fields: {
@@ -7744,6 +8729,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONNECTIONVOLUMEGEOMETRY,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONNECTIONGEOMETRY,
   },
   {
     fields: {
@@ -7764,6 +8751,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONNECTIONPOINTECCENTRICITY,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONNECTIONPOINTGEOMETRY,
   },
   {
     fields: {
@@ -7839,6 +8828,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONSTRAINT,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCMETRIC,
+       EntityTypesIfc.IFCOBJECTIVE,
+    ],
   },
   {
     fields: {
@@ -8546,6 +9540,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMETRIC,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONSTRAINT,
   },
   {
     fields: {
@@ -8575,6 +9571,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCOBJECTIVE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONSTRAINT,
   },
   {
     fields: {
@@ -8586,6 +9584,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONSTRUCTIONEQUIPMENTRESOURCE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONSTRUCTIONRESOURCE,
   },
   {
     fields: {
@@ -8610,6 +9610,16 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONSTRUCTIONRESOURCE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCRESOURCE,
+    subTypes: [
+       EntityTypesIfc.IFCCONSTRUCTIONEQUIPMENTRESOURCE,
+       EntityTypesIfc.IFCCONSTRUCTIONMATERIALRESOURCE,
+       EntityTypesIfc.IFCCONSTRUCTIONPRODUCTRESOURCE,
+       EntityTypesIfc.IFCCREWRESOURCE,
+       EntityTypesIfc.IFCLABORRESOURCE,
+       EntityTypesIfc.IFCSUBCONTRACTRESOURCE,
+    ],
   },
   {
     fields: {
@@ -8621,6 +9631,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONSTRUCTIONEQUIPMENTRESOURCETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONSTRUCTIONRESOURCETYPE,
   },
   {
     fields: {
@@ -8639,6 +9651,16 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONSTRUCTIONRESOURCETYPE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCTYPERESOURCE,
+    subTypes: [
+       EntityTypesIfc.IFCCONSTRUCTIONEQUIPMENTRESOURCETYPE,
+       EntityTypesIfc.IFCCONSTRUCTIONMATERIALRESOURCETYPE,
+       EntityTypesIfc.IFCCONSTRUCTIONPRODUCTRESOURCETYPE,
+       EntityTypesIfc.IFCCREWRESOURCETYPE,
+       EntityTypesIfc.IFCLABORRESOURCETYPE,
+       EntityTypesIfc.IFCSUBCONTRACTRESOURCETYPE,
+    ],
   },
   {
     fields: {
@@ -8650,6 +9672,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONSTRUCTIONMATERIALRESOURCE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONSTRUCTIONRESOURCE,
   },
   {
     fields: {
@@ -8661,6 +9685,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONSTRUCTIONMATERIALRESOURCETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONSTRUCTIONRESOURCETYPE,
   },
   {
     fields: {
@@ -8672,6 +9698,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONSTRUCTIONPRODUCTRESOURCE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONSTRUCTIONRESOURCE,
   },
   {
     fields: {
@@ -8683,6 +9711,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONSTRUCTIONPRODUCTRESOURCETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONSTRUCTIONRESOURCETYPE,
   },
   {
     fields: {
@@ -8694,6 +9724,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCREWRESOURCE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONSTRUCTIONRESOURCE,
   },
   {
     fields: {
@@ -8705,6 +9737,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCLABORRESOURCE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONSTRUCTIONRESOURCE,
   },
   {
     fields: {
@@ -8716,6 +9750,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSUBCONTRACTRESOURCE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONSTRUCTIONRESOURCE,
   },
   {
     fields: {
@@ -8738,6 +9774,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRESOURCE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCOBJECT,
+    subTypes: [
+       EntityTypesIfc.IFCCONSTRUCTIONRESOURCE,
+    ],
   },
   {
     fields: {
@@ -8749,6 +9790,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCREWRESOURCETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONSTRUCTIONRESOURCETYPE,
   },
   {
     fields: {
@@ -8760,6 +9803,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCLABORRESOURCETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONSTRUCTIONRESOURCETYPE,
   },
   {
     fields: {
@@ -8771,6 +9816,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSUBCONTRACTRESOURCETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONSTRUCTIONRESOURCETYPE,
   },
   {
     fields: {
@@ -8798,6 +9845,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTYPERESOURCE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCTYPEOBJECT,
+    subTypes: [
+       EntityTypesIfc.IFCCONSTRUCTIONRESOURCETYPE,
+    ],
   },
   {
     fields: {
@@ -8845,16 +9897,26 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONTEXT,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCOBJECTDEFINITION,
+    subTypes: [
+       EntityTypesIfc.IFCPROJECT,
+       EntityTypesIfc.IFCPROJECTLIBRARY,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCPROJECT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONTEXT,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCPROJECTLIBRARY,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONTEXT,
   },
   {
     fields: {
@@ -8909,6 +9971,13 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCOBJECTDEFINITION,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCROOT,
+    subTypes: [
+       EntityTypesIfc.IFCCONTEXT,
+       EntityTypesIfc.IFCOBJECT,
+       EntityTypesIfc.IFCTYPEOBJECT,
+    ],
   },
   {
     fields: {
@@ -8926,6 +9995,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONTEXTDEPENDENTUNIT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCNAMEDUNIT,
   },
   {
     fields: {
@@ -8943,6 +10014,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCNAMEDUNIT,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCCONTEXTDEPENDENTUNIT,
+       EntityTypesIfc.IFCCONVERSIONBASEDUNIT,
+       EntityTypesIfc.IFCSIUNIT,
+    ],
   },
   {
     fields: {
@@ -8968,6 +10045,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOSTITEM,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONTROL,
   },
   {
     fields: {
@@ -8994,6 +10073,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOSTSCHEDULE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONTROL,
   },
   {
     fields: {
@@ -9010,6 +10091,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPERFORMANCEHISTORY,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONTROL,
   },
   {
     fields: {
@@ -9031,6 +10114,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPERMIT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONTROL,
   },
   {
     fields: {
@@ -9052,6 +10137,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROJECTORDER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONTROL,
   },
   {
     fields: {
@@ -9077,6 +10164,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCWORKCALENDAR,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONTROL,
   },
   {
     fields: {
@@ -9119,6 +10208,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCWORKCONTROL,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCCONTROL,
+    subTypes: [
+       EntityTypesIfc.IFCWORKPLAN,
+       EntityTypesIfc.IFCWORKSCHEDULE,
+    ],
   },
   {
     fields: {
@@ -9130,6 +10225,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONTROLLER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONCONTROLELEMENT,
   },
   {
     fields: {
@@ -9141,6 +10238,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONTROLLERTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONCONTROLELEMENTTYPE,
   },
   {
     fields: {
@@ -9164,6 +10263,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONVERSIONBASEDUNIT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCNAMEDUNIT,
+    subTypes: [
+       EntityTypesIfc.IFCCONVERSIONBASEDUNITWITHOFFSET,
+    ],
   },
   {
     fields: {
@@ -9174,6 +10278,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCONVERSIONBASEDUNITWITHOFFSET,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCONVERSIONBASEDUNIT,
   },
   {
     fields: {
@@ -9185,6 +10291,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOOLEDBEAM,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICE,
   },
   {
     fields: {
@@ -9196,6 +10304,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOOLEDBEAMTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICETYPE,
   },
   {
     fields: {
@@ -9207,6 +10317,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOOLINGTOWER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICE,
   },
   {
     fields: {
@@ -9218,6 +10330,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOOLINGTOWERTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICETYPE,
   },
   {
     fields: {
@@ -9248,6 +10362,10 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOORDINATEOPERATION,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCMAPCONVERSION,
+    ],
   },
   {
     fields: {
@@ -9283,6 +10401,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMAPCONVERSION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCOORDINATEOPERATION,
   },
   {
     fields: {
@@ -9315,6 +10435,10 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCOORDINATEREFERENCESYSTEM,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCPROJECTEDCRS,
+    ],
   },
   {
     fields: {
@@ -9336,6 +10460,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROJECTEDCRS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCOORDINATEREFERENCESYSTEM,
   },
   {
     fields: {
@@ -9356,6 +10482,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRECTANGULARPYRAMID,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCSGPRIMITIVE3D,
   },
   {
     fields: {
@@ -9371,6 +10499,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRIGHTCIRCULARCONE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCSGPRIMITIVE3D,
   },
   {
     fields: {
@@ -9386,6 +10516,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRIGHTCIRCULARCYLINDER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCSGPRIMITIVE3D,
   },
   {
     fields: {
@@ -9396,6 +10528,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSPHERE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCSGPRIMITIVE3D,
   },
   {
     fields: {
@@ -9420,6 +10554,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCSGSOLID,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSOLIDMODEL,
   },
   {
     fields: {
@@ -9430,6 +10566,14 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSOLIDMODEL,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCCSGSOLID,
+       EntityTypesIfc.IFCMANIFOLDSOLIDBREP,
+       EntityTypesIfc.IFCSWEPTAREASOLID,
+       EntityTypesIfc.IFCSWEPTDISKSOLID,
+    ],
   },
   {
     fields: {
@@ -9463,6 +10607,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCURRENCYRELATIONSHIP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRESOURCELEVELRELATIONSHIP,
   },
   {
     fields: {
@@ -9480,6 +10626,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCLINE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCURVE,
   },
   {
     fields: {
@@ -9501,6 +10649,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCOFFSETCURVE2D,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCURVE,
   },
   {
     fields: {
@@ -9528,6 +10678,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCOFFSETCURVE3D,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCURVE,
   },
   {
     fields: {
@@ -9545,6 +10697,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPCURVE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCURVE,
   },
   {
     fields: {
@@ -9576,6 +10730,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSURFACECURVE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCCURVE,
+    subTypes: [
+       EntityTypesIfc.IFCINTERSECTIONCURVE,
+       EntityTypesIfc.IFCSEAMCURVE,
+    ],
   },
   {
     fields: {
@@ -9673,6 +10833,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCURVESTYLE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRESENTATIONSTYLE,
   },
   {
     fields: {
@@ -9683,6 +10845,13 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPRESENTATIONSTYLE,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCCURVESTYLE,
+       EntityTypesIfc.IFCFILLAREASTYLE,
+       EntityTypesIfc.IFCSURFACESTYLE,
+       EntityTypesIfc.IFCTEXTSTYLE,
+    ],
   },
   {
     fields: {
@@ -9700,6 +10869,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCURVESTYLEFONT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRESENTATIONITEM,
   },
   {
     fields: {
@@ -9734,6 +10905,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCURVESTYLEFONTANDSCALING,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRESENTATIONITEM,
   },
   {
     fields: {
@@ -9749,6 +10922,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCURVESTYLEFONTPATTERN,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRESENTATIONITEM,
   },
   {
     fields: {
@@ -9759,6 +10934,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCCYLINDRICALSURFACE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENTARYSURFACE,
   },
   {
     fields: {
@@ -9770,6 +10947,14 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCELEMENTARYSURFACE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCSURFACE,
+    subTypes: [
+       EntityTypesIfc.IFCCYLINDRICALSURFACE,
+       EntityTypesIfc.IFCPLANE,
+       EntityTypesIfc.IFCSPHERICALSURFACE,
+       EntityTypesIfc.IFCTOROIDALSURFACE,
+    ],
   },
   {
     fields: {
@@ -9781,6 +10966,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDAMPER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWCONTROLLER,
   },
   {
     fields: {
@@ -9792,6 +10979,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDAMPERTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWCONTROLLERTYPE,
   },
   {
     fields: {
@@ -9814,6 +11003,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDERIVEDPROFILEDEF,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPROFILEDEF,
+    subTypes: [
+       EntityTypesIfc.IFCMIRROREDPROFILEDEF,
+    ],
   },
   {
     fields: {
@@ -9825,6 +11019,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMIRROREDPROFILEDEF,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDERIVEDPROFILEDEF,
   },
   {
     fields: {
@@ -9854,6 +11050,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDERIVEDUNIT,
+    isAbstract: false,
   },
   {
     fields: {
@@ -9870,6 +11067,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDERIVEDUNITELEMENT,
+    isAbstract: false,
   },
   {
     fields: {
@@ -9910,6 +11108,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDIMENSIONALEXPONENTS,
+    isAbstract: false,
   },
   {
     fields: {
@@ -9926,6 +11125,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDIRECTION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
   },
   {
     fields: {
@@ -9937,6 +11138,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDISCRETEACCESSORY,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENTCOMPONENT,
   },
   {
     fields: {
@@ -9948,6 +11151,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDISCRETEACCESSORYTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENTCOMPONENTTYPE,
   },
   {
     fields: {
@@ -9959,6 +11164,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDISTRIBUTIONCHAMBERELEMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENT,
   },
   {
     fields: {
@@ -9971,6 +11178,19 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCDISTRIBUTIONCHAMBERELEMENT,
+       EntityTypesIfc.IFCENERGYCONVERSIONDEVICE,
+       EntityTypesIfc.IFCFLOWCONTROLLER,
+       EntityTypesIfc.IFCFLOWFITTING,
+       EntityTypesIfc.IFCFLOWMOVINGDEVICE,
+       EntityTypesIfc.IFCFLOWSEGMENT,
+       EntityTypesIfc.IFCFLOWSTORAGEDEVICE,
+       EntityTypesIfc.IFCFLOWTERMINAL,
+       EntityTypesIfc.IFCFLOWTREATMENTDEVICE,
+    ],
   },
   {
     fields: {
@@ -9982,16 +11202,33 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDISTRIBUTIONCHAMBERELEMENTTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENTTYPE,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENTTYPE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONELEMENTTYPE,
+    subTypes: [
+       EntityTypesIfc.IFCDISTRIBUTIONCHAMBERELEMENTTYPE,
+       EntityTypesIfc.IFCENERGYCONVERSIONDEVICETYPE,
+       EntityTypesIfc.IFCFLOWCONTROLLERTYPE,
+       EntityTypesIfc.IFCFLOWFITTINGTYPE,
+       EntityTypesIfc.IFCFLOWMOVINGDEVICETYPE,
+       EntityTypesIfc.IFCFLOWSEGMENTTYPE,
+       EntityTypesIfc.IFCFLOWSTORAGEDEVICETYPE,
+       EntityTypesIfc.IFCFLOWTERMINALTYPE,
+       EntityTypesIfc.IFCFLOWTREATMENTDEVICETYPE,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCDISTRIBUTIONCIRCUIT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONSYSTEM,
   },
   {
     fields: {
@@ -10008,6 +11245,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDISTRIBUTIONSYSTEM,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSYSTEM,
+    subTypes: [
+       EntityTypesIfc.IFCDISTRIBUTIONCIRCUIT,
+    ],
   },
   {
     fields: {
@@ -10019,6 +11261,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFLOWINSTRUMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONCONTROLELEMENT,
   },
   {
     fields: {
@@ -10030,6 +11274,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROTECTIVEDEVICETRIPPINGUNIT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONCONTROLELEMENT,
   },
   {
     fields: {
@@ -10041,6 +11287,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSENSOR,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONCONTROLELEMENT,
   },
   {
     fields: {
@@ -10052,6 +11300,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCUNITARYCONTROLELEMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONCONTROLELEMENT,
   },
   {
     fields: {
@@ -10064,6 +11314,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDISTRIBUTIONELEMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCDISTRIBUTIONCONTROLELEMENT,
+       EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENT,
+    ],
   },
   {
     fields: {
@@ -10075,6 +11331,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFLOWINSTRUMENTTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONCONTROLELEMENTTYPE,
   },
   {
     fields: {
@@ -10086,6 +11344,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROTECTIVEDEVICETRIPPINGUNITTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONCONTROLELEMENTTYPE,
   },
   {
     fields: {
@@ -10097,6 +11357,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSENSORTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONCONTROLELEMENTTYPE,
   },
   {
     fields: {
@@ -10108,31 +11370,65 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCUNITARYCONTROLELEMENTTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONCONTROLELEMENTTYPE,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCDISTRIBUTIONELEMENTTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENTTYPE,
+    subTypes: [
+       EntityTypesIfc.IFCDISTRIBUTIONCONTROLELEMENTTYPE,
+       EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENTTYPE,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCFLOWSTORAGEDEVICE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCELECTRICFLOWSTORAGEDEVICE,
+       EntityTypesIfc.IFCTANK,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCFLOWTREATMENTDEVICE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCDUCTSILENCER,
+       EntityTypesIfc.IFCFILTER,
+       EntityTypesIfc.IFCINTERCEPTOR,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCFLOWSTORAGEDEVICETYPE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENTTYPE,
+    subTypes: [
+       EntityTypesIfc.IFCELECTRICFLOWSTORAGEDEVICETYPE,
+       EntityTypesIfc.IFCTANKTYPE,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCFLOWTREATMENTDEVICETYPE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCDISTRIBUTIONFLOWELEMENTTYPE,
+    subTypes: [
+       EntityTypesIfc.IFCDUCTSILENCERTYPE,
+       EntityTypesIfc.IFCFILTERTYPE,
+       EntityTypesIfc.IFCINTERCEPTORTYPE,
+    ],
   },
   {
     fields: {
@@ -10156,6 +11452,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDISTRIBUTIONPORT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPORT,
   },
   {
     fields: {
@@ -10182,6 +11480,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPORT,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPRODUCT,
+    subTypes: [
+       EntityTypesIfc.IFCDISTRIBUTIONPORT,
+    ],
   },
   {
     fields: {
@@ -10343,6 +11646,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDOCUMENTINFORMATION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCEXTERNALINFORMATION,
   },
   {
     fields: {
@@ -10366,6 +11671,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDOCUMENTINFORMATIONRELATIONSHIP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRESOURCELEVELRELATIONSHIP,
   },
   {
     fields: {
@@ -10389,11 +11696,15 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDOCUMENTREFERENCE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCEXTERNALREFERENCE,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCDOORSTANDARDCASE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCDOOR,
   },
   {
     fields: {
@@ -10465,11 +11776,23 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDOORLININGPROPERTIES,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPREDEFINEDPROPERTYSET,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCPREDEFINEDPROPERTYSET,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPROPERTYSETDEFINITION,
+    subTypes: [
+       EntityTypesIfc.IFCDOORLININGPROPERTIES,
+       EntityTypesIfc.IFCDOORPANELPROPERTIES,
+       EntityTypesIfc.IFCPERMEABLECOVERINGPROPERTIES,
+       EntityTypesIfc.IFCREINFORCEMENTDEFINITIONPROPERTIES,
+       EntityTypesIfc.IFCWINDOWLININGPROPERTIES,
+       EntityTypesIfc.IFCWINDOWPANELPROPERTIES,
+    ],
   },
   {
     fields: {
@@ -10503,6 +11826,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDOORPANELPROPERTIES,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPREDEFINEDPROPERTYSET,
   },
   {
     fields: {
@@ -10530,6 +11855,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDOORSTYLE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCTYPEPRODUCT,
   },
   {
     fields: {
@@ -10554,26 +11881,48 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTYPEPRODUCT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCTYPEOBJECT,
+    subTypes: [
+       EntityTypesIfc.IFCDOORSTYLE,
+       EntityTypesIfc.IFCELEMENTTYPE,
+       EntityTypesIfc.IFCSPATIALELEMENTTYPE,
+       EntityTypesIfc.IFCWINDOWSTYLE,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCDRAUGHTINGPREDEFINEDCOLOUR,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPREDEFINEDCOLOUR,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCPREDEFINEDCOLOUR,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPREDEFINEDITEM,
+    subTypes: [
+       EntityTypesIfc.IFCDRAUGHTINGPREDEFINEDCOLOUR,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCDRAUGHTINGPREDEFINEDCURVEFONT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPREDEFINEDCURVEFONT,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCPREDEFINEDCURVEFONT,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPREDEFINEDITEM,
+    subTypes: [
+       EntityTypesIfc.IFCDRAUGHTINGPREDEFINEDCURVEFONT,
+    ],
   },
   {
     fields: {
@@ -10585,6 +11934,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDUCTFITTING,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWFITTING,
   },
   {
     fields: {
@@ -10596,6 +11947,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDUCTFITTINGTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWFITTINGTYPE,
   },
   {
     fields: {
@@ -10607,6 +11960,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDUCTSEGMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWSEGMENT,
   },
   {
     fields: {
@@ -10618,6 +11973,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDUCTSEGMENTTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWSEGMENTTYPE,
   },
   {
     fields: {
@@ -10629,6 +11986,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDUCTSILENCER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTREATMENTDEVICE,
   },
   {
     fields: {
@@ -10640,6 +11999,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCDUCTSILENCERTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTREATMENTDEVICETYPE,
   },
   {
     fields: {
@@ -10657,6 +12018,13 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCEDGE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCTOPOLOGICALREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCEDGECURVE,
+       EntityTypesIfc.IFCORIENTEDEDGE,
+       EntityTypesIfc.IFCSUBEDGE,
+    ],
   },
   {
     fields: {
@@ -10673,6 +12041,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCEDGECURVE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCEDGE,
   },
   {
     fields: {
@@ -10701,6 +12071,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCORIENTEDEDGE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCEDGE,
   },
   {
     fields: {
@@ -10712,6 +12084,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSUBEDGE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCEDGE,
   },
   {
     fields: {
@@ -10729,11 +12103,20 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCEDGELOOP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCLOOP,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCLOOP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCTOPOLOGICALREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCEDGELOOP,
+       EntityTypesIfc.IFCPOLYLOOP,
+       EntityTypesIfc.IFCVERTEXLOOP,
+    ],
   },
   {
     fields: {
@@ -10745,6 +12128,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCELECTRICAPPLIANCE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINAL,
   },
   {
     fields: {
@@ -10756,6 +12141,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCELECTRICAPPLIANCETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINALTYPE,
   },
   {
     fields: {
@@ -10767,6 +12154,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCELECTRICDISTRIBUTIONBOARD,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWCONTROLLER,
   },
   {
     fields: {
@@ -10778,6 +12167,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCELECTRICDISTRIBUTIONBOARDTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWCONTROLLERTYPE,
   },
   {
     fields: {
@@ -10789,6 +12180,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCELECTRICFLOWSTORAGEDEVICE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWSTORAGEDEVICE,
   },
   {
     fields: {
@@ -10800,6 +12193,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCELECTRICFLOWSTORAGEDEVICETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWSTORAGEDEVICETYPE,
   },
   {
     fields: {
@@ -10811,6 +12206,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCELECTRICGENERATOR,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICE,
   },
   {
     fields: {
@@ -10822,6 +12219,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCELECTRICGENERATORTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICETYPE,
   },
   {
     fields: {
@@ -10833,6 +12232,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCELECTRICMOTOR,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICE,
   },
   {
     fields: {
@@ -10844,6 +12245,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCELECTRICMOTORTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICETYPE,
   },
   {
     fields: {
@@ -10855,6 +12258,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCELECTRICTIMECONTROL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWCONTROLLER,
   },
   {
     fields: {
@@ -10866,6 +12271,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCELECTRICTIMECONTROLTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWCONTROLLERTYPE,
   },
   {
     fields: {
@@ -10883,16 +12290,31 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCELEMENTASSEMBLY,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENT,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCFEATUREELEMENT,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCFEATUREELEMENTADDITION,
+       EntityTypesIfc.IFCFEATUREELEMENTSUBTRACTION,
+       EntityTypesIfc.IFCSURFACEFEATURE,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCFURNISHINGELEMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCFURNITURE,
+       EntityTypesIfc.IFCSYSTEMFURNITUREELEMENT,
+    ],
   },
   {
     fields: {
@@ -10904,6 +12326,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCGEOGRAPHICELEMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENT,
   },
   {
     fields: {
@@ -10915,11 +12339,15 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTRANSPORTELEMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENT,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCVIRTUALELEMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENT,
   },
   {
     fields: {
@@ -10931,6 +12359,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCELEMENTASSEMBLYTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENTTYPE,
   },
   {
     fields: {
@@ -10942,6 +12372,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFASTENER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENTCOMPONENT,
   },
   {
     fields: {
@@ -10963,6 +12395,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMECHANICALFASTENER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENTCOMPONENT,
   },
   {
     fields: {
@@ -10973,6 +12407,14 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCREINFORCINGELEMENT,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCELEMENTCOMPONENT,
+    subTypes: [
+       EntityTypesIfc.IFCREINFORCINGBAR,
+       EntityTypesIfc.IFCREINFORCINGMESH,
+       EntityTypesIfc.IFCTENDON,
+       EntityTypesIfc.IFCTENDONANCHOR,
+    ],
   },
   {
     fields: {
@@ -10984,6 +12426,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCVIBRATIONISOLATOR,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENTCOMPONENT,
   },
   {
     fields: {
@@ -10995,6 +12439,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFASTENERTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENTCOMPONENTTYPE,
   },
   {
     fields: {
@@ -11016,11 +12462,21 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMECHANICALFASTENERTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENTCOMPONENTTYPE,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCREINFORCINGELEMENTTYPE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCELEMENTCOMPONENTTYPE,
+    subTypes: [
+       EntityTypesIfc.IFCREINFORCINGBARTYPE,
+       EntityTypesIfc.IFCREINFORCINGMESHTYPE,
+       EntityTypesIfc.IFCTENDONANCHORTYPE,
+       EntityTypesIfc.IFCTENDONTYPE,
+    ],
   },
   {
     fields: {
@@ -11032,6 +12488,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCVIBRATIONISOLATORTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENTCOMPONENTTYPE,
   },
   {
     fields: {
@@ -11049,16 +12507,29 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCELEMENTQUANTITY,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCQUANTITYSET,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCQUANTITYSET,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPROPERTYSETDEFINITION,
+    subTypes: [
+       EntityTypesIfc.IFCELEMENTQUANTITY,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCFURNISHINGELEMENTTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENTTYPE,
+    subTypes: [
+       EntityTypesIfc.IFCFURNITURETYPE,
+       EntityTypesIfc.IFCSYSTEMFURNITUREELEMENTTYPE,
+    ],
   },
   {
     fields: {
@@ -11070,6 +12541,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCGEOGRAPHICELEMENTTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENTTYPE,
   },
   {
     fields: {
@@ -11081,11 +12554,15 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTRANSPORTELEMENTTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENTTYPE,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCPLANE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENTARYSURFACE,
   },
   {
     fields: {
@@ -11096,6 +12573,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSPHERICALSURFACE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENTARYSURFACE,
   },
   {
     fields: {
@@ -11111,6 +12590,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTOROIDALSURFACE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCELEMENTARYSURFACE,
   },
   {
     fields: {
@@ -11126,6 +12607,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCELLIPSEPROFILEDEF,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPARAMETERIZEDPROFILEDEF,
   },
   {
     fields: {
@@ -11137,6 +12620,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCENGINE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICE,
   },
   {
     fields: {
@@ -11148,6 +12633,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCEVAPORATIVECOOLER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICE,
   },
   {
     fields: {
@@ -11159,6 +12646,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCEVAPORATOR,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICE,
   },
   {
     fields: {
@@ -11170,6 +12659,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCHEATEXCHANGER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICE,
   },
   {
     fields: {
@@ -11181,6 +12672,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCHUMIDIFIER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICE,
   },
   {
     fields: {
@@ -11192,6 +12685,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMOTORCONNECTION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICE,
   },
   {
     fields: {
@@ -11203,6 +12698,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSOLARDEVICE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICE,
   },
   {
     fields: {
@@ -11214,6 +12711,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTRANSFORMER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICE,
   },
   {
     fields: {
@@ -11225,6 +12724,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTUBEBUNDLE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICE,
   },
   {
     fields: {
@@ -11236,6 +12737,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCUNITARYEQUIPMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICE,
   },
   {
     fields: {
@@ -11247,6 +12750,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCENGINETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICETYPE,
   },
   {
     fields: {
@@ -11258,6 +12763,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCEVAPORATIVECOOLERTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICETYPE,
   },
   {
     fields: {
@@ -11269,6 +12776,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCEVAPORATORTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICETYPE,
   },
   {
     fields: {
@@ -11280,6 +12789,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCHEATEXCHANGERTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICETYPE,
   },
   {
     fields: {
@@ -11291,6 +12802,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCHUMIDIFIERTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICETYPE,
   },
   {
     fields: {
@@ -11302,6 +12815,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMOTORCONNECTIONTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICETYPE,
   },
   {
     fields: {
@@ -11313,6 +12828,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSOLARDEVICETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICETYPE,
   },
   {
     fields: {
@@ -11324,6 +12841,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTRANSFORMERTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICETYPE,
   },
   {
     fields: {
@@ -11335,6 +12854,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTUBEBUNDLETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICETYPE,
   },
   {
     fields: {
@@ -11346,6 +12867,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCUNITARYEQUIPMENTTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCENERGYCONVERSIONDEVICETYPE,
   },
   {
     fields: {
@@ -11374,6 +12897,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCEVENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPROCESS,
   },
   {
     fields: {
@@ -11410,6 +12935,13 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROCESS,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCOBJECT,
+    subTypes: [
+       EntityTypesIfc.IFCEVENT,
+       EntityTypesIfc.IFCPROCEDURE,
+       EntityTypesIfc.IFCTASK,
+    ],
   },
   {
     fields: {
@@ -11435,6 +12967,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCEVENTTIME,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSCHEDULINGTIME,
   },
   {
     fields: {
@@ -11456,6 +12990,14 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSCHEDULINGTIME,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCEVENTTIME,
+       EntityTypesIfc.IFCLAGTIME,
+       EntityTypesIfc.IFCRESOURCETIME,
+       EntityTypesIfc.IFCTASKTIME,
+       EntityTypesIfc.IFCWORKTIME,
+    ],
   },
   {
     fields: {
@@ -11478,6 +13020,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCEVENTTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCTYPEPROCESS,
   },
   {
     fields: {
@@ -11505,6 +13049,13 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTYPEPROCESS,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCTYPEOBJECT,
+    subTypes: [
+       EntityTypesIfc.IFCEVENTTYPE,
+       EntityTypesIfc.IFCPROCEDURETYPE,
+       EntityTypesIfc.IFCTASKTYPE,
+    ],
   },
   {
     fields: {
@@ -11527,6 +13078,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCEXTENDEDPROPERTIES,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPROPERTYABSTRACTION,
+    subTypes: [
+       EntityTypesIfc.IFCMATERIALPROPERTIES,
+       EntityTypesIfc.IFCPROFILEPROPERTIES,
+    ],
   },
   {
     fields: {
@@ -11538,6 +13095,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMATERIALPROPERTIES,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCEXTENDEDPROPERTIES,
   },
   {
     fields: {
@@ -11549,6 +13108,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROFILEPROPERTIES,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCEXTENDEDPROPERTIES,
   },
   {
     fields: {
@@ -11561,6 +13122,13 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROPERTYABSTRACTION,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCEXTENDEDPROPERTIES,
+       EntityTypesIfc.IFCPREDEFINEDPROPERTIES,
+       EntityTypesIfc.IFCPROPERTY,
+       EntityTypesIfc.IFCPROPERTYENUMERATION,
+    ],
   },
   {
     fields: {
@@ -11630,21 +13198,29 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCLIBRARYINFORMATION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCEXTERNALINFORMATION,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCEXTERNALLYDEFINEDHATCHSTYLE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCEXTERNALREFERENCE,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCEXTERNALLYDEFINEDSURFACESTYLE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCEXTERNALREFERENCE,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCEXTERNALLYDEFINEDTEXTFONT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCEXTERNALREFERENCE,
   },
   {
     fields: {
@@ -11673,6 +13249,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCLIBRARYREFERENCE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCEXTERNALREFERENCE,
   },
   {
     fields: {
@@ -11788,6 +13366,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCEXTERNALREFERENCERELATIONSHIP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRESOURCELEVELRELATIONSHIP,
   },
   {
     fields: {
@@ -11806,11 +13386,18 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCEXTERNALSPATIALELEMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCEXTERNALSPATIALSTRUCTUREELEMENT,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCEXTERNALSPATIALSTRUCTUREELEMENT,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCSPATIALELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCEXTERNALSPATIALELEMENT,
+    ],
   },
   {
     fields: {
@@ -11842,6 +13429,13 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSPATIALELEMENT,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPRODUCT,
+    subTypes: [
+       EntityTypesIfc.IFCEXTERNALSPATIALSTRUCTUREELEMENT,
+       EntityTypesIfc.IFCSPATIALSTRUCTUREELEMENT,
+       EntityTypesIfc.IFCSPATIALZONE,
+    ],
   },
   {
     fields: {
@@ -11858,6 +13452,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCEXTRUDEDAREASOLID,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSWEPTAREASOLID,
+    subTypes: [
+       EntityTypesIfc.IFCEXTRUDEDAREASOLIDTAPERED,
+    ],
   },
   {
     fields: {
@@ -11869,6 +13468,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCEXTRUDEDAREASOLIDTAPERED,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCEXTRUDEDAREASOLID,
   },
   {
     fields: {
@@ -11886,6 +13487,14 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSWEPTAREASOLID,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCSOLIDMODEL,
+    subTypes: [
+       EntityTypesIfc.IFCEXTRUDEDAREASOLID,
+       EntityTypesIfc.IFCFIXEDREFERENCESWEPTAREASOLID,
+       EntityTypesIfc.IFCREVOLVEDAREASOLID,
+       EntityTypesIfc.IFCSURFACECURVESWEPTAREASOLID,
+    ],
   },
   {
     fields: {
@@ -11905,6 +13514,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFACE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCTOPOLOGICALREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCFACESURFACE,
+    ],
   },
   {
     fields: {
@@ -11922,6 +13536,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFACEBASEDSURFACEMODEL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
   },
   {
     fields: {
@@ -11938,16 +13554,28 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFACEBOUND,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCTOPOLOGICALREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCFACEOUTERBOUND,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCFACEOUTERBOUND,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFACEBOUND,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCFACETEDBREP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCMANIFOLDSOLIDBREP,
+    subTypes: [
+       EntityTypesIfc.IFCFACETEDBREPWITHVOIDS,
+    ],
   },
   {
     fields: {
@@ -11960,6 +13588,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFACETEDBREPWITHVOIDS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFACETEDBREP,
   },
   {
     fields: {
@@ -11995,6 +13625,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFAILURECONNECTIONCONDITION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALCONNECTIONCONDITION,
   },
   {
     fields: {
@@ -12005,6 +13637,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALCONNECTIONCONDITION,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCFAILURECONNECTIONCONDITION,
+       EntityTypesIfc.IFCSLIPPAGECONNECTIONCONDITION,
+    ],
   },
   {
     fields: {
@@ -12016,6 +13653,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFAN,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWMOVINGDEVICE,
   },
   {
     fields: {
@@ -12027,6 +13666,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFANTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWMOVINGDEVICETYPE,
   },
   {
     fields: {
@@ -12038,6 +13679,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFEATUREELEMENTADDITION,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCFEATUREELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCPROJECTIONELEMENT,
+    ],
   },
   {
     fields: {
@@ -12049,6 +13695,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFEATUREELEMENTSUBTRACTION,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCFEATUREELEMENT,
+    subTypes: [
+       EntityTypesIfc.IFCOPENINGELEMENT,
+       EntityTypesIfc.IFCVOIDINGFEATURE,
+    ],
   },
   {
     fields: {
@@ -12060,6 +13712,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSURFACEFEATURE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFEATUREELEMENT,
   },
   {
     fields: {
@@ -12071,6 +13725,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROJECTIONELEMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFEATUREELEMENTADDITION,
   },
   {
     fields: {
@@ -12089,6 +13745,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCOPENINGELEMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFEATUREELEMENTSUBTRACTION,
+    subTypes: [
+       EntityTypesIfc.IFCOPENINGSTANDARDCASE,
+    ],
   },
   {
     fields: {
@@ -12100,6 +13761,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCVOIDINGFEATURE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFEATUREELEMENTSUBTRACTION,
   },
   {
     fields: {
@@ -12148,6 +13811,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFILLAREASTYLE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRESENTATIONSTYLE,
   },
   {
     fields: {
@@ -12195,6 +13860,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFILLAREASTYLEHATCHING,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
   },
   {
     fields: {
@@ -12219,6 +13886,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFILLAREASTYLETILES,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
   },
   {
     fields: {
@@ -12230,6 +13899,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFILTER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTREATMENTDEVICE,
   },
   {
     fields: {
@@ -12241,6 +13912,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFILTERTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTREATMENTDEVICETYPE,
   },
   {
     fields: {
@@ -12252,6 +13925,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFIRESUPPRESSIONTERMINAL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINAL,
   },
   {
     fields: {
@@ -12263,6 +13938,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFIRESUPPRESSIONTERMINALTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINALTYPE,
   },
   {
     fields: {
@@ -12290,6 +13967,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFIXEDREFERENCESWEPTAREASOLID,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSWEPTAREASOLID,
   },
   {
     fields: {
@@ -12301,6 +13980,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFLOWMETER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWCONTROLLER,
   },
   {
     fields: {
@@ -12312,6 +13993,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROTECTIVEDEVICE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWCONTROLLER,
   },
   {
     fields: {
@@ -12323,6 +14006,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSWITCHINGDEVICE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWCONTROLLER,
   },
   {
     fields: {
@@ -12334,6 +14019,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCVALVE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWCONTROLLER,
   },
   {
     fields: {
@@ -12345,6 +14032,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFLOWMETERTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWCONTROLLERTYPE,
   },
   {
     fields: {
@@ -12356,6 +14045,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROTECTIVEDEVICETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWCONTROLLERTYPE,
   },
   {
     fields: {
@@ -12367,6 +14058,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSWITCHINGDEVICETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWCONTROLLERTYPE,
   },
   {
     fields: {
@@ -12378,6 +14071,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCVALVETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWCONTROLLERTYPE,
   },
   {
     fields: {
@@ -12389,6 +14084,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCJUNCTIONBOX,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWFITTING,
   },
   {
     fields: {
@@ -12400,6 +14097,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPIPEFITTING,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWFITTING,
   },
   {
     fields: {
@@ -12411,6 +14110,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCJUNCTIONBOXTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWFITTINGTYPE,
   },
   {
     fields: {
@@ -12422,6 +14123,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPIPEFITTINGTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWFITTINGTYPE,
   },
   {
     fields: {
@@ -12433,6 +14136,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPUMP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWMOVINGDEVICE,
   },
   {
     fields: {
@@ -12444,6 +14149,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPUMPTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWMOVINGDEVICETYPE,
   },
   {
     fields: {
@@ -12455,6 +14162,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPIPESEGMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWSEGMENT,
   },
   {
     fields: {
@@ -12466,6 +14175,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPIPESEGMENTTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWSEGMENTTYPE,
   },
   {
     fields: {
@@ -12477,6 +14188,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTANK,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWSTORAGEDEVICE,
   },
   {
     fields: {
@@ -12488,6 +14201,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTANKTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWSTORAGEDEVICETYPE,
   },
   {
     fields: {
@@ -12499,6 +14214,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCLAMP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINAL,
   },
   {
     fields: {
@@ -12510,6 +14227,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCLIGHTFIXTURE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINAL,
   },
   {
     fields: {
@@ -12521,6 +14240,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMEDICALDEVICE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINAL,
   },
   {
     fields: {
@@ -12532,6 +14253,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCOUTLET,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINAL,
   },
   {
     fields: {
@@ -12543,6 +14266,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSANITARYTERMINAL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINAL,
   },
   {
     fields: {
@@ -12554,6 +14279,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSPACEHEATER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINAL,
   },
   {
     fields: {
@@ -12565,6 +14292,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTACKTERMINAL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINAL,
   },
   {
     fields: {
@@ -12576,6 +14305,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCWASTETERMINAL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINAL,
   },
   {
     fields: {
@@ -12587,6 +14318,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCLAMPTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINALTYPE,
   },
   {
     fields: {
@@ -12598,6 +14331,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCLIGHTFIXTURETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINALTYPE,
   },
   {
     fields: {
@@ -12609,6 +14344,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMEDICALDEVICETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINALTYPE,
   },
   {
     fields: {
@@ -12620,6 +14357,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCOUTLETTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINALTYPE,
   },
   {
     fields: {
@@ -12631,6 +14370,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSANITARYTERMINALTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINALTYPE,
   },
   {
     fields: {
@@ -12642,6 +14383,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSPACEHEATERTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINALTYPE,
   },
   {
     fields: {
@@ -12653,6 +14396,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTACKTERMINALTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINALTYPE,
   },
   {
     fields: {
@@ -12664,6 +14409,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCWASTETERMINALTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTERMINALTYPE,
   },
   {
     fields: {
@@ -12675,6 +14422,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCINTERCEPTOR,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTREATMENTDEVICE,
   },
   {
     fields: {
@@ -12686,6 +14435,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCINTERCEPTORTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFLOWTREATMENTDEVICETYPE,
   },
   {
     fields: {
@@ -12697,6 +14448,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFURNITURE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFURNISHINGELEMENT,
   },
   {
     fields: {
@@ -12708,6 +14461,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSYSTEMFURNITUREELEMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFURNISHINGELEMENT,
   },
   {
     fields: {
@@ -12725,6 +14480,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCFURNITURETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFURNISHINGELEMENTTYPE,
   },
   {
     fields: {
@@ -12736,11 +14493,15 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSYSTEMFURNITUREELEMENTTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCFURNISHINGELEMENTTYPE,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCGEOMETRICCURVESET,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCGEOMETRICSET,
   },
   {
     fields: {
@@ -12777,6 +14538,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCGEOMETRICSET,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCGEOMETRICCURVESET,
+    ],
   },
   {
     fields: {
@@ -12831,6 +14597,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONCONTEXT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCREPRESENTATIONCONTEXT,
+    subTypes: [
+       EntityTypesIfc.IFCGEOMETRICREPRESENTATIONSUBCONTEXT,
+    ],
   },
   {
     fields: {
@@ -12893,6 +14664,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONSUBCONTEXT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONCONTEXT,
   },
   {
     fields: {
@@ -12915,6 +14688,10 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCREPRESENTATIONCONTEXT,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCGEOMETRICREPRESENTATIONCONTEXT,
+    ],
   },
   {
     fields: {
@@ -12941,6 +14718,14 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCLIGHTSOURCE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCLIGHTSOURCEAMBIENT,
+       EntityTypesIfc.IFCLIGHTSOURCEDIRECTIONAL,
+       EntityTypesIfc.IFCLIGHTSOURCEGONIOMETRIC,
+       EntityTypesIfc.IFCLIGHTSOURCEPOSITIONAL,
+    ],
   },
   {
     fields: {
@@ -12956,6 +14741,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPLANAREXTENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCPLANARBOX,
+    ],
   },
   {
     fields: {
@@ -12986,6 +14776,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSECTIONEDSPINE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
   },
   {
     fields: {
@@ -13016,11 +14808,19 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSHELLBASEDSURFACEMODEL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCTESSELLATEDITEM,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCINDEXEDPOLYGONALFACE,
+       EntityTypesIfc.IFCTESSELLATEDFACESET,
+    ],
   },
   {
     fields: {
@@ -13056,6 +14856,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTEXTLITERAL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCTEXTLITERALWITHEXTENT,
+    ],
   },
   {
     fields: {
@@ -13077,6 +14882,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCVECTOR,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
   },
   {
     fields: {
@@ -13096,6 +14903,13 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCREPRESENTATIONITEM,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCGEOMETRICREPRESENTATIONITEM,
+       EntityTypesIfc.IFCMAPPEDITEM,
+       EntityTypesIfc.IFCSTYLEDITEM,
+       EntityTypesIfc.IFCTOPOLOGICALREPRESENTATIONITEM,
+    ],
   },
   {
     fields: {
@@ -13135,6 +14949,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCGRID,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRODUCT,
   },
   {
     fields: {
@@ -13184,6 +15000,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCGRIDAXIS,
+    isAbstract: false,
   },
   {
     fields: {
@@ -13214,6 +15031,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCGRIDPLACEMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCOBJECTPLACEMENT,
   },
   {
     fields: {
@@ -13233,6 +15052,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCOBJECTPLACEMENT,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCGRIDPLACEMENT,
+       EntityTypesIfc.IFCLOCALPLACEMENT,
+    ],
   },
   {
     fields: {
@@ -13293,6 +15117,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCINVENTORY,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCGROUP,
   },
   {
     fields: {
@@ -13340,6 +15166,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALLOADGROUP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCGROUP,
+    subTypes: [
+       EntityTypesIfc.IFCSTRUCTURALLOADCASE,
+    ],
   },
   {
     fields: {
@@ -13369,6 +15200,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALRESULTGROUP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCGROUP,
   },
   {
     fields: {
@@ -13386,6 +15219,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPOLYGONALBOUNDEDHALFSPACE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCHALFSPACESOLID,
   },
   {
     fields: {
@@ -13426,6 +15261,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCISHAPEPROFILEDEF,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPARAMETERIZEDPROFILEDEF,
   },
   {
     fields: {
@@ -13436,6 +15273,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCIMAGETEXTURE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSURFACETEXTURE,
   },
   {
     fields: {
@@ -13464,6 +15303,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCINDEXEDCOLOURMAP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRESENTATIONITEM,
   },
   {
     fields: {
@@ -13482,6 +15323,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCINDEXEDPOLYGONALFACE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCTESSELLATEDITEM,
+    subTypes: [
+       EntityTypesIfc.IFCINDEXEDPOLYGONALFACEWITHVOIDS,
+    ],
   },
   {
     fields: {
@@ -13493,6 +15339,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCINDEXEDPOLYGONALFACEWITHVOIDS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCINDEXEDPOLYGONALFACE,
   },
   {
     fields: {
@@ -13510,6 +15358,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCINDEXEDTEXTUREMAP,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCTEXTURECOORDINATE,
+    subTypes: [
+       EntityTypesIfc.IFCINDEXEDTRIANGLETEXTUREMAP,
+    ],
   },
   {
     fields: {
@@ -13521,6 +15374,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCINDEXEDTRIANGLETEXTUREMAP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCINDEXEDTEXTUREMAP,
   },
   {
     fields: {
@@ -13533,11 +15388,20 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTEXTURECOORDINATE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCINDEXEDTEXTUREMAP,
+       EntityTypesIfc.IFCTEXTURECOORDINATEGENERATOR,
+       EntityTypesIfc.IFCTEXTUREMAP,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCINTERSECTIONCURVE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSURFACECURVE,
   },
   {
     fields: {
@@ -13550,6 +15414,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCIRREGULARTIMESERIES,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCTIMESERIES,
   },
   {
     fields: {
@@ -13624,6 +15490,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTIMESERIES,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCIRREGULARTIMESERIES,
+       EntityTypesIfc.IFCREGULARTIMESERIES,
+    ],
   },
   {
     fields: {
@@ -14290,6 +16161,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCIRREGULARTIMESERIESVALUE,
+    isAbstract: false,
   },
   {
     fields: {
@@ -14325,6 +16197,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCLSHAPEPROFILEDEF,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPARAMETERIZEDPROFILEDEF,
   },
   {
     fields: {
@@ -14355,6 +16229,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCLAGTIME,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSCHEDULINGTIME,
   },
   {
     fields: {
@@ -14377,6 +16253,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCLIGHTDISTRIBUTIONDATA,
+    isAbstract: false,
   },
   {
     fields: {
@@ -14395,11 +16272,14 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCLIGHTINTENSITYDISTRIBUTION,
+    isAbstract: false,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCLIGHTSOURCEAMBIENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCLIGHTSOURCE,
   },
   {
     fields: {
@@ -14411,6 +16291,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCLIGHTSOURCEDIRECTIONAL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCLIGHTSOURCE,
   },
   {
     fields: {
@@ -14463,6 +16345,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCLIGHTSOURCEGONIOMETRIC,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCLIGHTSOURCE,
   },
   {
     fields: {
@@ -14494,6 +16378,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCLIGHTSOURCEPOSITIONAL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCLIGHTSOURCE,
+    subTypes: [
+       EntityTypesIfc.IFCLIGHTSOURCESPOT,
+    ],
   },
   {
     fields: {
@@ -14520,6 +16409,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCLIGHTSOURCESPOT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCLIGHTSOURCEPOSITIONAL,
   },
   {
     fields: {
@@ -14550,6 +16441,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCLOCALPLACEMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCOBJECTPLACEMENT,
   },
   {
     fields: {
@@ -14562,6 +16455,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPOLYLOOP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCLOOP,
   },
   {
     fields: {
@@ -14573,6 +16468,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCVERTEXLOOP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCLOOP,
   },
   {
     fields: {
@@ -14590,6 +16487,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMAPPEDITEM,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCREPRESENTATIONITEM,
   },
   {
     fields: {
@@ -14631,6 +16530,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMATERIAL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCMATERIALDEFINITION,
   },
   {
     fields: {
@@ -14657,6 +16558,16 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMATERIALDEFINITION,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCMATERIAL,
+       EntityTypesIfc.IFCMATERIALCONSTITUENT,
+       EntityTypesIfc.IFCMATERIALCONSTITUENTSET,
+       EntityTypesIfc.IFCMATERIALLAYER,
+       EntityTypesIfc.IFCMATERIALLAYERSET,
+       EntityTypesIfc.IFCMATERIALPROFILE,
+       EntityTypesIfc.IFCMATERIALPROFILESET,
+    ],
   },
   {
     fields: {
@@ -14688,6 +16599,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMATERIALCLASSIFICATIONRELATIONSHIP,
+    isAbstract: false,
   },
   {
     fields: {
@@ -14725,6 +16637,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMATERIALCONSTITUENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCMATERIALDEFINITION,
   },
   {
     fields: {
@@ -14747,6 +16661,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMATERIALCONSTITUENTSET,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCMATERIALDEFINITION,
   },
   {
     fields: {
@@ -14794,6 +16710,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMATERIALLAYER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCMATERIALDEFINITION,
+    subTypes: [
+       EntityTypesIfc.IFCMATERIALLAYERWITHOFFSETS,
+    ],
   },
   {
     fields: {
@@ -14821,6 +16742,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMATERIALLAYERSET,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCMATERIALDEFINITION,
   },
   {
     fields: {
@@ -14864,6 +16787,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMATERIALPROFILE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCMATERIALDEFINITION,
+    subTypes: [
+       EntityTypesIfc.IFCMATERIALPROFILEWITHOFFSETS,
+    ],
   },
   {
     fields: {
@@ -14892,6 +16820,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMATERIALPROFILESET,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCMATERIALDEFINITION,
   },
   {
     fields: {
@@ -14903,6 +16833,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMATERIALDEFINITIONREPRESENTATION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRODUCTREPRESENTATION,
   },
   {
     fields: {
@@ -14925,6 +16857,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPRODUCTREPRESENTATION,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCMATERIALDEFINITIONREPRESENTATION,
+       EntityTypesIfc.IFCPRODUCTDEFINITIONSHAPE,
+    ],
   },
   {
     fields: {
@@ -14942,6 +16879,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMATERIALLAYERWITHOFFSETS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCMATERIALLAYER,
   },
   {
     fields: {
@@ -14975,6 +16914,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMATERIALLAYERSETUSAGE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCMATERIALUSAGEDEFINITION,
   },
   {
     fields: {
@@ -14987,6 +16928,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMATERIALUSAGEDEFINITION,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCMATERIALLAYERSETUSAGE,
+       EntityTypesIfc.IFCMATERIALPROFILESETUSAGE,
+    ],
   },
   {
     fields: {
@@ -14999,6 +16945,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMATERIALLIST,
+    isAbstract: false,
   },
   {
     fields: {
@@ -15010,6 +16957,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMATERIALPROFILEWITHOFFSETS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCMATERIALPROFILE,
   },
   {
     fields: {
@@ -15031,6 +16980,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMATERIALPROFILESETUSAGE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCMATERIALUSAGEDEFINITION,
+    subTypes: [
+       EntityTypesIfc.IFCMATERIALPROFILESETUSAGETAPERING,
+    ],
   },
   {
     fields: {
@@ -15047,6 +17001,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMATERIALPROFILESETUSAGETAPERING,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCMATERIALPROFILESETUSAGE,
   },
   {
     fields: {
@@ -15070,6 +17026,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMATERIALRELATIONSHIP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRESOURCELEVELRELATIONSHIP,
   },
   {
     fields: {
@@ -15755,11 +17713,14 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMEASUREWITHUNIT,
+    isAbstract: false,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCMEMBERSTANDARDCASE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCMEMBER,
   },
   {
     fields: {
@@ -15770,6 +17731,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCMONETARYUNIT,
+    isAbstract: false,
   },
   {
     fields: {
@@ -15793,6 +17755,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSIUNIT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCNAMEDUNIT,
   },
   {
     fields: {
@@ -15817,6 +17781,13 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTYPEOBJECT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCOBJECTDEFINITION,
+    subTypes: [
+       EntityTypesIfc.IFCTYPEPROCESS,
+       EntityTypesIfc.IFCTYPEPRODUCT,
+       EntityTypesIfc.IFCTYPERESOURCE,
+    ],
   },
   {
     fields: {
@@ -15843,11 +17814,19 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCROOT,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCOBJECTDEFINITION,
+       EntityTypesIfc.IFCPROPERTYDEFINITION,
+       EntityTypesIfc.IFCRELATIONSHIP,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCOPENINGSTANDARDCASE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCOPENINGELEMENT,
   },
   {
     fields: {
@@ -15903,6 +17882,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCORGANIZATION,
+    isAbstract: false,
   },
   {
     fields: {
@@ -15921,6 +17901,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCORGANIZATIONRELATIONSHIP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRESOURCELEVELRELATIONSHIP,
   },
   {
     fields: {
@@ -15972,6 +17954,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCOWNERHISTORY,
+    isAbstract: false,
   },
   {
     fields: {
@@ -15987,6 +17970,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRECTANGLEPROFILEDEF,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPARAMETERIZEDPROFILEDEF,
+    subTypes: [
+       EntityTypesIfc.IFCRECTANGLEHOLLOWPROFILEDEF,
+       EntityTypesIfc.IFCROUNDEDRECTANGLEPROFILEDEF,
+    ],
   },
   {
     fields: {
@@ -16037,6 +18026,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTSHAPEPROFILEDEF,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPARAMETERIZEDPROFILEDEF,
   },
   {
     fields: {
@@ -16062,6 +18053,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTRAPEZIUMPROFILEDEF,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPARAMETERIZEDPROFILEDEF,
   },
   {
     fields: {
@@ -16102,6 +18095,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCUSHAPEPROFILEDEF,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPARAMETERIZEDPROFILEDEF,
   },
   {
     fields: {
@@ -16137,6 +18132,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCZSHAPEPROFILEDEF,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPARAMETERIZEDPROFILEDEF,
   },
   {
     fields: {
@@ -16149,6 +18146,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPATH,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCTOPOLOGICALREPRESENTATIONITEM,
   },
   {
     fields: {
@@ -16182,6 +18181,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPERMEABLECOVERINGPROPERTIES,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPREDEFINEDPROPERTYSET,
   },
   {
     fields: {
@@ -16241,6 +18242,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPERSON,
+    isAbstract: false,
   },
   {
     fields: {
@@ -16265,6 +18267,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPERSONANDORGANIZATION,
+    isAbstract: false,
   },
   {
     fields: {
@@ -16292,6 +18295,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPHYSICALCOMPLEXQUANTITY,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPHYSICALQUANTITY,
   },
   {
     fields: {
@@ -16321,6 +18326,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPHYSICALQUANTITY,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCPHYSICALCOMPLEXQUANTITY,
+       EntityTypesIfc.IFCPHYSICALSIMPLEQUANTITY,
+    ],
   },
   {
     fields: {
@@ -16332,6 +18342,16 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPHYSICALSIMPLEQUANTITY,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPHYSICALQUANTITY,
+    subTypes: [
+       EntityTypesIfc.IFCQUANTITYAREA,
+       EntityTypesIfc.IFCQUANTITYCOUNT,
+       EntityTypesIfc.IFCQUANTITYLENGTH,
+       EntityTypesIfc.IFCQUANTITYTIME,
+       EntityTypesIfc.IFCQUANTITYVOLUME,
+       EntityTypesIfc.IFCQUANTITYWEIGHT,
+    ],
   },
   {
     fields: {
@@ -16347,6 +18367,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCQUANTITYAREA,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPHYSICALSIMPLEQUANTITY,
   },
   {
     fields: {
@@ -16362,6 +18384,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCQUANTITYCOUNT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPHYSICALSIMPLEQUANTITY,
   },
   {
     fields: {
@@ -16377,6 +18401,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCQUANTITYLENGTH,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPHYSICALSIMPLEQUANTITY,
   },
   {
     fields: {
@@ -16392,6 +18418,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCQUANTITYTIME,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPHYSICALSIMPLEQUANTITY,
   },
   {
     fields: {
@@ -16407,6 +18435,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCQUANTITYVOLUME,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPHYSICALSIMPLEQUANTITY,
   },
   {
     fields: {
@@ -16422,6 +18452,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCQUANTITYWEIGHT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPHYSICALSIMPLEQUANTITY,
   },
   {
     fields: {
@@ -16448,6 +18480,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPIXELTEXTURE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSURFACETEXTURE,
   },
   {
     fields: {
@@ -16472,11 +18506,15 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPLANARBOX,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPLANAREXTENT,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCPLATESTANDARDCASE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPLATE,
   },
   {
     fields: {
@@ -16498,6 +18536,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPOINTONCURVE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPOINT,
   },
   {
     fields: {
@@ -16524,6 +18564,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPOINTONSURFACE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPOINT,
   },
   {
     fields: {
@@ -16547,6 +18589,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPOLYGONALFACESET,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCTESSELLATEDFACESET,
   },
   {
     fields: {
@@ -16577,6 +18621,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTESSELLATEDFACESET,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCTESSELLATEDITEM,
+    subTypes: [
+       EntityTypesIfc.IFCPOLYGONALFACESET,
+       EntityTypesIfc.IFCTRIANGULATEDFACESET,
+    ],
   },
   {
     fields: {
@@ -16587,16 +18637,35 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPREDEFINEDITEM,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCPREDEFINEDCOLOUR,
+       EntityTypesIfc.IFCPREDEFINEDCURVEFONT,
+       EntityTypesIfc.IFCPREDEFINEDTEXTFONT,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCPREDEFINEDTEXTFONT,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPREDEFINEDITEM,
+    subTypes: [
+       EntityTypesIfc.IFCTEXTSTYLEFONTMODEL,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCPREDEFINEDPROPERTIES,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPROPERTYABSTRACTION,
+    subTypes: [
+       EntityTypesIfc.IFCREINFORCEMENTBARPROPERTIES,
+       EntityTypesIfc.IFCSECTIONPROPERTIES,
+       EntityTypesIfc.IFCSECTIONREINFORCEMENTPROPERTIES,
+    ],
   },
   {
     fields: {
@@ -16633,6 +18702,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCREINFORCEMENTBARPROPERTIES,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPREDEFINEDPROPERTIES,
   },
   {
     fields: {
@@ -16656,6 +18727,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSECTIONPROPERTIES,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPREDEFINEDPROPERTIES,
   },
   {
     fields: {
@@ -16695,6 +18768,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSECTIONREINFORCEMENTPROPERTIES,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPREDEFINEDPROPERTIES,
   },
   {
     fields: {
@@ -16712,6 +18787,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCREINFORCEMENTDEFINITIONPROPERTIES,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPREDEFINEDPROPERTYSET,
   },
   {
     fields: {
@@ -16778,6 +18855,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCWINDOWLININGPROPERTIES,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPREDEFINEDPROPERTYSET,
   },
   {
     fields: {
@@ -16811,6 +18890,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCWINDOWPANELPROPERTIES,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPREDEFINEDPROPERTYSET,
   },
   {
     fields: {
@@ -16837,6 +18918,13 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROPERTYSETDEFINITION,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPROPERTYDEFINITION,
+    subTypes: [
+       EntityTypesIfc.IFCPREDEFINEDPROPERTYSET,
+       EntityTypesIfc.IFCPROPERTYSET,
+       EntityTypesIfc.IFCQUANTITYSET,
+    ],
   },
   {
     fields: {
@@ -16906,6 +18994,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTEXTSTYLEFONTMODEL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPREDEFINEDTEXTFONT,
   },
   {
     fields: {
@@ -16935,6 +19025,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSURFACESTYLELIGHTING,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRESENTATIONITEM,
   },
   {
     fields: {
@@ -16950,6 +19042,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSURFACESTYLEREFRACTION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRESENTATIONITEM,
   },
   {
     fields: {
@@ -16966,6 +19060,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSURFACESTYLESHADING,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCSURFACESTYLERENDERING,
+    ],
   },
   {
     fields: {
@@ -16978,6 +19077,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSURFACESTYLEWITHTEXTURES,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRESENTATIONITEM,
   },
   {
     fields: {
@@ -17021,6 +19122,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTEXTSTYLEFORDEFINEDFONT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRESENTATIONITEM,
   },
   {
     fields: {
@@ -17213,6 +19316,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTEXTSTYLETEXTMODEL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRESENTATIONITEM,
   },
   {
     fields: {
@@ -17224,6 +19329,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTEXTUREVERTEX,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRESENTATIONITEM,
   },
   {
     fields: {
@@ -17235,6 +19342,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTEXTUREVERTEXLIST,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRESENTATIONITEM,
   },
   {
     fields: {
@@ -17275,6 +19384,10 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPRESENTATIONLAYERASSIGNMENT,
+    isAbstract: false,
+    subTypes: [
+       EntityTypesIfc.IFCPRESENTATIONLAYERWITHSTYLE,
+    ],
   },
   {
     fields: {
@@ -17302,6 +19415,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPRESENTATIONLAYERWITHSTYLE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRESENTATIONLAYERASSIGNMENT,
   },
   {
     fields: {
@@ -17351,6 +19466,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSURFACESTYLE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRESENTATIONSTYLE,
   },
   {
     fields: {
@@ -17392,6 +19509,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTEXTSTYLE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRESENTATIONSTYLE,
   },
   {
     fields: {
@@ -17435,6 +19554,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPRESENTATIONSTYLEASSIGNMENT,
+    isAbstract: false,
   },
   {
     fields: {
@@ -17446,6 +19566,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROCEDURE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPROCESS,
   },
   {
     fields: {
@@ -17457,6 +19579,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROCEDURETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCTYPEPROCESS,
   },
   {
     fields: {
@@ -17494,6 +19618,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTASK,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPROCESS,
   },
   {
     fields: {
@@ -17510,6 +19636,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROXY,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRODUCT,
   },
   {
     fields: {
@@ -17534,6 +19662,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALACTIVITY,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPRODUCT,
+    subTypes: [
+       EntityTypesIfc.IFCSTRUCTURALACTION,
+       EntityTypesIfc.IFCSTRUCTURALREACTION,
+    ],
   },
   {
     fields: {
@@ -17546,6 +19680,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALITEM,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPRODUCT,
+    subTypes: [
+       EntityTypesIfc.IFCSTRUCTURALCONNECTION,
+       EntityTypesIfc.IFCSTRUCTURALMEMBER,
+    ],
   },
   {
     fields: {
@@ -17565,11 +19705,23 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPRODUCTDEFINITIONSHAPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPRODUCTREPRESENTATION,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCSIMPLEPROPERTY,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPROPERTY,
+    subTypes: [
+       EntityTypesIfc.IFCPROPERTYBOUNDEDVALUE,
+       EntityTypesIfc.IFCPROPERTYENUMERATEDVALUE,
+       EntityTypesIfc.IFCPROPERTYLISTVALUE,
+       EntityTypesIfc.IFCPROPERTYREFERENCEVALUE,
+       EntityTypesIfc.IFCPROPERTYSINGLEVALUE,
+       EntityTypesIfc.IFCPROPERTYTABLEVALUE,
+    ],
   },
   {
     fields: {
@@ -18261,6 +20413,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROPERTYENUMERATION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPROPERTYABSTRACTION,
   },
   {
     fields: {
@@ -20256,6 +22410,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROPERTYBOUNDEDVALUE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSIMPLEPROPERTY,
   },
   {
     fields: {
@@ -20275,11 +22431,23 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROPERTYDEFINITION,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCROOT,
+    subTypes: [
+       EntityTypesIfc.IFCPROPERTYSETDEFINITION,
+       EntityTypesIfc.IFCPROPERTYTEMPLATEDEFINITION,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCPROPERTYTEMPLATEDEFINITION,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCPROPERTYDEFINITION,
+    subTypes: [
+       EntityTypesIfc.IFCPROPERTYSETTEMPLATE,
+       EntityTypesIfc.IFCPROPERTYTEMPLATE,
+    ],
   },
   {
     fields: {
@@ -20302,6 +22470,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROPERTYDEPENDENCYRELATIONSHIP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRESOURCELEVELRELATIONSHIP,
   },
   {
     fields: {
@@ -20969,6 +23139,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROPERTYENUMERATEDVALUE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSIMPLEPROPERTY,
   },
   {
     fields: {
@@ -21655,6 +23827,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROPERTYLISTVALUE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSIMPLEPROPERTY,
   },
   {
     fields: {
@@ -21726,6 +23900,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROPERTYREFERENCEVALUE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSIMPLEPROPERTY,
   },
   {
     fields: {
@@ -21738,6 +23914,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROPERTYSET,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPROPERTYSETDEFINITION,
   },
   {
     fields: {
@@ -21768,6 +23946,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROPERTYSETTEMPLATE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPROPERTYTEMPLATEDEFINITION,
   },
   {
     fields: {
@@ -22453,6 +24633,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROPERTYSINGLEVALUE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSIMPLEPROPERTY,
   },
   {
     fields: {
@@ -23831,6 +26013,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCPROPERTYTABLEVALUE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSIMPLEPROPERTY,
   },
   {
     fields: {
@@ -23919,6 +26103,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSIMPLEPROPERTYTEMPLATE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCPROPERTYTEMPLATE,
   },
   {
     fields: {
@@ -23939,6 +26125,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRECTANGLEHOLLOWPROFILEDEF,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRECTANGLEPROFILEDEF,
   },
   {
     fields: {
@@ -23949,6 +26137,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCROUNDEDRECTANGLEPROFILEDEF,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRECTANGLEPROFILEDEF,
   },
   {
     fields: {
@@ -24000,6 +26190,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRECURRENCEPATTERN,
+    isAbstract: false,
   },
   {
     fields: {
@@ -24032,6 +26223,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCREFERENCE,
+    isAbstract: false,
   },
   {
     fields: {
@@ -24049,6 +26241,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCREGULARTIMESERIES,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCTIMESERIES,
   },
   {
     fields: {
@@ -24081,6 +26275,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCREINFORCINGBAR,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCREINFORCINGELEMENT,
   },
   {
     fields: {
@@ -24138,6 +26334,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCREINFORCINGBARTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCREINFORCINGELEMENTTYPE,
   },
   {
     fields: {
@@ -24189,6 +26387,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCREINFORCINGMESH,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCREINFORCINGELEMENT,
   },
   {
     fields: {
@@ -24235,6 +26435,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTENDON,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCREINFORCINGELEMENT,
   },
   {
     fields: {
@@ -24246,6 +26448,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTENDONANCHOR,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCREINFORCINGELEMENT,
   },
   {
     fields: {
@@ -24322,6 +26526,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCREINFORCINGMESHTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCREINFORCINGELEMENTTYPE,
   },
   {
     fields: {
@@ -24333,6 +26539,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTENDONANCHORTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCREINFORCINGELEMENTTYPE,
   },
   {
     fields: {
@@ -24359,6 +26567,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTENDONTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCREINFORCINGELEMENTTYPE,
   },
   {
     fields: {
@@ -24377,11 +26587,21 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELAGGREGATES,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELDECOMPOSES,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCRELDECOMPOSES,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCRELATIONSHIP,
+    subTypes: [
+       EntityTypesIfc.IFCRELAGGREGATES,
+       EntityTypesIfc.IFCRELNESTS,
+       EntityTypesIfc.IFCRELPROJECTSELEMENT,
+       EntityTypesIfc.IFCRELVOIDSELEMENT,
+    ],
   },
   {
     fields: {
@@ -24400,6 +26620,16 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELASSIGNS,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCRELATIONSHIP,
+    subTypes: [
+       EntityTypesIfc.IFCRELASSIGNSTOACTOR,
+       EntityTypesIfc.IFCRELASSIGNSTOCONTROL,
+       EntityTypesIfc.IFCRELASSIGNSTOGROUP,
+       EntityTypesIfc.IFCRELASSIGNSTOPROCESS,
+       EntityTypesIfc.IFCRELASSIGNSTOPRODUCT,
+       EntityTypesIfc.IFCRELASSIGNSTORESOURCE,
+    ],
   },
   {
     fields: {
@@ -24417,6 +26647,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELASSIGNSTOACTOR,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELASSIGNS,
   },
   {
     fields: {
@@ -24428,6 +26660,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELASSIGNSTOCONTROL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELASSIGNS,
   },
   {
     fields: {
@@ -24439,6 +26673,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELASSIGNSTOGROUP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELASSIGNS,
+    subTypes: [
+       EntityTypesIfc.IFCRELASSIGNSTOGROUPBYFACTOR,
+    ],
   },
   {
     fields: {
@@ -24469,6 +26708,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELASSIGNSTOPROCESS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELASSIGNS,
   },
   {
     fields: {
@@ -24493,6 +26734,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELASSIGNSTOPRODUCT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELASSIGNS,
   },
   {
     fields: {
@@ -24517,11 +26760,23 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELASSIGNSTORESOURCE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELASSIGNS,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCRELATIONSHIP,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCROOT,
+    subTypes: [
+       EntityTypesIfc.IFCRELASSIGNS,
+       EntityTypesIfc.IFCRELASSOCIATES,
+       EntityTypesIfc.IFCRELCONNECTS,
+       EntityTypesIfc.IFCRELDECLARES,
+       EntityTypesIfc.IFCRELDECOMPOSES,
+       EntityTypesIfc.IFCRELDEFINES,
+    ],
   },
   {
     fields: {
@@ -24532,6 +26787,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELASSIGNSTOGROUPBYFACTOR,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELASSIGNSTOGROUP,
   },
   {
     fields: {
@@ -24557,6 +26814,16 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELASSOCIATES,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCRELATIONSHIP,
+    subTypes: [
+       EntityTypesIfc.IFCRELASSOCIATESAPPROVAL,
+       EntityTypesIfc.IFCRELASSOCIATESCLASSIFICATION,
+       EntityTypesIfc.IFCRELASSOCIATESCONSTRAINT,
+       EntityTypesIfc.IFCRELASSOCIATESDOCUMENT,
+       EntityTypesIfc.IFCRELASSOCIATESLIBRARY,
+       EntityTypesIfc.IFCRELASSOCIATESMATERIAL,
+    ],
   },
   {
     fields: {
@@ -24568,6 +26835,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELASSOCIATESAPPROVAL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELASSOCIATES,
   },
   {
     fields: {
@@ -24592,6 +26861,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELASSOCIATESCLASSIFICATION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELASSOCIATES,
   },
   {
     fields: {
@@ -24608,6 +26879,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELASSOCIATESCONSTRAINT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELASSOCIATES,
   },
   {
     fields: {
@@ -24632,6 +26905,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELASSOCIATESDOCUMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELASSOCIATES,
   },
   {
     fields: {
@@ -24656,6 +26931,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELASSOCIATESLIBRARY,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELASSOCIATES,
   },
   {
     fields: {
@@ -24686,11 +26963,32 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELASSOCIATESMATERIAL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELASSOCIATES,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCRELCONNECTS,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCRELATIONSHIP,
+    subTypes: [
+       EntityTypesIfc.IFCRELCONNECTSELEMENTS,
+       EntityTypesIfc.IFCRELCONNECTSPORTTOELEMENT,
+       EntityTypesIfc.IFCRELCONNECTSPORTS,
+       EntityTypesIfc.IFCRELCONNECTSSTRUCTURALACTIVITY,
+       EntityTypesIfc.IFCRELCONNECTSSTRUCTURALMEMBER,
+       EntityTypesIfc.IFCRELCONTAINEDINSPATIALSTRUCTURE,
+       EntityTypesIfc.IFCRELCOVERSBLDGELEMENTS,
+       EntityTypesIfc.IFCRELCOVERSSPACES,
+       EntityTypesIfc.IFCRELFILLSELEMENT,
+       EntityTypesIfc.IFCRELFLOWCONTROLELEMENTS,
+       EntityTypesIfc.IFCRELINTERFERESELEMENTS,
+       EntityTypesIfc.IFCRELREFERENCEDINSPATIALSTRUCTURE,
+       EntityTypesIfc.IFCRELSEQUENCE,
+       EntityTypesIfc.IFCRELSERVICESBUILDINGS,
+       EntityTypesIfc.IFCRELSPACEBOUNDARY,
+    ],
   },
   {
     fields: {
@@ -24714,6 +27012,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELCONNECTSELEMENTS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELCONNECTS,
+    subTypes: [
+       EntityTypesIfc.IFCRELCONNECTSPATHELEMENTS,
+       EntityTypesIfc.IFCRELCONNECTSWITHREALIZINGELEMENTS,
+    ],
   },
   {
     fields: {
@@ -24731,6 +27035,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELCONNECTSPORTTOELEMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELCONNECTS,
   },
   {
     fields: {
@@ -24754,6 +27060,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELCONNECTSPORTS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELCONNECTS,
   },
   {
     fields: {
@@ -24784,6 +27092,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELCONNECTSSTRUCTURALACTIVITY,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELCONNECTS,
   },
   {
     fields: {
@@ -24824,6 +27134,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELCONNECTSSTRUCTURALMEMBER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELCONNECTS,
+    subTypes: [
+       EntityTypesIfc.IFCRELCONNECTSWITHECCENTRICITY,
+    ],
   },
   {
     fields: {
@@ -24842,6 +27157,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELCONTAINEDINSPATIALSTRUCTURE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELCONNECTS,
   },
   {
     fields: {
@@ -24860,6 +27177,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELCOVERSBLDGELEMENTS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELCONNECTS,
   },
   {
     fields: {
@@ -24878,6 +27197,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELCOVERSSPACES,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELCONNECTS,
   },
   {
     fields: {
@@ -24895,6 +27216,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELFILLSELEMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELCONNECTS,
   },
   {
     fields: {
@@ -24913,6 +27236,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELFLOWCONTROLELEMENTS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELCONNECTS,
   },
   {
     fields: {
@@ -24946,6 +27271,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELINTERFERESELEMENTS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELCONNECTS,
   },
   {
     fields: {
@@ -24964,6 +27291,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELREFERENCEDINSPATIALSTRUCTURE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELCONNECTS,
   },
   {
     fields: {
@@ -24998,6 +27327,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELSEQUENCE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELCONNECTS,
   },
   {
     fields: {
@@ -25016,6 +27347,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELSERVICESBUILDINGS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELCONNECTS,
   },
   {
     fields: {
@@ -25064,6 +27397,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELSPACEBOUNDARY,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELCONNECTS,
+    subTypes: [
+       EntityTypesIfc.IFCRELSPACEBOUNDARY1STLEVEL,
+    ],
   },
   {
     fields: {
@@ -25093,6 +27431,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELCONNECTSPATHELEMENTS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELCONNECTSELEMENTS,
   },
   {
     fields: {
@@ -25110,6 +27450,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELCONNECTSWITHREALIZINGELEMENTS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELCONNECTSELEMENTS,
   },
   {
     fields: {
@@ -25121,6 +27463,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELCONNECTSWITHECCENTRICITY,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELCONNECTSSTRUCTURALMEMBER,
   },
   {
     fields: {
@@ -25152,6 +27496,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELDECLARES,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELATIONSHIP,
   },
   {
     fields: {
@@ -25170,6 +27516,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELNESTS,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELDECOMPOSES,
   },
   {
     fields: {
@@ -25187,6 +27535,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELPROJECTSELEMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELDECOMPOSES,
   },
   {
     fields: {
@@ -25204,11 +27554,21 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELVOIDSELEMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELDECOMPOSES,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCRELDEFINES,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCRELATIONSHIP,
+    subTypes: [
+       EntityTypesIfc.IFCRELDEFINESBYOBJECT,
+       EntityTypesIfc.IFCRELDEFINESBYPROPERTIES,
+       EntityTypesIfc.IFCRELDEFINESBYTEMPLATE,
+       EntityTypesIfc.IFCRELDEFINESBYTYPE,
+    ],
   },
   {
     fields: {
@@ -25227,6 +27587,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELDEFINESBYOBJECT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELDEFINES,
   },
   {
     fields: {
@@ -25258,6 +27620,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELDEFINESBYPROPERTIES,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELDEFINES,
   },
   {
     fields: {
@@ -25276,6 +27640,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELDEFINESBYTEMPLATE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELDEFINES,
   },
   {
     fields: {
@@ -25294,6 +27660,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELDEFINESBYTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELDEFINES,
   },
   {
     fields: {
@@ -25312,6 +27680,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELSPACEBOUNDARY1STLEVEL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELSPACEBOUNDARY,
+    subTypes: [
+       EntityTypesIfc.IFCRELSPACEBOUNDARY2NDLEVEL,
+    ],
   },
   {
     fields: {
@@ -25330,6 +27703,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRELSPACEBOUNDARY2NDLEVEL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRELSPACEBOUNDARY1STLEVEL,
   },
   {
     fields: {
@@ -25379,6 +27754,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCREPRESENTATION,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCSHAPEMODEL,
+       EntityTypesIfc.IFCSTYLEMODEL,
+    ],
   },
   {
     fields: {
@@ -25391,11 +27771,22 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSHAPEMODEL,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCREPRESENTATION,
+    subTypes: [
+       EntityTypesIfc.IFCSHAPEREPRESENTATION,
+       EntityTypesIfc.IFCTOPOLOGYREPRESENTATION,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCSTYLEMODEL,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCREPRESENTATION,
+    subTypes: [
+       EntityTypesIfc.IFCSTYLEDREPRESENTATION,
+    ],
   },
   {
     fields: {
@@ -25432,6 +27823,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTYLEDITEM,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCREPRESENTATIONITEM,
   },
   {
     fields: {
@@ -25476,6 +27869,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCREPRESENTATIONMAP,
+    isAbstract: false,
   },
   {
     fields: {
@@ -25591,6 +27985,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRESOURCEAPPROVALRELATIONSHIP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRESOURCELEVELRELATIONSHIP,
   },
   {
     fields: {
@@ -25706,6 +28102,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRESOURCECONSTRAINTRELATIONSHIP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCRESOURCELEVELRELATIONSHIP,
   },
   {
     fields: {
@@ -25786,6 +28184,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCRESOURCETIME,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSCHEDULINGTIME,
   },
   {
     fields: {
@@ -25808,6 +28208,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCREVOLVEDAREASOLID,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSWEPTAREASOLID,
+    subTypes: [
+       EntityTypesIfc.IFCREVOLVEDAREASOLIDTAPERED,
+    ],
   },
   {
     fields: {
@@ -25819,6 +28224,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCREVOLVEDAREASOLIDTAPERED,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCREVOLVEDAREASOLID,
   },
   {
     fields: {
@@ -25910,6 +28317,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTASKTIME,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSCHEDULINGTIME,
+    subTypes: [
+       EntityTypesIfc.IFCTASKTIMERECURRING,
+    ],
   },
   {
     fields: {
@@ -25931,11 +28343,15 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCWORKTIME,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSCHEDULINGTIME,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCSEAMCURVE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSURFACECURVE,
   },
   {
     fields: {
@@ -25982,16 +28398,21 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSHAPEASPECT,
+    isAbstract: false,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCSHAPEREPRESENTATION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSHAPEMODEL,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCTOPOLOGYREPRESENTATION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSHAPEMODEL,
   },
   {
     fields: {
@@ -26023,16 +28444,22 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSITE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSPATIALSTRUCTUREELEMENT,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCSLABELEMENTEDCASE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSLAB,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCSLABSTANDARDCASE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSLAB,
   },
   {
     fields: {
@@ -26053,6 +28480,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSLIPPAGECONNECTIONCONDITION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALCONNECTIONCONDITION,
   },
   {
     fields: {
@@ -26084,6 +28513,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSWEPTDISKSOLID,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSOLIDMODEL,
+    subTypes: [
+       EntityTypesIfc.IFCSWEPTDISKSOLIDPOLYGONAL,
+    ],
   },
   {
     fields: {
@@ -26114,6 +28548,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSPACE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSPATIALSTRUCTUREELEMENT,
   },
   {
     fields: {
@@ -26130,11 +28566,18 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSPACETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSPATIALSTRUCTUREELEMENTTYPE,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCSPATIALSTRUCTUREELEMENTTYPE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCSPATIALELEMENTTYPE,
+    subTypes: [
+       EntityTypesIfc.IFCSPACETYPE,
+    ],
   },
   {
     fields: {
@@ -26146,6 +28589,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSPATIALZONE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSPATIALELEMENT,
   },
   {
     fields: {
@@ -26156,6 +28601,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSPATIALELEMENTTYPE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCTYPEPRODUCT,
+    subTypes: [
+       EntityTypesIfc.IFCSPATIALSTRUCTUREELEMENTTYPE,
+       EntityTypesIfc.IFCSPATIALZONETYPE,
+    ],
   },
   {
     fields: {
@@ -26172,6 +28623,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSPATIALZONETYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSPATIALELEMENTTYPE,
   },
   {
     fields: {
@@ -26182,6 +28635,13 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALACTION,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCSTRUCTURALACTIVITY,
+    subTypes: [
+       EntityTypesIfc.IFCSTRUCTURALCURVEACTION,
+       EntityTypesIfc.IFCSTRUCTURALPOINTACTION,
+       EntityTypesIfc.IFCSTRUCTURALSURFACEACTION,
+    ],
   },
   {
     fields: {
@@ -26199,11 +28659,18 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALCURVEACTION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALACTION,
+    subTypes: [
+       EntityTypesIfc.IFCSTRUCTURALLINEARACTION,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALPOINTACTION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALACTION,
   },
   {
     fields: {
@@ -26221,11 +28688,23 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALSURFACEACTION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALACTION,
+    subTypes: [
+       EntityTypesIfc.IFCSTRUCTURALPLANARACTION,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALREACTION,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCSTRUCTURALACTIVITY,
+    subTypes: [
+       EntityTypesIfc.IFCSTRUCTURALCURVEREACTION,
+       EntityTypesIfc.IFCSTRUCTURALPOINTREACTION,
+       EntityTypesIfc.IFCSTRUCTURALSURFACEREACTION,
+    ],
   },
   {
     fields: {
@@ -26263,6 +28742,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALANALYSISMODEL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSYSTEM,
   },
   {
     fields: {
@@ -26281,6 +28762,13 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALCONNECTION,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCSTRUCTURALITEM,
+    subTypes: [
+       EntityTypesIfc.IFCSTRUCTURALCURVECONNECTION,
+       EntityTypesIfc.IFCSTRUCTURALPOINTCONNECTION,
+       EntityTypesIfc.IFCSTRUCTURALSURFACECONNECTION,
+    ],
   },
   {
     fields: {
@@ -26292,6 +28780,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALCURVECONNECTION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALCONNECTION,
   },
   {
     fields: {
@@ -26303,16 +28793,22 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALPOINTCONNECTION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALCONNECTION,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALSURFACECONNECTION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALCONNECTION,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALLINEARACTION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALCURVEACTION,
   },
   {
     fields: {
@@ -26330,11 +28826,18 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALCURVEMEMBER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALMEMBER,
+    subTypes: [
+       EntityTypesIfc.IFCSTRUCTURALCURVEMEMBERVARYING,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALCURVEMEMBERVARYING,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALCURVEMEMBER,
   },
   {
     fields: {
@@ -26347,6 +28850,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALMEMBER,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCSTRUCTURALITEM,
+    subTypes: [
+       EntityTypesIfc.IFCSTRUCTURALCURVEMEMBER,
+       EntityTypesIfc.IFCSTRUCTURALSURFACEMEMBER,
+    ],
   },
   {
     fields: {
@@ -26358,6 +28867,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALCURVEREACTION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALREACTION,
   },
   {
     fields: {
@@ -26368,6 +28879,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALLOAD,
+    isAbstract: true,
+    subTypes: [
+       EntityTypesIfc.IFCSTRUCTURALLOADCONFIGURATION,
+       EntityTypesIfc.IFCSTRUCTURALLOADORRESULT,
+    ],
   },
   {
     fields: {
@@ -26386,11 +28902,19 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALLOADCONFIGURATION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALLOAD,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALLOADORRESULT,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCSTRUCTURALLOAD,
+    subTypes: [
+       EntityTypesIfc.IFCSTRUCTURALLOADSTATIC,
+       EntityTypesIfc.IFCSURFACEREINFORCEMENTAREA,
+    ],
   },
   {
     fields: {
@@ -26402,6 +28926,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALLOADCASE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALLOADGROUP,
   },
   {
     fields: {
@@ -26437,11 +28963,22 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALLOADLINEARFORCE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALLOADSTATIC,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALLOADSTATIC,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCSTRUCTURALLOADORRESULT,
+    subTypes: [
+       EntityTypesIfc.IFCSTRUCTURALLOADLINEARFORCE,
+       EntityTypesIfc.IFCSTRUCTURALLOADPLANARFORCE,
+       EntityTypesIfc.IFCSTRUCTURALLOADSINGLEDISPLACEMENT,
+       EntityTypesIfc.IFCSTRUCTURALLOADSINGLEFORCE,
+       EntityTypesIfc.IFCSTRUCTURALLOADTEMPERATURE,
+    ],
   },
   {
     fields: {
@@ -26464,6 +29001,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSURFACEREINFORCEMENTAREA,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALLOADORRESULT,
   },
   {
     fields: {
@@ -26484,6 +29023,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALLOADPLANARFORCE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALLOADSTATIC,
   },
   {
     fields: {
@@ -26519,6 +29060,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALLOADSINGLEDISPLACEMENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALLOADSTATIC,
+    subTypes: [
+       EntityTypesIfc.IFCSTRUCTURALLOADSINGLEDISPLACEMENTDISTORTION,
+    ],
   },
   {
     fields: {
@@ -26529,6 +29075,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALLOADSINGLEDISPLACEMENTDISTORTION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALLOADSINGLEDISPLACEMENT,
   },
   {
     fields: {
@@ -26564,6 +29112,11 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALLOADSINGLEFORCE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALLOADSTATIC,
+    subTypes: [
+       EntityTypesIfc.IFCSTRUCTURALLOADSINGLEFORCEWARPING,
+    ],
   },
   {
     fields: {
@@ -26574,6 +29127,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALLOADSINGLEFORCEWARPING,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALLOADSINGLEFORCE,
   },
   {
     fields: {
@@ -26594,6 +29149,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALLOADTEMPERATURE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALLOADSTATIC,
   },
   {
     fields: {
@@ -26610,16 +29167,25 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALSURFACEMEMBER,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALMEMBER,
+    subTypes: [
+       EntityTypesIfc.IFCSTRUCTURALSURFACEMEMBERVARYING,
+    ],
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALPLANARACTION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALSURFACEACTION,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALPOINTREACTION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALREACTION,
   },
   {
     fields: {
@@ -26631,16 +29197,22 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALSURFACEREACTION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALREACTION,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCSTRUCTURALSURFACEMEMBERVARYING,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTRUCTURALSURFACEMEMBER,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCSTYLEDREPRESENTATION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSTYLEMODEL,
   },
   {
     fields: {
@@ -26658,6 +29230,12 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSWEPTSURFACE,
+    isAbstract: true,
+    superType: EntityTypesIfc.IFCSURFACE,
+    subTypes: [
+       EntityTypesIfc.IFCSURFACEOFLINEAREXTRUSION,
+       EntityTypesIfc.IFCSURFACEOFREVOLUTION,
+    ],
   },
   {
     fields: {
@@ -26685,6 +29263,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSURFACECURVESWEPTAREASOLID,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSWEPTAREASOLID,
   },
   {
     fields: {
@@ -26707,6 +29287,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSURFACEOFLINEAREXTRUSION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSWEPTSURFACE,
   },
   {
     fields: {
@@ -26724,6 +29306,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSURFACEOFREVOLUTION,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSWEPTSURFACE,
   },
   {
     fields: {
@@ -26849,6 +29433,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSURFACESTYLERENDERING,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSURFACESTYLESHADING,
   },
   {
     fields: {
@@ -26859,6 +29445,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCSWEPTDISKSOLIDPOLYGONAL,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSWEPTDISKSOLID,
   },
   {
     fields: {
@@ -26869,6 +29457,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCZONE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCSYSTEM,
   },
   {
     fields: {
@@ -26908,6 +29498,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTABLE,
+    isAbstract: false,
   },
   {
     fields: {
@@ -26959,6 +29550,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTABLECOLUMN,
+    isAbstract: false,
   },
   {
     fields: {
@@ -27625,6 +30217,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTABLEROW,
+    isAbstract: false,
   },
   {
     fields: {
@@ -27636,6 +30229,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTASKTIMERECURRING,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCTASKTIME,
   },
   {
     fields: {
@@ -27652,6 +30247,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTASKTYPE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCTYPEPROCESS,
   },
   {
     fields: {
@@ -27685,6 +30282,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTRIANGULATEDFACESET,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCTESSELLATEDFACESET,
   },
   {
     fields: {
@@ -27701,6 +30300,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTEXTLITERALWITHEXTENT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCTEXTLITERAL,
   },
   {
     fields: {
@@ -27717,6 +30318,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTEXTURECOORDINATEGENERATOR,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCTEXTURECOORDINATE,
   },
   {
     fields: {
@@ -27735,6 +30338,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTEXTUREMAP,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCTEXTURECOORDINATE,
   },
   {
     fields: {
@@ -27750,6 +30355,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTIMEPERIOD,
+    isAbstract: false,
   },
   {
     fields: {
@@ -28411,11 +31017,17 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCTIMESERIESVALUE,
+    isAbstract: false,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCVERTEX,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCTOPOLOGICALREPRESENTATIONITEM,
+    subTypes: [
+       EntityTypesIfc.IFCVERTEXPOINT,
+    ],
   },
   {
     fields: {
@@ -28443,6 +31055,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCWINDOWSTYLE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCTYPEPRODUCT,
   },
   {
     fields: {
@@ -28474,6 +31088,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCUNITASSIGNMENT,
+    isAbstract: false,
   },
   {
     fields: {
@@ -28485,6 +31100,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCVERTEXPOINT,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCVERTEX,
   },
   {
     fields: {
@@ -28503,21 +31120,28 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCVIRTUALGRIDINTERSECTION,
+    isAbstract: false,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCWALLELEMENTEDCASE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCWALL,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCWALLSTANDARDCASE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCWALL,
   },
   {
     fields: {
     },
     typeId: EntityTypesIfc.IFCWINDOWSTANDARDCASE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCWINDOW,
   },
   {
     fields: {
@@ -28529,6 +31153,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCWORKPLAN,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCWORKCONTROL,
   },
   {
     fields: {
@@ -28540,6 +31166,8 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: EntityTypesIfc.IFCWORKSCHEDULE,
+    isAbstract: false,
+    superType: EntityTypesIfc.IFCWORKCONTROL,
   },
 ]
 let parser =

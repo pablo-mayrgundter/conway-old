@@ -22,6 +22,7 @@ export interface EntityFieldsDescription< EntityTypeIDs extends number > {
 export interface EntityDescription< EntityTypeIDs extends number > {
   fields: EntityFieldsDescription< EntityTypeIDs >
   typeId: EntityTypeIDs
+  isAbstract: boolean
   superType?: EntityTypeIDs
   subTypes?: EntityTypeIDs[]
 }
