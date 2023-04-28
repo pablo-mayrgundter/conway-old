@@ -5,25 +5,20 @@ import { ParseResult } from '../../../dependencies/conway-ds/src/parsing/step/st
 import IfcStepParser from './ifc_step_parser'
 import ParsingBuffer from '../../../dependencies/conway-ds/src/parsing/parsing_buffer'
 
-
-let ifcGeometryExtraction: IfcGeometryExtraction
-
 /**
  *
  */
 async function initializeGeometryExtractor() {
-  ifcGeometryExtraction = new IfcGeometryExtraction()
+  await IfcGeometryExtraction.create()
 
-  await ifcGeometryExtraction.initialize()
-
-  return ifcGeometryExtraction.isInitialized()
+  return IfcGeometryExtraction.isInitialized()
 }
 
 /**
  *  @return {boolean} indicating whether the wasm module is initialized.
  */
 function isInitialized(): Boolean {
-  return ifcGeometryExtraction.isInitialized()
+  return IfcGeometryExtraction.isInitialized()
 }
 
 /**
@@ -45,22 +40,22 @@ function extractGeometry(): ExtractResult {
     return ExtractResult.INCOMPLETE
   }
 
-  return ifcGeometryExtraction.extractIFCGeometryData(model, true)
+  return IfcGeometryExtraction.extractIFCGeometryData(model, true)[0]
 }
 
 /**
  * @return {number} indicating length of the geometry array
  */
 function getGeometryArrayLength(): Number {
-  return ifcGeometryExtraction.getGeometry().length
+  return IfcGeometryExtraction.getGeometry().length
 }
 
 /**
  * @return {boolean} indicating if the geometry extraction module is still initialized or not
  */
 function destroy(): Boolean {
-  ifcGeometryExtraction.destroy()
-  return ifcGeometryExtraction.isInitialized()
+  IfcGeometryExtraction.destroy()
+  return IfcGeometryExtraction.isInitialized()
 }
 
 beforeAll(async () => {

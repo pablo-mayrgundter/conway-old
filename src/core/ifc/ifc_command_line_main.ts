@@ -8,7 +8,7 @@ import yargs from 'yargs/yargs'
 import fs from 'fs'
 import StepEntityBase from '../step_entity_base'
 import IfcStepModel from './ifc_step_model'
-import { IfcGeometryExtraction } from './ifc_geometry_extraction'
+import { ExtractResult, IfcGeometryExtraction } from './ifc_geometry_extraction'
 
 
 const SKIP_PARAMS = 2
@@ -174,19 +174,21 @@ const args = // eslint-disable-line no-unused-vars
         .help().argv
 
 /**
- *
+ * Function to extract Geometry from an IfcStepModel
  */
 async function geometryExtraction(model: IfcStepModel) {
 
-  const ifcGeometryExtraction = new IfcGeometryExtraction()
-
-  await ifcGeometryExtraction.initialize()
+  // get a model Id
+  const modelId = await IfcGeometryExtraction.create()
 
   // parse + extract data model + geometry data
-  ifcGeometryExtraction.extractIFCGeometryData(model, true)
+  const [extractionResult, geometryArray] =
+  IfcGeometryExtraction.extractIFCGeometryData(model, true, modelId)
 
-  // get list of GeometryObjects
-  const geometryArray = ifcGeometryExtraction.getGeometry()
+  if (extractionResult !== ExtractResult.COMPLETE) {
+    console.error('Could not extract geometry, exiting...')
+    return
+  }
 
   // we can assign the first GeometryObject to another variable here to combine them all.
   const fullGeometry = geometryArray[0]
@@ -199,7 +201,7 @@ async function geometryExtraction(model: IfcStepModel) {
 
   // returns a string containing a full obj
   const startTimeObj = Date.now()
-  const objResult = ifcGeometryExtraction.toObj(fullGeometry)
+  const objResult = IfcGeometryExtraction.toObj(fullGeometry)
   const endTimeObj = Date.now()
   const executionTimeInMsObj = endTimeObj - startTimeObj
 
@@ -214,7 +216,7 @@ async function geometryExtraction(model: IfcStepModel) {
   })
 
   const startTimeGlb = Date.now()
-  const glbResult = ifcGeometryExtraction.toGltf(fullGeometry, true, false, 'index_ifc_test')
+  const glbResult = IfcGeometryExtraction.toGltf(fullGeometry, true, false, 'index_ifc_test')
   const endTimeGlb = Date.now()
   const executionTimeInMsGlb = endTimeGlb - startTimeGlb
 
@@ -230,7 +232,7 @@ async function geometryExtraction(model: IfcStepModel) {
 
       // Create a (zero copy!) memory view from the native vector
       const managedBuffer: Uint8Array =
-      ifcGeometryExtraction.getWasmModule().getUint8Array(glbResult.buffers.get(uriIndex))
+      IfcGeometryExtraction.getWasmModule().getUint8Array(glbResult.buffers.get(uriIndex))
       fs.writeFile(uri, managedBuffer, function(err) {
         if (err) {
           console.error('Error writing to file: ', err)
@@ -243,7 +245,7 @@ async function geometryExtraction(model: IfcStepModel) {
 
   const startTimeGlbDraco = Date.now()
   const glbDracoResult =
-  ifcGeometryExtraction.toGltf(fullGeometry, true, true, 'index_ifc_test_draco')
+  IfcGeometryExtraction.toGltf(fullGeometry, true, true, 'index_ifc_test_draco')
   const endTimeGlbDraco = Date.now()
   const executionTimeInMsGlbDraco = endTimeGlbDraco - startTimeGlbDraco
 
@@ -259,7 +261,7 @@ async function geometryExtraction(model: IfcStepModel) {
 
       // Create a memory view from the native vector
       const managedBuffer: Uint8Array =
-      ifcGeometryExtraction.getWasmModule().getUint8Array(glbDracoResult.buffers.get(uriIndex))
+      IfcGeometryExtraction.getWasmModule().getUint8Array(glbDracoResult.buffers.get(uriIndex))
       fs.writeFile(uri, managedBuffer, function(err) {
         if (err) {
           console.error('Error writing to file: ', err)
@@ -271,7 +273,7 @@ async function geometryExtraction(model: IfcStepModel) {
   }
 
   const startTimeGltf = Date.now()
-  const gltfResult = ifcGeometryExtraction.toGltf(fullGeometry, false, false, 'index_ifc_test')
+  const gltfResult = IfcGeometryExtraction.toGltf(fullGeometry, false, false, 'index_ifc_test')
   const endTimeGltf = Date.now()
   const executionTimeInMsGltf = endTimeGltf - startTimeGltf
 
@@ -287,7 +289,7 @@ async function geometryExtraction(model: IfcStepModel) {
 
       // Create a memory view from the native vector
       const managedBuffer: Uint8Array =
-                ifcGeometryExtraction.getWasmModule().
+                IfcGeometryExtraction.getWasmModule().
                     getUint8Array(gltfResult.buffers.get(uriIndex))
 
       fs.writeFile(uri, managedBuffer, function(err) {
@@ -302,7 +304,7 @@ async function geometryExtraction(model: IfcStepModel) {
 
   const startTimeGltfDraco = Date.now()
   const gltfDracoResult =
-  ifcGeometryExtraction
+  IfcGeometryExtraction
       .toGltf(fullGeometry, false, true, 'index_ifc_test_draco')
   const endTimeGltfDraco = Date.now()
   const executionTimeInMsGltfDraco = endTimeGltfDraco - startTimeGltfDraco
@@ -326,7 +328,7 @@ async function geometryExtraction(model: IfcStepModel) {
 
       // Create a memory view from the native vector
       const managedBuffer: Uint8Array =
-      ifcGeometryExtraction.getWasmModule()
+      IfcGeometryExtraction.getWasmModule()
           .getUint8Array(gltfDracoResult.buffers.get(uriIndex))
 
       fs.writeFile(uri, managedBuffer, function(err) {
