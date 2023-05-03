@@ -5,8 +5,6 @@ import { IfcNullStyle, IfcNullStyleDeserializeStep } from "./index"
 import { IfcSurfaceStyle } from "./index"
 import { IfcTextStyle } from "./index"
 import {
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -22,48 +20,29 @@ export  class IfcPresentationStyleAssignment extends StepEntityBase< EntityTypes
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.IFCPRESENTATIONSTYLEASSIGNMENT
   }
-  private Styles_? : Array<IfcCurveStyle|IfcFillAreaStyle|IfcNullStyle|IfcSurfaceStyle|IfcTextStyle>
+  private Styles_? : Array<IfcCurveStyle | IfcFillAreaStyle | IfcNullStyle | IfcSurfaceStyle | IfcTextStyle>
 
-  public get Styles() : Array<IfcCurveStyle|IfcFillAreaStyle|IfcNullStyle|IfcSurfaceStyle|IfcTextStyle> {
+  public get Styles() : Array<IfcCurveStyle | IfcFillAreaStyle | IfcNullStyle | IfcSurfaceStyle | IfcTextStyle> {
     if ( this.Styles_ === void 0 ) {
-      this.Styles_ = (() => { 
-        this.guaranteeVTable()
+      this.Styles_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value : Array<IfcCurveStyle|IfcFillAreaStyle|IfcNullStyle|IfcSurfaceStyle|IfcTextStyle> = [];
+      let value : Array<IfcCurveStyle | IfcFillAreaStyle | IfcNullStyle | IfcSurfaceStyle | IfcTextStyle> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-          let expressID = stepExtractReference( buffer, cursor, endCursor );
-          let value : StepEntityBase< EntityTypesIfc > | IfcNullStyle | undefined =
-            expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-            (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )) ?? IfcNullStyleDeserializeStep( buffer, cursor, endCursor ))
+        value.push( (() => {
+          const cursor = address
+          const value : StepEntityBase< EntityTypesIfc > | IfcNullStyle | undefined =
+            this.extractBufferReference( buffer, cursor, endCursor ) ?? IfcNullStyleDeserializeStep( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcCurveStyle ) && !( value instanceof IfcFillAreaStyle ) && !( value instanceof IfcSurfaceStyle ) && !( value instanceof IfcTextStyle ) && value !== IfcNullStyle.NULL ) {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
+            throw new Error( 'Value in select must be populated' )
           }
-    
-          return value as (IfcCurveStyle | IfcFillAreaStyle | IfcNullStyle | IfcSurfaceStyle | IfcTextStyle)
-        })() )
+          return value as (IfcCurveStyle | IfcFillAreaStyle | IfcNullStyle | IfcSurfaceStyle | IfcTextStyle)})() )
       }
-
-return value })()
+      return value }, false )
     }
 
-    return this.Styles_ as Array<IfcCurveStyle|IfcFillAreaStyle|IfcNullStyle|IfcSurfaceStyle|IfcTextStyle>
+    return this.Styles_ as Array<IfcCurveStyle | IfcFillAreaStyle | IfcNullStyle | IfcSurfaceStyle | IfcTextStyle>
   }
   constructor(
     localID: number,

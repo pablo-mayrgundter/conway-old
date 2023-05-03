@@ -2,8 +2,6 @@
 import { IfcTopologicalRepresentationItem } from "./index"
 import { IfcFace } from "./index"
 import {
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -23,31 +21,14 @@ export  class IfcConnectedFaceSet extends IfcTopologicalRepresentationItem {
 
   public get CfsFaces() : Array<IfcFace> {
     if ( this.CfsFaces_ === void 0 ) {
-      this.CfsFaces_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.CfsFaces_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
 
       let value : Array<IfcFace> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcFace ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -56,8 +37,7 @@ export  class IfcConnectedFaceSet extends IfcTopologicalRepresentationItem {
           return value
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.CfsFaces_ as Array<IfcFace>

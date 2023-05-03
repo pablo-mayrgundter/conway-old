@@ -4,11 +4,6 @@ import { IfcPositiveLengthMeasure } from "./index"
 import { IfcDoorTypeEnum, IfcDoorTypeEnumDeserializeStep } from "./index"
 import { IfcDoorTypeOperationEnum, IfcDoorTypeOperationEnumDeserializeStep } from "./index"
 import { IfcLabel } from "./index"
-import {
-  stepExtractString,
-  stepExtractOptional,
-  stepExtractNumber,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -30,32 +25,7 @@ export  class IfcDoor extends IfcBuildingElement {
 
   public get OverallHeight() : number | null {
     if ( this.OverallHeight_ === void 0 ) {
-      this.OverallHeight_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 8 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 8
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.OverallHeight_ = this.extractNumber( 8, true )
     }
 
     return this.OverallHeight_ as number | null
@@ -63,32 +33,7 @@ export  class IfcDoor extends IfcBuildingElement {
 
   public get OverallWidth() : number | null {
     if ( this.OverallWidth_ === void 0 ) {
-      this.OverallWidth_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 9 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 9
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.OverallWidth_ = this.extractNumber( 9, true )
     }
 
     return this.OverallWidth_ as number | null
@@ -96,32 +41,7 @@ export  class IfcDoor extends IfcBuildingElement {
 
   public get PredefinedType() : IfcDoorTypeEnum | null {
     if ( this.PredefinedType_ === void 0 ) {
-      this.PredefinedType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 10 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 10
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcDoorTypeEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.PredefinedType_ = this.extractLambda( 10, IfcDoorTypeEnumDeserializeStep, true )
     }
 
     return this.PredefinedType_ as IfcDoorTypeEnum | null
@@ -129,32 +49,7 @@ export  class IfcDoor extends IfcBuildingElement {
 
   public get OperationType() : IfcDoorTypeOperationEnum | null {
     if ( this.OperationType_ === void 0 ) {
-      this.OperationType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 11 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 11
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcDoorTypeOperationEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.OperationType_ = this.extractLambda( 11, IfcDoorTypeOperationEnumDeserializeStep, true )
     }
 
     return this.OperationType_ as IfcDoorTypeOperationEnum | null
@@ -162,32 +57,7 @@ export  class IfcDoor extends IfcBuildingElement {
 
   public get UserDefinedOperationType() : string | null {
     if ( this.UserDefinedOperationType_ === void 0 ) {
-      this.UserDefinedOperationType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 12 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 12
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.UserDefinedOperationType_ = this.extractString( 12, true )
     }
 
     return this.UserDefinedOperationType_ as string | null

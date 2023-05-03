@@ -2,9 +2,6 @@
 import { IfcPresentationItem } from "./index"
 import { IfcLengthMeasure } from "./index"
 import { IfcPositiveLengthMeasure } from "./index"
-import {
-  stepExtractNumber,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -23,28 +20,7 @@ export  class IfcCurveStyleFontPattern extends IfcPresentationItem {
 
   public get VisibleSegmentLength() : number {
     if ( this.VisibleSegmentLength_ === void 0 ) {
-      this.VisibleSegmentLength_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.VisibleSegmentLength_ = this.extractNumber( 0, false )
     }
 
     return this.VisibleSegmentLength_ as number
@@ -52,28 +28,7 @@ export  class IfcCurveStyleFontPattern extends IfcPresentationItem {
 
   public get InvisibleSegmentLength() : number {
     if ( this.InvisibleSegmentLength_ === void 0 ) {
-      this.InvisibleSegmentLength_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.InvisibleSegmentLength_ = this.extractNumber( 1, false )
     }
 
     return this.InvisibleSegmentLength_ as number

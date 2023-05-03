@@ -18,28 +18,7 @@ export  class IfcConstructionMaterialResourceType extends IfcConstructionResourc
 
   public get PredefinedType() : IfcConstructionMaterialResourceTypeEnum {
     if ( this.PredefinedType_ === void 0 ) {
-      this.PredefinedType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 11 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 11
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcConstructionMaterialResourceTypeEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.PredefinedType_ = this.extractLambda( 11, IfcConstructionMaterialResourceTypeEnumDeserializeStep, false )
     }
 
     return this.PredefinedType_ as IfcConstructionMaterialResourceTypeEnum

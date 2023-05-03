@@ -1,10 +1,6 @@
 
 import { IfcStructuralLoadSingleDisplacement } from "./index"
 import { IfcCurvatureMeasure } from "./index"
-import {
-  stepExtractOptional,
-  stepExtractNumber,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -22,32 +18,7 @@ export  class IfcStructuralLoadSingleDisplacementDistortion extends IfcStructura
 
   public get Distortion() : number | null {
     if ( this.Distortion_ === void 0 ) {
-      this.Distortion_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.Distortion_ = this.extractNumber( 7, true )
     }
 
     return this.Distortion_ as number | null

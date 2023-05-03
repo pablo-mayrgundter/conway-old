@@ -5,10 +5,6 @@ import { IfcRepresentation } from "./index"
 import { IfcRepresentationItem } from "./index"
 import { IfcIdentifier } from "./index"
 import {
-  stepExtractString,
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -26,33 +22,12 @@ export  class IfcPresentationLayerAssignment extends StepEntityBase< EntityTypes
   }
   private Name_? : string
   private Description_? : string | null
-  private AssignedItems_? : Array<IfcRepresentation|IfcRepresentationItem>
+  private AssignedItems_? : Array<IfcRepresentation | IfcRepresentationItem>
   private Identifier_? : string | null
 
   public get Name() : string {
     if ( this.Name_ === void 0 ) {
-      this.Name_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.Name_ = this.extractString( 0, false )
     }
 
     return this.Name_ as string
@@ -60,107 +35,38 @@ export  class IfcPresentationLayerAssignment extends StepEntityBase< EntityTypes
 
   public get Description() : string | null {
     if ( this.Description_ === void 0 ) {
-      this.Description_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.Description_ = this.extractString( 1, true )
     }
 
     return this.Description_ as string | null
   }
 
-  public get AssignedItems() : Array<IfcRepresentation|IfcRepresentationItem> {
+  public get AssignedItems() : Array<IfcRepresentation | IfcRepresentationItem> {
     if ( this.AssignedItems_ === void 0 ) {
-      this.AssignedItems_ = (() => { 
-        this.guaranteeVTable()
+      this.AssignedItems_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value : Array<IfcRepresentation|IfcRepresentationItem> = [];
+      let value : Array<IfcRepresentation | IfcRepresentationItem> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-          let expressID = stepExtractReference( buffer, cursor, endCursor );
-          let value : StepEntityBase< EntityTypesIfc > | undefined =
-            expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-            (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+        value.push( (() => {
+          const cursor = address
+          const value : StepEntityBase< EntityTypesIfc > | undefined =
+            this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcRepresentation ) && !( value instanceof IfcRepresentationItem ) ) {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
+            throw new Error( 'Value in select must be populated' )
           }
-    
-          return value as (IfcRepresentation | IfcRepresentationItem)
-        })() )
+          return value as (IfcRepresentation | IfcRepresentationItem)})() )
       }
-
-return value })()
+      return value }, false )
     }
 
-    return this.AssignedItems_ as Array<IfcRepresentation|IfcRepresentationItem>
+    return this.AssignedItems_ as Array<IfcRepresentation | IfcRepresentationItem>
   }
 
   public get Identifier() : string | null {
     if ( this.Identifier_ === void 0 ) {
-      this.Identifier_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.Identifier_ = this.extractString( 3, true )
     }
 
     return this.Identifier_ as string | null

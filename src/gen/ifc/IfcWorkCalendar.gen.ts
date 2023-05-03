@@ -4,8 +4,6 @@ import { IfcWorkTime } from "./index"
 import { IfcWorkCalendarTypeEnum, IfcWorkCalendarTypeEnumDeserializeStep } from "./index"
 import {
   stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -27,20 +25,7 @@ export  class IfcWorkCalendar extends IfcControl {
 
   public get WorkingTimes() : Array<IfcWorkTime> | null {
     if ( this.WorkingTimes_ === void 0 ) {
-      this.WorkingTimes_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.WorkingTimes_ = this.extractLambda( 6, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
@@ -49,13 +34,9 @@ export  class IfcWorkCalendar extends IfcControl {
       let value : Array<IfcWorkTime> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcWorkTime ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -64,8 +45,7 @@ export  class IfcWorkCalendar extends IfcControl {
           return value
         })() )
       }
-
-return value })()
+      return value }, true )
     }
 
     return this.WorkingTimes_ as Array<IfcWorkTime> | null
@@ -73,20 +53,7 @@ return value })()
 
   public get ExceptionTimes() : Array<IfcWorkTime> | null {
     if ( this.ExceptionTimes_ === void 0 ) {
-      this.ExceptionTimes_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.ExceptionTimes_ = this.extractLambda( 7, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
@@ -95,13 +62,9 @@ return value })()
       let value : Array<IfcWorkTime> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcWorkTime ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -110,8 +73,7 @@ return value })()
           return value
         })() )
       }
-
-return value })()
+      return value }, true )
     }
 
     return this.ExceptionTimes_ as Array<IfcWorkTime> | null
@@ -119,32 +81,7 @@ return value })()
 
   public get PredefinedType() : IfcWorkCalendarTypeEnum | null {
     if ( this.PredefinedType_ === void 0 ) {
-      this.PredefinedType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 8 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 8
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcWorkCalendarTypeEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.PredefinedType_ = this.extractLambda( 8, IfcWorkCalendarTypeEnumDeserializeStep, true )
     }
 
     return this.PredefinedType_ as IfcWorkCalendarTypeEnum | null

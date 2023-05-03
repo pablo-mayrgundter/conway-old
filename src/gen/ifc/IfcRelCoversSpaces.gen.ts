@@ -3,8 +3,6 @@ import { IfcRelConnects } from "./index"
 import { IfcSpace } from "./index"
 import { IfcCovering } from "./index"
 import {
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -25,31 +23,7 @@ export  class IfcRelCoversSpaces extends IfcRelConnects {
 
   public get RelatingSpace() : IfcSpace {
     if ( this.RelatingSpace_ === void 0 ) {
-      this.RelatingSpace_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-      if ( !( value instanceof IfcSpace ) )  {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      return value })()
+      this.RelatingSpace_ = this.extractElement( 4, false, IfcSpace )
     }
 
     return this.RelatingSpace_ as IfcSpace
@@ -57,31 +31,14 @@ export  class IfcRelCoversSpaces extends IfcRelConnects {
 
   public get RelatedCoverings() : Array<IfcCovering> {
     if ( this.RelatedCoverings_ === void 0 ) {
-      this.RelatedCoverings_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.RelatedCoverings_ = this.extractLambda( 5, (buffer, cursor, endCursor) => {
 
       let value : Array<IfcCovering> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcCovering ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -90,8 +47,7 @@ export  class IfcRelCoversSpaces extends IfcRelConnects {
           return value
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.RelatedCoverings_ as Array<IfcCovering>

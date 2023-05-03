@@ -2,10 +2,6 @@
 import { IfcPhysicalQuantity } from "./index"
 import { IfcLabel } from "./index"
 import {
-  stepExtractString,
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -28,31 +24,14 @@ export  class IfcPhysicalComplexQuantity extends IfcPhysicalQuantity {
 
   public get HasQuantities() : Array<IfcPhysicalQuantity> {
     if ( this.HasQuantities_ === void 0 ) {
-      this.HasQuantities_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.HasQuantities_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
 
       let value : Array<IfcPhysicalQuantity> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcPhysicalQuantity ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -61,8 +40,7 @@ export  class IfcPhysicalComplexQuantity extends IfcPhysicalQuantity {
           return value
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.HasQuantities_ as Array<IfcPhysicalQuantity>
@@ -70,28 +48,7 @@ return value })()
 
   public get Discrimination() : string {
     if ( this.Discrimination_ === void 0 ) {
-      this.Discrimination_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.Discrimination_ = this.extractString( 3, false )
     }
 
     return this.Discrimination_ as string
@@ -99,32 +56,7 @@ return value })()
 
   public get Quality() : string | null {
     if ( this.Quality_ === void 0 ) {
-      this.Quality_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.Quality_ = this.extractString( 4, true )
     }
 
     return this.Quality_ as string | null
@@ -132,32 +64,7 @@ return value })()
 
   public get Usage() : string | null {
     if ( this.Usage_ === void 0 ) {
-      this.Usage_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.Usage_ = this.extractString( 5, true )
     }
 
     return this.Usage_ as string | null

@@ -6,12 +6,7 @@ import { IfcLogical } from "./index"
 import { IfcProductDefinitionShape } from "./index"
 import { IfcRepresentationMap } from "./index"
 import {
-  stepExtractString,
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
-  stepExtractLogical,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -30,35 +25,18 @@ export  class IfcShapeAspect extends StepEntityBase< EntityTypesIfc > {
   private Name_? : string | null
   private Description_? : string | null
   private ProductDefinitional_? : boolean | null
-  private PartOfProductDefinitionShape_? : IfcProductDefinitionShape|IfcRepresentationMap | null
+  private PartOfProductDefinitionShape_? : IfcProductDefinitionShape | IfcRepresentationMap | null
 
   public get ShapeRepresentations() : Array<IfcShapeModel> {
     if ( this.ShapeRepresentations_ === void 0 ) {
-      this.ShapeRepresentations_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.ShapeRepresentations_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
 
       let value : Array<IfcShapeModel> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcShapeModel ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -67,8 +45,7 @@ export  class IfcShapeAspect extends StepEntityBase< EntityTypesIfc > {
           return value
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.ShapeRepresentations_ as Array<IfcShapeModel>
@@ -76,32 +53,7 @@ return value })()
 
   public get Name() : string | null {
     if ( this.Name_ === void 0 ) {
-      this.Name_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.Name_ = this.extractString( 1, true )
     }
 
     return this.Name_ as string | null
@@ -109,32 +61,7 @@ return value })()
 
   public get Description() : string | null {
     if ( this.Description_ === void 0 ) {
-      this.Description_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.Description_ = this.extractString( 2, true )
     }
 
     return this.Description_ as string | null
@@ -142,67 +69,27 @@ return value })()
 
   public get ProductDefinitional() : boolean | null {
     if ( this.ProductDefinitional_ === void 0 ) {
-      this.ProductDefinitional_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractLogical( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.ProductDefinitional_ = this.extractLogical( 3, false )
     }
 
     return this.ProductDefinitional_ as boolean | null
   }
 
-  public get PartOfProductDefinitionShape() : IfcProductDefinitionShape|IfcRepresentationMap | null {
+  public get PartOfProductDefinitionShape() : IfcProductDefinitionShape | IfcRepresentationMap | null {
     if ( this.PartOfProductDefinitionShape_ === void 0 ) {
-      this.PartOfProductDefinitionShape_ = (() => { 
-        this.guaranteeVTable()
+      this.PartOfProductDefinitionShape_ = this.extractLambda( 4, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcProductDefinitionShape ) && !( value instanceof IfcRepresentationMap ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value as (IfcProductDefinitionShape | IfcRepresentationMap);
-      } })()
+        return ( void 0 )
+      }
+      return value as (IfcProductDefinitionShape | IfcRepresentationMap)
+}, true )
     }
 
-    return this.PartOfProductDefinitionShape_ as IfcProductDefinitionShape|IfcRepresentationMap | null
+    return this.PartOfProductDefinitionShape_ as IfcProductDefinitionShape | IfcRepresentationMap | null
   }
   constructor(
     localID: number,

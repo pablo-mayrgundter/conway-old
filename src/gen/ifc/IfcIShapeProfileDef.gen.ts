@@ -3,10 +3,6 @@ import { IfcParameterizedProfileDef } from "./index"
 import { IfcPositiveLengthMeasure } from "./index"
 import { IfcNonNegativeLengthMeasure } from "./index"
 import { IfcPlaneAngleMeasure } from "./index"
-import {
-  stepExtractOptional,
-  stepExtractNumber,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -30,28 +26,7 @@ export  class IfcIShapeProfileDef extends IfcParameterizedProfileDef {
 
   public get OverallWidth() : number {
     if ( this.OverallWidth_ === void 0 ) {
-      this.OverallWidth_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.OverallWidth_ = this.extractNumber( 3, false )
     }
 
     return this.OverallWidth_ as number
@@ -59,28 +34,7 @@ export  class IfcIShapeProfileDef extends IfcParameterizedProfileDef {
 
   public get OverallDepth() : number {
     if ( this.OverallDepth_ === void 0 ) {
-      this.OverallDepth_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.OverallDepth_ = this.extractNumber( 4, false )
     }
 
     return this.OverallDepth_ as number
@@ -88,28 +42,7 @@ export  class IfcIShapeProfileDef extends IfcParameterizedProfileDef {
 
   public get WebThickness() : number {
     if ( this.WebThickness_ === void 0 ) {
-      this.WebThickness_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.WebThickness_ = this.extractNumber( 5, false )
     }
 
     return this.WebThickness_ as number
@@ -117,28 +50,7 @@ export  class IfcIShapeProfileDef extends IfcParameterizedProfileDef {
 
   public get FlangeThickness() : number {
     if ( this.FlangeThickness_ === void 0 ) {
-      this.FlangeThickness_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.FlangeThickness_ = this.extractNumber( 6, false )
     }
 
     return this.FlangeThickness_ as number
@@ -146,32 +58,7 @@ export  class IfcIShapeProfileDef extends IfcParameterizedProfileDef {
 
   public get FilletRadius() : number | null {
     if ( this.FilletRadius_ === void 0 ) {
-      this.FilletRadius_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.FilletRadius_ = this.extractNumber( 7, true )
     }
 
     return this.FilletRadius_ as number | null
@@ -179,32 +66,7 @@ export  class IfcIShapeProfileDef extends IfcParameterizedProfileDef {
 
   public get FlangeEdgeRadius() : number | null {
     if ( this.FlangeEdgeRadius_ === void 0 ) {
-      this.FlangeEdgeRadius_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 8 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 8
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.FlangeEdgeRadius_ = this.extractNumber( 8, true )
     }
 
     return this.FlangeEdgeRadius_ as number | null
@@ -212,32 +74,7 @@ export  class IfcIShapeProfileDef extends IfcParameterizedProfileDef {
 
   public get FlangeSlope() : number | null {
     if ( this.FlangeSlope_ === void 0 ) {
-      this.FlangeSlope_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 9 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 9
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.FlangeSlope_ = this.extractNumber( 9, true )
     }
 
     return this.FlangeSlope_ as number | null

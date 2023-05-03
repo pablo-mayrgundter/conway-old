@@ -5,12 +5,6 @@ import { IfcPositiveLengthMeasure } from "./index"
 import { IfcVector } from "./index"
 import { IfcCartesianPoint } from "./index"
 import { IfcPlaneAngleMeasure } from "./index"
-import {
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractNumber,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -25,106 +19,39 @@ export  class IfcFillAreaStyleHatching extends IfcGeometricRepresentationItem {
     return EntityTypesIfc.IFCFILLAREASTYLEHATCHING
   }
   private HatchLineAppearance_? : IfcCurveStyle
-  private StartOfNextHatchLine_? : IfcPositiveLengthMeasure|IfcVector
+  private StartOfNextHatchLine_? : IfcPositiveLengthMeasure | IfcVector
   private PointOfReferenceHatchLine_? : IfcCartesianPoint | null
   private PatternStart_? : IfcCartesianPoint | null
   private HatchLineAngle_? : number
 
   public get HatchLineAppearance() : IfcCurveStyle {
     if ( this.HatchLineAppearance_ === void 0 ) {
-      this.HatchLineAppearance_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-      if ( !( value instanceof IfcCurveStyle ) )  {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      return value })()
+      this.HatchLineAppearance_ = this.extractElement( 0, false, IfcCurveStyle )
     }
 
     return this.HatchLineAppearance_ as IfcCurveStyle
   }
 
-  public get StartOfNextHatchLine() : IfcPositiveLengthMeasure|IfcVector {
+  public get StartOfNextHatchLine() : IfcPositiveLengthMeasure | IfcVector {
     if ( this.StartOfNextHatchLine_ === void 0 ) {
-      this.StartOfNextHatchLine_ = (() => { 
-        this.guaranteeVTable()
+      this.StartOfNextHatchLine_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcPositiveLengthMeasure ) && !( value instanceof IfcVector ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      return value as (IfcPositiveLengthMeasure | IfcVector) })()
+      return value as (IfcPositiveLengthMeasure | IfcVector)
+}, false )
     }
 
-    return this.StartOfNextHatchLine_ as IfcPositiveLengthMeasure|IfcVector
+    return this.StartOfNextHatchLine_ as IfcPositiveLengthMeasure | IfcVector
   }
 
   public get PointOfReferenceHatchLine() : IfcCartesianPoint | null {
     if ( this.PointOfReferenceHatchLine_ === void 0 ) {
-      this.PointOfReferenceHatchLine_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-     if ( !( value instanceof IfcCartesianPoint ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.PointOfReferenceHatchLine_ = this.extractElement( 2, true, IfcCartesianPoint )
     }
 
     return this.PointOfReferenceHatchLine_ as IfcCartesianPoint | null
@@ -132,35 +59,7 @@ export  class IfcFillAreaStyleHatching extends IfcGeometricRepresentationItem {
 
   public get PatternStart() : IfcCartesianPoint | null {
     if ( this.PatternStart_ === void 0 ) {
-      this.PatternStart_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-     if ( !( value instanceof IfcCartesianPoint ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.PatternStart_ = this.extractElement( 3, true, IfcCartesianPoint )
     }
 
     return this.PatternStart_ as IfcCartesianPoint | null
@@ -168,28 +67,7 @@ export  class IfcFillAreaStyleHatching extends IfcGeometricRepresentationItem {
 
   public get HatchLineAngle() : number {
     if ( this.HatchLineAngle_ === void 0 ) {
-      this.HatchLineAngle_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.HatchLineAngle_ = this.extractNumber( 4, false )
     }
 
     return this.HatchLineAngle_ as number

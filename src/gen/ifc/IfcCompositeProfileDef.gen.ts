@@ -2,10 +2,6 @@
 import { IfcProfileDef } from "./index"
 import { IfcLabel } from "./index"
 import {
-  stepExtractString,
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -26,31 +22,14 @@ export  class IfcCompositeProfileDef extends IfcProfileDef {
 
   public get Profiles() : Array<IfcProfileDef> {
     if ( this.Profiles_ === void 0 ) {
-      this.Profiles_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.Profiles_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
 
       let value : Array<IfcProfileDef> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcProfileDef ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -59,8 +38,7 @@ export  class IfcCompositeProfileDef extends IfcProfileDef {
           return value
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.Profiles_ as Array<IfcProfileDef>
@@ -68,32 +46,7 @@ return value })()
 
   public get Label() : string | null {
     if ( this.Label_ === void 0 ) {
-      this.Label_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.Label_ = this.extractString( 3, true )
     }
 
     return this.Label_ as string | null

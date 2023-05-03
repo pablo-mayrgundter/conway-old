@@ -3,9 +3,6 @@ import { IfcTypeProduct } from "./index"
 import { IfcWindowStyleConstructionEnum, IfcWindowStyleConstructionEnumDeserializeStep } from "./index"
 import { IfcWindowStyleOperationEnum, IfcWindowStyleOperationEnumDeserializeStep } from "./index"
 import { IfcBoolean } from "./index"
-import {
-  stepExtractBoolean,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -26,28 +23,7 @@ export  class IfcWindowStyle extends IfcTypeProduct {
 
   public get ConstructionType() : IfcWindowStyleConstructionEnum {
     if ( this.ConstructionType_ === void 0 ) {
-      this.ConstructionType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 8 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 8
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcWindowStyleConstructionEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.ConstructionType_ = this.extractLambda( 8, IfcWindowStyleConstructionEnumDeserializeStep, false )
     }
 
     return this.ConstructionType_ as IfcWindowStyleConstructionEnum
@@ -55,28 +31,7 @@ export  class IfcWindowStyle extends IfcTypeProduct {
 
   public get OperationType() : IfcWindowStyleOperationEnum {
     if ( this.OperationType_ === void 0 ) {
-      this.OperationType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 9 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 9
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcWindowStyleOperationEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.OperationType_ = this.extractLambda( 9, IfcWindowStyleOperationEnumDeserializeStep, false )
     }
 
     return this.OperationType_ as IfcWindowStyleOperationEnum
@@ -84,28 +39,7 @@ export  class IfcWindowStyle extends IfcTypeProduct {
 
   public get ParameterTakesPrecedence() : boolean {
     if ( this.ParameterTakesPrecedence_ === void 0 ) {
-      this.ParameterTakesPrecedence_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 10 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 10
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractBoolean( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.ParameterTakesPrecedence_ = this.extractBoolean( 10, false )
     }
 
     return this.ParameterTakesPrecedence_ as boolean
@@ -113,28 +47,7 @@ export  class IfcWindowStyle extends IfcTypeProduct {
 
   public get Sizeable() : boolean {
     if ( this.Sizeable_ === void 0 ) {
-      this.Sizeable_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 11 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 11
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractBoolean( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.Sizeable_ = this.extractBoolean( 11, false )
     }
 
     return this.Sizeable_ as boolean

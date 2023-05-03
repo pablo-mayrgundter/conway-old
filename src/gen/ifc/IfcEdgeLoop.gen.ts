@@ -3,8 +3,6 @@ import { IfcLoop } from "./index"
 import { IfcOrientedEdge } from "./index"
 import { IfcInteger } from "./index"
 import {
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
   SIZEOF,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
@@ -25,31 +23,14 @@ export  class IfcEdgeLoop extends IfcLoop {
 
   public get EdgeList() : Array<IfcOrientedEdge> {
     if ( this.EdgeList_ === void 0 ) {
-      this.EdgeList_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.EdgeList_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
 
       let value : Array<IfcOrientedEdge> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcOrientedEdge ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -58,8 +39,7 @@ export  class IfcEdgeLoop extends IfcLoop {
           return value
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.EdgeList_ as Array<IfcOrientedEdge>

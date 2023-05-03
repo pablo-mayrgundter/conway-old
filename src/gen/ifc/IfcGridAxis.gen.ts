@@ -2,13 +2,6 @@
 import { IfcLabel } from "./index"
 import { IfcCurve } from "./index"
 import { IfcBoolean } from "./index"
-import {
-  stepExtractBoolean,
-  stepExtractString,
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -28,32 +21,7 @@ export  class IfcGridAxis extends StepEntityBase< EntityTypesIfc > {
 
   public get AxisTag() : string | null {
     if ( this.AxisTag_ === void 0 ) {
-      this.AxisTag_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.AxisTag_ = this.extractString( 0, true )
     }
 
     return this.AxisTag_ as string | null
@@ -61,31 +29,7 @@ export  class IfcGridAxis extends StepEntityBase< EntityTypesIfc > {
 
   public get AxisCurve() : IfcCurve {
     if ( this.AxisCurve_ === void 0 ) {
-      this.AxisCurve_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-      if ( !( value instanceof IfcCurve ) )  {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      return value })()
+      this.AxisCurve_ = this.extractElement( 1, false, IfcCurve )
     }
 
     return this.AxisCurve_ as IfcCurve
@@ -93,28 +37,7 @@ export  class IfcGridAxis extends StepEntityBase< EntityTypesIfc > {
 
   public get SameSense() : boolean {
     if ( this.SameSense_ === void 0 ) {
-      this.SameSense_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractBoolean( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.SameSense_ = this.extractBoolean( 2, false )
     }
 
     return this.SameSense_ as boolean

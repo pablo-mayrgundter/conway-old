@@ -2,10 +2,6 @@
 import { IfcStructuralLoadStatic } from "./index"
 import { IfcLengthMeasure } from "./index"
 import { IfcPlaneAngleMeasure } from "./index"
-import {
-  stepExtractOptional,
-  stepExtractNumber,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -28,32 +24,7 @@ export  class IfcStructuralLoadSingleDisplacement extends IfcStructuralLoadStati
 
   public get DisplacementX() : number | null {
     if ( this.DisplacementX_ === void 0 ) {
-      this.DisplacementX_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.DisplacementX_ = this.extractNumber( 1, true )
     }
 
     return this.DisplacementX_ as number | null
@@ -61,32 +32,7 @@ export  class IfcStructuralLoadSingleDisplacement extends IfcStructuralLoadStati
 
   public get DisplacementY() : number | null {
     if ( this.DisplacementY_ === void 0 ) {
-      this.DisplacementY_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.DisplacementY_ = this.extractNumber( 2, true )
     }
 
     return this.DisplacementY_ as number | null
@@ -94,32 +40,7 @@ export  class IfcStructuralLoadSingleDisplacement extends IfcStructuralLoadStati
 
   public get DisplacementZ() : number | null {
     if ( this.DisplacementZ_ === void 0 ) {
-      this.DisplacementZ_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.DisplacementZ_ = this.extractNumber( 3, true )
     }
 
     return this.DisplacementZ_ as number | null
@@ -127,32 +48,7 @@ export  class IfcStructuralLoadSingleDisplacement extends IfcStructuralLoadStati
 
   public get RotationalDisplacementRX() : number | null {
     if ( this.RotationalDisplacementRX_ === void 0 ) {
-      this.RotationalDisplacementRX_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.RotationalDisplacementRX_ = this.extractNumber( 4, true )
     }
 
     return this.RotationalDisplacementRX_ as number | null
@@ -160,32 +56,7 @@ export  class IfcStructuralLoadSingleDisplacement extends IfcStructuralLoadStati
 
   public get RotationalDisplacementRY() : number | null {
     if ( this.RotationalDisplacementRY_ === void 0 ) {
-      this.RotationalDisplacementRY_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.RotationalDisplacementRY_ = this.extractNumber( 5, true )
     }
 
     return this.RotationalDisplacementRY_ as number | null
@@ -193,32 +64,7 @@ export  class IfcStructuralLoadSingleDisplacement extends IfcStructuralLoadStati
 
   public get RotationalDisplacementRZ() : number | null {
     if ( this.RotationalDisplacementRZ_ === void 0 ) {
-      this.RotationalDisplacementRZ_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.RotationalDisplacementRZ_ = this.extractNumber( 6, true )
     }
 
     return this.RotationalDisplacementRZ_ as number | null

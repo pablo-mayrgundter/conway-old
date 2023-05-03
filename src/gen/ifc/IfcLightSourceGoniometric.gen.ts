@@ -7,12 +7,6 @@ import { IfcLuminousFluxMeasure } from "./index"
 import { IfcLightEmissionSourceEnum, IfcLightEmissionSourceEnumDeserializeStep } from "./index"
 import { IfcExternalReference } from "./index"
 import { IfcLightIntensityDistribution } from "./index"
-import {
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractNumber,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -31,35 +25,11 @@ export  class IfcLightSourceGoniometric extends IfcLightSource {
   private ColourTemperature_? : number
   private LuminousFlux_? : number
   private LightEmissionSource_? : IfcLightEmissionSourceEnum
-  private LightDistributionDataSource_? : IfcExternalReference|IfcLightIntensityDistribution
+  private LightDistributionDataSource_? : IfcExternalReference | IfcLightIntensityDistribution
 
   public get Position() : IfcAxis2Placement3D {
     if ( this.Position_ === void 0 ) {
-      this.Position_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-      if ( !( value instanceof IfcAxis2Placement3D ) )  {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      return value })()
+      this.Position_ = this.extractElement( 4, false, IfcAxis2Placement3D )
     }
 
     return this.Position_ as IfcAxis2Placement3D
@@ -67,35 +37,7 @@ export  class IfcLightSourceGoniometric extends IfcLightSource {
 
   public get ColourAppearance() : IfcColourRgb | null {
     if ( this.ColourAppearance_ === void 0 ) {
-      this.ColourAppearance_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-     if ( !( value instanceof IfcColourRgb ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.ColourAppearance_ = this.extractElement( 5, true, IfcColourRgb )
     }
 
     return this.ColourAppearance_ as IfcColourRgb | null
@@ -103,28 +45,7 @@ export  class IfcLightSourceGoniometric extends IfcLightSource {
 
   public get ColourTemperature() : number {
     if ( this.ColourTemperature_ === void 0 ) {
-      this.ColourTemperature_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.ColourTemperature_ = this.extractNumber( 6, false )
     }
 
     return this.ColourTemperature_ as number
@@ -132,28 +53,7 @@ export  class IfcLightSourceGoniometric extends IfcLightSource {
 
   public get LuminousFlux() : number {
     if ( this.LuminousFlux_ === void 0 ) {
-      this.LuminousFlux_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.LuminousFlux_ = this.extractNumber( 7, false )
     }
 
     return this.LuminousFlux_ as number
@@ -161,63 +61,27 @@ export  class IfcLightSourceGoniometric extends IfcLightSource {
 
   public get LightEmissionSource() : IfcLightEmissionSourceEnum {
     if ( this.LightEmissionSource_ === void 0 ) {
-      this.LightEmissionSource_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 8 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 8
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcLightEmissionSourceEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.LightEmissionSource_ = this.extractLambda( 8, IfcLightEmissionSourceEnumDeserializeStep, false )
     }
 
     return this.LightEmissionSource_ as IfcLightEmissionSourceEnum
   }
 
-  public get LightDistributionDataSource() : IfcExternalReference|IfcLightIntensityDistribution {
+  public get LightDistributionDataSource() : IfcExternalReference | IfcLightIntensityDistribution {
     if ( this.LightDistributionDataSource_ === void 0 ) {
-      this.LightDistributionDataSource_ = (() => { 
-        this.guaranteeVTable()
+      this.LightDistributionDataSource_ = this.extractLambda( 9, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 9 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 9
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcExternalReference ) && !( value instanceof IfcLightIntensityDistribution ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      return value as (IfcExternalReference | IfcLightIntensityDistribution) })()
+      return value as (IfcExternalReference | IfcLightIntensityDistribution)
+}, false )
     }
 
-    return this.LightDistributionDataSource_ as IfcExternalReference|IfcLightIntensityDistribution
+    return this.LightDistributionDataSource_ as IfcExternalReference | IfcLightIntensityDistribution
   }
   constructor(
     localID: number,

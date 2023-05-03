@@ -2,10 +2,6 @@
 import { IfcProduct } from "./index"
 import { IfcStructuralLoad } from "./index"
 import { IfcGlobalOrLocalEnum, IfcGlobalOrLocalEnumDeserializeStep } from "./index"
-import {
-  stepExtractReference,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -24,31 +20,7 @@ export abstract class IfcStructuralActivity extends IfcProduct {
 
   public get AppliedLoad() : IfcStructuralLoad {
     if ( this.AppliedLoad_ === void 0 ) {
-      this.AppliedLoad_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-      if ( !( value instanceof IfcStructuralLoad ) )  {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      return value })()
+      this.AppliedLoad_ = this.extractElement( 7, false, IfcStructuralLoad )
     }
 
     return this.AppliedLoad_ as IfcStructuralLoad
@@ -56,28 +28,7 @@ export abstract class IfcStructuralActivity extends IfcProduct {
 
   public get GlobalOrLocal() : IfcGlobalOrLocalEnum {
     if ( this.GlobalOrLocal_ === void 0 ) {
-      this.GlobalOrLocal_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 8 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 8
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcGlobalOrLocalEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.GlobalOrLocal_ = this.extractLambda( 8, IfcGlobalOrLocalEnumDeserializeStep, false )
     }
 
     return this.GlobalOrLocal_ as IfcGlobalOrLocalEnum

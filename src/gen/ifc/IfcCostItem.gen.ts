@@ -5,8 +5,6 @@ import { IfcCostValue } from "./index"
 import { IfcPhysicalQuantity } from "./index"
 import {
   stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -28,32 +26,7 @@ export  class IfcCostItem extends IfcControl {
 
   public get PredefinedType() : IfcCostItemTypeEnum | null {
     if ( this.PredefinedType_ === void 0 ) {
-      this.PredefinedType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcCostItemTypeEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.PredefinedType_ = this.extractLambda( 6, IfcCostItemTypeEnumDeserializeStep, true )
     }
 
     return this.PredefinedType_ as IfcCostItemTypeEnum | null
@@ -61,20 +34,7 @@ export  class IfcCostItem extends IfcControl {
 
   public get CostValues() : Array<IfcCostValue> | null {
     if ( this.CostValues_ === void 0 ) {
-      this.CostValues_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.CostValues_ = this.extractLambda( 7, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
@@ -83,13 +43,9 @@ export  class IfcCostItem extends IfcControl {
       let value : Array<IfcCostValue> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcCostValue ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -98,8 +54,7 @@ export  class IfcCostItem extends IfcControl {
           return value
         })() )
       }
-
-return value })()
+      return value }, true )
     }
 
     return this.CostValues_ as Array<IfcCostValue> | null
@@ -107,20 +62,7 @@ return value })()
 
   public get CostQuantities() : Array<IfcPhysicalQuantity> | null {
     if ( this.CostQuantities_ === void 0 ) {
-      this.CostQuantities_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 8 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 8
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.CostQuantities_ = this.extractLambda( 8, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
@@ -129,13 +71,9 @@ return value })()
       let value : Array<IfcPhysicalQuantity> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcPhysicalQuantity ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -144,8 +82,7 @@ return value })()
           return value
         })() )
       }
-
-return value })()
+      return value }, true )
     }
 
     return this.CostQuantities_ as Array<IfcPhysicalQuantity> | null

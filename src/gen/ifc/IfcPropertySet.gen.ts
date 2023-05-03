@@ -2,8 +2,6 @@
 import { IfcPropertySetDefinition } from "./index"
 import { IfcProperty } from "./index"
 import {
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -23,31 +21,14 @@ export  class IfcPropertySet extends IfcPropertySetDefinition {
 
   public get HasProperties() : Array<IfcProperty> {
     if ( this.HasProperties_ === void 0 ) {
-      this.HasProperties_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.HasProperties_ = this.extractLambda( 4, (buffer, cursor, endCursor) => {
 
       let value : Array<IfcProperty> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcProperty ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -56,8 +37,7 @@ export  class IfcPropertySet extends IfcPropertySetDefinition {
           return value
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.HasProperties_ as Array<IfcProperty>

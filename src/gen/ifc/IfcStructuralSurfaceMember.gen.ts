@@ -2,10 +2,6 @@
 import { IfcStructuralMember } from "./index"
 import { IfcStructuralSurfaceMemberTypeEnum, IfcStructuralSurfaceMemberTypeEnumDeserializeStep } from "./index"
 import { IfcPositiveLengthMeasure } from "./index"
-import {
-  stepExtractOptional,
-  stepExtractNumber,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -24,28 +20,7 @@ export  class IfcStructuralSurfaceMember extends IfcStructuralMember {
 
   public get PredefinedType() : IfcStructuralSurfaceMemberTypeEnum {
     if ( this.PredefinedType_ === void 0 ) {
-      this.PredefinedType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcStructuralSurfaceMemberTypeEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.PredefinedType_ = this.extractLambda( 7, IfcStructuralSurfaceMemberTypeEnumDeserializeStep, false )
     }
 
     return this.PredefinedType_ as IfcStructuralSurfaceMemberTypeEnum
@@ -53,32 +28,7 @@ export  class IfcStructuralSurfaceMember extends IfcStructuralMember {
 
   public get Thickness() : number | null {
     if ( this.Thickness_ === void 0 ) {
-      this.Thickness_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 8 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 8
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.Thickness_ = this.extractNumber( 8, true )
     }
 
     return this.Thickness_ as number | null

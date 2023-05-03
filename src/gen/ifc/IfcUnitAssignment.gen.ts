@@ -3,8 +3,6 @@ import { IfcDerivedUnit } from "./index"
 import { IfcMonetaryUnit } from "./index"
 import { IfcNamedUnit } from "./index"
 import {
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -20,48 +18,29 @@ export  class IfcUnitAssignment extends StepEntityBase< EntityTypesIfc > {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.IFCUNITASSIGNMENT
   }
-  private Units_? : Array<IfcDerivedUnit|IfcMonetaryUnit|IfcNamedUnit>
+  private Units_? : Array<IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit>
 
-  public get Units() : Array<IfcDerivedUnit|IfcMonetaryUnit|IfcNamedUnit> {
+  public get Units() : Array<IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit> {
     if ( this.Units_ === void 0 ) {
-      this.Units_ = (() => { 
-        this.guaranteeVTable()
+      this.Units_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value : Array<IfcDerivedUnit|IfcMonetaryUnit|IfcNamedUnit> = [];
+      let value : Array<IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-          let expressID = stepExtractReference( buffer, cursor, endCursor );
-          let value : StepEntityBase< EntityTypesIfc > | undefined =
-            expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-            (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+        value.push( (() => {
+          const cursor = address
+          const value : StepEntityBase< EntityTypesIfc > | undefined =
+            this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcDerivedUnit ) && !( value instanceof IfcMonetaryUnit ) && !( value instanceof IfcNamedUnit ) ) {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
+            throw new Error( 'Value in select must be populated' )
           }
-    
-          return value as (IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit)
-        })() )
+          return value as (IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit)})() )
       }
-
-return value })()
+      return value }, false )
     }
 
-    return this.Units_ as Array<IfcDerivedUnit|IfcMonetaryUnit|IfcNamedUnit>
+    return this.Units_ as Array<IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit>
   }
   constructor(
     localID: number,

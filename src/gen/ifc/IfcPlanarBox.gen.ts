@@ -2,10 +2,6 @@
 import { IfcPlanarExtent } from "./index"
 import { IfcAxis2Placement2D } from "./index"
 import { IfcAxis2Placement3D } from "./index"
-import {
-  stepExtractReference,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -19,38 +15,23 @@ export  class IfcPlanarBox extends IfcPlanarExtent {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.IFCPLANARBOX
   }
-  private Placement_? : IfcAxis2Placement2D|IfcAxis2Placement3D
+  private Placement_? : IfcAxis2Placement2D | IfcAxis2Placement3D
 
-  public get Placement() : IfcAxis2Placement2D|IfcAxis2Placement3D {
+  public get Placement() : IfcAxis2Placement2D | IfcAxis2Placement3D {
     if ( this.Placement_ === void 0 ) {
-      this.Placement_ = (() => { 
-        this.guaranteeVTable()
+      this.Placement_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcAxis2Placement2D ) && !( value instanceof IfcAxis2Placement3D ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      return value as (IfcAxis2Placement2D | IfcAxis2Placement3D) })()
+      return value as (IfcAxis2Placement2D | IfcAxis2Placement3D)
+}, false )
     }
 
-    return this.Placement_ as IfcAxis2Placement2D|IfcAxis2Placement3D
+    return this.Placement_ as IfcAxis2Placement2D | IfcAxis2Placement3D
   }
   constructor(
     localID: number,

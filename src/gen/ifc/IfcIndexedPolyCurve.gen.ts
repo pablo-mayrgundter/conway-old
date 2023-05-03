@@ -5,10 +5,7 @@ import { IfcArcIndex } from "./index"
 import { IfcLineIndex } from "./index"
 import { IfcBoolean } from "./index"
 import {
-  stepExtractBoolean,
   stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -25,115 +22,47 @@ export  class IfcIndexedPolyCurve extends IfcBoundedCurve {
     return EntityTypesIfc.IFCINDEXEDPOLYCURVE
   }
   private Points_? : IfcCartesianPointList
-  private Segments_? : Array<IfcArcIndex|IfcLineIndex> | null
+  private Segments_? : Array<IfcArcIndex | IfcLineIndex> | null
   private SelfIntersect_? : boolean | null
 
   public get Points() : IfcCartesianPointList {
     if ( this.Points_ === void 0 ) {
-      this.Points_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-      if ( !( value instanceof IfcCartesianPointList ) )  {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      return value })()
+      this.Points_ = this.extractElement( 0, false, IfcCartesianPointList )
     }
 
     return this.Points_ as IfcCartesianPointList
   }
 
-  public get Segments() : Array<IfcArcIndex|IfcLineIndex> | null {
+  public get Segments() : Array<IfcArcIndex | IfcLineIndex> | null {
     if ( this.Segments_ === void 0 ) {
-      this.Segments_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.Segments_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      let value : Array<IfcArcIndex|IfcLineIndex> = [];
+      let value : Array<IfcArcIndex | IfcLineIndex> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-          let expressID = stepExtractReference( buffer, cursor, endCursor );
-          let value : StepEntityBase< EntityTypesIfc > | undefined =
-            expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-            (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+        value.push( (() => {
+          const cursor = address
+          const value : StepEntityBase< EntityTypesIfc > | undefined =
+            this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcArcIndex ) && !( value instanceof IfcLineIndex ) ) {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
+            throw new Error( 'Value in select must be populated' )
           }
-    
-          return value as (IfcArcIndex | IfcLineIndex)
-        })() )
+          return value as (IfcArcIndex | IfcLineIndex)})() )
       }
-
-return value })()
+      return value }, true )
     }
 
-    return this.Segments_ as Array<IfcArcIndex|IfcLineIndex> | null
+    return this.Segments_ as Array<IfcArcIndex | IfcLineIndex> | null
   }
 
   public get SelfIntersect() : boolean | null {
     if ( this.SelfIntersect_ === void 0 ) {
-      this.SelfIntersect_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractBoolean( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.SelfIntersect_ = this.extractBoolean( 2, true )
     }
 
     return this.SelfIntersect_ as boolean | null

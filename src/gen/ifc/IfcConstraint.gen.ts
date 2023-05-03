@@ -6,12 +6,6 @@ import { IfcOrganization } from "./index"
 import { IfcPerson } from "./index"
 import { IfcPersonAndOrganization } from "./index"
 import { IfcDateTime } from "./index"
-import {
-  stepExtractString,
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -29,34 +23,13 @@ export abstract class IfcConstraint extends StepEntityBase< EntityTypesIfc > {
   private Description_? : string | null
   private ConstraintGrade_? : IfcConstraintEnum
   private ConstraintSource_? : string | null
-  private CreatingActor_? : IfcOrganization|IfcPerson|IfcPersonAndOrganization | null
+  private CreatingActor_? : IfcOrganization | IfcPerson | IfcPersonAndOrganization | null
   private CreationTime_? : string | null
   private UserDefinedGrade_? : string | null
 
   public get Name() : string {
     if ( this.Name_ === void 0 ) {
-      this.Name_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.Name_ = this.extractString( 0, false )
     }
 
     return this.Name_ as string
@@ -64,32 +37,7 @@ export abstract class IfcConstraint extends StepEntityBase< EntityTypesIfc > {
 
   public get Description() : string | null {
     if ( this.Description_ === void 0 ) {
-      this.Description_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.Description_ = this.extractString( 1, true )
     }
 
     return this.Description_ as string | null
@@ -97,28 +45,7 @@ export abstract class IfcConstraint extends StepEntityBase< EntityTypesIfc > {
 
   public get ConstraintGrade() : IfcConstraintEnum {
     if ( this.ConstraintGrade_ === void 0 ) {
-      this.ConstraintGrade_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcConstraintEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.ConstraintGrade_ = this.extractLambda( 2, IfcConstraintEnumDeserializeStep, false )
     }
 
     return this.ConstraintGrade_ as IfcConstraintEnum
@@ -126,101 +53,32 @@ export abstract class IfcConstraint extends StepEntityBase< EntityTypesIfc > {
 
   public get ConstraintSource() : string | null {
     if ( this.ConstraintSource_ === void 0 ) {
-      this.ConstraintSource_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.ConstraintSource_ = this.extractString( 3, true )
     }
 
     return this.ConstraintSource_ as string | null
   }
 
-  public get CreatingActor() : IfcOrganization|IfcPerson|IfcPersonAndOrganization | null {
+  public get CreatingActor() : IfcOrganization | IfcPerson | IfcPersonAndOrganization | null {
     if ( this.CreatingActor_ === void 0 ) {
-      this.CreatingActor_ = (() => { 
-        this.guaranteeVTable()
+      this.CreatingActor_ = this.extractLambda( 4, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization);
-      } })()
+        return ( void 0 )
+      }
+      return value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization)
+}, true )
     }
 
-    return this.CreatingActor_ as IfcOrganization|IfcPerson|IfcPersonAndOrganization | null
+    return this.CreatingActor_ as IfcOrganization | IfcPerson | IfcPersonAndOrganization | null
   }
 
   public get CreationTime() : string | null {
     if ( this.CreationTime_ === void 0 ) {
-      this.CreationTime_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.CreationTime_ = this.extractString( 5, true )
     }
 
     return this.CreationTime_ as string | null
@@ -228,32 +86,7 @@ export abstract class IfcConstraint extends StepEntityBase< EntityTypesIfc > {
 
   public get UserDefinedGrade() : string | null {
     if ( this.UserDefinedGrade_ === void 0 ) {
-      this.UserDefinedGrade_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.UserDefinedGrade_ = this.extractString( 6, true )
     }
 
     return this.UserDefinedGrade_ as string | null

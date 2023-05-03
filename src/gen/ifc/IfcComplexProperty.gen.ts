@@ -2,9 +2,6 @@
 import { IfcProperty } from "./index"
 import { IfcIdentifier } from "./index"
 import {
-  stepExtractString,
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -25,28 +22,7 @@ export  class IfcComplexProperty extends IfcProperty {
 
   public get UsageName() : string {
     if ( this.UsageName_ === void 0 ) {
-      this.UsageName_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.UsageName_ = this.extractString( 2, false )
     }
 
     return this.UsageName_ as string
@@ -54,31 +30,14 @@ export  class IfcComplexProperty extends IfcProperty {
 
   public get HasProperties() : Array<IfcProperty> {
     if ( this.HasProperties_ === void 0 ) {
-      this.HasProperties_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.HasProperties_ = this.extractLambda( 3, (buffer, cursor, endCursor) => {
 
       let value : Array<IfcProperty> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcProperty ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -87,8 +46,7 @@ export  class IfcComplexProperty extends IfcProperty {
           return value
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.HasProperties_ as Array<IfcProperty>

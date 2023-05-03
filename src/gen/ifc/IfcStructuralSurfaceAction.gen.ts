@@ -2,9 +2,6 @@
 import { IfcStructuralAction } from "./index"
 import { IfcProjectedOrTrueLengthEnum, IfcProjectedOrTrueLengthEnumDeserializeStep } from "./index"
 import { IfcStructuralSurfaceActivityTypeEnum, IfcStructuralSurfaceActivityTypeEnumDeserializeStep } from "./index"
-import {
-  stepExtractOptional,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -23,32 +20,7 @@ export  class IfcStructuralSurfaceAction extends IfcStructuralAction {
 
   public get ProjectedOrTrue() : IfcProjectedOrTrueLengthEnum | null {
     if ( this.ProjectedOrTrue_ === void 0 ) {
-      this.ProjectedOrTrue_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 10 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 10
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcProjectedOrTrueLengthEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.ProjectedOrTrue_ = this.extractLambda( 10, IfcProjectedOrTrueLengthEnumDeserializeStep, true )
     }
 
     return this.ProjectedOrTrue_ as IfcProjectedOrTrueLengthEnum | null
@@ -56,28 +28,7 @@ export  class IfcStructuralSurfaceAction extends IfcStructuralAction {
 
   public get PredefinedType() : IfcStructuralSurfaceActivityTypeEnum {
     if ( this.PredefinedType_ === void 0 ) {
-      this.PredefinedType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 11 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 11
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcStructuralSurfaceActivityTypeEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.PredefinedType_ = this.extractLambda( 11, IfcStructuralSurfaceActivityTypeEnumDeserializeStep, false )
     }
 
     return this.PredefinedType_ as IfcStructuralSurfaceActivityTypeEnum

@@ -3,11 +3,6 @@ import { IfcSweptAreaSolid } from "./index"
 import { IfcAxis1Placement } from "./index"
 import { IfcPlaneAngleMeasure } from "./index"
 import { IfcLine } from "./index"
-import {
-  stepExtractReference,
-  stepExtractNumber,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -26,31 +21,7 @@ export  class IfcRevolvedAreaSolid extends IfcSweptAreaSolid {
 
   public get Axis() : IfcAxis1Placement {
     if ( this.Axis_ === void 0 ) {
-      this.Axis_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-      if ( !( value instanceof IfcAxis1Placement ) )  {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      return value })()
+      this.Axis_ = this.extractElement( 2, false, IfcAxis1Placement )
     }
 
     return this.Axis_ as IfcAxis1Placement
@@ -58,28 +29,7 @@ export  class IfcRevolvedAreaSolid extends IfcSweptAreaSolid {
 
   public get Angle() : number {
     if ( this.Angle_ === void 0 ) {
-      this.Angle_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.Angle_ = this.extractNumber( 3, false )
     }
 
     return this.Angle_ as number

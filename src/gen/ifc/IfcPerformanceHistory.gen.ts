@@ -2,10 +2,6 @@
 import { IfcControl } from "./index"
 import { IfcLabel } from "./index"
 import { IfcPerformanceHistoryTypeEnum, IfcPerformanceHistoryTypeEnumDeserializeStep } from "./index"
-import {
-  stepExtractString,
-  stepExtractOptional,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -24,28 +20,7 @@ export  class IfcPerformanceHistory extends IfcControl {
 
   public get LifeCyclePhase() : string {
     if ( this.LifeCyclePhase_ === void 0 ) {
-      this.LifeCyclePhase_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.LifeCyclePhase_ = this.extractString( 6, false )
     }
 
     return this.LifeCyclePhase_ as string
@@ -53,32 +28,7 @@ export  class IfcPerformanceHistory extends IfcControl {
 
   public get PredefinedType() : IfcPerformanceHistoryTypeEnum | null {
     if ( this.PredefinedType_ === void 0 ) {
-      this.PredefinedType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcPerformanceHistoryTypeEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.PredefinedType_ = this.extractLambda( 7, IfcPerformanceHistoryTypeEnumDeserializeStep, true )
     }
 
     return this.PredefinedType_ as IfcPerformanceHistoryTypeEnum | null

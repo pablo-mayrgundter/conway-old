@@ -2,11 +2,6 @@
 import { IfcBoundaryNodeCondition } from "./index"
 import { IfcBoolean } from "./index"
 import { IfcWarpingMomentMeasure } from "./index"
-import {
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -20,42 +15,23 @@ export  class IfcBoundaryNodeConditionWarping extends IfcBoundaryNodeCondition {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.IFCBOUNDARYNODECONDITIONWARPING
   }
-  private WarpingStiffness_? : IfcBoolean|IfcWarpingMomentMeasure | null
+  private WarpingStiffness_? : IfcBoolean | IfcWarpingMomentMeasure | null
 
-  public get WarpingStiffness() : IfcBoolean|IfcWarpingMomentMeasure | null {
+  public get WarpingStiffness() : IfcBoolean | IfcWarpingMomentMeasure | null {
     if ( this.WarpingStiffness_ === void 0 ) {
-      this.WarpingStiffness_ = (() => { 
-        this.guaranteeVTable()
+      this.WarpingStiffness_ = this.extractLambda( 7, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcWarpingMomentMeasure ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value as (IfcBoolean | IfcWarpingMomentMeasure);
-      } })()
+        return ( void 0 )
+      }
+      return value as (IfcBoolean | IfcWarpingMomentMeasure)
+}, true )
     }
 
-    return this.WarpingStiffness_ as IfcBoolean|IfcWarpingMomentMeasure | null
+    return this.WarpingStiffness_ as IfcBoolean | IfcWarpingMomentMeasure | null
   }
   constructor(
     localID: number,

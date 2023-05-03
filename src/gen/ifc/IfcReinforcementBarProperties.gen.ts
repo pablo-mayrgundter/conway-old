@@ -6,11 +6,6 @@ import { IfcReinforcingBarSurfaceEnum, IfcReinforcingBarSurfaceEnumDeserializeSt
 import { IfcLengthMeasure } from "./index"
 import { IfcPositiveLengthMeasure } from "./index"
 import { IfcCountMeasure } from "./index"
-import {
-  stepExtractString,
-  stepExtractOptional,
-  stepExtractNumber,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -33,28 +28,7 @@ export  class IfcReinforcementBarProperties extends IfcPreDefinedProperties {
 
   public get TotalCrossSectionArea() : number {
     if ( this.TotalCrossSectionArea_ === void 0 ) {
-      this.TotalCrossSectionArea_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.TotalCrossSectionArea_ = this.extractNumber( 0, false )
     }
 
     return this.TotalCrossSectionArea_ as number
@@ -62,28 +36,7 @@ export  class IfcReinforcementBarProperties extends IfcPreDefinedProperties {
 
   public get SteelGrade() : string {
     if ( this.SteelGrade_ === void 0 ) {
-      this.SteelGrade_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.SteelGrade_ = this.extractString( 1, false )
     }
 
     return this.SteelGrade_ as string
@@ -91,32 +44,7 @@ export  class IfcReinforcementBarProperties extends IfcPreDefinedProperties {
 
   public get BarSurface() : IfcReinforcingBarSurfaceEnum | null {
     if ( this.BarSurface_ === void 0 ) {
-      this.BarSurface_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcReinforcingBarSurfaceEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.BarSurface_ = this.extractLambda( 2, IfcReinforcingBarSurfaceEnumDeserializeStep, true )
     }
 
     return this.BarSurface_ as IfcReinforcingBarSurfaceEnum | null
@@ -124,32 +52,7 @@ export  class IfcReinforcementBarProperties extends IfcPreDefinedProperties {
 
   public get EffectiveDepth() : number | null {
     if ( this.EffectiveDepth_ === void 0 ) {
-      this.EffectiveDepth_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.EffectiveDepth_ = this.extractNumber( 3, true )
     }
 
     return this.EffectiveDepth_ as number | null
@@ -157,32 +60,7 @@ export  class IfcReinforcementBarProperties extends IfcPreDefinedProperties {
 
   public get NominalBarDiameter() : number | null {
     if ( this.NominalBarDiameter_ === void 0 ) {
-      this.NominalBarDiameter_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.NominalBarDiameter_ = this.extractNumber( 4, true )
     }
 
     return this.NominalBarDiameter_ as number | null
@@ -190,32 +68,7 @@ export  class IfcReinforcementBarProperties extends IfcPreDefinedProperties {
 
   public get BarCount() : number | null {
     if ( this.BarCount_ === void 0 ) {
-      this.BarCount_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.BarCount_ = this.extractNumber( 5, true )
     }
 
     return this.BarCount_ as number | null

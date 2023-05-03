@@ -2,10 +2,6 @@
 import { IfcStructuralLoadStatic } from "./index"
 import { IfcLinearForceMeasure } from "./index"
 import { IfcLinearMomentMeasure } from "./index"
-import {
-  stepExtractOptional,
-  stepExtractNumber,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -28,32 +24,7 @@ export  class IfcStructuralLoadLinearForce extends IfcStructuralLoadStatic {
 
   public get LinearForceX() : number | null {
     if ( this.LinearForceX_ === void 0 ) {
-      this.LinearForceX_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.LinearForceX_ = this.extractNumber( 1, true )
     }
 
     return this.LinearForceX_ as number | null
@@ -61,32 +32,7 @@ export  class IfcStructuralLoadLinearForce extends IfcStructuralLoadStatic {
 
   public get LinearForceY() : number | null {
     if ( this.LinearForceY_ === void 0 ) {
-      this.LinearForceY_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.LinearForceY_ = this.extractNumber( 2, true )
     }
 
     return this.LinearForceY_ as number | null
@@ -94,32 +40,7 @@ export  class IfcStructuralLoadLinearForce extends IfcStructuralLoadStatic {
 
   public get LinearForceZ() : number | null {
     if ( this.LinearForceZ_ === void 0 ) {
-      this.LinearForceZ_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.LinearForceZ_ = this.extractNumber( 3, true )
     }
 
     return this.LinearForceZ_ as number | null
@@ -127,32 +48,7 @@ export  class IfcStructuralLoadLinearForce extends IfcStructuralLoadStatic {
 
   public get LinearMomentX() : number | null {
     if ( this.LinearMomentX_ === void 0 ) {
-      this.LinearMomentX_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.LinearMomentX_ = this.extractNumber( 4, true )
     }
 
     return this.LinearMomentX_ as number | null
@@ -160,32 +56,7 @@ export  class IfcStructuralLoadLinearForce extends IfcStructuralLoadStatic {
 
   public get LinearMomentY() : number | null {
     if ( this.LinearMomentY_ === void 0 ) {
-      this.LinearMomentY_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.LinearMomentY_ = this.extractNumber( 5, true )
     }
 
     return this.LinearMomentY_ as number | null
@@ -193,32 +64,7 @@ export  class IfcStructuralLoadLinearForce extends IfcStructuralLoadStatic {
 
   public get LinearMomentZ() : number | null {
     if ( this.LinearMomentZ_ === void 0 ) {
-      this.LinearMomentZ_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.LinearMomentZ_ = this.extractNumber( 6, true )
     }
 
     return this.LinearMomentZ_ as number | null

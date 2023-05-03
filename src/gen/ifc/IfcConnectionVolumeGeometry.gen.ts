@@ -2,11 +2,6 @@
 import { IfcConnectionGeometry } from "./index"
 import { IfcClosedShell } from "./index"
 import { IfcSolidModel } from "./index"
-import {
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -20,75 +15,41 @@ export  class IfcConnectionVolumeGeometry extends IfcConnectionGeometry {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.IFCCONNECTIONVOLUMEGEOMETRY
   }
-  private VolumeOnRelatingElement_? : IfcClosedShell|IfcSolidModel
-  private VolumeOnRelatedElement_? : IfcClosedShell|IfcSolidModel | null
+  private VolumeOnRelatingElement_? : IfcClosedShell | IfcSolidModel
+  private VolumeOnRelatedElement_? : IfcClosedShell | IfcSolidModel | null
 
-  public get VolumeOnRelatingElement() : IfcClosedShell|IfcSolidModel {
+  public get VolumeOnRelatingElement() : IfcClosedShell | IfcSolidModel {
     if ( this.VolumeOnRelatingElement_ === void 0 ) {
-      this.VolumeOnRelatingElement_ = (() => { 
-        this.guaranteeVTable()
+      this.VolumeOnRelatingElement_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcClosedShell ) && !( value instanceof IfcSolidModel ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      return value as (IfcClosedShell | IfcSolidModel) })()
+      return value as (IfcClosedShell | IfcSolidModel)
+}, false )
     }
 
-    return this.VolumeOnRelatingElement_ as IfcClosedShell|IfcSolidModel
+    return this.VolumeOnRelatingElement_ as IfcClosedShell | IfcSolidModel
   }
 
-  public get VolumeOnRelatedElement() : IfcClosedShell|IfcSolidModel | null {
+  public get VolumeOnRelatedElement() : IfcClosedShell | IfcSolidModel | null {
     if ( this.VolumeOnRelatedElement_ === void 0 ) {
-      this.VolumeOnRelatedElement_ = (() => { 
-        this.guaranteeVTable()
+      this.VolumeOnRelatedElement_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcClosedShell ) && !( value instanceof IfcSolidModel ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value as (IfcClosedShell | IfcSolidModel);
-      } })()
+        return ( void 0 )
+      }
+      return value as (IfcClosedShell | IfcSolidModel)
+}, true )
     }
 
-    return this.VolumeOnRelatedElement_ as IfcClosedShell|IfcSolidModel | null
+    return this.VolumeOnRelatedElement_ as IfcClosedShell | IfcSolidModel | null
   }
   constructor(
     localID: number,

@@ -6,9 +6,6 @@ import { IfcParameterValue } from "./index"
 import { IfcBoolean } from "./index"
 import { IfcTrimmingPreference, IfcTrimmingPreferenceDeserializeStep } from "./index"
 import {
-  stepExtractBoolean,
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -25,151 +22,68 @@ export  class IfcTrimmedCurve extends IfcBoundedCurve {
     return EntityTypesIfc.IFCTRIMMEDCURVE
   }
   private BasisCurve_? : IfcCurve
-  private Trim1_? : Array<IfcCartesianPoint|IfcParameterValue>
-  private Trim2_? : Array<IfcCartesianPoint|IfcParameterValue>
+  private Trim1_? : Array<IfcCartesianPoint | IfcParameterValue>
+  private Trim2_? : Array<IfcCartesianPoint | IfcParameterValue>
   private SenseAgreement_? : boolean
   private MasterRepresentation_? : IfcTrimmingPreference
 
   public get BasisCurve() : IfcCurve {
     if ( this.BasisCurve_ === void 0 ) {
-      this.BasisCurve_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-      if ( !( value instanceof IfcCurve ) )  {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      return value })()
+      this.BasisCurve_ = this.extractElement( 0, false, IfcCurve )
     }
 
     return this.BasisCurve_ as IfcCurve
   }
 
-  public get Trim1() : Array<IfcCartesianPoint|IfcParameterValue> {
+  public get Trim1() : Array<IfcCartesianPoint | IfcParameterValue> {
     if ( this.Trim1_ === void 0 ) {
-      this.Trim1_ = (() => { 
-        this.guaranteeVTable()
+      this.Trim1_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value : Array<IfcCartesianPoint|IfcParameterValue> = [];
+      let value : Array<IfcCartesianPoint | IfcParameterValue> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-          let expressID = stepExtractReference( buffer, cursor, endCursor );
-          let value : StepEntityBase< EntityTypesIfc > | undefined =
-            expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-            (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+        value.push( (() => {
+          const cursor = address
+          const value : StepEntityBase< EntityTypesIfc > | undefined =
+            this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcCartesianPoint ) && !( value instanceof IfcParameterValue ) ) {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
+            throw new Error( 'Value in select must be populated' )
           }
-    
-          return value as (IfcCartesianPoint | IfcParameterValue)
-        })() )
+          return value as (IfcCartesianPoint | IfcParameterValue)})() )
       }
-
-return value })()
+      return value }, false )
     }
 
-    return this.Trim1_ as Array<IfcCartesianPoint|IfcParameterValue>
+    return this.Trim1_ as Array<IfcCartesianPoint | IfcParameterValue>
   }
 
-  public get Trim2() : Array<IfcCartesianPoint|IfcParameterValue> {
+  public get Trim2() : Array<IfcCartesianPoint | IfcParameterValue> {
     if ( this.Trim2_ === void 0 ) {
-      this.Trim2_ = (() => { 
-        this.guaranteeVTable()
+      this.Trim2_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value : Array<IfcCartesianPoint|IfcParameterValue> = [];
+      let value : Array<IfcCartesianPoint | IfcParameterValue> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-          let expressID = stepExtractReference( buffer, cursor, endCursor );
-          let value : StepEntityBase< EntityTypesIfc > | undefined =
-            expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-            (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+        value.push( (() => {
+          const cursor = address
+          const value : StepEntityBase< EntityTypesIfc > | undefined =
+            this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcCartesianPoint ) && !( value instanceof IfcParameterValue ) ) {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
+            throw new Error( 'Value in select must be populated' )
           }
-    
-          return value as (IfcCartesianPoint | IfcParameterValue)
-        })() )
+          return value as (IfcCartesianPoint | IfcParameterValue)})() )
       }
-
-return value })()
+      return value }, false )
     }
 
-    return this.Trim2_ as Array<IfcCartesianPoint|IfcParameterValue>
+    return this.Trim2_ as Array<IfcCartesianPoint | IfcParameterValue>
   }
 
   public get SenseAgreement() : boolean {
     if ( this.SenseAgreement_ === void 0 ) {
-      this.SenseAgreement_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractBoolean( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.SenseAgreement_ = this.extractBoolean( 3, false )
     }
 
     return this.SenseAgreement_ as boolean
@@ -177,28 +91,7 @@ return value })()
 
   public get MasterRepresentation() : IfcTrimmingPreference {
     if ( this.MasterRepresentation_ === void 0 ) {
-      this.MasterRepresentation_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcTrimmingPreferenceDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.MasterRepresentation_ = this.extractLambda( 4, IfcTrimmingPreferenceDeserializeStep, false )
     }
 
     return this.MasterRepresentation_ as IfcTrimmingPreference

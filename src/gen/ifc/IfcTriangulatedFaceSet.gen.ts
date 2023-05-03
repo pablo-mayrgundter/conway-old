@@ -5,7 +5,6 @@ import { IfcBoolean } from "./index"
 import { IfcPositiveInteger } from "./index"
 import { IfcInteger } from "./index"
 import {
-  stepExtractBoolean,
   stepExtractOptional,
   stepExtractNumber,
   stepExtractArray,
@@ -31,20 +30,7 @@ export  class IfcTriangulatedFaceSet extends IfcTessellatedFaceSet {
 
   public get Normals() : Array< Array< number > > | null {
     if ( this.Normals_ === void 0 ) {
-      this.Normals_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.Normals_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
@@ -53,30 +39,30 @@ export  class IfcTriangulatedFaceSet extends IfcTessellatedFaceSet {
       let value : Array<Array<number>> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
+        value.push( (() => {
+          const cursor = address
           let value : Array<number> = [];
     
           for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-            value.push( (() => { 
-              let cursor = address
+            value.push( (() => {
+                  const cursor = address
+                  const value = stepExtractNumber( buffer, cursor, endCursor )
             
-                 let value = stepExtractNumber( buffer, cursor, endCursor )
-            
-                  if ( value === void 0 )  {
-                    throw new Error( 'Value in STEP was incorrectly typed' )
+                  if ( value === void 0 ) {
+                    throw new Error( 'Value needs to be defined in encapsulating context' )
                   }
             
-                  return value
-            })() )
+                  return value 
+                })() )
+          }
+                if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
           }
     
-    return value
+          return value 
         })() )
       }
-
-return value })()
+      return value }, true )
     }
 
     return this.Normals_ as Array< Array< number > > | null
@@ -84,32 +70,7 @@ return value })()
 
   public get Closed() : boolean | null {
     if ( this.Closed_ === void 0 ) {
-      this.Closed_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractBoolean( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.Closed_ = this.extractBoolean( 2, true )
     }
 
     return this.Closed_ as boolean | null
@@ -117,48 +78,35 @@ return value })()
 
   public get CoordIndex() : Array< Array< number > > {
     if ( this.CoordIndex_ === void 0 ) {
-      this.CoordIndex_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.CoordIndex_ = this.extractLambda( 3, (buffer, cursor, endCursor) => {
 
       let value : Array<Array<number>> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
+        value.push( (() => {
+          const cursor = address
           let value : Array<number> = [];
     
           for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-            value.push( (() => { 
-              let cursor = address
+            value.push( (() => {
+                  const cursor = address
+                  const value = stepExtractNumber( buffer, cursor, endCursor )
             
-                 let value = stepExtractNumber( buffer, cursor, endCursor )
-            
-                  if ( value === void 0 )  {
-                    throw new Error( 'Value in STEP was incorrectly typed' )
+                  if ( value === void 0 ) {
+                    throw new Error( 'Value needs to be defined in encapsulating context' )
                   }
             
-                  return value
-            })() )
+                  return value 
+                })() )
+          }
+                if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
           }
     
-    return value
+          return value 
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.CoordIndex_ as Array< Array< number > >
@@ -166,20 +114,7 @@ return value })()
 
   public get PnIndex() : Array< number > | null {
     if ( this.PnIndex_ === void 0 ) {
-      this.PnIndex_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.PnIndex_ = this.extractLambda( 4, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
@@ -188,20 +123,18 @@ return value })()
       let value : Array<number> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
+        value.push( (() => {
+          const cursor = address
+          const value = stepExtractNumber( buffer, cursor, endCursor )
     
-         let value = stepExtractNumber( buffer, cursor, endCursor )
-    
-          if ( value === void 0 )  {
-            throw new Error( 'Value in STEP was incorrectly typed' )
+          if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
           }
     
-          return value
+          return value 
         })() )
       }
-
-return value })()
+      return value }, true )
     }
 
     return this.PnIndex_ as Array< number > | null
