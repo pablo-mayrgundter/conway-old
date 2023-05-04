@@ -6,7 +6,7 @@ import {
   stepExtractNumber,
   stepExtractOptional,
   stepExtractReference,
-  stepExtractString
+  stepExtractString,
 } from '../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 import EntityTypesIfc from '../gen/ifc/entity_types_ifc.gen'
 import { StepEntityConstructorAbstract } from './step_entity_constructor'
