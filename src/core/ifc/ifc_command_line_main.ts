@@ -168,7 +168,10 @@ const args = // eslint-disable-line no-unused-vars
           console.log(`Data parse time ${parseDataTimeEnd - parseDataTimeStart} ms`)
 
           if (geometry) {
-            geometryExtraction(model)
+            const fileNameWithExtension = ifcFile.split("/").pop()!; // Get the filename with extension
+            const fileName = fileNameWithExtension.split(".")[0]; // Get the filename without extension
+            const fileNameNoExtension = fileName.split(/(?=[A-Z])/).join(" "); // Add space between camel-cased words
+            geometryExtraction(model, fileNameNoExtension)
           }
         })
         .help().argv
@@ -176,7 +179,7 @@ const args = // eslint-disable-line no-unused-vars
 /**
  * Function to extract Geometry from an IfcStepModel
  */
-async function geometryExtraction(model: IfcStepModel) {
+async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: string) {
 
   // get a model Id
   const modelId = await IfcGeometryExtraction.create()
@@ -206,7 +209,7 @@ async function geometryExtraction(model: IfcStepModel) {
   const executionTimeInMsObj = endTimeObj - startTimeObj
 
   // write to FS
-  const filename = 'index_ifc_test.obj'
+  const filename = fileNameNoExtension + '_test.obj'
   fs.writeFile(filename, objResult, function(err) {
     if (err) {
       console.error('Error writing to file: ', err)
@@ -216,7 +219,7 @@ async function geometryExtraction(model: IfcStepModel) {
   })
 
   const startTimeGlb = Date.now()
-  const glbResult = IfcGeometryExtraction.toGltf(fullGeometry, true, false, 'index_ifc_test')
+  const glbResult = IfcGeometryExtraction.toGltf(fullGeometry, true, false, fileNameNoExtension + '_test')
   const endTimeGlb = Date.now()
   const executionTimeInMsGlb = endTimeGlb - startTimeGlb
 
@@ -245,7 +248,7 @@ async function geometryExtraction(model: IfcStepModel) {
 
   const startTimeGlbDraco = Date.now()
   const glbDracoResult =
-  IfcGeometryExtraction.toGltf(fullGeometry, true, true, 'index_ifc_test_draco')
+  IfcGeometryExtraction.toGltf(fullGeometry, true, true, fileNameNoExtension + '_test_draco')
   const endTimeGlbDraco = Date.now()
   const executionTimeInMsGlbDraco = endTimeGlbDraco - startTimeGlbDraco
 
@@ -273,7 +276,7 @@ async function geometryExtraction(model: IfcStepModel) {
   }
 
   const startTimeGltf = Date.now()
-  const gltfResult = IfcGeometryExtraction.toGltf(fullGeometry, false, false, 'index_ifc_test')
+  const gltfResult = IfcGeometryExtraction.toGltf(fullGeometry, false, false, fileNameNoExtension + '_test')
   const endTimeGltf = Date.now()
   const executionTimeInMsGltf = endTimeGltf - startTimeGltf
 
@@ -305,7 +308,7 @@ async function geometryExtraction(model: IfcStepModel) {
   const startTimeGltfDraco = Date.now()
   const gltfDracoResult =
   IfcGeometryExtraction
-      .toGltf(fullGeometry, false, true, 'index_ifc_test_draco')
+      .toGltf(fullGeometry, false, true, fileNameNoExtension + '_test_draco')
   const endTimeGltfDraco = Date.now()
   const executionTimeInMsGltfDraco = endTimeGltfDraco - startTimeGltfDraco
 
