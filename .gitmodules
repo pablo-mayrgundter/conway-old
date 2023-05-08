@@ -6,3 +6,6 @@
 	path = dependencies/conway-ds
 	url = https://github.com/bldrs-ai/conway-ds.git
 	branch = main
+[submodule "dependencies/conway-geom"]
+	path = dependencies/conway-geom
+	url = https://github.com/bldrs-ai/conway-geom.git
