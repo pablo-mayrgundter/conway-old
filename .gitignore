@@ -5,3 +5,10 @@ node_modules/
 coverage
 external/src
 yarn-error.log
+index_ifc_test.bin
+index_ifc_test.glb
+index_ifc_test.gltf
+index_ifc_test.obj
+index_ifc_test_draco.bin
+index_ifc_test_draco.glb
+index_ifc_test_draco.gltf

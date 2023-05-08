@@ -100,5 +100,5 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     //"skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
-  "exclude": ["external/**/*", "compiled/**/*", "dependencies/**/compiled/**"]
+  "exclude": ["external/**/*", "compiled/**/*", "dependencies/**/compiled/**", "dependencies/conway-geom/external/**"]
 }
