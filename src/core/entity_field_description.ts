@@ -31,6 +31,11 @@ export interface EntityFieldDescription< EntityTypeIDs extends number > {
    * Is this field derived? i.e. generated from a function.
    */
   derived: boolean
+  /**
+   * For non derived fields, this is the ordinal position of the field
+   * within a positional serialization.
+   */
+  offset?: number
 }
 
 /**
