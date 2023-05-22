@@ -1,10 +1,6 @@
 
 import { IfcSpatialStructureElement } from "./index"
 import { IfcLengthMeasure } from "./index"
-import {
-  stepExtractOptional,
-  stepExtractNumber,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -22,32 +18,7 @@ export  class IfcBuildingStorey extends IfcSpatialStructureElement {
 
   public get Elevation() : number | null {
     if ( this.Elevation_ === void 0 ) {
-      this.Elevation_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 9 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 9
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.Elevation_ = this.extractNumber( 9, true )
     }
 
     return this.Elevation_ as number | null

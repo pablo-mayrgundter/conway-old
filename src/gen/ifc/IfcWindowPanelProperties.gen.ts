@@ -4,12 +4,6 @@ import { IfcWindowPanelOperationEnum, IfcWindowPanelOperationEnumDeserializeStep
 import { IfcWindowPanelPositionEnum, IfcWindowPanelPositionEnumDeserializeStep } from "./index"
 import { IfcPositiveLengthMeasure } from "./index"
 import { IfcShapeAspect } from "./index"
-import {
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractNumber,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -31,28 +25,7 @@ export  class IfcWindowPanelProperties extends IfcPreDefinedPropertySet {
 
   public get OperationType() : IfcWindowPanelOperationEnum {
     if ( this.OperationType_ === void 0 ) {
-      this.OperationType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcWindowPanelOperationEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.OperationType_ = this.extractLambda( 4, IfcWindowPanelOperationEnumDeserializeStep, false )
     }
 
     return this.OperationType_ as IfcWindowPanelOperationEnum
@@ -60,28 +33,7 @@ export  class IfcWindowPanelProperties extends IfcPreDefinedPropertySet {
 
   public get PanelPosition() : IfcWindowPanelPositionEnum {
     if ( this.PanelPosition_ === void 0 ) {
-      this.PanelPosition_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcWindowPanelPositionEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.PanelPosition_ = this.extractLambda( 5, IfcWindowPanelPositionEnumDeserializeStep, false )
     }
 
     return this.PanelPosition_ as IfcWindowPanelPositionEnum
@@ -89,32 +41,7 @@ export  class IfcWindowPanelProperties extends IfcPreDefinedPropertySet {
 
   public get FrameDepth() : number | null {
     if ( this.FrameDepth_ === void 0 ) {
-      this.FrameDepth_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.FrameDepth_ = this.extractNumber( 6, true )
     }
 
     return this.FrameDepth_ as number | null
@@ -122,32 +49,7 @@ export  class IfcWindowPanelProperties extends IfcPreDefinedPropertySet {
 
   public get FrameThickness() : number | null {
     if ( this.FrameThickness_ === void 0 ) {
-      this.FrameThickness_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.FrameThickness_ = this.extractNumber( 7, true )
     }
 
     return this.FrameThickness_ as number | null
@@ -155,35 +57,7 @@ export  class IfcWindowPanelProperties extends IfcPreDefinedPropertySet {
 
   public get ShapeAspectStyle() : IfcShapeAspect | null {
     if ( this.ShapeAspectStyle_ === void 0 ) {
-      this.ShapeAspectStyle_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 8 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 8
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-     if ( !( value instanceof IfcShapeAspect ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.ShapeAspectStyle_ = this.extractElement( 8, true, IfcShapeAspect )
     }
 
     return this.ShapeAspectStyle_ as IfcShapeAspect | null

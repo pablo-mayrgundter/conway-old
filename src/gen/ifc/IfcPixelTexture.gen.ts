@@ -4,7 +4,6 @@ import { IfcInteger } from "./index"
 import { IfcBinary } from "./index"
 import {
   stepExtractBinary,
-  stepExtractNumber,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -27,28 +26,7 @@ export  class IfcPixelTexture extends IfcSurfaceTexture {
 
   public get Width() : number {
     if ( this.Width_ === void 0 ) {
-      this.Width_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.Width_ = this.extractNumber( 5, false )
     }
 
     return this.Width_ as number
@@ -56,28 +34,7 @@ export  class IfcPixelTexture extends IfcSurfaceTexture {
 
   public get Height() : number {
     if ( this.Height_ === void 0 ) {
-      this.Height_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.Height_ = this.extractNumber( 6, false )
     }
 
     return this.Height_ as number
@@ -85,28 +42,7 @@ export  class IfcPixelTexture extends IfcSurfaceTexture {
 
   public get ColourComponents() : number {
     if ( this.ColourComponents_ === void 0 ) {
-      this.ColourComponents_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.ColourComponents_ = this.extractNumber( 7, false )
     }
 
     return this.ColourComponents_ as number
@@ -114,38 +50,23 @@ export  class IfcPixelTexture extends IfcSurfaceTexture {
 
   public get Pixel() : Array< [Uint8Array, number] > {
     if ( this.Pixel_ === void 0 ) {
-      this.Pixel_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 8 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 8
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.Pixel_ = this.extractLambda( 8, (buffer, cursor, endCursor) => {
 
       let value : Array<[Uint8Array, number]> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
+        value.push( (() => {
+          const cursor = address
+          const value = stepExtractBinary( buffer, cursor, endCursor )
     
-         let value = stepExtractBinary( buffer, cursor, endCursor )
-    
-          if ( value === void 0 )  {
-            throw new Error( 'Value in STEP was incorrectly typed' )
+          if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
           }
     
-          return value
+          return value 
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.Pixel_ as Array< [Uint8Array, number] >

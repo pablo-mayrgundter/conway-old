@@ -23,20 +23,7 @@ export  class IfcStructuralLoadCase extends IfcStructuralLoadGroup {
 
   public get SelfWeightCoefficients() : Array< number > | null {
     if ( this.SelfWeightCoefficients_ === void 0 ) {
-      this.SelfWeightCoefficients_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 10 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 10
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.SelfWeightCoefficients_ = this.extractLambda( 10, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
@@ -45,20 +32,18 @@ export  class IfcStructuralLoadCase extends IfcStructuralLoadGroup {
       let value : Array<number> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
+        value.push( (() => {
+          const cursor = address
+          const value = stepExtractNumber( buffer, cursor, endCursor )
     
-         let value = stepExtractNumber( buffer, cursor, endCursor )
-    
-          if ( value === void 0 )  {
-            throw new Error( 'Value in STEP was incorrectly typed' )
+          if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
           }
     
-          return value
+          return value 
         })() )
       }
-
-return value })()
+      return value }, true )
     }
 
     return this.SelfWeightCoefficients_ as Array< number > | null

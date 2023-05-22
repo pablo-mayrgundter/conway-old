@@ -3,11 +3,6 @@ import { IfcRelAssigns } from "./index"
 import { IfcProcess } from "./index"
 import { IfcTypeProcess } from "./index"
 import { IfcMeasureWithUnit } from "./index"
-import {
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -21,72 +16,29 @@ export  class IfcRelAssignsToProcess extends IfcRelAssigns {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.IFCRELASSIGNSTOPROCESS
   }
-  private RelatingProcess_? : IfcProcess|IfcTypeProcess
+  private RelatingProcess_? : IfcProcess | IfcTypeProcess
   private QuantityInProcess_? : IfcMeasureWithUnit | null
 
-  public get RelatingProcess() : IfcProcess|IfcTypeProcess {
+  public get RelatingProcess() : IfcProcess | IfcTypeProcess {
     if ( this.RelatingProcess_ === void 0 ) {
-      this.RelatingProcess_ = (() => { 
-        this.guaranteeVTable()
+      this.RelatingProcess_ = this.extractLambda( 6, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcProcess ) && !( value instanceof IfcTypeProcess ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      return value as (IfcProcess | IfcTypeProcess) })()
+      return value as (IfcProcess | IfcTypeProcess)
+}, false )
     }
 
-    return this.RelatingProcess_ as IfcProcess|IfcTypeProcess
+    return this.RelatingProcess_ as IfcProcess | IfcTypeProcess
   }
 
   public get QuantityInProcess() : IfcMeasureWithUnit | null {
     if ( this.QuantityInProcess_ === void 0 ) {
-      this.QuantityInProcess_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-     if ( !( value instanceof IfcMeasureWithUnit ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.QuantityInProcess_ = this.extractElement( 7, true, IfcMeasureWithUnit )
     }
 
     return this.QuantityInProcess_ as IfcMeasureWithUnit | null

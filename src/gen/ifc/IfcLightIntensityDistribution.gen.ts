@@ -2,8 +2,6 @@
 import { IfcLightDistributionCurveEnum, IfcLightDistributionCurveEnumDeserializeStep } from "./index"
 import { IfcLightDistributionData } from "./index"
 import {
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -24,28 +22,7 @@ export  class IfcLightIntensityDistribution extends StepEntityBase< EntityTypesI
 
   public get LightDistributionCurve() : IfcLightDistributionCurveEnum {
     if ( this.LightDistributionCurve_ === void 0 ) {
-      this.LightDistributionCurve_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcLightDistributionCurveEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.LightDistributionCurve_ = this.extractLambda( 0, IfcLightDistributionCurveEnumDeserializeStep, false )
     }
 
     return this.LightDistributionCurve_ as IfcLightDistributionCurveEnum
@@ -53,31 +30,14 @@ export  class IfcLightIntensityDistribution extends StepEntityBase< EntityTypesI
 
   public get DistributionData() : Array<IfcLightDistributionData> {
     if ( this.DistributionData_ === void 0 ) {
-      this.DistributionData_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.DistributionData_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
       let value : Array<IfcLightDistributionData> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcLightDistributionData ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -86,8 +46,7 @@ export  class IfcLightIntensityDistribution extends StepEntityBase< EntityTypesI
           return value
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.DistributionData_ as Array<IfcLightDistributionData>

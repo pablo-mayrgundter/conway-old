@@ -2,11 +2,6 @@
 import { IfcObjectPlacement } from "./index"
 import { IfcVirtualGridIntersection } from "./index"
 import { IfcDirection } from "./index"
-import {
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -21,74 +16,31 @@ export  class IfcGridPlacement extends IfcObjectPlacement {
     return EntityTypesIfc.IFCGRIDPLACEMENT
   }
   private PlacementLocation_? : IfcVirtualGridIntersection
-  private PlacementRefDirection_? : IfcDirection|IfcVirtualGridIntersection | null
+  private PlacementRefDirection_? : IfcDirection | IfcVirtualGridIntersection | null
 
   public get PlacementLocation() : IfcVirtualGridIntersection {
     if ( this.PlacementLocation_ === void 0 ) {
-      this.PlacementLocation_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-      if ( !( value instanceof IfcVirtualGridIntersection ) )  {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      return value })()
+      this.PlacementLocation_ = this.extractElement( 0, false, IfcVirtualGridIntersection )
     }
 
     return this.PlacementLocation_ as IfcVirtualGridIntersection
   }
 
-  public get PlacementRefDirection() : IfcDirection|IfcVirtualGridIntersection | null {
+  public get PlacementRefDirection() : IfcDirection | IfcVirtualGridIntersection | null {
     if ( this.PlacementRefDirection_ === void 0 ) {
-      this.PlacementRefDirection_ = (() => { 
-        this.guaranteeVTable()
+      this.PlacementRefDirection_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcDirection ) && !( value instanceof IfcVirtualGridIntersection ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value as (IfcDirection | IfcVirtualGridIntersection);
-      } })()
+        return ( void 0 )
+      }
+      return value as (IfcDirection | IfcVirtualGridIntersection)
+}, true )
     }
 
-    return this.PlacementRefDirection_ as IfcDirection|IfcVirtualGridIntersection | null
+    return this.PlacementRefDirection_ as IfcDirection | IfcVirtualGridIntersection | null
   }
   constructor(
     localID: number,

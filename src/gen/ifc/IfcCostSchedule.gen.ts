@@ -3,10 +3,6 @@ import { IfcControl } from "./index"
 import { IfcCostScheduleTypeEnum, IfcCostScheduleTypeEnumDeserializeStep } from "./index"
 import { IfcLabel } from "./index"
 import { IfcDateTime } from "./index"
-import {
-  stepExtractString,
-  stepExtractOptional,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -27,32 +23,7 @@ export  class IfcCostSchedule extends IfcControl {
 
   public get PredefinedType() : IfcCostScheduleTypeEnum | null {
     if ( this.PredefinedType_ === void 0 ) {
-      this.PredefinedType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcCostScheduleTypeEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.PredefinedType_ = this.extractLambda( 6, IfcCostScheduleTypeEnumDeserializeStep, true )
     }
 
     return this.PredefinedType_ as IfcCostScheduleTypeEnum | null
@@ -60,32 +31,7 @@ export  class IfcCostSchedule extends IfcControl {
 
   public get Status() : string | null {
     if ( this.Status_ === void 0 ) {
-      this.Status_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.Status_ = this.extractString( 7, true )
     }
 
     return this.Status_ as string | null
@@ -93,32 +39,7 @@ export  class IfcCostSchedule extends IfcControl {
 
   public get SubmittedOn() : string | null {
     if ( this.SubmittedOn_ === void 0 ) {
-      this.SubmittedOn_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 8 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 8
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.SubmittedOn_ = this.extractString( 8, true )
     }
 
     return this.SubmittedOn_ as string | null
@@ -126,32 +47,7 @@ export  class IfcCostSchedule extends IfcControl {
 
   public get UpdateDate() : string | null {
     if ( this.UpdateDate_ === void 0 ) {
-      this.UpdateDate_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 9 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 9
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.UpdateDate_ = this.extractString( 9, true )
     }
 
     return this.UpdateDate_ as string | null

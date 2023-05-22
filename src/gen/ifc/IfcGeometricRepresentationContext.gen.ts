@@ -5,12 +5,6 @@ import { IfcReal } from "./index"
 import { IfcAxis2Placement2D } from "./index"
 import { IfcAxis2Placement3D } from "./index"
 import { IfcDirection } from "./index"
-import {
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractNumber,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -26,33 +20,12 @@ export  class IfcGeometricRepresentationContext extends IfcRepresentationContext
   }
   private CoordinateSpaceDimension_? : number
   private Precision_? : number | null
-  private WorldCoordinateSystem_? : IfcAxis2Placement2D|IfcAxis2Placement3D
+  private WorldCoordinateSystem_? : IfcAxis2Placement2D | IfcAxis2Placement3D
   private TrueNorth_? : IfcDirection | null
 
   public get CoordinateSpaceDimension() : number {
     if ( this.CoordinateSpaceDimension_ === void 0 ) {
-      this.CoordinateSpaceDimension_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.CoordinateSpaceDimension_ = this.extractNumber( 2, false )
     }
 
     return this.CoordinateSpaceDimension_ as number
@@ -60,100 +33,32 @@ export  class IfcGeometricRepresentationContext extends IfcRepresentationContext
 
   public get Precision() : number | null {
     if ( this.Precision_ === void 0 ) {
-      this.Precision_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.Precision_ = this.extractNumber( 3, true )
     }
 
     return this.Precision_ as number | null
   }
 
-  public get WorldCoordinateSystem() : IfcAxis2Placement2D|IfcAxis2Placement3D {
+  public get WorldCoordinateSystem() : IfcAxis2Placement2D | IfcAxis2Placement3D {
     if ( this.WorldCoordinateSystem_ === void 0 ) {
-      this.WorldCoordinateSystem_ = (() => { 
-        this.guaranteeVTable()
+      this.WorldCoordinateSystem_ = this.extractLambda( 4, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcAxis2Placement2D ) && !( value instanceof IfcAxis2Placement3D ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      return value as (IfcAxis2Placement2D | IfcAxis2Placement3D) })()
+      return value as (IfcAxis2Placement2D | IfcAxis2Placement3D)
+}, false )
     }
 
-    return this.WorldCoordinateSystem_ as IfcAxis2Placement2D|IfcAxis2Placement3D
+    return this.WorldCoordinateSystem_ as IfcAxis2Placement2D | IfcAxis2Placement3D
   }
 
   public get TrueNorth() : IfcDirection | null {
     if ( this.TrueNorth_ === void 0 ) {
-      this.TrueNorth_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-     if ( !( value instanceof IfcDirection ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.TrueNorth_ = this.extractElement( 5, true, IfcDirection )
     }
 
     return this.TrueNorth_ as IfcDirection | null

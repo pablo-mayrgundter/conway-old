@@ -4,8 +4,6 @@ import { IfcAppliedValue } from "./index"
 import { IfcPhysicalQuantity } from "./index"
 import {
   stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -26,20 +24,7 @@ export abstract class IfcConstructionResourceType extends IfcTypeResource {
 
   public get BaseCosts() : Array<IfcAppliedValue> | null {
     if ( this.BaseCosts_ === void 0 ) {
-      this.BaseCosts_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 9 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 9
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.BaseCosts_ = this.extractLambda( 9, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
@@ -48,13 +33,9 @@ export abstract class IfcConstructionResourceType extends IfcTypeResource {
       let value : Array<IfcAppliedValue> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcAppliedValue ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -63,8 +44,7 @@ export abstract class IfcConstructionResourceType extends IfcTypeResource {
           return value
         })() )
       }
-
-return value })()
+      return value }, true )
     }
 
     return this.BaseCosts_ as Array<IfcAppliedValue> | null
@@ -72,35 +52,7 @@ return value })()
 
   public get BaseQuantity() : IfcPhysicalQuantity | null {
     if ( this.BaseQuantity_ === void 0 ) {
-      this.BaseQuantity_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 10 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 10
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-     if ( !( value instanceof IfcPhysicalQuantity ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.BaseQuantity_ = this.extractElement( 10, true, IfcPhysicalQuantity )
     }
 
     return this.BaseQuantity_ as IfcPhysicalQuantity | null

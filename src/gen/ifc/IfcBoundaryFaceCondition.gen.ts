@@ -2,11 +2,6 @@
 import { IfcBoundaryCondition } from "./index"
 import { IfcBoolean } from "./index"
 import { IfcModulusOfSubgradeReactionMeasure } from "./index"
-import {
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -20,116 +15,59 @@ export  class IfcBoundaryFaceCondition extends IfcBoundaryCondition {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.IFCBOUNDARYFACECONDITION
   }
-  private TranslationalStiffnessByAreaX_? : IfcBoolean|IfcModulusOfSubgradeReactionMeasure | null
-  private TranslationalStiffnessByAreaY_? : IfcBoolean|IfcModulusOfSubgradeReactionMeasure | null
-  private TranslationalStiffnessByAreaZ_? : IfcBoolean|IfcModulusOfSubgradeReactionMeasure | null
+  private TranslationalStiffnessByAreaX_? : IfcBoolean | IfcModulusOfSubgradeReactionMeasure | null
+  private TranslationalStiffnessByAreaY_? : IfcBoolean | IfcModulusOfSubgradeReactionMeasure | null
+  private TranslationalStiffnessByAreaZ_? : IfcBoolean | IfcModulusOfSubgradeReactionMeasure | null
 
-  public get TranslationalStiffnessByAreaX() : IfcBoolean|IfcModulusOfSubgradeReactionMeasure | null {
+  public get TranslationalStiffnessByAreaX() : IfcBoolean | IfcModulusOfSubgradeReactionMeasure | null {
     if ( this.TranslationalStiffnessByAreaX_ === void 0 ) {
-      this.TranslationalStiffnessByAreaX_ = (() => { 
-        this.guaranteeVTable()
+      this.TranslationalStiffnessByAreaX_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfSubgradeReactionMeasure ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value as (IfcBoolean | IfcModulusOfSubgradeReactionMeasure);
-      } })()
+        return ( void 0 )
+      }
+      return value as (IfcBoolean | IfcModulusOfSubgradeReactionMeasure)
+}, true )
     }
 
-    return this.TranslationalStiffnessByAreaX_ as IfcBoolean|IfcModulusOfSubgradeReactionMeasure | null
+    return this.TranslationalStiffnessByAreaX_ as IfcBoolean | IfcModulusOfSubgradeReactionMeasure | null
   }
 
-  public get TranslationalStiffnessByAreaY() : IfcBoolean|IfcModulusOfSubgradeReactionMeasure | null {
+  public get TranslationalStiffnessByAreaY() : IfcBoolean | IfcModulusOfSubgradeReactionMeasure | null {
     if ( this.TranslationalStiffnessByAreaY_ === void 0 ) {
-      this.TranslationalStiffnessByAreaY_ = (() => { 
-        this.guaranteeVTable()
+      this.TranslationalStiffnessByAreaY_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfSubgradeReactionMeasure ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value as (IfcBoolean | IfcModulusOfSubgradeReactionMeasure);
-      } })()
+        return ( void 0 )
+      }
+      return value as (IfcBoolean | IfcModulusOfSubgradeReactionMeasure)
+}, true )
     }
 
-    return this.TranslationalStiffnessByAreaY_ as IfcBoolean|IfcModulusOfSubgradeReactionMeasure | null
+    return this.TranslationalStiffnessByAreaY_ as IfcBoolean | IfcModulusOfSubgradeReactionMeasure | null
   }
 
-  public get TranslationalStiffnessByAreaZ() : IfcBoolean|IfcModulusOfSubgradeReactionMeasure | null {
+  public get TranslationalStiffnessByAreaZ() : IfcBoolean | IfcModulusOfSubgradeReactionMeasure | null {
     if ( this.TranslationalStiffnessByAreaZ_ === void 0 ) {
-      this.TranslationalStiffnessByAreaZ_ = (() => { 
-        this.guaranteeVTable()
+      this.TranslationalStiffnessByAreaZ_ = this.extractLambda( 3, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfSubgradeReactionMeasure ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value as (IfcBoolean | IfcModulusOfSubgradeReactionMeasure);
-      } })()
+        return ( void 0 )
+      }
+      return value as (IfcBoolean | IfcModulusOfSubgradeReactionMeasure)
+}, true )
     }
 
-    return this.TranslationalStiffnessByAreaZ_ as IfcBoolean|IfcModulusOfSubgradeReactionMeasure | null
+    return this.TranslationalStiffnessByAreaZ_ as IfcBoolean | IfcModulusOfSubgradeReactionMeasure | null
   }
   constructor(
     localID: number,

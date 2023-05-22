@@ -3,8 +3,6 @@ import { IfcClassification } from "./index"
 import { IfcClassificationReference } from "./index"
 import { IfcMaterial } from "./index"
 import {
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -20,78 +18,35 @@ export  class IfcMaterialClassificationRelationship extends StepEntityBase< Enti
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.IFCMATERIALCLASSIFICATIONRELATIONSHIP
   }
-  private MaterialClassifications_? : Array<IfcClassification|IfcClassificationReference>
+  private MaterialClassifications_? : Array<IfcClassification | IfcClassificationReference>
   private ClassifiedMaterial_? : IfcMaterial
 
-  public get MaterialClassifications() : Array<IfcClassification|IfcClassificationReference> {
+  public get MaterialClassifications() : Array<IfcClassification | IfcClassificationReference> {
     if ( this.MaterialClassifications_ === void 0 ) {
-      this.MaterialClassifications_ = (() => { 
-        this.guaranteeVTable()
+      this.MaterialClassifications_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value : Array<IfcClassification|IfcClassificationReference> = [];
+      let value : Array<IfcClassification | IfcClassificationReference> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-          let expressID = stepExtractReference( buffer, cursor, endCursor );
-          let value : StepEntityBase< EntityTypesIfc > | undefined =
-            expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-            (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+        value.push( (() => {
+          const cursor = address
+          const value : StepEntityBase< EntityTypesIfc > | undefined =
+            this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcClassification ) && !( value instanceof IfcClassificationReference ) ) {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
+            throw new Error( 'Value in select must be populated' )
           }
-    
-          return value as (IfcClassification | IfcClassificationReference)
-        })() )
+          return value as (IfcClassification | IfcClassificationReference)})() )
       }
-
-return value })()
+      return value }, false )
     }
 
-    return this.MaterialClassifications_ as Array<IfcClassification|IfcClassificationReference>
+    return this.MaterialClassifications_ as Array<IfcClassification | IfcClassificationReference>
   }
 
   public get ClassifiedMaterial() : IfcMaterial {
     if ( this.ClassifiedMaterial_ === void 0 ) {
-      this.ClassifiedMaterial_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-      if ( !( value instanceof IfcMaterial ) )  {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      return value })()
+      this.ClassifiedMaterial_ = this.extractElement( 1, false, IfcMaterial )
     }
 
     return this.ClassifiedMaterial_ as IfcMaterial

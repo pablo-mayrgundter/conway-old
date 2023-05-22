@@ -7,8 +7,6 @@ import { IfcStructuralResultGroup } from "./index"
 import { IfcObjectPlacement } from "./index"
 import {
   stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -32,28 +30,7 @@ export  class IfcStructuralAnalysisModel extends IfcSystem {
 
   public get PredefinedType() : IfcAnalysisModelTypeEnum {
     if ( this.PredefinedType_ === void 0 ) {
-      this.PredefinedType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcAnalysisModelTypeEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.PredefinedType_ = this.extractLambda( 5, IfcAnalysisModelTypeEnumDeserializeStep, false )
     }
 
     return this.PredefinedType_ as IfcAnalysisModelTypeEnum
@@ -61,35 +38,7 @@ export  class IfcStructuralAnalysisModel extends IfcSystem {
 
   public get OrientationOf2DPlane() : IfcAxis2Placement3D | null {
     if ( this.OrientationOf2DPlane_ === void 0 ) {
-      this.OrientationOf2DPlane_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-     if ( !( value instanceof IfcAxis2Placement3D ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.OrientationOf2DPlane_ = this.extractElement( 6, true, IfcAxis2Placement3D )
     }
 
     return this.OrientationOf2DPlane_ as IfcAxis2Placement3D | null
@@ -97,20 +46,7 @@ export  class IfcStructuralAnalysisModel extends IfcSystem {
 
   public get LoadedBy() : Array<IfcStructuralLoadGroup> | null {
     if ( this.LoadedBy_ === void 0 ) {
-      this.LoadedBy_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.LoadedBy_ = this.extractLambda( 7, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
@@ -119,13 +55,9 @@ export  class IfcStructuralAnalysisModel extends IfcSystem {
       let value : Array<IfcStructuralLoadGroup> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcStructuralLoadGroup ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -134,8 +66,7 @@ export  class IfcStructuralAnalysisModel extends IfcSystem {
           return value
         })() )
       }
-
-return value })()
+      return value }, true )
     }
 
     return this.LoadedBy_ as Array<IfcStructuralLoadGroup> | null
@@ -143,20 +74,7 @@ return value })()
 
   public get HasResults() : Array<IfcStructuralResultGroup> | null {
     if ( this.HasResults_ === void 0 ) {
-      this.HasResults_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 8 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 8
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.HasResults_ = this.extractLambda( 8, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
@@ -165,13 +83,9 @@ return value })()
       let value : Array<IfcStructuralResultGroup> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcStructuralResultGroup ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -180,8 +94,7 @@ return value })()
           return value
         })() )
       }
-
-return value })()
+      return value }, true )
     }
 
     return this.HasResults_ as Array<IfcStructuralResultGroup> | null
@@ -189,35 +102,7 @@ return value })()
 
   public get SharedPlacement() : IfcObjectPlacement | null {
     if ( this.SharedPlacement_ === void 0 ) {
-      this.SharedPlacement_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 9 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 9
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-     if ( !( value instanceof IfcObjectPlacement ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.SharedPlacement_ = this.extractElement( 9, true, IfcObjectPlacement )
     }
 
     return this.SharedPlacement_ as IfcObjectPlacement | null

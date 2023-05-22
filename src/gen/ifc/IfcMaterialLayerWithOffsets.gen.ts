@@ -24,28 +24,7 @@ export  class IfcMaterialLayerWithOffsets extends IfcMaterialLayer {
 
   public get OffsetDirection() : IfcLayerSetDirectionEnum {
     if ( this.OffsetDirection_ === void 0 ) {
-      this.OffsetDirection_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcLayerSetDirectionEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.OffsetDirection_ = this.extractLambda( 7, IfcLayerSetDirectionEnumDeserializeStep, false )
     }
 
     return this.OffsetDirection_ as IfcLayerSetDirectionEnum
@@ -53,38 +32,23 @@ export  class IfcMaterialLayerWithOffsets extends IfcMaterialLayer {
 
   public get OffsetValues() : Array< number > {
     if ( this.OffsetValues_ === void 0 ) {
-      this.OffsetValues_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 8 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 8
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.OffsetValues_ = this.extractLambda( 8, (buffer, cursor, endCursor) => {
 
       let value : Array<number> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
+        value.push( (() => {
+          const cursor = address
+          const value = stepExtractNumber( buffer, cursor, endCursor )
     
-         let value = stepExtractNumber( buffer, cursor, endCursor )
-    
-          if ( value === void 0 )  {
-            throw new Error( 'Value in STEP was incorrectly typed' )
+          if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
           }
     
-          return value
+          return value 
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.OffsetValues_ as Array< number >

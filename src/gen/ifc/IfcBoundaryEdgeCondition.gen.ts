@@ -3,11 +3,6 @@ import { IfcBoundaryCondition } from "./index"
 import { IfcBoolean } from "./index"
 import { IfcModulusOfLinearSubgradeReactionMeasure } from "./index"
 import { IfcModulusOfRotationalSubgradeReactionMeasure } from "./index"
-import {
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -21,227 +16,113 @@ export  class IfcBoundaryEdgeCondition extends IfcBoundaryCondition {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.IFCBOUNDARYEDGECONDITION
   }
-  private TranslationalStiffnessByLengthX_? : IfcBoolean|IfcModulusOfLinearSubgradeReactionMeasure | null
-  private TranslationalStiffnessByLengthY_? : IfcBoolean|IfcModulusOfLinearSubgradeReactionMeasure | null
-  private TranslationalStiffnessByLengthZ_? : IfcBoolean|IfcModulusOfLinearSubgradeReactionMeasure | null
-  private RotationalStiffnessByLengthX_? : IfcBoolean|IfcModulusOfRotationalSubgradeReactionMeasure | null
-  private RotationalStiffnessByLengthY_? : IfcBoolean|IfcModulusOfRotationalSubgradeReactionMeasure | null
-  private RotationalStiffnessByLengthZ_? : IfcBoolean|IfcModulusOfRotationalSubgradeReactionMeasure | null
+  private TranslationalStiffnessByLengthX_? : IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure | null
+  private TranslationalStiffnessByLengthY_? : IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure | null
+  private TranslationalStiffnessByLengthZ_? : IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure | null
+  private RotationalStiffnessByLengthX_? : IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure | null
+  private RotationalStiffnessByLengthY_? : IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure | null
+  private RotationalStiffnessByLengthZ_? : IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure | null
 
-  public get TranslationalStiffnessByLengthX() : IfcBoolean|IfcModulusOfLinearSubgradeReactionMeasure | null {
+  public get TranslationalStiffnessByLengthX() : IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure | null {
     if ( this.TranslationalStiffnessByLengthX_ === void 0 ) {
-      this.TranslationalStiffnessByLengthX_ = (() => { 
-        this.guaranteeVTable()
+      this.TranslationalStiffnessByLengthX_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfLinearSubgradeReactionMeasure ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value as (IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure);
-      } })()
+        return ( void 0 )
+      }
+      return value as (IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure)
+}, true )
     }
 
-    return this.TranslationalStiffnessByLengthX_ as IfcBoolean|IfcModulusOfLinearSubgradeReactionMeasure | null
+    return this.TranslationalStiffnessByLengthX_ as IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure | null
   }
 
-  public get TranslationalStiffnessByLengthY() : IfcBoolean|IfcModulusOfLinearSubgradeReactionMeasure | null {
+  public get TranslationalStiffnessByLengthY() : IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure | null {
     if ( this.TranslationalStiffnessByLengthY_ === void 0 ) {
-      this.TranslationalStiffnessByLengthY_ = (() => { 
-        this.guaranteeVTable()
+      this.TranslationalStiffnessByLengthY_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfLinearSubgradeReactionMeasure ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value as (IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure);
-      } })()
+        return ( void 0 )
+      }
+      return value as (IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure)
+}, true )
     }
 
-    return this.TranslationalStiffnessByLengthY_ as IfcBoolean|IfcModulusOfLinearSubgradeReactionMeasure | null
+    return this.TranslationalStiffnessByLengthY_ as IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure | null
   }
 
-  public get TranslationalStiffnessByLengthZ() : IfcBoolean|IfcModulusOfLinearSubgradeReactionMeasure | null {
+  public get TranslationalStiffnessByLengthZ() : IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure | null {
     if ( this.TranslationalStiffnessByLengthZ_ === void 0 ) {
-      this.TranslationalStiffnessByLengthZ_ = (() => { 
-        this.guaranteeVTable()
+      this.TranslationalStiffnessByLengthZ_ = this.extractLambda( 3, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfLinearSubgradeReactionMeasure ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value as (IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure);
-      } })()
+        return ( void 0 )
+      }
+      return value as (IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure)
+}, true )
     }
 
-    return this.TranslationalStiffnessByLengthZ_ as IfcBoolean|IfcModulusOfLinearSubgradeReactionMeasure | null
+    return this.TranslationalStiffnessByLengthZ_ as IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure | null
   }
 
-  public get RotationalStiffnessByLengthX() : IfcBoolean|IfcModulusOfRotationalSubgradeReactionMeasure | null {
+  public get RotationalStiffnessByLengthX() : IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure | null {
     if ( this.RotationalStiffnessByLengthX_ === void 0 ) {
-      this.RotationalStiffnessByLengthX_ = (() => { 
-        this.guaranteeVTable()
+      this.RotationalStiffnessByLengthX_ = this.extractLambda( 4, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfRotationalSubgradeReactionMeasure ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value as (IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure);
-      } })()
+        return ( void 0 )
+      }
+      return value as (IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure)
+}, true )
     }
 
-    return this.RotationalStiffnessByLengthX_ as IfcBoolean|IfcModulusOfRotationalSubgradeReactionMeasure | null
+    return this.RotationalStiffnessByLengthX_ as IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure | null
   }
 
-  public get RotationalStiffnessByLengthY() : IfcBoolean|IfcModulusOfRotationalSubgradeReactionMeasure | null {
+  public get RotationalStiffnessByLengthY() : IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure | null {
     if ( this.RotationalStiffnessByLengthY_ === void 0 ) {
-      this.RotationalStiffnessByLengthY_ = (() => { 
-        this.guaranteeVTable()
+      this.RotationalStiffnessByLengthY_ = this.extractLambda( 5, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfRotationalSubgradeReactionMeasure ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value as (IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure);
-      } })()
+        return ( void 0 )
+      }
+      return value as (IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure)
+}, true )
     }
 
-    return this.RotationalStiffnessByLengthY_ as IfcBoolean|IfcModulusOfRotationalSubgradeReactionMeasure | null
+    return this.RotationalStiffnessByLengthY_ as IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure | null
   }
 
-  public get RotationalStiffnessByLengthZ() : IfcBoolean|IfcModulusOfRotationalSubgradeReactionMeasure | null {
+  public get RotationalStiffnessByLengthZ() : IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure | null {
     if ( this.RotationalStiffnessByLengthZ_ === void 0 ) {
-      this.RotationalStiffnessByLengthZ_ = (() => { 
-        this.guaranteeVTable()
+      this.RotationalStiffnessByLengthZ_ = this.extractLambda( 6, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfRotationalSubgradeReactionMeasure ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value as (IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure);
-      } })()
+        return ( void 0 )
+      }
+      return value as (IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure)
+}, true )
     }
 
-    return this.RotationalStiffnessByLengthZ_ as IfcBoolean|IfcModulusOfRotationalSubgradeReactionMeasure | null
+    return this.RotationalStiffnessByLengthZ_ as IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure | null
   }
   constructor(
     localID: number,

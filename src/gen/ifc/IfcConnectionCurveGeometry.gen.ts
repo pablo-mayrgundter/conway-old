@@ -2,11 +2,6 @@
 import { IfcConnectionGeometry } from "./index"
 import { IfcBoundedCurve } from "./index"
 import { IfcEdgeCurve } from "./index"
-import {
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -20,75 +15,41 @@ export  class IfcConnectionCurveGeometry extends IfcConnectionGeometry {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.IFCCONNECTIONCURVEGEOMETRY
   }
-  private CurveOnRelatingElement_? : IfcBoundedCurve|IfcEdgeCurve
-  private CurveOnRelatedElement_? : IfcBoundedCurve|IfcEdgeCurve | null
+  private CurveOnRelatingElement_? : IfcBoundedCurve | IfcEdgeCurve
+  private CurveOnRelatedElement_? : IfcBoundedCurve | IfcEdgeCurve | null
 
-  public get CurveOnRelatingElement() : IfcBoundedCurve|IfcEdgeCurve {
+  public get CurveOnRelatingElement() : IfcBoundedCurve | IfcEdgeCurve {
     if ( this.CurveOnRelatingElement_ === void 0 ) {
-      this.CurveOnRelatingElement_ = (() => { 
-        this.guaranteeVTable()
+      this.CurveOnRelatingElement_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcBoundedCurve ) && !( value instanceof IfcEdgeCurve ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      return value as (IfcBoundedCurve | IfcEdgeCurve) })()
+      return value as (IfcBoundedCurve | IfcEdgeCurve)
+}, false )
     }
 
-    return this.CurveOnRelatingElement_ as IfcBoundedCurve|IfcEdgeCurve
+    return this.CurveOnRelatingElement_ as IfcBoundedCurve | IfcEdgeCurve
   }
 
-  public get CurveOnRelatedElement() : IfcBoundedCurve|IfcEdgeCurve | null {
+  public get CurveOnRelatedElement() : IfcBoundedCurve | IfcEdgeCurve | null {
     if ( this.CurveOnRelatedElement_ === void 0 ) {
-      this.CurveOnRelatedElement_ = (() => { 
-        this.guaranteeVTable()
+      this.CurveOnRelatedElement_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcBoundedCurve ) && !( value instanceof IfcEdgeCurve ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value as (IfcBoundedCurve | IfcEdgeCurve);
-      } })()
+        return ( void 0 )
+      }
+      return value as (IfcBoundedCurve | IfcEdgeCurve)
+}, true )
     }
 
-    return this.CurveOnRelatedElement_ as IfcBoundedCurve|IfcEdgeCurve | null
+    return this.CurveOnRelatedElement_ as IfcBoundedCurve | IfcEdgeCurve | null
   }
   constructor(
     localID: number,

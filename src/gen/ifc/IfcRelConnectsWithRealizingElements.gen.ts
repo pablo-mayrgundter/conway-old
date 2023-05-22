@@ -3,10 +3,6 @@ import { IfcRelConnectsElements } from "./index"
 import { IfcElement } from "./index"
 import { IfcLabel } from "./index"
 import {
-  stepExtractString,
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -27,31 +23,14 @@ export  class IfcRelConnectsWithRealizingElements extends IfcRelConnectsElements
 
   public get RealizingElements() : Array<IfcElement> {
     if ( this.RealizingElements_ === void 0 ) {
-      this.RealizingElements_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.RealizingElements_ = this.extractLambda( 7, (buffer, cursor, endCursor) => {
 
       let value : Array<IfcElement> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcElement ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -60,8 +39,7 @@ export  class IfcRelConnectsWithRealizingElements extends IfcRelConnectsElements
           return value
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.RealizingElements_ as Array<IfcElement>
@@ -69,32 +47,7 @@ return value })()
 
   public get ConnectionType() : string | null {
     if ( this.ConnectionType_ === void 0 ) {
-      this.ConnectionType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 8 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 8
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.ConnectionType_ = this.extractString( 8, true )
     }
 
     return this.ConnectionType_ as string | null

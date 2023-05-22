@@ -23,20 +23,7 @@ export  class IfcIndexedTriangleTextureMap extends IfcIndexedTextureMap {
 
   public get TexCoordIndex() : Array< Array< number > > | null {
     if ( this.TexCoordIndex_ === void 0 ) {
-      this.TexCoordIndex_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.TexCoordIndex_ = this.extractLambda( 3, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
@@ -45,30 +32,30 @@ export  class IfcIndexedTriangleTextureMap extends IfcIndexedTextureMap {
       let value : Array<Array<number>> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
+        value.push( (() => {
+          const cursor = address
           let value : Array<number> = [];
     
           for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-            value.push( (() => { 
-              let cursor = address
+            value.push( (() => {
+                  const cursor = address
+                  const value = stepExtractNumber( buffer, cursor, endCursor )
             
-                 let value = stepExtractNumber( buffer, cursor, endCursor )
-            
-                  if ( value === void 0 )  {
-                    throw new Error( 'Value in STEP was incorrectly typed' )
+                  if ( value === void 0 ) {
+                    throw new Error( 'Value needs to be defined in encapsulating context' )
                   }
             
-                  return value
-            })() )
+                  return value 
+                })() )
+          }
+                if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
           }
     
-    return value
+          return value 
         })() )
       }
-
-return value })()
+      return value }, true )
     }
 
     return this.TexCoordIndex_ as Array< Array< number > > | null

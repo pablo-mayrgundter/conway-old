@@ -3,10 +3,6 @@ import { IfcRelConnects } from "./index"
 import { IfcElement } from "./index"
 import { IfcStructuralItem } from "./index"
 import { IfcStructuralActivity } from "./index"
-import {
-  stepExtractReference,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -20,68 +16,29 @@ export  class IfcRelConnectsStructuralActivity extends IfcRelConnects {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.IFCRELCONNECTSSTRUCTURALACTIVITY
   }
-  private RelatingElement_? : IfcElement|IfcStructuralItem
+  private RelatingElement_? : IfcElement | IfcStructuralItem
   private RelatedStructuralActivity_? : IfcStructuralActivity
 
-  public get RelatingElement() : IfcElement|IfcStructuralItem {
+  public get RelatingElement() : IfcElement | IfcStructuralItem {
     if ( this.RelatingElement_ === void 0 ) {
-      this.RelatingElement_ = (() => { 
-        this.guaranteeVTable()
+      this.RelatingElement_ = this.extractLambda( 4, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcElement ) && !( value instanceof IfcStructuralItem ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      return value as (IfcElement | IfcStructuralItem) })()
+      return value as (IfcElement | IfcStructuralItem)
+}, false )
     }
 
-    return this.RelatingElement_ as IfcElement|IfcStructuralItem
+    return this.RelatingElement_ as IfcElement | IfcStructuralItem
   }
 
   public get RelatedStructuralActivity() : IfcStructuralActivity {
     if ( this.RelatedStructuralActivity_ === void 0 ) {
-      this.RelatedStructuralActivity_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-      if ( !( value instanceof IfcStructuralActivity ) )  {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      return value })()
+      this.RelatedStructuralActivity_ = this.extractElement( 5, false, IfcStructuralActivity )
     }
 
     return this.RelatedStructuralActivity_ as IfcStructuralActivity

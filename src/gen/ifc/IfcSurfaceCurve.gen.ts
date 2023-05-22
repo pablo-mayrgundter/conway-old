@@ -4,8 +4,6 @@ import { IfcPcurve } from "./index"
 import { IfcPreferredSurfaceCurveRepresentation, IfcPreferredSurfaceCurveRepresentationDeserializeStep } from "./index"
 import { IfcSurface } from "./index"
 import {
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 import {
@@ -30,31 +28,7 @@ export  class IfcSurfaceCurve extends IfcCurve {
 
   public get Curve3D() : IfcCurve {
     if ( this.Curve3D_ === void 0 ) {
-      this.Curve3D_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-      if ( !( value instanceof IfcCurve ) )  {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      return value })()
+      this.Curve3D_ = this.extractElement( 0, false, IfcCurve )
     }
 
     return this.Curve3D_ as IfcCurve
@@ -62,31 +36,14 @@ export  class IfcSurfaceCurve extends IfcCurve {
 
   public get AssociatedGeometry() : Array<IfcPcurve> {
     if ( this.AssociatedGeometry_ === void 0 ) {
-      this.AssociatedGeometry_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.AssociatedGeometry_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
       let value : Array<IfcPcurve> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcPcurve ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -95,8 +52,7 @@ export  class IfcSurfaceCurve extends IfcCurve {
           return value
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.AssociatedGeometry_ as Array<IfcPcurve>
@@ -104,28 +60,7 @@ return value })()
 
   public get MasterRepresentation() : IfcPreferredSurfaceCurveRepresentation {
     if ( this.MasterRepresentation_ === void 0 ) {
-      this.MasterRepresentation_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcPreferredSurfaceCurveRepresentationDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.MasterRepresentation_ = this.extractLambda( 2, IfcPreferredSurfaceCurveRepresentationDeserializeStep, false )
     }
 
     return this.MasterRepresentation_ as IfcPreferredSurfaceCurveRepresentation

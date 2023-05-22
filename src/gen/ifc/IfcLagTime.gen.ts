@@ -3,10 +3,6 @@ import { IfcSchedulingTime } from "./index"
 import { IfcDuration } from "./index"
 import { IfcRatioMeasure } from "./index"
 import { IfcTaskDurationEnum, IfcTaskDurationEnumDeserializeStep } from "./index"
-import {
-  stepExtractReference,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -20,65 +16,29 @@ export  class IfcLagTime extends IfcSchedulingTime {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.IFCLAGTIME
   }
-  private LagValue_? : IfcDuration|IfcRatioMeasure
+  private LagValue_? : IfcDuration | IfcRatioMeasure
   private DurationType_? : IfcTaskDurationEnum
 
-  public get LagValue() : IfcDuration|IfcRatioMeasure {
+  public get LagValue() : IfcDuration | IfcRatioMeasure {
     if ( this.LagValue_ === void 0 ) {
-      this.LagValue_ = (() => { 
-        this.guaranteeVTable()
+      this.LagValue_ = this.extractLambda( 3, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcDuration ) && !( value instanceof IfcRatioMeasure ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      return value as (IfcDuration | IfcRatioMeasure) })()
+      return value as (IfcDuration | IfcRatioMeasure)
+}, false )
     }
 
-    return this.LagValue_ as IfcDuration|IfcRatioMeasure
+    return this.LagValue_ as IfcDuration | IfcRatioMeasure
   }
 
   public get DurationType() : IfcTaskDurationEnum {
     if ( this.DurationType_ === void 0 ) {
-      this.DurationType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcTaskDurationEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.DurationType_ = this.extractLambda( 4, IfcTaskDurationEnumDeserializeStep, false )
     }
 
     return this.DurationType_ as IfcTaskDurationEnum

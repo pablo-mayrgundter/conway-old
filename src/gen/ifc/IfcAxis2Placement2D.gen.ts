@@ -2,11 +2,6 @@
 import { IfcPlacement } from "./index"
 import { IfcDirection } from "./index"
 import {
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
-import {
   IfcBuild2Axes,
 } from '../../core/ifc/ifc_functions'
 
@@ -26,35 +21,7 @@ export  class IfcAxis2Placement2D extends IfcPlacement {
 
   public get RefDirection() : IfcDirection | null {
     if ( this.RefDirection_ === void 0 ) {
-      this.RefDirection_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-     if ( !( value instanceof IfcDirection ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.RefDirection_ = this.extractElement( 1, true, IfcDirection )
     }
 
     return this.RefDirection_ as IfcDirection | null

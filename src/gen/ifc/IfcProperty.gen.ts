@@ -2,10 +2,6 @@
 import { IfcPropertyAbstraction } from "./index"
 import { IfcIdentifier } from "./index"
 import { IfcText } from "./index"
-import {
-  stepExtractString,
-  stepExtractOptional,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -24,28 +20,7 @@ export abstract class IfcProperty extends IfcPropertyAbstraction {
 
   public get Name() : string {
     if ( this.Name_ === void 0 ) {
-      this.Name_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.Name_ = this.extractString( 0, false )
     }
 
     return this.Name_ as string
@@ -53,32 +28,7 @@ export abstract class IfcProperty extends IfcPropertyAbstraction {
 
   public get Description() : string | null {
     if ( this.Description_ === void 0 ) {
-      this.Description_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.Description_ = this.extractString( 1, true )
     }
 
     return this.Description_ as string | null

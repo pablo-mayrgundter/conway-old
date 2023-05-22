@@ -3,10 +3,6 @@ import { IfcObject } from "./index"
 import { IfcOrganization } from "./index"
 import { IfcPerson } from "./index"
 import { IfcPersonAndOrganization } from "./index"
-import {
-  stepExtractReference,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -20,38 +16,23 @@ export  class IfcActor extends IfcObject {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.IFCACTOR
   }
-  private TheActor_? : IfcOrganization|IfcPerson|IfcPersonAndOrganization
+  private TheActor_? : IfcOrganization | IfcPerson | IfcPersonAndOrganization
 
-  public get TheActor() : IfcOrganization|IfcPerson|IfcPersonAndOrganization {
+  public get TheActor() : IfcOrganization | IfcPerson | IfcPersonAndOrganization {
     if ( this.TheActor_ === void 0 ) {
-      this.TheActor_ = (() => { 
-        this.guaranteeVTable()
+      this.TheActor_ = this.extractLambda( 5, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      return value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization) })()
+      return value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization)
+}, false )
     }
 
-    return this.TheActor_ as IfcOrganization|IfcPerson|IfcPersonAndOrganization
+    return this.TheActor_ as IfcOrganization | IfcPerson | IfcPersonAndOrganization
   }
 
   constructor(

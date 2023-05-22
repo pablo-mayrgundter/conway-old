@@ -3,10 +3,6 @@ import { IfcPresentationItem } from "./index"
 import { IfcLabel } from "./index"
 import { IfcCurveStyleFontPattern } from "./index"
 import {
-  stepExtractString,
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -27,32 +23,7 @@ export  class IfcCurveStyleFont extends IfcPresentationItem {
 
   public get Name() : string | null {
     if ( this.Name_ === void 0 ) {
-      this.Name_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.Name_ = this.extractString( 0, true )
     }
 
     return this.Name_ as string | null
@@ -60,31 +31,14 @@ export  class IfcCurveStyleFont extends IfcPresentationItem {
 
   public get PatternList() : Array<IfcCurveStyleFontPattern> {
     if ( this.PatternList_ === void 0 ) {
-      this.PatternList_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.PatternList_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
       let value : Array<IfcCurveStyleFontPattern> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcCurveStyleFontPattern ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -93,8 +47,7 @@ export  class IfcCurveStyleFont extends IfcPresentationItem {
           return value
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.PatternList_ as Array<IfcCurveStyleFontPattern>

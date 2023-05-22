@@ -4,13 +4,6 @@ import { IfcLabel } from "./index"
 import { IfcCurveStyleFont } from "./index"
 import { IfcPreDefinedCurveFont } from "./index"
 import { IfcPositiveRatioMeasure } from "./index"
-import {
-  stepExtractString,
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractNumber,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -25,98 +18,37 @@ export  class IfcCurveStyleFontAndScaling extends IfcPresentationItem {
     return EntityTypesIfc.IFCCURVESTYLEFONTANDSCALING
   }
   private Name_? : string | null
-  private CurveFont_? : IfcCurveStyleFont|IfcPreDefinedCurveFont
+  private CurveFont_? : IfcCurveStyleFont | IfcPreDefinedCurveFont
   private CurveFontScaling_? : number
 
   public get Name() : string | null {
     if ( this.Name_ === void 0 ) {
-      this.Name_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.Name_ = this.extractString( 0, true )
     }
 
     return this.Name_ as string | null
   }
 
-  public get CurveFont() : IfcCurveStyleFont|IfcPreDefinedCurveFont {
+  public get CurveFont() : IfcCurveStyleFont | IfcPreDefinedCurveFont {
     if ( this.CurveFont_ === void 0 ) {
-      this.CurveFont_ = (() => { 
-        this.guaranteeVTable()
+      this.CurveFont_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcCurveStyleFont ) && !( value instanceof IfcPreDefinedCurveFont ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      return value as (IfcCurveStyleFont | IfcPreDefinedCurveFont) })()
+      return value as (IfcCurveStyleFont | IfcPreDefinedCurveFont)
+}, false )
     }
 
-    return this.CurveFont_ as IfcCurveStyleFont|IfcPreDefinedCurveFont
+    return this.CurveFont_ as IfcCurveStyleFont | IfcPreDefinedCurveFont
   }
 
   public get CurveFontScaling() : number {
     if ( this.CurveFontScaling_ === void 0 ) {
-      this.CurveFontScaling_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.CurveFontScaling_ = this.extractNumber( 2, false )
     }
 
     return this.CurveFontScaling_ as number

@@ -4,9 +4,6 @@ import { IfcSurface } from "./index"
 import { IfcBoundaryCurve } from "./index"
 import { IfcBoolean } from "./index"
 import {
-  stepExtractBoolean,
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -28,31 +25,7 @@ export  class IfcCurveBoundedSurface extends IfcBoundedSurface {
 
   public get BasisSurface() : IfcSurface {
     if ( this.BasisSurface_ === void 0 ) {
-      this.BasisSurface_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-      if ( !( value instanceof IfcSurface ) )  {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      return value })()
+      this.BasisSurface_ = this.extractElement( 0, false, IfcSurface )
     }
 
     return this.BasisSurface_ as IfcSurface
@@ -60,31 +33,14 @@ export  class IfcCurveBoundedSurface extends IfcBoundedSurface {
 
   public get Boundaries() : Array<IfcBoundaryCurve> {
     if ( this.Boundaries_ === void 0 ) {
-      this.Boundaries_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.Boundaries_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
       let value : Array<IfcBoundaryCurve> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcBoundaryCurve ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -93,8 +49,7 @@ export  class IfcCurveBoundedSurface extends IfcBoundedSurface {
           return value
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.Boundaries_ as Array<IfcBoundaryCurve>
@@ -102,28 +57,7 @@ return value })()
 
   public get ImplicitOuter() : boolean {
     if ( this.ImplicitOuter_ === void 0 ) {
-      this.ImplicitOuter_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractBoolean( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.ImplicitOuter_ = this.extractBoolean( 2, false )
     }
 
     return this.ImplicitOuter_ as boolean

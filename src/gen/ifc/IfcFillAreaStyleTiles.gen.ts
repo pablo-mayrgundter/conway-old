@@ -4,9 +4,6 @@ import { IfcVector } from "./index"
 import { IfcStyledItem } from "./index"
 import { IfcPositiveRatioMeasure } from "./index"
 import {
-  stepExtractReference,
-  stepExtractNumber,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -28,31 +25,14 @@ export  class IfcFillAreaStyleTiles extends IfcGeometricRepresentationItem {
 
   public get TilingPattern() : Array<IfcVector> {
     if ( this.TilingPattern_ === void 0 ) {
-      this.TilingPattern_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.TilingPattern_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
 
       let value : Array<IfcVector> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcVector ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -61,8 +41,7 @@ export  class IfcFillAreaStyleTiles extends IfcGeometricRepresentationItem {
           return value
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.TilingPattern_ as Array<IfcVector>
@@ -70,31 +49,14 @@ return value })()
 
   public get Tiles() : Array<IfcStyledItem> {
     if ( this.Tiles_ === void 0 ) {
-      this.Tiles_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.Tiles_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
       let value : Array<IfcStyledItem> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcStyledItem ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -103,8 +65,7 @@ return value })()
           return value
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.Tiles_ as Array<IfcStyledItem>
@@ -112,28 +73,7 @@ return value })()
 
   public get TilingScale() : number {
     if ( this.TilingScale_ === void 0 ) {
-      this.TilingScale_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.TilingScale_ = this.extractNumber( 2, false )
     }
 
     return this.TilingScale_ as number

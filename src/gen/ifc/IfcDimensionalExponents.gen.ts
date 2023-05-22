@@ -1,7 +1,4 @@
 
-import {
-  stepExtractNumber,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -25,28 +22,7 @@ export  class IfcDimensionalExponents extends StepEntityBase< EntityTypesIfc > {
 
   public get LengthExponent() : number {
     if ( this.LengthExponent_ === void 0 ) {
-      this.LengthExponent_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.LengthExponent_ = this.extractNumber( 0, false )
     }
 
     return this.LengthExponent_ as number
@@ -54,28 +30,7 @@ export  class IfcDimensionalExponents extends StepEntityBase< EntityTypesIfc > {
 
   public get MassExponent() : number {
     if ( this.MassExponent_ === void 0 ) {
-      this.MassExponent_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.MassExponent_ = this.extractNumber( 1, false )
     }
 
     return this.MassExponent_ as number
@@ -83,28 +38,7 @@ export  class IfcDimensionalExponents extends StepEntityBase< EntityTypesIfc > {
 
   public get TimeExponent() : number {
     if ( this.TimeExponent_ === void 0 ) {
-      this.TimeExponent_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.TimeExponent_ = this.extractNumber( 2, false )
     }
 
     return this.TimeExponent_ as number
@@ -112,28 +46,7 @@ export  class IfcDimensionalExponents extends StepEntityBase< EntityTypesIfc > {
 
   public get ElectricCurrentExponent() : number {
     if ( this.ElectricCurrentExponent_ === void 0 ) {
-      this.ElectricCurrentExponent_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.ElectricCurrentExponent_ = this.extractNumber( 3, false )
     }
 
     return this.ElectricCurrentExponent_ as number
@@ -141,28 +54,7 @@ export  class IfcDimensionalExponents extends StepEntityBase< EntityTypesIfc > {
 
   public get ThermodynamicTemperatureExponent() : number {
     if ( this.ThermodynamicTemperatureExponent_ === void 0 ) {
-      this.ThermodynamicTemperatureExponent_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.ThermodynamicTemperatureExponent_ = this.extractNumber( 4, false )
     }
 
     return this.ThermodynamicTemperatureExponent_ as number
@@ -170,28 +62,7 @@ export  class IfcDimensionalExponents extends StepEntityBase< EntityTypesIfc > {
 
   public get AmountOfSubstanceExponent() : number {
     if ( this.AmountOfSubstanceExponent_ === void 0 ) {
-      this.AmountOfSubstanceExponent_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.AmountOfSubstanceExponent_ = this.extractNumber( 5, false )
     }
 
     return this.AmountOfSubstanceExponent_ as number
@@ -199,28 +70,7 @@ export  class IfcDimensionalExponents extends StepEntityBase< EntityTypesIfc > {
 
   public get LuminousIntensityExponent() : number {
     if ( this.LuminousIntensityExponent_ === void 0 ) {
-      this.LuminousIntensityExponent_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.LuminousIntensityExponent_ = this.extractNumber( 6, false )
     }
 
     return this.LuminousIntensityExponent_ as number

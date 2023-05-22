@@ -4,12 +4,6 @@ import { IfcProcess } from "./index"
 import { IfcLagTime } from "./index"
 import { IfcSequenceEnum, IfcSequenceEnumDeserializeStep } from "./index"
 import { IfcLabel } from "./index"
-import {
-  stepExtractString,
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -31,31 +25,7 @@ export  class IfcRelSequence extends IfcRelConnects {
 
   public get RelatingProcess() : IfcProcess {
     if ( this.RelatingProcess_ === void 0 ) {
-      this.RelatingProcess_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-      if ( !( value instanceof IfcProcess ) )  {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      return value })()
+      this.RelatingProcess_ = this.extractElement( 4, false, IfcProcess )
     }
 
     return this.RelatingProcess_ as IfcProcess
@@ -63,31 +33,7 @@ export  class IfcRelSequence extends IfcRelConnects {
 
   public get RelatedProcess() : IfcProcess {
     if ( this.RelatedProcess_ === void 0 ) {
-      this.RelatedProcess_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-      if ( !( value instanceof IfcProcess ) )  {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      return value })()
+      this.RelatedProcess_ = this.extractElement( 5, false, IfcProcess )
     }
 
     return this.RelatedProcess_ as IfcProcess
@@ -95,35 +41,7 @@ export  class IfcRelSequence extends IfcRelConnects {
 
   public get TimeLag() : IfcLagTime | null {
     if ( this.TimeLag_ === void 0 ) {
-      this.TimeLag_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-     if ( !( value instanceof IfcLagTime ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.TimeLag_ = this.extractElement( 6, true, IfcLagTime )
     }
 
     return this.TimeLag_ as IfcLagTime | null
@@ -131,32 +49,7 @@ export  class IfcRelSequence extends IfcRelConnects {
 
   public get SequenceType() : IfcSequenceEnum | null {
     if ( this.SequenceType_ === void 0 ) {
-      this.SequenceType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcSequenceEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.SequenceType_ = this.extractLambda( 7, IfcSequenceEnumDeserializeStep, true )
     }
 
     return this.SequenceType_ as IfcSequenceEnum | null
@@ -164,32 +57,7 @@ export  class IfcRelSequence extends IfcRelConnects {
 
   public get UserDefinedSequenceType() : string | null {
     if ( this.UserDefinedSequenceType_ === void 0 ) {
-      this.UserDefinedSequenceType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 8 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 8
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.UserDefinedSequenceType_ = this.extractString( 8, true )
     }
 
     return this.UserDefinedSequenceType_ as string | null

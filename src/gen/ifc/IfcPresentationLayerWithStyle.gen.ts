@@ -3,10 +3,7 @@ import { IfcPresentationLayerAssignment } from "./index"
 import { IfcLogical } from "./index"
 import { IfcPresentationStyle } from "./index"
 import {
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
-  stepExtractLogical,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -28,28 +25,7 @@ export  class IfcPresentationLayerWithStyle extends IfcPresentationLayerAssignme
 
   public get LayerOn() : boolean | null {
     if ( this.LayerOn_ === void 0 ) {
-      this.LayerOn_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractLogical( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.LayerOn_ = this.extractLogical( 4, false )
     }
 
     return this.LayerOn_ as boolean | null
@@ -57,28 +33,7 @@ export  class IfcPresentationLayerWithStyle extends IfcPresentationLayerAssignme
 
   public get LayerFrozen() : boolean | null {
     if ( this.LayerFrozen_ === void 0 ) {
-      this.LayerFrozen_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractLogical( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.LayerFrozen_ = this.extractLogical( 5, false )
     }
 
     return this.LayerFrozen_ as boolean | null
@@ -86,28 +41,7 @@ export  class IfcPresentationLayerWithStyle extends IfcPresentationLayerAssignme
 
   public get LayerBlocked() : boolean | null {
     if ( this.LayerBlocked_ === void 0 ) {
-      this.LayerBlocked_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractLogical( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.LayerBlocked_ = this.extractLogical( 6, false )
     }
 
     return this.LayerBlocked_ as boolean | null
@@ -115,31 +49,14 @@ export  class IfcPresentationLayerWithStyle extends IfcPresentationLayerAssignme
 
   public get LayerStyles() : Array<IfcPresentationStyle> {
     if ( this.LayerStyles_ === void 0 ) {
-      this.LayerStyles_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.LayerStyles_ = this.extractLambda( 7, (buffer, cursor, endCursor) => {
 
       let value : Array<IfcPresentationStyle> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcPresentationStyle ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -148,8 +65,7 @@ export  class IfcPresentationLayerWithStyle extends IfcPresentationLayerAssignme
           return value
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.LayerStyles_ as Array<IfcPresentationStyle>

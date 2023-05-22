@@ -2,10 +2,6 @@
 import { IfcRelAssigns } from "./index"
 import { IfcResource } from "./index"
 import { IfcTypeResource } from "./index"
-import {
-  stepExtractReference,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -19,38 +15,23 @@ export  class IfcRelAssignsToResource extends IfcRelAssigns {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.IFCRELASSIGNSTORESOURCE
   }
-  private RelatingResource_? : IfcResource|IfcTypeResource
+  private RelatingResource_? : IfcResource | IfcTypeResource
 
-  public get RelatingResource() : IfcResource|IfcTypeResource {
+  public get RelatingResource() : IfcResource | IfcTypeResource {
     if ( this.RelatingResource_ === void 0 ) {
-      this.RelatingResource_ = (() => { 
-        this.guaranteeVTable()
+      this.RelatingResource_ = this.extractLambda( 6, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcResource ) && !( value instanceof IfcTypeResource ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      return value as (IfcResource | IfcTypeResource) })()
+      return value as (IfcResource | IfcTypeResource)
+}, false )
     }
 
-    return this.RelatingResource_ as IfcResource|IfcTypeResource
+    return this.RelatingResource_ as IfcResource | IfcTypeResource
   }
   constructor(
     localID: number,

@@ -1,10 +1,6 @@
 
 import { IfcStructuralLoadStatic } from "./index"
 import { IfcThermodynamicTemperatureMeasure } from "./index"
-import {
-  stepExtractOptional,
-  stepExtractNumber,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -24,32 +20,7 @@ export  class IfcStructuralLoadTemperature extends IfcStructuralLoadStatic {
 
   public get DeltaTConstant() : number | null {
     if ( this.DeltaTConstant_ === void 0 ) {
-      this.DeltaTConstant_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.DeltaTConstant_ = this.extractNumber( 1, true )
     }
 
     return this.DeltaTConstant_ as number | null
@@ -57,32 +28,7 @@ export  class IfcStructuralLoadTemperature extends IfcStructuralLoadStatic {
 
   public get DeltaTY() : number | null {
     if ( this.DeltaTY_ === void 0 ) {
-      this.DeltaTY_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.DeltaTY_ = this.extractNumber( 2, true )
     }
 
     return this.DeltaTY_ as number | null
@@ -90,32 +36,7 @@ export  class IfcStructuralLoadTemperature extends IfcStructuralLoadStatic {
 
   public get DeltaTZ() : number | null {
     if ( this.DeltaTZ_ === void 0 ) {
-      this.DeltaTZ_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.DeltaTZ_ = this.extractNumber( 3, true )
     }
 
     return this.DeltaTZ_ as number | null

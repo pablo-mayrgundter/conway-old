@@ -3,9 +3,6 @@ import { IfcPort } from "./index"
 import { IfcFlowDirectionEnum, IfcFlowDirectionEnumDeserializeStep } from "./index"
 import { IfcDistributionPortTypeEnum, IfcDistributionPortTypeEnumDeserializeStep } from "./index"
 import { IfcDistributionSystemEnum, IfcDistributionSystemEnumDeserializeStep } from "./index"
-import {
-  stepExtractOptional,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -25,32 +22,7 @@ export  class IfcDistributionPort extends IfcPort {
 
   public get FlowDirection() : IfcFlowDirectionEnum | null {
     if ( this.FlowDirection_ === void 0 ) {
-      this.FlowDirection_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcFlowDirectionEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.FlowDirection_ = this.extractLambda( 7, IfcFlowDirectionEnumDeserializeStep, true )
     }
 
     return this.FlowDirection_ as IfcFlowDirectionEnum | null
@@ -58,32 +30,7 @@ export  class IfcDistributionPort extends IfcPort {
 
   public get PredefinedType() : IfcDistributionPortTypeEnum | null {
     if ( this.PredefinedType_ === void 0 ) {
-      this.PredefinedType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 8 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 8
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcDistributionPortTypeEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.PredefinedType_ = this.extractLambda( 8, IfcDistributionPortTypeEnumDeserializeStep, true )
     }
 
     return this.PredefinedType_ as IfcDistributionPortTypeEnum | null
@@ -91,32 +38,7 @@ export  class IfcDistributionPort extends IfcPort {
 
   public get SystemType() : IfcDistributionSystemEnum | null {
     if ( this.SystemType_ === void 0 ) {
-      this.SystemType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 9 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 9
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcDistributionSystemEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.SystemType_ = this.extractLambda( 9, IfcDistributionSystemEnumDeserializeStep, true )
     }
 
     return this.SystemType_ as IfcDistributionSystemEnum | null

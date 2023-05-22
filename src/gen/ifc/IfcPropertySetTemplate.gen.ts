@@ -4,10 +4,6 @@ import { IfcPropertySetTemplateTypeEnum, IfcPropertySetTemplateTypeEnumDeseriali
 import { IfcIdentifier } from "./index"
 import { IfcPropertyTemplate } from "./index"
 import {
-  stepExtractString,
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -29,32 +25,7 @@ export  class IfcPropertySetTemplate extends IfcPropertyTemplateDefinition {
 
   public get TemplateType() : IfcPropertySetTemplateTypeEnum | null {
     if ( this.TemplateType_ === void 0 ) {
-      this.TemplateType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcPropertySetTemplateTypeEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.TemplateType_ = this.extractLambda( 4, IfcPropertySetTemplateTypeEnumDeserializeStep, true )
     }
 
     return this.TemplateType_ as IfcPropertySetTemplateTypeEnum | null
@@ -62,32 +33,7 @@ export  class IfcPropertySetTemplate extends IfcPropertyTemplateDefinition {
 
   public get ApplicableEntity() : string | null {
     if ( this.ApplicableEntity_ === void 0 ) {
-      this.ApplicableEntity_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.ApplicableEntity_ = this.extractString( 5, true )
     }
 
     return this.ApplicableEntity_ as string | null
@@ -95,31 +41,14 @@ export  class IfcPropertySetTemplate extends IfcPropertyTemplateDefinition {
 
   public get HasPropertyTemplates() : Array<IfcPropertyTemplate> {
     if ( this.HasPropertyTemplates_ === void 0 ) {
-      this.HasPropertyTemplates_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.HasPropertyTemplates_ = this.extractLambda( 6, (buffer, cursor, endCursor) => {
 
       let value : Array<IfcPropertyTemplate> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcPropertyTemplate ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -128,8 +57,7 @@ export  class IfcPropertySetTemplate extends IfcPropertyTemplateDefinition {
           return value
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.HasPropertyTemplates_ as Array<IfcPropertyTemplate>

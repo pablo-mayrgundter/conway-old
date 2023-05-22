@@ -4,11 +4,8 @@ import { IfcBoolean } from "./index"
 import { IfcIdentifier } from "./index"
 import { IfcCartesianTransformationOperator2D } from "./index"
 import {
-  stepExtractBoolean,
   stepExtractString,
   stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -32,28 +29,7 @@ export abstract class IfcSurfaceTexture extends IfcPresentationItem {
 
   public get RepeatS() : boolean {
     if ( this.RepeatS_ === void 0 ) {
-      this.RepeatS_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractBoolean( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.RepeatS_ = this.extractBoolean( 0, false )
     }
 
     return this.RepeatS_ as boolean
@@ -61,28 +37,7 @@ export abstract class IfcSurfaceTexture extends IfcPresentationItem {
 
   public get RepeatT() : boolean {
     if ( this.RepeatT_ === void 0 ) {
-      this.RepeatT_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractBoolean( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.RepeatT_ = this.extractBoolean( 1, false )
     }
 
     return this.RepeatT_ as boolean
@@ -90,32 +45,7 @@ export abstract class IfcSurfaceTexture extends IfcPresentationItem {
 
   public get Mode() : string | null {
     if ( this.Mode_ === void 0 ) {
-      this.Mode_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.Mode_ = this.extractString( 2, true )
     }
 
     return this.Mode_ as string | null
@@ -123,35 +53,7 @@ export abstract class IfcSurfaceTexture extends IfcPresentationItem {
 
   public get TextureTransform() : IfcCartesianTransformationOperator2D | null {
     if ( this.TextureTransform_ === void 0 ) {
-      this.TextureTransform_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-     if ( !( value instanceof IfcCartesianTransformationOperator2D ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.TextureTransform_ = this.extractElement( 3, true, IfcCartesianTransformationOperator2D )
     }
 
     return this.TextureTransform_ as IfcCartesianTransformationOperator2D | null
@@ -159,20 +61,7 @@ export abstract class IfcSurfaceTexture extends IfcPresentationItem {
 
   public get Parameter() : Array< string > | null {
     if ( this.Parameter_ === void 0 ) {
-      this.Parameter_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.Parameter_ = this.extractLambda( 4, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
@@ -181,20 +70,18 @@ export abstract class IfcSurfaceTexture extends IfcPresentationItem {
       let value : Array<string> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
+        value.push( (() => {
+          const cursor = address
+          const value = stepExtractString( buffer, cursor, endCursor )
     
-         let value = stepExtractString( buffer, cursor, endCursor )
-    
-          if ( value === void 0 )  {
-            throw new Error( 'Value in STEP was incorrectly typed' )
+          if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
           }
     
-          return value
+          return value 
         })() )
       }
-
-return value })()
+      return value }, true )
     }
 
     return this.Parameter_ as Array< string > | null

@@ -2,10 +2,6 @@
 import { IfcTypeProcess } from "./index"
 import { IfcTaskTypeEnum, IfcTaskTypeEnumDeserializeStep } from "./index"
 import { IfcLabel } from "./index"
-import {
-  stepExtractString,
-  stepExtractOptional,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -24,28 +20,7 @@ export  class IfcTaskType extends IfcTypeProcess {
 
   public get PredefinedType() : IfcTaskTypeEnum {
     if ( this.PredefinedType_ === void 0 ) {
-      this.PredefinedType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 9 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 9
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcTaskTypeEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.PredefinedType_ = this.extractLambda( 9, IfcTaskTypeEnumDeserializeStep, false )
     }
 
     return this.PredefinedType_ as IfcTaskTypeEnum
@@ -53,32 +28,7 @@ export  class IfcTaskType extends IfcTypeProcess {
 
   public get WorkMethod() : string | null {
     if ( this.WorkMethod_ === void 0 ) {
-      this.WorkMethod_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 10 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 10
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.WorkMethod_ = this.extractString( 10, true )
     }
 
     return this.WorkMethod_ as string | null

@@ -4,9 +4,6 @@ import { IfcSIPrefix, IfcSIPrefixDeserializeStep } from "./index"
 import { IfcSIUnitName, IfcSIUnitNameDeserializeStep } from "./index"
 import { IfcDimensionalExponents } from "./index"
 import {
-  stepExtractOptional,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
-import {
   IfcDimensionsForSiUnit,
 } from '../../core/ifc/ifc_functions'
 
@@ -27,32 +24,7 @@ export  class IfcSIUnit extends IfcNamedUnit {
 
   public get Prefix() : IfcSIPrefix | null {
     if ( this.Prefix_ === void 0 ) {
-      this.Prefix_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcSIPrefixDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.Prefix_ = this.extractLambda( 2, IfcSIPrefixDeserializeStep, true )
     }
 
     return this.Prefix_ as IfcSIPrefix | null
@@ -60,28 +32,7 @@ export  class IfcSIUnit extends IfcNamedUnit {
 
   public get Name() : IfcSIUnitName {
     if ( this.Name_ === void 0 ) {
-      this.Name_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcSIUnitNameDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.Name_ = this.extractLambda( 3, IfcSIUnitNameDeserializeStep, false )
     }
 
     return this.Name_ as IfcSIUnitName

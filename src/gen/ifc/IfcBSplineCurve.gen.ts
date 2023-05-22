@@ -5,11 +5,7 @@ import { IfcCartesianPoint } from "./index"
 import { IfcBSplineCurveForm, IfcBSplineCurveFormDeserializeStep } from "./index"
 import { IfcLogical } from "./index"
 import {
-  stepExtractReference,
-  stepExtractNumber,
-  stepExtractInlineElemement,
   stepExtractArray,
-  stepExtractLogical,
   SIZEOF,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 import {
@@ -36,28 +32,7 @@ export abstract class IfcBSplineCurve extends IfcBoundedCurve {
 
   public get Degree() : number {
     if ( this.Degree_ === void 0 ) {
-      this.Degree_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.Degree_ = this.extractNumber( 0, false )
     }
 
     return this.Degree_ as number
@@ -65,31 +40,14 @@ export abstract class IfcBSplineCurve extends IfcBoundedCurve {
 
   public get ControlPointsList() : Array<IfcCartesianPoint> {
     if ( this.ControlPointsList_ === void 0 ) {
-      this.ControlPointsList_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.ControlPointsList_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
       let value : Array<IfcCartesianPoint> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcCartesianPoint ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -98,8 +56,7 @@ export abstract class IfcBSplineCurve extends IfcBoundedCurve {
           return value
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.ControlPointsList_ as Array<IfcCartesianPoint>
@@ -107,28 +64,7 @@ return value })()
 
   public get CurveForm() : IfcBSplineCurveForm {
     if ( this.CurveForm_ === void 0 ) {
-      this.CurveForm_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcBSplineCurveFormDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.CurveForm_ = this.extractLambda( 2, IfcBSplineCurveFormDeserializeStep, false )
     }
 
     return this.CurveForm_ as IfcBSplineCurveForm
@@ -136,28 +72,7 @@ return value })()
 
   public get ClosedCurve() : boolean | null {
     if ( this.ClosedCurve_ === void 0 ) {
-      this.ClosedCurve_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractLogical( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.ClosedCurve_ = this.extractLogical( 3, false )
     }
 
     return this.ClosedCurve_ as boolean | null
@@ -165,28 +80,7 @@ return value })()
 
   public get SelfIntersect() : boolean | null {
     if ( this.SelfIntersect_ === void 0 ) {
-      this.SelfIntersect_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractLogical( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.SelfIntersect_ = this.extractLogical( 4, false )
     }
 
     return this.SelfIntersect_ as boolean | null

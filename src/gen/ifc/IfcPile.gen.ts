@@ -2,9 +2,6 @@
 import { IfcBuildingElement } from "./index"
 import { IfcPileTypeEnum, IfcPileTypeEnumDeserializeStep } from "./index"
 import { IfcPileConstructionEnum, IfcPileConstructionEnumDeserializeStep } from "./index"
-import {
-  stepExtractOptional,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -23,32 +20,7 @@ export  class IfcPile extends IfcBuildingElement {
 
   public get PredefinedType() : IfcPileTypeEnum | null {
     if ( this.PredefinedType_ === void 0 ) {
-      this.PredefinedType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 8 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 8
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcPileTypeEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.PredefinedType_ = this.extractLambda( 8, IfcPileTypeEnumDeserializeStep, true )
     }
 
     return this.PredefinedType_ as IfcPileTypeEnum | null
@@ -56,32 +28,7 @@ export  class IfcPile extends IfcBuildingElement {
 
   public get ConstructionType() : IfcPileConstructionEnum | null {
     if ( this.ConstructionType_ === void 0 ) {
-      this.ConstructionType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 9 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 9
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcPileConstructionEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.ConstructionType_ = this.extractLambda( 9, IfcPileConstructionEnumDeserializeStep, true )
     }
 
     return this.ConstructionType_ as IfcPileConstructionEnum | null

@@ -2,9 +2,6 @@
 import { IfcParameterizedProfileDef } from "./index"
 import { IfcPositiveLengthMeasure } from "./index"
 import { IfcLengthMeasure } from "./index"
-import {
-  stepExtractNumber,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -25,28 +22,7 @@ export  class IfcTrapeziumProfileDef extends IfcParameterizedProfileDef {
 
   public get BottomXDim() : number {
     if ( this.BottomXDim_ === void 0 ) {
-      this.BottomXDim_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.BottomXDim_ = this.extractNumber( 3, false )
     }
 
     return this.BottomXDim_ as number
@@ -54,28 +30,7 @@ export  class IfcTrapeziumProfileDef extends IfcParameterizedProfileDef {
 
   public get TopXDim() : number {
     if ( this.TopXDim_ === void 0 ) {
-      this.TopXDim_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.TopXDim_ = this.extractNumber( 4, false )
     }
 
     return this.TopXDim_ as number
@@ -83,28 +38,7 @@ export  class IfcTrapeziumProfileDef extends IfcParameterizedProfileDef {
 
   public get YDim() : number {
     if ( this.YDim_ === void 0 ) {
-      this.YDim_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.YDim_ = this.extractNumber( 5, false )
     }
 
     return this.YDim_ as number
@@ -112,28 +46,7 @@ export  class IfcTrapeziumProfileDef extends IfcParameterizedProfileDef {
 
   public get TopXOffset() : number {
     if ( this.TopXOffset_ === void 0 ) {
-      this.TopXOffset_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.TopXOffset_ = this.extractNumber( 6, false )
     }
 
     return this.TopXOffset_ as number

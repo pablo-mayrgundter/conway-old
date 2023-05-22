@@ -7,8 +7,6 @@ import { IfcSurfaceStyleRefraction } from "./index"
 import { IfcSurfaceStyleShading } from "./index"
 import { IfcSurfaceStyleWithTextures } from "./index"
 import {
-  stepExtractReference,
-  stepExtractInlineElemement,
   stepExtractArray,
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
@@ -25,77 +23,37 @@ export  class IfcSurfaceStyle extends IfcPresentationStyle {
     return EntityTypesIfc.IFCSURFACESTYLE
   }
   private Side_? : IfcSurfaceSide
-  private Styles_? : Array<IfcExternallyDefinedSurfaceStyle|IfcSurfaceStyleLighting|IfcSurfaceStyleRefraction|IfcSurfaceStyleShading|IfcSurfaceStyleWithTextures>
+  private Styles_? : Array<IfcExternallyDefinedSurfaceStyle | IfcSurfaceStyleLighting | IfcSurfaceStyleRefraction | IfcSurfaceStyleShading | IfcSurfaceStyleWithTextures>
 
   public get Side() : IfcSurfaceSide {
     if ( this.Side_ === void 0 ) {
-      this.Side_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcSurfaceSideDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.Side_ = this.extractLambda( 1, IfcSurfaceSideDeserializeStep, false )
     }
 
     return this.Side_ as IfcSurfaceSide
   }
 
-  public get Styles() : Array<IfcExternallyDefinedSurfaceStyle|IfcSurfaceStyleLighting|IfcSurfaceStyleRefraction|IfcSurfaceStyleShading|IfcSurfaceStyleWithTextures> {
+  public get Styles() : Array<IfcExternallyDefinedSurfaceStyle | IfcSurfaceStyleLighting | IfcSurfaceStyleRefraction | IfcSurfaceStyleShading | IfcSurfaceStyleWithTextures> {
     if ( this.Styles_ === void 0 ) {
-      this.Styles_ = (() => { 
-        this.guaranteeVTable()
+      this.Styles_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value : Array<IfcExternallyDefinedSurfaceStyle|IfcSurfaceStyleLighting|IfcSurfaceStyleRefraction|IfcSurfaceStyleShading|IfcSurfaceStyleWithTextures> = [];
+      let value : Array<IfcExternallyDefinedSurfaceStyle | IfcSurfaceStyleLighting | IfcSurfaceStyleRefraction | IfcSurfaceStyleShading | IfcSurfaceStyleWithTextures> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-          let expressID = stepExtractReference( buffer, cursor, endCursor );
-          let value : StepEntityBase< EntityTypesIfc > | undefined =
-            expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-            (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+        value.push( (() => {
+          const cursor = address
+          const value : StepEntityBase< EntityTypesIfc > | undefined =
+            this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcExternallyDefinedSurfaceStyle ) && !( value instanceof IfcSurfaceStyleLighting ) && !( value instanceof IfcSurfaceStyleRefraction ) && !( value instanceof IfcSurfaceStyleShading ) && !( value instanceof IfcSurfaceStyleWithTextures ) ) {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
+            throw new Error( 'Value in select must be populated' )
           }
-    
-          return value as (IfcExternallyDefinedSurfaceStyle | IfcSurfaceStyleLighting | IfcSurfaceStyleRefraction | IfcSurfaceStyleShading | IfcSurfaceStyleWithTextures)
-        })() )
+          return value as (IfcExternallyDefinedSurfaceStyle | IfcSurfaceStyleLighting | IfcSurfaceStyleRefraction | IfcSurfaceStyleShading | IfcSurfaceStyleWithTextures)})() )
       }
-
-return value })()
+      return value }, false )
     }
 
-    return this.Styles_ as Array<IfcExternallyDefinedSurfaceStyle|IfcSurfaceStyleLighting|IfcSurfaceStyleRefraction|IfcSurfaceStyleShading|IfcSurfaceStyleWithTextures>
+    return this.Styles_ as Array<IfcExternallyDefinedSurfaceStyle | IfcSurfaceStyleLighting | IfcSurfaceStyleRefraction | IfcSurfaceStyleShading | IfcSurfaceStyleWithTextures>
   }
   constructor(
     localID: number,

@@ -3,12 +3,6 @@ import { IfcCurve } from "./index"
 import { IfcLengthMeasure } from "./index"
 import { IfcLogical } from "./index"
 import { IfcDirection } from "./index"
-import {
-  stepExtractReference,
-  stepExtractNumber,
-  stepExtractInlineElemement,
-  stepExtractLogical,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -29,31 +23,7 @@ export  class IfcOffsetCurve3D extends IfcCurve {
 
   public get BasisCurve() : IfcCurve {
     if ( this.BasisCurve_ === void 0 ) {
-      this.BasisCurve_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-      if ( !( value instanceof IfcCurve ) )  {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      return value })()
+      this.BasisCurve_ = this.extractElement( 0, false, IfcCurve )
     }
 
     return this.BasisCurve_ as IfcCurve
@@ -61,28 +31,7 @@ export  class IfcOffsetCurve3D extends IfcCurve {
 
   public get Distance() : number {
     if ( this.Distance_ === void 0 ) {
-      this.Distance_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.Distance_ = this.extractNumber( 1, false )
     }
 
     return this.Distance_ as number
@@ -90,28 +39,7 @@ export  class IfcOffsetCurve3D extends IfcCurve {
 
   public get SelfIntersect() : boolean | null {
     if ( this.SelfIntersect_ === void 0 ) {
-      this.SelfIntersect_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractLogical( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.SelfIntersect_ = this.extractLogical( 2, false )
     }
 
     return this.SelfIntersect_ as boolean | null
@@ -119,31 +47,7 @@ export  class IfcOffsetCurve3D extends IfcCurve {
 
   public get RefDirection() : IfcDirection {
     if ( this.RefDirection_ === void 0 ) {
-      this.RefDirection_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-      if ( !( value instanceof IfcDirection ) )  {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      return value })()
+      this.RefDirection_ = this.extractElement( 3, false, IfcDirection )
     }
 
     return this.RefDirection_ as IfcDirection

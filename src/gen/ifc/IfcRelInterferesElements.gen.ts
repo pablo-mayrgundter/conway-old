@@ -3,13 +3,6 @@ import { IfcRelConnects } from "./index"
 import { IfcElement } from "./index"
 import { IfcConnectionGeometry } from "./index"
 import { IfcIdentifier } from "./index"
-import {
-  stepExtractBoolean,
-  stepExtractString,
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -31,31 +24,7 @@ export  class IfcRelInterferesElements extends IfcRelConnects {
 
   public get RelatingElement() : IfcElement {
     if ( this.RelatingElement_ === void 0 ) {
-      this.RelatingElement_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-      if ( !( value instanceof IfcElement ) )  {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      return value })()
+      this.RelatingElement_ = this.extractElement( 4, false, IfcElement )
     }
 
     return this.RelatingElement_ as IfcElement
@@ -63,31 +32,7 @@ export  class IfcRelInterferesElements extends IfcRelConnects {
 
   public get RelatedElement() : IfcElement {
     if ( this.RelatedElement_ === void 0 ) {
-      this.RelatedElement_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-      if ( !( value instanceof IfcElement ) )  {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      return value })()
+      this.RelatedElement_ = this.extractElement( 5, false, IfcElement )
     }
 
     return this.RelatedElement_ as IfcElement
@@ -95,35 +40,7 @@ export  class IfcRelInterferesElements extends IfcRelConnects {
 
   public get InterferenceGeometry() : IfcConnectionGeometry | null {
     if ( this.InterferenceGeometry_ === void 0 ) {
-      this.InterferenceGeometry_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-     if ( !( value instanceof IfcConnectionGeometry ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.InterferenceGeometry_ = this.extractElement( 6, true, IfcConnectionGeometry )
     }
 
     return this.InterferenceGeometry_ as IfcConnectionGeometry | null
@@ -131,32 +48,7 @@ export  class IfcRelInterferesElements extends IfcRelConnects {
 
   public get InterferenceType() : string | null {
     if ( this.InterferenceType_ === void 0 ) {
-      this.InterferenceType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.InterferenceType_ = this.extractString( 7, true )
     }
 
     return this.InterferenceType_ as string | null
@@ -164,28 +56,7 @@ export  class IfcRelInterferesElements extends IfcRelConnects {
 
   public get ImpliedOrder() : boolean {
     if ( this.ImpliedOrder_ === void 0 ) {
-      this.ImpliedOrder_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 8 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 8
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractBoolean( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.ImpliedOrder_ = this.extractBoolean( 8, false )
     }
 
     return this.ImpliedOrder_ as boolean

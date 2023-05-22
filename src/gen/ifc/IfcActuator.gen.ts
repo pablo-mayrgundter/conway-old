@@ -1,9 +1,6 @@
 
 import { IfcDistributionControlElement } from "./index"
 import { IfcActuatorTypeEnum, IfcActuatorTypeEnumDeserializeStep } from "./index"
-import {
-  stepExtractOptional,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -21,32 +18,7 @@ export  class IfcActuator extends IfcDistributionControlElement {
 
   public get PredefinedType() : IfcActuatorTypeEnum | null {
     if ( this.PredefinedType_ === void 0 ) {
-      this.PredefinedType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 8 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 8
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcActuatorTypeEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.PredefinedType_ = this.extractLambda( 8, IfcActuatorTypeEnumDeserializeStep, true )
     }
 
     return this.PredefinedType_ as IfcActuatorTypeEnum | null

@@ -3,12 +3,6 @@ import { IfcGroup } from "./index"
 import { IfcAnalysisTheoryTypeEnum, IfcAnalysisTheoryTypeEnumDeserializeStep } from "./index"
 import { IfcStructuralLoadGroup } from "./index"
 import { IfcBoolean } from "./index"
-import {
-  stepExtractBoolean,
-  stepExtractOptional,
-  stepExtractReference,
-  stepExtractInlineElemement,
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -28,28 +22,7 @@ export  class IfcStructuralResultGroup extends IfcGroup {
 
   public get TheoryType() : IfcAnalysisTheoryTypeEnum {
     if ( this.TheoryType_ === void 0 ) {
-      this.TheoryType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcAnalysisTheoryTypeEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.TheoryType_ = this.extractLambda( 5, IfcAnalysisTheoryTypeEnumDeserializeStep, false )
     }
 
     return this.TheoryType_ as IfcAnalysisTheoryTypeEnum
@@ -57,35 +30,7 @@ export  class IfcStructuralResultGroup extends IfcGroup {
 
   public get ResultForLoadGroup() : IfcStructuralLoadGroup | null {
     if ( this.ResultForLoadGroup_ === void 0 ) {
-      this.ResultForLoadGroup_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-     if ( !( value instanceof IfcStructuralLoadGroup ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.ResultForLoadGroup_ = this.extractElement( 6, true, IfcStructuralLoadGroup )
     }
 
     return this.ResultForLoadGroup_ as IfcStructuralLoadGroup | null
@@ -93,28 +38,7 @@ export  class IfcStructuralResultGroup extends IfcGroup {
 
   public get IsLinear() : boolean {
     if ( this.IsLinear_ === void 0 ) {
-      this.IsLinear_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractBoolean( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.IsLinear_ = this.extractBoolean( 7, false )
     }
 
     return this.IsLinear_ as boolean
