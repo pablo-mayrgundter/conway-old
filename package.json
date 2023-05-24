@@ -24,7 +24,7 @@
     "lint": "yarn eslint src",
     "precommit": "yarn build-rebuild && yarn lint && yarn test",
     "dist": "tsc --project tsconfig.dist.json",
-    "code-gen": "cd ./external/IFC-gen && make \"OUTDIR=../../src/gen/ifc\" && cd ../..",
+    "code-gen": "cd ./external/IFC-gen && make \"OUTDIR=../../src/ifc/ifc4_gen\" && cd ../..",
     "submodule-update": "git submodule update --init --recursive"
   },
   "author": "",
