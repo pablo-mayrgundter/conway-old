@@ -7,70 +7,10 @@ import { IfcShapeAspect } from "./index"
 import { IfcLengthMeasure } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from "./entity_types_ifc.gen"
-import StepEntityInternalReference from "../../core/step_entity_internal_reference"
-import StepEntityBase from "../../core/step_entity_base"
-import StepModelBase from "../../core/step_model_base"
-import {
-  stepExtractBoolean,
-  stepExtractEnum,
-  stepExtractString,
-  stepExtractOptional,
-  stepExtractBinary,
-  stepExtractReference,
-  stepExtractNumber,
-  stepExtractInlineElemement,
-  stepExtractArray,
-  stepExtractLogical,
-  NVL,
-  HIINDEX,
-  SIZEOF
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
-
-import {
-  IfcBaseAxis,
-  IfcBooleanChoose,
-  IfcBuild2Axes,
-  IfcBuildAxes,
-  IfcConstraintsParamBSpline,
-  IfcConvertDirectionInto2D,
-  IfcCorrectDimensions,
-  IfcCorrectFillAreaStyle,
-  IfcCorrectLocalPlacement,
-  IfcCorrectObjectAssignment,
-  IfcCorrectUnitAssignment,
-  IfcCrossProduct,
-  IfcCurveDim,
-  IfcDeriveDimensionalExponents,
-  IfcDimensionsForSiUnit,
-  IfcDotProduct,
-  IfcFirstProjAxis,
-  IfcListToArray,
-  IfcLoopHeadToTail,
-  IfcMakeArrayOfArray,
-  IfcMlsTotalThickness,
-  IfcNormalise,
-  IfcOrthogonalComplement,
-  IfcPathHeadToTail,
-  IfcSameAxis2Placement,
-  IfcSameCartesianPoint,
-  IfcSameDirection,
-  IfcSameValidPrecision,
-  IfcSameValue,
-  IfcScalarTimesVector,
-  IfcSecondProjAxis,
-  IfcShapeRepresentationTypes,
-  IfcTaperedSweptAreaProfiles,
-  IfcTopologyRepresentationTypes,
-  IfcUniqueDefinitionNames,
-  IfcUniquePropertyName,
-  IfcUniquePropertySetNames,
-  IfcUniqueQuantityNames,
-  IfcVectorDifference,
-  IfcVectorSum,
-  IfcPointListDim,
-  IfcGetBasisSurface
-} from "../../core/ifc/ifc_functions"
+import EntityTypesIfc from './entity_types_ifc.gen'
+import StepEntityInternalReference from '../../core/step_entity_internal_reference'
+import StepEntityBase from '../../core/step_entity_base'
+import StepModelBase from '../../core/step_model_base'
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcwindowliningproperties.htm */
@@ -93,32 +33,7 @@ export  class IfcWindowLiningProperties extends IfcPreDefinedPropertySet {
 
   public get LiningDepth() : number | null {
     if ( this.LiningDepth_ === void 0 ) {
-      this.LiningDepth_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.LiningDepth_ = this.extractNumber( 4, true )
     }
 
     return this.LiningDepth_ as number | null
@@ -126,32 +41,7 @@ export  class IfcWindowLiningProperties extends IfcPreDefinedPropertySet {
 
   public get LiningThickness() : number | null {
     if ( this.LiningThickness_ === void 0 ) {
-      this.LiningThickness_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.LiningThickness_ = this.extractNumber( 5, true )
     }
 
     return this.LiningThickness_ as number | null
@@ -159,32 +49,7 @@ export  class IfcWindowLiningProperties extends IfcPreDefinedPropertySet {
 
   public get TransomThickness() : number | null {
     if ( this.TransomThickness_ === void 0 ) {
-      this.TransomThickness_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.TransomThickness_ = this.extractNumber( 6, true )
     }
 
     return this.TransomThickness_ as number | null
@@ -192,32 +57,7 @@ export  class IfcWindowLiningProperties extends IfcPreDefinedPropertySet {
 
   public get MullionThickness() : number | null {
     if ( this.MullionThickness_ === void 0 ) {
-      this.MullionThickness_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.MullionThickness_ = this.extractNumber( 7, true )
     }
 
     return this.MullionThickness_ as number | null
@@ -225,32 +65,7 @@ export  class IfcWindowLiningProperties extends IfcPreDefinedPropertySet {
 
   public get FirstTransomOffset() : number | null {
     if ( this.FirstTransomOffset_ === void 0 ) {
-      this.FirstTransomOffset_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 8 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 8
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.FirstTransomOffset_ = this.extractNumber( 8, true )
     }
 
     return this.FirstTransomOffset_ as number | null
@@ -258,32 +73,7 @@ export  class IfcWindowLiningProperties extends IfcPreDefinedPropertySet {
 
   public get SecondTransomOffset() : number | null {
     if ( this.SecondTransomOffset_ === void 0 ) {
-      this.SecondTransomOffset_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 9 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 9
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.SecondTransomOffset_ = this.extractNumber( 9, true )
     }
 
     return this.SecondTransomOffset_ as number | null
@@ -291,32 +81,7 @@ export  class IfcWindowLiningProperties extends IfcPreDefinedPropertySet {
 
   public get FirstMullionOffset() : number | null {
     if ( this.FirstMullionOffset_ === void 0 ) {
-      this.FirstMullionOffset_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 10 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 10
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.FirstMullionOffset_ = this.extractNumber( 10, true )
     }
 
     return this.FirstMullionOffset_ as number | null
@@ -324,32 +89,7 @@ export  class IfcWindowLiningProperties extends IfcPreDefinedPropertySet {
 
   public get SecondMullionOffset() : number | null {
     if ( this.SecondMullionOffset_ === void 0 ) {
-      this.SecondMullionOffset_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 11 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 11
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.SecondMullionOffset_ = this.extractNumber( 11, true )
     }
 
     return this.SecondMullionOffset_ as number | null
@@ -357,35 +97,7 @@ export  class IfcWindowLiningProperties extends IfcPreDefinedPropertySet {
 
   public get ShapeAspectStyle() : IfcShapeAspect | null {
     if ( this.ShapeAspectStyle_ === void 0 ) {
-      this.ShapeAspectStyle_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 12 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 12
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-     if ( !( value instanceof IfcShapeAspect ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.ShapeAspectStyle_ = this.extractElement( 12, true, IfcShapeAspect )
     }
 
     return this.ShapeAspectStyle_ as IfcShapeAspect | null
@@ -393,32 +105,7 @@ export  class IfcWindowLiningProperties extends IfcPreDefinedPropertySet {
 
   public get LiningOffset() : number | null {
     if ( this.LiningOffset_ === void 0 ) {
-      this.LiningOffset_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 13 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 13
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.LiningOffset_ = this.extractNumber( 13, true )
     }
 
     return this.LiningOffset_ as number | null
@@ -426,32 +113,7 @@ export  class IfcWindowLiningProperties extends IfcPreDefinedPropertySet {
 
   public get LiningToPanelOffsetX() : number | null {
     if ( this.LiningToPanelOffsetX_ === void 0 ) {
-      this.LiningToPanelOffsetX_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 14 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 14
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.LiningToPanelOffsetX_ = this.extractNumber( 14, true )
     }
 
     return this.LiningToPanelOffsetX_ as number | null
@@ -459,32 +121,7 @@ export  class IfcWindowLiningProperties extends IfcPreDefinedPropertySet {
 
   public get LiningToPanelOffsetY() : number | null {
     if ( this.LiningToPanelOffsetY_ === void 0 ) {
-      this.LiningToPanelOffsetY_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 15 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 15
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.LiningToPanelOffsetY_ = this.extractNumber( 15, true )
     }
 
     return this.LiningToPanelOffsetY_ as number | null

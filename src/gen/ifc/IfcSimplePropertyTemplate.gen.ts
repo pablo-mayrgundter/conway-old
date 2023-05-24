@@ -9,70 +9,10 @@ import { IfcNamedUnit } from "./index"
 import { IfcStateEnum, IfcStateEnumDeserializeStep } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from "./entity_types_ifc.gen"
-import StepEntityInternalReference from "../../core/step_entity_internal_reference"
-import StepEntityBase from "../../core/step_entity_base"
-import StepModelBase from "../../core/step_model_base"
-import {
-  stepExtractBoolean,
-  stepExtractEnum,
-  stepExtractString,
-  stepExtractOptional,
-  stepExtractBinary,
-  stepExtractReference,
-  stepExtractNumber,
-  stepExtractInlineElemement,
-  stepExtractArray,
-  stepExtractLogical,
-  NVL,
-  HIINDEX,
-  SIZEOF
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
-
-import {
-  IfcBaseAxis,
-  IfcBooleanChoose,
-  IfcBuild2Axes,
-  IfcBuildAxes,
-  IfcConstraintsParamBSpline,
-  IfcConvertDirectionInto2D,
-  IfcCorrectDimensions,
-  IfcCorrectFillAreaStyle,
-  IfcCorrectLocalPlacement,
-  IfcCorrectObjectAssignment,
-  IfcCorrectUnitAssignment,
-  IfcCrossProduct,
-  IfcCurveDim,
-  IfcDeriveDimensionalExponents,
-  IfcDimensionsForSiUnit,
-  IfcDotProduct,
-  IfcFirstProjAxis,
-  IfcListToArray,
-  IfcLoopHeadToTail,
-  IfcMakeArrayOfArray,
-  IfcMlsTotalThickness,
-  IfcNormalise,
-  IfcOrthogonalComplement,
-  IfcPathHeadToTail,
-  IfcSameAxis2Placement,
-  IfcSameCartesianPoint,
-  IfcSameDirection,
-  IfcSameValidPrecision,
-  IfcSameValue,
-  IfcScalarTimesVector,
-  IfcSecondProjAxis,
-  IfcShapeRepresentationTypes,
-  IfcTaperedSweptAreaProfiles,
-  IfcTopologyRepresentationTypes,
-  IfcUniqueDefinitionNames,
-  IfcUniquePropertyName,
-  IfcUniquePropertySetNames,
-  IfcUniqueQuantityNames,
-  IfcVectorDifference,
-  IfcVectorSum,
-  IfcPointListDim,
-  IfcGetBasisSurface
-} from "../../core/ifc/ifc_functions"
+import EntityTypesIfc from './entity_types_ifc.gen'
+import StepEntityInternalReference from '../../core/step_entity_internal_reference'
+import StepEntityBase from '../../core/step_entity_base'
+import StepModelBase from '../../core/step_model_base'
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcsimplepropertytemplate.htm */
@@ -84,39 +24,14 @@ export  class IfcSimplePropertyTemplate extends IfcPropertyTemplate {
   private PrimaryMeasureType_? : string | null
   private SecondaryMeasureType_? : string | null
   private Enumerators_? : IfcPropertyEnumeration | null
-  private PrimaryUnit_? : IfcDerivedUnit|IfcMonetaryUnit|IfcNamedUnit | null
-  private SecondaryUnit_? : IfcDerivedUnit|IfcMonetaryUnit|IfcNamedUnit | null
+  private PrimaryUnit_? : IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit | null
+  private SecondaryUnit_? : IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit | null
   private Expression_? : string | null
   private AccessState_? : IfcStateEnum | null
 
   public get TemplateType() : IfcSimplePropertyTemplateTypeEnum | null {
     if ( this.TemplateType_ === void 0 ) {
-      this.TemplateType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcSimplePropertyTemplateTypeEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.TemplateType_ = this.extractLambda( 4, IfcSimplePropertyTemplateTypeEnumDeserializeStep, true )
     }
 
     return this.TemplateType_ as IfcSimplePropertyTemplateTypeEnum | null
@@ -124,32 +39,7 @@ export  class IfcSimplePropertyTemplate extends IfcPropertyTemplate {
 
   public get PrimaryMeasureType() : string | null {
     if ( this.PrimaryMeasureType_ === void 0 ) {
-      this.PrimaryMeasureType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.PrimaryMeasureType_ = this.extractString( 5, true )
     }
 
     return this.PrimaryMeasureType_ as string | null
@@ -157,32 +47,7 @@ export  class IfcSimplePropertyTemplate extends IfcPropertyTemplate {
 
   public get SecondaryMeasureType() : string | null {
     if ( this.SecondaryMeasureType_ === void 0 ) {
-      this.SecondaryMeasureType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.SecondaryMeasureType_ = this.extractString( 6, true )
     }
 
     return this.SecondaryMeasureType_ as string | null
@@ -190,140 +55,49 @@ export  class IfcSimplePropertyTemplate extends IfcPropertyTemplate {
 
   public get Enumerators() : IfcPropertyEnumeration | null {
     if ( this.Enumerators_ === void 0 ) {
-      this.Enumerators_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-     if ( !( value instanceof IfcPropertyEnumeration ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.Enumerators_ = this.extractElement( 7, true, IfcPropertyEnumeration )
     }
 
     return this.Enumerators_ as IfcPropertyEnumeration | null
   }
 
-  public get PrimaryUnit() : IfcDerivedUnit|IfcMonetaryUnit|IfcNamedUnit | null {
+  public get PrimaryUnit() : IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit | null {
     if ( this.PrimaryUnit_ === void 0 ) {
-      this.PrimaryUnit_ = (() => { 
-        this.guaranteeVTable()
+      this.PrimaryUnit_ = this.extractLambda( 8, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 8 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 8
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcDerivedUnit ) && !( value instanceof IfcMonetaryUnit ) && !( value instanceof IfcNamedUnit ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value as (IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit);
-      } })()
+        return ( void 0 )
+      }
+      return value as (IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit)
+}, true )
     }
 
-    return this.PrimaryUnit_ as IfcDerivedUnit|IfcMonetaryUnit|IfcNamedUnit | null
+    return this.PrimaryUnit_ as IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit | null
   }
 
-  public get SecondaryUnit() : IfcDerivedUnit|IfcMonetaryUnit|IfcNamedUnit | null {
+  public get SecondaryUnit() : IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit | null {
     if ( this.SecondaryUnit_ === void 0 ) {
-      this.SecondaryUnit_ = (() => { 
-        this.guaranteeVTable()
+      this.SecondaryUnit_ = this.extractLambda( 9, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 9 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 9
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcDerivedUnit ) && !( value instanceof IfcMonetaryUnit ) && !( value instanceof IfcNamedUnit ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value as (IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit);
-      } })()
+        return ( void 0 )
+      }
+      return value as (IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit)
+}, true )
     }
 
-    return this.SecondaryUnit_ as IfcDerivedUnit|IfcMonetaryUnit|IfcNamedUnit | null
+    return this.SecondaryUnit_ as IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit | null
   }
 
   public get Expression() : string | null {
     if ( this.Expression_ === void 0 ) {
-      this.Expression_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 10 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 10
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.Expression_ = this.extractString( 10, true )
     }
 
     return this.Expression_ as string | null
@@ -331,32 +105,7 @@ export  class IfcSimplePropertyTemplate extends IfcPropertyTemplate {
 
   public get AccessState() : IfcStateEnum | null {
     if ( this.AccessState_ === void 0 ) {
-      this.AccessState_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 11 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 11
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcStateEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.AccessState_ = this.extractLambda( 11, IfcStateEnumDeserializeStep, true )
     }
 
     return this.AccessState_ as IfcStateEnum | null

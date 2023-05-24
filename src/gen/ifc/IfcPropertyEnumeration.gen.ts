@@ -111,72 +111,15 @@ import { IfcTimeStamp } from "./index"
 import { IfcDerivedUnit } from "./index"
 import { IfcMonetaryUnit } from "./index"
 import { IfcNamedUnit } from "./index"
-
-/* This is generated code, don't modify */
-import EntityTypesIfc from "./entity_types_ifc.gen"
-import StepEntityInternalReference from "../../core/step_entity_internal_reference"
-import StepEntityBase from "../../core/step_entity_base"
-import StepModelBase from "../../core/step_model_base"
 import {
-  stepExtractBoolean,
-  stepExtractEnum,
-  stepExtractString,
-  stepExtractOptional,
-  stepExtractBinary,
-  stepExtractReference,
-  stepExtractNumber,
-  stepExtractInlineElemement,
   stepExtractArray,
-  stepExtractLogical,
-  NVL,
-  HIINDEX,
-  SIZEOF
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
-import {
-  IfcBaseAxis,
-  IfcBooleanChoose,
-  IfcBuild2Axes,
-  IfcBuildAxes,
-  IfcConstraintsParamBSpline,
-  IfcConvertDirectionInto2D,
-  IfcCorrectDimensions,
-  IfcCorrectFillAreaStyle,
-  IfcCorrectLocalPlacement,
-  IfcCorrectObjectAssignment,
-  IfcCorrectUnitAssignment,
-  IfcCrossProduct,
-  IfcCurveDim,
-  IfcDeriveDimensionalExponents,
-  IfcDimensionsForSiUnit,
-  IfcDotProduct,
-  IfcFirstProjAxis,
-  IfcListToArray,
-  IfcLoopHeadToTail,
-  IfcMakeArrayOfArray,
-  IfcMlsTotalThickness,
-  IfcNormalise,
-  IfcOrthogonalComplement,
-  IfcPathHeadToTail,
-  IfcSameAxis2Placement,
-  IfcSameCartesianPoint,
-  IfcSameDirection,
-  IfcSameValidPrecision,
-  IfcSameValue,
-  IfcScalarTimesVector,
-  IfcSecondProjAxis,
-  IfcShapeRepresentationTypes,
-  IfcTaperedSweptAreaProfiles,
-  IfcTopologyRepresentationTypes,
-  IfcUniqueDefinitionNames,
-  IfcUniquePropertyName,
-  IfcUniquePropertySetNames,
-  IfcUniqueQuantityNames,
-  IfcVectorDifference,
-  IfcVectorSum,
-  IfcPointListDim,
-  IfcGetBasisSurface
-} from "../../core/ifc/ifc_functions"
+/* This is generated code, don't modify */
+import EntityTypesIfc from './entity_types_ifc.gen'
+import StepEntityInternalReference from '../../core/step_entity_internal_reference'
+import StepEntityBase from '../../core/step_entity_base'
+import StepModelBase from '../../core/step_model_base'
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcpropertyenumeration.htm */
@@ -185,114 +128,55 @@ export  class IfcPropertyEnumeration extends IfcPropertyAbstraction {
     return EntityTypesIfc.IFCPROPERTYENUMERATION
   }
   private Name_? : string
-  private EnumerationValues_? : Array<IfcAbsorbedDoseMeasure|IfcAccelerationMeasure|IfcAngularVelocityMeasure|IfcAreaDensityMeasure|IfcCompoundPlaneAngleMeasure|IfcCurvatureMeasure|IfcDoseEquivalentMeasure|IfcDynamicViscosityMeasure|IfcElectricCapacitanceMeasure|IfcElectricChargeMeasure|IfcElectricConductanceMeasure|IfcElectricResistanceMeasure|IfcElectricVoltageMeasure|IfcEnergyMeasure|IfcForceMeasure|IfcFrequencyMeasure|IfcHeatFluxDensityMeasure|IfcHeatingValueMeasure|IfcIlluminanceMeasure|IfcInductanceMeasure|IfcIntegerCountRateMeasure|IfcIonConcentrationMeasure|IfcIsothermalMoistureCapacityMeasure|IfcKinematicViscosityMeasure|IfcLinearForceMeasure|IfcLinearMomentMeasure|IfcLinearStiffnessMeasure|IfcLinearVelocityMeasure|IfcLuminousFluxMeasure|IfcLuminousIntensityDistributionMeasure|IfcMagneticFluxDensityMeasure|IfcMagneticFluxMeasure|IfcMassDensityMeasure|IfcMassFlowRateMeasure|IfcMassPerLengthMeasure|IfcModulusOfElasticityMeasure|IfcModulusOfLinearSubgradeReactionMeasure|IfcModulusOfRotationalSubgradeReactionMeasure|IfcModulusOfSubgradeReactionMeasure|IfcMoistureDiffusivityMeasure|IfcMolecularWeightMeasure|IfcMomentOfInertiaMeasure|IfcMonetaryMeasure|IfcPHMeasure|IfcPlanarForceMeasure|IfcPowerMeasure|IfcPressureMeasure|IfcRadioActivityMeasure|IfcRotationalFrequencyMeasure|IfcRotationalMassMeasure|IfcRotationalStiffnessMeasure|IfcSectionModulusMeasure|IfcSectionalAreaIntegralMeasure|IfcShearModulusMeasure|IfcSoundPowerLevelMeasure|IfcSoundPowerMeasure|IfcSoundPressureLevelMeasure|IfcSoundPressureMeasure|IfcSpecificHeatCapacityMeasure|IfcTemperatureGradientMeasure|IfcTemperatureRateOfChangeMeasure|IfcThermalAdmittanceMeasure|IfcThermalConductivityMeasure|IfcThermalExpansionCoefficientMeasure|IfcThermalResistanceMeasure|IfcThermalTransmittanceMeasure|IfcTorqueMeasure|IfcVaporPermeabilityMeasure|IfcVolumetricFlowRateMeasure|IfcWarpingConstantMeasure|IfcWarpingMomentMeasure|IfcAmountOfSubstanceMeasure|IfcAreaMeasure|IfcComplexNumber|IfcContextDependentMeasure|IfcCountMeasure|IfcDescriptiveMeasure|IfcElectricCurrentMeasure|IfcLengthMeasure|IfcLuminousIntensityMeasure|IfcMassMeasure|IfcNonNegativeLengthMeasure|IfcNormalisedRatioMeasure|IfcNumericMeasure|IfcParameterValue|IfcPlaneAngleMeasure|IfcPositiveLengthMeasure|IfcPositivePlaneAngleMeasure|IfcPositiveRatioMeasure|IfcRatioMeasure|IfcSolidAngleMeasure|IfcThermodynamicTemperatureMeasure|IfcTimeMeasure|IfcVolumeMeasure|IfcBinary|IfcBoolean|IfcDate|IfcDateTime|IfcDuration|IfcIdentifier|IfcInteger|IfcLabel|IfcLogical|IfcPositiveInteger|IfcReal|IfcText|IfcTime|IfcTimeStamp>
-  private Unit_? : IfcDerivedUnit|IfcMonetaryUnit|IfcNamedUnit | null
+  private EnumerationValues_? : Array<IfcAbsorbedDoseMeasure | IfcAccelerationMeasure | IfcAngularVelocityMeasure | IfcAreaDensityMeasure | IfcCompoundPlaneAngleMeasure | IfcCurvatureMeasure | IfcDoseEquivalentMeasure | IfcDynamicViscosityMeasure | IfcElectricCapacitanceMeasure | IfcElectricChargeMeasure | IfcElectricConductanceMeasure | IfcElectricResistanceMeasure | IfcElectricVoltageMeasure | IfcEnergyMeasure | IfcForceMeasure | IfcFrequencyMeasure | IfcHeatFluxDensityMeasure | IfcHeatingValueMeasure | IfcIlluminanceMeasure | IfcInductanceMeasure | IfcIntegerCountRateMeasure | IfcIonConcentrationMeasure | IfcIsothermalMoistureCapacityMeasure | IfcKinematicViscosityMeasure | IfcLinearForceMeasure | IfcLinearMomentMeasure | IfcLinearStiffnessMeasure | IfcLinearVelocityMeasure | IfcLuminousFluxMeasure | IfcLuminousIntensityDistributionMeasure | IfcMagneticFluxDensityMeasure | IfcMagneticFluxMeasure | IfcMassDensityMeasure | IfcMassFlowRateMeasure | IfcMassPerLengthMeasure | IfcModulusOfElasticityMeasure | IfcModulusOfLinearSubgradeReactionMeasure | IfcModulusOfRotationalSubgradeReactionMeasure | IfcModulusOfSubgradeReactionMeasure | IfcMoistureDiffusivityMeasure | IfcMolecularWeightMeasure | IfcMomentOfInertiaMeasure | IfcMonetaryMeasure | IfcPHMeasure | IfcPlanarForceMeasure | IfcPowerMeasure | IfcPressureMeasure | IfcRadioActivityMeasure | IfcRotationalFrequencyMeasure | IfcRotationalMassMeasure | IfcRotationalStiffnessMeasure | IfcSectionModulusMeasure | IfcSectionalAreaIntegralMeasure | IfcShearModulusMeasure | IfcSoundPowerLevelMeasure | IfcSoundPowerMeasure | IfcSoundPressureLevelMeasure | IfcSoundPressureMeasure | IfcSpecificHeatCapacityMeasure | IfcTemperatureGradientMeasure | IfcTemperatureRateOfChangeMeasure | IfcThermalAdmittanceMeasure | IfcThermalConductivityMeasure | IfcThermalExpansionCoefficientMeasure | IfcThermalResistanceMeasure | IfcThermalTransmittanceMeasure | IfcTorqueMeasure | IfcVaporPermeabilityMeasure | IfcVolumetricFlowRateMeasure | IfcWarpingConstantMeasure | IfcWarpingMomentMeasure | IfcAmountOfSubstanceMeasure | IfcAreaMeasure | IfcComplexNumber | IfcContextDependentMeasure | IfcCountMeasure | IfcDescriptiveMeasure | IfcElectricCurrentMeasure | IfcLengthMeasure | IfcLuminousIntensityMeasure | IfcMassMeasure | IfcNonNegativeLengthMeasure | IfcNormalisedRatioMeasure | IfcNumericMeasure | IfcParameterValue | IfcPlaneAngleMeasure | IfcPositiveLengthMeasure | IfcPositivePlaneAngleMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure | IfcSolidAngleMeasure | IfcThermodynamicTemperatureMeasure | IfcTimeMeasure | IfcVolumeMeasure | IfcBinary | IfcBoolean | IfcDate | IfcDateTime | IfcDuration | IfcIdentifier | IfcInteger | IfcLabel | IfcLogical | IfcPositiveInteger | IfcReal | IfcText | IfcTime | IfcTimeStamp>
+  private Unit_? : IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit | null
 
   public get Name() : string {
     if ( this.Name_ === void 0 ) {
-      this.Name_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 0 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 0
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.Name_ = this.extractString( 0, false )
     }
 
     return this.Name_ as string
   }
 
-  public get EnumerationValues() : Array<IfcAbsorbedDoseMeasure|IfcAccelerationMeasure|IfcAngularVelocityMeasure|IfcAreaDensityMeasure|IfcCompoundPlaneAngleMeasure|IfcCurvatureMeasure|IfcDoseEquivalentMeasure|IfcDynamicViscosityMeasure|IfcElectricCapacitanceMeasure|IfcElectricChargeMeasure|IfcElectricConductanceMeasure|IfcElectricResistanceMeasure|IfcElectricVoltageMeasure|IfcEnergyMeasure|IfcForceMeasure|IfcFrequencyMeasure|IfcHeatFluxDensityMeasure|IfcHeatingValueMeasure|IfcIlluminanceMeasure|IfcInductanceMeasure|IfcIntegerCountRateMeasure|IfcIonConcentrationMeasure|IfcIsothermalMoistureCapacityMeasure|IfcKinematicViscosityMeasure|IfcLinearForceMeasure|IfcLinearMomentMeasure|IfcLinearStiffnessMeasure|IfcLinearVelocityMeasure|IfcLuminousFluxMeasure|IfcLuminousIntensityDistributionMeasure|IfcMagneticFluxDensityMeasure|IfcMagneticFluxMeasure|IfcMassDensityMeasure|IfcMassFlowRateMeasure|IfcMassPerLengthMeasure|IfcModulusOfElasticityMeasure|IfcModulusOfLinearSubgradeReactionMeasure|IfcModulusOfRotationalSubgradeReactionMeasure|IfcModulusOfSubgradeReactionMeasure|IfcMoistureDiffusivityMeasure|IfcMolecularWeightMeasure|IfcMomentOfInertiaMeasure|IfcMonetaryMeasure|IfcPHMeasure|IfcPlanarForceMeasure|IfcPowerMeasure|IfcPressureMeasure|IfcRadioActivityMeasure|IfcRotationalFrequencyMeasure|IfcRotationalMassMeasure|IfcRotationalStiffnessMeasure|IfcSectionModulusMeasure|IfcSectionalAreaIntegralMeasure|IfcShearModulusMeasure|IfcSoundPowerLevelMeasure|IfcSoundPowerMeasure|IfcSoundPressureLevelMeasure|IfcSoundPressureMeasure|IfcSpecificHeatCapacityMeasure|IfcTemperatureGradientMeasure|IfcTemperatureRateOfChangeMeasure|IfcThermalAdmittanceMeasure|IfcThermalConductivityMeasure|IfcThermalExpansionCoefficientMeasure|IfcThermalResistanceMeasure|IfcThermalTransmittanceMeasure|IfcTorqueMeasure|IfcVaporPermeabilityMeasure|IfcVolumetricFlowRateMeasure|IfcWarpingConstantMeasure|IfcWarpingMomentMeasure|IfcAmountOfSubstanceMeasure|IfcAreaMeasure|IfcComplexNumber|IfcContextDependentMeasure|IfcCountMeasure|IfcDescriptiveMeasure|IfcElectricCurrentMeasure|IfcLengthMeasure|IfcLuminousIntensityMeasure|IfcMassMeasure|IfcNonNegativeLengthMeasure|IfcNormalisedRatioMeasure|IfcNumericMeasure|IfcParameterValue|IfcPlaneAngleMeasure|IfcPositiveLengthMeasure|IfcPositivePlaneAngleMeasure|IfcPositiveRatioMeasure|IfcRatioMeasure|IfcSolidAngleMeasure|IfcThermodynamicTemperatureMeasure|IfcTimeMeasure|IfcVolumeMeasure|IfcBinary|IfcBoolean|IfcDate|IfcDateTime|IfcDuration|IfcIdentifier|IfcInteger|IfcLabel|IfcLogical|IfcPositiveInteger|IfcReal|IfcText|IfcTime|IfcTimeStamp> {
+  public get EnumerationValues() : Array<IfcAbsorbedDoseMeasure | IfcAccelerationMeasure | IfcAngularVelocityMeasure | IfcAreaDensityMeasure | IfcCompoundPlaneAngleMeasure | IfcCurvatureMeasure | IfcDoseEquivalentMeasure | IfcDynamicViscosityMeasure | IfcElectricCapacitanceMeasure | IfcElectricChargeMeasure | IfcElectricConductanceMeasure | IfcElectricResistanceMeasure | IfcElectricVoltageMeasure | IfcEnergyMeasure | IfcForceMeasure | IfcFrequencyMeasure | IfcHeatFluxDensityMeasure | IfcHeatingValueMeasure | IfcIlluminanceMeasure | IfcInductanceMeasure | IfcIntegerCountRateMeasure | IfcIonConcentrationMeasure | IfcIsothermalMoistureCapacityMeasure | IfcKinematicViscosityMeasure | IfcLinearForceMeasure | IfcLinearMomentMeasure | IfcLinearStiffnessMeasure | IfcLinearVelocityMeasure | IfcLuminousFluxMeasure | IfcLuminousIntensityDistributionMeasure | IfcMagneticFluxDensityMeasure | IfcMagneticFluxMeasure | IfcMassDensityMeasure | IfcMassFlowRateMeasure | IfcMassPerLengthMeasure | IfcModulusOfElasticityMeasure | IfcModulusOfLinearSubgradeReactionMeasure | IfcModulusOfRotationalSubgradeReactionMeasure | IfcModulusOfSubgradeReactionMeasure | IfcMoistureDiffusivityMeasure | IfcMolecularWeightMeasure | IfcMomentOfInertiaMeasure | IfcMonetaryMeasure | IfcPHMeasure | IfcPlanarForceMeasure | IfcPowerMeasure | IfcPressureMeasure | IfcRadioActivityMeasure | IfcRotationalFrequencyMeasure | IfcRotationalMassMeasure | IfcRotationalStiffnessMeasure | IfcSectionModulusMeasure | IfcSectionalAreaIntegralMeasure | IfcShearModulusMeasure | IfcSoundPowerLevelMeasure | IfcSoundPowerMeasure | IfcSoundPressureLevelMeasure | IfcSoundPressureMeasure | IfcSpecificHeatCapacityMeasure | IfcTemperatureGradientMeasure | IfcTemperatureRateOfChangeMeasure | IfcThermalAdmittanceMeasure | IfcThermalConductivityMeasure | IfcThermalExpansionCoefficientMeasure | IfcThermalResistanceMeasure | IfcThermalTransmittanceMeasure | IfcTorqueMeasure | IfcVaporPermeabilityMeasure | IfcVolumetricFlowRateMeasure | IfcWarpingConstantMeasure | IfcWarpingMomentMeasure | IfcAmountOfSubstanceMeasure | IfcAreaMeasure | IfcComplexNumber | IfcContextDependentMeasure | IfcCountMeasure | IfcDescriptiveMeasure | IfcElectricCurrentMeasure | IfcLengthMeasure | IfcLuminousIntensityMeasure | IfcMassMeasure | IfcNonNegativeLengthMeasure | IfcNormalisedRatioMeasure | IfcNumericMeasure | IfcParameterValue | IfcPlaneAngleMeasure | IfcPositiveLengthMeasure | IfcPositivePlaneAngleMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure | IfcSolidAngleMeasure | IfcThermodynamicTemperatureMeasure | IfcTimeMeasure | IfcVolumeMeasure | IfcBinary | IfcBoolean | IfcDate | IfcDateTime | IfcDuration | IfcIdentifier | IfcInteger | IfcLabel | IfcLogical | IfcPositiveInteger | IfcReal | IfcText | IfcTime | IfcTimeStamp> {
     if ( this.EnumerationValues_ === void 0 ) {
-      this.EnumerationValues_ = (() => { 
-        this.guaranteeVTable()
+      this.EnumerationValues_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value : Array<IfcAbsorbedDoseMeasure|IfcAccelerationMeasure|IfcAngularVelocityMeasure|IfcAreaDensityMeasure|IfcCompoundPlaneAngleMeasure|IfcCurvatureMeasure|IfcDoseEquivalentMeasure|IfcDynamicViscosityMeasure|IfcElectricCapacitanceMeasure|IfcElectricChargeMeasure|IfcElectricConductanceMeasure|IfcElectricResistanceMeasure|IfcElectricVoltageMeasure|IfcEnergyMeasure|IfcForceMeasure|IfcFrequencyMeasure|IfcHeatFluxDensityMeasure|IfcHeatingValueMeasure|IfcIlluminanceMeasure|IfcInductanceMeasure|IfcIntegerCountRateMeasure|IfcIonConcentrationMeasure|IfcIsothermalMoistureCapacityMeasure|IfcKinematicViscosityMeasure|IfcLinearForceMeasure|IfcLinearMomentMeasure|IfcLinearStiffnessMeasure|IfcLinearVelocityMeasure|IfcLuminousFluxMeasure|IfcLuminousIntensityDistributionMeasure|IfcMagneticFluxDensityMeasure|IfcMagneticFluxMeasure|IfcMassDensityMeasure|IfcMassFlowRateMeasure|IfcMassPerLengthMeasure|IfcModulusOfElasticityMeasure|IfcModulusOfLinearSubgradeReactionMeasure|IfcModulusOfRotationalSubgradeReactionMeasure|IfcModulusOfSubgradeReactionMeasure|IfcMoistureDiffusivityMeasure|IfcMolecularWeightMeasure|IfcMomentOfInertiaMeasure|IfcMonetaryMeasure|IfcPHMeasure|IfcPlanarForceMeasure|IfcPowerMeasure|IfcPressureMeasure|IfcRadioActivityMeasure|IfcRotationalFrequencyMeasure|IfcRotationalMassMeasure|IfcRotationalStiffnessMeasure|IfcSectionModulusMeasure|IfcSectionalAreaIntegralMeasure|IfcShearModulusMeasure|IfcSoundPowerLevelMeasure|IfcSoundPowerMeasure|IfcSoundPressureLevelMeasure|IfcSoundPressureMeasure|IfcSpecificHeatCapacityMeasure|IfcTemperatureGradientMeasure|IfcTemperatureRateOfChangeMeasure|IfcThermalAdmittanceMeasure|IfcThermalConductivityMeasure|IfcThermalExpansionCoefficientMeasure|IfcThermalResistanceMeasure|IfcThermalTransmittanceMeasure|IfcTorqueMeasure|IfcVaporPermeabilityMeasure|IfcVolumetricFlowRateMeasure|IfcWarpingConstantMeasure|IfcWarpingMomentMeasure|IfcAmountOfSubstanceMeasure|IfcAreaMeasure|IfcComplexNumber|IfcContextDependentMeasure|IfcCountMeasure|IfcDescriptiveMeasure|IfcElectricCurrentMeasure|IfcLengthMeasure|IfcLuminousIntensityMeasure|IfcMassMeasure|IfcNonNegativeLengthMeasure|IfcNormalisedRatioMeasure|IfcNumericMeasure|IfcParameterValue|IfcPlaneAngleMeasure|IfcPositiveLengthMeasure|IfcPositivePlaneAngleMeasure|IfcPositiveRatioMeasure|IfcRatioMeasure|IfcSolidAngleMeasure|IfcThermodynamicTemperatureMeasure|IfcTimeMeasure|IfcVolumeMeasure|IfcBinary|IfcBoolean|IfcDate|IfcDateTime|IfcDuration|IfcIdentifier|IfcInteger|IfcLabel|IfcLogical|IfcPositiveInteger|IfcReal|IfcText|IfcTime|IfcTimeStamp> = [];
+      let value : Array<IfcAbsorbedDoseMeasure | IfcAccelerationMeasure | IfcAngularVelocityMeasure | IfcAreaDensityMeasure | IfcCompoundPlaneAngleMeasure | IfcCurvatureMeasure | IfcDoseEquivalentMeasure | IfcDynamicViscosityMeasure | IfcElectricCapacitanceMeasure | IfcElectricChargeMeasure | IfcElectricConductanceMeasure | IfcElectricResistanceMeasure | IfcElectricVoltageMeasure | IfcEnergyMeasure | IfcForceMeasure | IfcFrequencyMeasure | IfcHeatFluxDensityMeasure | IfcHeatingValueMeasure | IfcIlluminanceMeasure | IfcInductanceMeasure | IfcIntegerCountRateMeasure | IfcIonConcentrationMeasure | IfcIsothermalMoistureCapacityMeasure | IfcKinematicViscosityMeasure | IfcLinearForceMeasure | IfcLinearMomentMeasure | IfcLinearStiffnessMeasure | IfcLinearVelocityMeasure | IfcLuminousFluxMeasure | IfcLuminousIntensityDistributionMeasure | IfcMagneticFluxDensityMeasure | IfcMagneticFluxMeasure | IfcMassDensityMeasure | IfcMassFlowRateMeasure | IfcMassPerLengthMeasure | IfcModulusOfElasticityMeasure | IfcModulusOfLinearSubgradeReactionMeasure | IfcModulusOfRotationalSubgradeReactionMeasure | IfcModulusOfSubgradeReactionMeasure | IfcMoistureDiffusivityMeasure | IfcMolecularWeightMeasure | IfcMomentOfInertiaMeasure | IfcMonetaryMeasure | IfcPHMeasure | IfcPlanarForceMeasure | IfcPowerMeasure | IfcPressureMeasure | IfcRadioActivityMeasure | IfcRotationalFrequencyMeasure | IfcRotationalMassMeasure | IfcRotationalStiffnessMeasure | IfcSectionModulusMeasure | IfcSectionalAreaIntegralMeasure | IfcShearModulusMeasure | IfcSoundPowerLevelMeasure | IfcSoundPowerMeasure | IfcSoundPressureLevelMeasure | IfcSoundPressureMeasure | IfcSpecificHeatCapacityMeasure | IfcTemperatureGradientMeasure | IfcTemperatureRateOfChangeMeasure | IfcThermalAdmittanceMeasure | IfcThermalConductivityMeasure | IfcThermalExpansionCoefficientMeasure | IfcThermalResistanceMeasure | IfcThermalTransmittanceMeasure | IfcTorqueMeasure | IfcVaporPermeabilityMeasure | IfcVolumetricFlowRateMeasure | IfcWarpingConstantMeasure | IfcWarpingMomentMeasure | IfcAmountOfSubstanceMeasure | IfcAreaMeasure | IfcComplexNumber | IfcContextDependentMeasure | IfcCountMeasure | IfcDescriptiveMeasure | IfcElectricCurrentMeasure | IfcLengthMeasure | IfcLuminousIntensityMeasure | IfcMassMeasure | IfcNonNegativeLengthMeasure | IfcNormalisedRatioMeasure | IfcNumericMeasure | IfcParameterValue | IfcPlaneAngleMeasure | IfcPositiveLengthMeasure | IfcPositivePlaneAngleMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure | IfcSolidAngleMeasure | IfcThermodynamicTemperatureMeasure | IfcTimeMeasure | IfcVolumeMeasure | IfcBinary | IfcBoolean | IfcDate | IfcDateTime | IfcDuration | IfcIdentifier | IfcInteger | IfcLabel | IfcLogical | IfcPositiveInteger | IfcReal | IfcText | IfcTime | IfcTimeStamp> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-          let expressID = stepExtractReference( buffer, cursor, endCursor );
-          let value : StepEntityBase< EntityTypesIfc > | undefined =
-            expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-            (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+        value.push( (() => {
+          const cursor = address
+          const value : StepEntityBase< EntityTypesIfc > | undefined =
+            this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcAbsorbedDoseMeasure ) && !( value instanceof IfcAccelerationMeasure ) && !( value instanceof IfcAngularVelocityMeasure ) && !( value instanceof IfcAreaDensityMeasure ) && !( value instanceof IfcCompoundPlaneAngleMeasure ) && !( value instanceof IfcCurvatureMeasure ) && !( value instanceof IfcDoseEquivalentMeasure ) && !( value instanceof IfcDynamicViscosityMeasure ) && !( value instanceof IfcElectricCapacitanceMeasure ) && !( value instanceof IfcElectricChargeMeasure ) && !( value instanceof IfcElectricConductanceMeasure ) && !( value instanceof IfcElectricResistanceMeasure ) && !( value instanceof IfcElectricVoltageMeasure ) && !( value instanceof IfcEnergyMeasure ) && !( value instanceof IfcForceMeasure ) && !( value instanceof IfcFrequencyMeasure ) && !( value instanceof IfcHeatFluxDensityMeasure ) && !( value instanceof IfcHeatingValueMeasure ) && !( value instanceof IfcIlluminanceMeasure ) && !( value instanceof IfcInductanceMeasure ) && !( value instanceof IfcIntegerCountRateMeasure ) && !( value instanceof IfcIonConcentrationMeasure ) && !( value instanceof IfcIsothermalMoistureCapacityMeasure ) && !( value instanceof IfcKinematicViscosityMeasure ) && !( value instanceof IfcLinearForceMeasure ) && !( value instanceof IfcLinearMomentMeasure ) && !( value instanceof IfcLinearStiffnessMeasure ) && !( value instanceof IfcLinearVelocityMeasure ) && !( value instanceof IfcLuminousFluxMeasure ) && !( value instanceof IfcLuminousIntensityDistributionMeasure ) && !( value instanceof IfcMagneticFluxDensityMeasure ) && !( value instanceof IfcMagneticFluxMeasure ) && !( value instanceof IfcMassDensityMeasure ) && !( value instanceof IfcMassFlowRateMeasure ) && !( value instanceof IfcMassPerLengthMeasure ) && !( value instanceof IfcModulusOfElasticityMeasure ) && !( value instanceof IfcModulusOfLinearSubgradeReactionMeasure ) && !( value instanceof IfcModulusOfRotationalSubgradeReactionMeasure ) && !( value instanceof IfcModulusOfSubgradeReactionMeasure ) && !( value instanceof IfcMoistureDiffusivityMeasure ) && !( value instanceof IfcMolecularWeightMeasure ) && !( value instanceof IfcMomentOfInertiaMeasure ) && !( value instanceof IfcMonetaryMeasure ) && !( value instanceof IfcPHMeasure ) && !( value instanceof IfcPlanarForceMeasure ) && !( value instanceof IfcPowerMeasure ) && !( value instanceof IfcPressureMeasure ) && !( value instanceof IfcRadioActivityMeasure ) && !( value instanceof IfcRotationalFrequencyMeasure ) && !( value instanceof IfcRotationalMassMeasure ) && !( value instanceof IfcRotationalStiffnessMeasure ) && !( value instanceof IfcSectionModulusMeasure ) && !( value instanceof IfcSectionalAreaIntegralMeasure ) && !( value instanceof IfcShearModulusMeasure ) && !( value instanceof IfcSoundPowerLevelMeasure ) && !( value instanceof IfcSoundPowerMeasure ) && !( value instanceof IfcSoundPressureLevelMeasure ) && !( value instanceof IfcSoundPressureMeasure ) && !( value instanceof IfcSpecificHeatCapacityMeasure ) && !( value instanceof IfcTemperatureGradientMeasure ) && !( value instanceof IfcTemperatureRateOfChangeMeasure ) && !( value instanceof IfcThermalAdmittanceMeasure ) && !( value instanceof IfcThermalConductivityMeasure ) && !( value instanceof IfcThermalExpansionCoefficientMeasure ) && !( value instanceof IfcThermalResistanceMeasure ) && !( value instanceof IfcThermalTransmittanceMeasure ) && !( value instanceof IfcTorqueMeasure ) && !( value instanceof IfcVaporPermeabilityMeasure ) && !( value instanceof IfcVolumetricFlowRateMeasure ) && !( value instanceof IfcWarpingConstantMeasure ) && !( value instanceof IfcWarpingMomentMeasure ) && !( value instanceof IfcAmountOfSubstanceMeasure ) && !( value instanceof IfcAreaMeasure ) && !( value instanceof IfcComplexNumber ) && !( value instanceof IfcContextDependentMeasure ) && !( value instanceof IfcCountMeasure ) && !( value instanceof IfcDescriptiveMeasure ) && !( value instanceof IfcElectricCurrentMeasure ) && !( value instanceof IfcLengthMeasure ) && !( value instanceof IfcLuminousIntensityMeasure ) && !( value instanceof IfcMassMeasure ) && !( value instanceof IfcNonNegativeLengthMeasure ) && !( value instanceof IfcNormalisedRatioMeasure ) && !( value instanceof IfcNumericMeasure ) && !( value instanceof IfcParameterValue ) && !( value instanceof IfcPlaneAngleMeasure ) && !( value instanceof IfcPositiveLengthMeasure ) && !( value instanceof IfcPositivePlaneAngleMeasure ) && !( value instanceof IfcPositiveRatioMeasure ) && !( value instanceof IfcRatioMeasure ) && !( value instanceof IfcSolidAngleMeasure ) && !( value instanceof IfcThermodynamicTemperatureMeasure ) && !( value instanceof IfcTimeMeasure ) && !( value instanceof IfcVolumeMeasure ) && !( value instanceof IfcBinary ) && !( value instanceof IfcBoolean ) && !( value instanceof IfcDate ) && !( value instanceof IfcDateTime ) && !( value instanceof IfcDuration ) && !( value instanceof IfcIdentifier ) && !( value instanceof IfcInteger ) && !( value instanceof IfcLabel ) && !( value instanceof IfcLogical ) && !( value instanceof IfcPositiveInteger ) && !( value instanceof IfcReal ) && !( value instanceof IfcText ) && !( value instanceof IfcTime ) && !( value instanceof IfcTimeStamp ) ) {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
+            throw new Error( 'Value in select must be populated' )
           }
-    
-          return value as (IfcAbsorbedDoseMeasure | IfcAccelerationMeasure | IfcAngularVelocityMeasure | IfcAreaDensityMeasure | IfcCompoundPlaneAngleMeasure | IfcCurvatureMeasure | IfcDoseEquivalentMeasure | IfcDynamicViscosityMeasure | IfcElectricCapacitanceMeasure | IfcElectricChargeMeasure | IfcElectricConductanceMeasure | IfcElectricResistanceMeasure | IfcElectricVoltageMeasure | IfcEnergyMeasure | IfcForceMeasure | IfcFrequencyMeasure | IfcHeatFluxDensityMeasure | IfcHeatingValueMeasure | IfcIlluminanceMeasure | IfcInductanceMeasure | IfcIntegerCountRateMeasure | IfcIonConcentrationMeasure | IfcIsothermalMoistureCapacityMeasure | IfcKinematicViscosityMeasure | IfcLinearForceMeasure | IfcLinearMomentMeasure | IfcLinearStiffnessMeasure | IfcLinearVelocityMeasure | IfcLuminousFluxMeasure | IfcLuminousIntensityDistributionMeasure | IfcMagneticFluxDensityMeasure | IfcMagneticFluxMeasure | IfcMassDensityMeasure | IfcMassFlowRateMeasure | IfcMassPerLengthMeasure | IfcModulusOfElasticityMeasure | IfcModulusOfLinearSubgradeReactionMeasure | IfcModulusOfRotationalSubgradeReactionMeasure | IfcModulusOfSubgradeReactionMeasure | IfcMoistureDiffusivityMeasure | IfcMolecularWeightMeasure | IfcMomentOfInertiaMeasure | IfcMonetaryMeasure | IfcPHMeasure | IfcPlanarForceMeasure | IfcPowerMeasure | IfcPressureMeasure | IfcRadioActivityMeasure | IfcRotationalFrequencyMeasure | IfcRotationalMassMeasure | IfcRotationalStiffnessMeasure | IfcSectionModulusMeasure | IfcSectionalAreaIntegralMeasure | IfcShearModulusMeasure | IfcSoundPowerLevelMeasure | IfcSoundPowerMeasure | IfcSoundPressureLevelMeasure | IfcSoundPressureMeasure | IfcSpecificHeatCapacityMeasure | IfcTemperatureGradientMeasure | IfcTemperatureRateOfChangeMeasure | IfcThermalAdmittanceMeasure | IfcThermalConductivityMeasure | IfcThermalExpansionCoefficientMeasure | IfcThermalResistanceMeasure | IfcThermalTransmittanceMeasure | IfcTorqueMeasure | IfcVaporPermeabilityMeasure | IfcVolumetricFlowRateMeasure | IfcWarpingConstantMeasure | IfcWarpingMomentMeasure | IfcAmountOfSubstanceMeasure | IfcAreaMeasure | IfcComplexNumber | IfcContextDependentMeasure | IfcCountMeasure | IfcDescriptiveMeasure | IfcElectricCurrentMeasure | IfcLengthMeasure | IfcLuminousIntensityMeasure | IfcMassMeasure | IfcNonNegativeLengthMeasure | IfcNormalisedRatioMeasure | IfcNumericMeasure | IfcParameterValue | IfcPlaneAngleMeasure | IfcPositiveLengthMeasure | IfcPositivePlaneAngleMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure | IfcSolidAngleMeasure | IfcThermodynamicTemperatureMeasure | IfcTimeMeasure | IfcVolumeMeasure | IfcBinary | IfcBoolean | IfcDate | IfcDateTime | IfcDuration | IfcIdentifier | IfcInteger | IfcLabel | IfcLogical | IfcPositiveInteger | IfcReal | IfcText | IfcTime | IfcTimeStamp)
-        })() )
+          return value as (IfcAbsorbedDoseMeasure | IfcAccelerationMeasure | IfcAngularVelocityMeasure | IfcAreaDensityMeasure | IfcCompoundPlaneAngleMeasure | IfcCurvatureMeasure | IfcDoseEquivalentMeasure | IfcDynamicViscosityMeasure | IfcElectricCapacitanceMeasure | IfcElectricChargeMeasure | IfcElectricConductanceMeasure | IfcElectricResistanceMeasure | IfcElectricVoltageMeasure | IfcEnergyMeasure | IfcForceMeasure | IfcFrequencyMeasure | IfcHeatFluxDensityMeasure | IfcHeatingValueMeasure | IfcIlluminanceMeasure | IfcInductanceMeasure | IfcIntegerCountRateMeasure | IfcIonConcentrationMeasure | IfcIsothermalMoistureCapacityMeasure | IfcKinematicViscosityMeasure | IfcLinearForceMeasure | IfcLinearMomentMeasure | IfcLinearStiffnessMeasure | IfcLinearVelocityMeasure | IfcLuminousFluxMeasure | IfcLuminousIntensityDistributionMeasure | IfcMagneticFluxDensityMeasure | IfcMagneticFluxMeasure | IfcMassDensityMeasure | IfcMassFlowRateMeasure | IfcMassPerLengthMeasure | IfcModulusOfElasticityMeasure | IfcModulusOfLinearSubgradeReactionMeasure | IfcModulusOfRotationalSubgradeReactionMeasure | IfcModulusOfSubgradeReactionMeasure | IfcMoistureDiffusivityMeasure | IfcMolecularWeightMeasure | IfcMomentOfInertiaMeasure | IfcMonetaryMeasure | IfcPHMeasure | IfcPlanarForceMeasure | IfcPowerMeasure | IfcPressureMeasure | IfcRadioActivityMeasure | IfcRotationalFrequencyMeasure | IfcRotationalMassMeasure | IfcRotationalStiffnessMeasure | IfcSectionModulusMeasure | IfcSectionalAreaIntegralMeasure | IfcShearModulusMeasure | IfcSoundPowerLevelMeasure | IfcSoundPowerMeasure | IfcSoundPressureLevelMeasure | IfcSoundPressureMeasure | IfcSpecificHeatCapacityMeasure | IfcTemperatureGradientMeasure | IfcTemperatureRateOfChangeMeasure | IfcThermalAdmittanceMeasure | IfcThermalConductivityMeasure | IfcThermalExpansionCoefficientMeasure | IfcThermalResistanceMeasure | IfcThermalTransmittanceMeasure | IfcTorqueMeasure | IfcVaporPermeabilityMeasure | IfcVolumetricFlowRateMeasure | IfcWarpingConstantMeasure | IfcWarpingMomentMeasure | IfcAmountOfSubstanceMeasure | IfcAreaMeasure | IfcComplexNumber | IfcContextDependentMeasure | IfcCountMeasure | IfcDescriptiveMeasure | IfcElectricCurrentMeasure | IfcLengthMeasure | IfcLuminousIntensityMeasure | IfcMassMeasure | IfcNonNegativeLengthMeasure | IfcNormalisedRatioMeasure | IfcNumericMeasure | IfcParameterValue | IfcPlaneAngleMeasure | IfcPositiveLengthMeasure | IfcPositivePlaneAngleMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure | IfcSolidAngleMeasure | IfcThermodynamicTemperatureMeasure | IfcTimeMeasure | IfcVolumeMeasure | IfcBinary | IfcBoolean | IfcDate | IfcDateTime | IfcDuration | IfcIdentifier | IfcInteger | IfcLabel | IfcLogical | IfcPositiveInteger | IfcReal | IfcText | IfcTime | IfcTimeStamp)})() )
       }
-
-return value })()
+      return value }, false )
     }
 
-    return this.EnumerationValues_ as Array<IfcAbsorbedDoseMeasure|IfcAccelerationMeasure|IfcAngularVelocityMeasure|IfcAreaDensityMeasure|IfcCompoundPlaneAngleMeasure|IfcCurvatureMeasure|IfcDoseEquivalentMeasure|IfcDynamicViscosityMeasure|IfcElectricCapacitanceMeasure|IfcElectricChargeMeasure|IfcElectricConductanceMeasure|IfcElectricResistanceMeasure|IfcElectricVoltageMeasure|IfcEnergyMeasure|IfcForceMeasure|IfcFrequencyMeasure|IfcHeatFluxDensityMeasure|IfcHeatingValueMeasure|IfcIlluminanceMeasure|IfcInductanceMeasure|IfcIntegerCountRateMeasure|IfcIonConcentrationMeasure|IfcIsothermalMoistureCapacityMeasure|IfcKinematicViscosityMeasure|IfcLinearForceMeasure|IfcLinearMomentMeasure|IfcLinearStiffnessMeasure|IfcLinearVelocityMeasure|IfcLuminousFluxMeasure|IfcLuminousIntensityDistributionMeasure|IfcMagneticFluxDensityMeasure|IfcMagneticFluxMeasure|IfcMassDensityMeasure|IfcMassFlowRateMeasure|IfcMassPerLengthMeasure|IfcModulusOfElasticityMeasure|IfcModulusOfLinearSubgradeReactionMeasure|IfcModulusOfRotationalSubgradeReactionMeasure|IfcModulusOfSubgradeReactionMeasure|IfcMoistureDiffusivityMeasure|IfcMolecularWeightMeasure|IfcMomentOfInertiaMeasure|IfcMonetaryMeasure|IfcPHMeasure|IfcPlanarForceMeasure|IfcPowerMeasure|IfcPressureMeasure|IfcRadioActivityMeasure|IfcRotationalFrequencyMeasure|IfcRotationalMassMeasure|IfcRotationalStiffnessMeasure|IfcSectionModulusMeasure|IfcSectionalAreaIntegralMeasure|IfcShearModulusMeasure|IfcSoundPowerLevelMeasure|IfcSoundPowerMeasure|IfcSoundPressureLevelMeasure|IfcSoundPressureMeasure|IfcSpecificHeatCapacityMeasure|IfcTemperatureGradientMeasure|IfcTemperatureRateOfChangeMeasure|IfcThermalAdmittanceMeasure|IfcThermalConductivityMeasure|IfcThermalExpansionCoefficientMeasure|IfcThermalResistanceMeasure|IfcThermalTransmittanceMeasure|IfcTorqueMeasure|IfcVaporPermeabilityMeasure|IfcVolumetricFlowRateMeasure|IfcWarpingConstantMeasure|IfcWarpingMomentMeasure|IfcAmountOfSubstanceMeasure|IfcAreaMeasure|IfcComplexNumber|IfcContextDependentMeasure|IfcCountMeasure|IfcDescriptiveMeasure|IfcElectricCurrentMeasure|IfcLengthMeasure|IfcLuminousIntensityMeasure|IfcMassMeasure|IfcNonNegativeLengthMeasure|IfcNormalisedRatioMeasure|IfcNumericMeasure|IfcParameterValue|IfcPlaneAngleMeasure|IfcPositiveLengthMeasure|IfcPositivePlaneAngleMeasure|IfcPositiveRatioMeasure|IfcRatioMeasure|IfcSolidAngleMeasure|IfcThermodynamicTemperatureMeasure|IfcTimeMeasure|IfcVolumeMeasure|IfcBinary|IfcBoolean|IfcDate|IfcDateTime|IfcDuration|IfcIdentifier|IfcInteger|IfcLabel|IfcLogical|IfcPositiveInteger|IfcReal|IfcText|IfcTime|IfcTimeStamp>
+    return this.EnumerationValues_ as Array<IfcAbsorbedDoseMeasure | IfcAccelerationMeasure | IfcAngularVelocityMeasure | IfcAreaDensityMeasure | IfcCompoundPlaneAngleMeasure | IfcCurvatureMeasure | IfcDoseEquivalentMeasure | IfcDynamicViscosityMeasure | IfcElectricCapacitanceMeasure | IfcElectricChargeMeasure | IfcElectricConductanceMeasure | IfcElectricResistanceMeasure | IfcElectricVoltageMeasure | IfcEnergyMeasure | IfcForceMeasure | IfcFrequencyMeasure | IfcHeatFluxDensityMeasure | IfcHeatingValueMeasure | IfcIlluminanceMeasure | IfcInductanceMeasure | IfcIntegerCountRateMeasure | IfcIonConcentrationMeasure | IfcIsothermalMoistureCapacityMeasure | IfcKinematicViscosityMeasure | IfcLinearForceMeasure | IfcLinearMomentMeasure | IfcLinearStiffnessMeasure | IfcLinearVelocityMeasure | IfcLuminousFluxMeasure | IfcLuminousIntensityDistributionMeasure | IfcMagneticFluxDensityMeasure | IfcMagneticFluxMeasure | IfcMassDensityMeasure | IfcMassFlowRateMeasure | IfcMassPerLengthMeasure | IfcModulusOfElasticityMeasure | IfcModulusOfLinearSubgradeReactionMeasure | IfcModulusOfRotationalSubgradeReactionMeasure | IfcModulusOfSubgradeReactionMeasure | IfcMoistureDiffusivityMeasure | IfcMolecularWeightMeasure | IfcMomentOfInertiaMeasure | IfcMonetaryMeasure | IfcPHMeasure | IfcPlanarForceMeasure | IfcPowerMeasure | IfcPressureMeasure | IfcRadioActivityMeasure | IfcRotationalFrequencyMeasure | IfcRotationalMassMeasure | IfcRotationalStiffnessMeasure | IfcSectionModulusMeasure | IfcSectionalAreaIntegralMeasure | IfcShearModulusMeasure | IfcSoundPowerLevelMeasure | IfcSoundPowerMeasure | IfcSoundPressureLevelMeasure | IfcSoundPressureMeasure | IfcSpecificHeatCapacityMeasure | IfcTemperatureGradientMeasure | IfcTemperatureRateOfChangeMeasure | IfcThermalAdmittanceMeasure | IfcThermalConductivityMeasure | IfcThermalExpansionCoefficientMeasure | IfcThermalResistanceMeasure | IfcThermalTransmittanceMeasure | IfcTorqueMeasure | IfcVaporPermeabilityMeasure | IfcVolumetricFlowRateMeasure | IfcWarpingConstantMeasure | IfcWarpingMomentMeasure | IfcAmountOfSubstanceMeasure | IfcAreaMeasure | IfcComplexNumber | IfcContextDependentMeasure | IfcCountMeasure | IfcDescriptiveMeasure | IfcElectricCurrentMeasure | IfcLengthMeasure | IfcLuminousIntensityMeasure | IfcMassMeasure | IfcNonNegativeLengthMeasure | IfcNormalisedRatioMeasure | IfcNumericMeasure | IfcParameterValue | IfcPlaneAngleMeasure | IfcPositiveLengthMeasure | IfcPositivePlaneAngleMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure | IfcSolidAngleMeasure | IfcThermodynamicTemperatureMeasure | IfcTimeMeasure | IfcVolumeMeasure | IfcBinary | IfcBoolean | IfcDate | IfcDateTime | IfcDuration | IfcIdentifier | IfcInteger | IfcLabel | IfcLogical | IfcPositiveInteger | IfcReal | IfcText | IfcTime | IfcTimeStamp>
   }
 
-  public get Unit() : IfcDerivedUnit|IfcMonetaryUnit|IfcNamedUnit | null {
+  public get Unit() : IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit | null {
     if ( this.Unit_ === void 0 ) {
-      this.Unit_ = (() => { 
-        this.guaranteeVTable()
+      this.Unit_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
 
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let expressID = stepExtractReference( buffer, cursor, endCursor );
-      let value : StepEntityBase< EntityTypesIfc > | undefined =
-        expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-        (this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor )))
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcDerivedUnit ) && !( value instanceof IfcMonetaryUnit ) && !( value instanceof IfcNamedUnit ) ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed for field' )
-        }
-
-        return null
-      } else {
-        return value as (IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit);
-      } })()
+        return ( void 0 )
+      }
+      return value as (IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit)
+}, true )
     }
 
-    return this.Unit_ as IfcDerivedUnit|IfcMonetaryUnit|IfcNamedUnit | null
+    return this.Unit_ as IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit | null
   }
   constructor(
     localID: number,

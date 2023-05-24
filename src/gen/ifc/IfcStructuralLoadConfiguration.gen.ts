@@ -2,72 +2,17 @@
 import { IfcStructuralLoad } from "./index"
 import { IfcStructuralLoadOrResult } from "./index"
 import { IfcLengthMeasure } from "./index"
-
-/* This is generated code, don't modify */
-import EntityTypesIfc from "./entity_types_ifc.gen"
-import StepEntityInternalReference from "../../core/step_entity_internal_reference"
-import StepEntityBase from "../../core/step_entity_base"
-import StepModelBase from "../../core/step_model_base"
 import {
-  stepExtractBoolean,
-  stepExtractEnum,
-  stepExtractString,
   stepExtractOptional,
-  stepExtractBinary,
-  stepExtractReference,
   stepExtractNumber,
-  stepExtractInlineElemement,
   stepExtractArray,
-  stepExtractLogical,
-  NVL,
-  HIINDEX,
-  SIZEOF
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
-import {
-  IfcBaseAxis,
-  IfcBooleanChoose,
-  IfcBuild2Axes,
-  IfcBuildAxes,
-  IfcConstraintsParamBSpline,
-  IfcConvertDirectionInto2D,
-  IfcCorrectDimensions,
-  IfcCorrectFillAreaStyle,
-  IfcCorrectLocalPlacement,
-  IfcCorrectObjectAssignment,
-  IfcCorrectUnitAssignment,
-  IfcCrossProduct,
-  IfcCurveDim,
-  IfcDeriveDimensionalExponents,
-  IfcDimensionsForSiUnit,
-  IfcDotProduct,
-  IfcFirstProjAxis,
-  IfcListToArray,
-  IfcLoopHeadToTail,
-  IfcMakeArrayOfArray,
-  IfcMlsTotalThickness,
-  IfcNormalise,
-  IfcOrthogonalComplement,
-  IfcPathHeadToTail,
-  IfcSameAxis2Placement,
-  IfcSameCartesianPoint,
-  IfcSameDirection,
-  IfcSameValidPrecision,
-  IfcSameValue,
-  IfcScalarTimesVector,
-  IfcSecondProjAxis,
-  IfcShapeRepresentationTypes,
-  IfcTaperedSweptAreaProfiles,
-  IfcTopologyRepresentationTypes,
-  IfcUniqueDefinitionNames,
-  IfcUniquePropertyName,
-  IfcUniquePropertySetNames,
-  IfcUniqueQuantityNames,
-  IfcVectorDifference,
-  IfcVectorSum,
-  IfcPointListDim,
-  IfcGetBasisSurface
-} from "../../core/ifc/ifc_functions"
+/* This is generated code, don't modify */
+import EntityTypesIfc from './entity_types_ifc.gen'
+import StepEntityInternalReference from '../../core/step_entity_internal_reference'
+import StepEntityBase from '../../core/step_entity_base'
+import StepModelBase from '../../core/step_model_base'
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcstructuralloadconfiguration.htm */
@@ -80,31 +25,14 @@ export  class IfcStructuralLoadConfiguration extends IfcStructuralLoad {
 
   public get Values() : Array<IfcStructuralLoadOrResult> {
     if ( this.Values_ === void 0 ) {
-      this.Values_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.Values_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
       let value : Array<IfcStructuralLoadOrResult> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcStructuralLoadOrResult ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -113,8 +41,7 @@ export  class IfcStructuralLoadConfiguration extends IfcStructuralLoad {
           return value
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.Values_ as Array<IfcStructuralLoadOrResult>
@@ -122,20 +49,7 @@ return value })()
 
   public get Locations() : Array< Array< number > > | null {
     if ( this.Locations_ === void 0 ) {
-      this.Locations_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.Locations_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
@@ -144,30 +58,30 @@ return value })()
       let value : Array<Array<number>> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
+        value.push( (() => {
+          const cursor = address
           let value : Array<number> = [];
     
           for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-            value.push( (() => { 
-              let cursor = address
+            value.push( (() => {
+                  const cursor = address
+                  const value = stepExtractNumber( buffer, cursor, endCursor )
             
-                 let value = stepExtractNumber( buffer, cursor, endCursor )
-            
-                  if ( value === void 0 )  {
-                    throw new Error( 'Value in STEP was incorrectly typed' )
+                  if ( value === void 0 ) {
+                    throw new Error( 'Value needs to be defined in encapsulating context' )
                   }
             
-                  return value
-            })() )
+                  return value 
+                })() )
+          }
+                if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
           }
     
-    return value
+          return value 
         })() )
       }
-
-return value })()
+      return value }, true )
     }
 
     return this.Locations_ as Array< Array< number > > | null
