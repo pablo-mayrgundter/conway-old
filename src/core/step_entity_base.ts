@@ -70,13 +70,14 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> {
    * semantically correct extraction.
    *
    * @param vtableOffset The offset in the vtable to extract from
+   * @param optional Whether this is a potentially optional field
    * @return {number | null | undefined} The extracted number.
    */
-  public extractNumber( vtableOffset: number, optional: true ): number | null
+  public extractNumber( offset: number, optional: true ): number | null
   // eslint-disable-next-line no-dupe-class-members
-  public extractNumber( vtableOffset: number, optional: false ): number
+  public extractNumber( offset: number, optional: false ): number
   // eslint-disable-next-line no-dupe-class-members, require-jsdoc
-  public extractNumber( vtableOffset: number, optional: boolean ): number |
+  public extractNumber( offset: number, optional: boolean ): number |
    null {
 
     this.guaranteeVTable()
@@ -84,11 +85,11 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> {
     const internalReference =
       this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
 
-    if ( vtableOffset >= internalReference.vtableCount ) {
+    if ( offset >= internalReference.vtableCount ) {
       throw new Error( 'Couldn\'t read field due to too few fields in record' )
     }
 
-    const vtableSlot = internalReference.vtableIndex + vtableOffset
+    const vtableSlot = internalReference.vtableIndex + offset
 
     const cursor    = internalReference.vtable[ vtableSlot ]
     const buffer    = internalReference.buffer
@@ -118,16 +119,16 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> {
    * Used by other extraction methods with wrappers to perform
    * semantically correct extraction.
    *
-   * @param vtableOffset The offset in the vtable to extract from
+   * @param offset The offset in the vtable to extract from
    * @param optional Is this an optional field?
    * @return {string | null} The extracted string, or null if optional
    * and this value isn't specified.
    */
-  public extractString( vtableOffset: number, optional: true ): string | null
+  public extractString( offset: number, optional: true ): string | null
   // eslint-disable-next-line no-dupe-class-members
-  public extractString( vtableOffset: number, optional: false ): string
+  public extractString( offset: number, optional: false ): string
   // eslint-disable-next-line no-dupe-class-members, require-jsdoc
-  public extractString( vtableOffset: number, optional: boolean ): string |
+  public extractString( offset: number, optional: boolean ): string |
    null {
 
     this.guaranteeVTable()
@@ -135,11 +136,11 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> {
     const internalReference =
       this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
 
-    if ( vtableOffset >= internalReference.vtableCount ) {
+    if ( offset >= internalReference.vtableCount ) {
       throw new Error( 'Couldn\'t read field due to too few fields in record' )
     }
 
-    const vtableSlot = internalReference.vtableIndex + vtableOffset
+    const vtableSlot = internalReference.vtableIndex + offset
 
     const cursor    = internalReference.vtable[ vtableSlot ]
     const buffer    = internalReference.buffer
@@ -170,26 +171,26 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> {
    * Used by other extraction methods with wrappers to perform
    * semantically correct extraction.
    *
-   * @param vtableOffset The offset in the vtable to extract from
+   * @param offset The offset in the vtable to extract from
    * @param optional Is this an optional field?
    * @return {boolean | null} The extracted logical or null for optionals.
    */
-  public extractLogical( vtableOffset: number, optional: true ): boolean | null
+  public extractLogical( offset: number, optional: true ): boolean | null
   // eslint-disable-next-line no-dupe-class-members
-  public extractLogical( vtableOffset: number, optional: false ): boolean
+  public extractLogical( offset: number, optional: false ): boolean
   // eslint-disable-next-line no-dupe-class-members, require-jsdoc
-  public extractLogical( vtableOffset: number, optional: boolean ): boolean | null {
+  public extractLogical( offset: number, optional: boolean ): boolean | null {
 
     this.guaranteeVTable()
 
     const internalReference =
       this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
 
-    if ( vtableOffset >= internalReference.vtableCount ) {
+    if ( offset >= internalReference.vtableCount ) {
       throw new Error( 'Couldn\'t read field due to too few fields in record' )
     }
 
-    const vtableSlot = internalReference.vtableIndex + vtableOffset
+    const vtableSlot = internalReference.vtableIndex + offset
 
     const cursor    = internalReference.vtable[ vtableSlot ]
     const buffer    = internalReference.buffer
@@ -242,25 +243,51 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> {
    * semantically correct extraction.
    *
    * @typedef ExtractionType Type to be extracted
-   * @param vtableOffset The offset in the vtable to extract from
+   * @param offset The offset in the vtable to extract from
+   * @param extractor The function to be used for extraction.
+   * @param optional Is this an optional field? (true)
+   * @return {ExtractionType | null} The extracted value or null for optionals.
+   */
+  public extractLambda< ExtractionType >(
+    offset: number,
+    extractor: ( buffer: Uint8Array, cursor: number, endCursor: number ) =>
+      ExtractionType | null | undefined,
+    optional: true ): ExtractionType | null
+  /**
+   * Extract a number at the particular vtable offset (i.e. the position
+   * in the matching step object).
+   *
+   * Used by other extraction methods with wrappers to perform
+   * semantically correct extraction.
+   *
+   * @typedef ExtractionType Type to be extracted
+   * @param offset The offset in the vtable to extract from
+   * @param extractor The function to be used for extraction.
+   * @param optional Is this an optional field? (false)
+   * @return {ExtractionType} The extracted value or null for optionals.
+   */
+  // eslint-disable-next-line no-dupe-class-members
+  public extractLambda< ExtractionType >(
+    offset: number,
+    extractor: ( buffer: Uint8Array, cursor: number, endCursor: number ) =>
+      ExtractionType | undefined,
+    optional: false): ExtractionType
+  /**
+   * Extract a number at the particular vtable offset (i.e. the position
+   * in the matching step object).
+   *
+   * Used by other extraction methods with wrappers to perform
+   * semantically correct extraction.
+   *
+   * @typedef ExtractionType Type to be extracted
+   * @param offset The offset in the vtable to extract from
    * @param extractor The function to be used for extraction.
    * @param optional Is this an optional field?
    * @return {ExtractionType | null} The extracted value or null for optionals.
    */
-  public extractLambda< ExtractionType >(
-    vtableOffset: number,
-    extractor: ( buffer: Uint8Array, cursor: number, endCursor: number ) =>
-      ExtractionType | null | undefined,
-    optional: true ): ExtractionType | null
-  // eslint-disable-next-line no-dupe-class-members
-  public extractLambda< ExtractionType >(
-    vtableOffset: number,
-    extractor: ( buffer: Uint8Array, cursor: number, endCursor: number ) =>
-      ExtractionType | undefined,
-    optional: false): ExtractionType
   // eslint-disable-next-line no-dupe-class-members, require-jsdoc
   public extractLambda< ExtractionType >(
-      vtableOffset: number,
+      offset: number,
       extractor: ( buffer: Uint8Array, cursor: number, endCursor: number ) =>
         ExtractionType | null | undefined,
       optional: boolean ): ExtractionType | null {
@@ -270,11 +297,11 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> {
     const internalReference =
       this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
 
-    if ( vtableOffset >= internalReference.vtableCount ) {
+    if ( offset >= internalReference.vtableCount ) {
       throw new Error( 'Couldn\'t read field due to too few fields in record' )
     }
 
-    const vtableSlot = internalReference.vtableIndex + vtableOffset
+    const vtableSlot = internalReference.vtableIndex + offset
 
     const cursor    = internalReference.vtable[ vtableSlot ]
     const buffer    = internalReference.buffer
@@ -305,25 +332,48 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> {
    * Used by other extraction methods with wrappers to perform
    * semantically correct extraction.
    *
-   * @param vtableOffset The offset in the vtable to extract from
-   * @param optional Is this an optional field?
+   * @param offset The offset in the vtable to extract from
+   * @param optional Is this an optional field? (true)
    * @return {StepEntityBase | null} The extracted element, or null if optional
    * and this value isn't specified.
    */
   public extractElement< T extends StepEntityConstructorAbstract< EntityTypeIDs > >(
-    vtableOffset: number,
+    offset: number,
     optional: true,
     entityConstructor: T ):
       InstanceType< T > | null
+  /**
+   * Extract a string at the particular vtable offset (i.e. the position
+   * in the matching step object).
+   *
+   * Used by other extraction methods with wrappers to perform
+   * semantically correct extraction.
+   *
+   * @param offset The offset in the vtable to extract from
+   * @param optional Is this an optional field? (false)
+   * @return {StepEntityBase} The extracted element.
+   */
   // eslint-disable-next-line no-dupe-class-members
   public extractElement< T extends StepEntityConstructorAbstract< EntityTypeIDs > >(
-    vtableOffset: number,
+    offset: number,
     optional: false,
     entityConstructor: T ):
       InstanceType< T >
+  /**
+   * Extract a string at the particular vtable offset (i.e. the position
+   * in the matching step object).
+   *
+   * Used by other extraction methods with wrappers to perform
+   * semantically correct extraction.
+   *
+   * @param offset The offset in the vtable to extract from
+   * @param optional Is this an optional field?
+   * @return {StepEntityBase} The extracted element, or null if optional
+   * and this value isn't specified.
+   */
   // eslint-disable-next-line no-dupe-class-members, require-jsdoc
   public extractElement< T extends StepEntityConstructorAbstract< EntityTypeIDs > >(
-      vtableOffset: number,
+      offset: number,
       optional: boolean,
       entityConstructor: T ):
       InstanceType< T > | null {
@@ -333,11 +383,11 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> {
     const internalReference =
       this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
 
-    if ( vtableOffset >= internalReference.vtableCount ) {
+    if ( offset >= internalReference.vtableCount ) {
       throw new Error( 'Couldn\'t read field due to too few fields in record' )
     }
 
-    const vtableSlot = internalReference.vtableIndex + vtableOffset
+    const vtableSlot = internalReference.vtableIndex + offset
 
     const cursor    = internalReference.vtable[ vtableSlot ]
     const buffer    = internalReference.buffer
@@ -424,26 +474,50 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> {
    * Used by other extraction methods with wrappers to perform
    * semantically correct extraction.
    *
-   * @param vtableOffset The offset in the vtable to extract from
-   * @param optional Is this an optional field?
-   * @return {boolean | null} The extracted number.
+   * @param offset The offset in the vtable to extract from
+   * @param optional Is this an optional field? (true)
+   * @return {boolean | null} The extracted number or null if it's
+   * not supplied.
    */
-  public extractBoolean( vtableOffset: number, optional: true ): boolean | null
+  public extractBoolean( offset: number, optional: true ): boolean | null
+  /**
+   * Extract a number at the particular vtable offset (i.e. the position
+   * in the matching step object).
+   *
+   * Used by other extraction methods with wrappers to perform
+   * semantically correct extraction.
+   *
+   * @param offset The offset in the vtable to extract from
+   * @param optional Is this an optional field? (false).
+   * @return {boolean} The extracted number.
+   */
   // eslint-disable-next-line no-dupe-class-members
-  public extractBoolean( vtableOffset: number, optional: false ): boolean
+  public extractBoolean( offset: number, optional: false ): boolean
+  /**
+   * Extract a number at the particular vtable offset (i.e. the position
+   * in the matching step object).
+   *
+   * Used by other extraction methods with wrappers to perform
+   * semantically correct extraction.
+   *
+   * @param offset The offset in the vtable to extract from
+   * @param optional Is this an optional field?
+   * @return {boolean | null} The extracted number or null if it's
+   * not supplied.
+   */
   // eslint-disable-next-line no-dupe-class-members, require-jsdoc
-  public extractBoolean( vtableOffset: number, optional: boolean ): boolean | null {
+  public extractBoolean( offset: number, optional: boolean ): boolean | null {
 
     this.guaranteeVTable()
 
     const internalReference =
       this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
 
-    if ( vtableOffset >= internalReference.vtableCount ) {
+    if ( offset >= internalReference.vtableCount ) {
       throw new Error( 'Couldn\'t read field due to too few fields in record' )
     }
 
-    const vtableSlot = internalReference.vtableIndex + vtableOffset
+    const vtableSlot = internalReference.vtableIndex + offset
 
     const cursor    = internalReference.vtable[ vtableSlot ]
     const buffer    = internalReference.buffer
