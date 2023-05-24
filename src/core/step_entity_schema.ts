@@ -1,4 +1,5 @@
 import StepParser from '../../dependencies/conway-ds/src/parsing/step/step_parser'
+import { EntityDescription } from './entity_description'
 import StepEntityBase from './step_entity_base'
 import StepEntityConstructor from './step_entity_constructor'
 
@@ -21,8 +22,9 @@ export default class StepEntitySchema<
   /* eslint-disable no-useless-constructor, require-jsdoc, no-empty-function */
   constructor(
     public readonly constructors: ReadonlyArray<
-      StepEntityConstructor< EntityTypeIDs, BaseEntity > |undefined >,
+      StepEntityConstructor< EntityTypeIDs, BaseEntity > | undefined >,
     public readonly parser: StepParser< EntityTypeIDs >,
-    public readonly queries: ReadonlyArray< ReadonlyArray< EntityTypeIDs > > ) {}
+    public readonly queries: ReadonlyArray< ReadonlyArray< EntityTypeIDs > >,
+    public readonly reflection: ReadonlyArray< EntityDescription< EntityTypeIDs > > ) {}
   /* eslint-enable no-useless-constructor, require-jsdoc, no-empty-function */
 }

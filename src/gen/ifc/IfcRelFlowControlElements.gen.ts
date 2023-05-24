@@ -2,72 +2,15 @@
 import { IfcRelConnects } from "./index"
 import { IfcDistributionControlElement } from "./index"
 import { IfcDistributionFlowElement } from "./index"
-
-/* This is generated code, don't modify */
-import EntityTypesIfc from "./entity_types_ifc.gen"
-import StepEntityInternalReference from "../../core/step_entity_internal_reference"
-import StepEntityBase from "../../core/step_entity_base"
-import StepModelBase from "../../core/step_model_base"
 import {
-  stepExtractBoolean,
-  stepExtractEnum,
-  stepExtractString,
-  stepExtractOptional,
-  stepExtractBinary,
-  stepExtractReference,
-  stepExtractNumber,
-  stepExtractInlineElemement,
   stepExtractArray,
-  stepExtractLogical,
-  NVL,
-  HIINDEX,
-  SIZEOF
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
-import {
-  IfcBaseAxis,
-  IfcBooleanChoose,
-  IfcBuild2Axes,
-  IfcBuildAxes,
-  IfcConstraintsParamBSpline,
-  IfcConvertDirectionInto2D,
-  IfcCorrectDimensions,
-  IfcCorrectFillAreaStyle,
-  IfcCorrectLocalPlacement,
-  IfcCorrectObjectAssignment,
-  IfcCorrectUnitAssignment,
-  IfcCrossProduct,
-  IfcCurveDim,
-  IfcDeriveDimensionalExponents,
-  IfcDimensionsForSiUnit,
-  IfcDotProduct,
-  IfcFirstProjAxis,
-  IfcListToArray,
-  IfcLoopHeadToTail,
-  IfcMakeArrayOfArray,
-  IfcMlsTotalThickness,
-  IfcNormalise,
-  IfcOrthogonalComplement,
-  IfcPathHeadToTail,
-  IfcSameAxis2Placement,
-  IfcSameCartesianPoint,
-  IfcSameDirection,
-  IfcSameValidPrecision,
-  IfcSameValue,
-  IfcScalarTimesVector,
-  IfcSecondProjAxis,
-  IfcShapeRepresentationTypes,
-  IfcTaperedSweptAreaProfiles,
-  IfcTopologyRepresentationTypes,
-  IfcUniqueDefinitionNames,
-  IfcUniquePropertyName,
-  IfcUniquePropertySetNames,
-  IfcUniqueQuantityNames,
-  IfcVectorDifference,
-  IfcVectorSum,
-  IfcPointListDim,
-  IfcGetBasisSurface
-} from "../../core/ifc/ifc_functions"
+/* This is generated code, don't modify */
+import EntityTypesIfc from './entity_types_ifc.gen'
+import StepEntityInternalReference from '../../core/step_entity_internal_reference'
+import StepEntityBase from '../../core/step_entity_base'
+import StepModelBase from '../../core/step_model_base'
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcrelflowcontrolelements.htm */
@@ -80,31 +23,14 @@ export  class IfcRelFlowControlElements extends IfcRelConnects {
 
   public get RelatedControlElements() : Array<IfcDistributionControlElement> {
     if ( this.RelatedControlElements_ === void 0 ) {
-      this.RelatedControlElements_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 4 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 4
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.RelatedControlElements_ = this.extractLambda( 4, (buffer, cursor, endCursor) => {
 
       let value : Array<IfcDistributionControlElement> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcDistributionControlElement ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -113,8 +39,7 @@ export  class IfcRelFlowControlElements extends IfcRelConnects {
           return value
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.RelatedControlElements_ as Array<IfcDistributionControlElement>
@@ -122,31 +47,7 @@ return value })()
 
   public get RelatingFlowElement() : IfcDistributionFlowElement {
     if ( this.RelatingFlowElement_ === void 0 ) {
-      this.RelatingFlowElement_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 5 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 5
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-       let expressID = stepExtractReference( buffer, cursor, endCursor );
-       let value =
-         expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-         this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
-
-      if ( !( value instanceof IfcDistributionFlowElement ) )  {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      return value })()
+      this.RelatingFlowElement_ = this.extractElement( 5, false, IfcDistributionFlowElement )
     }
 
     return this.RelatingFlowElement_ as IfcDistributionFlowElement

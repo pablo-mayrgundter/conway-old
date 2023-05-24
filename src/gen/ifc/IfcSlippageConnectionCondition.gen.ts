@@ -3,70 +3,10 @@ import { IfcStructuralConnectionCondition } from "./index"
 import { IfcLengthMeasure } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from "./entity_types_ifc.gen"
-import StepEntityInternalReference from "../../core/step_entity_internal_reference"
-import StepEntityBase from "../../core/step_entity_base"
-import StepModelBase from "../../core/step_model_base"
-import {
-  stepExtractBoolean,
-  stepExtractEnum,
-  stepExtractString,
-  stepExtractOptional,
-  stepExtractBinary,
-  stepExtractReference,
-  stepExtractNumber,
-  stepExtractInlineElemement,
-  stepExtractArray,
-  stepExtractLogical,
-  NVL,
-  HIINDEX,
-  SIZEOF
-} from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
-
-import {
-  IfcBaseAxis,
-  IfcBooleanChoose,
-  IfcBuild2Axes,
-  IfcBuildAxes,
-  IfcConstraintsParamBSpline,
-  IfcConvertDirectionInto2D,
-  IfcCorrectDimensions,
-  IfcCorrectFillAreaStyle,
-  IfcCorrectLocalPlacement,
-  IfcCorrectObjectAssignment,
-  IfcCorrectUnitAssignment,
-  IfcCrossProduct,
-  IfcCurveDim,
-  IfcDeriveDimensionalExponents,
-  IfcDimensionsForSiUnit,
-  IfcDotProduct,
-  IfcFirstProjAxis,
-  IfcListToArray,
-  IfcLoopHeadToTail,
-  IfcMakeArrayOfArray,
-  IfcMlsTotalThickness,
-  IfcNormalise,
-  IfcOrthogonalComplement,
-  IfcPathHeadToTail,
-  IfcSameAxis2Placement,
-  IfcSameCartesianPoint,
-  IfcSameDirection,
-  IfcSameValidPrecision,
-  IfcSameValue,
-  IfcScalarTimesVector,
-  IfcSecondProjAxis,
-  IfcShapeRepresentationTypes,
-  IfcTaperedSweptAreaProfiles,
-  IfcTopologyRepresentationTypes,
-  IfcUniqueDefinitionNames,
-  IfcUniquePropertyName,
-  IfcUniquePropertySetNames,
-  IfcUniqueQuantityNames,
-  IfcVectorDifference,
-  IfcVectorSum,
-  IfcPointListDim,
-  IfcGetBasisSurface
-} from "../../core/ifc/ifc_functions"
+import EntityTypesIfc from './entity_types_ifc.gen'
+import StepEntityInternalReference from '../../core/step_entity_internal_reference'
+import StepEntityBase from '../../core/step_entity_base'
+import StepModelBase from '../../core/step_model_base'
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcslippageconnectioncondition.htm */
@@ -80,32 +20,7 @@ export  class IfcSlippageConnectionCondition extends IfcStructuralConnectionCond
 
   public get SlippageX() : number | null {
     if ( this.SlippageX_ === void 0 ) {
-      this.SlippageX_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 1 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 1
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.SlippageX_ = this.extractNumber( 1, true )
     }
 
     return this.SlippageX_ as number | null
@@ -113,32 +28,7 @@ export  class IfcSlippageConnectionCondition extends IfcStructuralConnectionCond
 
   public get SlippageY() : number | null {
     if ( this.SlippageY_ === void 0 ) {
-      this.SlippageY_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 2 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 2
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.SlippageY_ = this.extractNumber( 2, true )
     }
 
     return this.SlippageY_ as number | null
@@ -146,32 +36,7 @@ export  class IfcSlippageConnectionCondition extends IfcStructuralConnectionCond
 
   public get SlippageZ() : number | null {
     if ( this.SlippageZ_ === void 0 ) {
-      this.SlippageZ_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 3 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 3
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractNumber( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.SlippageZ_ = this.extractNumber( 3, true )
     }
 
     return this.SlippageZ_ as number | null

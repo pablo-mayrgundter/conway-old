@@ -2,72 +2,16 @@
 import { IfcTypeObject } from "./index"
 import { IfcRepresentationMap } from "./index"
 import { IfcLabel } from "./index"
-
-/* This is generated code, don't modify */
-import EntityTypesIfc from "./entity_types_ifc.gen"
-import StepEntityInternalReference from "../../core/step_entity_internal_reference"
-import StepEntityBase from "../../core/step_entity_base"
-import StepModelBase from "../../core/step_model_base"
 import {
-  stepExtractBoolean,
-  stepExtractEnum,
-  stepExtractString,
   stepExtractOptional,
-  stepExtractBinary,
-  stepExtractReference,
-  stepExtractNumber,
-  stepExtractInlineElemement,
   stepExtractArray,
-  stepExtractLogical,
-  NVL,
-  HIINDEX,
-  SIZEOF
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
-import {
-  IfcBaseAxis,
-  IfcBooleanChoose,
-  IfcBuild2Axes,
-  IfcBuildAxes,
-  IfcConstraintsParamBSpline,
-  IfcConvertDirectionInto2D,
-  IfcCorrectDimensions,
-  IfcCorrectFillAreaStyle,
-  IfcCorrectLocalPlacement,
-  IfcCorrectObjectAssignment,
-  IfcCorrectUnitAssignment,
-  IfcCrossProduct,
-  IfcCurveDim,
-  IfcDeriveDimensionalExponents,
-  IfcDimensionsForSiUnit,
-  IfcDotProduct,
-  IfcFirstProjAxis,
-  IfcListToArray,
-  IfcLoopHeadToTail,
-  IfcMakeArrayOfArray,
-  IfcMlsTotalThickness,
-  IfcNormalise,
-  IfcOrthogonalComplement,
-  IfcPathHeadToTail,
-  IfcSameAxis2Placement,
-  IfcSameCartesianPoint,
-  IfcSameDirection,
-  IfcSameValidPrecision,
-  IfcSameValue,
-  IfcScalarTimesVector,
-  IfcSecondProjAxis,
-  IfcShapeRepresentationTypes,
-  IfcTaperedSweptAreaProfiles,
-  IfcTopologyRepresentationTypes,
-  IfcUniqueDefinitionNames,
-  IfcUniquePropertyName,
-  IfcUniquePropertySetNames,
-  IfcUniqueQuantityNames,
-  IfcVectorDifference,
-  IfcVectorSum,
-  IfcPointListDim,
-  IfcGetBasisSurface
-} from "../../core/ifc/ifc_functions"
+/* This is generated code, don't modify */
+import EntityTypesIfc from './entity_types_ifc.gen'
+import StepEntityInternalReference from '../../core/step_entity_internal_reference'
+import StepEntityBase from '../../core/step_entity_base'
+import StepModelBase from '../../core/step_model_base'
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifctypeproduct.htm */
@@ -80,20 +24,7 @@ export  class IfcTypeProduct extends IfcTypeObject {
 
   public get RepresentationMaps() : Array<IfcRepresentationMap> | null {
     if ( this.RepresentationMaps_ === void 0 ) {
-      this.RepresentationMaps_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 6 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 6
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.RepresentationMaps_ = this.extractLambda( 6, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
@@ -102,13 +33,9 @@ export  class IfcTypeProduct extends IfcTypeObject {
       let value : Array<IfcRepresentationMap> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
-    
-           let expressID = stepExtractReference( buffer, cursor, endCursor );
-           let value =
-             expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-             this.model.getInlineElementByAddress( stepExtractInlineElemement( buffer, cursor, endCursor ) )
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
     
           if ( !( value instanceof IfcRepresentationMap ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
@@ -117,8 +44,7 @@ export  class IfcTypeProduct extends IfcTypeObject {
           return value
         })() )
       }
-
-return value })()
+      return value }, true )
     }
 
     return this.RepresentationMaps_ as Array<IfcRepresentationMap> | null
@@ -126,32 +52,7 @@ return value })()
 
   public get Tag() : string | null {
     if ( this.Tag_ === void 0 ) {
-      this.Tag_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-     let value = stepExtractString( buffer, cursor, endCursor )
-
-      if ( value === void 0 ) {
-        if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-
-        return null
-      } else {
-        return value
-      } })()
+      this.Tag_ = this.extractString( 7, true )
     }
 
     return this.Tag_ as string | null

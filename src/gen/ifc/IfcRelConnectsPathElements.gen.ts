@@ -2,72 +2,16 @@
 import { IfcRelConnectsElements } from "./index"
 import { IfcInteger } from "./index"
 import { IfcConnectionTypeEnum, IfcConnectionTypeEnumDeserializeStep } from "./index"
-
-/* This is generated code, don't modify */
-import EntityTypesIfc from "./entity_types_ifc.gen"
-import StepEntityInternalReference from "../../core/step_entity_internal_reference"
-import StepEntityBase from "../../core/step_entity_base"
-import StepModelBase from "../../core/step_model_base"
 import {
-  stepExtractBoolean,
-  stepExtractEnum,
-  stepExtractString,
-  stepExtractOptional,
-  stepExtractBinary,
-  stepExtractReference,
   stepExtractNumber,
-  stepExtractInlineElemement,
   stepExtractArray,
-  stepExtractLogical,
-  NVL,
-  HIINDEX,
-  SIZEOF
 } from '../../../dependencies/conway-ds/src/parsing/step/step_deserialization_functions'
 
-import {
-  IfcBaseAxis,
-  IfcBooleanChoose,
-  IfcBuild2Axes,
-  IfcBuildAxes,
-  IfcConstraintsParamBSpline,
-  IfcConvertDirectionInto2D,
-  IfcCorrectDimensions,
-  IfcCorrectFillAreaStyle,
-  IfcCorrectLocalPlacement,
-  IfcCorrectObjectAssignment,
-  IfcCorrectUnitAssignment,
-  IfcCrossProduct,
-  IfcCurveDim,
-  IfcDeriveDimensionalExponents,
-  IfcDimensionsForSiUnit,
-  IfcDotProduct,
-  IfcFirstProjAxis,
-  IfcListToArray,
-  IfcLoopHeadToTail,
-  IfcMakeArrayOfArray,
-  IfcMlsTotalThickness,
-  IfcNormalise,
-  IfcOrthogonalComplement,
-  IfcPathHeadToTail,
-  IfcSameAxis2Placement,
-  IfcSameCartesianPoint,
-  IfcSameDirection,
-  IfcSameValidPrecision,
-  IfcSameValue,
-  IfcScalarTimesVector,
-  IfcSecondProjAxis,
-  IfcShapeRepresentationTypes,
-  IfcTaperedSweptAreaProfiles,
-  IfcTopologyRepresentationTypes,
-  IfcUniqueDefinitionNames,
-  IfcUniquePropertyName,
-  IfcUniquePropertySetNames,
-  IfcUniqueQuantityNames,
-  IfcVectorDifference,
-  IfcVectorSum,
-  IfcPointListDim,
-  IfcGetBasisSurface
-} from "../../core/ifc/ifc_functions"
+/* This is generated code, don't modify */
+import EntityTypesIfc from './entity_types_ifc.gen'
+import StepEntityInternalReference from '../../core/step_entity_internal_reference'
+import StepEntityBase from '../../core/step_entity_base'
+import StepModelBase from '../../core/step_model_base'
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcrelconnectspathelements.htm */
@@ -82,38 +26,23 @@ export  class IfcRelConnectsPathElements extends IfcRelConnectsElements {
 
   public get RelatingPriorities() : Array< number > {
     if ( this.RelatingPriorities_ === void 0 ) {
-      this.RelatingPriorities_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 7 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 7
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.RelatingPriorities_ = this.extractLambda( 7, (buffer, cursor, endCursor) => {
 
       let value : Array<number> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
+        value.push( (() => {
+          const cursor = address
+          const value = stepExtractNumber( buffer, cursor, endCursor )
     
-         let value = stepExtractNumber( buffer, cursor, endCursor )
-    
-          if ( value === void 0 )  {
-            throw new Error( 'Value in STEP was incorrectly typed' )
+          if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
           }
     
-          return value
+          return value 
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.RelatingPriorities_ as Array< number >
@@ -121,38 +50,23 @@ return value })()
 
   public get RelatedPriorities() : Array< number > {
     if ( this.RelatedPriorities_ === void 0 ) {
-      this.RelatedPriorities_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 8 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 8
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
+      this.RelatedPriorities_ = this.extractLambda( 8, (buffer, cursor, endCursor) => {
 
       let value : Array<number> = [];
 
       for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => { 
-          let cursor = address
+        value.push( (() => {
+          const cursor = address
+          const value = stepExtractNumber( buffer, cursor, endCursor )
     
-         let value = stepExtractNumber( buffer, cursor, endCursor )
-    
-          if ( value === void 0 )  {
-            throw new Error( 'Value in STEP was incorrectly typed' )
+          if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
           }
     
-          return value
+          return value 
         })() )
       }
-
-return value })()
+      return value }, false )
     }
 
     return this.RelatedPriorities_ as Array< number >
@@ -160,28 +74,7 @@ return value })()
 
   public get RelatedConnectionType() : IfcConnectionTypeEnum {
     if ( this.RelatedConnectionType_ === void 0 ) {
-      this.RelatedConnectionType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 9 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 9
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcConnectionTypeEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.RelatedConnectionType_ = this.extractLambda( 9, IfcConnectionTypeEnumDeserializeStep, false )
     }
 
     return this.RelatedConnectionType_ as IfcConnectionTypeEnum
@@ -189,28 +82,7 @@ return value })()
 
   public get RelatingConnectionType() : IfcConnectionTypeEnum {
     if ( this.RelatingConnectionType_ === void 0 ) {
-      this.RelatingConnectionType_ = (() => { 
-        this.guaranteeVTable()
-
-      let internalReference = this.internalReference_ as Required< StepEntityInternalReference< EntityTypesIfc > >
-
-      if ( 10 >= internalReference.vtableCount ) {
-        throw new Error( "Couldn't read field due to too few fields in record" )
-      }
-            
-      let vtableSlot = internalReference.vtableIndex + 10
-
-      let cursor    = internalReference.vtable[ vtableSlot ]
-      let buffer    = internalReference.buffer
-      let endCursor = buffer.length
-
-      let value = IfcConnectionTypeEnumDeserializeStep( buffer, cursor, endCursor )
-
-      if ( value === void 0 )  {
-        throw new Error( 'Value in STEP was incorrectly typed' )
-      }
-
-      return value })()
+      this.RelatingConnectionType_ = this.extractLambda( 10, IfcConnectionTypeEnumDeserializeStep, false )
     }
 
     return this.RelatingConnectionType_ as IfcConnectionTypeEnum
