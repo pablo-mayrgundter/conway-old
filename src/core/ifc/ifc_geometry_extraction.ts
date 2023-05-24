@@ -653,7 +653,9 @@ export class IfcGeometryExtraction {
         meshes[index].geometry.applyTransform(meshes[index].transform)
         //console.log("Applied geometry transform for geometry at localID: " + meshes[index].localID)
       } else {
-        //console.log("mesh.transform undefined at localID: " + meshes[index].localID)
+        meshes.splice(index--, 1)
+
+        console.log("mesh.transform undefined at localID: " + meshes[index].localID + "removing from mesh array...")
       }
     }
 
