@@ -3,12 +3,15 @@ import { IndexedPolygonalFace } from '../../../dependencies/conway-geom/conway_g
 import { ParamsLocalPlacement } from '../../../dependencies/conway-geom/conway_geometry'
 import { ConwayGeometry, ParamsPolygonalFaceSet, GeometryObject, ResultsGltf }
   from '../../../dependencies/conway-geom/conway_geometry'
-import { IfcAxis2Placement3D, IfcBooleanResult, IfcBoundingBox, IfcBuildingElementPart, IfcBuildingElementProxy, IfcExtrudedAreaSolid, IfcGridPlacement, IfcIndexedPolygonalFaceWithVoids, IfcLocalPlacement, IfcPolygonalFaceSet, IfcProduct, IfcProductDefinitionShape, IfcTessellatedFaceSet } from '../../gen/ifc'
-import EntityTypesIfc from '../../gen/ifc/entity_types_ifc.gen'
+import {
+  IfcAxis2Placement3D, IfcBooleanResult, IfcBuildingElementProxy,
+  IfcExtrudedAreaSolid, IfcGridPlacement, IfcIndexedPolygonalFaceWithVoids,
+  IfcLocalPlacement, IfcPolygonalFaceSet, IfcProduct,
+  IfcProductDefinitionShape,
+} from '../../gen/ifc'
 import IfcStepModel from './ifc_step_model'
 
 
-type NativeGlmDVec3 = any
 type NativeVectorGlmVec3 = any
 type NativeUintVector = any
 type NativeULongVector = any
@@ -45,8 +48,8 @@ export class IfcGeometryExtraction {
   // Define the map
   private static conwayGeomMap = new Map<number, ConwayGeometry>()
 
-  //Map<modelID, Map<localID, ConwayMesh>>
-  private static geometryMap: Map<number, Map<number, ConwayMesh>> = new Map();
+  // Map<modelID, Map<localID, ConwayMesh>>
+  private static geometryMap: Map<number, Map<number, ConwayMesh>> = new Map()
 
   private static wasmModule: WasmModule
 
@@ -55,7 +58,7 @@ export class IfcGeometryExtraction {
    */
   static async create(): Promise<number> {
 
-    let localIDMap:Map<number, ConwayMesh> = new Map()
+    const localIDMap: Map<number, ConwayMesh> = new Map()
     // Check if the map is empty
     if (this.conwayGeomMap.size === 0) {
       const temp: ConwayGeometry = new ConwayGeometry()
@@ -142,10 +145,11 @@ export class IfcGeometryExtraction {
   /**
    *
    * @param initialSize number - initial size of the vector (optional)
-   * @return {NativeVectorIndexedPolygonalFace} - a native std::vector<IndexedPolygonalFace> from the wasm module
+   * @return {NativeVectorIndexedPolygonalFace} - a native object from the wasm module
    */
   static nativeIndexedPolygonalFaceVector(initialize?: number): NativeVectorIndexedPolygonalFace {
-    const nativeVectorIndexedPolygonalFace = new (this.wasmModule.VectorIndexedPolygonalFace as NativeVectorIndexedPolygonalFace)()
+    const nativeVectorIndexedPolygonalFace = new
+    (this.wasmModule.VectorIndexedPolygonalFace as NativeVectorIndexedPolygonalFace)()
 
     if (initialize) {
       // resize has a required second parameter to set default values
@@ -201,7 +205,7 @@ export class IfcGeometryExtraction {
    * @return {ResultsGltf} - Structure containing GLTF / GLB filenames + data vectors
    */
   static toGltf(geometry: GeometryObject, isGlb: boolean,
-    outputDraco: boolean, fileUri: string, modelId: number = 0): ResultsGltf {
+      outputDraco: boolean, fileUri: string, modelId: number = 0): ResultsGltf {
     const noResults: ResultsGltf = { success: false, bufferUris: undefined, buffers: undefined }
     noResults.success = false
     if (this.conwayGeomMap.get(modelId)) {
@@ -221,6 +225,11 @@ export class IfcGeometryExtraction {
     }
   }
 
+  /**
+   *
+   * @param arr - a 2D number array
+   * @return {number} - total length of all 2D array elements
+   */
   private static getTotalLength(arr: number[][]): number {
     let totalLength = 0
     for (const innerArray of arr) {
@@ -247,20 +256,29 @@ export class IfcGeometryExtraction {
     const returnedIndexData =
       new Uint32Array(this.wasmModule.HEAPU32.buffer, indexDataPtr, indexDataPtr.length)
 
-    //console.log(`VertexData Ptr: ${vertexDataPtr}`)
-    //console.log(`VertexData Size: ${vertexDataSize}`)
-    //console.log(`IndexData Ptr: ${indexDataPtr}`)
-    //console.log(`IndexData Size: ${indexDataSize}`)
+    console.log(`VertexData Ptr: ${vertexDataPtr}`)
+    console.log(`VertexData Size: ${vertexDataSize}`)
+    console.log(`IndexData Ptr: ${indexDataPtr}`)
+    console.log(`IndexData Size: ${indexDataSize}`)
 
     // Now you can access the vertex Data array in TypeScript using the returnedVertexData object
-    //console.log(`returnedVertexData[0]: ${returnedVertexData[0]}`)
+    console.log(`returnedVertexData[0]: ${returnedVertexData[0]}`)
 
     // Now you can access the indexData array in TypeScript using the returnedIndexData object
-    //console.log(`returnedIndexData[0]: ${returnedIndexData[0]}`)
+    console.log(`returnedIndexData[0]: ${returnedIndexData[0]}`)
   }
 
-  private static extractPolygonalFaceSet(entity:IfcPolygonalFaceSet, polygonalFaceStartIndices: NativeULongVector, modelId: number = 0): ExtractResult {
-    let result: ExtractResult = ExtractResult.COMPLETE
+  /**
+   *
+   * @param entity - IfcPolygonalFaceSet
+   * @param polygonalFaceStartIndices - Vector of face start indices
+   * @param modelId - current modelId
+   * @return {ExtractResult} - Extraction status result
+   */
+  private static extractPolygonalFaceSet(entity: IfcPolygonalFaceSet,
+      polygonalFaceStartIndices: NativeULongVector,
+      modelId: number = 0): ExtractResult {
+    const result: ExtractResult = ExtractResult.COMPLETE
 
     // map points
     const points = entity.Coordinates.CoordList.map(([x, y, z]) => ({ x, y, z }))
@@ -269,15 +287,16 @@ export class IfcGeometryExtraction {
 
     let indicesPerFace: number = -1
 
-    //initialize new polygonalFaceVector
-    const polygonalFaceVector: NativeVectorIndexedPolygonalFace = this.nativeIndexedPolygonalFaceVector()
+    // initialize new polygonalFaceVector
+    const polygonalFaceVector: NativeVectorIndexedPolygonalFace =
+      this.nativeIndexedPolygonalFaceVector()
 
-    //handle faces + voids
+    // handle faces + voids
     for (const polygonalFace of faces) {
       if (polygonalFace instanceof IfcIndexedPolygonalFaceWithVoids) {
-        ////console.log("coordIndex: " + polygonalFace.CoordIndex + "\n")
+        // //console.log("coordIndex: " + polygonalFace.CoordIndex + "\n")
 
-        ////console.log("innerCoordIndicesLength: " + polygonalFace.InnerCoordIndices.length)
+        // //console.log("innerCoordIndicesLength: " + polygonalFace.InnerCoordIndices.length)
 
         indicesPerFace = polygonalFace.CoordIndex.length
 
@@ -285,12 +304,13 @@ export class IfcGeometryExtraction {
         const polygonalFaceStartIndicesVoids: NativeULongVector =
           this.nativeULongVector(1 + polygonalFace.InnerCoordIndices.length)
 
-        //set the first index to 0
+        // set the first index to 0
         let voidsIndex = 0
         let coordIndexIdx = 0
         polygonalFaceStartIndicesVoids.set(voidsIndex++, coordIndexIdx)
 
-        //create a coordIndex with size == coordIndex.length + total size of innerCoordIndices array
+        // create a coordIndex with
+        // size == coordIndex.length + total size of innerCoordIndices array
         const coordIndex: NativeUintVector =
           this.nativeUintVector(polygonalFace.CoordIndex.length +
             this.getTotalLength(polygonalFace.InnerCoordIndices))
@@ -299,7 +319,7 @@ export class IfcGeometryExtraction {
           coordIndex.set(coordIndexIdx++, polygonalFace.CoordIndex[i])
         }
 
-        //second index
+        // second index
         polygonalFaceStartIndicesVoids.set(voidsIndex++, coordIndexIdx)
 
         for (let i = 0; i < polygonalFace.InnerCoordIndices.length; i++) {
@@ -325,7 +345,7 @@ export class IfcGeometryExtraction {
 
         indicesPerFace = polygonalFace.CoordIndex.length
         const coordIndex: NativeUintVector = this.nativeUintVector(indicesPerFace)
-        //populate polygonal face 
+        // populate polygonal face
         for (let i = 0; i < polygonalFace.CoordIndex.length; i++) {
           coordIndex.set(i, polygonalFace.CoordIndex[i])
         }
@@ -354,10 +374,10 @@ export class IfcGeometryExtraction {
     }
 
     const geometry: GeometryObject = this.conwayGeomMap.get(modelId)!.getGeometry(parameters)
-    let conwayMesh: ConwayMesh = {
+    const conwayMesh: ConwayMesh = {
       geometry: geometry,
       localID: entity.localID,
-      transform: undefined
+      transform: undefined,
     }
 
     // add mesh to the list of mesh objects returned by wasm module
@@ -375,13 +395,20 @@ export class IfcGeometryExtraction {
     polygonalFaceVector.delete()
 
     return result
-    
+
   }
 
-  private static extractPolygonalFaceSets(entities: IfcPolygonalFaceSet[], modelId: number = 0): ExtractResult {
+  /**
+   *
+   * @param entities - IfcPolygonalFaceSet array
+   * @param modelId - the modelId
+   * @return {ExtractResult} - Extraction status result
+   */
+  private static extractPolygonalFaceSets(entities: IfcPolygonalFaceSet[],
+      modelId: number = 0): ExtractResult {
 
     let result: ExtractResult = ExtractResult.COMPLETE
-    let faceSetResult:ExtractResult = ExtractResult.INCOMPLETE
+    let faceSetResult: ExtractResult = ExtractResult.INCOMPLETE
     // initialize new native indices array (free memory with delete())
     const polygonalFaceStartIndices: NativeULongVector = this.nativeULongVector(1)
 
@@ -392,7 +419,7 @@ export class IfcGeometryExtraction {
       faceSetResult = this.extractPolygonalFaceSet(entity, polygonalFaceStartIndices, modelId)
 
       if (faceSetResult !== ExtractResult.COMPLETE) {
-        //console.log("Warning, face set express ID: " + entity.expressID + " extraction incomplete.")
+        console.log(`Warning, face set express ID: ${entity.expressID} extraction incomplete.`)
         result = ExtractResult.INCOMPLETE
       }
     }
@@ -419,17 +446,12 @@ export class IfcGeometryExtraction {
     const products = model.types(IfcProduct)
     const productEntities = Array.from(products)
 
-    ////console.log("productEntities size: " + productEntities.length)
-    let count = 0
-    let tesselatedFaceSetCount = 0
     for (const product of productEntities) {
       if (product.ObjectPlacement instanceof IfcLocalPlacement) {
 
-        let localGeometryIDs: number[] = []
-       // //console.log("localPlacement #" + ++count + ": " + product.ObjectPlacement.RelativePlacement.Location.Coordinates)
+        const localGeometryIDs: number[] = []
 
         if (product.Representation instanceof IfcProductDefinitionShape) {
-          ////console.log("product.Representation: " + product.Representation.expressID)
           for (const representation of product.Representation.Representations) {
             for (const item of representation.Items) {
               if (item instanceof IfcPolygonalFaceSet) {
@@ -439,49 +461,48 @@ export class IfcGeometryExtraction {
                 let recursiveElement: any = item
                 this.conwayGeomMap.get(modelId)!.graph.addEdge(product.localID, item.localID)
                 while (recursiveElement.FirstOperand !== undefined) {
-                  this.conwayGeomMap.get(modelId)!.graph.addEdge(recursiveElement.localID, recursiveElement.FirstOperand.localID)
-                  this.conwayGeomMap.get(modelId)!.graph.addEdge(recursiveElement.localID, recursiveElement.SecondOperand.localID)
+                  this.conwayGeomMap.get(modelId)!.graph
+                      .addEdge(recursiveElement.localID, recursiveElement.FirstOperand.localID)
+                  this.conwayGeomMap.get(modelId)!.graph
+                      .addEdge(recursiveElement.localID, recursiveElement.SecondOperand.localID)
                   recursiveElement = recursiveElement.FirstOperand
                 }
 
                 recursiveElement = item
 
                 while (recursiveElement.SecondOperand !== undefined) {
-                  this.conwayGeomMap.get(modelId)!.graph.addEdge(recursiveElement.localID, recursiveElement.FirstOperand.localID)
-                  this.conwayGeomMap.get(modelId)!.graph.addEdge(recursiveElement.localID, recursiveElement.SecondOperand.localID)
+                  this.conwayGeomMap.get(modelId)!.graph
+                      .addEdge(recursiveElement.localID, recursiveElement.FirstOperand.localID)
+                  this.conwayGeomMap.get(modelId)!.graph
+                      .addEdge(recursiveElement.localID, recursiveElement.SecondOperand.localID)
                   recursiveElement = recursiveElement.SecondOperand
                 }
               }
             }
           }
 
-          //add to transform mapping 
-          this.conwayGeomMap.get(modelId)!.transformMapping.set(product.ObjectPlacement.localID, localGeometryIDs)
+          // add to transform mapping
+          this.conwayGeomMap.get(modelId)!.transformMapping
+              .set(product.ObjectPlacement.localID, localGeometryIDs)
         } else {
-
-          if (product.Representation) {
-            ;//console.log("product.Representation: " + EntityTypesIfc[model.getElementByLocalID(product.Representation!.localID)!.type])
-          } else {
-            ;//console.log("product.representation == null")
-          }
+          console.log('product.representation == null')
         }
 
       } else if (product.ObjectPlacement instanceof IfcGridPlacement) {
-        ;//console.log("gridPlacement #" + ++count + ": " + product.ObjectPlacement.PlacementLocation.IntersectingAxes)
-      } else {
-        ;//console.log("product.ObjectPlacement: " + EntityTypesIfc[model.getElementByLocalID(product.ObjectPlacement!.localID)!.type])
+        // TODO(nickcastel50): Handle IfcGridPlacement
+        console.log('TODO: Handle IfcGridPlacement')
       }
 
     }
 
-    const sortedIfcElements = this.conwayGeomMap.get(modelId)!.topologicalSort(this.conwayGeomMap.get(modelId)!.graph) as number[]
+    const sortedIfcElements = this.conwayGeomMap.get(modelId)!
+        .topologicalSort(this.conwayGeomMap.get(modelId)!.graph) as number[]
 
-    //console.log("Extracting IfcPolygonalFaceSet geometries...")
+    // Extract IfcPolygonalFaceSet geometries
     const polygonalFaceSets = model.types(IfcPolygonalFaceSet)
     const entities = Array.from(polygonalFaceSets)
     result = this.extractPolygonalFaceSets(entities, modelId)
 
-    //console.log("Topographically Sorted IFC Elements:")
     let polygonalFaceSetCount = 0
     let ifcBuildingElementProxyCount = 0
     let ifcBooleanResultCount = 0
@@ -490,48 +511,45 @@ export class IfcGeometryExtraction {
     let previousElementsCount = 0
     for (let elementIndex = sortedIfcElements.length - 1; elementIndex >= 0; elementIndex--) {
       const element = model.getElementByLocalID(sortedIfcElements[elementIndex])!
-      //console.log("(" + element + "):" + element.localID + " - " + EntityTypesIfc[element.type])
+      // console.log("(" + element + "):" + element.localID + " - " + EntityTypesIfc[element.type])
       if (element instanceof IfcPolygonalFaceSet) {
         polygonalFaceSetCount++
       } else if (element instanceof IfcBuildingElementProxy) {
         ifcBuildingElementProxyCount++
 
-        let relativeTransformArray: any[] = []
-        //map the transform from BuildingElementProxy to our geometry 
+        const relativeTransformArray: any[] = []
+        // map the transform from BuildingElementProxy to our geometry
         let recursiveElement: any = element.ObjectPlacement
 
         while (recursiveElement instanceof IfcLocalPlacement) {
-          let relativePlacement = recursiveElement.RelativePlacement
+          const relativePlacement = recursiveElement.RelativePlacement
           let normalizeZ: boolean = false
           let normalizeX: boolean = false
           if (relativePlacement instanceof IfcAxis2Placement3D) {
             if (relativePlacement.Axis !== null) {
-              //console.log("Location: " + relativePlacement.Location + " - " + relativePlacement.Location.Coordinates)
-              //console.log("Z-Axis Ref: " + relativePlacement.Axis + " - Direction: " + relativePlacement.Axis.DirectionRatios)
               normalizeZ = true
             }
 
             if (relativePlacement.RefDirection !== null) {
-              //console.log("X-Axis Ref: " + relativePlacement.RefDirection + " - Direction: " + relativePlacement.RefDirection.DirectionRatios)
               normalizeX = true
             }
 
             const position = {
               x: relativePlacement.Location.Coordinates[0],
               y: relativePlacement.Location.Coordinates[1],
-              z: relativePlacement.Location.Coordinates[2]
+              z: relativePlacement.Location.Coordinates[2],
             }
 
             const zAxisRef = {
               x: relativePlacement.Axis?.DirectionRatios[0],
               y: relativePlacement.Axis?.DirectionRatios[1],
-              z: relativePlacement.Axis?.DirectionRatios[2]
+              z: relativePlacement.Axis?.DirectionRatios[2],
             }
 
             const xAxisRef = {
               x: relativePlacement.RefDirection?.DirectionRatios[0],
               y: relativePlacement.RefDirection?.DirectionRatios[1],
-              z: relativePlacement.RefDirection?.DirectionRatios[2]
+              z: relativePlacement.RefDirection?.DirectionRatios[2],
             }
 
             const axis2Placement3DParameters: ParamsAxis2Placement3D = {
@@ -539,74 +557,67 @@ export class IfcGeometryExtraction {
               zAxisRef: zAxisRef,
               xAxisRef: xAxisRef,
               normalizeZ: normalizeZ,
-              normalizeX: normalizeX
+              normalizeX: normalizeX,
             }
 
-            const axis2PlacementTransform = this.conwayGeomMap.get(modelId)!.getAxis2Placement3D(axis2Placement3DParameters)
-            //console.log("Geometry Transform: " + axis2PlacementTransform.getValues())
+            const axis2PlacementTransform = this.conwayGeomMap.get(modelId)!
+                .getAxis2Placement3D(axis2Placement3DParameters)
+            // use axis2PlacementTransform.getValues() to get transforms in TypeScript
 
             relativeTransformArray.push(axis2PlacementTransform)
 
             recursiveElement = recursiveElement.PlacementRelTo
-
-            //now we should have all the absolute transforms, lets loop back through all the geometry we processed and set them
           }
         }
 
-        ////console.log("relative transform array: " + relativeTransformArray.length)
-        //now we should have all our relative transform matrices, lets create the absolute transforms
-        let absoluteTransformArray: any[] = []
+        // now we should have all our relative transform matrices, create the absolute transforms
+        const absoluteTransformArray: any[] = []
         for (let index = relativeTransformArray.length - 1; index >= 0; index--) {
           const currentTransform = relativeTransformArray[index]
 
-          if (index == relativeTransformArray.length - 1) {
+          if (index === relativeTransformArray.length - 1) {
             const localPlacementParameters: ParamsLocalPlacement = {
               useRelPlacement: false,
               axis2Placement: currentTransform,
-              // TODO(nickcastel50): shouldn't have to pass anything here but need to figure out how to pass null 
-              relPlacement: currentTransform 
+              // TODO(nickcastel50): figure out how to pass null
+              relPlacement: currentTransform,
             }
 
-            const localPlacement = this.conwayGeomMap.get(modelId)!.getLocalPlacement(localPlacementParameters)
-            //console.log("Local Placement: " + localPlacement)
-            //console.log("Absolute Placement: " + localPlacement.getValues())
+            const localPlacement = this.conwayGeomMap.get(modelId)!
+                .getLocalPlacement(localPlacementParameters)
             absoluteTransformArray.push(localPlacement)
           } else {
             const localPlacementParameters: ParamsLocalPlacement = {
               useRelPlacement: true,
               axis2Placement: currentTransform,
-              relPlacement: absoluteTransformArray[absoluteTransformArray.length - 1]
+              relPlacement: absoluteTransformArray[absoluteTransformArray.length - 1],
             }
 
-            const localPlacement = this.conwayGeomMap.get(modelId)!.getLocalPlacement(localPlacementParameters)
-            //console.log("Local Placement: " + localPlacement)
-            //console.log("Absolute Placement: " + localPlacement.getValues())
+            const localPlacement = this.conwayGeomMap.get(modelId)!
+                .getLocalPlacement(localPlacementParameters)
             absoluteTransformArray.push(localPlacement)
           }
         }
 
-        //now we have the absolute transforms, lets assign them to our ConwayMeshes
+        // now we have the absolute transforms, lets assign them to our ConwayMeshes
         const absoluteTransform = absoluteTransformArray[absoluteTransformArray.length - 1]
 
-        /*//console.log("absolute transform array set: " + absoluteTransform.getValues())
-        //console.log("elementIndex: " + elementIndex)
-        //console.log("previousElementsCount: " + previousElementsCount)*/
         for (let currentIndex = 1; currentIndex < previousElementsCount + 1; currentIndex++) {
-          const currentElement = model.getElementByLocalID(sortedIfcElements[elementIndex + currentIndex])!
+          const currentElement = model
+              .getElementByLocalID(sortedIfcElements[elementIndex + currentIndex])!
 
           if (currentElement instanceof IfcPolygonalFaceSet) {
-            //use localID as map into ConwayMeshes
+            // use localID as map into ConwayMeshes
             const currentMesh = this.geometryMap.get(modelId)!.get(currentElement.localID)
-            //console.log("currentMesh: " + currentMesh)
+
             if (currentMesh !== undefined) {
               currentMesh.transform = absoluteTransform
-              ////console.log("Set transform for current mesh, localID: " + currentMesh.localID)
-              ////console.log("currentMesh transform: " + currentMesh.transform.getValues())
             }
           }
         }
 
       } else if (element instanceof IfcBooleanResult) {
+        // TODO(nickcastel50): Implement IfcBooleanResult
         ifcBooleanResultCount++
       } else if (element instanceof IfcExtrudedAreaSolid) {
         ifcExtrudedAreaSolidCount++
@@ -617,45 +628,25 @@ export class IfcGeometryExtraction {
       } else {
         previousElementsCount++
       }
-      
+
     }
 
-    //console.log("Number of polygonalFaceSet: " + polygonalFaceSetCount)
-    //console.log("Number of ifcBuildingElementProxys: " + ifcBuildingElementProxyCount)
-    //console.log("Number of ifcBooleanResult: " + ifcBooleanResultCount)
-    //console.log("Number of ifcExtrudedAreaSolid: " + ifcExtrudedAreaSolidCount)
+    console.log(`Number of polygonalFaceSet: ${  polygonalFaceSetCount}`)
+    console.log(`Number of ifcBuildingElementProxys: ${  ifcBuildingElementProxyCount}`)
+    console.log(`Number of ifcBooleanResult: ${  ifcBooleanResultCount}`)
+    console.log(`Number of ifcExtrudedAreaSolid: ${  ifcExtrudedAreaSolidCount}`)
 
-    //const flatArray = Array.from(this.conwayGeomMap.get(modelId)!.transformMapping.values()).flatMap((arr) => arr) as number[]
-    const allEntities: number[] = []
-
-    ////console.log("Number Of IfcPolygonalFaceSets: " + valueCount)
-
-    //console.log("polygonalFaceSets size: " + entities.length)
-
-    for (const entity of entities) {
-      allEntities.push(entity.localID)
-    }
-
-    const uniqueArr = allEntities.filter((value) => !sortedIfcElements.includes(value))
-
-    for (const localID of uniqueArr) {
-      const element = model.getElementByLocalID(localID)
-
-      //console.log("unique element: " + element)
-    }
-
-    //TODO(nickcastel50): Not sure when we actually want to apply these transforms
-    //apply transformations to the geometry 
-    let meshes = Array.from(this.getMeshes(modelId).values())
+    // TODO(nickcastel50): Not sure when we actually want to apply these transforms
+    // apply transformations to the geometry
+    const meshes = Array.from(this.getMeshes(modelId).values())
 
     for (let index = 0; index < meshes.length; index++) {
-      if (meshes[index].transform !== undefined ) {
+      if (meshes[index].transform !== undefined) {
         meshes[index].geometry.applyTransform(meshes[index].transform)
-        //console.log("Applied geometry transform for geometry at localID: " + meshes[index].localID)
       } else {
         meshes.splice(index--, 1)
-
-        console.log("mesh.transform undefined at localID: " + meshes[index].localID + "removing from mesh array...")
+        console.log(`mesh.transform undefined at localID: 
+        ${meshes[index].localID} removing from mesh array...`)
       }
     }
 
