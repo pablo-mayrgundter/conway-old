@@ -4,10 +4,13 @@ import { ParamsLocalPlacement } from '../../../dependencies/conway-geom/conway_g
 import { ConwayGeometry, ParamsPolygonalFaceSet, GeometryObject, ResultsGltf }
   from '../../../dependencies/conway-geom/conway_geometry'
 import {
-  IfcAxis2Placement3D, IfcBooleanResult, IfcBuildingElementProxy,
-  IfcExtrudedAreaSolid, IfcGridPlacement, IfcIndexedPolygonalFaceWithVoids,
-  IfcLocalPlacement, IfcPolygonalFaceSet, IfcProduct,
-  IfcProductDefinitionShape,
+  IfcArbitraryClosedProfileDef, IfcAxis2Placement3D, IfcBSplineCurveWithKnots,
+  IfcBooleanResult, IfcBoundaryCurve, IfcBuildingElementProxy, IfcCircle,
+  IfcCircleProfileDef, IfcCompositeCurve, IfcCompositeProfileDef, IfcEllipse,
+  IfcExtrudedAreaSolid, IfcGridPlacement, IfcIndexedPolyCurve, IfcIndexedPolygonalFaceWithVoids,
+  IfcIntersectionCurve, IfcLine, IfcLocalPlacement, IfcOffsetCurve2D, IfcOffsetCurve3D,
+  IfcOuterBoundaryCurve, IfcPcurve, IfcPolygonalFaceSet, IfcProduct, IfcProductDefinitionShape,
+  IfcRationalBSplineCurveWithKnots, IfcSeamCurve, IfcSurfaceCurve, IfcTrimmedCurve,
 } from '../../gen/ifc'
 import IfcStepModel from './ifc_step_model'
 
@@ -619,8 +622,95 @@ export class IfcGeometryExtraction {
       } else if (element instanceof IfcBooleanResult) {
         // TODO(nickcastel50): Implement IfcBooleanResult
         ifcBooleanResultCount++
+        console.log('Found IfcBooleanResult:')
       } else if (element instanceof IfcExtrudedAreaSolid) {
         ifcExtrudedAreaSolidCount++
+        // TODO(nickcastel50): Implement IfcExtrudedAreaSolid + Curves
+        console.log('Found IfcExtrudedAreaSolid')
+
+        if (element.Position !== null) {
+          let normalizeZ: boolean = false
+          let normalizeX: boolean = false
+          if (element.Position.Axis !== null) {
+            normalizeZ = true
+          }
+
+          if (element.Position.RefDirection !== null) {
+            normalizeX = true
+          }
+
+          const position = {
+            x: element.Position.Location.Coordinates[0],
+            y: element.Position.Location.Coordinates[1],
+            z: element.Position.Location.Coordinates[2],
+          }
+
+          const zAxisRef = {
+            x: element.Position.Axis?.DirectionRatios[0],
+            y: element.Position.Axis?.DirectionRatios[1],
+            z: element.Position.Axis?.DirectionRatios[2],
+          }
+
+          const xAxisRef = {
+            x: element.Position.RefDirection?.DirectionRatios[0],
+            y: element.Position.RefDirection?.DirectionRatios[1],
+            z: element.Position.RefDirection?.DirectionRatios[2],
+          }
+
+          const axis2Placement3DParameters: ParamsAxis2Placement3D = {
+            position: position,
+            zAxisRef: zAxisRef,
+            xAxisRef: xAxisRef,
+            normalizeZ: normalizeZ,
+            normalizeX: normalizeX,
+          }
+
+          const axis2PlacementTransform = this.conwayGeomMap.get(modelId)!
+              .getAxis2Placement3D(axis2Placement3DParameters)
+          axis2PlacementTransform.getValues()
+          // scaffolding for profile extraction
+          if (element.SweptArea instanceof IfcArbitraryClosedProfileDef) {
+            if (element.SweptArea.OuterCurve instanceof IfcLine) {
+              ;
+            } else if (element.SweptArea.OuterCurve instanceof IfcOffsetCurve2D) {
+              ;
+            } else if (element.SweptArea.OuterCurve instanceof IfcOffsetCurve3D) {
+              ;
+            } else if (element.SweptArea.OuterCurve instanceof IfcPcurve) {
+              ;
+            } else if (element.SweptArea.OuterCurve instanceof IfcSurfaceCurve) {
+              ;
+            } else if (element.SweptArea.OuterCurve instanceof IfcCompositeCurve) {
+              ;
+            } else if (element.SweptArea.OuterCurve instanceof IfcIndexedPolyCurve) {
+              ;
+            } else if (element.SweptArea.OuterCurve instanceof IfcTrimmedCurve) {
+              ;
+            } else if (element.SweptArea.OuterCurve instanceof IfcBSplineCurveWithKnots) {
+              ;
+            } else if (element.SweptArea.OuterCurve instanceof IfcRationalBSplineCurveWithKnots) {
+              ;
+            } else if (element.SweptArea.OuterCurve instanceof IfcBoundaryCurve) {
+              ;
+            } else if (element.SweptArea.OuterCurve instanceof IfcOuterBoundaryCurve) {
+              ;
+            } else if (element.SweptArea.OuterCurve instanceof IfcCircle) {
+              ;
+            } else if (element.SweptArea.OuterCurve instanceof IfcEllipse) {
+              ;
+            } else if (element.SweptArea.OuterCurve instanceof IfcIntersectionCurve) {
+              ;
+            } else if (element.SweptArea.OuterCurve instanceof IfcSeamCurve) {
+              ;
+            }
+          } else if (element.SweptArea instanceof IfcCompositeProfileDef) {
+            ;
+          } else if (element.SweptArea instanceof IfcCircleProfileDef) {
+            ;
+          }
+        } else {
+          console.log('Element.position === null!')
+        }
       }
 
       if (element instanceof IfcBuildingElementProxy) {
@@ -631,10 +721,10 @@ export class IfcGeometryExtraction {
 
     }
 
-    console.log(`Number of polygonalFaceSet: ${  polygonalFaceSetCount}`)
-    console.log(`Number of ifcBuildingElementProxys: ${  ifcBuildingElementProxyCount}`)
-    console.log(`Number of ifcBooleanResult: ${  ifcBooleanResultCount}`)
-    console.log(`Number of ifcExtrudedAreaSolid: ${  ifcExtrudedAreaSolidCount}`)
+    console.log(`Number of polygonalFaceSet: ${polygonalFaceSetCount}`)
+    console.log(`Number of ifcBuildingElementProxys: ${ifcBuildingElementProxyCount}`)
+    console.log(`Number of ifcBooleanResult: ${ifcBooleanResultCount}`)
+    console.log(`Number of ifcExtrudedAreaSolid: ${ifcExtrudedAreaSolidCount}`)
 
     // TODO(nickcastel50): Not sure when we actually want to apply these transforms
     // apply transformations to the geometry
