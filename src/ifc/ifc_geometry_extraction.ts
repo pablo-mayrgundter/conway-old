@@ -1,17 +1,14 @@
-import { ParamsAxis2Placement3D } from '../../dependencies/conway-geom/conway_geometry'
-import { IndexedPolygonalFace } from '../../dependencies/conway-geom/conway_geometry'
-import { ParamsLocalPlacement } from '../../dependencies/conway-geom/conway_geometry'
-import { ConwayGeometry, ParamsPolygonalFaceSet, GeometryObject, ResultsGltf }
-  from '../../../dependencies/conway-geom/conway_geometry'
+import { ConwayGeometry, ParamsPolygonalFaceSet, GeometryObject, ResultsGltf, IndexedPolygonalFace, ParamsAxis2Placement3D, ParamsLocalPlacement }
+  from '../../dependencies/conway-geom/conway_geometry'
 import {
-    IfcArbitraryClosedProfileDef, IfcAxis2Placement3D, IfcBSplineCurveWithKnots,
-    IfcBooleanResult, IfcBoundaryCurve, IfcBuildingElementProxy, IfcCircle,
-    IfcCircleProfileDef, IfcCompositeCurve, IfcCompositeProfileDef, IfcEllipse,
-    IfcExtrudedAreaSolid, IfcGridPlacement, IfcIndexedPolyCurve, IfcIndexedPolygonalFaceWithVoids,
-    IfcIntersectionCurve, IfcLine, IfcLocalPlacement, IfcOffsetCurve2D, IfcOffsetCurve3D,
-    IfcOuterBoundaryCurve, IfcPcurve, IfcPolygonalFaceSet, IfcProduct, IfcProductDefinitionShape,
-    IfcRationalBSplineCurveWithKnots, IfcSeamCurve, IfcSurfaceCurve, IfcTrimmedCurve,
-} from './ifc4-gen'
+  IfcArbitraryClosedProfileDef, IfcAxis2Placement3D, IfcBSplineCurveWithKnots,
+  IfcBooleanResult, IfcBoundaryCurve, IfcBuildingElementProxy, IfcCircle,
+  IfcCircleProfileDef, IfcCompositeCurve, IfcCompositeProfileDef, IfcEllipse,
+  IfcExtrudedAreaSolid, IfcGridPlacement, IfcIndexedPolyCurve, IfcIndexedPolygonalFaceWithVoids,
+  IfcIntersectionCurve, IfcLine, IfcLocalPlacement, IfcOffsetCurve2D, IfcOffsetCurve3D,
+  IfcOuterBoundaryCurve, IfcPcurve, IfcPolygonalFaceSet, IfcProduct, IfcProductDefinitionShape,
+  IfcRationalBSplineCurveWithKnots, IfcSeamCurve, IfcSurfaceCurve, IfcTrimmedCurve,
+} from './ifc4_gen'
 import IfcStepModel from './ifc_step_model'
 
 
