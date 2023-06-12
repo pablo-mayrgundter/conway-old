@@ -44,10 +44,10 @@ function extractGeometry(): ExtractResult {
 }
 
 /**
- * @return {number} indicating length of the geometry array
+ * @return {number} indicating number of meshes
  */
-function getGeometryArrayLength(): Number {
-  return IfcGeometryExtraction.getGeometry().length
+function getMeshSize(): Number {
+  return IfcGeometryExtraction.getMeshes().size
 }
 
 /**
@@ -80,7 +80,7 @@ describe('Ifc Geometry Extraction', () => {
 
   test('geometryArrayLength()', () => {
     const testParameter:Number = 7
-    expect(getGeometryArrayLength()).toBe(testParameter)
+    expect(getMeshSize()).toBe(testParameter)
 
   })
 
