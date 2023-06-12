@@ -49,6 +49,7 @@ You can also run the tests with jest:
 
 And finally, using the watch functionality, you can also have the code automatically rebuild on change and also re-run the tests using:
 
+
 	yarn build-test-watch
 
 If you have Visual Studio Code, Conway also comes with a Visual Studio Code workspace to add IDE accessability to these features, and also let you edit the IFC-gen C# code in place.
@@ -61,3 +62,13 @@ Use an incremental or full build to compile this file from typescript and then i
 	node --experimental-specifier-resolution=node ./compiled\src\core\ifc\ifc_command_line_main.js [ifc file path]
 
 The included index.ifc in the repo is recommended for testing.
+
+## Problems with renaming in GIT merges
+
+Because of the large number of files in conway that are code changes sometimes causing large modifications in merges, especially if generation locations are changed, it's sometimes necessary to up the limit of the number of renames in the git config for merging. It can be done like so:
+
+	git config merge.renameLimit 99999
+
+You may also wish to use a low rename threshold no-commit merge strategy for some of these situations to increase likelyhood that files will be related in the merge process and to track some of the more complicated changes:
+
+	git merge -X rename-threshold=25 --no-commit
