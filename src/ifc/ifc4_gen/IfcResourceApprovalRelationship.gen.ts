@@ -1,0 +1,80 @@
+
+import { IfcResourceLevelRelationship } from "./index"
+import { IfcActorRole } from "./index"
+import { IfcAppliedValue } from "./index"
+import { IfcApproval } from "./index"
+import { IfcConstraint } from "./index"
+import { IfcContextDependentUnit } from "./index"
+import { IfcConversionBasedUnit } from "./index"
+import { IfcExternalInformation } from "./index"
+import { IfcExternalReference } from "./index"
+import { IfcMaterialDefinition } from "./index"
+import { IfcOrganization } from "./index"
+import { IfcPerson } from "./index"
+import { IfcPersonAndOrganization } from "./index"
+import { IfcPhysicalQuantity } from "./index"
+import { IfcProfileDef } from "./index"
+import { IfcPropertyAbstraction } from "./index"
+import { IfcTimeSeries } from "./index"
+import {
+  stepExtractArray,
+} from '../../step/parsing/step_deserialization_functions'
+
+/* This is generated code, don't modify */
+import EntityTypesIfc from './entity_types_ifc.gen'
+import StepEntityInternalReference from '../../step/step_entity_internal_reference'
+import StepEntityBase from '../../step/step_entity_base'
+import StepModelBase from '../../step/step_model_base'
+
+///**
+// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/ifcresourceapprovalrelationship.htm */
+export  class IfcResourceApprovalRelationship extends IfcResourceLevelRelationship {
+  public get type(): EntityTypesIfc {
+    return EntityTypesIfc.IFCRESOURCEAPPROVALRELATIONSHIP
+  }
+  private RelatedResourceObjects_? : Array<IfcActorRole | IfcAppliedValue | IfcApproval | IfcConstraint | IfcContextDependentUnit | IfcConversionBasedUnit | IfcExternalInformation | IfcExternalReference | IfcMaterialDefinition | IfcOrganization | IfcPerson | IfcPersonAndOrganization | IfcPhysicalQuantity | IfcProfileDef | IfcPropertyAbstraction | IfcTimeSeries>
+  private RelatingApproval_? : IfcApproval
+
+  public get RelatedResourceObjects() : Array<IfcActorRole | IfcAppliedValue | IfcApproval | IfcConstraint | IfcContextDependentUnit | IfcConversionBasedUnit | IfcExternalInformation | IfcExternalReference | IfcMaterialDefinition | IfcOrganization | IfcPerson | IfcPersonAndOrganization | IfcPhysicalQuantity | IfcProfileDef | IfcPropertyAbstraction | IfcTimeSeries> {
+    if ( this.RelatedResourceObjects_ === void 0 ) {
+      this.RelatedResourceObjects_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
+
+      let value : Array<IfcActorRole | IfcAppliedValue | IfcApproval | IfcConstraint | IfcContextDependentUnit | IfcConversionBasedUnit | IfcExternalInformation | IfcExternalReference | IfcMaterialDefinition | IfcOrganization | IfcPerson | IfcPersonAndOrganization | IfcPhysicalQuantity | IfcProfileDef | IfcPropertyAbstraction | IfcTimeSeries> = [];
+
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+          const value : StepEntityBase< EntityTypesIfc > | undefined =
+            this.extractBufferReference( buffer, cursor, endCursor )
+    
+          if ( !( value instanceof IfcActorRole ) && !( value instanceof IfcAppliedValue ) && !( value instanceof IfcApproval ) && !( value instanceof IfcConstraint ) && !( value instanceof IfcContextDependentUnit ) && !( value instanceof IfcConversionBasedUnit ) && !( value instanceof IfcExternalInformation ) && !( value instanceof IfcExternalReference ) && !( value instanceof IfcMaterialDefinition ) && !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) && !( value instanceof IfcPhysicalQuantity ) && !( value instanceof IfcProfileDef ) && !( value instanceof IfcPropertyAbstraction ) && !( value instanceof IfcTimeSeries ) ) {
+            throw new Error( 'Value in select must be populated' )
+          }
+          return value as (IfcActorRole | IfcAppliedValue | IfcApproval | IfcConstraint | IfcContextDependentUnit | IfcConversionBasedUnit | IfcExternalInformation | IfcExternalReference | IfcMaterialDefinition | IfcOrganization | IfcPerson | IfcPersonAndOrganization | IfcPhysicalQuantity | IfcProfileDef | IfcPropertyAbstraction | IfcTimeSeries)})() )
+      }
+      return value }, false )
+    }
+
+    return this.RelatedResourceObjects_ as Array<IfcActorRole | IfcAppliedValue | IfcApproval | IfcConstraint | IfcContextDependentUnit | IfcConversionBasedUnit | IfcExternalInformation | IfcExternalReference | IfcMaterialDefinition | IfcOrganization | IfcPerson | IfcPersonAndOrganization | IfcPhysicalQuantity | IfcProfileDef | IfcPropertyAbstraction | IfcTimeSeries>
+  }
+
+  public get RelatingApproval() : IfcApproval {
+    if ( this.RelatingApproval_ === void 0 ) {
+      this.RelatingApproval_ = this.extractElement( 3, false, IfcApproval )
+    }
+
+    return this.RelatingApproval_ as IfcApproval
+  }
+  constructor(
+    localID: number,
+    internalReference: StepEntityInternalReference< EntityTypesIfc >,
+    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    super( localID, internalReference, model )
+  }
+
+  public static readonly query = 
+    [ EntityTypesIfc.IFCRESOURCEAPPROVALRELATIONSHIP ]
+
+  public static readonly expectedType: EntityTypesIfc =
+    EntityTypesIfc.IFCRESOURCEAPPROVALRELATIONSHIP
+}

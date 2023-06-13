@@ -97,7 +97,7 @@ module.exports = {
     'no-alert': 'error',
     'no-debugger': 'error',
   },
-  ignorePatterns: ['**/compiled/**', 'src/gen/**', '/external/**', '**/ifc_functions.ts'],
+  ignorePatterns: ['**/compiled/**', '**/ifc/ifc4_gen/**', '/external/**', '**/ifc_functions.ts'],
   settings: {
     react: {
       version: '17.0.2',
