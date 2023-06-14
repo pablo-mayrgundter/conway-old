@@ -202,7 +202,7 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
   for (let i = 0; i < meshArray.length; i++) {
 
     if (i > 0) {
-      fullGeometry.geometry.addGeometry(meshArray[i].geometry)
+      fullGeometry.geometry.appendGeometry(meshArray[i].geometry)
     }
   }
 
