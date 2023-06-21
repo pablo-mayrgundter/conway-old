@@ -110,7 +110,7 @@ export default class StepStringParser extends ParsingDfa16Table {
 
     ++cursor
 
-    let result: string | undefined
+    let result: string = ''
 
     let reificationIndex = cursor
 
@@ -148,7 +148,7 @@ export default class StepStringParser extends ParsingDfa16Table {
           const nextCursor = cursor + 1
 
           if (nextCursor >= endCursor) {
-            return
+            return result
           }
 
           const nextChar = input[nextCursor]
@@ -167,7 +167,7 @@ export default class StepStringParser extends ParsingDfa16Table {
               const nextCursor2 = nextCursor + 1
 
               if (nextCursor2 >= endCursor) {
-                return
+                return result
               }
 
               const nextChar2 = input[nextCursor2]
@@ -182,13 +182,13 @@ export default class StepStringParser extends ParsingDfa16Table {
               const nextCursor3 = nextCursor2 + 1
 
               if (nextCursor3 >= endCursor) {
-                return
+                return result
               }
 
               const nextChar3 = input[nextCursor3]
 
               if (nextChar3 < A || nextChar3 > I) {
-                return
+                return result
               }
 
               result ??= ''
@@ -204,7 +204,7 @@ export default class StepStringParser extends ParsingDfa16Table {
               const nextCursor2 = nextCursor + 1
 
               if (nextCursor2 >= endCursor) {
-                return
+                return result
               }
 
               const nextChar2 = input[nextCursor2]
@@ -219,7 +219,7 @@ export default class StepStringParser extends ParsingDfa16Table {
               const nextCursor3 = nextCursor2 + 1
 
               if (nextCursor3 >= endCursor) {
-                return
+                return result
               }
 
               const nextChar3 = input[nextCursor3]
@@ -234,7 +234,7 @@ export default class StepStringParser extends ParsingDfa16Table {
               if (nextChar >= 0xA1 && nextChar <= 0xFF) {
                 result += ISO8859Table[codePage][nextChar - 0xA1]
               } else {
-                return
+                return result
               }
               /* eslint-enable no-magic-numbers */
 
@@ -246,7 +246,7 @@ export default class StepStringParser extends ParsingDfa16Table {
               const nextCursor2 = nextCursor + 1
 
               if (nextCursor2 >= endCursor) {
-                return
+                return result
               }
 
               const nextChar2 = input[nextCursor2]
@@ -266,16 +266,26 @@ export default class StepStringParser extends ParsingDfa16Table {
                 let intermediateCursor = nextCursor2 + 2
                 let characterCode = 0
 
-                while (intermediateCursor + 1 < endCursor && count > 0) {
+                while (intermediateCursor + 1 < endCursor && count >= 0) {
                   if (input[intermediateCursor] === BSLASH) {
-                    if (intermediateCursor + 3 >= endCursor ||
+                    if (
+                      count !== 0 ||
+                      intermediateCursor + 3 >= endCursor ||
                       input[intermediateCursor + 1] !== X ||
                       input[intermediateCursor + 2] !== ZERO ||
                       input[intermediateCursor + 3] !== BSLASH) {
                       return false
                     }
 
-                    result += String.fromCodePoint(characterCode)
+                    let codePoint: string
+
+                    try {
+                      codePoint = String.fromCodePoint(characterCode)
+                    } catch (_) {
+                      codePoint = '<invalid codepoint>'
+                    }
+
+                    result += codePoint
 
                     cursor = intermediateCursor + 4
                     reificationIndex = cursor
@@ -295,6 +305,8 @@ export default class StepStringParser extends ParsingDfa16Table {
 
                   intermediateCursor += 2
 
+                  --count
+
                   /* eslint-enable no-magic-numbers */
                 }
 
@@ -306,19 +318,26 @@ export default class StepStringParser extends ParsingDfa16Table {
 
                   /* eslint-disable no-magic-numbers */
                   if (nextCursor2 + 2 >= endCursor) {
-                    return
+                    return result
                   }
 
                   const hex0 = readHex(input[nextCursor2 + 1])
                   const hex1 = readHex(input[nextCursor2 + 2])
 
                   if (hex0 === void 0 || hex1 === void 0) {
-                    return
+                    return result
                   }
 
                   const characterCode = (hex0 << 4) | hex1
+                  let codePoint: string
 
-                  result += String.fromCodePoint(characterCode)
+                  try {
+                    codePoint = String.fromCodePoint(characterCode)
+                  } catch (_) {
+                    codePoint = '<invalid codepoint>'
+                  }
+
+                  result += codePoint
 
                   cursor = nextCursor2 + 3
                   reificationIndex = cursor
@@ -331,7 +350,7 @@ export default class StepStringParser extends ParsingDfa16Table {
 
 
                   if (!hexParserTil0(2)) {
-                    return
+                    return `${result}<invalid unicode>`
                   }
 
                   break
@@ -340,13 +359,13 @@ export default class StepStringParser extends ParsingDfa16Table {
 
 
                   if (!hexParserTil0(4)) {
-                    return
+                    return `${result}<invalid unicode>`
                   }
                   break
 
                 default:
 
-                  return
+                  return result
               }
 
               break
