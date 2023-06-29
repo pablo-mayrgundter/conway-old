@@ -98,8 +98,8 @@ const PROPERTY_SINGLE_VALUE_ID = 181096
 
 /**
  * Test extracting an invalid unicode endpoint with graceful failure.
- * 
- * @returns {boolean} True of the test succeeds
+ *
+ * @return {boolean} True of the test succeeds
  */
 function extractInvalidUnicodePoint() {
   const bufferInput = new ParsingBuffer( ifcUFCCodePointStringBuffer )

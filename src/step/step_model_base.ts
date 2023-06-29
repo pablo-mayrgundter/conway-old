@@ -7,6 +7,7 @@ import { IIndexSetCursor } from '../core/i_index_set_cursor'
 import { extractOneHotLow } from '../indexing/bit_operations'
 import { MultiIndexSet } from '../indexing/multi_index_set'
 import { StepEntityConstructorAbstract } from './step_entity_constructor'
+import { Model } from '../core/model'
 
 /**
  * The base for models parsed from STEP.
@@ -14,7 +15,7 @@ import { StepEntityConstructorAbstract } from './step_entity_constructor'
 export default abstract class StepModelBase<
   EntityTypeIDs extends number,
   BaseEntity extends StepEntityBase<EntityTypeIDs> = StepEntityBase<EntityTypeIDs> >
-implements Iterable<BaseEntity> {
+implements Iterable<BaseEntity>, Model {
   public readonly abstract typeIndex: MultiIndexSet<EntityTypeIDs>;
 
   private readonly vtableBuilder_: StepVtableBuilder = new StepVtableBuilder()
