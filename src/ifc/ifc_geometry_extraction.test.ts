@@ -4,27 +4,15 @@ import { ExtractResult, IfcGeometryExtraction } from './ifc_geometry_extraction'
 import { ParseResult } from '../step/parsing/step_parser'
 import IfcStepParser from './ifc_step_parser'
 import ParsingBuffer from '../parsing/parsing_buffer'
+import { ConwayGeometry } from '../../dependencies/conway-geom/conway_geometry'
+
+
+let conwayModel:IfcGeometryExtraction
 
 /**
  *
  */
 async function initializeGeometryExtractor() {
-  await IfcGeometryExtraction.create()
-
-  return IfcGeometryExtraction.isInitialized()
-}
-
-/**
- *  @return {boolean} indicating whether the wasm module is initialized.
- */
-function isInitialized(): Boolean {
-  return IfcGeometryExtraction.isInitialized()
-}
-
-/**
- * @return {ExtractResult} indicating whether the geometry extraction was successful.
- */
-function extractGeometry(): ExtractResult {
   const parser = IfcStepParser.Instance
   const indexIfcBuffer: Buffer = fs.readFileSync('index.ifc')
   const bufferInput = new ParsingBuffer(indexIfcBuffer)
@@ -39,23 +27,45 @@ function extractGeometry(): ExtractResult {
   if (model === void 0) {
     return ExtractResult.INCOMPLETE
   }
+  const conwayGeometry: ConwayGeometry = new ConwayGeometry()
+  const initializationStatus = await conwayGeometry.initialize()
 
-  return IfcGeometryExtraction.extractIFCGeometryData(model, true)[0]
+  if (!initializationStatus) {
+    return
+  }
+
+  conwayModel = new IfcGeometryExtraction(conwayGeometry, model)
+
+  return conwayModel.isInitialized()
+}
+
+/**
+ *  @return {boolean} indicating whether the wasm module is initialized.
+ */
+function isInitialized(): Boolean {
+  return conwayModel.isInitialized()
+}
+
+/**
+ * @return {ExtractResult} indicating whether the geometry extraction was successful.
+ */
+function extractGeometry(): ExtractResult {
+  return conwayModel.extractIFCGeometryData(true)[0]
 }
 
 /**
  * @return {number} indicating number of meshes
  */
 function getMeshSize(): Number {
-  return IfcGeometryExtraction.getMeshes().size
+  return conwayModel.getMeshes().size
 }
 
 /**
  * @return {boolean} indicating if the geometry extraction module is still initialized or not
  */
 function destroy(): Boolean {
-  IfcGeometryExtraction.destroy()
-  return IfcGeometryExtraction.isInitialized()
+  conwayModel.destroy()
+  return conwayModel.isInitialized()
 }
 
 beforeAll(async () => {
