@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build-conway_geom": "run-script-os",
-    "build-conway_geom:win32": "cd .\\dependencies\\conway-geom\\ && call .\\build_win.bat release && (if not exist Dist (mkdir Dist)) && xcopy .\\bin\\release\\* Dist\\ /Y/r && copy /Y ConwayGeomWasm.d.ts Dist\\ && (if not exist ..\\..\\compiled\\dependencies\\conway-geom\\Dist (mkdir ..\\..\\compiled\\dependencies\\conway-geom\\Dist)) && xcopy .\\bin\\release\\* ..\\..\\compiled\\dependencies\\conway-geom\\Dist\\ /Y/r",
+    "build-conway_geom:win32": "cd .\\dependencies\\conway-geom\\ && call .\\build_win.bat release wasm && (if not exist Dist (mkdir Dist)) && xcopy .\\bin\\release\\* Dist\\ /Y/r && copy /Y ConwayGeomWasm.d.ts Dist\\ && (if not exist ..\\..\\compiled\\dependencies\\conway-geom\\Dist (mkdir ..\\..\\compiled\\dependencies\\conway-geom\\Dist)) && xcopy .\\bin\\release\\* ..\\..\\compiled\\dependencies\\conway-geom\\Dist\\ /Y/r",
     "build-conway_geom:darwin": "cd ./dependencies/conway-geom/ && ./build_osx.sh release wasm && mkdir -p Dist && cp ./bin/release/* Dist/ && cp ConwayGeomWasm.d.ts Dist/ && mkdir -p ../../compiled/dependencies/conway-geom/Dist && cp ./bin/release/* ../../compiled/dependencies/conway-geom/Dist",
     "build-clean-conway_geom": "run-script-os",
     "build-clean-conway_geom:win32": "cd ./dependencies/conway-geom/ && build_win.bat clean",
