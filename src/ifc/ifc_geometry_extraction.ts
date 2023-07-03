@@ -57,10 +57,8 @@ export class IfcGeometryExtraction {
   constructor(
     private readonly conwayModel: ConwayGeometry,
     public readonly model: IfcStepModel ) {
-    console.log('WTF4')
     this.scene = new IfcSceneBuilder(model, conwayModel)
 
-    console.log(`wasmModule: ${  conwayModel.wasmModule}`)
     this.wasmModule = conwayModel.wasmModule
   }
 
