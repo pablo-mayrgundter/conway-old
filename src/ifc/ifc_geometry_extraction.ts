@@ -1,12 +1,13 @@
 import {
   ConwayGeometry, ParamsPolygonalFaceSet, GeometryObject,
-  ResultsGltf, IndexedPolygonalFace, ParamsAxis2Placement3D, Segment, ParamsGetIfcIndexedPolyCurve
+  ResultsGltf, IndexedPolygonalFace, ParamsAxis2Placement3D, Segment, ParamsGetIfcIndexedPolyCurve, CurveObject, ParamsGetAxis2Placement2D
 }
   from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
 import {
   IfcArbitraryClosedProfileDef,
-  IfcAxis2Placement3D, IfcBooleanResult, IfcCartesianPointList2D, IfcCartesianPointList3D, IfcCartesianTransformationOperator3D, IfcExtrudedAreaSolid, IfcGridPlacement,
+  IfcAxis2Placement2D,
+  IfcAxis2Placement3D, IfcBooleanResult, IfcCartesianPointList2D, IfcCartesianPointList3D, IfcCartesianTransformationOperator3D, IfcCircleProfileDef, IfcExtrudedAreaSolid, IfcGridPlacement,
   IfcIndexedPolyCurve,
   IfcIndexedPolygonalFaceWithVoids, IfcLocalPlacement, IfcMappedItem,
   IfcObjectPlacement, IfcOpeningElement, IfcOpeningStandardCase,
@@ -44,6 +45,13 @@ export interface ConwayMesh {
   geometry: GeometryObject
   localID: number
   transform: any | undefined
+}
+
+export interface IfcProfile {
+  localId: number
+  curve: CurveObject
+  //TODO(nickcastel50): IfcJS has an isConvex variable, appears unused
+  //isConvex:boolean
 }
 
 /**
@@ -484,9 +492,21 @@ export class IfcGeometryExtraction {
 
         this.extractIndexedPolyCurve(outerCurve)
       }
+    } else if (from.SweptArea instanceof IfcCircleProfileDef) {
+      console.log("IfcCircleProfileDef")
+      if (from.SweptArea.Position !== null) {
+
+        this.extractAxis2Placement2D(from.SweptArea.Position)
+
+
+      }
     }
   }
 
+  /**
+   * 
+   * @param from - IfcIndexedPolyCurve to process 
+   */
   extractIndexedPolyCurve(from: IfcIndexedPolyCurve) {
     if (from.Points instanceof IfcCartesianPointList2D) {
       console.log(`\t\t\touterCurve.Points (2D): ${from.Points.CoordList}`)
@@ -509,12 +529,12 @@ export class IfcGeometryExtraction {
           indexArray.set(j, from.Segments[i].Value[j])
         }
 
-        const segment:Segment = {
+        const segment: Segment = {
           isArcType: (from.Segments[i].type == EntityTypesIfc.IFCARCINDEX) ? true : false,
           indices: indexArray
         }
 
-        segmentVector.push_back(segment);
+        segmentVector.push_back(segment)
 
         console.log(`\t\t\t\tSegment Type: ${EntityTypesIfc[from.Segments[i].type]}`)
         console.log(`\t\t\t\tSegment Value: ${from.Segments[i].Value}`)
@@ -522,33 +542,33 @@ export class IfcGeometryExtraction {
     }
 
     if (from.Points instanceof IfcCartesianPointList2D) {
-    const points = from.Points.CoordList.map(([x, y]) => ({ x, y }))
+      const points = from.Points.CoordList.map(([x, y]) => ({ x, y }))
 
-     // initialize new native glm::vec3 array object (free memory with delete())
-     const pointsArray: NativeVectorGlmVec2 = this.nativeVectorGlmVec2(points.length)
+      // initialize new native glm::vec3 array object (free memory with delete())
+      const pointsArray: NativeVectorGlmVec2 = this.nativeVectorGlmVec2(points.length)
 
-     // populate points array
-     for (let i = 0; i < points.length; i++) {
-       pointsArray.set(i, points[i])
-     }
+      // populate points array
+      for (let i = 0; i < points.length; i++) {
+        pointsArray.set(i, points[i])
+      }
 
-     
 
-    const paramsGetIndexedPolyCurve:ParamsGetIfcIndexedPolyCurve = {
-      dimensions: 2,
-      segments:segmentVector,
-      points: pointsArray
+
+      const paramsGetIndexedPolyCurve: ParamsGetIfcIndexedPolyCurve = {
+        dimensions: 2,
+        segments: segmentVector,
+        points: pointsArray
+      }
+
+      console.log(`paramsGetIndexedPolycurve.dimensions: ${paramsGetIndexedPolyCurve.dimensions}`)
+      console.log(`paramsGetIndexedPolycurve.segments: ${paramsGetIndexedPolyCurve.segments}`)
+      console.log(`paramsGetIndexedPolycurve.points: ${paramsGetIndexedPolyCurve.points}`)
+
+      const ifcCurve: CurveObject = this.conwayModel.getIndexedPolyCurve(paramsGetIndexedPolyCurve)
+      console.log(`ifcCurve: ${ifcCurve}`)
+    } else {
+      console.log("3D not supported.")
     }
-
-    console.log(`paramsGetIndexedPolycurve.dimensions: ${paramsGetIndexedPolyCurve.dimensions}`)
-    console.log(`paramsGetIndexedPolycurve.segments: ${paramsGetIndexedPolyCurve.segments}`)
-    console.log(`paramsGetIndexedPolycurve.points: ${paramsGetIndexedPolyCurve.points}`)
-
-    const ifcCurve = this.conwayModel.getIndexedPolyCurve(paramsGetIndexedPolyCurve)
-    console.log(`ifcCurve: ${ifcCurve}`)
-  } else {
-    console.log("3D not supported.")
-  }
 
   }
 
@@ -616,6 +636,57 @@ export class IfcGeometryExtraction {
 
   }
 
+  /**
+   * 
+   * @param from 
+   */
+  extractAxis2Placement2D(from: IfcAxis2Placement2D) {
+
+    let normalizeX: boolean = false
+
+    if (from.RefDirection !== null) {
+      normalizeX = true
+    }
+
+    console.log(`from.SweptArea.Position.Location.Coordinates (len): ${from.Location.Coordinates.length}`)
+
+    const position2D = {
+      x: from.Location.Coordinates[0],
+      y: from.Location.Coordinates[1]
+    }
+
+
+    console.log(`from.SweptArea.Position.RefDirection (len): ${from.RefDirection?.DirectionRatios.length}`)
+    const xAxisRef = {
+      x: from.RefDirection?.DirectionRatios[0],
+      y: from.RefDirection?.DirectionRatios
+    }
+
+    const axis2Placement2DParameters: ParamsGetAxis2Placement2D = {
+      isAxis2Placement2D: true,
+      isCartesianTransformationOperator2D: false,
+      isCartesianTransformationOperator2DNonUniform: false,
+      position2D: position2D,
+      customAxis1Ref: normalizeX,
+      axis1Ref: xAxisRef,
+      customAxis2Ref: false,
+      axis2Ref: xAxisRef,
+      customScale: false,
+      scale1: 0,
+      customScale2: false,
+      scale2: 0
+    }
+
+    const axis2Placement2DTransform = this.conwayModel
+      .getAxis2Placement2D(axis2Placement2DParameters)
+  }
+
+  /**
+   * 
+   * @param from 
+   * @param parentLocalId 
+   * @returns 
+   */
   extractAxis2Placement3D(from: IfcAxis2Placement3D, parentLocalId: number,) {
 
     if (from === null) {
