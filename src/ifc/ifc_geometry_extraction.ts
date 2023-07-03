@@ -1,17 +1,17 @@
 import {
   ConwayGeometry, ParamsPolygonalFaceSet, GeometryObject,
-  ResultsGltf, IndexedPolygonalFace, ParamsAxis2Placement3D, Segment, ParamsGetIfcIndexedPolyCurve, CurveObject, ParamsGetAxis2Placement2D
+  ResultsGltf, IndexedPolygonalFace, ParamsAxis2Placement3D, Segment, ParamsGetIfcIndexedPolyCurve, CurveObject, ParamsGetAxis2Placement2D, ParamsGetCircleCurve
 }
   from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
 import {
   IfcArbitraryClosedProfileDef,
   IfcAxis2Placement2D,
-  IfcAxis2Placement3D, IfcBooleanResult, IfcCartesianPointList2D, IfcCartesianPointList3D, IfcCartesianTransformationOperator3D, IfcCircleProfileDef, IfcExtrudedAreaSolid, IfcGridPlacement,
+  IfcAxis2Placement3D, IfcBooleanResult, IfcCartesianPointList2D, IfcCartesianPointList3D, IfcCartesianTransformationOperator3D, IfcCircleProfileDef, IfcCompositeProfileDef, IfcExtrudedAreaSolid, IfcGridPlacement,
   IfcIndexedPolyCurve,
   IfcIndexedPolygonalFaceWithVoids, IfcLocalPlacement, IfcMappedItem,
   IfcObjectPlacement, IfcOpeningElement, IfcOpeningStandardCase,
-  IfcPolygonalFaceSet, IfcProduct, IfcRepresentationItem, IfcSpace,
+  IfcPolygonalFaceSet, IfcProduct, IfcProfileDef, IfcRepresentationItem, IfcSpace,
 } from './ifc4_gen'
 import EntityTypesIfc from './ifc4_gen/entity_types_ifc.gen'
 import { IfcSceneBuilder } from './ifc_scene_builder'
@@ -483,23 +483,60 @@ export class IfcGeometryExtraction {
       this.extractAxis2Placement3D(from.Position, from.localID)
     }
 
+    this.extractProfile(from.SweptArea)
+  }
 
-
-    if (from.SweptArea instanceof IfcArbitraryClosedProfileDef) {
-      console.log(`\t\tOuterCurve: ${EntityTypesIfc[from.SweptArea.OuterCurve.type]}`)
-      const outerCurve = from.SweptArea.OuterCurve
+  /**
+   * 
+   * @param from 
+   */
+  extractProfile(from: IfcProfileDef) {
+    if (from instanceof IfcArbitraryClosedProfileDef) {
+      console.log(`\t\tOuterCurve: ${EntityTypesIfc[from.OuterCurve.type]}`)
+      const outerCurve = from.OuterCurve
       if (outerCurve instanceof IfcIndexedPolyCurve) {
 
         this.extractIndexedPolyCurve(outerCurve)
       }
-    } else if (from.SweptArea instanceof IfcCircleProfileDef) {
-      console.log("IfcCircleProfileDef")
-      if (from.SweptArea.Position !== null) {
+    } else if (from instanceof IfcCircleProfileDef) {
 
-        this.extractAxis2Placement2D(from.SweptArea.Position)
-
-
+      this.extractCircleCurve(from)
+    } else if (from instanceof IfcCompositeProfileDef) {
+      for (let profileIndex = 0; profileIndex < from.Profiles.length; profileIndex++) {
+        this.extractProfile(from.Profiles[profileIndex])
       }
+    }
+  }
+
+
+  /**
+   * 
+   * @param from 
+   */
+  extractCircleCurve(from: IfcCircleProfileDef) {
+    console.log("IfcCircleProfileDef")
+    if (from.Position !== null) {
+
+      const placement2D = this.extractAxis2Placement2D(from.Position)
+
+      const paramsGetCircleCurve: ParamsGetCircleCurve = {
+        radius: from.Radius,
+        hasPlacement: true,
+        placement: placement2D
+      }
+
+      const ifcCurve: CurveObject = this.conwayModel.getCircleCurve(paramsGetCircleCurve)
+      console.log(`ifcCurve: ${ifcCurve}`)
+
+    } else {
+      const paramsGetCircleCurve: ParamsGetCircleCurve = {
+        radius: from.Radius,
+        hasPlacement: false,
+        placement: (void 0)
+      }
+
+      const ifcCurve: CurveObject = this.conwayModel.getCircleCurve(paramsGetCircleCurve)
+      console.log(`ifcCurve: ${ifcCurve}`)
     }
   }
 
@@ -508,6 +545,7 @@ export class IfcGeometryExtraction {
    * @param from - IfcIndexedPolyCurve to process 
    */
   extractIndexedPolyCurve(from: IfcIndexedPolyCurve) {
+    console.log("IfcIndexedPolyCurve")
     if (from.Points instanceof IfcCartesianPointList2D) {
       console.log(`\t\t\touterCurve.Points (2D): ${from.Points.CoordList}`)
     } else if (from.Points instanceof IfcCartesianPointList3D) {
@@ -640,7 +678,7 @@ export class IfcGeometryExtraction {
    * 
    * @param from 
    */
-  extractAxis2Placement2D(from: IfcAxis2Placement2D) {
+  extractAxis2Placement2D(from: IfcAxis2Placement2D): any {
 
     let normalizeX: boolean = false
 
@@ -679,6 +717,8 @@ export class IfcGeometryExtraction {
 
     const axis2Placement2DTransform = this.conwayModel
       .getAxis2Placement2D(axis2Placement2DParameters)
+
+    return axis2Placement2DTransform
   }
 
   /**
