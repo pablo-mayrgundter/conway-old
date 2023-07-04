@@ -1,9 +1,9 @@
 import { ConwayGeometry, ParamsPolygonalFaceSet, GeometryObject,
-  ResultsGltf, IndexedPolygonalFace, ParamsAxis2Placement3D }
+  ResultsGltf, IndexedPolygonalFace, ParamsAxis2Placement3D, ParamsCartesianTransformationOperator3D, Vector3 }
   from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
 import {
-  IfcAxis2Placement3D, IfcCartesianTransformationOperator3D, IfcGridPlacement,
+  IfcAxis2Placement3D, IfcCartesianTransformationOperator3D, IfcDirection, IfcGridPlacement,
   IfcIndexedPolygonalFaceWithVoids, IfcLocalPlacement, IfcMappedItem,
   IfcObjectPlacement, IfcOpeningElement, IfcOpeningStandardCase,
   IfcPolygonalFaceSet, IfcProduct, IfcRepresentationItem, IfcSpace,
@@ -412,13 +412,66 @@ export class IfcGeometryExtraction {
     return result
   }
 
+  static extractDirection( from: IfcDirection | null ): Vector3 | undefined {
+
+    if ( from === null ) {
+      return void 0
+    }
+
+    return { 
+      x: from.DirectionRatios[ 0 ],
+      y: from.DirectionRatios[ 1 ],
+      z: from.DirectionRatios[ 2 ]
+    }
+  }
+
   /**
    *
    * @param from
    */
   extractCartesianTransformOperator3D(from: IfcCartesianTransformationOperator3D) {
+/*
+  position: any
+  axis1Ref: any
+  axis2RefL: any
+  axis3Ref: any
+  normalizeAxis1: boolean
+  normalizeAxis2: boolean
+  normalizeAxis3: boolean
+  nonUniform: boolean
+  realScale: boolean
+  scale1_: number
+  scale2_: number
+  scale3_: number
+*/
+    const conwayModel = this.conwayModel
+    
+    const position: Vector3 = {
+      x: from.LocalOrigin.Coordinates[ 0 ],
+      y: from.LocalOrigin.Coordinates[ 1 ],
+      z: from.LocalOrigin.Coordinates[ 2 ]
+    } 
 
-    // apply transform to scene
+    const axis1Ref: Vector3 = IfcGeometryExtraction.extractDirection( from.Axis1 ) ?? { x: 1, y: 0, z: 0 }
+    const axis2Ref: Vector3 = IfcGeometryExtraction.extractDirection( from.Axis2 ) ?? { x: 0, y: 1, z: 0 }
+    const axis3Ref: Vector3 = IfcGeometryExtraction.extractDirection( from.Axis3 ) ?? { x: 0, y: 0, z: 1 }
+
+    const parameters: ParamsCartesianTransformationOperator3D  = {
+      position: position,
+      axis1Ref: axis1Ref,
+      axis2RefL: axis2Ref,
+      axis3Ref: axis3Ref,
+      normalizeAxis1: true,
+      normalizeAxis2: true,
+      normalizeAxis3: true,
+      nonUniform: false,
+      realScale: true,
+      scale1_: from.Scl,
+      scale2_: from.Scl,
+      scale3_: from.Scl,
+    }
+
+    return conwayModel.getCartesianTransformationOperator3D( parameters )
   }
 
   /**
@@ -428,10 +481,30 @@ export class IfcGeometryExtraction {
   extractMappedItem(from: IfcMappedItem) {
 
     const representationMap = from.MappingSource
+    const mappingTarget     = from.MappingTarget
+
+    let popTransform = false
+
+    if ( mappingTarget instanceof IfcCartesianTransformationOperator3D ) {
+
+      const nativeCartesianTransform = this.extractCartesianTransformOperator3D( mappingTarget )
+
+      this.scene.addTransform(
+          mappingTarget.localID,
+          nativeCartesianTransform.getValues(),
+          nativeCartesianTransform )
+
+      popTransform = true
+    }
 
     for (const representationItem of representationMap.MappedRepresentation.Items) {
 
       this.extractRepresentationItem(representationItem)
+    }
+
+    if ( popTransform ) {
+
+      this.scene.popTransform()
     }
   }
 
