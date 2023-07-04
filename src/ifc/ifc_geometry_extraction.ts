@@ -41,12 +41,6 @@ export enum ExtractResult {
 }
 /* eslint-enable no-shadow, no-unused-vars, no-magic-numbers */
 
-export interface ConwayMesh {
-  geometry: GeometryObject
-  localID: number
-  transform: any | undefined
-}
-
 export interface IfcProfile {
   localId: number
   curve: CurveObject
@@ -60,7 +54,6 @@ export interface IfcProfile {
  */
 export class IfcGeometryExtraction {
 
-  private geometryMap: Map<number, ConwayMesh> = new Map()
   private wasmModule: WasmModule
   private scene: IfcSceneBuilder
 
@@ -78,11 +71,10 @@ export class IfcGeometryExtraction {
   }
 
   /**
-   *
-   * @return { Map<number, ConwayMesh>} - Map containing all geometry data that was extracted
+   * @return {IfcSceneBuilder} - Current scene representation 
    */
-  getMeshes(): Map<number, ConwayMesh> {
-    return this.geometryMap
+  getScene():IfcSceneBuilder {
+    return this.scene;
   }
 
   /**
@@ -201,14 +193,6 @@ export class IfcGeometryExtraction {
     }
 
     return false
-  }
-
-  /**
-   *
-   * @param geometry ConwayMesh to add to the ConwayMesh array
-   */
-  addMesh(mesh: ConwayMesh) {
-    this.geometryMap.set(mesh.localID, mesh)
   }
 
   /**
