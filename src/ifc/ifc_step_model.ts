@@ -5,6 +5,7 @@ import {StepIndexEntry} from '../step/parsing/step_parser'
 import {StepTypeIndexer} from '../step/indexing/step_type_indexer'
 import {MultiIndexSet} from '../indexing/multi_index_set'
 import { IfcModelGeometry } from './ifc_model_geometry'
+import { IfcModelProfile } from './ifc_model_curves'
 
 
 const indexerInstance = new StepTypeIndexer< EntityTypesIfc >( EntityTypesIfcCount )
@@ -16,6 +17,7 @@ export default class IfcStepModel extends StepModelBase< EntityTypesIfc > {
   public readonly typeIndex: MultiIndexSet< EntityTypesIfc >
 
   public readonly geometry = new IfcModelGeometry()
+  public readonly profiles = new IfcModelProfile()
 
   /**
    * Construct this model given a buffer containing the data and the parsed data index on that,

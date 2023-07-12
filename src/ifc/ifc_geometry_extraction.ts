@@ -1,9 +1,11 @@
+import { array } from 'yargs'
 import {
   ConwayGeometry, ParamsPolygonalFaceSet, GeometryObject,
-  ResultsGltf, IndexedPolygonalFace, ParamsAxis2Placement3D, Segment, ParamsGetIfcIndexedPolyCurve, CurveObject, ParamsGetAxis2Placement2D, ParamsGetCircleCurve
+  ResultsGltf, IndexedPolygonalFace, ParamsAxis2Placement3D, Segment, ParamsGetIfcIndexedPolyCurve, CurveObject, ParamsGetAxis2Placement2D, ParamsGetCircleCurve, ParamsCreateNativeIfcProfile
 }
   from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
+import { CanonicalProfile } from '../core/canonical_profile'
 import {
   IfcArbitraryClosedProfileDef,
   IfcAxis2Placement2D,
@@ -41,13 +43,6 @@ export enum ExtractResult {
 }
 /* eslint-enable no-shadow, no-unused-vars, no-magic-numbers */
 
-export interface IfcProfile {
-  localId: number
-  curve: CurveObject
-  //TODO(nickcastel50): IfcJS has an isConvex variable, appears unused
-  //isConvex:boolean
-}
-
 /**
  * Handles Geometry data extraction from a populated IfcStepModel
  * Can export to OBJ, GLTF (Draco), GLB (Draco)
@@ -73,8 +68,8 @@ export class IfcGeometryExtraction {
   /**
    * @return {IfcSceneBuilder} - Current scene representation 
    */
-  getScene():IfcSceneBuilder {
-    return this.scene;
+  getScene(): IfcSceneBuilder {
+    return this.scene
   }
 
   /**
@@ -244,11 +239,24 @@ export class IfcGeometryExtraction {
    * @return {number} - total length of all 2D array elements
    */
   private getTotalLength(arr: number[][]): number {
-    let totalLength = 0
-    for (const innerArray of arr) {
-      totalLength += innerArray.length
+    return arr.reduce((totalLength, innerArray) => totalLength + innerArray.length, 0)
+  }
+
+  /**
+   * 
+   * @param indices 
+   * @returns {NativeUintVector}
+   */
+  private createAndPopulateNativeIndices(indices: number[]): NativeUintVector {
+    // Create native indices array
+    const indexArray: NativeUintVector = this.nativeUintVector(indices.length)
+
+    // Populate the array
+    for (let j = 0; j < indices.length; j++) {
+      indexArray.set(j, indices[j])
     }
-    return totalLength
+
+    return indexArray
   }
 
   /**
@@ -356,11 +364,8 @@ export class IfcGeometryExtraction {
       } else {
 
         indicesPerFace = polygonalFace.CoordIndex.length
-        const coordIndex: NativeUintVector = this.nativeUintVector(indicesPerFace)
-        // populate polygonal face
-        for (let i = 0; i < polygonalFace.CoordIndex.length; i++) {
-          coordIndex.set(i, polygonalFace.CoordIndex[i])
-        }
+
+        const coordIndex = this.createAndPopulateNativeIndices(polygonalFace.CoordIndex)
 
         const indexedPolygonalFaceParameters: IndexedPolygonalFace = {
           indices: coordIndex,
@@ -461,6 +466,7 @@ export class IfcGeometryExtraction {
     console.log(`\tExtrudedDirection: ${EntityTypesIfc[from.ExtrudedDirection.type]}`)
     console.log(`\tPosition: ${EntityTypesIfc[from.Position!.type]}`)
     console.log(`\tSweptArea: ${EntityTypesIfc[from.SweptArea.type]}`)
+    console.log(`\tNumber: ${from.Depth}`)
 
 
     if (from.Position !== null) {
@@ -474,22 +480,102 @@ export class IfcGeometryExtraction {
    * 
    * @param from 
    */
-  extractProfile(from: IfcProfileDef) {
+  extractProfile(from: IfcProfileDef): CanonicalProfile | undefined {
+
+    const foundProfile = this.model.profiles.getByLocalID(from.localID)
+
+    if (foundProfile !== void 0) {
+
+      //we already have this profile, return it and exit
+      return foundProfile
+    }
+
+    let profile: CanonicalProfile | undefined = undefined
+
     if (from instanceof IfcArbitraryClosedProfileDef) {
       console.log(`\t\tOuterCurve: ${EntityTypesIfc[from.OuterCurve.type]}`)
       const outerCurve = from.OuterCurve
       if (outerCurve instanceof IfcIndexedPolyCurve) {
 
-        this.extractIndexedPolyCurve(outerCurve)
+        const curveObject = this.extractIndexedPolyCurve(outerCurve)
+
+        if (curveObject) {
+          profile = {
+            localID: from.localID,
+            curve: curveObject,
+            holes: undefined,
+            profiles: undefined,
+            nativeProfile:undefined
+          }
+
+          return profile
+        }
       }
     } else if (from instanceof IfcCircleProfileDef) {
 
-      this.extractCircleCurve(from)
+      const curveObject = this.extractCircleCurve(from)
+
+      if (curveObject) {
+        profile = {
+          localID: from.localID,
+          curve: curveObject,
+          holes: undefined,
+          profiles: undefined,
+          nativeProfile:undefined
+        }
+
+        // add profile to the list of profile objects
+        this.model.profiles.add(profile)
+
+        return profile
+      }
     } else if (from instanceof IfcCompositeProfileDef) {
+      profile = {
+        localID: from.localID,
+        curve: undefined,
+        holes: undefined,
+        profiles: undefined,
+        nativeProfile:undefined
+      }
+
+      const profiles: CanonicalProfile[] = new Array(from.Profiles.length)
+
+      profile.profiles = profiles
+
       for (let profileIndex = 0; profileIndex < from.Profiles.length; profileIndex++) {
-        this.extractProfile(from.Profiles[profileIndex])
+        const profile_ = this.extractProfile(from.Profiles[profileIndex])
+        if (profile_) {
+
+          profile.profiles[profileIndex] = profile_
+        }
       }
     }
+
+    // add profile to the list of profile objects
+    let isComposite:boolean = false
+    if (profile) {
+      if (profile.profiles) {
+        if (profile.profiles.length > 0) {
+          isComposite = true
+
+          //create native IfcProfile vector
+        }
+      }
+
+      const parameters: ParamsCreateNativeIfcProfile = {
+        curve: profile.curve,
+        //TODO(nickcastel50): support profiles with holes (out of scope at the moment)
+        holes:undefined,
+        isConvex: false,
+        isComposite: isComposite,
+        profiles: (void 0)
+      }
+
+      profile.nativeProfile = this.conwayModel.createNativeIfcProfile(parameters)
+      this.model.profiles.add(profile)
+    }
+
+    return profile
   }
 
 
@@ -497,7 +583,7 @@ export class IfcGeometryExtraction {
    * 
    * @param from 
    */
-  extractCircleCurve(from: IfcCircleProfileDef) {
+  extractCircleCurve(from: IfcCircleProfileDef): CurveObject | undefined {
     console.log("IfcCircleProfileDef")
     if (from.Position !== null) {
 
@@ -511,6 +597,7 @@ export class IfcGeometryExtraction {
 
       const ifcCurve: CurveObject = this.conwayModel.getCircleCurve(paramsGetCircleCurve)
       console.log(`ifcCurve: ${ifcCurve}`)
+      return ifcCurve
 
     } else {
       const paramsGetCircleCurve: ParamsGetCircleCurve = {
@@ -521,6 +608,7 @@ export class IfcGeometryExtraction {
 
       const ifcCurve: CurveObject = this.conwayModel.getCircleCurve(paramsGetCircleCurve)
       console.log(`ifcCurve: ${ifcCurve}`)
+      return ifcCurve
     }
   }
 
@@ -528,28 +616,27 @@ export class IfcGeometryExtraction {
    * 
    * @param from - IfcIndexedPolyCurve to process 
    */
-  extractIndexedPolyCurve(from: IfcIndexedPolyCurve) {
+  extractIndexedPolyCurve(from: IfcIndexedPolyCurve): CurveObject | undefined {
     console.log("IfcIndexedPolyCurve")
     if (from.Points instanceof IfcCartesianPointList2D) {
       console.log(`\t\t\touterCurve.Points (2D): ${from.Points.CoordList}`)
     } else if (from.Points instanceof IfcCartesianPointList3D) {
       console.log(`\t\t\touterCurve.Points (3D): ${from.Points.CoordList}`)
+      console.log("IfcCartesianPointList3D not supported.")
+      return
     }
+
     //TODO(Error happening here on access)
     //console.log(`\t\t\touterCurve.Dim: ${outerCurve.Dim}`)
+
     let segmentVector: NativeVectorSegment
     if (from.Segments !== null) {
       // initialize new segment vector
       segmentVector = this.nativeSegmentVector()
 
       for (let i = 0; i < from.Segments.length; i++) {
-        //create native indices array
-        const indexArray: NativeUintVector =
-          this.nativeUintVector(from.Segments[i].Value.length)
 
-        for (let j = 0; j < from.Segments[i].Value.length; j++) {
-          indexArray.set(j, from.Segments[i].Value[j])
-        }
+        const indexArray = this.createAndPopulateNativeIndices(from.Segments[i].Value)
 
         const segment: Segment = {
           isArcType: (from.Segments[i].type == EntityTypesIfc.IFCARCINDEX) ? true : false,
@@ -574,8 +661,6 @@ export class IfcGeometryExtraction {
         pointsArray.set(i, points[i])
       }
 
-
-
       const paramsGetIndexedPolyCurve: ParamsGetIfcIndexedPolyCurve = {
         dimensions: 2,
         segments: segmentVector,
@@ -588,8 +673,10 @@ export class IfcGeometryExtraction {
 
       const ifcCurve: CurveObject = this.conwayModel.getIndexedPolyCurve(paramsGetIndexedPolyCurve)
       console.log(`ifcCurve: ${ifcCurve}`)
+
+      return ifcCurve
     } else {
-      console.log("3D not supported.")
+      console.log("IfcCartesianPointList3D not supported.")
     }
 
   }
