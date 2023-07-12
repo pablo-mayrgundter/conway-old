@@ -5,7 +5,7 @@ import {StepIndexEntry} from '../step/parsing/step_parser'
 import {StepTypeIndexer} from '../step/indexing/step_type_indexer'
 import {MultiIndexSet} from '../indexing/multi_index_set'
 import { IfcModelGeometry } from './ifc_model_geometry'
-import { IfcModelProfile } from './ifc_model_curves'
+import { IfcModelProfile } from './ifc_model_profile'
 
 
 const indexerInstance = new StepTypeIndexer< EntityTypesIfc >( EntityTypesIfcCount )
