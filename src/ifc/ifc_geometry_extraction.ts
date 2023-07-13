@@ -1,7 +1,7 @@
 import { array } from 'yargs'
 import {
   ConwayGeometry, ParamsPolygonalFaceSet, GeometryObject,
-  ResultsGltf, IndexedPolygonalFace, ParamsAxis2Placement3D, Segment, ParamsGetIfcIndexedPolyCurve, CurveObject, ParamsGetAxis2Placement2D, ParamsGetCircleCurve, ParamsCreateNativeIfcProfile
+  ResultsGltf, IndexedPolygonalFace, ParamsAxis2Placement3D, Segment, ParamsGetIfcIndexedPolyCurve, CurveObject, ParamsGetAxis2Placement2D, ParamsGetCircleCurve, ParamsCreateNativeIfcProfile, ParamsGetExtrudedAreaSolid
 }
   from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
@@ -26,6 +26,8 @@ type NativeUintVector = any
 type NativeULongVector = any
 type NativeVectorIndexedPolygonalFace = any
 type NativeVectorSegment = any
+type NativeVectorProfile = any
+type NativeVectorCurve = any
 type WasmModule = any
 
 /**
@@ -94,6 +96,38 @@ export class IfcGeometryExtraction {
     }
 
     return nativeVectorGlmVec2_
+  }
+
+  /**
+   * 
+   * @param initialSize number - initial size of the vector (optional)
+   * @returns {NativeVectorProfile} - a native std::vector<IfcProfile> from the wasm module
+   */
+  nativeVectorProfile(initialSize?: number): NativeVectorProfile {
+    const nativeVectorProfile_ = new (this.wasmModule.profileArray as NativeVectorProfile)()
+
+    if (initialSize) {
+      // resize has a required second parameter to set default values
+      nativeVectorProfile_.resize(initialSize, {})
+    }
+
+    return nativeVectorProfile_
+  }
+
+  /**
+   * 
+   * @param initialSize number - initial size of the vector (optional)
+   * @returns {NativeVectorCurve} - a native std::vector<IfcCurve> from the wasm module
+   */
+  nativeVectorCurve(initialSize?: number): NativeVectorCurve {
+    const nativeVectorCurve_ = new (this.wasmModule.curveArray as NativeVectorCurve)()
+
+    if (initialSize) {
+      // resize has a required second parameter to set default values
+      nativeVectorCurve_.resize(initialSize, {})
+    }
+
+    return nativeVectorCurve_
   }
 
   /**
@@ -257,6 +291,18 @@ export class IfcGeometryExtraction {
     }
 
     return indexArray
+  }
+
+  private createAndPopulateNativeProfiles(profiles: CanonicalProfile[]): NativeVectorProfile {
+    // Create native indices array
+    const profileArray: NativeVectorProfile = this.nativeVectorProfile(profiles.length)
+
+    // Populate the array
+    for (let j = 0; j < profiles.length; j++) {
+      profileArray.set(j, profiles[j])
+    }
+
+    return profileArray
   }
 
   /**
@@ -462,18 +508,47 @@ export class IfcGeometryExtraction {
    * @param from 
    */
   extractExtrudedAreaSolid(from: IfcExtrudedAreaSolid) {
-    console.log(`IfcExtrudedAreaSolid: ${from}`)
+    /*console.log(`IfcExtrudedAreaSolid: ${from}`)
     console.log(`\tExtrudedDirection: ${EntityTypesIfc[from.ExtrudedDirection.type]}`)
     console.log(`\tPosition: ${EntityTypesIfc[from.Position!.type]}`)
     console.log(`\tSweptArea: ${EntityTypesIfc[from.SweptArea.type]}`)
-    console.log(`\tNumber: ${from.Depth}`)
+    console.log(`\tNumber: ${from.Depth}`)*/
 
 
     if (from.Position !== null) {
       this.extractAxis2Placement3D(from.Position, from.localID)
     }
 
-    this.extractProfile(from.SweptArea)
+    const profile: CanonicalProfile | undefined = this.extractProfile(from.SweptArea)
+
+    if (profile && profile.nativeProfile) {
+      const dir = {
+        x: from.ExtrudedDirection.DirectionRatios[0],
+        y: from.ExtrudedDirection.DirectionRatios[1],
+        z: from.ExtrudedDirection.DirectionRatios[2],
+      }
+
+      //get geometry 
+      const parameters: ParamsGetExtrudedAreaSolid = {
+        depth: from.Depth,
+        dir: dir,
+        profile: profile.nativeProfile
+      }
+
+      const geometry: GeometryObject = this.conwayModel.getExtrudedAreaSolid(parameters)
+
+      const canonicalMesh: CanonicalMesh = {
+        type: CanonicalMeshType.BUFFER_GEOMETRY,
+        geometry: geometry,
+        localID: from.localID,
+        model: this.model,
+      }
+  
+      // add mesh to the list of mesh objects
+      console.log("adding ExtrudedAreaSolid to geometry cache");
+      this.model.geometry.add(canonicalMesh)
+
+    }
   }
 
   /**
@@ -503,12 +578,10 @@ export class IfcGeometryExtraction {
           profile = {
             localID: from.localID,
             curve: curveObject,
-            holes: undefined,
-            profiles: undefined,
-            nativeProfile:undefined
+            holes: void 0,
+            profiles: (void 0),
+            nativeProfile: (void 0)
           }
-
-          return profile
         }
       }
     } else if (from instanceof IfcCircleProfileDef) {
@@ -519,30 +592,25 @@ export class IfcGeometryExtraction {
         profile = {
           localID: from.localID,
           curve: curveObject,
-          holes: undefined,
-          profiles: undefined,
-          nativeProfile:undefined
+          holes: (void 0),
+          profiles: (void 0),
+          nativeProfile: (void 0)
         }
-
-        // add profile to the list of profile objects
-        this.model.profiles.add(profile)
-
-        return profile
       }
     } else if (from instanceof IfcCompositeProfileDef) {
       profile = {
         localID: from.localID,
-        curve: undefined,
-        holes: undefined,
-        profiles: undefined,
-        nativeProfile:undefined
+        curve: (void 0),
+        holes: (void 0),
+        profiles: (void 0),
+        nativeProfile: (void 0)
       }
 
       const profiles: CanonicalProfile[] = new Array(from.Profiles.length)
 
       profile.profiles = profiles
 
-      for (let profileIndex = 0; profileIndex < from.Profiles.length; profileIndex++) {
+      for (let profileIndex = 0; profileIndex < from.Profiles.length; ++profileIndex) {
         const profile_ = this.extractProfile(from.Profiles[profileIndex])
         if (profile_) {
 
@@ -552,26 +620,39 @@ export class IfcGeometryExtraction {
     }
 
     // add profile to the list of profile objects
-    let isComposite:boolean = false
+    let isComposite: boolean = false
     if (profile) {
-      if (profile.profiles) {
-        if (profile.profiles.length > 0) {
-          isComposite = true
+      const holesArray: NativeVectorProfile = this.nativeVectorCurve()
+      if (profile.profiles && profile.profiles.length > 0) {
+        isComposite = true
 
-          //create native IfcProfile vector
+        const profilesArray = this.createAndPopulateNativeProfiles(profile.profiles)
+        //create native IfcProfile vector
+        const parameters: ParamsCreateNativeIfcProfile = {
+          curve: profile.curve,
+          //TODO(nickcastel50): support profiles with holes (out of scope at the moment)
+          holes: holesArray,
+          isConvex: false,
+          isComposite: isComposite,
+          profiles: profilesArray
         }
+
+        profile.nativeProfile = this.conwayModel.createNativeIfcProfile(parameters)
+      } else {
+
+        const profilesArray: NativeVectorProfile = this.nativeVectorProfile()
+        const parameters: ParamsCreateNativeIfcProfile = {
+          curve: profile.curve,
+          //TODO(nickcastel50): support profiles with holes (out of scope at the moment)
+          holes: holesArray,
+          isConvex: false,
+          isComposite: isComposite,
+          profiles: profilesArray
+        }
+
+        profile.nativeProfile = this.conwayModel.createNativeIfcProfile(parameters)
       }
 
-      const parameters: ParamsCreateNativeIfcProfile = {
-        curve: profile.curve,
-        //TODO(nickcastel50): support profiles with holes (out of scope at the moment)
-        holes:undefined,
-        isConvex: false,
-        isComposite: isComposite,
-        profiles: (void 0)
-      }
-
-      profile.nativeProfile = this.conwayModel.createNativeIfcProfile(parameters)
       this.model.profiles.add(profile)
     }
 
@@ -736,6 +817,7 @@ export class IfcGeometryExtraction {
     } else if (from instanceof IfcExtrudedAreaSolid) {
 
       this.extractExtrudedAreaSolid(from)
+      this.scene.addGeometry(from.localID)
 
     }
     else if (from instanceof IfcMappedItem) {
