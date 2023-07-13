@@ -9,7 +9,7 @@ import { CanonicalProfile } from '../core/canonical_profile'
 import {
   IfcArbitraryClosedProfileDef,
   IfcAxis2Placement2D,
-  IfcAxis2Placement3D, IfcBooleanResult, IfcCartesianPointList2D, IfcCartesianPointList3D, IfcCartesianTransformationOperator3D, IfcCircleProfileDef, IfcCompositeProfileDef, IfcExtrudedAreaSolid, IfcGridPlacement,
+  IfcAxis2Placement3D, IfcBoolean, IfcBooleanResult, IfcCartesianPointList2D, IfcCartesianPointList3D, IfcCartesianTransformationOperator3D, IfcCircleProfileDef, IfcCompositeProfileDef, IfcExtrudedAreaSolid, IfcGridPlacement,
   IfcIndexedPolyCurve,
   IfcIndexedPolygonalFaceWithVoids, IfcLocalPlacement, IfcMappedItem,
   IfcObjectPlacement, IfcOpeningElement, IfcOpeningStandardCase,
@@ -85,7 +85,7 @@ export class IfcGeometryExtraction {
   /**
    *
    * @param initialSize number - initial size of the vector (optional)
-   * @return {NativeVectorGlmVec2} - a native std::vector<glm::vec3> from the wasm module
+   * @return {NativeVectorGlmVec2} - a native std::vector<glm::vec2> from the wasm module
    */
   nativeVectorGlmVec2(initialSize?: number): NativeVectorGlmVec2 {
     const nativeVectorGlmVec2_ = new (this.wasmModule.vec2Array as NativeVectorGlmVec2)()
@@ -108,7 +108,8 @@ export class IfcGeometryExtraction {
 
     if (initialSize) {
       // resize has a required second parameter to set default values
-      nativeVectorProfile_.resize(initialSize, {})
+      const defaultProfile = new (this.wasmModule.IfcProfile as any)
+      nativeVectorProfile_.resize(initialSize, defaultProfile)
     }
 
     return nativeVectorProfile_
@@ -299,7 +300,8 @@ export class IfcGeometryExtraction {
 
     // Populate the array
     for (let j = 0; j < profiles.length; j++) {
-      profileArray.set(j, profiles[j])
+      console.log(`profiles[j].nativeProfile type ${j}: ${profiles[j].nativeProfile!.getType()} `)
+      profileArray.set(j, profiles[j].nativeProfile!)
     }
 
     return profileArray
@@ -323,16 +325,16 @@ export class IfcGeometryExtraction {
     const returnedIndexData =
       new Uint32Array(this.wasmModule.HEAPU32.buffer, indexDataPtr, indexDataPtr.length)
 
-    console.log(`VertexData Ptr: ${vertexDataPtr}`)
-    console.log(`VertexData Size: ${vertexDataSize}`)
-    console.log(`IndexData Ptr: ${indexDataPtr}`)
-    console.log(`IndexData Size: ${indexDataSize}`)
+    //console.log(`VertexData Ptr: ${vertexDataPtr}`)
+    //console.log(`VertexData Size: ${vertexDataSize}`)
+    //console.log(`IndexData Ptr: ${indexDataPtr}`)
+    //console.log(`IndexData Size: ${indexDataSize}`)
 
     // Now you can access the vertex Data array in TypeScript using the returnedVertexData object
-    console.log(`returnedVertexData[0]: ${returnedVertexData[0]}`)
+    //console.log(`returnedVertexData[0]: ${returnedVertexData[0]}`)
 
     // Now you can access the indexData array in TypeScript using the returnedIndexData object
-    console.log(`returnedIndexData[0]: ${returnedIndexData[0]}`)
+    //console.log(`returnedIndexData[0]: ${returnedIndexData[0]}`)
   }
 
   /**
@@ -360,9 +362,9 @@ export class IfcGeometryExtraction {
     // handle faces + voids
     for (const polygonalFace of faces) {
       if (polygonalFace instanceof IfcIndexedPolygonalFaceWithVoids) {
-        // //console.log("coordIndex: " + polygonalFace.CoordIndex + "\n")
+        // ////console.log("coordIndex: " + polygonalFace.CoordIndex + "\n")
 
-        // //console.log("innerCoordIndicesLength: " + polygonalFace.InnerCoordIndices.length)
+        // ////console.log("innerCoordIndicesLength: " + polygonalFace.InnerCoordIndices.length)
 
         indicesPerFace = polygonalFace.CoordIndex.length
 
@@ -389,7 +391,7 @@ export class IfcGeometryExtraction {
         polygonalFaceStartIndicesVoids.set(voidsIndex++, coordIndexIdx)
 
         for (let i = 0; i < polygonalFace.InnerCoordIndices.length; i++) {
-          // //console.log("innerCoordIndex: " + polygonalFace.InnerCoordIndices[i] + "\n")
+          // ////console.log("innerCoordIndex: " + polygonalFace.InnerCoordIndices[i] + "\n")
           for (let j = 0; j < polygonalFace.InnerCoordIndices[i].length; j++) {
             coordIndex.set(coordIndexIdx++, polygonalFace.InnerCoordIndices[i][j])
           }
@@ -436,7 +438,7 @@ export class IfcGeometryExtraction {
       faces: polygonalFaceVector,
     }
 
-    const geometry: GeometryObject = this.conwayModel.getGeometry(parameters)
+    const geometry: GeometryObject = this.conwayModel.getPolygonalFaceSetGeometry(parameters)
 
     const canonicalMesh: CanonicalMesh = {
       type: CanonicalMeshType.BUFFER_GEOMETRY,
@@ -483,7 +485,7 @@ export class IfcGeometryExtraction {
       faceSetResult = this.extractPolygonalFaceSet(entity, polygonalFaceStartIndices)
 
       if (faceSetResult !== ExtractResult.COMPLETE) {
-        console.log(`Warning, face set express ID: ${entity.expressID} extraction incomplete.`)
+        //console.log(`Warning, face set express ID: ${entity.expressID} extraction incomplete.`)
         result = ExtractResult.INCOMPLETE
       }
     }
@@ -507,12 +509,75 @@ export class IfcGeometryExtraction {
    * 
    * @param from 
    */
+  extractBooleanResult(from: IfcBooleanResult) {
+
+    console.log(`IFCBooleanResult: ${from}`)
+    console.log(`\tFirstOperand: ${EntityTypesIfc[from.FirstOperand.type]}`)
+    console.log(`\tSecondOperand: ${EntityTypesIfc[from.SecondOperand.type]}`)
+
+     from.Operator.valueOf()
+    // from.SecondOperand
+
+    if (from.FirstOperand instanceof IfcExtrudedAreaSolid 
+      || from.FirstOperand instanceof IfcPolygonalFaceSet 
+      || from.FirstOperand instanceof IfcBooleanResult) {
+      this.extractBooleanOperand(from.FirstOperand)
+    }
+
+    if (from.SecondOperand instanceof IfcExtrudedAreaSolid 
+      || from.SecondOperand instanceof IfcPolygonalFaceSet 
+      || from.SecondOperand instanceof IfcBooleanResult) {
+      this.extractBooleanOperand(from.SecondOperand)
+    }
+
+  }
+
+
+  extractBooleanOperand(from: IfcExtrudedAreaSolid | IfcPolygonalFaceSet | IfcBooleanResult) {
+    if (from instanceof IfcExtrudedAreaSolid) {
+      this.extractExtrudedAreaSolid(from)
+      this.scene.addGeometry(from.localID)
+    } else if (from instanceof IfcPolygonalFaceSet) {
+      // initialize new native indices array (free memory with delete())
+      const polygonalFaceStartIndices: NativeULongVector = this.nativeULongVector(1)
+
+      polygonalFaceStartIndices.set(0, 0)
+
+      const faceSetResult: ExtractResult =
+        this.extractPolygonalFaceSet(from, polygonalFaceStartIndices)
+
+      if (faceSetResult !== ExtractResult.COMPLETE) {
+        console.log(`Warning, face set express ID: ${from.expressID} extraction incomplete.`)
+      }
+
+      polygonalFaceStartIndices.delete()
+      this.scene.addGeometry(from.localID)
+    } else if (from instanceof IfcBooleanResult) {
+      if (from.FirstOperand instanceof IfcExtrudedAreaSolid 
+        || from.FirstOperand instanceof IfcPolygonalFaceSet 
+        || from.FirstOperand instanceof IfcBooleanResult) {
+        this.extractBooleanOperand(from.FirstOperand)
+      }
+  
+      if (from.SecondOperand instanceof IfcExtrudedAreaSolid 
+        || from.SecondOperand instanceof IfcPolygonalFaceSet 
+        || from.SecondOperand instanceof IfcBooleanResult) {
+        this.extractBooleanOperand(from.SecondOperand)
+      }
+    }
+  }
+
+
+  /**
+   * 
+   * @param from 
+   */
   extractExtrudedAreaSolid(from: IfcExtrudedAreaSolid) {
-    /*console.log(`IfcExtrudedAreaSolid: ${from}`)
-    console.log(`\tExtrudedDirection: ${EntityTypesIfc[from.ExtrudedDirection.type]}`)
-    console.log(`\tPosition: ${EntityTypesIfc[from.Position!.type]}`)
-    console.log(`\tSweptArea: ${EntityTypesIfc[from.SweptArea.type]}`)
-    console.log(`\tNumber: ${from.Depth}`)*/
+    /*//console.log(`IfcExtrudedAreaSolid: ${from}`)
+    //console.log(`\tExtrudedDirection: ${EntityTypesIfc[from.ExtrudedDirection.type]}`)
+    //console.log(`\tPosition: ${EntityTypesIfc[from.Position!.type]}`)
+    //console.log(`\tSweptArea: ${EntityTypesIfc[from.SweptArea.type]}`)
+    //console.log(`\tNumber: ${from.Depth}`)*/
 
 
     if (from.Position !== null) {
@@ -543,9 +608,9 @@ export class IfcGeometryExtraction {
         localID: from.localID,
         model: this.model,
       }
-  
+
       // add mesh to the list of mesh objects
-      console.log("adding ExtrudedAreaSolid to geometry cache");
+      //console.log("adding ExtrudedAreaSolid to geometry cache")
       this.model.geometry.add(canonicalMesh)
 
     }
@@ -568,7 +633,7 @@ export class IfcGeometryExtraction {
     let profile: CanonicalProfile | undefined = undefined
 
     if (from instanceof IfcArbitraryClosedProfileDef) {
-      console.log(`\t\tOuterCurve: ${EntityTypesIfc[from.OuterCurve.type]}`)
+      //console.log(`\t\tOuterCurve: ${EntityTypesIfc[from.OuterCurve.type]}`)
       const outerCurve = from.OuterCurve
       if (outerCurve instanceof IfcIndexedPolyCurve) {
 
@@ -627,6 +692,11 @@ export class IfcGeometryExtraction {
         isComposite = true
 
         const profilesArray = this.createAndPopulateNativeProfiles(profile.profiles)
+
+        if (!profile.curve) {
+          //create a blank curve for a composite profile 
+          profile.curve = new (this.wasmModule.IfcCurve as any)
+        }
         //create native IfcProfile vector
         const parameters: ParamsCreateNativeIfcProfile = {
           curve: profile.curve,
@@ -636,7 +706,8 @@ export class IfcGeometryExtraction {
           isComposite: isComposite,
           profiles: profilesArray
         }
-
+        console.log(`test 1 profilesArray.size(): ${profilesArray.size()}`)
+       
         profile.nativeProfile = this.conwayModel.createNativeIfcProfile(parameters)
       } else {
 
@@ -649,7 +720,7 @@ export class IfcGeometryExtraction {
           isComposite: isComposite,
           profiles: profilesArray
         }
-
+        console.log("test 2")
         profile.nativeProfile = this.conwayModel.createNativeIfcProfile(parameters)
       }
 
@@ -665,7 +736,7 @@ export class IfcGeometryExtraction {
    * @param from 
    */
   extractCircleCurve(from: IfcCircleProfileDef): CurveObject | undefined {
-    console.log("IfcCircleProfileDef")
+    //console.log("IfcCircleProfileDef")
     if (from.Position !== null) {
 
       const placement2D = this.extractAxis2Placement2D(from.Position)
@@ -677,7 +748,7 @@ export class IfcGeometryExtraction {
       }
 
       const ifcCurve: CurveObject = this.conwayModel.getCircleCurve(paramsGetCircleCurve)
-      console.log(`ifcCurve: ${ifcCurve}`)
+      //console.log(`ifcCurve: ${ifcCurve}`)
       return ifcCurve
 
     } else {
@@ -688,7 +759,7 @@ export class IfcGeometryExtraction {
       }
 
       const ifcCurve: CurveObject = this.conwayModel.getCircleCurve(paramsGetCircleCurve)
-      console.log(`ifcCurve: ${ifcCurve}`)
+      //console.log(`ifcCurve: ${ifcCurve}`)
       return ifcCurve
     }
   }
@@ -698,17 +769,17 @@ export class IfcGeometryExtraction {
    * @param from - IfcIndexedPolyCurve to process 
    */
   extractIndexedPolyCurve(from: IfcIndexedPolyCurve): CurveObject | undefined {
-    console.log("IfcIndexedPolyCurve")
+    //console.log("IfcIndexedPolyCurve")
     if (from.Points instanceof IfcCartesianPointList2D) {
-      console.log(`\t\t\touterCurve.Points (2D): ${from.Points.CoordList}`)
+      //console.log(`\t\t\touterCurve.Points (2D): ${from.Points.CoordList}`)
     } else if (from.Points instanceof IfcCartesianPointList3D) {
-      console.log(`\t\t\touterCurve.Points (3D): ${from.Points.CoordList}`)
-      console.log("IfcCartesianPointList3D not supported.")
+      //console.log(`\t\t\touterCurve.Points (3D): ${from.Points.CoordList}`)
+      //console.log("IfcCartesianPointList3D not supported.")
       return
     }
 
     //TODO(Error happening here on access)
-    //console.log(`\t\t\touterCurve.Dim: ${outerCurve.Dim}`)
+    ////console.log(`\t\t\touterCurve.Dim: ${outerCurve.Dim}`)
 
     let segmentVector: NativeVectorSegment
     if (from.Segments !== null) {
@@ -726,8 +797,8 @@ export class IfcGeometryExtraction {
 
         segmentVector.push_back(segment)
 
-        console.log(`\t\t\t\tSegment Type: ${EntityTypesIfc[from.Segments[i].type]}`)
-        console.log(`\t\t\t\tSegment Value: ${from.Segments[i].Value}`)
+        //console.log(`\t\t\t\tSegment Type: ${EntityTypesIfc[from.Segments[i].type]}`)
+        //console.log(`\t\t\t\tSegment Value: ${from.Segments[i].Value}`)
       }
     }
 
@@ -748,16 +819,16 @@ export class IfcGeometryExtraction {
         points: pointsArray
       }
 
-      console.log(`paramsGetIndexedPolycurve.dimensions: ${paramsGetIndexedPolyCurve.dimensions}`)
-      console.log(`paramsGetIndexedPolycurve.segments: ${paramsGetIndexedPolyCurve.segments}`)
-      console.log(`paramsGetIndexedPolycurve.points: ${paramsGetIndexedPolyCurve.points}`)
+      //console.log(`paramsGetIndexedPolycurve.dimensions: ${paramsGetIndexedPolyCurve.dimensions}`)
+      //console.log(`paramsGetIndexedPolycurve.segments: ${paramsGetIndexedPolyCurve.segments}`)
+      //console.log(`paramsGetIndexedPolycurve.points: ${paramsGetIndexedPolyCurve.points}`)
 
       const ifcCurve: CurveObject = this.conwayModel.getIndexedPolyCurve(paramsGetIndexedPolyCurve)
-      console.log(`ifcCurve: ${ifcCurve}`)
+      //console.log(`ifcCurve: ${ifcCurve}`)
 
       return ifcCurve
     } else {
-      console.log("IfcCartesianPointList3D not supported.")
+      //console.log("IfcCartesianPointList3D not supported.")
     }
 
   }
@@ -801,7 +872,7 @@ export class IfcGeometryExtraction {
         this.extractPolygonalFaceSet(from, polygonalFaceStartIndices)
 
       if (faceSetResult !== ExtractResult.COMPLETE) {
-        console.log(`Warning, face set express ID: ${from.expressID} extraction incomplete.`)
+        //console.log(`Warning, face set express ID: ${from.expressID} extraction incomplete.`)
       }
 
       polygonalFaceStartIndices.delete()
@@ -809,10 +880,8 @@ export class IfcGeometryExtraction {
 
 
     } else if (from instanceof IfcBooleanResult) {
-      console.log(`IFCBooleanResult: ${from}`)
-      console.log(`\tFirstOperand: ${EntityTypesIfc[from.FirstOperand.type]}`)
-      console.log(`\tSecondOperand: ${EntityTypesIfc[from.SecondOperand.type]}`)
 
+      this.extractBooleanResult(from)
 
     } else if (from instanceof IfcExtrudedAreaSolid) {
 
@@ -839,7 +908,7 @@ export class IfcGeometryExtraction {
       normalizeX = true
     }
 
-    console.log(`from.SweptArea.Position.Location.Coordinates (len): ${from.Location.Coordinates.length}`)
+    //console.log(`from.SweptArea.Position.Location.Coordinates (len): ${from.Location.Coordinates.length}`)
 
     const position2D = {
       x: from.Location.Coordinates[0],
@@ -847,10 +916,10 @@ export class IfcGeometryExtraction {
     }
 
 
-    console.log(`from.SweptArea.Position.RefDirection (len): ${from.RefDirection?.DirectionRatios.length}`)
+    //console.log(`from.SweptArea.Position.RefDirection (len): ${from.RefDirection?.DirectionRatios.length}`)
     const xAxisRef = {
       x: from.RefDirection?.DirectionRatios[0],
-      y: from.RefDirection?.DirectionRatios
+      y: from.RefDirection?.DirectionRatios[1]
     }
 
     const axis2Placement2DParameters: ParamsGetAxis2Placement2D = {
@@ -974,7 +1043,7 @@ export class IfcGeometryExtraction {
 
     } else if (from instanceof IfcGridPlacement) {
       // TODO(nickcastel50) Implement IfcGridPlacement
-      console.log('IfcGridPlacement: unimplemented.')
+      //console.log('IfcGridPlacement: unimplemented.')
     }
   }
 
@@ -1031,7 +1100,7 @@ export class IfcGeometryExtraction {
     const endTime = Date.now()
     const executionTimeInMs = endTime - startTime
     if (logTime) {
-      console.log(`Geometry Extraction took ${executionTimeInMs} milliseconds to execute.`)
+      //console.log(`Geometry Extraction took ${executionTimeInMs} milliseconds to execute.`)
     }
 
 
