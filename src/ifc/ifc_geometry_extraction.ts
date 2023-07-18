@@ -1,17 +1,21 @@
 import { ConwayGeometry, ParamsPolygonalFaceSet, GeometryObject,
   ResultsGltf, IndexedPolygonalFace, ParamsAxis2Placement3D, ParamsCartesianTransformationOperator3D, Vector3 }
   from '../../dependencies/conway-geom/conway_geometry'
+import { CanonicalMaterial, ColorRGBA } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
 import {
-  IfcAxis2Placement3D, IfcCartesianTransformationOperator3D, IfcDirection, IfcGridPlacement,
+  IfcAxis2Placement3D, IfcCartesianTransformationOperator3D, IfcColourRgb, IfcDirection, IfcGridPlacement,
   IfcIndexedPolygonalFaceWithVoids, IfcLocalPlacement, IfcMappedItem,
+  IfcNormalisedRatioMeasure,
   IfcObjectPlacement, IfcOpeningElement, IfcOpeningStandardCase,
-  IfcPolygonalFaceSet, IfcProduct, IfcRepresentationItem, IfcSpace,
+  IfcPolygonalFaceSet, IfcPresentationStyleAssignment, IfcProduct, IfcRelAssociatesMaterial, IfcRepresentationItem, IfcSpace, IfcStyledItem, IfcSurfaceStyle, IfcSurfaceStyleRendering, IfcSurfaceStyleShading,
 } from './ifc4_gen'
+import { IfcMaterialCache } from './ifc_material_cache'
 import { IfcSceneBuilder } from './ifc_scene_builder'
 import IfcStepModel from './ifc_step_model'
 
 
+type Mutable< T > = { -readonly [P in keyof T]: T[P] }
 type NativeVectorGlmVec3 = any
 type NativeUintVector = any
 type NativeULongVector = any
@@ -39,6 +43,29 @@ export interface ConwayMesh {
   transform: any | undefined
 }
 
+
+export function extractColorRGBPremultiplied( from: IfcColourRgb, alpha: number = 1 ): ColorRGBA {
+
+  return [from.Red * alpha, from.Green * alpha, from.Blue * alpha, alpha]
+}
+
+export function extractColorRGB( from: IfcColourRgb, alpha: number = 1 ): ColorRGBA {
+
+  return [from.Red, from.Green, from.Blue, alpha]
+}
+
+export function extractColorOrFactor( from: IfcColourRgb | IfcNormalisedRatioMeasure, surfaceColor: ColorRGBA, alpha: number = 1 ): ColorRGBA {
+
+  if ( from instanceof IfcColourRgb ) {
+    return extractColorRGB( from, alpha )
+  } else {
+
+    const factor = from.Value
+
+    return [ factor * surfaceColor[ 0 ], factor * surfaceColor[ 1 ], factor * surfaceColor[ 2 ], alpha * surfaceColor[ 3 ] ]
+  }
+}
+
 /**
  * Handles Geometry data extraction from a populated IfcStepModel
  * Can export to OBJ, GLTF (Draco), GLB (Draco)
@@ -48,6 +75,7 @@ export class IfcGeometryExtraction {
   private geometryMap: Map<number, ConwayMesh> = new Map()
   private wasmModule: WasmModule
   private scene:IfcSceneBuilder
+  private materials: IfcMaterialCache
 
   /**
    *
@@ -58,7 +86,9 @@ export class IfcGeometryExtraction {
     private readonly conwayModel: ConwayGeometry,
     public readonly model: IfcStepModel ) {
     console.log('WTF4')
-    this.scene = new IfcSceneBuilder(model, conwayModel)
+
+    this.materials = new IfcMaterialCache()
+    this.scene     = new IfcSceneBuilder(model, conwayModel, this.materials)
 
     console.log(`wasmModule: ${  conwayModel.wasmModule}`)
     this.wasmModule = conwayModel.wasmModule
@@ -475,6 +505,112 @@ export class IfcGeometryExtraction {
   }
 
   /**
+   * Extract a canonical material from a surface style.
+   * @param from The surface style to extract a material from.
+   */
+  extractSurfaceStyle( from: IfcSurfaceStyle ) {
+
+    const materials = this.materials
+
+    const material = materials.get( from.localID )
+
+    if ( material === void 0 ) {
+
+      const newMaterial: Mutable< CanonicalMaterial > = {
+
+      }
+  
+      for ( const style of from.Styles ) {
+       
+        /*if ( style instanceof IfcSurfaceStyleRendering ) {
+
+          const transparency = style.Transparency ?? 1
+          const surfaceColor = extractColorRGBPremultiplied( style.SurfaceColour, transparency )
+
+          const diffuseColor = style.DiffuseColour &&
+            extractColorOrFactor( style.DiffuseColour, surfaceColor )
+
+          const specularColor = style. &&
+            extractColorOrFactor( style.DiffuseColour, surfaceColor )
+
+
+            switch ( style.ReflectanceMethod ) {
+          case IfcReflectanceMethodEnum.BLINN:
+
+            break;
+
+          case IfcReflectanceMethodEnum.FLAT:
+          case IfcReflectanceMethodEnum.GLASS:
+          case IfcReflectanceMethodEnum.MATT:
+          case IfcReflectanceMethodEnum.METAL:
+
+
+          case IfcReflectanceMethodEnum.MIRROR:
+          case IfcReflectanceMethodEnum.PHONG:
+          case IfcReflectanceMethodEnum.PLASTIC:
+          case IfcReflectanceMethodEnum.STRAUSS:
+          case IfcReflectanceMethodEnum.NOTDEFINED:
+          }
+
+          style.ReflectanceMethod
+
+        } else */ if ( style instanceof IfcSurfaceStyleShading ) {
+          
+          const transparency = style.Transparency ?? 1
+          const albedo = extractColorRGBPremultiplied( style.SurfaceColour, transparency )
+  
+          newMaterial.albedo       = albedo
+          newMaterial.transmission = [transparency, transparency, transparency, 1]
+        }
+  
+      }
+      
+      materials.add( from.localID, newMaterial )
+    }
+
+  }
+
+  /**
+   * 
+   *
+   * @param from 
+   * @returns 
+   */
+  extractStyledItem(from: IfcStyledItem) {
+
+    let surfaceStyleID: number | undefined = void 0
+
+    for ( const style of from.Styles ) {
+
+      if ( style instanceof IfcPresentationStyleAssignment ) {
+
+        for ( const innerStyle of style.Styles ) {
+
+          if ( innerStyle instanceof IfcSurfaceStyle ) {
+
+            surfaceStyleID = innerStyle.localID
+            this.extractSurfaceStyle( innerStyle )
+            break
+          }
+        }
+
+      } else if ( style instanceof IfcSurfaceStyle ) {
+
+        surfaceStyleID = style.localID
+        this.extractSurfaceStyle( style )
+      }
+    }
+
+    const item = from.Item
+
+    if ( item === null || surfaceStyleID === void 0 ) {
+      return
+    }
+
+    this.materials.addGeometryMapping( item.localID, surfaceStyleID )
+  }
+
+  /**
    *
    * @param from
    */
@@ -487,7 +623,8 @@ export class IfcGeometryExtraction {
 
     if ( mappingTarget instanceof IfcCartesianTransformationOperator3D ) {
 
-      const nativeCartesianTransform = this.extractCartesianTransformOperator3D( mappingTarget )
+      const nativeCartesianTransform =
+        this.extractCartesianTransformOperator3D( mappingTarget )
 
       this.scene.addTransform(
           mappingTarget.localID,
@@ -537,8 +674,8 @@ export class IfcGeometryExtraction {
       }
 
       polygonalFaceStartIndices.delete()
-      this.scene.addGeometry(from.localID)
 
+      this.scene.addGeometry(from.localID)
 
     } else if (from instanceof IfcMappedItem) {
 
@@ -640,6 +777,14 @@ export class IfcGeometryExtraction {
 
     const startTime = Date.now()
 
+    // const relMaterialAssocations = this.model.types(IfcRelAssociatesMaterial)
+
+    // for (const relMaterialAssocation of relMaterialAssocations) {
+
+    //   const relatingMaterial = relMaterialAssocation.RelatingMaterial
+
+
+    // }
 
     const products = this.model.types(IfcProduct)
     const productEntities = Array.from(products)
@@ -673,6 +818,13 @@ export class IfcGeometryExtraction {
           }
         }
       }
+    }
+
+    const styledItems = this.model.types(IfcStyledItem)
+
+    for ( const styledItem of styledItems ) {
+
+      this.extractStyledItem( styledItem )
     }
 
     result = ExtractResult.COMPLETE

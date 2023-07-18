@@ -1,5 +1,6 @@
 import { ConwayGeometry, ParamsLocalPlacement } from
   '../../dependencies/conway-geom/conway_geometry'
+import { CanonicalMaterial } from '../core/canonical_material'
 import { CanonicalMesh } from '../core/canonical_mesh'
 import { Model } from '../core/model'
 import { Scene } from '../core/scene'
@@ -9,6 +10,7 @@ import {
   SceneNodeTransform,
 }
   from '../core/scene_node'
+import { IfcMaterialCache } from './ifc_material_cache'
 import IfcStepModel from './ifc_step_model'
 
 
@@ -93,7 +95,8 @@ export class IfcSceneBuilder implements Scene {
    */
   public constructor(
     public readonly model: IfcStepModel,
-    public readonly conwayGeometry: ConwayGeometry) {
+    public readonly conwayGeometry: ConwayGeometry,
+    public readonly materials: IfcMaterialCache) {
 
   }
   /* eslint-enable no-useless-constructor, no-empty-function */
@@ -152,7 +155,7 @@ export class IfcSceneBuilder implements Scene {
    */
   public* walk(walkTemporary: boolean = false):
   IterableIterator<[readonly number[] | undefined,
-  IfcNativeTransform | undefined, CanonicalMesh]> {
+  IfcNativeTransform | undefined, CanonicalMesh, CanonicalMaterial | undefined]> {
 
     for (const node of this.scene_) {
 
@@ -172,10 +175,13 @@ export class IfcSceneBuilder implements Scene {
           parentNode = this.scene_[parentIndex] as IfcSceneTransform
         }
 
+        const material = this.materials.getMaterialByGeometryID( node.localID )
+
         yield [
           parentNode?.absoluteTransform,
           parentNode?.absoluteNativeTransform,
           geometry,
+          material !== void 0 ? material[ 0 ] : void 0,
         ]
       }
     }

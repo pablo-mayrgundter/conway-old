@@ -233,7 +233,7 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
   let fullGeometry: GeometryObject | undefined
 
   // eslint-disable-next-line no-unused-vars
-  for (const [_, nativeTransform, geometry] of scene.walk()) {
+  for (const [_, nativeTransform, geometry, material] of scene.walk()) {
     if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY) {
 
       const clonedGeometry = geometry.geometry.clone()
