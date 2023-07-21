@@ -1,4 +1,4 @@
-import { CanonicalMaterial } from "../core/canonical_material";
+import { CanonicalMaterial } from '../core/canonical_material'
 
 /**
  * Cache of materials via their local ID
@@ -29,7 +29,7 @@ export class IfcMaterialCache {
 
   /**
    * Get a material by its local ID.
-   * @param localID The local ID to fetch a material for. 
+   * @param localID The local ID to fetch a material for.
    * @return {CanonicalMaterial | undefined} The material for the matching local ID
    */
   public get( localID: number ): CanonicalMaterial | undefined {

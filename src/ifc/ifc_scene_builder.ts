@@ -175,7 +175,7 @@ export class IfcSceneBuilder implements Scene {
           parentNode = this.scene_[parentIndex] as IfcSceneTransform
         }
 
-        const material = this.materials.getMaterialByGeometryID( node.localID )
+        const material = this.materials.getMaterialByGeometryID( geometry.localID )
 
         yield [
           parentNode?.absoluteTransform,

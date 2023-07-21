@@ -10,8 +10,9 @@ import StepEntityBase from '../step/step_entity_base'
 import IfcStepModel from './ifc_step_model'
 import { ExtractResult, IfcGeometryExtraction } from './ifc_geometry_extraction'
 import { IfcPropertyExtraction } from './ifc_property_extraction'
-import { ConwayGeometry, GeometryObject } from '../../dependencies/conway-geom/conway_geometry'
+import { ConwayGeometry, GeometryObject, MaterialObject } from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMeshType } from '../core/canonical_mesh'
+import { CanonicalMaterial } from '../core/canonical_material'
 
 
 const SKIP_PARAMS = 2
@@ -217,7 +218,6 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
 
   const conwayModel = new IfcGeometryExtraction(conwaywasm, model)
 
-
   // parse + extract data model + geometry data
   const [extractionResult, scene] =
     conwayModel.extractIFCGeometryData(true)
@@ -230,7 +230,8 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
   // we can assign the first GeometryObject to another variable here to combine them all.
   // TODO(nickcastel50): rework this
 
-  let fullGeometry: GeometryObject | undefined
+  const materialGeometry = new Map< CanonicalMaterial | undefined, GeometryObject >()
+
 
   // eslint-disable-next-line no-unused-vars
   for (const [_, nativeTransform, geometry, material] of scene.walk()) {
@@ -240,38 +241,59 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
 
       clonedGeometry.applyTransform(nativeTransform)
 
+      const fullGeometry = materialGeometry.get( material )
+
       if (fullGeometry === void 0) {
-        fullGeometry = clonedGeometry
+
+        materialGeometry.set( material, clonedGeometry )
       } else {
         fullGeometry.appendGeometry(clonedGeometry)
       }
     }
   }
 
-  if (fullGeometry === void 0) {
+  if (materialGeometry.size === 0) {
     console.log('No Geometry Found')
     return
   }
 
   // returns a string containing a full obj
   const startTimeObj = Date.now()
-  const objResult = conwayModel.toObj(fullGeometry)
+  //const objResult = conwayModel.toObj(fullGeometry)
   const endTimeObj = Date.now()
   const executionTimeInMsObj = endTimeObj - startTimeObj
 
   // write to FS
-  const filename = `${fileNameNoExtension}_test.obj`
-  fs.writeFile(filename, objResult, function(err) {
-    if (err) {
-      console.error('Error writing to file: ', err)
-    } else {
-      console.log('Data written to file: ', filename)
+  // const filename = `${fileNameNoExtension}_test.obj`
+
+  // fs.writeFile(filename, objResult, function(err) {
+  //   if (err) {
+  //     console.error('Error writing to file: ', err)
+  //   } else {
+  //     console.log('Data written to file: ', filename)
+  //   }
+  // })
+
+  const geometryVector = conwayModel.nativeVectorGeometry()
+  const materialVector = conwayModel.nativeVectorMaterial()
+
+  for ( const [material, geometry] of materialGeometry) {
+
+    if ( material !== void 0 ) {
+      geometry.materialIndex = materialVector.size()
+      geometry.hasDefaultMaterial = false
+
+      const nativeMaterial = conwayModel.nativeMaterial(material)
+
+      materialVector.push_back( nativeMaterial )
     }
-  })
+
+    geometryVector.push_back( geometry )
+  }
 
   const startTimeGlb = Date.now()
   const glbResult =
-    conwayModel.toGltf(fullGeometry, true, false, `${fileNameNoExtension}_test`)
+    conwayModel.toGltf(geometryVector, materialVector, true, false, `${fileNameNoExtension}_test`)
   const endTimeGlb = Date.now()
   const executionTimeInMsGlb = endTimeGlb - startTimeGlb
 
@@ -288,19 +310,21 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
       // Create a (zero copy!) memory view from the native vector
       const managedBuffer: Uint8Array =
         conwayModel.getWasmModule().getUint8Array(glbResult.buffers.get(uriIndex))
-      fs.writeFile(uri, managedBuffer, function(err) {
+      fs.writeFileSync(uri, managedBuffer)/*, function(err) {
         if (err) {
           console.error('Error writing to file: ', err)
         } else {
           console.log('Data written to file: ', uri)
         }
-      })
+      })*/
     }
   }
 
   const startTimeGlbDraco = Date.now()
   const glbDracoResult =
-    conwayModel.toGltf(fullGeometry,
+    conwayModel.toGltf(
+        geometryVector,
+        materialVector,
         true,
         true,
         `${fileNameNoExtension}_test_draco`)
@@ -332,12 +356,17 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
 
   const startTimeGltf = Date.now()
   const gltfResult =
-    conwayModel.toGltf(fullGeometry,
+    conwayModel.toGltf(
+        geometryVector,
+        materialVector,
         false,
         false,
         `${fileNameNoExtension}_test`)
   const endTimeGltf = Date.now()
   const executionTimeInMsGltf = endTimeGltf - startTimeGltf
+
+  geometryVector.delete()
+  materialVector.delete()
 
   if (gltfResult.success) {
 
@@ -367,7 +396,7 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
   const startTimeGltfDraco = Date.now()
   const gltfDracoResult =
     conwayModel
-        .toGltf(fullGeometry, false, true, `${fileNameNoExtension}_test_draco`)
+        .toGltf(geometryVector, materialVector, false, true, `${fileNameNoExtension}_test_draco`)
   const endTimeGltfDraco = Date.now()
   const executionTimeInMsGltfDraco = endTimeGltfDraco - startTimeGltfDraco
 
