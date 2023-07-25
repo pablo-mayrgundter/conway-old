@@ -5,6 +5,7 @@ import { ParseResult } from '../step/parsing/step_parser'
 import IfcStepParser from './ifc_step_parser'
 import ParsingBuffer from '../parsing/parsing_buffer'
 import { ConwayGeometry } from '../../dependencies/conway-geom/conway_geometry'
+import { CanonicalMaterial, ColorRGBA } from '../core/canonical_material'
 
 
 let conwayModel:IfcGeometryExtraction
@@ -57,7 +58,28 @@ function extractGeometry(): ExtractResult {
  * @return {number} indicating number of meshes
  */
 function getMeshSize(): Number {
-  return conwayModel.getMeshes().size
+  return Array.from( conwayModel.scene.walk() ).length
+}
+
+/**
+ * Get the materials from the model.
+ *
+ * @return {IterableIterator< CanonicalMaterial >} The materials for this.
+ */
+function getMaterialCount(): number {
+  return conwayModel.materials.size
+}
+
+/**
+ * Get the materials from the model.
+ *
+ * @return {IterableIterator< CanonicalMaterial >} The materials for this.
+ */
+function materialColorMatches(materialIndex: number, equal: ColorRGBA): boolean {
+  return Array.from(
+      conwayModel.materials.materials() )[ materialIndex ].
+      baseColor.
+      every((value, index) => equal[index] === value )
 }
 
 /**
@@ -86,6 +108,22 @@ describe('Ifc Geometry Extraction', () => {
 
     expect(extractGeometry()).toBe(ExtractResult.COMPLETE)
 
+  })
+
+  test('materialExtractionLength()', () => {
+    const testParameter:Number = 2
+    expect(getMaterialCount()).toBe(testParameter)
+
+  })
+
+  test('materialColorMatches(0)', () => {
+    // eslint-disable-next-line no-magic-numbers
+    expect(materialColorMatches(0, [0.2384313725488, 0.8, 0, 1])).toBe(true)
+  })
+
+  test('materialColorMatches(1)', () => {
+    // eslint-disable-next-line no-magic-numbers
+    expect(materialColorMatches(1, [0.4, 0.8, 0, 1])).toBe(true)
   })
 
   test('geometryArrayLength()', () => {

@@ -18,7 +18,39 @@ export class IfcMaterialCache {
   public defaultMaterialLocalID: number | undefined
 
   /**
+   * Get the number of materials in this.
+   *
+   * @return {number} The number of materials in this.
+   */
+  public get size(): number {
+    return this.cache_.size
+  }
+
+  /**
+   * Get the materials in the cache.
+   *
+   * @return {IterableIterator<[number, CanonicalMaterial]>} The iterator for the
+   * local IDs and their respective materials.
+   */
+  public [Symbol.iterator](): IterableIterator<[number, CanonicalMaterial]> {
+
+    return this.cache_[Symbol.iterator]()
+  }
+
+  /**
+   * Get the materials in the cache (values only).
+   *
+   * @return {IterableIterator<CanonicalMaterial>} The iterator for the respective
+   * materials.
+   */
+  public materials(): IterableIterator<CanonicalMaterial> {
+
+    return this.cache_.values()
+  }
+
+  /**
    * Add a material to the cache
+   *
    * @param localID The local ID of the source material object
    * @param material The canonical material version of the material to add
    */
@@ -29,6 +61,7 @@ export class IfcMaterialCache {
 
   /**
    * Get a material by its local ID.
+   *
    * @param localID The local ID to fetch a material for.
    * @return {CanonicalMaterial | undefined} The material for the matching local ID
    */
@@ -39,6 +72,7 @@ export class IfcMaterialCache {
 
   /**
    * Get a material by its local ID.
+   *
    * @param geometryLocalID The local ID of the geometry to fetch
    * @return {[CanonicalMaterial, number] | undefined} A tuple containing the
    * material and its id, or undefined if it is not found.
@@ -50,6 +84,7 @@ export class IfcMaterialCache {
 
   /**
    * Assign a particular geometry to a particular material
+   *
    * @param geometryLocalID The geometry
    * @param materialLocalID The material
    */
@@ -60,6 +95,7 @@ export class IfcMaterialCache {
 
   /**
    * Map the current geometry to the current default material, if one is set.
+   *
    * @param geometryLocalID The geometry ID to add.
    */
   public addDefaultGeometryMapping( geometryLocalID: number ): void {
@@ -74,6 +110,7 @@ export class IfcMaterialCache {
 
   /**
    * Get a material by its local geometry ID.
+   *
    * @param geometryLocalID The local ID of the geometry to get the associated
    * material for.
    * @return {[CanonicalMaterial, number] | undefined} A tuple containing the

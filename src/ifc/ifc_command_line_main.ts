@@ -10,7 +10,10 @@ import StepEntityBase from '../step/step_entity_base'
 import IfcStepModel from './ifc_step_model'
 import { ExtractResult, IfcGeometryExtraction } from './ifc_geometry_extraction'
 import { IfcPropertyExtraction } from './ifc_property_extraction'
-import { ConwayGeometry, GeometryObject, MaterialObject } from '../../dependencies/conway-geom/conway_geometry'
+import {
+  ConwayGeometry,
+  GeometryObject,
+} from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMeshType } from '../core/canonical_mesh'
 import { CanonicalMaterial } from '../core/canonical_material'
 
@@ -259,7 +262,7 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
 
   // returns a string containing a full obj
   const startTimeObj = Date.now()
-  //const objResult = conwayModel.toObj(fullGeometry)
+  // const objResult = conwayModel.toObj(fullGeometry)
   const endTimeObj = Date.now()
   const executionTimeInMsObj = endTimeObj - startTimeObj
 
@@ -310,40 +313,6 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
       // Create a (zero copy!) memory view from the native vector
       const managedBuffer: Uint8Array =
         conwayModel.getWasmModule().getUint8Array(glbResult.buffers.get(uriIndex))
-      fs.writeFileSync(uri, managedBuffer)/*, function(err) {
-        if (err) {
-          console.error('Error writing to file: ', err)
-        } else {
-          console.log('Data written to file: ', uri)
-        }
-      })*/
-    }
-  }
-
-  const startTimeGlbDraco = Date.now()
-  const glbDracoResult =
-    conwayModel.toGltf(
-        geometryVector,
-        materialVector,
-        true,
-        true,
-        `${fileNameNoExtension}_test_draco`)
-  const endTimeGlbDraco = Date.now()
-  const executionTimeInMsGlbDraco = endTimeGlbDraco - startTimeGlbDraco
-
-  if (glbDracoResult.success) {
-
-    if (glbDracoResult.buffers.size() !== glbDracoResult.bufferUris.size()) {
-      console.log('Error! Buffer size !== Buffer URI size!\n')
-      return
-    }
-
-    for (let uriIndex = 0; uriIndex < glbDracoResult.bufferUris.size(); uriIndex++) {
-      const uri = glbDracoResult.bufferUris.get(uriIndex)
-
-      // Create a memory view from the native vector
-      const managedBuffer: Uint8Array =
-        conwayModel.getWasmModule().getUint8Array(glbDracoResult.buffers.get(uriIndex))
       fs.writeFile(uri, managedBuffer, function(err) {
         if (err) {
           console.error('Error writing to file: ', err)
@@ -393,42 +362,7 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
     }
   }
 
-  const startTimeGltfDraco = Date.now()
-  const gltfDracoResult =
-    conwayModel
-        .toGltf(geometryVector, materialVector, false, true, `${fileNameNoExtension}_test_draco`)
-  const endTimeGltfDraco = Date.now()
-  const executionTimeInMsGltfDraco = endTimeGltfDraco - startTimeGltfDraco
-
   console.log(`OBJ Generation took ${executionTimeInMsObj} milliseconds to execute.`)
   console.log(`GLB Generation took ${executionTimeInMsGlb} milliseconds to execute.`)
-  console.log(`GLB (Draco) Generation took ${executionTimeInMsGlbDraco} milliseconds to execute.`)
   console.log(`GLTF Generation took ${executionTimeInMsGltf} milliseconds to execute.`)
-  console.log(`GLTF (Draco) Generation took ${executionTimeInMsGltfDraco}
-   milliseconds to execute.`)
-
-  if (gltfDracoResult.success) {
-
-    if (gltfDracoResult.buffers.size() !== gltfDracoResult.bufferUris.size()) {
-      console.log('Error! Buffer size !== Buffer URI size!\n')
-      return
-    }
-
-    for (let uriIndex = 0; uriIndex < gltfDracoResult.bufferUris.size(); uriIndex++) {
-      const uri = gltfDracoResult.bufferUris.get(uriIndex)
-
-      // Create a memory view from the native vector
-      const managedBuffer: Uint8Array =
-        conwayModel.getWasmModule()
-            .getUint8Array(gltfDracoResult.buffers.get(uriIndex))
-
-      fs.writeFile(uri, managedBuffer, function(err) {
-        if (err) {
-          console.error('Error writing to file: ', err)
-        } else {
-          console.log('Data written to file: ', uri)
-        }
-      })
-    }
-  }
 }

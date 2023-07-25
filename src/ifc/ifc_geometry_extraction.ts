@@ -31,7 +31,6 @@ import {
   IfcPresentationStyleAssignment,
   IfcProduct,
   IfcReflectanceMethodEnum,
-  IfcRelAssociatesMaterial,
   IfcRepresentationItem,
   IfcSpace,
   IfcSpecularExponent,
@@ -71,17 +70,26 @@ export enum ExtractResult {
 }
 /* eslint-enable no-shadow, no-unused-vars, no-magic-numbers */
 
+/**
+ * A base conway mesh object, containing a
+ */
 export interface ConwayMesh {
   geometry: GeometryObject
   localID: number
   transform: any | undefined
 }
 
-
-export function extractSpecularHighlight( from: IfcSpecularExponent | IfcSpecularRoughness | null ): number | undefined {
+/**
+ * Extract a specular highlight, converting specular exponents to a roughness value.
+ *
+ * @param from The scalar of either an exponent or a roughness to extract.
+ * @return {number} A roughness value 1 (roughest) to zero (full specular/mirror).
+ */
+export function extractSpecularHighlight(
+    from: IfcSpecularExponent | IfcSpecularRoughness | null ): number | undefined {
 
   if ( from === null ) {
-    return void 0 
+    return void 0
   }
 
   if ( from instanceof IfcSpecularExponent ) {
@@ -92,17 +100,45 @@ export function extractSpecularHighlight( from: IfcSpecularExponent | IfcSpecula
   return from.Value
 }
 
+/**
+ * Extract an IFC Colour into our RGBA color, using premultiplied alpha.
+ *
+ * Transparency is usually handled via pre-multiplied alpha, and this is what
+ * gltf (for example) expects.
+ *
+ * @param from The color to extract.
+ * @param alpha The alpha value to be associated with the colour.
+ * @return {ColorRGBA} The created colour.
+ */
 export function extractColorRGBPremultiplied( from: IfcColourRgb, alpha: number = 1 ): ColorRGBA {
 
   return [from.Red * alpha, from.Green * alpha, from.Blue * alpha, alpha]
 }
 
+/**
+ * Extract an IFC Colour into our RGBA color.
+ *
+ * @param from The color to extract.
+ * @param alpha The alpha value to be associated with the colour.
+ * @return {ColorRGBA} The created colour.
+ */
 export function extractColorRGB( from: IfcColourRgb, alpha: number = 1 ): ColorRGBA {
 
   return [from.Red, from.Green, from.Blue, alpha]
 }
 
-export function extractColorOrFactor( from: IfcColourRgb | IfcNormalisedRatioMeasure, surfaceColor: ColorRGBA, alpha: number = 1 ): ColorRGBA {
+/**
+ * Use to extract a color or a factor from a color/factor select.
+ *
+ * @param from The color or factor to extract this from.
+ * @param surfaceColor The surface color (if this is a factor), which will be used to
+ * create the factor.
+ * @param alpha The alpha to use for this.
+ * @return {ColorRGBA}
+ */
+export function extractColorOrFactor(
+    from: IfcColourRgb | IfcNormalisedRatioMeasure,
+    surfaceColor: ColorRGBA, alpha: number = 1 ): ColorRGBA {
 
   if ( from instanceof IfcColourRgb ) {
     return extractColorRGB( from, alpha )
@@ -110,7 +146,12 @@ export function extractColorOrFactor( from: IfcColourRgb | IfcNormalisedRatioMea
 
     const factor = from.Value
 
-    return [ factor * surfaceColor[ 0 ], factor * surfaceColor[ 1 ], factor * surfaceColor[ 2 ], alpha * surfaceColor[ 3 ] ]
+    return [
+      factor * surfaceColor[ 0 ],
+      factor * surfaceColor[ 1 ],
+      factor * surfaceColor[ 2 ],
+      alpha * surfaceColor[ 3 ],
+    ]
   }
 }
 
@@ -120,10 +161,11 @@ export function extractColorOrFactor( from: IfcColourRgb | IfcNormalisedRatioMea
  */
 export class IfcGeometryExtraction {
 
-  private geometryMap: Map<number, ConwayMesh> = new Map()
   private wasmModule: WasmModule
-  private scene:IfcSceneBuilder
-  private materials: IfcMaterialCache
+
+  public readonly scene : IfcSceneBuilder
+
+  public readonly materials: IfcMaterialCache
 
   /**
    *
@@ -139,14 +181,6 @@ export class IfcGeometryExtraction {
 
     console.log(`wasmModule: ${  conwayModel.wasmModule}`)
     this.wasmModule = conwayModel.wasmModule
-  }
-
-  /**
-   *
-   * @return { Map<number, ConwayMesh>} - Map containing all geometry data that was extracted
-   */
-  getMeshes(): Map<number, ConwayMesh> {
-    return this.geometryMap
   }
 
   /**
@@ -302,14 +336,6 @@ export class IfcGeometryExtraction {
     }
 
     return false
-  }
-
-  /**
-   *
-   * @param geometry ConwayMesh to add to the ConwayMesh array
-   */
-  addMesh(mesh: ConwayMesh) {
-    this.geometryMap.set(mesh.localID, mesh)
   }
 
   /**
@@ -955,15 +981,6 @@ export class IfcGeometryExtraction {
     let result: ExtractResult = ExtractResult.INCOMPLETE
 
     const startTime = Date.now()
-
-    // const relMaterialAssocations = this.model.types(IfcRelAssociatesMaterial)
-
-    // for (const relMaterialAssocation of relMaterialAssocations) {
-
-    //   const relatingMaterial = relMaterialAssocation.RelatingMaterial
-
-
-    // }
 
     const products = this.model.types(IfcProduct)
     const productEntities = Array.from(products)
