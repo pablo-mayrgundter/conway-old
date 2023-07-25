@@ -131,9 +131,7 @@ const args = // eslint-disable-line no-unused-vars
           const fileNameWithExtension = ifcFile.split('/').pop()!
           // Get the filename without extension
           const fileName = fileNameWithExtension.split('.')[0]
-          // Add space between camel-cased words
-          const fileNameNoExtension = fileName.split(/(?=[A-Z])/).join(' ')
-          geometryExtraction(model, fileNameNoExtension)
+          geometryExtraction(model, fileName)
         } else {
 
           console.log('\n')
@@ -313,13 +311,13 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
       // Create a (zero copy!) memory view from the native vector
       const managedBuffer: Uint8Array =
         conwayModel.getWasmModule().getUint8Array(glbResult.buffers.get(uriIndex))
-      fs.writeFile(uri, managedBuffer, function(err) {
-        if (err) {
-          console.error('Error writing to file: ', err)
-        } else {
-          console.log('Data written to file: ', uri)
-        }
-      })
+
+      try {
+        fs.writeFileSync(uri, managedBuffer)
+        // console.log(`Data written to file: ${uri}`)
+      } catch (err) {
+        console.error('Error writing to file:', err)
+      }
     }
   }
 
@@ -330,7 +328,7 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
         materialVector,
         false,
         false,
-        `${fileNameNoExtension}_test`)
+        `${fileNameNoExtension}`)
   const endTimeGltf = Date.now()
   const executionTimeInMsGltf = endTimeGltf - startTimeGltf
 
@@ -352,13 +350,12 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
         conwayModel.getWasmModule().
             getUint8Array(gltfResult.buffers.get(uriIndex))
 
-      fs.writeFile(uri, managedBuffer, function(err) {
-        if (err) {
-          console.error('Error writing to file: ', err)
-        } else {
-          console.log('Data written to file: ', uri)
-        }
-      })
+      try {
+        fs.writeFileSync(uri, managedBuffer)
+        // console.log(`Data written to file: ${uri}`)
+      } catch (err) {
+        console.error('Error writing to file:', err)
+      }
     }
   }
 

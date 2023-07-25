@@ -1,4 +1,5 @@
 import { CanonicalMesh } from './canonical_mesh'
+import {CanonicalProfile} from './canonical_profile'
 import { Entity } from './entity'
 import { IIndexSetCursor } from './i_index_set_cursor'
 
@@ -10,6 +11,17 @@ export interface ModelGeometry extends Iterable< CanonicalMesh > {
   length: number
 
   getByLocalID(localID: number): CanonicalMesh | undefined
+
+}
+
+/**
+ * Geometry capability, this model has profiles.
+ */
+export interface ModelProfile extends Iterable< CanonicalProfile > {
+
+  length: number
+
+  getByLocalID(localID: number): CanonicalProfile | undefined
 
 }
 

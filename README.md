@@ -59,7 +59,7 @@ If you have Visual Studio Code, Conway also comes with a Visual Studio Code work
 Conway has a test application for parsing IFC step files to see the performance and included entity types at src/core/ifc/ifc_command_line_main.ts. 
 Use an incremental or full build to compile this file from typescript and then it can be run with:
 
-	node --experimental-specifier-resolution=node ./compiled\src\core\ifc\ifc_command_line_main.js [ifc file path]
+	node --experimental-specifier-resolution=node ./compiled/src/ifc/ifc_command_line_main.js [ifc file path]
 
 The included index.ifc in the repo is recommended for testing.
 
