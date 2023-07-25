@@ -232,10 +232,11 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
 
   // eslint-disable-next-line no-unused-vars
   for (const [_, nativeTransform, geometry] of scene.walk()) {
-    if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY) {
+    if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY && !geometry.temporary) {
 
       const clonedGeometry = geometry.geometry.clone()
 
+      
       clonedGeometry.applyTransform(nativeTransform)
 
       if (fullGeometry === void 0) {

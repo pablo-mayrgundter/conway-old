@@ -5,6 +5,7 @@ import { ParseResult } from '../step/parsing/step_parser'
 import IfcStepParser from './ifc_step_parser'
 import ParsingBuffer from '../parsing/parsing_buffer'
 import { ConwayGeometry } from '../../dependencies/conway-geom/conway_geometry'
+import { CanonicalMeshType } from '../core/canonical_mesh'
 
 
 let conwayModel:IfcGeometryExtraction
@@ -57,7 +58,13 @@ function extractGeometry(): ExtractResult {
  * @return {number} indicating number of meshes
  */
 function getMeshSize(): Number {
-  return conwayModel.getMeshes().size
+  let canonicalMeshGeometryCount = 0
+  for (const [_, nativeTransform, geometry] of conwayModel.getScene().walk()) {
+    if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY) {
+      canonicalMeshGeometryCount++
+    }
+  }
+  return canonicalMeshGeometryCount
 }
 
 /**
