@@ -13,6 +13,7 @@ import {
   IfcGeometricRepresentationSubContext,
   IfcPerson,
   IfcPostalAddress,
+  IfcPropertySingleValue,
   IfcShapeAspect,
   IfcTelecomAddress,
 } from './ifc4_gen/index'
@@ -83,6 +84,45 @@ function extractLogical() {
   }
 
   if ( shapeAspect.ProductDefinitional !== null ) {
+    return false
+  }
+
+  return true
+}
+
+// eslint-disable-next-line max-len -- needed literal CS
+const ifcUFCCodePointString = '#181096= IFCPROPERTYSINGLEVALUE(\'Gr\\X2\\00F600DF\\X0\\e Wandloch\',$,IFCLABEL(\'0.89\\X2\\00D7\\X0\\2.14\'),$);'
+const ifcUFCCodePointStringBuffer = new TextEncoder().encode( ifcUFCCodePointString )
+
+const PROPERTY_SINGLE_VALUE_ID = 181096
+
+/**
+ * Test extracting an invalid unicode endpoint with graceful failure.
+ *
+ * @return {boolean} True of the test succeeds
+ */
+function extractInvalidUnicodePoint() {
+  const bufferInput = new ParsingBuffer( ifcUFCCodePointStringBuffer )
+
+  const [result, model] = parser.parseDataToModel( bufferInput )
+
+  if ( result !== ParseResult.INCOMPLETE ) {
+    return false
+  }
+
+  if ( model === void 0 ) {
+    return false
+  }
+
+  const ifcPropertySingleValue = model.getElementByExpressID( PROPERTY_SINGLE_VALUE_ID )
+
+  if ( !(ifcPropertySingleValue instanceof IfcPropertySingleValue ) ) {
+    return false
+  }
+
+  const propertyName = ifcPropertySingleValue.Name
+
+  if ( propertyName !== 'Gr<invalid unicode>') {
     return false
   }
 
@@ -492,6 +532,10 @@ describe( 'IFC Step Model Test', () => {
 
   test( 'extractLogical()', () => {
     expect( extractLogical() ).toBe( true )
+  } )
+
+  test( 'extractInvalidUnicodePoint()', () => {
+    expect( extractInvalidUnicodePoint() ).toBe( true )
   } )
 
   test( 'extractCartesianPointList3D()', () => {
