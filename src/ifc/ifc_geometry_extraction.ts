@@ -61,6 +61,7 @@ import {
   IfcSurfaceStyleRendering,
   IfcSurfaceStyleShading,
   IfcPresentationStyleAssignment,
+  IfcSurfaceSide,
 } from './ifc4_gen'
 import EntityTypesIfc from './ifc4_gen/entity_types_ifc.gen'
 import { IfcMaterialCache } from './ifc_material_cache'
@@ -936,10 +937,13 @@ export class IfcGeometryExtraction {
 
     if ( material === void 0 ) {
 
+      const readDoubleSided =
+        from.Side === IfcSurfaceSide.BOTH || from.Side === IfcSurfaceSide.POSITIVE
+
       const newMaterial: Mutable< CanonicalMaterial > = {
         name: `#${from.expressID}`,
         baseColor: [0.8, 0.8, 0.8, 1],
-        doubleSided: false,
+        doubleSided: readDoubleSided,
         blend: BlendMode.OPAQUE,
       }
 
@@ -1044,8 +1048,8 @@ export class IfcGeometryExtraction {
       newMaterial.metalness ??= 0
       newMaterial.roughness ??= 0
       newMaterial.ior       ??= 1.4
-      newMaterial.doubleSided = isTransparent
-      newMaterial.blend       = isTransparent ? BlendMode.BLEND : BlendMode.OPAQUE
+      newMaterial.doubleSided  = isTransparent || newMaterial.doubleSided
+      newMaterial.blend        = isTransparent ? BlendMode.BLEND : BlendMode.OPAQUE
 
       materials.add( from.localID, newMaterial )
     }
@@ -1472,7 +1476,7 @@ export class IfcGeometryExtraction {
 
     } else if (from instanceof IfcMappedItem) {
 
-      // this.extractMappedItem(from)
+      this.extractMappedItem(from)
     }
 
   }
