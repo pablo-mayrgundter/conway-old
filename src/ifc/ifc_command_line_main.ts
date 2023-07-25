@@ -127,9 +127,7 @@ const args = // eslint-disable-line no-unused-vars
           const fileNameWithExtension = ifcFile.split('/').pop()!
           // Get the filename without extension
           const fileName = fileNameWithExtension.split('.')[0]
-          // Add space between camel-cased words
-          const fileNameNoExtension = fileName.split(/(?=[A-Z])/).join(' ')
-          geometryExtraction(model, fileNameNoExtension)
+          geometryExtraction(model, fileName)
         } else {
 
           console.log('\n')
@@ -234,7 +232,7 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
 
   // eslint-disable-next-line no-unused-vars
   for (const [_, nativeTransform, geometry] of scene.walk()) {
-    if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY) {
+    if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY && !geometry.temporary) {
 
       const clonedGeometry = geometry.geometry.clone()
 
@@ -260,18 +258,17 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
   const executionTimeInMsObj = endTimeObj - startTimeObj
 
   // write to FS
-  const filename = `${fileNameNoExtension}_test.obj`
-  fs.writeFile(filename, objResult, function(err) {
-    if (err) {
-      console.error('Error writing to file: ', err)
-    } else {
-      console.log('Data written to file: ', filename)
-    }
-  })
+  const filename = `${fileNameNoExtension}.obj`
+  try {
+    fs.writeFileSync(filename, objResult)
+    // console.log(`Data written to file: ${uri}`)
+  } catch (err) {
+    console.error('Error writing to file:', err)
+  }
 
   const startTimeGlb = Date.now()
   const glbResult =
-    conwayModel.toGltf(fullGeometry, true, false, `${fileNameNoExtension}_test`)
+    conwayModel.toGltf(fullGeometry, true, false, `${fileNameNoExtension}`)
   const endTimeGlb = Date.now()
   const executionTimeInMsGlb = endTimeGlb - startTimeGlb
 
@@ -288,13 +285,13 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
       // Create a (zero copy!) memory view from the native vector
       const managedBuffer: Uint8Array =
         conwayModel.getWasmModule().getUint8Array(glbResult.buffers.get(uriIndex))
-      fs.writeFile(uri, managedBuffer, function(err) {
-        if (err) {
-          console.error('Error writing to file: ', err)
-        } else {
-          console.log('Data written to file: ', uri)
-        }
-      })
+
+      try {
+        fs.writeFileSync(uri, managedBuffer)
+        // console.log(`Data written to file: ${uri}`)
+      } catch (err) {
+        console.error('Error writing to file:', err)
+      }
     }
   }
 
@@ -303,7 +300,7 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
     conwayModel.toGltf(fullGeometry,
         true,
         true,
-        `${fileNameNoExtension}_test_draco`)
+        `${fileNameNoExtension}_draco`)
   const endTimeGlbDraco = Date.now()
   const executionTimeInMsGlbDraco = endTimeGlbDraco - startTimeGlbDraco
 
@@ -320,13 +317,12 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
       // Create a memory view from the native vector
       const managedBuffer: Uint8Array =
         conwayModel.getWasmModule().getUint8Array(glbDracoResult.buffers.get(uriIndex))
-      fs.writeFile(uri, managedBuffer, function(err) {
-        if (err) {
-          console.error('Error writing to file: ', err)
-        } else {
-          console.log('Data written to file: ', uri)
-        }
-      })
+      try {
+        fs.writeFileSync(uri, managedBuffer)
+        // console.log(`Data written to file: ${uri}`)
+      } catch (err) {
+        console.error('Error writing to file:', err)
+      }
     }
   }
 
@@ -335,7 +331,7 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
     conwayModel.toGltf(fullGeometry,
         false,
         false,
-        `${fileNameNoExtension}_test`)
+        `${fileNameNoExtension}`)
   const endTimeGltf = Date.now()
   const executionTimeInMsGltf = endTimeGltf - startTimeGltf
 
@@ -354,29 +350,21 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
         conwayModel.getWasmModule().
             getUint8Array(gltfResult.buffers.get(uriIndex))
 
-      fs.writeFile(uri, managedBuffer, function(err) {
-        if (err) {
-          console.error('Error writing to file: ', err)
-        } else {
-          console.log('Data written to file: ', uri)
-        }
-      })
+      try {
+        fs.writeFileSync(uri, managedBuffer)
+        // console.log(`Data written to file: ${uri}`)
+      } catch (err) {
+        console.error('Error writing to file:', err)
+      }
     }
   }
 
   const startTimeGltfDraco = Date.now()
   const gltfDracoResult =
     conwayModel
-        .toGltf(fullGeometry, false, true, `${fileNameNoExtension}_test_draco`)
+        .toGltf(fullGeometry, false, true, `${fileNameNoExtension}_draco`)
   const endTimeGltfDraco = Date.now()
   const executionTimeInMsGltfDraco = endTimeGltfDraco - startTimeGltfDraco
-
-  console.log(`OBJ Generation took ${executionTimeInMsObj} milliseconds to execute.`)
-  console.log(`GLB Generation took ${executionTimeInMsGlb} milliseconds to execute.`)
-  console.log(`GLB (Draco) Generation took ${executionTimeInMsGlbDraco} milliseconds to execute.`)
-  console.log(`GLTF Generation took ${executionTimeInMsGltf} milliseconds to execute.`)
-  console.log(`GLTF (Draco) Generation took ${executionTimeInMsGltfDraco}
-   milliseconds to execute.`)
 
   if (gltfDracoResult.success) {
 
@@ -393,13 +381,23 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
         conwayModel.getWasmModule()
             .getUint8Array(gltfDracoResult.buffers.get(uriIndex))
 
-      fs.writeFile(uri, managedBuffer, function(err) {
-        if (err) {
-          console.error('Error writing to file: ', err)
-        } else {
-          console.log('Data written to file: ', uri)
-        }
-      })
+      try {
+        fs.writeFileSync(uri, managedBuffer)
+        // console.log(`Data written to file: ${uri}`)
+      } catch (err) {
+        console.error('Error writing to file:', err)
+      }
     }
   }
+
+  console.log(`${fileNameNoExtension}.obj Generation took ${executionTimeInMsObj}` +
+  ` milliseconds to execute.`)
+  console.log(`${fileNameNoExtension}.glb Generation took ${executionTimeInMsGlb}` +
+  ` milliseconds to execute.`)
+  console.log(`${fileNameNoExtension}_draco.glb (Draco) Generation took ` +
+  `${executionTimeInMsGlbDraco} milliseconds to execute.`)
+  console.log(`${fileNameNoExtension}.gltf Generation took ` +
+  `${executionTimeInMsGltf} milliseconds to execute.`)
+  console.log(`${fileNameNoExtension}_draco.gltf (Draco) Generation took ` +
+  `${executionTimeInMsGltfDraco} milliseconds to execute.`)
 }
