@@ -91,7 +91,8 @@
 			"functional": "cpp",
 			"iterator": "cpp",
 			"utility": "cpp",
-			"geometry": "cpp"
+			"geometry": "cpp",
+			"*.ipp": "cpp"
 		}
 	}
 }
