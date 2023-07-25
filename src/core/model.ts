@@ -1,4 +1,3 @@
-import { CurveObject } from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMesh } from './canonical_mesh'
 import {CanonicalProfile} from './canonical_profile'
 import { Entity } from './entity'

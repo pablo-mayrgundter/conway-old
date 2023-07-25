@@ -3,13 +3,15 @@ import {ModelProfile} from '../core/model'
 
 
 /**
- *
+ * IFC model profile cache.
  */
 export class IfcModelProfile implements ModelProfile {
 
   private readonly profiles_ = new Map< number, CanonicalProfile >()
 
   /**
+   * Get the number of profiles in this.
+   *
    * @return {number}
    */
   get length(): number {
@@ -17,6 +19,7 @@ export class IfcModelProfile implements ModelProfile {
   }
 
   /**
+   * Add a profile to the cache.
    *
    * @param profile
    */
@@ -25,15 +28,17 @@ export class IfcModelProfile implements ModelProfile {
   }
 
   /**
+   * Get a profile by its local id.
    *
    * @param localID
-   * @return {Profile | undefined}
+   * @return {CanonicalProfile | undefined}
    */
   public getByLocalID(localID: number): CanonicalProfile | undefined {
     return this.profiles_.get(localID)
   }
 
   /**
+   * Iterate through the profiles in this.
    *
    * @return {IterableIterator<CanonicalProfile>}
    */

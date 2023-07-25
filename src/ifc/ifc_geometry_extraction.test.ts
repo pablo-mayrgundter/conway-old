@@ -59,7 +59,8 @@ function extractGeometry(): ExtractResult {
  */
 function getMeshSize(): Number {
   let canonicalMeshGeometryCount = 0
-  for (const [_, nativeTransform, geometry] of conwayModel.getScene().walk()) {
+  // eslint-disable-next-line no-unused-vars
+  for (const [_, _nativeTransform, geometry] of conwayModel.getScene().walk()) {
     if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY) {
       canonicalMeshGeometryCount++
     }

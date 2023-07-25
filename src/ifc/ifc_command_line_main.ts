@@ -236,7 +236,6 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
 
       const clonedGeometry = geometry.geometry.clone()
 
-      
       clonedGeometry.applyTransform(nativeTransform)
 
       if (fullGeometry === void 0) {
