@@ -15,7 +15,14 @@ import {
   ParamsCreateNativeIfcProfile,
   ParamsGetExtrudedAreaSolid,
   ParamsGetBooleanResult,
+  ProfileObject,
+  StdVector,
+  MaterialObject,
+  BlendMode,
+  toAlphaMode,
+  Vector2,
 } from '../../dependencies/conway-geom/conway_geometry'
+import { CanonicalMaterial, ColorRGBA, exponentToRoughness } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
 import { CanonicalProfile } from '../core/canonical_profile'
 import {
@@ -27,33 +34,53 @@ import {
   IfcCartesianPointList3D,
   IfcCartesianTransformationOperator3D,
   IfcCircleProfileDef,
+  IfcColourRgb,
   IfcCompositeProfileDef,
   IfcDirection,
   IfcExtrudedAreaSolid,
   IfcGridPlacement,
   IfcIndexedPolyCurve,
-  IfcIndexedPolygonalFaceWithVoids, IfcLocalPlacement, IfcMappedItem,
-  IfcObjectPlacement, IfcOpeningElement, IfcOpeningStandardCase,
+  IfcIndexedPolygonalFaceWithVoids,
+  IfcLocalPlacement,
+  IfcMappedItem,
+  IfcNormalisedRatioMeasure,
+  IfcObjectPlacement,
+  IfcOpeningElement,
+  IfcOpeningStandardCase,
   IfcPolygonalFaceSet,
   IfcProduct,
+  IfcReflectanceMethodEnum,
   IfcProfileDef,
   IfcRepresentationItem,
   IfcSpace,
+  IfcSpecularExponent,
+  IfcSpecularRoughness,
+  IfcStyledItem,
+  IfcSurfaceStyle,
+  IfcSurfaceStyleRefraction,
+  IfcSurfaceStyleRendering,
+  IfcSurfaceStyleShading,
+  IfcPresentationStyleAssignment,
+  IfcSurfaceSide,
 } from './ifc4_gen'
 import EntityTypesIfc from './ifc4_gen/entity_types_ifc.gen'
+import { IfcMaterialCache } from './ifc_material_cache'
 import { IfcSceneBuilder } from './ifc_scene_builder'
 import IfcStepModel from './ifc_step_model'
 
 
-type NativeVectorGlmVec2 = any
-type NativeVectorGlmVec3 = any
-type NativeUintVector = any
-type NativeULongVector = any
-type NativeVectorIndexedPolygonalFace = any
-type NativeVectorSegment = any
-type NativeVectorProfile = any
-type NativeVectorCurve = any
-type NativeVectorGeometry = any
+type Mutable< T > = { -readonly [P in keyof T]: T[P] }
+type NativeVectorGlmVec3 = StdVector< Vector3 >
+type NativeVectorGlmVec2 = StdVector< Vector2 >
+type NativeUintVector = StdVector< number >
+type NativeULongVector = StdVector< number >
+type NativeVectorIndexedPolygonalFace = StdVector<IndexedPolygonalFace>
+
+type NativeVectorSegment = StdVector< Segment >
+type NativeVectorGeometry = StdVector< GeometryObject >
+type NativeVectorMaterial = StdVector< MaterialObject >
+type NativeVectorProfile = StdVector< ProfileObject >
+type NativeVectorCurve = StdVector< CurveObject >
 type WasmModule = any
 
 /**
@@ -72,13 +99,92 @@ export enum ExtractResult {
 /* eslint-enable no-shadow, no-unused-vars, no-magic-numbers */
 
 /**
+ * Extract a specular highlight, converting specular exponents to a roughness value.
+ *
+ * @param from The scalar of either an exponent or a roughness to extract.
+ * @return {number} A roughness value 1 (roughest) to zero (full specular/mirror).
+ */
+export function extractSpecularHighlight(
+    from: IfcSpecularExponent | IfcSpecularRoughness | null ): number | undefined {
+
+  if ( from === null ) {
+    return void 0
+  }
+
+  if ( from instanceof IfcSpecularExponent ) {
+
+    return exponentToRoughness( from.Value )
+  }
+
+  return from.Value
+}
+
+/**
+ * Extract an IFC Colour into our RGBA color, using premultiplied alpha.
+ *
+ * Transparency is usually handled via pre-multiplied alpha, and this is what
+ * gltf (for example) expects.
+ *
+ * @param from The color to extract.
+ * @param alpha The alpha value to be associated with the colour.
+ * @return {ColorRGBA} The created colour.
+ */
+export function extractColorRGBPremultiplied( from: IfcColourRgb, alpha: number = 1 ): ColorRGBA {
+
+  return [from.Red * alpha, from.Green * alpha, from.Blue * alpha, alpha]
+}
+
+/**
+ * Extract an IFC Colour into our RGBA color.
+ *
+ * @param from The color to extract.
+ * @param alpha The alpha value to be associated with the colour.
+ * @return {ColorRGBA} The created colour.
+ */
+export function extractColorRGB( from: IfcColourRgb, alpha: number = 1 ): ColorRGBA {
+
+  return [from.Red, from.Green, from.Blue, alpha]
+}
+
+/**
+ * Use to extract a color or a factor from a color/factor select.
+ *
+ * @param from The color or factor to extract this from.
+ * @param surfaceColor The surface color (if this is a factor), which will be used to
+ * create the factor.
+ * @param alpha The alpha to use for this.
+ * @return {ColorRGBA}
+ */
+export function extractColorOrFactor(
+    from: IfcColourRgb | IfcNormalisedRatioMeasure,
+    surfaceColor: ColorRGBA, alpha: number = 1 ): ColorRGBA {
+
+  if ( from instanceof IfcColourRgb ) {
+    return extractColorRGB( from, alpha )
+  } else {
+
+    const factor = from.Value
+
+    return [
+      factor * surfaceColor[ 0 ],
+      factor * surfaceColor[ 1 ],
+      factor * surfaceColor[ 2 ],
+      alpha * surfaceColor[ 3 ],
+    ]
+  }
+}
+
+/**
  * Handles Geometry data extraction from a populated IfcStepModel
  * Can export to OBJ, GLTF (Draco), GLB (Draco)
  */
 export class IfcGeometryExtraction {
 
   private wasmModule: WasmModule
-  private scene: IfcSceneBuilder
+
+  public readonly scene : IfcSceneBuilder
+
+  public readonly materials: IfcMaterialCache
 
   /**
    *
@@ -87,17 +193,13 @@ export class IfcGeometryExtraction {
    */
   constructor(
     private readonly conwayModel: ConwayGeometry,
-    public readonly model: IfcStepModel) {
-    this.scene = new IfcSceneBuilder(model, conwayModel)
+    public readonly model: IfcStepModel ) {
 
+    this.materials = new IfcMaterialCache()
+    this.scene     = new IfcSceneBuilder(model, conwayModel, this.materials)
+
+    console.log(`wasmModule: ${  conwayModel.wasmModule}`)
     this.wasmModule = conwayModel.wasmModule
-  }
-
-  /**
-   * @return {IfcSceneBuilder} - Current scene representation
-   */
-  getScene(): IfcSceneBuilder {
-    return this.scene
   }
 
   /**
@@ -108,13 +210,67 @@ export class IfcGeometryExtraction {
     return this.wasmModule
   }
 
+
+  /**
+   *
+   * @param initialSize number - initial size of the vector (optional)
+   * @return {NativeVectorGeometry} - a native std::vector<GeometryObject> from the wasm module
+   */
+  nativeVectorGeometry(initialSize?: number): NativeVectorGeometry {
+    const nativeVectorGeometry_ =
+      // eslint-disable-next-line new-cap
+      (new (this.wasmModule.geometryArray)()) as NativeVectorGeometry
+
+    if (initialSize) {
+      const defaultGeometry = (new (this.wasmModule.IfcGeometry)) as GeometryObject
+      // resize has a required second parameter to set default values
+      nativeVectorGeometry_.resize(initialSize, defaultGeometry)
+    }
+
+    return nativeVectorGeometry_
+  }
+
+  /**
+   * Create a native material from a canonical one.
+   *
+   * @param from The material to create the native material from
+   * @return {MaterialObject} The created canonical material.
+   */
+  nativeMaterial( from: CanonicalMaterial ): MaterialObject {
+    const native: MaterialObject = {
+
+      alphaCutoff: 0,
+      alphaMode: toAlphaMode( this.wasmModule, from.blend ),
+      base: {
+        x: from.baseColor[ 0 ],
+        y: from.baseColor[ 1 ],
+        z: from.baseColor[ 2 ],
+        w: from.baseColor[ 3 ],
+      },
+      doubleSided: from.doubleSided,
+      /* eslint-disable no-magic-numbers */
+      ior: from.ior ?? 1.4,
+      metallic: from.metalness ?? 1.0,
+      roughness: from.roughness ?? 1.0,
+      specular: from.specular !== void 0 ? {
+        x: from.specular[ 0 ],
+        y: from.specular[ 1 ],
+        z: from.specular[ 2 ],
+        w: from.specular[ 3 ],
+      } : void 0,
+    }
+    /* eslint-enable no-magic-numbers */
+    return native
+  }
+
   /**
    *
    * @param initialSize number - initial size of the vector (optional)
    * @return {NativeVectorGlmVec2} - a native std::vector<glm::vec2> from the wasm module
    */
   nativeVectorGlmVec2(initialSize?: number): NativeVectorGlmVec2 {
-    const nativeVectorGlmVec2_ = new (this.wasmModule.vec2Array as NativeVectorGlmVec2)()
+    // eslint-disable-next-line new-cap
+    const nativeVectorGlmVec2_ = new (this.wasmModule.vec2Array)() as NativeVectorGlmVec2
 
     if (initialSize) {
       // resize has a required second parameter to set default values
@@ -131,7 +287,8 @@ export class IfcGeometryExtraction {
    * @return {NativeVectorProfile} - a native std::vector<IfcProfile> from the wasm module
    */
   nativeVectorProfile(initialSize?: number): NativeVectorProfile {
-    const nativeVectorProfile_ = new (this.wasmModule.profileArray as NativeVectorProfile)()
+    // eslint-disable-next-line new-cap
+    const nativeVectorProfile_ = new (this.wasmModule.profileArray)() as NativeVectorProfile
 
     if (initialSize) {
       // resize has a required second parameter to set default values
@@ -149,7 +306,8 @@ export class IfcGeometryExtraction {
    * @return {NativeVectorCurve} - a native std::vector<IfcCurve> from the wasm module
    */
   nativeVectorCurve(initialSize?: number): NativeVectorCurve {
-    const nativeVectorCurve_ = new (this.wasmModule.curveArray as NativeVectorCurve)()
+    // eslint-disable-next-line new-cap
+    const nativeVectorCurve_ = new (this.wasmModule.curveArray)() as NativeVectorCurve
 
     if (initialSize) {
       // resize has a required second parameter to set default values
@@ -160,32 +318,35 @@ export class IfcGeometryExtraction {
     return nativeVectorCurve_
   }
 
-  /**
-   * Create a native vector geometry to pass across the boundary.
-   *
-   * @param initialSize number - initial size of the vector (optional)
-   * @return {NativeVectorGeometry} - a native std::vector<IfcGeometry> from the wasm module
-   */
-  nativeVectorGeometry(initialSize?: number): NativeVectorGeometry {
-    const nativeVectorGeometry_ = new (this.wasmModule.geometryArray as NativeVectorGeometry)()
-
-    if (initialSize) {
-      // resize has a required second parameter to set default values
-      const defaultGeometry = (new (this.wasmModule.IfcGeometry)) as GeometryObject
-      nativeVectorGeometry_.resize(initialSize, defaultGeometry)
-    }
-
-    return nativeVectorGeometry_
-  }
 
   /**
    * Create a native vector of glm::vec3 to pass across the boundary.
    *
    * @param initialSize number - initial size of the vector (optional)
+   * @return {NativeVectorMaterial} - a native std::vector<MaterialObject> from the wasm module
+   */
+  nativeVectorMaterial(initialSize?: number): NativeVectorMaterial {
+    const nativeVectorMaterial_ =
+      // eslint-disable-next-line new-cap
+      (new (this.wasmModule.materialArray)()) as NativeVectorMaterial
+
+    if (initialSize) {
+      // resize has a required second parameter to set default values
+      nativeVectorMaterial_.resize(initialSize)
+    }
+
+    return nativeVectorMaterial_
+  }
+
+  /**
+   *
+   * @param initialSize number - initial size of the vector (optional)
    * @return {NativeVectorGlmVec3} - a native std::vector<glm::vec3> from the wasm module
    */
   nativeVectorGlmVec3(initialSize?: number): NativeVectorGlmVec3 {
-    const nativeVectorGlmVec3_ = new (this.wasmModule.glmVec3Array as NativeVectorGlmVec3)()
+    const nativeVectorGlmVec3_ =
+    // eslint-disable-next-line new-cap
+      ( new (this.wasmModule.glmVec3Array)() ) as NativeVectorGlmVec3
 
     if (initialSize) {
       // resize has a required second parameter to set default values
@@ -202,7 +363,7 @@ export class IfcGeometryExtraction {
    * @return {NativeUintVector} - a native std::vector<uint32_t> from the wasm module
    */
   nativeUintVector(initialize?: number): NativeUintVector {
-    const nativeUintVector_ = new (this.wasmModule.UintVector as NativeUintVector)()
+    const nativeUintVector_ = (new (this.wasmModule.UintVector)()) as NativeUintVector
 
     if (initialize) {
       // resize has a required second parameter to set default values
@@ -219,7 +380,7 @@ export class IfcGeometryExtraction {
    * @return {NativeULongVector} - a native std::vector<size_t> from the wasm module
    */
   nativeULongVector(initialize?: number): NativeULongVector {
-    const nativeULongVector_ = new (this.wasmModule.ULongVector as NativeULongVector)()
+    const nativeULongVector_ = new (this.wasmModule.ULongVector)() as NativeULongVector
 
     if (initialize) {
       // resize has a required second parameter to set default values
@@ -236,8 +397,8 @@ export class IfcGeometryExtraction {
    * @return {NativeVectorIndexedPolygonalFace} - a native object from the wasm module
    */
   nativeIndexedPolygonalFaceVector(initialize?: number): NativeVectorIndexedPolygonalFace {
-    const nativeVectorIndexedPolygonalFace =
-      new (this.wasmModule.VectorIndexedPolygonalFace as NativeVectorIndexedPolygonalFace)()
+    const nativeVectorIndexedPolygonalFace = new
+    (this.wasmModule.VectorIndexedPolygonalFace)() as NativeVectorIndexedPolygonalFace
 
     if (initialize) {
       // resize has a required second parameter to set default values
@@ -280,8 +441,6 @@ export class IfcGeometryExtraction {
   }
 
   /**
-   * Convert to an OBJ file.
-   *
    * @param modelId - model ID
    * @param geometry - GeometryObject to convert to OBJ
    * @return {string} - Obj string or blank string
@@ -303,13 +462,13 @@ export class IfcGeometryExtraction {
    * @param fileUri string - base filenames for GLTF / GLB files
    * @return {ResultsGltf} - Structure containing GLTF / GLB filenames + data vectors
    */
-  toGltf(geometry: GeometryObject, isGlb: boolean,
+  toGltf(geometry: NativeVectorGeometry, materials: NativeVectorMaterial, isGlb: boolean,
       outputDraco: boolean, fileUri: string, modelId: number = 0): ResultsGltf {
     const noResults: ResultsGltf = { success: false, bufferUris: undefined, buffers: undefined }
     noResults.success = false
     if (this.conwayModel !== void 0) {
 
-      return this.conwayModel.toGltf(geometry, isGlb, outputDraco, fileUri)
+      return this.conwayModel.toGltf(geometry, materials, isGlb, outputDraco, fileUri)
     }
 
     return noResults
@@ -598,7 +757,7 @@ export class IfcGeometryExtraction {
     const parameters: ParamsCartesianTransformationOperator3D  = {
       position: position,
       axis1Ref: axis1Ref,
-      axis2RefL: axis2Ref,
+      axis2Ref: axis2Ref,
       axis3Ref: axis3Ref,
       normalizeAxis1: true,
       normalizeAxis2: true,
@@ -636,7 +795,7 @@ export class IfcGeometryExtraction {
     const flatFirstMeshVector = this.nativeVectorGeometry(1)
     const firstMesh = this.model.geometry.getByLocalID(from.FirstOperand.localID)
 
-    if (firstMesh !== void 0) {
+    if (firstMesh !== void 0 && firstMesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
       flatFirstMeshVector.set(0, firstMesh.geometry)
     } else {
       console.log(
@@ -646,7 +805,7 @@ export class IfcGeometryExtraction {
 
     const flatSecondMeshVector = this.nativeVectorGeometry(1)
     const secondMesh = this.model.geometry.getByLocalID(from.SecondOperand.localID)
-    if (secondMesh !== void 0) {
+    if (secondMesh !== void 0 && secondMesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
       flatSecondMeshVector.set(0, secondMesh.geometry)
     } else {
       console.log(
@@ -723,7 +882,7 @@ export class IfcGeometryExtraction {
       // get geometry TODO(nickcastel50): eventually support flattening meshes
       const flatFirstMeshVector = this.nativeVectorGeometry(1)
       const firstMesh = this.model.geometry.getByLocalID(from.FirstOperand.localID)
-      if (firstMesh !== void 0) {
+      if (firstMesh !== void 0 && firstMesh.type === CanonicalMeshType.BUFFER_GEOMETRY ) {
         flatFirstMeshVector.set(0, firstMesh.geometry)
       } else {
         console.log(
@@ -733,7 +892,7 @@ export class IfcGeometryExtraction {
 
       const flatSecondMeshVector = this.nativeVectorGeometry(1)
       const secondMesh = this.model.geometry.getByLocalID(from.SecondOperand.localID)
-      if (secondMesh !== void 0) {
+      if (secondMesh !== void 0 && secondMesh.type === CanonicalMeshType.BUFFER_GEOMETRY ) {
         flatSecondMeshVector.set(0, secondMesh.geometry)
       } else {
         console.log(
@@ -763,6 +922,179 @@ export class IfcGeometryExtraction {
     }
   }
 
+  /* eslint-disable no-magic-numbers */ // No magic numbers disabled
+  // Cos we have *lots* of default material values.
+  /**
+   * Extract a canonical material from a surface style.
+   *
+   * @param from The surface style to extract a material from.
+   */
+  extractSurfaceStyle( from: IfcSurfaceStyle ) {
+
+    const materials = this.materials
+
+    const material = materials.get( from.localID )
+
+    if ( material === void 0 ) {
+
+      const readDoubleSided =
+        from.Side === IfcSurfaceSide.BOTH || from.Side === IfcSurfaceSide.POSITIVE
+
+      const newMaterial: Mutable< CanonicalMaterial > = {
+        name: `#${from.expressID}`,
+        baseColor: [0.8, 0.8, 0.8, 1],
+        doubleSided: readDoubleSided,
+        blend: BlendMode.OPAQUE,
+      }
+
+      for ( const style of from.Styles ) {
+
+        if ( style instanceof IfcSurfaceStyleRefraction ) {
+
+          newMaterial.ior = style.RefractionIndex ?? newMaterial.ior
+
+        } else if ( style instanceof IfcSurfaceStyleRendering ) {
+
+          const transparency = style.Transparency ?? 0
+          const surfaceColor = extractColorRGBPremultiplied( style.SurfaceColour, 1 - transparency )
+
+          newMaterial.baseColor = style.DiffuseColour !== null ?
+            extractColorOrFactor( style.DiffuseColour, surfaceColor ) : surfaceColor
+
+          newMaterial.roughness = extractSpecularHighlight( style.SpecularHighlight )
+
+          newMaterial.specular = style.SpecularColour !== null ?
+            extractColorOrFactor( style.SpecularColour, surfaceColor ) : void 0
+
+          switch ( style.ReflectanceMethod ) {
+
+            case IfcReflectanceMethodEnum.NOTDEFINED:
+            case IfcReflectanceMethodEnum.PHONG:
+            case IfcReflectanceMethodEnum.BLINN: {
+
+              newMaterial.metalness   = 0.0
+              newMaterial.roughness ??= 1
+              newMaterial.ior       ??= 1.4
+              break
+            }
+
+            case IfcReflectanceMethodEnum.FLAT: {
+
+              newMaterial.metalness   = 0.0
+              newMaterial.roughness ??= 0.9
+              newMaterial.ior       ??= 1.5
+              break
+
+            }
+
+            case IfcReflectanceMethodEnum.GLASS: {
+
+              newMaterial.metalness   = 0.0
+              newMaterial.roughness ??= 0
+              newMaterial.ior       ??= 1.52
+              break
+
+            }
+
+            case IfcReflectanceMethodEnum.MATT:
+
+              newMaterial.metalness   = 0
+              newMaterial.roughness ??= 1
+              break
+
+            case IfcReflectanceMethodEnum.METAL:
+
+              newMaterial.metalness   = 1
+              newMaterial.roughness ??= 0.2
+              break
+
+            case IfcReflectanceMethodEnum.MIRROR:
+
+              newMaterial.metalness   = 1
+              newMaterial.roughness ??= 0
+              newMaterial.ior       ??= 1.52
+              break
+
+            case IfcReflectanceMethodEnum.PLASTIC:
+
+              newMaterial.metalness   = 0.0
+              newMaterial.roughness ??= 0
+              newMaterial.ior       ??= 1.47
+              break
+
+            case IfcReflectanceMethodEnum.STRAUSS:
+
+              newMaterial.metalness   = 1.0
+              newMaterial.roughness ??= 0.95
+              newMaterial.ior       ??= 1.47
+              break
+
+            default:
+
+          }
+
+        } else if ( style instanceof IfcSurfaceStyleShading ) {
+
+          const transparency = style.Transparency ?? 0
+
+          newMaterial.baseColor =
+            extractColorRGBPremultiplied( style.SurfaceColour, 1 - transparency )
+        }
+
+      }
+
+      const isTransparent = newMaterial.baseColor[ 3 ] < 1.0
+
+      newMaterial.metalness ??= 0
+      newMaterial.roughness ??= 0
+      newMaterial.ior       ??= 1.4
+      newMaterial.doubleSided  = isTransparent || newMaterial.doubleSided
+      newMaterial.blend        = isTransparent ? BlendMode.BLEND : BlendMode.OPAQUE
+
+      materials.add( from.localID, newMaterial )
+    }
+
+  }
+  /* eslint-enable no-magic-numbers */
+
+  /**
+   * Extract a style item.
+   *
+   * @param from The styled item to extract from
+   */
+  extractStyledItem(from: IfcStyledItem) {
+
+    let surfaceStyleID: number | undefined = void 0
+
+    for ( const style of from.Styles ) {
+
+      if ( style instanceof IfcPresentationStyleAssignment ) {
+
+        for ( const innerStyle of style.Styles ) {
+
+          if ( innerStyle instanceof IfcSurfaceStyle ) {
+
+            surfaceStyleID = innerStyle.localID
+            this.extractSurfaceStyle( innerStyle )
+            break
+          }
+        }
+
+      } else if ( style instanceof IfcSurfaceStyle ) {
+
+        surfaceStyleID = style.localID
+        this.extractSurfaceStyle( style )
+      }
+    }
+
+    const item = from.Item
+
+    if ( item === null || surfaceStyleID === void 0 ) {
+      return
+    }
+
+    this.materials.addGeometryMapping( item.localID, surfaceStyleID )
+  }
 
   /**
    *
@@ -896,7 +1228,7 @@ export class IfcGeometryExtraction {
     // add profile to the list of profile objects
     let isComposite: boolean = false
     if (profile !== void 0) {
-      const holesArray: NativeVectorProfile = this.nativeVectorCurve()
+      const holesArray: NativeVectorCurve = this.nativeVectorCurve()
       if (profile.profiles !== void 0 && profile.profiles.length > 0) {
         isComposite = true
 
@@ -1014,10 +1346,10 @@ export class IfcGeometryExtraction {
     // TODO(Error happening here on access)
     // //console.log(`\t\t\touterCurve.Dim: ${outerCurve.Dim}`)
 
-    let segmentVector: NativeVectorSegment
+    // initialize new segment vector
+    const segmentVector = this.nativeSegmentVector()
+
     if (from.Segments !== null) {
-      // initialize new segment vector
-      segmentVector = this.nativeSegmentVector()
 
       for (let i = 0; i < from.Segments.length; i++) {
 
@@ -1033,7 +1365,7 @@ export class IfcGeometryExtraction {
     }
 
     if (from.Points instanceof IfcCartesianPointList2D) {
-      const points = from.Points.CoordList.map(([x, y]) => ({ x, y }))
+      const points = from.Points.CoordList.map(([x, y]) => ({ x: x, y: y } as Vector2))
 
       // initialize new native glm::vec3 array object (free memory with delete())
       const pointsArray: NativeVectorGlmVec2 = this.nativeVectorGlmVec2(points.length)
@@ -1070,7 +1402,8 @@ export class IfcGeometryExtraction {
 
     if ( mappingTarget instanceof IfcCartesianTransformationOperator3D ) {
 
-      const nativeCartesianTransform = this.extractCartesianTransformOperator3D( mappingTarget )
+      const nativeCartesianTransform =
+        this.extractCartesianTransformOperator3D( mappingTarget )
 
       this.scene.addTransform(
           mappingTarget.localID,
@@ -1124,6 +1457,7 @@ export class IfcGeometryExtraction {
       }
 
       polygonalFaceStartIndices.delete()
+
       this.scene.addGeometry(from.localID)
 
 
@@ -1142,7 +1476,7 @@ export class IfcGeometryExtraction {
 
     } else if (from instanceof IfcMappedItem) {
 
-      // this.extractMappedItem(from)
+      this.extractMappedItem(from)
     }
 
   }
@@ -1332,7 +1666,6 @@ export class IfcGeometryExtraction {
 
     const startTime = Date.now()
 
-
     const products = this.model.types(IfcProduct)
     const productEntities = Array.from(products)
 
@@ -1365,6 +1698,13 @@ export class IfcGeometryExtraction {
           }
         }
       }
+    }
+
+    const styledItems = this.model.types(IfcStyledItem)
+
+    for ( const styledItem of styledItems ) {
+
+      this.extractStyledItem( styledItem )
     }
 
     result = ExtractResult.COMPLETE
