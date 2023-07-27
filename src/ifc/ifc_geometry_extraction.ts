@@ -84,7 +84,7 @@ type NativeVectorCurve = StdVector< CurveObject >
 type WasmModule = any
 
 /**
- *
+ * Enum presenting the extraction results.
  */
 /* eslint-disable no-shadow, no-unused-vars, no-magic-numbers */
 // -- eslint doesn't understand enums properly.
@@ -148,7 +148,7 @@ export function extractColorRGB( from: IfcColourRgb, alpha: number = 1 ): ColorR
 
 /**
  * Use to extract a color or a factor from a color/factor select.
- *
+ *But 
  * @param from The color or factor to extract this from.
  * @param surfaceColor The surface color (if this is a factor), which will be used to
  * create the factor.
@@ -187,6 +187,7 @@ export class IfcGeometryExtraction {
   public readonly materials: IfcMaterialCache
 
   /**
+   * 
    *
    * @param conwayModel
    * @param model
