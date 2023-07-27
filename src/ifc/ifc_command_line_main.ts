@@ -259,10 +259,10 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
   }
 
   // returns a string containing a full obj
-  const startTimeObj = Date.now()
+  // const startTimeObj = Date.now()
   // const objResult = conwayModel.toObj(fullGeometry)
-  const endTimeObj = Date.now()
-  const executionTimeInMsObj = endTimeObj - startTimeObj
+  // const endTimeObj = Date.now()
+  // const executionTimeInMsObj = endTimeObj - startTimeObj
 
   // write to FS
   // const filename = `${fileNameNoExtension}_test.obj`
@@ -321,6 +321,36 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
     }
   }
 
+  //draco test
+  const startTimeGlbDraco = Date.now()
+  const glbDracoResult =
+    conwayModel.toGltf(geometryVector, materialVector, true, true, `${fileNameNoExtension}_test_draco`)
+  const endTimeGlbDraco = Date.now()
+  const executionTimeInMsGlbDraco = endTimeGlbDraco - startTimeGlbDraco
+
+  if (glbDracoResult.success) {
+
+    if (glbDracoResult.buffers.size() !== glbDracoResult.bufferUris.size()) {
+      console.log('Error! Buffer size != Buffer URI size!\n')
+      return
+    }
+
+    for (let uriIndex = 0; uriIndex < glbDracoResult.bufferUris.size(); uriIndex++) {
+      const uri = glbDracoResult.bufferUris.get(uriIndex)
+
+      // Create a (zero copy!) memory view from the native vector
+      const managedBuffer: Uint8Array =
+        conwayModel.getWasmModule().getUint8Array(glbDracoResult.buffers.get(uriIndex))
+
+      try {
+        fs.writeFileSync(uri, managedBuffer)
+        // console.log(`Data written to file: ${uri}`)
+      } catch (err) {
+        console.error('Error writing to file:', err)
+      }
+    }
+  }
+
   const startTimeGltf = Date.now()
   const gltfResult =
     conwayModel.toGltf(
@@ -331,9 +361,6 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
         `${fileNameNoExtension}`)
   const endTimeGltf = Date.now()
   const executionTimeInMsGltf = endTimeGltf - startTimeGltf
-
-  geometryVector.delete()
-  materialVector.delete()
 
   if (gltfResult.success) {
 
@@ -359,7 +386,48 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
     }
   }
 
-  console.log(`OBJ Generation took ${executionTimeInMsObj} milliseconds to execute.`)
+  const startTimeGltfDraco = Date.now()
+  const gltfResultDraco =
+    conwayModel.toGltf(
+        geometryVector,
+        materialVector,
+        false,
+        true,
+        `${fileNameNoExtension}_draco`)
+  const endTimeGltfDraco = Date.now()
+  const executionTimeInMsGltfDraco = endTimeGltfDraco - startTimeGltfDraco
+
+  if (gltfResultDraco.success) {
+
+    if (gltfResultDraco.buffers.size() !== gltfResultDraco.bufferUris.size()) {
+      console.log('Error! Buffer size !== Buffer URI size!\n')
+      return
+    }
+
+    for (let uriIndex = 0; uriIndex < gltfResultDraco.bufferUris.size(); uriIndex++) {
+      const uri = gltfResultDraco.bufferUris.get(uriIndex)
+
+      // Create a memory view from the native vector
+      const managedBuffer: Uint8Array =
+        conwayModel.getWasmModule().
+            getUint8Array(gltfResultDraco.buffers.get(uriIndex))
+
+      try {
+        fs.writeFileSync(uri, managedBuffer)
+        // console.log(`Data written to file: ${uri}`)
+      } catch (err) {
+        console.error('Error writing to file:', err)
+      }
+    }
+  }
+
+  //clean up 
+  geometryVector.delete()
+  materialVector.delete()
+
+  //console.log(`OBJ Generation took ${executionTimeInMsObj} milliseconds to execute.`)
   console.log(`GLB Generation took ${executionTimeInMsGlb} milliseconds to execute.`)
   console.log(`GLTF Generation took ${executionTimeInMsGltf} milliseconds to execute.`)
+  console.log(`GLB Draco Generation took ${executionTimeInMsGlbDraco} milliseconds to execute.`)
+  console.log(`GLTF Draco Generation took ${executionTimeInMsGltfDraco} milliseconds to execute.`)
 }
