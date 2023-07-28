@@ -21,6 +21,8 @@ import {
   BlendMode,
   toAlphaMode,
   Vector2,
+  ParamsGetIfcCircle,
+  ParamsGetIfcTrimmedCurve,
 } from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMaterial, ColorRGBA, exponentToRoughness } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
@@ -71,6 +73,7 @@ import {
   IfcParameterValue,
   IfcCurve,
   IfcTrimmingPreference,
+  IfcCircle,
 } from './ifc4_gen'
 import EntityTypesIfc from './ifc4_gen/entity_types_ifc.gen'
 import { IfcMaterialCache } from './ifc_material_cache'
@@ -1343,7 +1346,7 @@ export class IfcGeometryExtraction {
   }
 
 
-  extractCurve(from: IfcCurve | IfcTrimmedCurve | IfcPolyline | IfcIndexedPolyCurve): CurveObject | undefined {
+  extractCurve(from: IfcCurve | IfcTrimmedCurve | IfcPolyline | IfcIndexedPolyCurve | IfcCircle): CurveObject | undefined {
     if (from instanceof IfcTrimmedCurve) {
       return this.extractIfcTrimmedCurve(from)
     }
@@ -1352,11 +1355,49 @@ export class IfcGeometryExtraction {
       return this.extractIfcPolyline(from)
     }
 
-    if (from instanceof IfcIndexedPolyCurve ) {
+    if (from instanceof IfcIndexedPolyCurve) {
       return this.extractIndexedPolyCurve(from)
     }
 
+    if (from instanceof IfcCircle) {
+      return this.extractIfcCircle(from)
+    }
+
     console.log(`Unsupported Curve! Type: ${EntityTypesIfc[from.type]}`)
+  }
+
+
+  extractIfcCircle(from: IfcCircle, parametersTrimmedCurve: ParamsGetIfcTrimmedCurve = {
+    masterRepresentation: 0,
+    dimensions: 0,
+    senseAgreement: false,
+    trim1Cartesian2D: undefined,
+      trim1Cartesian3D: undefined,
+      trim1Double: 0,
+      trim2Cartesian2D: undefined,
+      trim2Cartesian3D: undefined,
+      trim2Double: 0
+  }): CurveObject | undefined {
+
+    let axis2Placement2D: any = void 0
+    let axis2Placement3D: any = void 0
+    if (from.Position instanceof IfcAxis2Placement2D) {
+      axis2Placement2D = this.extractAxis2Placement2D(from.Position)
+    } else {
+      axis2Placement3D = this.extractAxis2Placement3D(from.Position, from.localID, true)
+    }
+
+    const parametersIfcCircle: ParamsGetIfcCircle = {
+      dimensions: from.Dim,
+      axis2Placement2D: axis2Placement2D,
+      axis2Placement3D: axis2Placement3D,
+      radius: from.Radius,
+      paramsGetIfcTrimmedCurve: parametersTrimmedCurve
+    }
+
+    const curve: CurveObject = this.conwayModel.getIfcCircle(parametersIfcCircle)
+
+    return curve
   }
 
   /**
@@ -1366,30 +1407,105 @@ export class IfcGeometryExtraction {
    */
   extractIfcTrimmedCurve(from: IfcTrimmedCurve): CurveObject | undefined {
 
-    const curveObject = this.extractCurve(from.BasisCurve)
-
-    if (curveObject !== void 0) {
-
-    }
     console.log(`[IfcTrimmedCurve] BasisCurve type: ${EntityTypesIfc[from.BasisCurve.type]}`)
     console.log(`[IfcTrimmedCurve] dim: ${from.Dim}`)
     console.log(`[IfcTrimmedCurve] MasterRepresentation: ${from.MasterRepresentation}`)
 
-    
+
     console.log(`[IfcTrimmedCurve] SenseAgreement: ${from.SenseAgreement}`)
+    let trim1Cartesian2D: Vector2 = { x: 0, y: 0 }
+    let trim1Cartesian3D: Vector3 = { x: 0, y: 0, z: 0 }
+    let trim1Double: number = 0
+    let trim2Cartesian2D: Vector2 = { x: 0, y: 0 }
+    let trim2Cartesian3D: Vector3 = { x: 0, y: 0, z: 0 }
+    let trim2Double: number = 0
 
-    if (from.Trim1.length > 0 && from.Trim1[0] instanceof IfcCartesianPoint) {
-      console.log(`[IfcTrimmedCurve] Trim1 type: IfcCartesianPoint[]`)
+    //use Cartesian if unspecified  
+    if (from.MasterRepresentation === IfcTrimmingPreference.CARTESIAN ||
+      from.MasterRepresentation === IfcTrimmingPreference.UNSPECIFIED) {
+      for (let trimIndex = 0; trimIndex < from.Trim1.length; trimIndex++) {
+        const trim1 = from.Trim1[trimIndex]
+        if (trim1 instanceof IfcCartesianPoint) {
+
+          if (from.Dim === 2) {
+            trim1Cartesian2D = {
+              x: trim1.Coordinates[0],
+              y: trim1.Coordinates[1]
+            }
+          } else if (from.Dim === 3) {
+            trim1Cartesian3D = {
+              x: trim1.Coordinates[0],
+              y: trim1.Coordinates[1],
+              z: trim1.Coordinates[2],
+            }
+          }
+
+          break
+        }
+      }
+
+      for (let trimIndex = 0; trimIndex < from.Trim2.length; trimIndex++) {
+        const trim2 = from.Trim2[trimIndex]
+        if (trim2 instanceof IfcCartesianPoint) {
+
+          if (from.Dim === 2) {
+            trim2Cartesian2D = {
+              x: trim2.Coordinates[0],
+              y: trim2.Coordinates[1]
+            }
+          } else if (from.Dim === 3) {
+            trim2Cartesian3D = {
+              x: trim2.Coordinates[0],
+              y: trim2.Coordinates[1],
+              z: trim2.Coordinates[2],
+            }
+          }
+
+          break
+        }
+      }
     } else {
-      console.log(`[IfcTrimmedCurve] Trim1 type: IfcParameterValue[]`)
+      //use parameter value 
+      for (let trimIndex = 0; trimIndex < from.Trim1.length; trimIndex++) {
+        const trim1 = from.Trim1[trimIndex]
+        if (trim1 instanceof IfcParameterValue) {
+          trim1Double = trim1.Value
+          break
+        }
+      }
+
+      for (let trimIndex = 0; trimIndex < from.Trim2.length; trimIndex++) {
+        const trim2 = from.Trim2[trimIndex]
+        if (trim2 instanceof IfcParameterValue) {
+          trim2Double = trim2.Value
+          break
+        }
+      }
     }
 
-    if (from.Trim2.length > 0 && from.Trim2[0] instanceof IfcCartesianPoint) {
-      console.log(`[IfcTrimmedCurve] Trim2 type: IfcCartesianPoint[]`)
-    } else {
-      console.log(`[IfcTrimmedCurve] Trim2 type: IfcParameterValue[]`)
+
+    const paramsGetIfcTrimmedCurve: ParamsGetIfcTrimmedCurve = {
+      masterRepresentation: from.MasterRepresentation.valueOf(),
+      dimensions: from.Dim,
+      senseAgreement: from.SenseAgreement,
+      trim1Cartesian2D: trim1Cartesian2D,
+      trim1Cartesian3D: trim1Cartesian3D,
+      trim1Double: trim1Double,
+      trim2Cartesian2D: trim2Cartesian2D,
+      trim2Cartesian3D: trim2Cartesian3D,
+      trim2Double: trim2Double
     }
 
+    if (from.BasisCurve instanceof IfcCircle) {
+      const curveObject = this.extractIfcCircle(from.BasisCurve, paramsGetIfcTrimmedCurve)
+
+      if (curveObject !== void 0) {
+        return curveObject
+      }
+
+    } else {
+      console.log(`[IfcTrimmedCurve]: Unsupported basisCurve type: ${EntityTypesIfc[from.BasisCurve.type]}`)
+    }
 
     return undefined
   }
@@ -1401,7 +1517,7 @@ export class IfcGeometryExtraction {
    * @returns {CurveObject | undefined }
    */
   extractIfcPolyline(from: IfcPolyline): CurveObject | undefined {
-    
+
     if (from.Points.length > 0) {
       const nativeCurve = (new (this.wasmModule.IfcCurve)) as CurveObject
       //dims check 
