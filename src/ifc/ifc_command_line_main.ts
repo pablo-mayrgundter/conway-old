@@ -233,7 +233,6 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
 
   const materialGeometry = new Map< CanonicalMaterial | undefined, GeometryObject >()
 
-
   // eslint-disable-next-line no-unused-vars
   for (const [_, nativeTransform, geometry, material] of scene.walk()) {
     if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY) {
@@ -324,7 +323,12 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
   //draco test
   const startTimeGlbDraco = Date.now()
   const glbDracoResult =
-    conwayModel.toGltf(geometryVector, materialVector, true, true, `${fileNameNoExtension}_test_draco`)
+    conwayModel.toGltf(
+        geometryVector,
+        materialVector,
+        true,
+        true,
+        `${fileNameNoExtension}_test_draco`)
   const endTimeGlbDraco = Date.now()
   const executionTimeInMsGlbDraco = endTimeGlbDraco - startTimeGlbDraco
 
