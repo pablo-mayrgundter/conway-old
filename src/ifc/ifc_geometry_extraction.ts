@@ -23,6 +23,7 @@ import {
   Vector2,
   ParamsGetIfcCircle,
   ParamsGetIfcTrimmedCurve,
+  ParamsGetHalfspaceSolid,
 } from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMaterial, ColorRGBA, exponentToRoughness } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
@@ -74,6 +75,8 @@ import {
   IfcCurve,
   IfcTrimmingPreference,
   IfcCircle,
+  IfcHalfSpaceSolid,
+  IfcPlane,
 } from './ifc4_gen'
 import EntityTypesIfc from './ifc4_gen/entity_types_ifc.gen'
 import { IfcMaterialCache } from './ifc_material_cache'
@@ -801,7 +804,7 @@ export class IfcGeometryExtraction {
     if (from.SecondOperand instanceof IfcExtrudedAreaSolid ||
       from.SecondOperand instanceof IfcPolygonalFaceSet ||
       from.SecondOperand instanceof IfcBooleanResult ||
-      from.SecondOperand instanceof IfcPolygonalBoundedHalfSpace) {
+      from.SecondOperand instanceof IfcHalfSpaceSolid) {
       this.extractBooleanOperand(from.SecondOperand)
     }
 
@@ -813,7 +816,8 @@ export class IfcGeometryExtraction {
       flatFirstMeshVector.set(0, firstMesh.geometry)
     } else {
       console.log(
-        `Error extracting firstOperand geometry for localID: ${from.FirstOperand.expressID}`)
+        `Error extracting firstOperand geometry for expressID: 
+        ${from.FirstOperand.expressID} - type: ${EntityTypesIfc[from.FirstOperand.type]}`)
       console.log(firstMesh)
       return
     }
@@ -824,7 +828,8 @@ export class IfcGeometryExtraction {
       flatSecondMeshVector.set(0, secondMesh.geometry)
     } else {
       console.log(
-        `Error extracting secondOperand geometry for localID: ${from.SecondOperand.localID}`)
+        `Error extracting secondOperand geometry for expressID: 
+        ${from.SecondOperand.localID} - type: ${EntityTypesIfc[from.SecondOperand.type]}`)
       return
     }
 
@@ -857,7 +862,7 @@ export class IfcGeometryExtraction {
    * @param from The operand to extract.
    * @return {void}
    */
-  extractBooleanOperand(from: IfcExtrudedAreaSolid | IfcPolygonalFaceSet | IfcBooleanResult | IfcPolygonalBoundedHalfSpace | IfcBooleanClippingResult) {
+  extractBooleanOperand(from: IfcExtrudedAreaSolid | IfcPolygonalFaceSet | IfcBooleanResult | IfcHalfSpaceSolid | IfcBooleanClippingResult) {
 
     if (from instanceof IfcExtrudedAreaSolid) {
       // mark as temporary
@@ -878,8 +883,8 @@ export class IfcGeometryExtraction {
       }
 
       polygonalFaceStartIndices.delete()
-    } else if (from instanceof IfcPolygonalBoundedHalfSpace) {
-      this.extractPolygonalBoundedHalfSpace(from, true)
+    } else if (from instanceof IfcHalfSpaceSolid) {
+      this.extractHalfspaceSolid(from, true)
     } else if (from instanceof IfcBooleanResult) {
 
       if (from.FirstOperand instanceof IfcExtrudedAreaSolid ||
@@ -892,7 +897,7 @@ export class IfcGeometryExtraction {
       if (from.SecondOperand instanceof IfcExtrudedAreaSolid ||
         from.SecondOperand instanceof IfcPolygonalFaceSet ||
         from.SecondOperand instanceof IfcBooleanResult ||
-        from.SecondOperand instanceof IfcPolygonalBoundedHalfSpace) {
+        from.SecondOperand instanceof IfcHalfSpaceSolid) {
         this.extractBooleanOperand(from.SecondOperand)
       }
 
@@ -903,7 +908,8 @@ export class IfcGeometryExtraction {
         flatFirstMeshVector.set(0, firstMesh.geometry)
       } else {
         console.log(
-          `(Operand) Error extracting firstOperand geometry for localID: ${from.FirstOperand.expressID}`)
+          `(Operand) Error extracting firstOperand geometry for expressID: 
+          ${from.FirstOperand.expressID} - type: ${EntityTypesIfc[from.FirstOperand.type]}`)
         console.log(firstMesh)
         return
       }
@@ -914,7 +920,8 @@ export class IfcGeometryExtraction {
         flatSecondMeshVector.set(0, secondMesh.geometry)
       } else {
         console.log(
-          `(Operand) Error extracting secondOperand geometry for localID: ${from.SecondOperand.localID}`)
+          `(Operand) Error extracting secondOperand geometry for expressID: 
+          ${from.SecondOperand.expressID} - type: ${EntityTypesIfc[from.SecondOperand.type]}`)
         return
       }
 
@@ -1118,6 +1125,50 @@ export class IfcGeometryExtraction {
    * @param from 
    * @param temporary 
    */
+  extractHalfspaceSolid(from: IfcHalfSpaceSolid, temporary: boolean = false) {
+    from.AgreementFlag
+    console.log(`[IfcHalfspaceSolid]: from.BaseSurface: ${EntityTypesIfc[from.BaseSurface.type]}`)
+    from.Dim
+    from.expressID
+
+
+    if (from.BaseSurface instanceof IfcPlane) {
+      const paramsAxis2Placement3D: ParamsAxis2Placement3D =
+        this.extractAxis2Placement3D(from.BaseSurface.Position, from.localID, true)
+      const axis2PlacementTransform = this.conwayModel
+        .getAxis2Placement3D(paramsAxis2Placement3D)
+
+      // get geometry
+      const parameters: ParamsGetHalfspaceSolid = {
+        flipWinding: from.AgreementFlag,
+        optionalLinearScalingFactor: 1.0,
+      }
+
+      const geometry: GeometryObject = this.conwayModel.GetHalfSpaceSolid(parameters)
+
+      // apply transform
+      if (axis2PlacementTransform !== void 0) {
+        geometry.applyTransform(axis2PlacementTransform)
+      }
+
+      const canonicalMesh: CanonicalMesh = {
+        type: CanonicalMeshType.BUFFER_GEOMETRY,
+        geometry: geometry,
+        localID: from.localID,
+        model: this.model,
+        temporary: temporary,
+      }
+
+      // add mesh to the list of mesh objects
+      this.model.geometry.add(canonicalMesh)
+    }
+  }
+
+  /**
+   * 
+   * @param from 
+   * @param temporary 
+   */
   extractPolygonalBoundedHalfSpace(from: IfcPolygonalBoundedHalfSpace, temporary: boolean = false) {
 
     //extract position 
@@ -1184,7 +1235,7 @@ export class IfcGeometryExtraction {
       this.model.geometry.add(canonicalMesh)
 
     } else {
-      console.log(`Couldn't parse profile, type: ${EntityTypesIfc[from.SweptArea.type]}`)
+      console.log(`Couldn't parse profile, expressID: ${from.SweptArea.expressID} type: ${EntityTypesIfc[from.SweptArea.type]}`)
     }
   }
 
@@ -1214,16 +1265,17 @@ export class IfcGeometryExtraction {
     if (from instanceof IfcArbitraryClosedProfileDef) {
       const outerCurve = from.OuterCurve
       if (outerCurve instanceof IfcCompositeCurve) {
-        console.log(`IfcCompositeCurve - nSegments: ${outerCurve.NSegments}`)
-        console.log(`\tSegments: ${outerCurve.Segments}`)
-        console.log(`\tSelfIntersect: ${outerCurve.SelfIntersect}`)
+        const compositeCurve = this.extractCompositeCurve(outerCurve)
 
-        for (let i = 0; i < outerCurve.Segments.length; i++) {
-          console.log(`\t\tInner Segment ${i} Type: ${EntityTypesIfc[outerCurve.Segments[i].type]}`)
-          const curveObject = this.extractCurve(outerCurve.Segments[i].ParentCurve)
-          console.log(`\t\touterCurve.Segments[i].ParentCurve Type: ${EntityTypesIfc[outerCurve.Segments[i].ParentCurve.type]}`)
+        if (compositeCurve !== void 0) {
+          profile = {
+            localID: from.localID,
+            curve: compositeCurve,
+            holes: void 0,
+            profiles: (void 0),
+            nativeProfile: (void 0),
+          }
         }
-
       }
       else {
 
@@ -1345,7 +1397,57 @@ export class IfcGeometryExtraction {
     return profile
   }
 
+  /**
+   * 
+   * @param from 
+   * @returns {CurveObject | undefined}
+   */
+  extractCompositeCurve(from: IfcCompositeCurve): CurveObject | undefined {
+    console.log(`IfcCompositeCurve - nSegments: ${from.NSegments}`)
+    console.log(`\tSegments: ${from.Segments}`)
+    console.log(`\tSelfIntersect: ${from.SelfIntersect}`)
 
+    const curveObjects: CurveObject[] = []
+    let compositeCurve: CurveObject | undefined = undefined
+    for (let i = 0; i < from.Segments.length; i++) {
+      console.log(`\t\tInner Segment ${i} Type: ${EntityTypesIfc[from.Segments[i].type]}`)
+
+      const parentCurve = from.Segments[i].ParentCurve
+      let currentCurveObject = undefined
+      if (parentCurve instanceof IfcCompositeCurve) {
+        currentCurveObject = this.extractCompositeCurve(parentCurve)
+      } else {
+        currentCurveObject = this.extractCurve(from.Segments[i].ParentCurve)
+      }
+      console.log(`\t\touterCurve.Segments[i].ParentCurve Type: ${EntityTypesIfc[from.Segments[i].ParentCurve.type]}`)
+
+      if (currentCurveObject !== undefined) {
+        if (i === 0) {
+          compositeCurve = currentCurveObject
+        } else {
+          if (from.Segments[i].Dim === 2) {
+            for (let j = 0; j < currentCurveObject.getPointsSize(); ++j) {
+              compositeCurve!.add2d(currentCurveObject.get2d(j))
+            }
+          } else if (from.Segments[i].Dim === 3) {
+            for (let j = 0; j < currentCurveObject.getPointsSize(); ++j) {
+              compositeCurve!.add3d(currentCurveObject.get3d(j))
+            }
+          }
+        }
+      } else {
+        console.log(`curve segment parse === undefined`)
+      }
+    }
+
+    return compositeCurve
+  }
+
+  /**
+   * 
+   * @param from 
+   * @returns {CurveObject | undefined}
+   */
   extractCurve(from: IfcCurve | IfcTrimmedCurve | IfcPolyline | IfcIndexedPolyCurve | IfcCircle): CurveObject | undefined {
     if (from instanceof IfcTrimmedCurve) {
       return this.extractIfcTrimmedCurve(from)
@@ -1372,19 +1474,23 @@ export class IfcGeometryExtraction {
     dimensions: 0,
     senseAgreement: false,
     trim1Cartesian2D: undefined,
-      trim1Cartesian3D: undefined,
-      trim1Double: 0,
-      trim2Cartesian2D: undefined,
-      trim2Cartesian3D: undefined,
-      trim2Double: 0
+    trim1Cartesian3D: undefined,
+    trim1Double: 0,
+    trim2Cartesian2D: undefined,
+    trim2Cartesian3D: undefined,
+    trim2Double: 0
   }): CurveObject | undefined {
 
-    let axis2Placement2D: any = void 0
-    let axis2Placement3D: any = void 0
+    let axis2Placement2D: any = void 0 //glmdmat3
+    let axis2Placement3D: any = void 0 //glmdmat4
     if (from.Position instanceof IfcAxis2Placement2D) {
+      console.log('setting axis2Placement2D')
       axis2Placement2D = this.extractAxis2Placement2D(from.Position)
+      axis2Placement3D = (new (this.wasmModule.glmdmat4)) as any
     } else {
+      console.log('setting axis2Placement3D')
       axis2Placement3D = this.extractAxis2Placement3D(from.Position, from.localID, true)
+      axis2Placement2D = (new (this.wasmModule.glmdmat3)) as any
     }
 
     const parametersIfcCircle: ParamsGetIfcCircle = {
@@ -1525,7 +1631,6 @@ export class IfcGeometryExtraction {
         for (let pointsIndex = 0; pointsIndex < from.Points.length; ++pointsIndex) {
 
           const coords = from.Points[pointsIndex].Coordinates
-          console.log(`from.Points[${pointsIndex}].Coordinates: ${from.Points[pointsIndex].Coordinates}`)
           //const dvec2Coords = (new (this.wasmModule.glmdVec2)) as any
           const coord = {
             x: coords[0],
@@ -1537,7 +1642,6 @@ export class IfcGeometryExtraction {
       } else {
         for (let pointsIndex = 0; pointsIndex < from.Points.length; ++pointsIndex) {
           const coords = from.Points[pointsIndex].Coordinates
-          console.log(`from.Points[${pointsIndex}].Coordinates: ${from.Points[pointsIndex].Coordinates}`)
 
           const coord = {
             x: coords[0],
@@ -1732,9 +1836,9 @@ export class IfcGeometryExtraction {
       this.extractExtrudedAreaSolid(from)
       this.scene.addGeometry(from.localID)
 
-    } else if (from instanceof IfcPolygonalBoundedHalfSpace) {
-      this.extractPolygonalBoundedHalfSpace(from)
-      //  this.scene.addGeometry(from.localID)
+    } else if (from instanceof IfcHalfSpaceSolid) {
+      this.extractHalfspaceSolid(from)
+      this.scene.addGeometry(from.localID)
 
 
     } else if (from instanceof IfcMappedItem) {
