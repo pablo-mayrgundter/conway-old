@@ -24,6 +24,11 @@ import {
   ParamsGetIfcCircle,
   ParamsGetIfcTrimmedCurve,
   ParamsGetHalfspaceSolid,
+  ParamsGetLoop,
+  Bound3DObject,
+  ParamsCreateBound3D,
+  ParamsAddFaceToGeometry,
+  SurfaceObject,
 } from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMaterial, ColorRGBA, exponentToRoughness } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
@@ -77,6 +82,14 @@ import {
   IfcCircle,
   IfcHalfSpaceSolid,
   IfcPlane,
+  IfcBoundingBox,
+  IfcShellBasedSurfaceModel,
+  IfcClosedShell,
+  IfcOpenShell,
+  IfcFace,
+  IfcFaceOuterBound,
+  IfcFaceBound,
+  IfcPolyLoop,
 } from './ifc4_gen'
 import EntityTypesIfc from './ifc4_gen/entity_types_ifc.gen'
 import { IfcMaterialCache } from './ifc_material_cache'
@@ -96,6 +109,7 @@ type NativeVectorGeometry = StdVector<GeometryObject>
 type NativeVectorMaterial = StdVector<MaterialObject>
 type NativeVectorProfile = StdVector<ProfileObject>
 type NativeVectorCurve = StdVector<CurveObject>
+type NativeVectorBound3D = StdVector<Bound3DObject>
 type WasmModule = any
 
 /**
@@ -372,6 +386,24 @@ export class IfcGeometryExtraction {
   }
 
   /**
+   *
+   * @param initialSize number - initial size of the vector (optional)
+   * @return {NativeVectorGlmVec3} - a native std::vector<glm::vec3> from the wasm module
+   */
+  nativeVectorGlmdVec3(initialSize?: number): NativeVectorGlmVec3 {
+    const nativeVectorGlmdVec3_ =
+      // eslint-disable-next-line new-cap
+      (new (this.wasmModule.glmdVec3Array)()) as NativeVectorGlmVec3
+
+    if (initialSize) {
+      // resize has a required second parameter to set default values
+      nativeVectorGlmdVec3_.resize(initialSize, { x: 0, y: 0, z: 0 })
+    }
+
+    return nativeVectorGlmdVec3_
+  }
+
+  /**
    * Create a native 32bit uint vector.
    *
    * @param initialSize number - initial size of the vector (optional)
@@ -439,6 +471,23 @@ export class IfcGeometryExtraction {
     }
 
     return nativeVectorSegment
+  }
+
+  /**
+   * 
+   * @param initialize 
+   * @returns {NativeVectorBound3D}
+   */
+  nativeBound3DVector(initialize?: number): NativeVectorBound3D {
+    const nativeVectorBound3D =
+      new (this.wasmModule.bound3DArray)() as NativeVectorBound3D
+
+    if (initialize) {
+      // resize has a required second parameter to set default values
+      nativeVectorBound3D.resize(initialize)
+    }
+
+    return nativeVectorBound3D
   }
 
 
@@ -866,7 +915,6 @@ export class IfcGeometryExtraction {
 
     if (from instanceof IfcExtrudedAreaSolid) {
       // mark as temporary
-      console.log("parsing extrudedAreaSolid")
       this.extractExtrudedAreaSolid(from, true)
     } else if (from instanceof IfcPolygonalFaceSet) {
       // initialize new native indices array (free memory with delete())
@@ -1126,11 +1174,6 @@ export class IfcGeometryExtraction {
    * @param temporary 
    */
   extractHalfspaceSolid(from: IfcHalfSpaceSolid, temporary: boolean = false) {
-    from.AgreementFlag
-    console.log(`[IfcHalfspaceSolid]: from.BaseSurface: ${EntityTypesIfc[from.BaseSurface.type]}`)
-    from.Dim
-    from.expressID
-
 
     if (from.BaseSurface instanceof IfcPlane) {
       const paramsAxis2Placement3D: ParamsAxis2Placement3D =
@@ -1403,14 +1446,9 @@ export class IfcGeometryExtraction {
    * @returns {CurveObject | undefined}
    */
   extractCompositeCurve(from: IfcCompositeCurve): CurveObject | undefined {
-    console.log(`IfcCompositeCurve - nSegments: ${from.NSegments}`)
-    console.log(`\tSegments: ${from.Segments}`)
-    console.log(`\tSelfIntersect: ${from.SelfIntersect}`)
-
     const curveObjects: CurveObject[] = []
     let compositeCurve: CurveObject | undefined = undefined
     for (let i = 0; i < from.Segments.length; i++) {
-      console.log(`\t\tInner Segment ${i} Type: ${EntityTypesIfc[from.Segments[i].type]}`)
 
       const parentCurve = from.Segments[i].ParentCurve
       let currentCurveObject = undefined
@@ -1419,7 +1457,6 @@ export class IfcGeometryExtraction {
       } else {
         currentCurveObject = this.extractCurve(from.Segments[i].ParentCurve)
       }
-      console.log(`\t\touterCurve.Segments[i].ParentCurve Type: ${EntityTypesIfc[from.Segments[i].ParentCurve.type]}`)
 
       if (currentCurveObject !== undefined) {
         if (i === 0) {
@@ -1484,11 +1521,9 @@ export class IfcGeometryExtraction {
     let axis2Placement2D: any = void 0 //glmdmat3
     let axis2Placement3D: any = void 0 //glmdmat4
     if (from.Position instanceof IfcAxis2Placement2D) {
-      console.log('setting axis2Placement2D')
       axis2Placement2D = this.extractAxis2Placement2D(from.Position)
       axis2Placement3D = (new (this.wasmModule.glmdmat4)) as any
     } else {
-      console.log('setting axis2Placement3D')
       axis2Placement3D = this.extractAxis2Placement3D(from.Position, from.localID, true)
       axis2Placement2D = (new (this.wasmModule.glmdmat3)) as any
     }
@@ -1513,12 +1548,6 @@ export class IfcGeometryExtraction {
    */
   extractIfcTrimmedCurve(from: IfcTrimmedCurve): CurveObject | undefined {
 
-    console.log(`[IfcTrimmedCurve] BasisCurve type: ${EntityTypesIfc[from.BasisCurve.type]}`)
-    console.log(`[IfcTrimmedCurve] dim: ${from.Dim}`)
-    console.log(`[IfcTrimmedCurve] MasterRepresentation: ${from.MasterRepresentation}`)
-
-
-    console.log(`[IfcTrimmedCurve] SenseAgreement: ${from.SenseAgreement}`)
     let trim1Cartesian2D: Vector2 = { x: 0, y: 0 }
     let trim1Cartesian3D: Vector3 = { x: 0, y: 0, z: 0 }
     let trim1Double: number = 0
@@ -1610,7 +1639,7 @@ export class IfcGeometryExtraction {
       }
 
     } else {
-      console.log(`[IfcTrimmedCurve]: Unsupported basisCurve type: ${EntityTypesIfc[from.BasisCurve.type]}`)
+      console.log(`[IfcTrimmedCurve]: Unsupported basisCurve type: ${EntityTypesIfc[from.BasisCurve.type]} expressID: ${from.BasisCurve.expressID}`)
     }
 
     return undefined
@@ -1631,7 +1660,6 @@ export class IfcGeometryExtraction {
         for (let pointsIndex = 0; pointsIndex < from.Points.length; ++pointsIndex) {
 
           const coords = from.Points[pointsIndex].Coordinates
-          //const dvec2Coords = (new (this.wasmModule.glmdVec2)) as any
           const coord = {
             x: coords[0],
             y: coords[1],
@@ -1844,8 +1872,190 @@ export class IfcGeometryExtraction {
     } else if (from instanceof IfcMappedItem) {
 
       this.extractMappedItem(from)
+    } else if (from instanceof IfcPolyline) {
+      //web-ifc ignores IfcPolylines as meshes
+    } else if (from instanceof IfcShellBasedSurfaceModel) {
+      this.extractIfcShellBasedSurfaceModel(from)
+    }
+    else {
+      console.log(`Unsupported type: ${EntityTypesIfc[from.type]} expressID: ${from.expressID}`)
     }
 
+  }
+
+
+  extractIfcShellBasedSurfaceModel(from: IfcShellBasedSurfaceModel) {
+    const sbsmBoundary = from.SbsmBoundary
+
+    if (sbsmBoundary.length > 0) {
+      if (sbsmBoundary[0] instanceof IfcClosedShell) {
+        for (let sbsmBoundaryIndex = 0; sbsmBoundaryIndex < sbsmBoundary.length; ++sbsmBoundaryIndex) {
+          const currentBoundary: IfcClosedShell = sbsmBoundary[sbsmBoundaryIndex]
+          const faces = currentBoundary.CfsFaces
+
+          this.extractFaces(faces, currentBoundary.localID)
+        }
+      } else if (sbsmBoundary[0] instanceof IfcOpenShell) {
+        for (let sbsmBoundaryIndex = 0; sbsmBoundaryIndex < sbsmBoundary.length; ++sbsmBoundaryIndex) {
+          const currentBoundary: IfcOpenShell = sbsmBoundary[sbsmBoundaryIndex]
+          const faces = currentBoundary.CfsFaces
+
+          this.extractFaces(faces, currentBoundary.localID)
+        }
+      } else {
+        console.log(`Unsupported IfcShellBasedSurfaceModel: ${EntityTypesIfc[from.type]} expressID: ${from.expressID}`)
+      }
+    }
+  }
+
+
+  extractFaces(from: IfcFace[], parentLocalID: number) {
+    const geometry = (new (this.wasmModule.IfcGeometry)) as GeometryObject
+    for (let faceIndex = 0; faceIndex < from.length; ++faceIndex) {
+      const face: IfcFace = from[faceIndex]
+      this.extractFace(face, geometry)
+    }
+
+    const canonicalMesh: CanonicalMesh = {
+      type: CanonicalMeshType.BUFFER_GEOMETRY,
+      geometry: geometry,
+      localID: parentLocalID,
+      model: this.model,
+      temporary: false,
+    }
+
+    //console.log(`faces geometry.getIndexDataSize(): ${geometry.getIndexDataSize()}`)
+
+    // add mesh to the list of mesh objects
+    this.model.geometry.add(canonicalMesh)
+  }
+
+  extractFace(from: IfcFace, geometry: GeometryObject) {
+    if (from.Bounds.length > 0) {
+      const vec3Array = this.nativeVectorGlmdVec3()
+      if (from.Bounds[0] instanceof IfcFaceOuterBound) {
+        const bound3DVector = this.nativeBound3DVector()
+        for (let boundIndex = 0; boundIndex < from.Bounds.length; ++boundIndex) {
+          const bound: IfcFaceBound = from.Bounds[boundIndex]
+
+          if (bound.Bound instanceof IfcPolyLoop) {
+            bound.Bound.Polygon
+
+            let prevLocalID: number = -1
+
+            for (let pointIndex = 0; pointIndex < bound.Bound.Polygon.length; ++pointIndex) {
+              const vec3 = {
+                x: bound.Bound.Polygon[pointIndex].Coordinates[0],
+                y: bound.Bound.Polygon[pointIndex].Coordinates[1],
+                z: bound.Bound.Polygon[pointIndex].Coordinates[2]
+              }
+
+              const currentLocalID: number = bound.Bound.Polygon[pointIndex].localID
+              if (currentLocalID !== prevLocalID) {
+                vec3Array.push_back(vec3)
+                prevLocalID = currentLocalID
+              } else {
+                console.log(`Pruning duplicate point, localID: ${currentLocalID}`)
+              }
+            }
+          } else {
+            console.log(`Unsupported Loop! Type: ${EntityTypesIfc[bound.Bound.type]} expressID: ${from.expressID}`)
+          }
+
+          // get curve
+          const parameters: ParamsGetLoop = {
+            isEdgeLoop: false,
+            points: vec3Array,
+          }
+
+          const curve: CurveObject = this.conwayModel.getLoop(parameters)
+
+          //create bound vector
+          const parametersCreateBounds3D: ParamsCreateBound3D = {
+            curve: curve,
+            orientation: bound.Orientation,
+            type: (bound.type === EntityTypesIfc.IFCFACEOUTERBOUND) ? 0 : 1,
+          }
+
+          const bound3D: Bound3DObject = this.conwayModel.createBound3D(parametersCreateBounds3D)
+
+          bound3DVector.push_back(bound3D)
+        }
+
+        // add face to geometry
+        const defaultSurface = (new (this.wasmModule.IfcSurface)) as SurfaceObject
+        const parameters: ParamsAddFaceToGeometry = {
+          boundsArray: bound3DVector,
+          advancedBrep: false,
+          surface: defaultSurface,
+        }
+
+        this.conwayModel.addFaceToGeometry(parameters, geometry)
+
+        bound3DVector.delete()
+      } else if (from.Bounds[0] instanceof IfcFaceBound) {
+        const bound3DVector = this.nativeBound3DVector()
+        for (let boundIndex = 0; boundIndex < from.Bounds.length; ++boundIndex) {
+          const bound: IfcFaceBound = from.Bounds[boundIndex]
+
+          console.log(`[IfcFaceBound][Bound Loop[${boundIndex}] Type]: ${EntityTypesIfc[bound.Bound.type]}`)
+
+          if (bound.Bound instanceof IfcPolyLoop) {
+            bound.Bound.Polygon
+
+            let prevLocalID: number = -1
+
+            for (let pointIndex = 0; pointIndex < bound.Bound.Polygon.length; ++pointIndex) {
+              const vec3 = {
+                x: bound.Bound.Polygon[pointIndex].Coordinates[0],
+                y: bound.Bound.Polygon[pointIndex].Coordinates[1],
+                z: bound.Bound.Polygon[pointIndex].Coordinates[2]
+              }
+
+              const currentLocalID: number = bound.Bound.Polygon[pointIndex].localID
+              if (currentLocalID !== prevLocalID) {
+                vec3Array.push_back(vec3)
+                prevLocalID = currentLocalID
+              } else {
+                console.log(`Pruning duplicate point, localID: ${currentLocalID}`)
+              }
+            }
+          }
+          // get curve
+          const parameters: ParamsGetLoop = {
+            isEdgeLoop: true,
+            points: vec3Array,
+          }
+
+          const curve: CurveObject = this.conwayModel.getLoop(parameters)
+
+          //create bound vector
+          const parametersCreateBounds3D: ParamsCreateBound3D = {
+            curve: curve,
+            orientation: bound.Orientation,
+            type: (bound.type === EntityTypesIfc.IFCFACEOUTERBOUND) ? 0 : 1,
+          }
+
+          const bound3D: Bound3DObject = this.conwayModel.createBound3D(parametersCreateBounds3D)
+
+          bound3DVector.push_back(bound3D)
+
+        }
+
+        // add face to geometry
+        const defaultSurface = (new (this.wasmModule.IfcSurface)) as SurfaceObject
+        const parameters: ParamsAddFaceToGeometry = {
+          boundsArray: bound3DVector,
+          advancedBrep: false,
+          surface: defaultSurface,
+        }
+
+        this.conwayModel.addFaceToGeometry(parameters, geometry)
+
+        bound3DVector.delete()
+      }
+
+    }
   }
 
   /**
