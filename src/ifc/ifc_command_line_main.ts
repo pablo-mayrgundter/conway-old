@@ -4,7 +4,6 @@ import ParsingBuffer from '../parsing/parsing_buffer'
 import { ParseResult } from '../step/parsing/step_parser'
 import EntityTypesIfc from '../ifc/ifc4_gen/entity_types_ifc.gen'
 import yargs from 'yargs/yargs'
-
 import fs from 'fs'
 import StepEntityBase from '../step/step_entity_base'
 import IfcStepModel from './ifc_step_model'
@@ -320,7 +319,7 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
     }
   }
 
-  //draco test
+  // draco test
   const startTimeGlbDraco = Date.now()
   const glbDracoResult =
     conwayModel.toGltf(
@@ -425,11 +424,11 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
     }
   }
 
-  //clean up 
+  // clean up
   geometryVector.delete()
   materialVector.delete()
 
-  //console.log(`OBJ Generation took ${executionTimeInMsObj} milliseconds to execute.`)
+  // console.log(`OBJ Generation took ${executionTimeInMsObj} milliseconds to execute.`)
   console.log(`GLB Generation took ${executionTimeInMsGlb} milliseconds to execute.`)
   console.log(`GLTF Generation took ${executionTimeInMsGltf} milliseconds to execute.`)
   console.log(`GLB Draco Generation took ${executionTimeInMsGlbDraco} milliseconds to execute.`)

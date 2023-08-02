@@ -148,7 +148,7 @@ export function extractColorRGB( from: IfcColourRgb, alpha: number = 1 ): ColorR
 
 /**
  * Use to extract a color or a factor from a color/factor select.
- *But 
+ *
  * @param from The color or factor to extract this from.
  * @param surfaceColor The surface color (if this is a factor), which will be used to
  * create the factor.
@@ -433,7 +433,7 @@ export class IfcGeometryExtraction {
    *
    * @return {boolean} indicating if the wasm module has been initialized
    */
-  isInitialized(): Boolean {
+  isInitialized(): boolean {
     if (this.conwayModel !== void 0) {
       return this.conwayModel.initialized
     }

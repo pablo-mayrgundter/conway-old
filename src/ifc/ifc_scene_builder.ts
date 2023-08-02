@@ -1,4 +1,4 @@
-import { ConwayGeometry, GeometryObject, MaterialObject, ParamsLocalPlacement } from
+import { ConwayGeometry, GeometryObject, ParamsLocalPlacement } from
   '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMaterial } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
