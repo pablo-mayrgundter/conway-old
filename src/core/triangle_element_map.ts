@@ -1,6 +1,5 @@
 import { ReadonlyUint32Array } from './readonly_typed_array'
 
-
 /**
  * Map where the index is the triangle index of a geometry object, and the
  * values are the local IDs of the matching elements.
