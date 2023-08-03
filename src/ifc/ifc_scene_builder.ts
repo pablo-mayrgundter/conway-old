@@ -1,8 +1,9 @@
-import { ConwayGeometry, ParamsLocalPlacement } from
+import { ConwayGeometry, GeometryObject, ParamsLocalPlacement } from
   '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMaterial } from '../core/canonical_material'
-import { CanonicalMesh } from '../core/canonical_mesh'
+import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
 import { Model } from '../core/model'
+import { PackedMesh } from '../core/packed_mesh'
 import { Scene } from '../core/scene'
 import {
   SceneNodeModelType,
@@ -10,6 +11,9 @@ import {
   SceneNodeTransform,
 }
   from '../core/scene_node'
+import { TriangleElementMap } from '../core/triangle_element_map'
+import StepEntityBase from '../step/step_entity_base'
+import EntityTypesIfc from './ifc4_gen/entity_types_ifc.gen'
 import { IfcMaterialCache } from './ifc_material_cache'
 import IfcStepModel from './ifc_step_model'
 
@@ -58,6 +62,7 @@ export class IfcSceneGeometry implements SceneNodeGeometry {
 
   /* eslint-disable no-useless-constructor, no-empty-function */
   /**
+   * Construct a scene geometry node
    *
    * @param model
    * @param localID
@@ -68,7 +73,8 @@ export class IfcSceneGeometry implements SceneNodeGeometry {
         public readonly model: Model,
         public readonly localID: number,
         public readonly index: number,
-        public readonly parentIndex?: number) { }
+        public readonly relatedElementLocalId?: number,
+        public readonly parentIndex?: number ) { }
   /* eslint-enable no-useless-constructor, no-empty-function */
 }
 
@@ -150,12 +156,88 @@ export class IfcSceneBuilder implements Scene {
   }
 
   /**
-   * @yields
-   * @param walkTemporary
+   * Build a packed/optimised mesh model with triangle element maps.
+   *
+   * @return {PackedMesh< IfcStepModel >} Maps materials to a geometry object
+   * and triangle element map.
+   */
+  public buildPackedMeshModel(): PackedMesh< IfcStepModel > {
+
+    const materialMap                        = new Map< CanonicalMaterial | undefined, number >()
+    const materials: CanonicalMaterial[]     = []
+    const primitives: GeometryObject[]       = []
+    const triangleMaps: TriangleElementMap[] = []
+
+    // eslint-disable-next-line no-unused-vars
+    for (const [_, nativeTransform, geometry, material, entity] of this.walk()) {
+      if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY) {
+
+        const clonedGeometry = geometry.geometry.clone()
+
+        clonedGeometry.applyTransform(nativeTransform)
+
+        const primitiveIndex = materialMap.get( material )
+
+        if (primitiveIndex === void 0) {
+
+          const triangleMap = new TriangleElementMap()
+
+          if ( material !== void 0 ) {
+            clonedGeometry.materialIndex      = materials.length
+            materials.push( material)
+            clonedGeometry.hasDefaultMaterial = false
+          } else {
+            clonedGeometry.hasDefaultMaterial = true
+          }
+
+          triangleMap.addMappingRange(
+              0,
+              // eslint-disable-next-line no-magic-numbers
+              Math.trunc( clonedGeometry.getIndexDataSize() / 3 ),
+              entity?.localID ?? TriangleElementMap.NO_ELEMENT )
+
+          materialMap.set( material, primitives.length )
+
+          primitives.push(clonedGeometry)
+          triangleMaps.push(triangleMap)
+
+        } else {
+
+          const fullGeometry = primitives[ primitiveIndex ]
+          const triangleMap  = triangleMaps[ primitiveIndex ]
+
+          triangleMap.addMappingRange(
+              triangleMap.size,
+              // eslint-disable-next-line no-magic-numbers
+              triangleMap.size + Math.trunc( clonedGeometry.getIndexDataSize() / 3 ),
+              entity?.localID ?? TriangleElementMap.NO_ELEMENT )
+
+          fullGeometry.appendGeometry(clonedGeometry)
+        }
+      }
+    }
+
+    return {
+      materials: materials,
+      primitives: primitives,
+      triangleElementMaps: triangleMaps,
+      model: this.model,
+    }
+  }
+
+  /**
+   * Walk the current scene.
+   *
+   * @yields Raw absolute matrix transform, the native absolute transform, the canonical mesh,
+   * the canonical material and the associated step element as it walks the hierarchy.
+   * @param walkTemporary Include temporary items.
    */
   public* walk(walkTemporary: boolean = false):
-  IterableIterator<[readonly number[] | undefined,
-  IfcNativeTransform | undefined, CanonicalMesh, CanonicalMaterial | undefined]> {
+    IterableIterator<[readonly number[] | undefined,
+    IfcNativeTransform | undefined,
+    CanonicalMesh,
+    CanonicalMaterial | undefined,
+    StepEntityBase<EntityTypesIfc> | undefined]> {
 
     for (const node of this.scene_) {
 
@@ -182,6 +264,8 @@ export class IfcSceneBuilder implements Scene {
           parentNode?.absoluteNativeTransform,
           geometry,
           material !== void 0 ? material[ 0 ] : void 0,
+          node.relatedElementLocalId !== void 0 ?
+            this.model.getElementByLocalID(node.relatedElementLocalId) : void 0,
         ]
       }
     }
@@ -213,7 +297,7 @@ export class IfcSceneBuilder implements Scene {
    * @param localID
    * @return {IfcSceneGeometry}
    */
-  public addGeometry(localID: number): IfcSceneGeometry {
+  public addGeometry(localID: number, owningElementLocalID?: number): IfcSceneGeometry {
 
     const nodeIndex = this.scene_.length
 
@@ -229,7 +313,13 @@ export class IfcSceneBuilder implements Scene {
       this.roots.push(nodeIndex)
     }
 
-    const result = new IfcSceneGeometry(this.model, localID, nodeIndex, parentIndex)
+    const result =
+      new IfcSceneGeometry(
+          this.model,
+          localID,
+          nodeIndex,
+          owningElementLocalID,
+          parentIndex)
 
     this.scene_.push(result)
 
