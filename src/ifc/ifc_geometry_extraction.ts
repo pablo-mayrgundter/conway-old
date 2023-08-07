@@ -93,7 +93,7 @@ type NativeVectorCurve = StdVector<CurveObject>
 type WasmModule = any
 
 /**
- *
+ * Enum presenting the extraction results.
  */
 /* eslint-disable no-shadow, no-unused-vars, no-magic-numbers */
 // -- eslint doesn't understand enums properly.
@@ -196,6 +196,7 @@ export class IfcGeometryExtraction {
   public readonly materials: IfcMaterialCache
 
   /**
+   * Construct a geometry extraction from an IFC step model and conway model
    *
    * @param conwayModel
    * @param model
@@ -441,7 +442,7 @@ export class IfcGeometryExtraction {
    *
    * @return {boolean} indicating if the wasm module has been initialized
    */
-  isInitialized(): Boolean {
+  isInitialized(): boolean {
     if (this.conwayModel !== void 0) {
       return this.conwayModel.initialized
     }
@@ -1535,7 +1536,7 @@ export class IfcGeometryExtraction {
    *
    * @param from The mapped item to extract.
    */
-  extractMappedItem(from: IfcMappedItem) {
+  extractMappedItem(from: IfcMappedItem, owningElementLocalID?: number) {
 
     const representationMap = from.MappingSource
     const mappingTarget = from.MappingTarget
@@ -1557,7 +1558,7 @@ export class IfcGeometryExtraction {
 
     for (const representationItem of representationMap.MappedRepresentation.Items) {
 
-      this.extractRepresentationItem(representationItem)
+      this.extractRepresentationItem(representationItem, owningElementLocalID)
     }
 
     if (popTransform) {
@@ -1574,13 +1575,13 @@ export class IfcGeometryExtraction {
    *
    * @param from The representation to extract from.
    */
-  extractRepresentationItem(from: IfcRepresentationItem) {
+  extractRepresentationItem(from: IfcRepresentationItem, owningElementLocalID?: number) {
 
     const foundGeometry = this.model.geometry.getByLocalID(from.localID)
 
     if (foundGeometry !== void 0) {
 
-      this.scene.addGeometry(from.localID)
+      this.scene.addGeometry(from.localID, owningElementLocalID)
       return
     }
 
@@ -1600,8 +1601,7 @@ export class IfcGeometryExtraction {
 
       polygonalFaceStartIndices.delete()
 
-      this.scene.addGeometry(from.localID)
-
+      this.scene.addGeometry(from.localID, owningElementLocalID)
 
     } else if (from instanceof IfcBooleanResult) {
       //also handles IfcBooleanClippingResult
@@ -1614,7 +1614,7 @@ export class IfcGeometryExtraction {
     } else if (from instanceof IfcExtrudedAreaSolid) {
 
       this.extractExtrudedAreaSolid(from)
-      this.scene.addGeometry(from.localID)
+      this.scene.addGeometry(from.localID, owningElementLocalID)
 
     } else if (from instanceof IfcPolygonalBoundedHalfSpace) {
       this.extractPolygonalBoundedHalfSpace(from)
@@ -1625,7 +1625,6 @@ export class IfcGeometryExtraction {
 
       this.extractMappedItem(from)
     }
-
   }
 
   /**
@@ -1801,6 +1800,7 @@ export class IfcGeometryExtraction {
   }
 
   /**
+   * Extract the geometry data from the IFC
    *
    * @param model - Input IfcStepModel to extract geometry data from
    * @param logTime boolean - print execution time (default no)
@@ -1841,7 +1841,7 @@ export class IfcGeometryExtraction {
 
           for (const item of representation.Items) {
 
-            this.extractRepresentationItem(item)
+            this.extractRepresentationItem(item, product.localID)
           }
         }
       }
@@ -1858,10 +1858,10 @@ export class IfcGeometryExtraction {
 
     const endTime = Date.now()
     const executionTimeInMs = endTime - startTime
+
     if (logTime) {
       console.log(`Geometry Extraction took ${executionTimeInMs} milliseconds to execute.`)
     }
-
 
     return [result, this.scene]
   }

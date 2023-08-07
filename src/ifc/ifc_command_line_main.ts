@@ -4,7 +4,6 @@ import ParsingBuffer from '../parsing/parsing_buffer'
 import { ParseResult } from '../step/parsing/step_parser'
 import EntityTypesIfc from '../ifc/ifc4_gen/entity_types_ifc.gen'
 import yargs from 'yargs/yargs'
-
 import fs from 'fs'
 import StepEntityBase from '../step/step_entity_base'
 import IfcStepModel from './ifc_step_model'
@@ -233,7 +232,6 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
 
   const materialGeometry = new Map< CanonicalMaterial | undefined, GeometryObject >()
 
-
   // eslint-disable-next-line no-unused-vars
   for (const [_, nativeTransform, geometry, material] of scene.walk()) {
     if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY) {
@@ -321,10 +319,15 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
     }
   }
 
-  //draco test
+  // draco test
   const startTimeGlbDraco = Date.now()
   const glbDracoResult =
-    conwayModel.toGltf(geometryVector, materialVector, true, true, `${fileNameNoExtension}_test_draco`)
+    conwayModel.toGltf(
+        geometryVector,
+        materialVector,
+        true,
+        true,
+        `${fileNameNoExtension}_test_draco`)
   const endTimeGlbDraco = Date.now()
   const executionTimeInMsGlbDraco = endTimeGlbDraco - startTimeGlbDraco
 
@@ -421,11 +424,11 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
     }
   }
 
-  //clean up 
+  // clean up
   geometryVector.delete()
   materialVector.delete()
 
-  //console.log(`OBJ Generation took ${executionTimeInMsObj} milliseconds to execute.`)
+  // console.log(`OBJ Generation took ${executionTimeInMsObj} milliseconds to execute.`)
   console.log(`GLB Generation took ${executionTimeInMsGlb} milliseconds to execute.`)
   console.log(`GLTF Generation took ${executionTimeInMsGltf} milliseconds to execute.`)
   console.log(`GLB Draco Generation took ${executionTimeInMsGlbDraco} milliseconds to execute.`)
