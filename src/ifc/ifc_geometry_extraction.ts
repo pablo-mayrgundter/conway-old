@@ -113,6 +113,10 @@ import {
   IfcRelVoidsElement,
   IfcRectangleProfileDef,
   IfcFeatureElementSubtraction,
+  IfcMaterialProfileSet,
+  IfcMaterialConstituentSet,
+  IfcMaterialConstituent,
+  IfcMaterialProfile,
 } from './ifc4_gen'
 import EntityTypesIfc from './ifc4_gen/entity_types_ifc.gen'
 import { IfcMaterialCache } from './ifc_material_cache'
@@ -1916,6 +1920,12 @@ export class IfcGeometryExtraction {
     for (const representationItem of representationMap.MappedRepresentation.Items) {
 
       this.extractRepresentationItem(representationItem)
+
+      const styledItemLocalID_ = this.materials.styledItemMap.get(representationItem.localID)
+      if (styledItemLocalID_ !== undefined) {
+        const styledItem_ = this.model.getElementByLocalID(styledItemLocalID_) as IfcStyledItem
+        this.extractStyledItem(styledItem_)
+      }
     }
 
     if (popTransform) {
@@ -2426,58 +2436,151 @@ export class IfcGeometryExtraction {
     }
   }
 
-  extractMaterial(from:IfcProduct) {
-    let styledItemID:number | undefined = undefined
-    if (this.materials.relMaterialsMap.has(from.localID)) {
+  extractMaterial(
+    from: IfcMaterial |
+      IfcMaterialList |
+      IfcMaterialProfile |
+      IfcMaterialProfileSet |
+      IfcMaterialConstituent |
+      IfcMaterialLayerSetUsage |
+      IfcMaterialConstituentSet): number | undefined {
+    if (from instanceof IfcMaterial) {
+      return this.materials.materialDefinitionsMap.get(from.localID)
+    } else if (from instanceof IfcMaterialLayerSetUsage) {
+      for (const layer of from.ForLayerSet.MaterialLayers) {
+        if (layer.Material) {
+          const styledItemID = this.extractMaterial(layer.Material)
+          if (styledItemID !== undefined) {
+            return styledItemID
+          }
+        }
+      }
+    } else if (from instanceof IfcMaterialList) {
+      for (const _material of from.Materials) {
+        if (_material instanceof IfcMaterial) {
+          const styledItemID = this.extractMaterial(_material)
+          if (styledItemID !== undefined) {
+            return styledItemID
+          }
+        }
+      }
+    } else if (from instanceof IfcMaterialProfile) {
+      if (from.Material !== null) {
+        const styledItemID = this.extractMaterial(from.Material)
+        if (styledItemID !== undefined) {
+          return styledItemID
+        }
+      } else {
+        console.log(`from.Material === null`)
+      }
+    }
+    else if (from instanceof IfcMaterialProfileSet) {
+      for (const material of from.MaterialProfiles) {
+        const styledItemID = this.extractMaterial(material)
 
-      const materialID = this.materials.relMaterialsMap.get(from.localID)
+        if (styledItemID !== undefined) {
+          return styledItemID
+        }
+      }
+    } else if (from instanceof IfcMaterialConstituent) {
+      const styledItemID = this.extractMaterial(from.Material)
+      if (styledItemID !== undefined) {
+        return styledItemID
+      }
+    }
+    else if (from instanceof IfcMaterialConstituentSet) {
+      if (from.MaterialConstituents !== null) {
+        for (const materialConstituents of from.MaterialConstituents) {
+          const styledItemID = this.extractMaterial(materialConstituents)
+          if (styledItemID !== undefined) {
+            return styledItemID
+          }
+        }
+      }
+    }
+  }
 
-      if (materialID) {
-
-        if (this.materials.materialDefinitionsMap.has(materialID)) {
-          //found material for mesh
-          const material: IfcMaterial = this.model.getElementByLocalID(materialID)! as IfcMaterial
-
-          styledItemID = this.materials.materialDefinitionsMap.get(materialID)
-        } else {
-          const material = this.model.getElementByLocalID(materialID)
-          if (material) {
-            if (material instanceof IfcMaterialLayerSetUsage) {
-              for (const layer of material.ForLayerSet.MaterialLayers) {
-
-                if (layer.Material) {
-                  if (this.materials.materialDefinitionsMap.has(layer.Material.localID)) {
-                    styledItemID = this.materials.materialDefinitionsMap.get(layer.Material.localID)
-                    break
-                  }
-                }
-              }
-            } else if (material instanceof IfcMaterial) {
-              if (this.materials.materialDefinitionsMap.has(material.localID)) {
-                styledItemID = this.materials.materialDefinitionsMap.get(material.localID)
-              }
-            } else if (material instanceof IfcMaterialList) {
-              for (const _material of material.Materials) {
-
-                if (_material instanceof IfcMaterial) {
-                  if (this.materials.materialDefinitionsMap.has(_material.localID)) {
-                    styledItemID = this.materials.materialDefinitionsMap.get(_material.localID)
-                    break
-                  }
-                } else {
-                  console.log(`[IfcMaterialList] Unsupported material`)
-                }
-              }
-            }
-            else {
-              //console.log(`Material type not supported - type: ${EntityTypesIfc[material.type]}`)
-            }
+  extractMaterialStyle(from: IfcProduct) {
+    let styledItemID: number | undefined = undefined
+    const materialID = this.materials.relMaterialsMap.get(from.localID)
+    if (materialID !== undefined) {
+      if (this.materials.materialDefinitionsMap.has(materialID)) {
+        //found material for mesh
+        styledItemID = this.materials.materialDefinitionsMap.get(materialID)
+      } else {
+        const material = this.model.getElementByLocalID(materialID)
+        if (material) {
+          if (material instanceof IfcMaterial) {
+            styledItemID = this.extractMaterial(material)
+          } else if (material instanceof IfcMaterialLayerSetUsage) {
+            styledItemID = this.extractMaterial(material)
+          } else if (material instanceof IfcMaterialList) {
+            styledItemID = this.extractMaterial(material)
+          } else if (material instanceof IfcMaterialProfile) {
+            styledItemID = this.extractMaterial(material)
+          } else if (material instanceof IfcMaterialProfileSet) {
+            styledItemID = this.extractMaterial(material)
+          } else if (material instanceof IfcMaterialConstituent) {
+            styledItemID = this.extractMaterial(material)
+          } else if (material instanceof IfcMaterialConstituentSet) {
+            styledItemID = this.extractMaterial(material)
+          }
+          else {
+            console.log(`Material type not supported - type: ${EntityTypesIfc[material.type]}`)
           }
         }
       }
     }
 
     return styledItemID
+  }
+
+  populateStyledItemsMap() {
+    const styledItems = this.model.types(IfcStyledItem)
+
+    for (const styledItem of styledItems) {
+
+      if (styledItem.Item !== null) {
+        this.materials.styledItemMap.set(styledItem.Item.localID, styledItem.localID)
+      }
+    }
+  }
+
+  /**
+   * 
+   */
+  populateRelMaterialsMap() {
+
+  }
+
+  /**
+   * 
+   */
+  populateMaterialDefinitionsMap() {
+    //populate MaterialDefinitionsMap
+    const materialDefinitionRepresentations = this.model.types(IfcMaterialDefinitionRepresentation)
+
+    for (const materialDefinitionRep of materialDefinitionRepresentations) {
+
+      for (const representation of materialDefinitionRep.Representations) {
+        for (let itemIndex = 0; itemIndex < representation.Items.length; ++itemIndex) {
+          //save mapping of IfcMaterial --> IfcStyledItem 
+          this.materials.materialDefinitionsMap.set(materialDefinitionRep.RepresentedMaterial.localID, representation.Items[itemIndex].localID)
+        }
+      }
+    }
+  }
+
+  /**
+   * 
+   */
+  populateRelVoidsMap() {
+    //populate relvoids map 
+    const relVoids = this.model.types(IfcRelVoidsElement)
+    for (const relVoid of relVoids) {
+      //map product --> relvoids opening element 
+      this.productToVoidGeometryMap.set(relVoid.RelatingBuildingElement.localID, relVoid.RelatedOpeningElement.localID)
+    }
   }
 
   /**
@@ -2502,6 +2605,7 @@ export class IfcGeometryExtraction {
       for (const relatedObject of relAssociateMaterial.RelatedObjects) {
         const product = relatedObject
 
+
         if (product instanceof IfcProduct) {
           if (product instanceof IfcOpeningElement ||
             product instanceof IfcSpace ||
@@ -2518,24 +2622,13 @@ export class IfcGeometryExtraction {
     }
 
     //populate MaterialDefinitionsMap
-    const materialDefinitionRepresentations = this.model.types(IfcMaterialDefinitionRepresentation)
-
-    for (const materialDefinitionRep of materialDefinitionRepresentations) {
-
-      for (const representation of materialDefinitionRep.Representations) {
-        for (let itemIndex = 0; itemIndex < representation.Items.length; ++itemIndex) {
-          //save mapping of IfcMaterial --> IfcStyledItem 
-          this.materials.materialDefinitionsMap.set(materialDefinitionRep.RepresentedMaterial.localID, representation.Items[itemIndex].localID)
-        }
-      }
-    }
+    this.populateMaterialDefinitionsMap()
 
     //populate relvoids map 
-    const relVoids = this.model.types(IfcRelVoidsElement)
-    for (const relVoid of relVoids) {
-      //map product --> relvoids opening element 
-      this.productToVoidGeometryMap.set(relVoid.RelatingBuildingElement.localID, relVoid.RelatedOpeningElement.localID)
-    }
+    this.populateRelVoidsMap()
+
+    //populate styled items map 
+    this.populateStyledItemsMap()
 
     const products = this.model.types(IfcProduct)
 
@@ -2560,8 +2653,8 @@ export class IfcGeometryExtraction {
 
       if (representations !== null) {
         //extract styledItem material
-        let styledItemID: number | undefined = this.extractMaterial(product)
-        
+        let styledItemID: number | undefined = this.extractMaterialStyle(product)
+
 
         let hasRelVoid: boolean = false
         let extractRelVoidsResult = this.extractRelVoids(product)
@@ -2601,9 +2694,12 @@ export class IfcGeometryExtraction {
               if (hasRelVoid) {
                 this.applyRelVoidToRepresentation(item, relVoidsMeshVector!, flattenedGeometry, relVoidLocalID!, geometryCount)
               }
-
-              if (reusableStyleID !== void 0) {
-                this.materials.addGeometryMapping(reusableStyleID, item.localID)
+              const styledItemLocalID_ = this.materials.styledItemMap.get(item.localID)
+              if (styledItemLocalID_ !== undefined) {
+                const styledItem_ = this.model.getElementByLocalID(styledItemLocalID_) as IfcStyledItem
+                this.extractStyledItem(styledItem_)
+              } else if (reusableStyleID !== void 0) {
+                this.materials.addGeometryMapping(item.localID, reusableStyleID)
               } else {
                 if (styledItem instanceof IfcStyledItem) {
                   //here we have the styled item, apply it to all geometry in this IfcProduct
@@ -2626,20 +2722,18 @@ export class IfcGeometryExtraction {
             for (const item of representation.Items) {
               this.extractRepresentationItem(item, hasRelVoid)
 
+              const styledItemLocalID_ = this.materials.styledItemMap.get(item.localID)
+              if (styledItemLocalID_ !== undefined) {
+                const styledItem_ = this.model.getElementByLocalID(styledItemLocalID_) as IfcStyledItem
+                this.extractStyledItem(styledItem_)
+              }
+
               if (hasRelVoid) {
                 this.applyRelVoidToRepresentation(item, relVoidsMeshVector!, flattenedGeometry, relVoidLocalID!, geometryCount)
               }
             }
           }
         }
-      }
-
-      //handle the direct references here 
-      const styledItems = this.model.types(IfcStyledItem)
-
-      for (const styledItem of styledItems) {
-
-        this.extractStyledItem(styledItem)
       }
     }
 
