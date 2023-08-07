@@ -140,7 +140,7 @@ type NativeVectorBound3D = StdVector<Bound3DObject>
 type WasmModule = any
 
 /**
- *
+ * Enum presenting the extraction results.
  */
 /* eslint-disable no-shadow, no-unused-vars, no-magic-numbers */
 // -- eslint doesn't understand enums properly.
@@ -247,6 +247,7 @@ export class IfcGeometryExtraction {
   private readonly productToVoidGeometryMap: Map<number, number>
 
   /**
+   * Construct a geometry extraction from an IFC step model and conway model
    *
    * @param conwayModel
    * @param model
@@ -530,7 +531,7 @@ export class IfcGeometryExtraction {
    *
    * @return {boolean} indicating if the wasm module has been initialized
    */
-  isInitialized(): Boolean {
+  isInitialized(): boolean {
     if (this.conwayModel !== void 0) {
       return this.conwayModel.initialized
     }
@@ -1897,7 +1898,7 @@ export class IfcGeometryExtraction {
    *
    * @param from The mapped item to extract.
    */
-  extractMappedItem(from: IfcMappedItem) {
+  extractMappedItem(from: IfcMappedItem, owningElementLocalID?: number) {
 
     const representationMap = from.MappingSource
     const mappingTarget = from.MappingTarget
@@ -1919,7 +1920,7 @@ export class IfcGeometryExtraction {
 
     for (const representationItem of representationMap.MappedRepresentation.Items) {
 
-      this.extractRepresentationItem(representationItem)
+      this.extractRepresentationItem(representationItem, owningElementLocalID)
 
       const styledItemLocalID_ = this.materials.styledItemMap.get(representationItem.localID)
       if (styledItemLocalID_ !== undefined) {
@@ -1944,7 +1945,8 @@ export class IfcGeometryExtraction {
    *
    * @param from The representation to extract from.
    */
-  extractRepresentationItem(from: IfcRepresentationItem, isRelVoid: boolean = false) {
+
+  extractRepresentationItem(from: IfcRepresentationItem, owningElementLocalID?: number, isRelVoid: boolean = false) {
 
     let foundGeometry
     if (!isRelVoid) {
@@ -1957,9 +1959,8 @@ export class IfcGeometryExtraction {
     if (foundGeometry !== void 0) {
 
       if (!isRelVoid) {
-        this.scene.addGeometry(from.localID)
+        this.scene.addGeometry(from.localID, owningElementLocalID)
       }
-
       return
     }
 
@@ -1980,10 +1981,8 @@ export class IfcGeometryExtraction {
       polygonalFaceStartIndices.delete()
 
       if (!isRelVoid) {
-        this.scene.addGeometry(from.localID)
+        this.scene.addGeometry(from.localID, owningElementLocalID)
       }
-
-
     } else if (from instanceof IfcBooleanResult) {
       //also handles IfcBooleanClippingResult
       this.extractBooleanResult(from, isRelVoid)
@@ -2000,14 +1999,11 @@ export class IfcGeometryExtraction {
       if (!isRelVoid) {
         this.scene.addGeometry(from.localID)
       }
-
     } else if (from instanceof IfcHalfSpaceSolid) {
       this.extractHalfspaceSolid(from, false, isRelVoid)
       if (!isRelVoid) {
-        this.scene.addGeometry(from.localID)
+        this.scene.addGeometry(from.localID, owningElementLocalID)
       }
-
-
     } else if (from instanceof IfcMappedItem) {
 
       this.extractMappedItem(from)
@@ -2028,7 +2024,6 @@ export class IfcGeometryExtraction {
     else {
       ////console.log(`Unsupported type: ${EntityTypesIfc[from.type]} expressID: ${from.expressID}`)
     }
-
   }
 
   /**
@@ -2410,7 +2405,7 @@ export class IfcGeometryExtraction {
             }
             for (const item of representation.Items) {
               //extract geometry here and flatten 
-              this.extractRepresentationItem(item, true)
+              this.extractRepresentationItem(item, undefined, true)
 
               const mesh = this.model.voidGeometry.getByLocalID(item.localID)
               if (mesh !== undefined && mesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
@@ -2584,6 +2579,7 @@ export class IfcGeometryExtraction {
   }
 
   /**
+   * Extract the geometry data from the IFC
    *
    * @param model - Input IfcStepModel to extract geometry data from
    * @param logTime boolean - print execution time (default no)
@@ -2658,7 +2654,6 @@ export class IfcGeometryExtraction {
 
         let hasRelVoid: boolean = false
         let extractRelVoidsResult = this.extractRelVoids(product)
-
         let relVoidsMeshVector: NativeVectorGeometry | undefined
         let relVoidLocalID: number | undefined
 
@@ -2689,7 +2684,7 @@ export class IfcGeometryExtraction {
             }
             for (const item of representation.Items) {
 
-              this.extractRepresentationItem(item, hasRelVoid)
+              this.extractRepresentationItem(item, product.localID, hasRelVoid)
 
               if (hasRelVoid) {
                 this.applyRelVoidToRepresentation(item, relVoidsMeshVector!, flattenedGeometry, relVoidLocalID!, geometryCount)
@@ -2720,7 +2715,7 @@ export class IfcGeometryExtraction {
               }
             }
             for (const item of representation.Items) {
-              this.extractRepresentationItem(item, hasRelVoid)
+              this.extractRepresentationItem(item, product.localID, hasRelVoid)
 
               const styledItemLocalID_ = this.materials.styledItemMap.get(item.localID)
               if (styledItemLocalID_ !== undefined) {
@@ -2741,6 +2736,7 @@ export class IfcGeometryExtraction {
 
     const endTime = Date.now()
     const executionTimeInMs = endTime - startTime
+
     if (logTime) {
       console.log(`Geometry Extraction took ${executionTimeInMs} milliseconds to execute.`)
     }

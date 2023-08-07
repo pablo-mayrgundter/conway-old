@@ -43,6 +43,8 @@ export interface SceneNodeGeometry extends SceneNodeModelBase {
     readonly type: SceneNodeModelType.GEOMETRY
 
     readonly model: Model
+
+    readonly relatedElementLocalId?: number
 }
 
 export interface SceneNodeUrl extends SceneNodeModelBase {
