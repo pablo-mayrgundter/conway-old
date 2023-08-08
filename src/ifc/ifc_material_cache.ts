@@ -11,9 +11,9 @@ export class IfcMaterialCache {
   private readonly assignments_ =
     new Map< number, number >()
 
-   readonly relMaterialsMap = new Map<number, number>()
-   readonly materialDefinitionsMap = new Map<number, number>()
-   readonly styledItemMap = new Map<number, number>()
+  readonly relMaterialsMap = new Map<number, number>()
+  readonly materialDefinitionsMap = new Map<number, number>()
+  readonly styledItemMap = new Map<number, number>()
 
   /**
    * If there is a material for a whole element, this is used to

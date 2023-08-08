@@ -9,11 +9,8 @@ import StepEntityBase from '../step/step_entity_base'
 import IfcStepModel from './ifc_step_model'
 import { ExtractResult, IfcGeometryExtraction } from './ifc_geometry_extraction'
 import { IfcPropertyExtraction } from './ifc_property_extraction'
-import {
-  BlendMode,
-  ConwayGeometry,
-  GeometryObject,
-} from '../../dependencies/conway-geom/conway_geometry'
+import { ConwayGeometry, GeometryObject}
+  from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMeshType } from '../core/canonical_mesh'
 import { CanonicalMaterial } from '../core/canonical_material'
 
@@ -22,180 +19,180 @@ const SKIP_PARAMS = 2
 
 const args = // eslint-disable-line no-unused-vars
   yargs(process.argv.slice(SKIP_PARAMS))
-    .command('$0 <filename>', 'Query file', (yargs2) => {
-      yargs2.option('express_ids', {
-        describe: 'A list of express IDs',
-        type: 'number',
-        array: true,
-        alias: 'e',
-      })
-      yargs2.option('types', {
-        describe: 'A list of express IDs',
-        type: 'string',
-        array: true, alias: 't',
-      })
-      yargs2.option('fields', {
-        describe: 'A list of fields to extract',
-        type: 'string',
-        array: true,
-        alias: 'f',
-      })
-      yargs2.option('geometry', {
-        describe: 'Output Geometry in OBJ + GLTF + GLB formats',
-        type: 'boolean',
-        alias: 'g',
-      })
-      yargs2.option('properties', {
-        describe: 'Output PropertySets',
-        type: 'boolean',
-        alias: 'p',
-      })
+      .command('$0 <filename>', 'Query file', (yargs2) => {
+        yargs2.option('express_ids', {
+          describe: 'A list of express IDs',
+          type: 'number',
+          array: true,
+          alias: 'e',
+        })
+        yargs2.option('types', {
+          describe: 'A list of express IDs',
+          type: 'string',
+          array: true, alias: 't',
+        })
+        yargs2.option('fields', {
+          describe: 'A list of fields to extract',
+          type: 'string',
+          array: true,
+          alias: 'f',
+        })
+        yargs2.option('geometry', {
+          describe: 'Output Geometry in OBJ + GLTF + GLB formats',
+          type: 'boolean',
+          alias: 'g',
+        })
+        yargs2.option('properties', {
+          describe: 'Output PropertySets',
+          type: 'boolean',
+          alias: 'p',
+        })
 
-      yargs2.positional('filename', { describe: 'IFC File Paths', type: 'string' })
-    }, (argv) => {
-      const ifcFile = argv['filename'] as string
+        yargs2.positional('filename', { describe: 'IFC File Paths', type: 'string' })
+      }, (argv) => {
+        const ifcFile = argv['filename'] as string
 
-      let indexIfcBuffer: Buffer | undefined
+        let indexIfcBuffer: Buffer | undefined
 
-      const expressIDs = (argv['express_ids'] as number[] | undefined)
-      const types = (argv['types'] as string[] | undefined)?.map((value) => {
-        return EntityTypesIfc[value.toLocaleUpperCase() as keyof typeof EntityTypesIfc]
-      }).filter((value) => value !== void 0)
-      const fields = (argv['fields'] as string[] | undefined) ??
+        const expressIDs = (argv['express_ids'] as number[] | undefined)
+        const types = (argv['types'] as string[] | undefined)?.map((value) => {
+          return EntityTypesIfc[value.toLocaleUpperCase() as keyof typeof EntityTypesIfc]
+        }).filter((value) => value !== void 0)
+        const fields = (argv['fields'] as string[] | undefined) ??
         ['expressID', 'type', 'localID']
-      const geometry = (argv['geometry'] as boolean | undefined)
+        const geometry = (argv['geometry'] as boolean | undefined)
 
-      const outputProperties = (argv['properties'] as boolean | undefined)
+        const outputProperties = (argv['properties'] as boolean | undefined)
 
-      try {
-        indexIfcBuffer = fs.readFileSync(ifcFile)
-      } catch (ex) {
-        console.log(
-          'Error: couldn\'t read file, check that it is accessible at the specified path.')
-        exit()
-      }
+        try {
+          indexIfcBuffer = fs.readFileSync(ifcFile)
+        } catch (ex) {
+          console.log(
+              'Error: couldn\'t read file, check that it is accessible at the specified path.')
+          exit()
+        }
 
-      if (indexIfcBuffer === void 0) {
-        console.log(
-          'Error: couldn\'t read file, check that it is accessible at the specified path.')
-        exit()
-      }
+        if (indexIfcBuffer === void 0) {
+          console.log(
+              'Error: couldn\'t read file, check that it is accessible at the specified path.')
+          exit()
+        }
 
-      const parser = IfcStepParser.Instance
-      const bufferInput = new ParsingBuffer(indexIfcBuffer)
+        const parser = IfcStepParser.Instance
+        const bufferInput = new ParsingBuffer(indexIfcBuffer)
 
-      const headerDataTimeStart = Date.now()
+        const headerDataTimeStart = Date.now()
 
-      const result0 = parser.parseHeader(bufferInput)[1]
+        const result0 = parser.parseHeader(bufferInput)[1]
 
-      const headerDataTimeEnd = Date.now()
+        const headerDataTimeEnd = Date.now()
 
-      switch (result0) {
-        case ParseResult.COMPLETE:
+        switch (result0) {
+          case ParseResult.COMPLETE:
 
-          break
+            break
 
-        case ParseResult.INCOMPLETE:
+          case ParseResult.INCOMPLETE:
 
-          console.log('Parse incomplete but no errors')
-          break
+            console.log('Parse incomplete but no errors')
+            break
 
-        case ParseResult.INVALID_STEP:
+          case ParseResult.INVALID_STEP:
 
-          console.log('Error: Invalid STEP detected in parse, but no syntax error detected')
-          break
+            console.log('Error: Invalid STEP detected in parse, but no syntax error detected')
+            break
 
-        case ParseResult.MISSING_TYPE:
+          case ParseResult.MISSING_TYPE:
 
-          console.log('Error: missing STEP type, but no syntax error detected')
-          break
+            console.log('Error: missing STEP type, but no syntax error detected')
+            break
 
-        case ParseResult.SYNTAX_ERROR:
+          case ParseResult.SYNTAX_ERROR:
 
-          console.log(`Error: Syntax error detected on line ${bufferInput.lineCount}`)
-          break
+            console.log(`Error: Syntax error detected on line ${bufferInput.lineCount}`)
+            break
 
-        default:
-      }
+          default:
+        }
 
-      const parseDataTimeStart = Date.now()
-      const model = parser.parseDataToModel(bufferInput)[1]
-      const parseDataTimeEnd = Date.now()
+        const parseDataTimeStart = Date.now()
+        const model = parser.parseDataToModel(bufferInput)[1]
+        const parseDataTimeEnd = Date.now()
 
-      if (model === void 0) {
-        return
-      }
+        if (model === void 0) {
+          return
+        }
 
-      if (geometry) {
+        if (geometry) {
         // Get the filename with extension
-        const fileNameWithExtension = ifcFile.split('/').pop()!
-        // Get the filename without extension
-        const fileName = fileNameWithExtension.split('.')[0]
-        geometryExtraction(model, fileName)
-      } else {
+          const fileNameWithExtension = ifcFile.split('/').pop()!
+          // Get the filename without extension
+          const fileName = fileNameWithExtension.split('.')[0]
+          geometryExtraction(model, fileName)
+        } else {
 
-        console.log('\n')
+          console.log('\n')
 
-        console.log(fields.reduce((previous, current, currentIndex) => {
-          return `${previous}${(currentIndex === 0) ? '|' : ''}${current}|`
-        }, ''))
+          console.log(fields.reduce((previous, current, currentIndex) => {
+            return `${previous}${(currentIndex === 0) ? '|' : ''}${current}|`
+          }, ''))
 
-        console.log(fields.reduce((previous, current, currentIndex) => {
-          return `${previous}${(currentIndex === 0) ? '|' : ''}---|`
-        }, ''))
+          console.log(fields.reduce((previous, current, currentIndex) => {
+            return `${previous}${(currentIndex === 0) ? '|' : ''}---|`
+          }, ''))
 
-        let rowCount = 0
+          let rowCount = 0
 
-        const elements =
+          const elements =
           (expressIDs?.map((value) => model?.getElementByExpressID(value))?.filter(
-            (value) => value !== void 0 && (types === void 0 ||
+              (value) => value !== void 0 && (types === void 0 ||
               types.includes(value.type))) ??
             (types !== void 0 ? model.typeIDs(...types) : void 0) ??
             model) as StepEntityBase<EntityTypesIfc>[] |
           IterableIterator<StepEntityBase<EntityTypesIfc>>
 
-        for (const element of elements) {
-          const elementTypeID = EntityTypesIfc[element.type]
+          for (const element of elements) {
+            const elementTypeID = EntityTypesIfc[element.type]
 
-          console.log(
-            fields.reduce((previous, current, currentIndex) => {
-              let result
+            console.log(
+                fields.reduce((previous, current, currentIndex) => {
+                  let result
 
-              try {
-                if (current === 'type') {
-                  result = elementTypeID
-                } else {
-                  result = ((element as { [key: string]: any })[current])
+                  try {
+                    if (current === 'type') {
+                      result = elementTypeID
+                    } else {
+                      result = ((element as { [key: string]: any })[current])
 
-                  if (result === null) {
-                    result = 'null'
-                  } else if (result === void 0) {
-                    result = '   '
-                  } else if (current === 'expressID') {
-                    result = `#${result}`
+                      if (result === null) {
+                        result = 'null'
+                      } else if (result === void 0) {
+                        result = '   '
+                      } else if (current === 'expressID') {
+                        result = `#${result}`
+                      }
+                    }
+                  } catch (ex) {
+                    result = 'err'
                   }
-                }
-              } catch (ex) {
-                result = 'err'
-              }
 
-              return `${previous}${(currentIndex === 0) ? '|' : ''}${result}|`
-            }, ''))
+                  return `${previous}${(currentIndex === 0) ? '|' : ''}${result}|`
+                }, ''))
 
-          ++rowCount
+            ++rowCount
+          }
+
+          console.log('\n')
+          console.log(`Row Count: ${rowCount}`)
+          console.log(`Header parse time ${headerDataTimeEnd - headerDataTimeStart} ms`)
+          console.log(`Data parse time ${parseDataTimeEnd - parseDataTimeStart} ms`)
         }
 
-        console.log('\n')
-        console.log(`Row Count: ${rowCount}`)
-        console.log(`Header parse time ${headerDataTimeEnd - headerDataTimeStart} ms`)
-        console.log(`Data parse time ${parseDataTimeEnd - parseDataTimeStart} ms`)
-      }
-
-      if (outputProperties) {
-        propertyExtraction(model)
-      }
-    })
-    .help().argv
+        if (outputProperties) {
+          propertyExtraction(model)
+        }
+      })
+      .help().argv
 
 /**
  * Function to extract PropertySets from an IfcStepModel
@@ -240,11 +237,6 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
       clonedGeometry.applyTransform(nativeTransform)
 
       const fullGeometry = materialGeometry.get(material)
-
-      /*if (material === undefined) {
-        console.log(`material undefined for geometry expressID: ${model.getElementByLocalID(geometry.localID)?.expressID}`)
-      }*/
-
       if (fullGeometry === void 0) {
         materialGeometry.set(material, clonedGeometry)
       } else {
@@ -359,11 +351,11 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
   const startTimeGltf = Date.now()
   const gltfResult =
     conwayModel.toGltf(
-      geometryVector,
-      materialVector,
-      false,
-      false,
-      `${fileNameNoExtension}`)
+        geometryVector,
+        materialVector,
+        false,
+        false,
+        `${fileNameNoExtension}`)
   const endTimeGltf = Date.now()
   const executionTimeInMsGltf = endTimeGltf - startTimeGltf
 
@@ -380,7 +372,7 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
       // Create a memory view from the native vector
       const managedBuffer: Uint8Array =
         conwayModel.getWasmModule().
-          getUint8Array(gltfResult.buffers.get(uriIndex))
+            getUint8Array(gltfResult.buffers.get(uriIndex))
 
       try {
         fs.writeFileSync(uri, managedBuffer)
@@ -394,11 +386,11 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
   const startTimeGltfDraco = Date.now()
   const gltfResultDraco =
     conwayModel.toGltf(
-      geometryVector,
-      materialVector,
-      false,
-      true,
-      `${fileNameNoExtension}_draco`)
+        geometryVector,
+        materialVector,
+        false,
+        true,
+        `${fileNameNoExtension}_draco`)
   const endTimeGltfDraco = Date.now()
   const executionTimeInMsGltfDraco = endTimeGltfDraco - startTimeGltfDraco
 
@@ -415,7 +407,7 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
       // Create a memory view from the native vector
       const managedBuffer: Uint8Array =
         conwayModel.getWasmModule().
-          getUint8Array(gltfResultDraco.buffers.get(uriIndex))
+            getUint8Array(gltfResultDraco.buffers.get(uriIndex))
 
       try {
         fs.writeFileSync(uri, managedBuffer)
