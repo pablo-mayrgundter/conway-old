@@ -19,6 +19,7 @@ export interface CanonicalMeshBase {
      * This is true if this is not final geometry, some geometry is only kept for intermediate
      * calculation purposes, and is removed, if it is not final.
      */
+    // todo, change back to readonly
     readonly temporary?: boolean
 }
 

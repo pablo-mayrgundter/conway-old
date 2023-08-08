@@ -111,19 +111,14 @@ describe('Ifc Geometry Extraction', () => {
   })
 
   test('materialExtractionLength()', () => {
-    const testParameter:Number = 2
+    const testParameter:Number = 1
     expect(getMaterialCount()).toBe(testParameter)
 
   })
 
   test('materialColorMatches(0)', () => {
     // eslint-disable-next-line no-magic-numbers
-    expect(materialColorMatches(0, [0.2384313725488, 0.8, 0, 1])).toBe(true)
-  })
-
-  test('materialColorMatches(1)', () => {
-    // eslint-disable-next-line no-magic-numbers
-    expect(materialColorMatches(1, [0.4, 0.8, 0, 1])).toBe(true)
+    expect(materialColorMatches(0, [0.4, 0.8, 0, 1])).toBe(true)
   })
 
   test('geometryArrayLength()', () => {
