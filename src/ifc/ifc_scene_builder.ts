@@ -167,6 +167,7 @@ export class IfcSceneBuilder implements Scene {
     const materials: CanonicalMaterial[]     = []
     const primitives: GeometryObject[]       = []
     const triangleMaps: TriangleElementMap[] = []
+    const elementMap                         = new Map< number, number >()
 
     // eslint-disable-next-line no-unused-vars
     for (const [_, nativeTransform, geometry, material, entity] of this.walk()) {
@@ -190,13 +191,21 @@ export class IfcSceneBuilder implements Scene {
             clonedGeometry.hasDefaultMaterial = true
           }
 
+          const entityLocalId = entity?.localID
+
           triangleMap.addMappingRange(
               0,
               // eslint-disable-next-line no-magic-numbers
               Math.trunc( clonedGeometry.getIndexDataSize() / 3 ),
-              entity?.localID ?? TriangleElementMap.NO_ELEMENT )
+              entityLocalId ?? TriangleElementMap.NO_ELEMENT )
 
-          materialMap.set( material, primitives.length )
+          const newPrimitiveIndex = primitives.length
+
+          if ( entityLocalId !== void 0 ) {
+            elementMap.set( entityLocalId, newPrimitiveIndex )
+          }
+
+          materialMap.set( material, newPrimitiveIndex )
 
           primitives.push(clonedGeometry)
           triangleMaps.push(triangleMap)
@@ -206,23 +215,29 @@ export class IfcSceneBuilder implements Scene {
           const fullGeometry = primitives[ primitiveIndex ]
           const triangleMap  = triangleMaps[ primitiveIndex ]
 
+          const entityLocalId = entity?.localID
+
           triangleMap.addMappingRange(
               triangleMap.size,
               // eslint-disable-next-line no-magic-numbers
               triangleMap.size + Math.trunc( clonedGeometry.getIndexDataSize() / 3 ),
-              entity?.localID ?? TriangleElementMap.NO_ELEMENT )
+              entityLocalId ?? TriangleElementMap.NO_ELEMENT )
+
+          if ( entityLocalId !== void 0 ) {
+            elementMap.set( entityLocalId, primitiveIndex )
+          }
 
           fullGeometry.appendGeometry(clonedGeometry)
         }
       }
     }
 
-    return {
-      materials: materials,
-      primitives: primitives,
-      triangleElementMaps: triangleMaps,
-      model: this.model,
-    }
+    return new PackedMesh< IfcStepModel >(
+        this.model,
+        materials,
+        primitives,
+        triangleMaps,
+        elementMap)
   }
 
   /**

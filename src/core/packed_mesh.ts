@@ -1,25 +1,79 @@
 import { GeometryObject } from '../../dependencies/conway-geom/conway_geometry'
+import { extractOneHotLow } from '../indexing/bit_operations'
 import { CanonicalMaterial } from './canonical_material'
+import { IIndexSetCursor } from './i_index_set_cursor'
 import { Model } from './model'
+import { ReadonlyUint32Array } from './readonly_typed_array'
 import { TriangleElementMap } from './triangle_element_map'
 
 
-export interface PackedMesh< ModelType extends Model > {
-
-  model: ModelType
-
-  /**
-   * Materials for this packed mesh, accessed by primitives.
-   */
-  materials: ReadonlyArray< CanonicalMaterial >
-
-  /**
-   * The mesh primitives for this mesh.
-   */
-  primitives: ReadonlyArray< GeometryObject >
+/**
+ * A packed mesh that has all the materials, primitives and
+ * the mapping back to model elements.
+ *
+ * This can be considered the reified version of CanonicalGeometry.
+ */
+export class PackedMesh< ModelType extends Model > {
 
   /**
-   * Triangle element maps (one per mesh primitive)
+   * Construct a packed mesh.
+   *
+   * @param model The model this mesh came from.
+   * @param materials The materials array for the packed mesh (referenced
+   * by index by primitives)
+   * @param primitives The primitives for this mesh (the mesh fragments
+   * by material)
+   * @param triangleElementMaps Triangle element maps (one per primitive,
+   * in the same order, to map elements to primitives)
+   * @param elementPrimitiveIndex Element primitive index, maps
+   * element local ids to the correct primitive.
    */
-  readonly triangleElementMaps: ReadonlyArray< TriangleElementMap >
+  // eslint-disable-next-line no-useless-constructor, require-jsdoc
+  constructor(
+    public readonly model: ModelType,
+    public readonly materials: ReadonlyArray< CanonicalMaterial >,
+    public readonly primitives: ReadonlyArray< GeometryObject >,
+    public readonly triangleElementMaps: ReadonlyArray< TriangleElementMap >,
+    // eslint-disable-next-line no-empty-function
+    public readonly elementPrimitiveIndex: ReadonlyMap< number, number > ) {}
+
+  /**
+   * Get triangles from a cursor.
+   *
+   * @param cursor The cursor to extract triangles for
+   * @yields {[number, number, ReadonlyUint32Array]} Returns a tuple containing
+   * the local ID of the element, the primitive index, and the triangles.
+   */
+  public* triangles( cursor: IIndexSetCursor ):
+    IterableIterator< [number, number, ReadonlyUint32Array] > {
+
+    const localElementPrimitiveIndex = this.elementPrimitiveIndex
+
+    while (cursor.step()) {
+      const high = cursor.high
+      let low = cursor.low
+
+      while (low !== 0) {
+        const lowestOneHot = extractOneHotLow(low)
+
+        low ^= (1 << lowestOneHot)
+
+        const localID = (high | lowestOneHot)
+        const primitiveIndex = localElementPrimitiveIndex.get( localID )
+
+        if ( primitiveIndex === void 0 ) {
+          continue
+        }
+
+        const inverseMap = this.triangleElementMaps[ primitiveIndex ].inverseMap
+        const foundTriangles = inverseMap.get( localID )
+
+        if (foundTriangles === void 0) {
+          continue
+        }
+
+        yield [localID, primitiveIndex, foundTriangles]
+      }
+    }
+  }
 }
