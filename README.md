@@ -63,7 +63,7 @@ Use an incremental or full build to compile this file from typescript and then i
 
 The included index.ifc in the repo is recommended for testing.
 
-### Profiling WASM Builds in Node
+## Profiling WASM Builds in Node
 Profiling Conway, including building a Conway-Geom WASM binary with DWARF information and generating a flame graph with WASM symbols, is possible via the following steps:
 1. Run *build-profile-conway_geom* from Conway's package.json 
 2. Profile your app: 
