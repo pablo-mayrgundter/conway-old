@@ -9,10 +9,8 @@ import StepEntityBase from '../step/step_entity_base'
 import IfcStepModel from './ifc_step_model'
 import { ExtractResult, IfcGeometryExtraction } from './ifc_geometry_extraction'
 import { IfcPropertyExtraction } from './ifc_property_extraction'
-import {
-  ConwayGeometry,
-  GeometryObject,
-} from '../../dependencies/conway-geom/conway_geometry'
+import { ConwayGeometry, GeometryObject}
+  from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMeshType } from '../core/canonical_mesh'
 import { CanonicalMaterial } from '../core/canonical_material'
 
@@ -228,23 +226,19 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
   }
 
   // we can assign the first GeometryObject to another variable here to combine them all.
-  // TODO(nickcastel50): rework this
-
-  const materialGeometry = new Map< CanonicalMaterial | undefined, GeometryObject >()
+  const materialGeometry = new Map<CanonicalMaterial | undefined, GeometryObject>()
 
   // eslint-disable-next-line no-unused-vars
   for (const [_, nativeTransform, geometry, material] of scene.walk()) {
-    if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY) {
+    if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY && !geometry.temporary) {
 
       const clonedGeometry = geometry.geometry.clone()
 
       clonedGeometry.applyTransform(nativeTransform)
 
-      const fullGeometry = materialGeometry.get( material )
-
+      const fullGeometry = materialGeometry.get(material)
       if (fullGeometry === void 0) {
-
-        materialGeometry.set( material, clonedGeometry )
+        materialGeometry.set(material, clonedGeometry)
       } else {
         fullGeometry.appendGeometry(clonedGeometry)
       }
@@ -276,18 +270,18 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
   const geometryVector = conwayModel.nativeVectorGeometry()
   const materialVector = conwayModel.nativeVectorMaterial()
 
-  for ( const [material, geometry] of materialGeometry) {
+  for (const [material, geometry] of materialGeometry) {
 
-    if ( material !== void 0 ) {
+    if (material !== void 0) {
       geometry.materialIndex = materialVector.size()
       geometry.hasDefaultMaterial = false
 
       const nativeMaterial = conwayModel.nativeMaterial(material)
 
-      materialVector.push_back( nativeMaterial )
+      materialVector.push_back(nativeMaterial)
     }
 
-    geometryVector.push_back( geometry )
+    geometryVector.push_back(geometry)
   }
 
   const startTimeGlb = Date.now()

@@ -17,6 +17,7 @@ export default class IfcStepModel extends StepModelBase< EntityTypesIfc > {
   public readonly typeIndex: MultiIndexSet< EntityTypesIfc >
 
   public readonly geometry = new IfcModelGeometry()
+  public readonly voidGeometry = new IfcModelGeometry()
   public readonly profiles = new IfcModelProfile()
 
   /**

@@ -1,5 +1,5 @@
 
-import {IfcSurface} from './ifc4_gen'
+import {IfcBSplineCurve, IfcCompositeCurve, IfcConic, IfcIndexedPolyCurve, IfcLine, IfcOffsetCurve2D, IfcOffsetCurve3D, IfcPolyline, IfcSurface, IfcTrimmedCurve} from './ifc4_gen'
 // import {IfcPcurve} from "../../gen/ifc/IfcPcurve.bldrs"
 import {IfcDirection} from './ifc4_gen'
 // import {IfcArcIndex} from "../../gen/ifc/IfcArcIndex.bldrs"
@@ -153,7 +153,48 @@ export function IfcCrossProduct(arg1: IfcDirection, arg2: IfcDirection) : IfcVec
  *
  */
 export function IfcCurveDim(curve: IfcCurve) : number {
-  throw 'This function is not yet implemented.'
+  if (curve instanceof IfcLine) {
+    return curve.Pnt.Dim
+  } 
+  if (curve instanceof IfcConic ) {
+    return curve.Position.Dim
+  }
+  if (curve instanceof IfcPolyline ) {
+    return curve.Points[0].Dim
+  }
+  if (curve instanceof IfcTrimmedCurve) {
+    return IfcCurveDim(curve.BasisCurve)
+  }
+  if (curve instanceof IfcCompositeCurve) {
+    return curve.Segments[0].Dim
+  }
+  if (curve instanceof IfcBSplineCurve) {
+    return curve.ControlPointsList[0].Dim
+  }
+  if (curve instanceof IfcOffsetCurve2D) {
+    return 2
+  }
+  if (curve instanceof IfcOffsetCurve3D) {
+    return 3
+  }
+  //NOTE: these seem to be from a newer schema version
+  /*if (curve instanceof IfcOffsetCurveByDistances) {
+
+  }
+  if (curve instanceof IfcCurveSegment2D) {
+
+  }
+  if (curve instanceof IfcAlignmentCurve) {
+
+  }*/
+  if (curve instanceof IfcPcurve) {
+    return 3
+  }
+  if (curve instanceof IfcIndexedPolyCurve) {
+    return curve.Points.Dim
+  }
+
+  return 0
 }
 
 // export function IfcCurveWeightsPositive(b: IfcRationalBSplineCurveWithKnots) : boolean {
