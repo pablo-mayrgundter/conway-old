@@ -377,7 +377,8 @@ export default class DynamicSingleIndexSet {
 
         // This case will require a splitting insert.
         if ( nodeSize === NODE_SIZE ) {
-          splitStack[ stackDepth++ ] = probeAddress
+          splitStack[ stackDepth++ ] =
+            Math.min( probeAddress, currentAddress + NODE_ELEMENT_SIZE - ELEMENT_SIZE )
           break
         }
 
@@ -419,7 +420,7 @@ export default class DynamicSingleIndexSet {
       const currentNodeSize = this.data_[ nodeAddress ] & MASK_BOTTOMBITS
 
       // Proactively split full nodes.
-      if ( currentNodeSize === NODE_ELEMENT_SIZE ) {
+      if ( currentNodeSize === NODE_SIZE ) {
 
         if ( stackIndex === 0 ) {
 
@@ -431,6 +432,9 @@ export default class DynamicSingleIndexSet {
 
           currentStack             = this.splitChild( newRootNodeAddress, newKey )
           splitStack[ stackIndex ] = currentStack
+
+          this.rootNode_ = newRootNode
+          ++this.depth_
 
         } else {
 
@@ -471,8 +475,8 @@ export default class DynamicSingleIndexSet {
     const address          = this.findOrInsertKey( topBits )
     const bottomBitsOneHot = 1 << ( denseIndex & MASK_BOTTOMBITS )
 
-    const currentValue = this.data_[ address ]
-    const newValue     = currentValue | bottomBitsOneHot
+    const currentValue = this.data_[ address ] >>> 0
+    const newValue     = currentValue | ( bottomBitsOneHot >>> 0 )
 
     if ( newValue === currentValue ) {
       return false
@@ -568,7 +572,6 @@ export default class DynamicSingleIndexSet {
     this.data_     = new Uint32Array( initialDataSize * NODE_ELEMENT_SIZE )
     this.freeList_ = new Uint32Array( initialDataSize )
   }
-  /* eslint-enable no-useless-constructor, no-empty-function */
 
   /**
    * Does the set have a particular index for a particular type.
