@@ -1,9 +1,10 @@
 import {describe, expect, test} from '@jest/globals'
 import seedrandom from 'seedrandom'
 import DynamicSingleIndexSet from './dynamic_single_index_set'
+import { cursorIterator } from './cursor_utilities'
 
 
-const rng = seedrandom( 'dynamic index set tests')
+const rng = seedrandom( 'dynamic index cursor tests')
 
 /**
  * Get a random 32 bit safe unsigned integer (seeded
@@ -33,11 +34,6 @@ function* getRandom32List( count: number ): IterableIterator< number > {
 const testInsertList = Array.from( getRandom32List( 100000 ) )
 
 const filterSetOne = new Set< number >( testInsertList )
-
-const testNotFoundList =
-  Array.from(
-      // eslint-disable-next-line no-magic-numbers
-      getRandom32List( 100000 ) ).filter( (value ) => !filterSetOne.has( value ) )
 
 const filterSetOneIterator = filterSetOne.keys()
 
@@ -74,68 +70,28 @@ const notDeletedList: number[] = []
  *
  * @return {boolean} True if the test passes, false otherwise
  */
-function buildDynamicSetAndTest(): boolean {
-
-  const set = new DynamicSingleIndexSet()
-  const alreadyInserted = new Set< number >()
-
-  for ( const value of testInsertList ) {
-
-    if ( set.insert( value ) ) {
-
-      if ( alreadyInserted.has( value ) ) {
-        console.log( 'inserted duplicate' )
-        return false
-      }
-
-      alreadyInserted.add( value )
-
-    } else if ( !alreadyInserted.has( value ) ) {
-
-      console.log( 'insertion rejected on unseen value')
-      return false
-    }
-  }
-
-  return true
-}
-
-/**
- * Test that builds a dynamic set via inserts and that none
- * of the initial inserts return false, while subsequent
- * inserts of duplicate values do return false.
- *
- * @return {boolean} True if the test passes, false otherwise
- */
-function buildDynamicSetAndTestHas(): boolean {
+function buildDynamicSetCursorTest(): boolean {
 
   const set = new DynamicSingleIndexSet()
 
   for ( const value of filterSetOne ) {
 
-    if ( set.insert( value ) && !set.has( value ) ) {
-
-      console.log( 'has failed immediately after insert')
-      return false
-    }
+    set.insert( value )
   }
 
-  for ( const value of testInsertList ) {
+  const fromCursorArray = Array.from( cursorIterator( set.cursor() ) )
+  const fromCursorSet   = new Set< number >( fromCursorArray )
 
-    if ( !set.has( value ) ) {
+  if ( !fromCursorArray.every( ( x ) => filterSetOne.has( x ) ) ) {
 
-      console.log( 'has failed in subsequent test for inserted value' )
-      return false
-    }
+    console.log( 'cursor had element not in original set' )
+    return false
   }
 
-  for ( const value of testNotFoundList ) {
+  if ( !(Array.from( filterSetOne )).every( ( x ) => fromCursorSet.has( x ) ) ) {
 
-    if ( set.has( value ) ) {
-
-      console.log( 'has value that should not be found' )
-      return false
-    }
+    console.log( 'original set had item not in cursor' )
+    return false
   }
 
   return true
@@ -148,7 +104,36 @@ function buildDynamicSetAndTestHas(): boolean {
  *
  * @return {boolean} True if the test passes, false otherwise
  */
-function buildDynamicSetAndTestDelete(): boolean {
+function buildDynamicSetOrderCursorTest(): boolean {
+
+  const set = new DynamicSingleIndexSet()
+
+  for ( const value of filterSetOne ) {
+
+    set.insert( value )
+  }
+
+  const fromCursorArray = Array.from( cursorIterator( set.cursor() ) )
+  const filterSetArray  = Array.from( filterSetOne ).sort( ( x, y ) => ( x - y ) )
+
+  if ( !fromCursorArray.every( ( x, i ) => filterSetArray[ i ] === x ) ) {
+
+    console.log( 'sort ordered cursor data did not match' )
+    return false
+  }
+
+  return true
+}
+
+
+/**
+ * Test that builds a dynamic set via inserts and that none
+ * of the initial inserts return false, while subsequent
+ * inserts of duplicate values do return false.
+ *
+ * @return {boolean} True if the test passes, false otherwise
+ */
+function buildDynamicSetCursorTestDelete(): boolean {
 
   const set = new DynamicSingleIndexSet()
 
@@ -159,48 +144,38 @@ function buildDynamicSetAndTestDelete(): boolean {
 
   for ( const value of deleteList ) {
 
-    if ( !set.delete( value ) ) {
-
-      console.log( 'delete failed' )
-      return false
-    }
-
-    if ( set.has( value ) ) {
-
-      console.log( 'set still has value immediately after delete')
-      return false
-    }
+    set.delete( value )
   }
 
-  for ( const value of deleteList ) {
+  const fromCursorArray = Array.from( cursorIterator( set.cursor() ) )
+  const filterSetArray  = Array.from( notDeletedList ).sort( ( x, y ) => ( x - y ) )
 
-    if ( set.has( value ) ) {
+  if ( !fromCursorArray.every( ( x, i ) => filterSetArray[ i ] === x ) ) {
 
-      console.log( 'set has value after all deletes' )
-      return false
-    }
+    console.log( 'sort ordered cursor data did not match after deletes' )
+    return false
   }
 
   return true
 }
 
 
-describe( 'Single Index Set Test', () => {
-  test( 'buildAndTestSingleSet()', () => {
+describe( 'Single Index Set Cursor Test', () => {
+  test( 'buildDynamicSetCursorTest()', () => {
 
-    expect( buildDynamicSetAndTest() ).toBe( true )
-
-  } )
-
-  test( 'buildDynamicSetAndTestHas()', () => {
-
-    expect( buildDynamicSetAndTestHas() ).toBe( true )
+    expect( buildDynamicSetCursorTest() ).toBe( true )
 
   } )
 
-  test( 'buildDynamicSetAndTestDelete()', () => {
+  test( 'buildDynamicSetOrderTest()', () => {
 
-    expect( buildDynamicSetAndTestDelete() ).toBe( true )
+    expect( buildDynamicSetOrderCursorTest() ).toBe( true )
+
+  } )
+
+  test( 'buildDynamicSetCursorTestDelete()', () => {
+
+    expect( buildDynamicSetCursorTestDelete() ).toBe( true )
 
   } )
 })

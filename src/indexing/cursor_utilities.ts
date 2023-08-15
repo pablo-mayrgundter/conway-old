@@ -36,7 +36,7 @@ export function* cursorIterator( cursor: IIndexSetCursor ):
 
       low ^= (1 << lowestOneHot) >>> 0
 
-      const localID = (high | lowestOneHot)
+      const localID = (high | lowestOneHot) >>> 0
 
       yield localID
     }
@@ -62,7 +62,7 @@ export function* cursorMap< TResult >(
 
       low ^= (1 << lowestOneHot) >>> 0
 
-      const localID = (high | lowestOneHot)
+      const localID = (high | lowestOneHot) >>> 0
 
       yield func( localID )
     }

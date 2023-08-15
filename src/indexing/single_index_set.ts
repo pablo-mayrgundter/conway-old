@@ -31,6 +31,15 @@ export class SingleIndexSet {
   /* eslint-enable no-useless-constructor, no-empty-function */
 
   /**
+   * Get the buffer elements from this (treat as immutable)
+   *
+   * @return {ReadonlyUint32Array} The buffer elements.
+   */
+  public get buffer(): ReadonlyUint32Array {
+    return this.elements_
+  }
+
+  /**
    * Does the set have a particular index for a particular type.
    *
    * @param indexType The index type to check for.

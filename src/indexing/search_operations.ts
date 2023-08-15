@@ -22,6 +22,7 @@ export function indexSetSearch32(
   let right = end ?? buffer.length
 
   searchValue &= MASK_TOPBITS
+  searchValue >>>= 0
 
   while ( offset < right ) {
     const mid = ( ( offset + right ) >>> 1 ) & ( ~1 >>> 0 )
