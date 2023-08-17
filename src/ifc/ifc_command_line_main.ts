@@ -9,16 +9,28 @@ import StepEntityBase from '../step/step_entity_base'
 import IfcStepModel from './ifc_step_model'
 import { ExtractResult, IfcGeometryExtraction } from './ifc_geometry_extraction'
 import { IfcPropertyExtraction } from './ifc_property_extraction'
-import { ConwayGeometry, GeometryObject}
+import { ConwayGeometry, GeometryObject }
   from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMeshType } from '../core/canonical_mesh'
 import { CanonicalMaterial } from '../core/canonical_material'
+import { IfcSceneBuilder } from './ifc_scene_builder'
 
 
-const SKIP_PARAMS = 2
+main()
 
-const args = // eslint-disable-line no-unused-vars
-  yargs(process.argv.slice(SKIP_PARAMS))
+async function main() {
+  try {
+    await doWork()
+  } catch (error) {
+    console.error("An error occurred:", error)
+  }
+}
+
+async function doWork() {
+  const SKIP_PARAMS = 2
+
+  const args = // eslint-disable-line no-unused-vars
+    yargs(process.argv.slice(SKIP_PARAMS))
       .command('$0 <filename>', 'Query file', (yargs2) => {
         yargs2.option('express_ids', {
           describe: 'A list of express IDs',
@@ -49,7 +61,7 @@ const args = // eslint-disable-line no-unused-vars
         })
 
         yargs2.positional('filename', { describe: 'IFC File Paths', type: 'string' })
-      }, (argv) => {
+      }, async (argv) => {
         const ifcFile = argv['filename'] as string
 
         let indexIfcBuffer: Buffer | undefined
@@ -59,7 +71,7 @@ const args = // eslint-disable-line no-unused-vars
           return EntityTypesIfc[value.toLocaleUpperCase() as keyof typeof EntityTypesIfc]
         }).filter((value) => value !== void 0)
         const fields = (argv['fields'] as string[] | undefined) ??
-        ['expressID', 'type', 'localID']
+          ['expressID', 'type', 'localID']
         const geometry = (argv['geometry'] as boolean | undefined)
 
         const outputProperties = (argv['properties'] as boolean | undefined)
@@ -68,13 +80,13 @@ const args = // eslint-disable-line no-unused-vars
           indexIfcBuffer = fs.readFileSync(ifcFile)
         } catch (ex) {
           console.log(
-              'Error: couldn\'t read file, check that it is accessible at the specified path.')
+            'Error: couldn\'t read file, check that it is accessible at the specified path.')
           exit()
         }
 
         if (indexIfcBuffer === void 0) {
           console.log(
-              'Error: couldn\'t read file, check that it is accessible at the specified path.')
+            'Error: couldn\'t read file, check that it is accessible at the specified path.')
           exit()
         }
 
@@ -116,7 +128,7 @@ const args = // eslint-disable-line no-unused-vars
         }
 
         const parseDataTimeStart = Date.now()
-        const model = parser.parseDataToModel(bufferInput)[1]
+        let model: IfcStepModel | undefined = parser.parseDataToModel(bufferInput)[1]
         const parseDataTimeEnd = Date.now()
 
         if (model === void 0) {
@@ -124,11 +136,27 @@ const args = // eslint-disable-line no-unused-vars
         }
 
         if (geometry) {
-        // Get the filename with extension
+          console.log(`Data parse time ${parseDataTimeEnd - parseDataTimeStart} ms`)
+          // Get the filename with extension
           const fileNameWithExtension = ifcFile.split('/').pop()!
           // Get the filename without extension
           const fileName = fileNameWithExtension.split('.')[0]
-          geometryExtraction(model, fileName)
+          const result = await geometryExtraction(model)
+          if (result !== void 0) {
+            const scene = result[0]
+            const conwaywasm = result[1]
+
+            if (outputProperties) {
+              propertyExtraction(model)
+            }
+
+            //model = void 0
+            //console.log("model === " + model)
+
+            serializeGeometry(scene, conwaywasm, fileName)
+          }
+
+
         } else {
 
           console.log('\n')
@@ -144,40 +172,40 @@ const args = // eslint-disable-line no-unused-vars
           let rowCount = 0
 
           const elements =
-          (expressIDs?.map((value) => model?.getElementByExpressID(value))?.filter(
+            (expressIDs?.map((value) => model?.getElementByExpressID(value))?.filter(
               (value) => value !== void 0 && (types === void 0 ||
-              types.includes(value.type))) ??
-            (types !== void 0 ? model.typeIDs(...types) : void 0) ??
-            model) as StepEntityBase<EntityTypesIfc>[] |
-          IterableIterator<StepEntityBase<EntityTypesIfc>>
+                types.includes(value.type))) ??
+              (types !== void 0 ? model.typeIDs(...types) : void 0) ??
+              model) as StepEntityBase<EntityTypesIfc>[] |
+            IterableIterator<StepEntityBase<EntityTypesIfc>>
 
           for (const element of elements) {
             const elementTypeID = EntityTypesIfc[element.type]
 
             console.log(
-                fields.reduce((previous, current, currentIndex) => {
-                  let result
+              fields.reduce((previous, current, currentIndex) => {
+                let result
 
-                  try {
-                    if (current === 'type') {
-                      result = elementTypeID
-                    } else {
-                      result = ((element as { [key: string]: any })[current])
+                try {
+                  if (current === 'type') {
+                    result = elementTypeID
+                  } else {
+                    result = ((element as { [key: string]: any })[current])
 
-                      if (result === null) {
-                        result = 'null'
-                      } else if (result === void 0) {
-                        result = '   '
-                      } else if (current === 'expressID') {
-                        result = `#${result}`
-                      }
+                    if (result === null) {
+                      result = 'null'
+                    } else if (result === void 0) {
+                      result = '   '
+                    } else if (current === 'expressID') {
+                      result = `#${result}`
                     }
-                  } catch (ex) {
-                    result = 'err'
                   }
+                } catch (ex) {
+                  result = 'err'
+                }
 
-                  return `${previous}${(currentIndex === 0) ? '|' : ''}${result}|`
-                }, ''))
+                return `${previous}${(currentIndex === 0) ? '|' : ''}${result}|`
+              }, ''))
 
             ++rowCount
           }
@@ -188,59 +216,38 @@ const args = // eslint-disable-line no-unused-vars
           console.log(`Data parse time ${parseDataTimeEnd - parseDataTimeStart} ms`)
         }
 
-        if (outputProperties) {
-          propertyExtraction(model)
+        if (!geometry) {
+          if (outputProperties) {
+            propertyExtraction(model!)
+          }
         }
       })
       .help().argv
-
-/**
- * Function to extract PropertySets from an IfcStepModel
- */
-function propertyExtraction(model: IfcStepModel) {
-
-  IfcPropertyExtraction.extractIFCProperties(model, true)
 }
 
+
 /**
- * Function to extract Geometry from an IfcStepModel
+ * 
  */
-async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: string) {
-
-  const conwaywasm = new ConwayGeometry()
-  const initializationStatus = await conwaywasm.initialize()
-
-  if (!initializationStatus) {
-    return
-  }
-
-  const conwayModel = new IfcGeometryExtraction(conwaywasm, model)
-
-  // parse + extract data model + geometry data
-  const [extractionResult, scene] =
-    conwayModel.extractIFCGeometryData(true)
-
-  if (extractionResult !== ExtractResult.COMPLETE) {
-    console.error('Could not extract geometry, exiting...')
-    return
-  }
-
+function serializeGeometry(scene: IfcSceneBuilder, conwaywasm: ConwayGeometry, fileNameNoExtension: string) {
   // we can assign the first GeometryObject to another variable here to combine them all.
   const materialGeometry = new Map<CanonicalMaterial | undefined, GeometryObject>()
 
+  let count_ = 0
   // eslint-disable-next-line no-unused-vars
   for (const [_, nativeTransform, geometry, material] of scene.walk()) {
     if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY && !geometry.temporary) {
 
-      const clonedGeometry = geometry.geometry.clone()
-
-      clonedGeometry.applyTransform(nativeTransform)
-
       const fullGeometry = materialGeometry.get(material)
       if (fullGeometry === void 0) {
+        const clonedGeometry = geometry.geometry.clone()
+        clonedGeometry.applyTransform(nativeTransform)
         materialGeometry.set(material, clonedGeometry)
       } else {
-        fullGeometry.appendGeometry(clonedGeometry)
+        fullGeometry.addComponent(geometry.geometry)
+        fullGeometry.addComponentTransform(nativeTransform)
+       
+        console.log("applied transform to geometry " + count_++)
       }
     }
   }
@@ -267,8 +274,8 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
   //   }
   // })
 
-  const geometryVector = conwayModel.nativeVectorGeometry()
-  const materialVector = conwayModel.nativeVectorMaterial()
+  const geometryVector = conwaywasm.nativeVectorGeometry()
+  const materialVector = conwaywasm.nativeVectorMaterial()
 
   for (const [material, geometry] of materialGeometry) {
 
@@ -276,7 +283,7 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
       geometry.materialIndex = materialVector.size()
       geometry.hasDefaultMaterial = false
 
-      const nativeMaterial = conwayModel.nativeMaterial(material)
+      const nativeMaterial = conwaywasm.nativeMaterial(material)
 
       materialVector.push_back(nativeMaterial)
     }
@@ -286,7 +293,7 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
 
   const startTimeGlb = Date.now()
   const glbResult =
-    conwayModel.toGltf(geometryVector, materialVector, true, false, `${fileNameNoExtension}_test`)
+    conwaywasm.toGltf(geometryVector, materialVector, true, false, `${fileNameNoExtension}_test`)
   const endTimeGlb = Date.now()
   const executionTimeInMsGlb = endTimeGlb - startTimeGlb
 
@@ -302,7 +309,7 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
 
       // Create a (zero copy!) memory view from the native vector
       const managedBuffer: Uint8Array =
-        conwayModel.getWasmModule().getUint8Array(glbResult.buffers.get(uriIndex))
+        conwaywasm.wasmModule.getUint8Array(glbResult.buffers.get(uriIndex))
 
       try {
         fs.writeFileSync(uri, managedBuffer)
@@ -316,12 +323,12 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
   // draco test
   const startTimeGlbDraco = Date.now()
   const glbDracoResult =
-    conwayModel.toGltf(
-        geometryVector,
-        materialVector,
-        true,
-        true,
-        `${fileNameNoExtension}_test_draco`)
+    conwaywasm.toGltf(
+      geometryVector,
+      materialVector,
+      true,
+      true,
+      `${fileNameNoExtension}_test_draco`)
   const endTimeGlbDraco = Date.now()
   const executionTimeInMsGlbDraco = endTimeGlbDraco - startTimeGlbDraco
 
@@ -337,7 +344,7 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
 
       // Create a (zero copy!) memory view from the native vector
       const managedBuffer: Uint8Array =
-        conwayModel.getWasmModule().getUint8Array(glbDracoResult.buffers.get(uriIndex))
+        conwaywasm.wasmModule.getUint8Array(glbDracoResult.buffers.get(uriIndex))
 
       try {
         fs.writeFileSync(uri, managedBuffer)
@@ -350,12 +357,12 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
 
   const startTimeGltf = Date.now()
   const gltfResult =
-    conwayModel.toGltf(
-        geometryVector,
-        materialVector,
-        false,
-        false,
-        `${fileNameNoExtension}`)
+    conwaywasm.toGltf(
+      geometryVector,
+      materialVector,
+      false,
+      false,
+      `${fileNameNoExtension}`)
   const endTimeGltf = Date.now()
   const executionTimeInMsGltf = endTimeGltf - startTimeGltf
 
@@ -371,8 +378,8 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
 
       // Create a memory view from the native vector
       const managedBuffer: Uint8Array =
-        conwayModel.getWasmModule().
-            getUint8Array(gltfResult.buffers.get(uriIndex))
+        conwaywasm.wasmModule.
+          getUint8Array(gltfResult.buffers.get(uriIndex))
 
       try {
         fs.writeFileSync(uri, managedBuffer)
@@ -385,12 +392,12 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
 
   const startTimeGltfDraco = Date.now()
   const gltfResultDraco =
-    conwayModel.toGltf(
-        geometryVector,
-        materialVector,
-        false,
-        true,
-        `${fileNameNoExtension}_draco`)
+    conwaywasm.toGltf(
+      geometryVector,
+      materialVector,
+      false,
+      true,
+      `${fileNameNoExtension}_draco`)
   const endTimeGltfDraco = Date.now()
   const executionTimeInMsGltfDraco = endTimeGltfDraco - startTimeGltfDraco
 
@@ -406,8 +413,8 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
 
       // Create a memory view from the native vector
       const managedBuffer: Uint8Array =
-        conwayModel.getWasmModule().
-            getUint8Array(gltfResultDraco.buffers.get(uriIndex))
+        conwaywasm.wasmModule.
+          getUint8Array(gltfResultDraco.buffers.get(uriIndex))
 
       try {
         fs.writeFileSync(uri, managedBuffer)
@@ -427,4 +434,38 @@ async function geometryExtraction(model: IfcStepModel, fileNameNoExtension: stri
   console.log(`GLTF Generation took ${executionTimeInMsGltf} milliseconds to execute.`)
   console.log(`GLB Draco Generation took ${executionTimeInMsGlbDraco} milliseconds to execute.`)
   console.log(`GLTF Draco Generation took ${executionTimeInMsGltfDraco} milliseconds to execute.`)
+}
+
+/**
+ * Function to extract PropertySets from an IfcStepModel
+ */
+function propertyExtraction(model: IfcStepModel) {
+
+  IfcPropertyExtraction.extractIFCProperties(model, true)
+}
+
+/**
+ * Function to extract Geometry from an IfcStepModel
+ */
+async function geometryExtraction(model: IfcStepModel): Promise<[IfcSceneBuilder, ConwayGeometry] | undefined> {
+
+  const conwaywasm = new ConwayGeometry()
+  const initializationStatus = await conwaywasm.initialize()
+
+  if (!initializationStatus) {
+    return
+  }
+
+  const conwayModel = new IfcGeometryExtraction(conwaywasm, model)
+
+  // parse + extract data model + geometry data
+  const [extractionResult, scene] =
+    conwayModel.extractIFCGeometryData(true)
+
+  if (extractionResult !== ExtractResult.COMPLETE) {
+    console.error('Could not extract geometry, exiting...')
+    return void 0
+  }
+
+  return [scene, conwaywasm]
 }

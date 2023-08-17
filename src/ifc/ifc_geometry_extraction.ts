@@ -371,26 +371,6 @@ export class IfcGeometryExtraction {
     return nativeVectorCurve_
   }
 
-
-  /**
-   * Create a native vector of glm::vec3 to pass across the boundary.
-   *
-   * @param initialSize number - initial size of the vector (optional)
-   * @return {NativeVectorMaterial} - a native std::vector<MaterialObject> from the wasm module
-   */
-  nativeVectorMaterial(initialSize?: number): NativeVectorMaterial {
-    const nativeVectorMaterial_ =
-      // eslint-disable-next-line new-cap
-      (new (this.wasmModule.materialArray)()) as NativeVectorMaterial
-
-    if (initialSize) {
-      // resize has a required second parameter to set default values
-      nativeVectorMaterial_.resize(initialSize)
-    }
-
-    return nativeVectorMaterial_
-  }
-
   /**
    *
    * @param initialSize number - initial size of the vector (optional)
@@ -726,8 +706,8 @@ export class IfcGeometryExtraction {
           indices: coordIndex,
           face_starts: polygonalFaceStartIndices,
         }
+        
         polygonalFaceVector.push_back(indexedPolygonalFaceParameters)
-
       }
     }
 
@@ -764,14 +744,8 @@ export class IfcGeometryExtraction {
 
     // free allocated wasm vectors
     pointsArray.delete()
-
-    for (let i = 0; i < polygonalFaceVector.size(); i++) {
-      polygonalFaceVector.get(i).indices.delete()
-      if (polygonalFaceVector.get(i).face_starts.size() > 1) {
-        polygonalFaceVector.get(i).face_starts.delete()
-      }
-    }
     polygonalFaceVector.delete()
+
 
     return result
 
@@ -940,6 +914,9 @@ export class IfcGeometryExtraction {
         }
       }
     }
+
+    flatFirstMeshVector.delete()
+    flatSecondMeshVector.delete()
   }
 
   /**
@@ -1508,6 +1485,8 @@ export class IfcGeometryExtraction {
         // If profile is not already in the model's profiles, add it
         this.model.profiles.add(profile)
       }
+
+      holesArray.delete()
     }
 
     return profile
@@ -1878,6 +1857,8 @@ export class IfcGeometryExtraction {
       }
 
       const ifcCurve: CurveObject = this.conwayModel.getIndexedPolyCurve(paramsGetIndexedPolyCurve)
+
+      segmentVector.delete()
 
       return ifcCurve
     }
@@ -2250,15 +2231,15 @@ export class IfcGeometryExtraction {
     }
 
     const zAxisRef = {
-      x: from.Axis?.DirectionRatios[0],
-      y: from.Axis?.DirectionRatios[1],
-      z: from.Axis?.DirectionRatios[2],
+      x: from.Axis?.DirectionRatios[0] ?? 0,
+      y: from.Axis?.DirectionRatios[1] ?? 0,
+      z: from.Axis?.DirectionRatios[2] ?? 1,
     }
 
     const xAxisRef = {
-      x: from.RefDirection?.DirectionRatios[0],
-      y: from.RefDirection?.DirectionRatios[1],
-      z: from.RefDirection?.DirectionRatios[2],
+      x: from.RefDirection?.DirectionRatios[0] ?? 1,
+      y: from.RefDirection?.DirectionRatios[1] ?? 0,
+      z: from.RefDirection?.DirectionRatios[2] ?? 0,
     }
 
     const axis2Placement3DParameters: ParamsAxis2Placement3D = {
@@ -2362,6 +2343,8 @@ export class IfcGeometryExtraction {
       this.model.geometry.add(canonicalMesh)
 
       this.scene.addGeometry(from.localID)
+
+      relatedBuildingElementMeshVector.delete()
     }
   }
   /**
@@ -2734,6 +2717,8 @@ export class IfcGeometryExtraction {
             }
           }
         }
+
+        relVoidsMeshVector?.delete()
       }
     }
 
