@@ -63,6 +63,20 @@ Use an incremental or full build to compile this file from typescript and then i
 
 The included index.ifc in the repo is recommended for testing.
 
+## Profiling WASM Builds in Node
+Profiling Conway, including building a Conway-Geom WASM binary with DWARF information and generating a flame graph with WASM symbols, is possible via the following steps:
+1. Run *build-profile-conway_geom* from Conway's package.json 
+2. Profile your app: 
+```
+node --prof --experimental-specifier-resolution=node /Users/soar/Documents/GitHub/conway/compiled/src/ifc/ifc_command_line_main.js /Users/soar/Downloads/Schependomlaan.ifc -g
+```
+3. An isolate*.log file will be generated. Run:
+```
+node --prof-process --preprocess -j isolate*.log > v8.json # generate a V8 log
+```
+4. Go to https://mapbox.github.io/flamebearer/ and drop the log file to see a detailed flame graph.
+
+
 ## Problems with renaming in GIT merges
 
 Because of the large number of files in conway that are code changes sometimes causing large modifications in merges, especially if generation locations are changed, it's sometimes necessary to up the limit of the number of renames in the git config for merging. It can be done like so:
