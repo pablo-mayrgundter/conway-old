@@ -2,8 +2,9 @@
   "name": "bldrs-conway",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
-  "type": "module",
+  "main": "./compiled/src/index.js",
+  "types": "./compiled/src/index.d.ts",
+  "files":["./compiled/**/*"],
   "scripts": {
     "build-conway_geom": "run-script-os",
     "build-conway_geom:win32": "cd .\\dependencies\\conway-geom\\ && call .\\build_win.bat release wasm && (if not exist Dist (mkdir Dist)) && xcopy .\\bin\\release\\* Dist\\ /Y/r && copy /Y ConwayGeomWasm.d.ts Dist\\ && (if not exist ..\\..\\compiled\\dependencies\\conway-geom\\Dist (mkdir ..\\..\\compiled\\dependencies\\conway-geom\\Dist)) && xcopy .\\bin\\release\\* ..\\..\\compiled\\dependencies\\conway-geom\\Dist\\ /Y/r",
@@ -34,6 +35,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^18.11.9",
+    "@types/seedrandom": "^3.0.5",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
     "babel-core": "^6.26.3",
@@ -57,7 +59,6 @@
     "run-script-os": "^1.1.6",
     "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",
-    "@types/seedrandom": "^3.0.5",
     "typescript": "^4.8.4"
   },
   "dependencies": {
