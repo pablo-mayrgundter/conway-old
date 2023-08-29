@@ -196,7 +196,7 @@ export class IfcSceneBuilder implements Scene {
           triangleMap.addMappingRange(
               0,
               // eslint-disable-next-line no-magic-numbers
-              Math.trunc( clonedGeometry.getIndexDataSize() / 3 ),
+              Math.trunc( clonedGeometry.GetIndexDataSize() / 3 ),
               entityLocalId ?? TriangleElementMap.NO_ELEMENT )
 
           const newPrimitiveIndex = primitives.length
@@ -220,7 +220,7 @@ export class IfcSceneBuilder implements Scene {
           triangleMap.addMappingRange(
               triangleMap.size,
               // eslint-disable-next-line no-magic-numbers
-              triangleMap.size + Math.trunc( clonedGeometry.getIndexDataSize() / 3 ),
+              triangleMap.size + Math.trunc( clonedGeometry.GetIndexDataSize() / 3 ),
               entityLocalId ?? TriangleElementMap.NO_ELEMENT )
 
           if ( entityLocalId !== void 0 ) {

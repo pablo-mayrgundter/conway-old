@@ -14,6 +14,10 @@ import { CanonicalMeshType } from '../core/canonical_mesh'
 import { CanonicalMaterial } from '../core/canonical_material'
 import { IfcBooleanResult, IfcVector } from '../ifc/ifc4_gen'
 import { shimIfcEntityMap } from './shim_schema_mapping'
+import { IfcSceneBuilder } from '../ifc/ifc_scene_builder'
+import {IfcElements} from "./ifc2x4";
+
+export * from "./ifc2x4";
 
 
 export const UNKNOWN = 0
@@ -23,8 +27,8 @@ export const ENUM = 3
 export const REAL = 4
 export const REF = 5
 export const EMPTY = 6
-export const push_BEGIN = 7
-export const push_END = 8
+export const SET_BEGIN = 7
+export const SET_END = 8
 export const LINE_END = 9
 
 export interface Loadersettings {
@@ -93,12 +97,15 @@ export class IfcAPI {
     isWasmPathAbsolute = false;
 
     globalModelIDCounter = 0
-    models: Map<number, IfcStepModel> = new Map<number, IfcStepModel>()
+    // we can assign the first GeometryObject to another variable here to combine them all.
+    //materialGeometry = new Map<CanonicalMaterial | undefined, GeometryObject>()
+    models: Map<number, [IfcStepModel, IfcSceneBuilder, Map<CanonicalMaterial | undefined, Vector<PlacedGeometry>>]> = new Map<number, [IfcStepModel, IfcSceneBuilder, Map<CanonicalMaterial | undefined, Vector<PlacedGeometry>>]>()
+    conwaywasm = new ConwayGeometry()
 
     //ifcGuidMap: Map<number, Map<string | number, string | number>> = new Map<number, Map<string | number, string | number>>();
 
     /**
-     * Contains all the logic and methods regarding properties, ppushs, qpushs, etc.
+     * Contains all the logic and methods regarding properties, psets, qsets, etc.
      */
     //properties = new Properties(this);
 
@@ -124,15 +131,14 @@ export class IfcAPI {
         }
 
         //@ts-ignore
-        const conwaywasm = new ConwayGeometry()
-        const initializationStatus = await conwaywasm.initialize()
+        const initializationStatus = await this.conwaywasm.initialize((customLocateFileHandler !== void 0) ? customLocateFileHandler : locateFileHandler)
 
         if (!initializationStatus) {
             console.log("Could not initialize Conway Wasm")
             return
         }
 
-        this.wasmModule = conwaywasm.wasmModule /*await WebIFCWasm({ noInitialRun: true, locateFile: customLocateFileHandler || locateFileHandler })*/
+        this.wasmModule = this.conwaywasm.wasmModule /*await WebIFCWasm({ noInitialRun: true, locateFile: customLocateFileHandler || locateFileHandler })*/
         // this.fs = this.wasmModule.FS
     }
 
@@ -142,31 +148,6 @@ export class IfcAPI {
      * @data settings settings for loading the model
     */
     OpenModel(data: Uint8Array, settings?: Loadersettings): number {
-        /*let s: Loadersettings = {
-            COORDINATE_TO_ORIGIN: false,
-            USE_FAST_BOOLS: false,
-            CIRCLE_SEGMENTS_LOW: 5,
-            CIRCLE_SEGMENTS_MEDIUM: 8,
-            CIRCLE_SEGMENTS_HIGH: 12,
-            BOOL_ABORT_THRESHOLD: 10000,
-            ...settings
-        }
-
-        let offpushInSrc = 0
-        let result = this.wasmModule.OpenModel(s, (destPtr: number, destSize: number) => {
-            let srcSize = Math.min(data.byteLength - offpushInSrc, destSize)
-
-            let dest = this.wasmModule.HEAPU8.subarray(destPtr, destPtr + destSize)
-            let src = data.subarray(offpushInSrc, offpushInSrc + srcSize)
-
-            dest.push(src)
-
-            offpushInSrc += srcSize
-
-            return srcSize
-        })
-        return result*/
-
         const parser = IfcStepParser.Instance
         const bufferInput = new ParsingBuffer(data)
 
@@ -213,7 +194,19 @@ export class IfcAPI {
             return -1
         }
 
-        this.models.set(this.globalModelIDCounter++, model)
+        //TODO(nickcastel50): Doing geometry extraction in here for now...
+        // parse + extract data model + geometry data
+        const conwayGeometry = new IfcGeometryExtraction(this.conwaywasm, model)
+        const [extractionResult, scene] =
+            conwayGeometry.extractIFCGeometryData(true)
+
+        if (extractionResult !== ExtractResult.COMPLETE) {
+            console.error('[OpenModel]: Error extracting geometry, exiting...')
+            return -1
+        }
+
+        const materialGeometry = new Map<CanonicalMaterial | undefined, Vector<PlacedGeometry>>()
+        this.models.set(++this.globalModelIDCounter, [model, scene, materialGeometry])
 
         return this.globalModelIDCounter
     }
@@ -263,7 +256,39 @@ export class IfcAPI {
      * @data Buffer containing IFC data (bytes)
     */
     GetGeometry(modelID: number, geometryExpressID: number): IfcGeometry {
-        return this.wasmModule.GetGeometry(modelID, geometryExpressID)
+        //return this.wasmModule.GetGeometry(modelID, geometryExpressID)
+
+        const result = this.models.get(modelID)
+
+        if (result !== void 0) {
+            const [model, scene] = result
+
+            const geometryElement = model.getElementByExpressID(geometryExpressID)
+
+            if (geometryElement !== void 0) {
+                const canonicalMesh = model.geometry.getByLocalID(geometryElement.localID)
+
+                if (canonicalMesh !== void 0) {
+                    if (canonicalMesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
+                        const geometry = canonicalMesh.geometry
+                        console.log(`[GetGeometry]: Returning geometry for expressID: ${geometryExpressID}`)
+                        return geometry
+                    } else {
+                        console.log(`[GetGeometry]: CanonicalMeshType !== BUFFER_GEOMETRY for expressID: ${geometryExpressID}`)
+                    }
+                } else {
+                    console.log(`[GetGeometry]: Could not find canonicalMesh for expressID: ${geometryExpressID}`)
+                }
+            } else {
+                console.log(`[GetGeometry]: Could not find geometry for expressID: ${geometryExpressID}`)
+            }
+        } else {
+            console.log("[GetGeometry]: model === undefined")
+        }
+
+        console.log("[GetGeometry]: Error - returning dummyGeometry object")
+        const dummyGeometry: IfcGeometry = (new (this.wasmModule.IfcGeometry)())
+        return dummyGeometry
     }
 
     GetLine(modelID: number, expressID: number, flatten: boolean = false) {
@@ -403,9 +428,10 @@ export class IfcAPI {
         }
         console.log("[GetLineIDsWithType]: Shim - Unimplemented")
 
-        const model = this.models.get(modelID)
+        const result = this.models.get(modelID)
 
-        if (model !== undefined) {
+        if (result !== undefined) {
+            const [model, scene] = result
             if (type in shimIfcEntityMap) {
                 const value = shimIfcEntityMap[type]
                 // Do something with value
@@ -455,10 +481,10 @@ export class IfcAPI {
         }
         console.log("[GetAllLines]: Shim - Unimplemented")
 
-        const model = this.models.get(modelID as number)
+        const result = this.models.get(modelID as number)
 
-        if (model !== undefined) {
-
+        if (result !== undefined) {
+            const [model, scene] = result
             //TODO(nickcastel50): This is absolutely horrid but I don't know a better way yet. 
             //This implementation also kills our lazy loading...
             for (let typeIndex = 0; typeIndex < EntityTypesIfcCount; ++typeIndex) {
@@ -481,14 +507,14 @@ export class IfcAPI {
         return expressIDVector
     }
 
-    pushGeometryTransformation(modelID: number, transformationMatrix: Array<number>) {
+    setGeometryTransformation(modelID: number, transformationMatrix: Array<number>) {
         /*if (transformationMatrix.length != 16) {
             console.log(`Bad transformation matrix size: ${transformationMatrix.length}`)
             return
         }
-        this.wasmModule.pushGeometryTransformation(modelID, transformationMatrix)*/
+        this.wasmModule.setGeometryTransformation(modelID, transformationMatrix)*/
 
-        console.log("[pushGeometryTransformation]: Shim - Unimplemented")
+        console.log("[setGeometryTransformation]: Shim - Unimplemented")
     }
 
     GetCoordinationMatrix(modelID: number): Array<number> {
@@ -522,6 +548,140 @@ export class IfcAPI {
     StreamAllMeshes(modelID: number, meshCallback: (mesh: FlatMesh) => void) {
         //this.wasmModule.StreamAllMeshes(modelID, meshCallback)
         console.log("[StreamAllMeshes]: Shim - Unimplemented")
+        const identity: number[] = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+
+        //dummy vars 
+        const dummyColor = {
+            x: 0,
+            y: 0,
+            z: 0,
+            w: 0
+        }
+
+        // Single PlacedGeometry variable
+        const singlePlacedGeometry: PlacedGeometry = {
+            color: dummyColor,
+            geometryExpressID: 0, // replace with actual ID
+            flatTransformation: identity
+        }
+
+        const placedGeometryArray = new Array<PlacedGeometry>()
+
+        // Vector of PlacedGeometry
+        const vectorOfPlacedGeometry: Vector<PlacedGeometry> = {
+            get(index: number): PlacedGeometry {
+                if (index >= placedGeometryArray.length) {
+                    return singlePlacedGeometry
+                }
+
+                return placedGeometryArray[index]
+            },
+            size(): number {
+                return placedGeometryArray.length
+            },
+            push(parameter: PlacedGeometry): void {
+                placedGeometryArray.push(parameter)
+            }
+        }
+
+        const flatMeshArray = new Array<FlatMesh>()
+        const flatMeshDummy: FlatMesh = {
+            geometries: vectorOfPlacedGeometry,
+            expressID: 0 // replace with actual expressID
+        }
+
+        const result = this.models.get(modelID)
+
+        if (result !== void 0) {
+            const [model, scene, materialGeometry] = result
+
+            //only walk scene if we haven't already 
+            if (materialGeometry.size <= 0) {
+                // eslint-disable-next-line no-unused-vars
+                for (const [_, nativeTransform, geometry, material] of scene.walk()) {
+                    if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY && !geometry.temporary) {
+                        const result = materialGeometry.get(material)
+                        if (result === void 0) {
+
+                            const placedGeometryArray = new Array<PlacedGeometry>()
+
+                            // Vector of PlacedGeometry
+                            const vectorOfPlacedGeometry: Vector<PlacedGeometry> = {
+                                get(index: number): PlacedGeometry {
+                                    if (index >= placedGeometryArray.length) {
+                                        return singlePlacedGeometry
+                                    }
+
+                                    return placedGeometryArray[index]
+                                },
+                                size(): number {
+                                    return placedGeometryArray.length
+                                },
+                                push(parameter: PlacedGeometry): void {
+                                    placedGeometryArray.push(parameter)
+                                }
+                            }
+                            //set first material geometry 
+                            materialGeometry.set(material, vectorOfPlacedGeometry)
+
+                            //extract color
+                            if (material !== undefined) {
+                                const color = {
+                                    x: material.baseColor[0],
+                                    y: material.baseColor[1],
+                                    z: material.baseColor[2],
+                                    w: material.baseColor[3],
+                                }
+
+                                //create PlacedGeometry
+                                const expressID = model.getElementByLocalID(geometry.localID)?.expressID as number
+                                const placedGeometry: PlacedGeometry = {
+                                    color: color,
+                                    geometryExpressID: expressID,
+                                    flatTransformation: nativeTransform?.getValues() as number[]
+                                }
+
+                                vectorOfPlacedGeometry.push(placedGeometry)
+                            }
+                        } else {
+                            const vectorOfPlacedGeometry = result
+                            //add to vector of placed geometry
+                            if (material !== undefined) {
+                                const color = {
+                                    x: material.baseColor[0],
+                                    y: material.baseColor[1],
+                                    z: material.baseColor[2],
+                                    w: material.baseColor[3],
+                                }
+
+                                //create PlacedGeometry
+                                const expressID = model.getElementByLocalID(geometry.localID)?.expressID as number
+                                const placedGeometry: PlacedGeometry = {
+                                    color: color,
+                                    geometryExpressID: expressID,
+                                    flatTransformation: nativeTransform?.getValues() as number[]
+                                }
+
+                                vectorOfPlacedGeometry.push(placedGeometry)
+                            }
+                        }
+                    }
+                }
+            }
+
+            //loop materialGeometry and create vector of FlatMesh and return 
+            materialGeometry.forEach((vector, material) => {
+
+                if (vector.size() > 0) {
+                    const singleFlatMesh: FlatMesh = {
+                        geometries: vector,
+                        expressID: vector.get(0).geometryExpressID
+                    }
+
+                   meshCallback(singleFlatMesh)
+                }
+            })
+        }
     }
 
     StreamAllMeshesWithTypes(modelID: number, types: Array<number>, meshCallback: (mesh: FlatMesh) => void) {
@@ -549,34 +709,43 @@ export class IfcAPI {
     */
     LoadAllGeometry(modelID: number): Vector<FlatMesh> {
         // return this.wasmModule.LoadAllGeometry(modelID)
-        console.log("[LoadAllGeometry]: Shim - Unimplemented")
+        const identity: number[] = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+
+        //dummy vars 
         const dummyColor = {
             x: 0,
             y: 0,
             z: 0,
             w: 0
         }
+
         // Single PlacedGeometry variable
         const singlePlacedGeometry: PlacedGeometry = {
             color: dummyColor,
             geometryExpressID: 0, // replace with actual ID
-            flatTransformation: [/* your array of numbers here */]
+            flatTransformation: identity
         }
+
+        const placedGeometryArray = new Array<PlacedGeometry>()
 
         // Vector of PlacedGeometry
         const vectorOfPlacedGeometry: Vector<PlacedGeometry> = {
             get(index: number): PlacedGeometry {
-                // Your implementation here
-                return singlePlacedGeometry // Dummy return, replace with actual implementation
+                if (index >= placedGeometryArray.length) {
+                    return singlePlacedGeometry
+                }
+
+                return placedGeometryArray[index]
             },
             size(): number {
-                // Your implementation here
-                return 1 // Dummy return, replace with actual implementation
+                return placedGeometryArray.length
             },
-            push(): void {
-
+            push(parameter: PlacedGeometry): void {
+                placedGeometryArray.push(parameter)
             }
         }
+
+        const flatMeshArray = new Array<FlatMesh>()
         const flatMeshDummy: FlatMesh = {
             geometries: vectorOfPlacedGeometry,
             expressID: 0 // replace with actual expressID
@@ -585,16 +754,113 @@ export class IfcAPI {
         // Vector of FlatMesh
         const vectorOfFlatMesh: Vector<FlatMesh> = {
             get(index: number): FlatMesh {
-                // Your implementation here
-                return flatMeshDummy // Dummy return, replace with actual implementation
+                if (index >= placedGeometryArray.length) {
+                    return flatMeshDummy
+                }
+
+                return flatMeshArray[index]
             },
             size(): number {
                 // Your implementation here
-                return 1 // Dummy return, replace with actual implementation
+                return flatMeshArray.length
             },
-            push(): void {
-
+            push(parameter: FlatMesh): void {
+                flatMeshArray.push(parameter)
             }
+        }
+
+
+        const result = this.models.get(modelID)
+
+        if (result !== void 0) {
+            const [model, scene, materialGeometry] = result
+
+            //only walk scene if we haven't already 
+            if (materialGeometry.size <= 0) {
+                // eslint-disable-next-line no-unused-vars
+                for (const [_, nativeTransform, geometry, material] of scene.walk()) {
+                    if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY && !geometry.temporary) {
+                        const result = materialGeometry.get(material)
+                        if (result === void 0) {
+
+                            const placedGeometryArray = new Array<PlacedGeometry>()
+
+                            // Vector of PlacedGeometry
+                            const vectorOfPlacedGeometry: Vector<PlacedGeometry> = {
+                                get(index: number): PlacedGeometry {
+                                    if (index >= placedGeometryArray.length) {
+                                        return singlePlacedGeometry
+                                    }
+
+                                    return placedGeometryArray[index]
+                                },
+                                size(): number {
+                                    return placedGeometryArray.length
+                                },
+                                push(parameter: PlacedGeometry): void {
+                                    placedGeometryArray.push(parameter)
+                                }
+                            }
+                            //set first material geometry 
+                            materialGeometry.set(material, vectorOfPlacedGeometry)
+
+                            //extract color
+                            if (material !== undefined) {
+                                const color = {
+                                    x: material.baseColor[0],
+                                    y: material.baseColor[1],
+                                    z: material.baseColor[2],
+                                    w: material.baseColor[3],
+                                }
+
+                                //create PlacedGeometry
+                                const expressID = model.getElementByLocalID(geometry.localID)?.expressID as number
+                                const placedGeometry: PlacedGeometry = {
+                                    color: color,
+                                    geometryExpressID: expressID,
+                                    flatTransformation: nativeTransform?.getValues() as number[]
+                                }
+
+                                vectorOfPlacedGeometry.push(placedGeometry)
+                            }
+                        } else {
+                            const vectorOfPlacedGeometry = result
+                            //add to vector of placed geometry
+                            if (material !== undefined) {
+                                const color = {
+                                    x: material.baseColor[0],
+                                    y: material.baseColor[1],
+                                    z: material.baseColor[2],
+                                    w: material.baseColor[3],
+                                }
+
+                                //create PlacedGeometry
+                                const expressID = model.getElementByLocalID(geometry.localID)?.expressID as number
+                                const placedGeometry: PlacedGeometry = {
+                                    color: color,
+                                    geometryExpressID: expressID,
+                                    flatTransformation: nativeTransform?.getValues() as number[]
+                                }
+
+                                vectorOfPlacedGeometry.push(placedGeometry)
+                            }
+                        }
+                    }
+                }
+            }
+
+            //loop materialGeometry and create vector of FlatMesh and return 
+            materialGeometry.forEach((vector, material) => {
+
+                if (vector.size() > 0) {
+                    const singleFlatMesh: FlatMesh = {
+                        geometries: vector,
+                        expressID: vector.get(0).geometryExpressID
+                    }
+
+                    vectorOfFlatMesh.push(singleFlatMesh)
+                }
+            })
         }
 
         console.log("[LoadAllGeometry]: Shim - Unimplemented")
@@ -608,6 +874,38 @@ export class IfcAPI {
     GetFlatMesh(modelID: number, expressID: number): FlatMesh {
         //return this.wasmModule.GetFlatMesh(modelID, expressID)
 
+        const result = this.models.get(modelID)
+
+        if (result !== void 0) {
+            const [model, scene, materialGeometry] = result
+            if (materialGeometry.size <= 0) {
+                const flatMeshes = this.LoadAllGeometry(modelID)
+
+                const size = flatMeshes.size()
+                for (let i = 0; i < size; i++) {
+                    const flatMesh = flatMeshes.get(i)
+                    if (flatMesh.expressID === expressID) {
+                        return flatMesh
+                    }
+                }                
+            }
+
+            //loop materialGeometry and create vector of FlatMesh and return 
+            materialGeometry.forEach((vector, material) => {
+
+                if (vector.size() > 0) {
+                    if (vector.get(0).geometryExpressID === expressID) {
+                        const singleFlatMesh: FlatMesh = {
+                            geometries: vector,
+                            expressID: expressID
+                        }
+
+                        return singleFlatMesh
+                    }
+                }
+            })
+
+        }
         // Single PlacedGeometry variable
         const dummyColor = {
             x: 0,
@@ -664,8 +962,8 @@ export class IfcAPI {
                 const info = this.GetLine(modelID, expressID)
                 const globalID = info.GlobalId.value
 
-                map.push(expressID, globalID)
-                map.push(globalID, expressID)
+                map.set(expressID, globalID)
+                map.set(globalID, expressID)
             }
         }
 
@@ -674,7 +972,7 @@ export class IfcAPI {
         console.log("[CreateIfcGuidToExpressIdMapping]: Shim - Unimplemented")
     }
 
-    pushWasmPath(path: string, absolute = false) {
+    SetWasmPath(path: string, absolute = false) {
         this.wasmPath = path
         this.isWasmPathAbsolute = absolute
     }
