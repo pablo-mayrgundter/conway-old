@@ -30,6 +30,7 @@ import {
   ParamsAddFaceToGeometry,
   SurfaceObject,
   ParamsGetRectangleProfileCurve,
+  GeometryCollection,
 } from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMaterial, ColorRGBA, exponentToRoughness } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
@@ -118,6 +119,7 @@ type NativeVectorIndexedPolygonalFace = StdVector<IndexedPolygonalFace>
 
 type NativeVectorSegment = StdVector<Segment>
 type NativeVectorGeometry = StdVector<GeometryObject>
+type NativeVectorGeometryCollection = StdVector<GeometryCollection>
 type NativeVectorMaterial = StdVector<MaterialObject>
 type NativeVectorProfile = StdVector<ProfileObject>
 type NativeVectorCurve = StdVector<CurveObject>
@@ -281,6 +283,20 @@ export class IfcGeometryExtraction {
     }
 
     return nativeVectorGeometry_
+  }
+
+  /**
+   * Create a native vector of geometry collections.
+   *
+   * @return {NativeVectorGeometryCollection} A newly initialised native
+   * vector of geometry collections
+   */
+  nativeVectorGeometryCollection(): NativeVectorGeometryCollection {
+    const nativeVectorGeometryCollection =
+      // eslint-disable-next-line new-cap
+      (new (this.wasmModule.geometryCollectionArray)()) as NativeVectorGeometryCollection
+
+    return nativeVectorGeometryCollection
   }
 
   /**
@@ -530,7 +546,7 @@ export class IfcGeometryExtraction {
    * @param fileUri string - base filenames for GLTF / GLB files
    * @return {ResultsGltf} - Structure containing GLTF / GLB filenames + data vectors
    */
-  toGltf(geometry: NativeVectorGeometry, materials: NativeVectorMaterial, isGlb: boolean,
+  toGltf(geometry: NativeVectorGeometryCollection, materials: NativeVectorMaterial, isGlb: boolean,
       outputDraco: boolean, fileUri: string, modelId: number = 0): ResultsGltf {
     const noResults: ResultsGltf = { success: false, bufferUris: undefined, buffers: undefined }
     noResults.success = false
@@ -2591,7 +2607,7 @@ export class IfcGeometryExtraction {
               product.localID,
               relatingMaterial.localID)
         } else {
-          console.log(`type other than IfcProduct: ${EntityTypesIfc[product.type]}`)
+     //     console.log(`type other than IfcProduct: ${EntityTypesIfc[product.type]}`)
         }
       }
     }

@@ -165,7 +165,7 @@ export class IfcSceneBuilder implements Scene {
 
     const materialMap = new Map<CanonicalMaterial | undefined, number>()
     const materials: CanonicalMaterial[] = []
-    const primitives: GeometryObject[] = []
+    const primitives: [GeometryObject, number | undefined][] = []
     const triangleMaps: TriangleElementMap[] = []
     const elementMap = new Map<number, number>()
 
@@ -183,21 +183,22 @@ export class IfcSceneBuilder implements Scene {
 
           const triangleMap = new TriangleElementMap()
 
+          let materialIndex: number | undefined
+
           if (material !== void 0) {
-            clonedGeometry.materialIndex = materials.length
+            materialIndex = materials.length
             materials.push(material)
-            clonedGeometry.hasDefaultMaterial = false
           } else {
-            clonedGeometry.hasDefaultMaterial = true
+            materialIndex = void 0
           }
 
           const entityLocalId = entity?.localID
 
           triangleMap.addMappingRange(
-            0,
-            // eslint-disable-next-line no-magic-numbers
-            Math.trunc(clonedGeometry.getIndexDataSize() / 3),
-            entityLocalId ?? TriangleElementMap.NO_ELEMENT)
+              0,
+              // eslint-disable-next-line no-magic-numbers
+              Math.trunc(clonedGeometry.getIndexDataSize() / 3),
+              entityLocalId ?? TriangleElementMap.NO_ELEMENT)
 
           const newPrimitiveIndex = primitives.length
 
@@ -207,21 +208,21 @@ export class IfcSceneBuilder implements Scene {
 
           materialMap.set(material, newPrimitiveIndex)
 
-          primitives.push(clonedGeometry)
+          primitives.push([clonedGeometry, materialIndex])
           triangleMaps.push(triangleMap)
 
         } else {
 
-          const fullGeometry = primitives[primitiveIndex]
+          const fullGeometry = primitives[primitiveIndex][0]
           const triangleMap = triangleMaps[primitiveIndex]
 
           const entityLocalId = entity?.localID
 
           triangleMap.addMappingRange(
-            triangleMap.size,
-            // eslint-disable-next-line no-magic-numbers
-            triangleMap.size + Math.trunc(clonedGeometry.getIndexDataSize() / 3),
-            entityLocalId ?? TriangleElementMap.NO_ELEMENT)
+              triangleMap.size,
+              // eslint-disable-next-line no-magic-numbers
+              triangleMap.size + Math.trunc(clonedGeometry.getIndexDataSize() / 3),
+              entityLocalId ?? TriangleElementMap.NO_ELEMENT)
 
           if (entityLocalId !== void 0) {
             elementMap.set(entityLocalId, primitiveIndex)
