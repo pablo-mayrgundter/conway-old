@@ -4,7 +4,9 @@
   "description": "",
   "main": "./compiled/src/index.js",
   "types": "./compiled/src/index.d.ts",
-  "files":["./compiled/**/*"],
+  "files": [
+    "./compiled/**/*"
+  ],
   "scripts": {
     "build-conway_geom": "run-script-os",
     "build-conway_geom:win32": "cd .\\dependencies\\conway-geom\\ && call .\\build_win.bat release wasm && (if not exist Dist (mkdir Dist)) && xcopy .\\bin\\release\\* Dist\\ /Y/r && copy /Y ConwayGeomWasm.d.ts Dist\\ && (if not exist ..\\..\\compiled\\dependencies\\conway-geom\\Dist (mkdir ..\\..\\compiled\\dependencies\\conway-geom\\Dist)) && xcopy .\\bin\\release\\* ..\\..\\compiled\\dependencies\\conway-geom\\Dist\\ /Y/r",
@@ -63,6 +65,7 @@
   },
   "dependencies": {
     "buffer": "^6.0.3",
+    "gl-matrix": "^3.4.3",
     "seedrandom": "^3.0.5",
     "smart-buffer": "^4.2.0",
     "yargs": "^17.7.1"
