@@ -492,6 +492,43 @@ function extractStringTest() {
   return true
 }
 
+
+/**
+ * Test extracting a more complicated string with an unicode escape sequence.
+ *
+ * @return {boolean} True if the test passes, false otherwise.
+ */
+function easyReflectionTest() {
+  const bufferInput = new ParsingBuffer( classificationTestStringBuffer )
+
+  const [result, model] = parser.parseDataToModel( bufferInput )
+
+  if ( model === void 0 ||
+    ( result !== ParseResult.COMPLETE && result !== ParseResult.INCOMPLETE ) ) {
+    return false
+  }
+
+  const classification = model.getElementByExpressID( CLASSIFICATION_EXPRESS_ID )
+
+  if (!(classification instanceof IfcClassification )) {
+    return false
+  }
+
+  const fields = classification.orderedFields
+
+  if ( fields[ 0 ][ 0 ] !== 'Source' ||
+       fields[ 1 ][ 0 ] !== 'Edition' ||
+       fields[ 2 ][ 0 ] !== 'EditionDate' ||
+       fields[ 3 ][ 0 ] !== 'Name' ||
+       fields[ 4 ][ 0 ] !== 'Description' ||
+       fields[ 5 ][ 0 ] !== 'Location' ||
+       fields[ 6 ][ 0 ] !== 'ReferenceTokens' ) {
+    return false
+  }
+
+  return true
+}
+
 /**
  * Test the type indexing in the model.
  *
@@ -560,6 +597,10 @@ describe( 'IFC Step Model Test', () => {
 
   test( 'extractStringTest()', () => {
     expect( extractStringTest() ).toBe( true )
+  } )
+
+  test( 'easyReflectionTest()', () => {
+    expect( easyReflectionTest() ).toBe( true )
   } )
 
   test( 'indexTypeTest()', () => {
