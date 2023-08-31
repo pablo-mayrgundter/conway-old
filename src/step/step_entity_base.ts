@@ -1,4 +1,6 @@
 import { Entity } from '../core/entity'
+import { EntityDescription, EntityFieldsDescription } from '../core/entity_description'
+import { EntityFieldDescription, EntityStringFieldDescription } from '../core/entity_field_description'
 import {
   stepExtractBinary,
   stepExtractBoolean,
@@ -14,6 +16,30 @@ import StepEntityInternalReference from './step_entity_internal_reference'
 import StepModelBase from './step_model_base'
 
 /**
+ * Merge the entity field descriptions.
+ *
+ * Merging uses "hasOwnProperty" semantics to avoid overwriting
+ * keys that have already been merged.
+ *
+ * @param to Merge to this fields object.
+ * @param from Merge from this fields object.
+ */
+function merge<EntityTypeIDs extends number>(
+    to: EntityFieldsDescription< EntityTypeIDs >,
+    from: EntityFieldsDescription< EntityTypeIDs > ): void {
+
+  for ( const key of Object.keys( from ) ) {
+
+    // eslint-disable-next-line no-prototype-builtins
+    if ( !to.hasOwnProperty( key ) ) {
+
+      to[ key ] = from[ key ]
+
+    }
+  }
+}
+
+/**
  * The base type for entities parsed from STEP.
  */
 export default abstract class StepEntityBase<EntityTypeIDs extends number> implements Entity {
@@ -21,6 +47,73 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    * Get the final type of this STEP entity.
    */
   public abstract get type(): EntityTypeIDs
+
+  /**
+   * Get the reflecterd type info for this element/entity.
+   *
+   * @return {EntityDescription} The entity description for this.
+   */
+  public get typeInfo(): EntityDescription< EntityTypeIDs > {
+
+    const localType = this.type
+
+    return this.model.schema.reflection[ localType ]
+  }
+
+  /**
+   * Get the reflected fields of this.
+   *
+   * @return {EntityFieldsDescription}
+   */
+  public get fields(): EntityFieldsDescription< EntityTypeIDs > {
+
+    const fields = {} as EntityFieldsDescription< EntityTypeIDs >
+
+    let typeID: EntityTypeIDs | undefined = this.type
+
+    while ( typeID !== void 0 ) {
+
+      const localTypeInfo: EntityDescription< EntityTypeIDs > =
+        this.model.schema.reflection[ typeID ]
+
+      merge( fields, localTypeInfo.fields )
+
+      typeID = localTypeInfo.superType
+    }
+
+    return fields
+  }
+
+  /**
+   * Get the reflected fields of this.
+   *
+   * @return {EntityFieldsDescription}
+   */
+  public get orderedFields(): [string, EntityFieldDescription< EntityTypeIDs >][] {
+
+    const fields         = [] as [string, EntityFieldDescription< EntityTypeIDs >][]
+    const internalFields = this.fields
+
+    Object.keys( internalFields ).reduce< [string, EntityFieldDescription< EntityTypeIDs >][] >(
+        ( previous, current ) => {
+
+          // eslint-disable-next-line no-prototype-builtins
+          if ( internalFields.hasOwnProperty( current ) ) {
+
+            const field = internalFields[ current ]
+
+            if ( field.offset !== void 0 ) {
+              previous.push( [current, internalFields[ current ]] )
+            }
+          }
+
+          return previous
+        }, fields )
+
+    fields.sort( ( a, b ) => (a[ 1 ].offset as number) - (b[ 1 ].offset as number) )
+
+    return fields
+  }
 
   /**
    * Get the number of dimensions for this, some functions require every object to have this,
