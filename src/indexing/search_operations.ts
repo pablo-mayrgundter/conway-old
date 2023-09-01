@@ -22,9 +22,10 @@ export function indexSetSearch32(
   let right = end ?? buffer.length
 
   searchValue &= MASK_TOPBITS
+  searchValue >>>= 0
 
   while ( offset < right ) {
-    const mid = ( ( offset + right ) >>> 1 ) & ~1
+    const mid = ( ( offset + right ) >>> 1 ) & ( ~1 >>> 0 )
 
     if ( buffer[ mid ] < searchValue ) {
       // eslint-disable-next-line no-magic-numbers
@@ -53,8 +54,10 @@ export function indexSetPointQuery32(
     offset: number = 0,
     end?: number ): boolean {
   const newOffset = indexSetSearch32( searchValue, buffer, offset, end )
+  const lowPartOneHot = ( 1 << ( searchValue & MASK_BOTTOMBITS ) ) >>> 0
 
-  const lowPartOneHot = 1 << ( searchValue & MASK_BOTTOMBITS )
-
-  return ( newOffset < buffer.length && ( buffer[ newOffset + 1 ] & lowPartOneHot ) > 0 )
+  return (
+    newOffset < buffer.length &&
+    ( buffer[ newOffset ] === ( searchValue & MASK_TOPBITS ) ) &&
+    ( buffer[ newOffset + 1 ] & lowPartOneHot ) >>> 0 > 0 )
 }

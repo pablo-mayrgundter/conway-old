@@ -56,8 +56,6 @@ export function pop32( x: number ): number {
  * @param buffer
  * @param stateBuffer
  * @param stateBufferOffset
- * @param offset
- * @param end
  * @return {number} The current count.
  */
 export function addCompactedElementCount32State(

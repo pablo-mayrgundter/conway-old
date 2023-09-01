@@ -18,7 +18,7 @@ export class SingleIndexSet {
   /**
    * Construct this with a matching elements table.
    *
-   * @param elements_ The elements in the index, matching the prefix sum indices * 2,
+   * @param elements_ The elements in the index, matching the start->end indices * 2,
    * where there's 2 elements in the array for each item,
    * packed (first has the bottom 5 bits masked out, and is the top bits, the second
    * is a bit field representing the elements for the top bit range, in a
@@ -31,6 +31,15 @@ export class SingleIndexSet {
   /* eslint-enable no-useless-constructor, no-empty-function */
 
   /**
+   * Get the buffer elements from this (treat as immutable)
+   *
+   * @return {ReadonlyUint32Array} The buffer elements.
+   */
+  public get buffer(): ReadonlyUint32Array {
+    return this.elements_
+  }
+
+  /**
    * Does the set have a particular index for a particular type.
    *
    * @param indexType The index type to check for.
@@ -38,7 +47,7 @@ export class SingleIndexSet {
    * @return {boolean} True if it has the type.
    */
   public has( denseIndex: number ): boolean {
-    return indexSetPointQuery32( denseIndex, this.elements_, this.start_, this.end_ )
+    return indexSetPointQuery32( denseIndex, this.elements_, this.start_, this.end_ << 1 )
   }
 
   /**
@@ -70,9 +79,7 @@ export class SingleIndexSet {
     addCompactedElement32State(
         localId,
         localState,
-        indexOutput,
-        0,
-        indexSize )
+        indexOutput )
 
     return new SingleIndexSet( 0, SLOTS, indexOutput )
   }
@@ -104,9 +111,7 @@ export class SingleIndexSet {
       addCompactedElement32State(
           localId,
           localState,
-          indexOutput,
-          0,
-          indexSize )
+          indexOutput )
     }
 
     return new SingleIndexSet( 0, countedSlots, indexOutput )
