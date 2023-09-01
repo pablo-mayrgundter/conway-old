@@ -722,7 +722,7 @@ export class IfcGeometryExtraction {
           indices: coordIndex,
           face_starts: polygonalFaceStartIndices,
         }
-        
+
         polygonalFaceVector.push_back(indexedPolygonalFaceParameters)
       }
     }
@@ -2607,7 +2607,7 @@ export class IfcGeometryExtraction {
               product.localID,
               relatingMaterial.localID)
         } else {
-     //     console.log(`type other than IfcProduct: ${EntityTypesIfc[product.type]}`)
+          //     console.log(`type other than IfcProduct: ${EntityTypesIfc[product.type]}`)
         }
       }
     }

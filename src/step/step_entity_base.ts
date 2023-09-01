@@ -1,6 +1,8 @@
 import { Entity } from '../core/entity'
 import { EntityDescription, EntityFieldsDescription } from '../core/entity_description'
-import { EntityFieldDescription, EntityStringFieldDescription } from '../core/entity_field_description'
+import {
+  EntityFieldDescription,
+} from '../core/entity_field_description'
 import {
   stepExtractBinary,
   stepExtractBoolean,

@@ -234,11 +234,11 @@ export class IfcSceneBuilder implements Scene {
     }
 
     return new PackedMesh<IfcStepModel>(
-      this.model,
-      materials,
-      primitives,
-      triangleMaps,
-      elementMap)
+        this.model,
+        materials,
+        primitives,
+        triangleMaps,
+        elementMap)
   }
 
   /**
@@ -248,7 +248,7 @@ export class IfcSceneBuilder implements Scene {
    * the canonical material and the associated step element as it walks the hierarchy.
    * @param walkTemporary Include temporary items.
    */
-  public * walk(walkTemporary: boolean = false):
+  public* walk(walkTemporary: boolean = false):
     IterableIterator<[readonly number[] | undefined,
       IfcNativeTransform | undefined,
       CanonicalMesh,
@@ -331,11 +331,11 @@ export class IfcSceneBuilder implements Scene {
 
     const result =
       new IfcSceneGeometry(
-        this.model,
-        localID,
-        nodeIndex,
-        owningElementLocalID,
-        parentIndex)
+          this.model,
+          localID,
+          nodeIndex,
+          owningElementLocalID,
+          parentIndex)
 
     this.scene_.push(result)
 
@@ -350,9 +350,9 @@ export class IfcSceneBuilder implements Scene {
    * @return {IfcSceneTransform}
    */
   public addTransform(
-    localID: number,
-    transform: ReadonlyArray<number>,
-    nativeTransform: IfcNativeTransform): IfcSceneTransform {
+      localID: number,
+      transform: ReadonlyArray<number>,
+      nativeTransform: IfcNativeTransform): IfcSceneTransform {
 
     if (this.sceneLocalIdMap_.has(localID)) {
       const transform_ = this.getTransform(localID)
@@ -378,7 +378,7 @@ export class IfcSceneBuilder implements Scene {
       }
 
       absoluteNativeTransform = this.conwayGeometry
-        .getLocalPlacement(localPlacementParameters)
+          .getLocalPlacement(localPlacementParameters)
 
       parentIndex = this.currentParent_.index
       this.currentParent_.children.push(nodeIndex)
@@ -391,14 +391,14 @@ export class IfcSceneBuilder implements Scene {
 
     const result =
       new IfcSceneTransform(
-        this.model,
-        transform,
-        absoluteNativeTransform.getValues(),
-        localID,
-        nodeIndex,
-        nativeTransform,
-        absoluteNativeTransform,
-        parentIndex)
+          this.model,
+          transform,
+          absoluteNativeTransform.getValues(),
+          localID,
+          nodeIndex,
+          nativeTransform,
+          absoluteNativeTransform,
+          parentIndex)
 
     this.scene_.push(result)
 

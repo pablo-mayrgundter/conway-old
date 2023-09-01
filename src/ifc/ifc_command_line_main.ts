@@ -233,13 +233,12 @@ function doWork() {
  * Serialize the geometry.
  */
 function serializeGeometry(
-  scene: IfcSceneBuilder,
-  conwaywasm: ConwayGeometry,
-  fileNameNoExtension: string) {
+    scene: IfcSceneBuilder,
+    conwaywasm: ConwayGeometry,
+    fileNameNoExtension: string) {
   // we can assign the first GeometryObject to another variable here to combine them all.
   const materialGeometry = new Map<CanonicalMaterial | undefined, GeometryCollection>()
 
-  let count_ = 0
   // eslint-disable-next-line no-unused-vars
   for (const [_, nativeTransform, geometry, material] of scene.walk()) {
     if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY && !geometry.temporary) {
