@@ -1008,3 +1008,18 @@ export const shimIfcEntityMap: {[key: number]: number} = {
 	486154966: EntityTypesIfc.IFCWINDOWSTANDARDCASE,
 	2906023776: EntityTypesIfc.IFCBEAMSTANDARDCASE,
 };
+
+function reverseMap(
+	originalMap: { [key: number]: EntityTypesIfc }
+  ): { [key: number]: number } {
+	const reversedMap: { [key: number]: number } = {};
+  
+	for (const [key, value] of Object.entries(originalMap)) {
+	  reversedMap[value] = parseInt(key, 10);
+	}
+  
+	return reversedMap;
+  }
+
+
+  export const shimIfcEntityReverseMap: {[key: number]: number} = reverseMap(shimIfcEntityMap)

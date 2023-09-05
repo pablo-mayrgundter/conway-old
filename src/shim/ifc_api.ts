@@ -13,13 +13,14 @@ import { ConwayGeometry, GeometryObject }
 import { CanonicalMeshType } from '../core/canonical_mesh'
 import { CanonicalMaterial } from '../core/canonical_material'
 import { IfcBooleanResult, IfcVector } from '../ifc/ifc4_gen'
-import { shimIfcEntityMap } from './shim_schema_mapping'
+import { shimIfcEntityMap, shimIfcEntityReverseMap } from './shim_schema_mapping'
 import { IfcSceneBuilder } from '../ifc/ifc_scene_builder'
 import { IfcElements } from "./ifc2x4"
 import * as glmatrix from "gl-matrix"
 import { Properties } from './properties'
 import exp from 'constants'
-import { IfcClosedShell, IfcFace, IfcOpenShell } from './ifc2x4_helper'
+import { IfcClosedShell, IfcFace, IfcOpenShell, FromRawLineData } from './ifc2x4_helper'
+import { FieldDescriptionKind, EntityReferenceFieldDescription } from '../core/entity_field_description'
 export * from "./ifc2x4"
 
 
@@ -313,30 +314,17 @@ export class IfcAPI {
 
     GetLine(modelID: number, expressID: number, flatten: boolean = false) {
 
-        const result = this.models.get(modelID)
+        console.log("[GetLine]: Shim - implemented")
 
-        if (result !== undefined) {
-            const [model, scene] = result
-
-            const element = model.getElementByExpressID(expressID)
-            //TODO(nickcastel50): finish this 
-        }
-
-        const myData: RawLineData = {
-            ID: 1,
-            type: 42,
-            arguments: ["arg1", "arg2"]
-        }
-
-        /*let rawLineData = this.GetRawLineData(modelID, expressID)
-        let lineData = ifc2x4helper.FromRawLineData[rawLineData.type](rawLineData)
+        let rawLineData = this.GetRawLineData(modelID, expressID)
+        let lineData = FromRawLineData[rawLineData.type](rawLineData)
         if (flatten) {
             this.FlattenLine(modelID, lineData)
         }
 
-        return lineData*/
+        // console.log(`[GetLine]: lineData: ${JSON.stringify(lineData, null, 2)}`)
 
-        console.log("[GetLine]: Shim - Unimplemented")
+        return lineData
     }
 
     GetAndClearErrors(modelID: number): Vector<LoaderError> {
@@ -407,6 +395,7 @@ export class IfcAPI {
     }
 
     FlattenLine(modelID: number, line: any) {
+        console.log("[FlattenLine]: Shim - implemented")
         Object.keys(line).forEach(propertyName => {
             let property = line[propertyName]
             if (property && property.type === 5) {
@@ -418,22 +407,144 @@ export class IfcAPI {
                 }
             }
         })
-
-        console.log("[FlattenLine]: Shim - Unimplemented")
-
     }
 
     GetRawLineData(modelID: number, expressID: number): RawLineData {
         //return this.wasmModule.GetLine(modelID, expressID) as RawLineData
 
-        console.log("[GetRawLineData]: Shim - Unimplemented")
-        const myRawLineData: RawLineData = {
-            ID: 1,
-            type: 42,
-            arguments: ['arg1', 2, true]
+        console.log("[GetRawLineData]: Shim - implemented")
+        const result = this.models.get(modelID)
+
+        if (result !== undefined) {
+            const [model, scene] = result
+
+            const element = model.getElementByExpressID(expressID)
+
+            const args: any[] = []
+
+            if (element !== void 0) {
+                console.log(`element typeInfo : ${JSON.stringify(element.typeInfo)}`)
+                console.log(`element expressID: ${expressID}`)
+
+                //console.log(`[GetRawLineData]: type: ${shimIfcEntityReverseMap[element.type]}`)
+                for (let i = 0; i < element.orderedFields.length; i++) {
+                    const [fieldName, fieldDescription] = element.orderedFields[i]
+
+                    console.log(`fieldName: ${fieldName} - fieldDescription: ${JSON.stringify(fieldDescription)}`)
+
+                    switch (fieldDescription.kind) {
+                        case FieldDescriptionKind.SELECT:
+                            if ('options' in fieldDescription) {
+                                console.log("options: " + JSON.stringify(fieldDescription.options))
+                            }
+                            break
+                        case FieldDescriptionKind.NUMBER:
+                            if (fieldDescription.offset !== void 0) {
+                                if (fieldDescription.optional) {
+                                    const number_ = element.extractNumber(fieldDescription.offset, fieldDescription.optional)
+                                    args.push(number_)
+                                } else {
+                                    const number_ = element.extractNumber(fieldDescription.offset, fieldDescription.optional)
+                                    args.push(number_)
+                                }
+                            }
+                            break
+                        case FieldDescriptionKind.STRING:
+                            if (fieldDescription.offset !== void 0) {
+                                if (fieldDescription.optional) {
+                                    const string_ = element.extractString(fieldDescription.offset, fieldDescription.optional)
+                                    args.push(string_)
+                                } else {
+                                    const string_ = element.extractString(fieldDescription.offset, fieldDescription.optional)
+                                    args.push(string_)
+                                }
+                            }
+                            break
+                        case FieldDescriptionKind.BOOLEAN:
+                            if (fieldDescription.offset !== void 0) {
+                                if (fieldDescription.optional) {
+                                    const boolean_ = element.extractBoolean(fieldDescription.offset, fieldDescription.optional)
+                                    args.push(boolean_)
+                                } else {
+                                    const boolean_ = element.extractBoolean(fieldDescription.offset, fieldDescription.optional)
+                                    args.push(boolean_)
+                                }
+                            }
+                            break
+                        case FieldDescriptionKind.STEP_REFERENCE:
+                            // It's an EntityReferenceFieldDescription
+                            if ('type' in fieldDescription) {
+                                //fieldDescription.type = shimIfcEntityMap[fieldDescription.type as number]
+                                console.log("This field can have a type parameter via type.")
+                                console.log("constructors: " + JSON.stringify(model.schema.constructors))
+                                console.log("queries: " + JSON.stringify(model.schema.queries))
+                                const queries_ = model.schema.queries[fieldDescription.type as number]
+                                
+                                const ctor_ = model.schema.constructors[fieldDescription.type as number]
+                                //   const queries = model.schema.queries[fieldDescription.type as number]
+                                if (fieldDescription.offset !== void 0) {
+                                    if (ctor_ !== undefined) {
+                                        if (fieldDescription.optional) {
+                                            const refElement = element.extractElement(fieldDescription.offset, fieldDescription.optional, ctor_)
+                                            if (refElement !== null) {
+                                                args.push(refElement.expressID)
+                                            } else {
+                                                console.log("refElement is null!")
+                                            }
+                                        } else {
+                                            const refElement = element.extractElement(fieldDescription.offset, fieldDescription.optional, ctor_)
+                                            if (refElement !== null) {
+                                                args.push(refElement.expressID)
+                                            } else {
+                                                console.log("refElement is null!")
+                                            }
+                                        }
+                                    } else {
+                                        console.log("ctor_ is undefined!")
+                                    }
+                                }
+                            }
+                            break
+                        case FieldDescriptionKind.ENUM:
+                            if (fieldDescription.offset !== void 0) {
+                                if (fieldDescription.optional) {
+                                    const number_ = element.extractNumber(fieldDescription.offset, fieldDescription.optional)
+                                    args.push(number_)
+                                } else {
+                                    const number_ = element.extractNumber(fieldDescription.offset, fieldDescription.optional)
+                                    args.push(number_)
+                                }
+                            }
+                            break
+                        case FieldDescriptionKind.BINARY_DATA:
+                            break
+
+                        default:
+                            console.log("Field cannot have a type.")
+                            break
+                    }
+                }
+
+
+                const rawLineData: RawLineData = {
+                    ID: expressID,
+                    type: shimIfcEntityReverseMap[element.type],
+                    arguments: args
+                }
+
+                console.log(`args: ${JSON.stringify(args)}`)
+                // console.log(`RawLineData: ${JSON.stringify(rawLineData.arguments)}`)
+                return rawLineData
+            }
         }
 
-        return myRawLineData
+        const dummyRawLineData: RawLineData = {
+            ID: 0,
+            type: 0,
+            arguments: ['invalid']
+        }
+
+        return dummyRawLineData
     }
 
     WriteRawLineData(modelID: number, data: RawLineData) {
@@ -464,8 +575,6 @@ export class IfcAPI {
         console.log("[GetLineIDsWithType]: Shim - implemented")
 
         const result = this.models.get(modelID)
-        console.log("modelID: " + modelID + "\ntype: " + type)
-        console.trace("[GetLineIDsWithType]")
         if (result !== undefined) {
             const [model, scene] = result
             if (type in shimIfcEntityMap) {
@@ -868,7 +977,9 @@ export class IfcAPI {
                 for (const [_, nativeTransform, geometry, material] of scene.walk()) {
 
                     //type check 
-                    const typedElement = model.getElementByLocalID(geometry.localID)
+                    //const typedElement = model.getElementByLocalID(geometry.localID)
+                    //console.log(`typedElement.fields: ${typedElement?.fields}`)
+                    //console.log(`typedElement?.orderedFields: ${typedElement?.orderedFields}`)
 
                     /*if (typedElement !== void 0) {
                         console.log("typedElement: type: " + EntityTypesIfc[typedElement.type])
@@ -917,7 +1028,7 @@ export class IfcAPI {
                             )
                         }
 
-                       //  if (result === void 0) {
+                        //  if (result === void 0) {
 
                         if (!this._isCoordinated && this.settings?.COORDINATE_TO_ORIGIN) {
                             //coordinate the geometry to the origin 
@@ -1003,7 +1114,7 @@ export class IfcAPI {
                                 geometries: vectorOfPlacedGeometry,
                                 expressID: vectorOfPlacedGeometry.get(0).geometryExpressID
                             }
-        
+
                             meshCallback(singleFlatMesh)
 
                             //set first material geometry 
@@ -1187,95 +1298,95 @@ export class IfcAPI {
 
                         //if (result === void 0) {
 
-                            if (!this._isCoordinated && this.settings?.COORDINATE_TO_ORIGIN) {
-                                //coordinate the geometry to the origin 
-                                // Assuming geom.GetPoint(0) returns a glm::dvec3, i.e., a 3D vector.
-                                // In TypeScript, you can represent it as number[] or Float64Array.
-                                console.log("Setting up coordinationMatrix")
+                        if (!this._isCoordinated && this.settings?.COORDINATE_TO_ORIGIN) {
+                            //coordinate the geometry to the origin 
+                            // Assuming geom.GetPoint(0) returns a glm::dvec3, i.e., a 3D vector.
+                            // In TypeScript, you can represent it as number[] or Float64Array.
+                            console.log("Setting up coordinationMatrix")
 
-                                const nativePt = geometry.geometry.GetPoint(0)
-                                let pt: number[] = [nativePt.x, nativePt.y, nativePt.z] // Replace x, y, z with actual coordinates.
+                            const nativePt = geometry.geometry.GetPoint(0)
+                            let pt: number[] = [nativePt.x, nativePt.y, nativePt.z] // Replace x, y, z with actual coordinates.
 
-                                // Transform the point by the matrix.
-                                let transformedPt: glmatrix.vec4 = glmatrix.vec4.create()
-                                glmatrix.vec4.transformMat4(transformedPt, [pt[0], pt[1], pt[2], 1], newMatrix!)
+                            // Transform the point by the matrix.
+                            let transformedPt: glmatrix.vec4 = glmatrix.vec4.create()
+                            glmatrix.vec4.transformMat4(transformedPt, [pt[0], pt[1], pt[2], 1], newMatrix!)
 
-                                // Create the translation matrix.
-                                this.coordinationMatrix = glmatrix.mat4.create()
+                            // Create the translation matrix.
+                            this.coordinationMatrix = glmatrix.mat4.create()
 
-                                glmatrix.mat4.fromTranslation(this.coordinationMatrix, [-transformedPt[0], -transformedPt[1], -transformedPt[2]])
+                            glmatrix.mat4.fromTranslation(this.coordinationMatrix, [-transformedPt[0], -transformedPt[1], -transformedPt[2]])
 
-                                //glmatrix.mat4.multiply(this.coordinationMatrix, this.coordinationMatrix, this.NormalizeMat)
+                            //glmatrix.mat4.multiply(this.coordinationMatrix, this.coordinationMatrix, this.NormalizeMat)
 
-                                this.coordinationMatrixArray = Array.from(this.coordinationMatrix)
-                                this._isCoordinated = true
+                            this.coordinationMatrixArray = Array.from(this.coordinationMatrix)
+                            this._isCoordinated = true
+                        }
+
+                        //normalize geometry 
+                        if (!geometry.geometry.normalized) {
+                            geometry.geometry.NormalizeInPlace()
+                        }
+
+                        const placedGeometryArray = new Array<PlacedGeometry>()
+
+                        // Vector of PlacedGeometry
+                        const vectorOfPlacedGeometry: Vector<PlacedGeometry> = {
+                            get(index: number): PlacedGeometry {
+                                if (index >= placedGeometryArray.length) {
+                                    return singlePlacedGeometry
+                                }
+
+                                return placedGeometryArray[index]
+                            },
+                            size(): number {
+                                return placedGeometryArray.length
+                            },
+                            push(parameter: PlacedGeometry): void {
+                                placedGeometryArray.push(parameter)
+                            }
+                        }
+                        //set first material geometry 
+                        materialGeometry.set(material, vectorOfPlacedGeometry)
+
+                        //extract color
+                        if (material !== undefined) {
+                            const color = {
+                                x: material.baseColor[0],
+                                y: material.baseColor[1],
+                                z: material.baseColor[2],
+                                w: material.baseColor[3],
                             }
 
-                            //normalize geometry 
-                            if (!geometry.geometry.normalized) {
-                                geometry.geometry.NormalizeInPlace()
+                            //create PlacedGeometry
+                            const newTransform = glmatrix.mat4.create()
+
+                            // Perform the matrix multiplications
+                            if (newMatrix !== void 0) {
+                                glmatrix.mat4.multiply(newTransform, this.coordinationMatrix, newMatrix)
+                                glmatrix.mat4.multiply(newTransform, newTransform, translationMatrixGeomMin)
+                                glmatrix.mat4.multiply(newTransform, this.NormalizeMat, newTransform)
+                            } else {
+                                glmatrix.mat4.multiply(newTransform, this.coordinationMatrix, newTransform)
+                                glmatrix.mat4.multiply(newTransform, newTransform, translationMatrixGeomMin)
+                                glmatrix.mat4.multiply(newTransform, this.NormalizeMat, newTransform)
+                            }
+                            const newTransformArr = Array.from(newTransform)
+                            const placedGeometry: PlacedGeometry = {
+                                color: color,
+                                geometryExpressID: expressID,
+                                flatTransformation: newTransformArr
                             }
 
-                            const placedGeometryArray = new Array<PlacedGeometry>()
+                            vectorOfPlacedGeometry.push(placedGeometry)
 
-                            // Vector of PlacedGeometry
-                            const vectorOfPlacedGeometry: Vector<PlacedGeometry> = {
-                                get(index: number): PlacedGeometry {
-                                    if (index >= placedGeometryArray.length) {
-                                        return singlePlacedGeometry
-                                    }
-
-                                    return placedGeometryArray[index]
-                                },
-                                size(): number {
-                                    return placedGeometryArray.length
-                                },
-                                push(parameter: PlacedGeometry): void {
-                                    placedGeometryArray.push(parameter)
-                                }
+                            const singleFlatMesh: FlatMesh = {
+                                geometries: vectorOfPlacedGeometry,
+                                expressID: vectorOfPlacedGeometry.get(0).geometryExpressID
                             }
-                            //set first material geometry 
-                            materialGeometry.set(material, vectorOfPlacedGeometry)
 
-                            //extract color
-                            if (material !== undefined) {
-                                const color = {
-                                    x: material.baseColor[0],
-                                    y: material.baseColor[1],
-                                    z: material.baseColor[2],
-                                    w: material.baseColor[3],
-                                }
-
-                                //create PlacedGeometry
-                                const newTransform = glmatrix.mat4.create()
-
-                                // Perform the matrix multiplications
-                                if (newMatrix !== void 0) {
-                                    glmatrix.mat4.multiply(newTransform, this.coordinationMatrix, newMatrix)
-                                    glmatrix.mat4.multiply(newTransform, newTransform, translationMatrixGeomMin)
-                                    glmatrix.mat4.multiply(newTransform, this.NormalizeMat, newTransform)
-                                } else {
-                                    glmatrix.mat4.multiply(newTransform, this.coordinationMatrix, newTransform)
-                                    glmatrix.mat4.multiply(newTransform, newTransform, translationMatrixGeomMin)
-                                    glmatrix.mat4.multiply(newTransform, this.NormalizeMat, newTransform)
-                                }
-                                const newTransformArr = Array.from(newTransform)
-                                const placedGeometry: PlacedGeometry = {
-                                    color: color,
-                                    geometryExpressID: expressID,
-                                    flatTransformation: newTransformArr
-                                }
-
-                                vectorOfPlacedGeometry.push(placedGeometry)
-
-                                const singleFlatMesh: FlatMesh = {
-                                    geometries: vectorOfPlacedGeometry,
-                                    expressID: vectorOfPlacedGeometry.get(0).geometryExpressID
-                                }
-            
-                                meshCallback(singleFlatMesh)
-                            }
-                        } /*else {
+                            meshCallback(singleFlatMesh)
+                        }
+                    } /*else {
                             const vectorOfPlacedGeometry = result
                             //add to vector of placed geometry
                             if (material !== undefined) {
