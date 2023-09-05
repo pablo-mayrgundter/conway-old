@@ -306,6 +306,57 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
     return value
   }
 
+
+  /**
+   * Extract a reference from an offset, without type check.
+   *
+   * @param offset The offset in the vtable to extract from
+   * @param optional Is this an optional field?
+   * @return {StepEntityBase | undefined} Extracted entity or undefined.
+   */
+  public extractReference( offset: number, optional: true ): StepEntityBase< EntityTypeIDs > | null
+  // eslint-disable-next-line no-dupe-class-members
+  public extractReference( offset: number, optional: false ): StepEntityBase< EntityTypeIDs >
+  // eslint-disable-next-line no-dupe-class-members, require-jsdoc
+  public extractReference( offset: number, optional: boolean ):
+    StepEntityBase< EntityTypeIDs > | null {
+
+    this.guaranteeVTable()
+
+    const internalReference =
+      this.internalReference_ as Required< StepEntityInternalReference< EntityTypeIDs > >
+
+    if ( offset >= internalReference.vtableCount ) {
+      throw new Error( 'Couldn\'t read field due to too few fields in record' )
+    }
+
+    const vtableSlot = internalReference.vtableIndex + offset
+
+    const cursor    = internalReference.vtable[ vtableSlot ]
+    const buffer    = internalReference.buffer
+    const endCursor = buffer.length
+
+    const expressID = stepExtractReference( buffer, cursor, endCursor )
+    const value : StepEntityBase< EntityTypeIDs > | undefined =
+      expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
+      (this.model.getInlineElementByAddress(
+          stepExtractInlineElemement( buffer, cursor, endCursor )))
+
+    if ( value === void 0 ) {
+      if ( !optional ) {
+        throw new Error( 'Value in STEP was incorrectly typed' )
+      }
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed' )
+      }
+
+      return null
+    }
+
+    return value
+  }
+
   /**
    * Extract a reference from a buffer, without type check.
    *
