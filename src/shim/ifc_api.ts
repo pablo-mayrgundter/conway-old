@@ -21,6 +21,7 @@ import { Properties } from './properties'
 import exp from 'constants'
 import { IfcClosedShell, IfcFace, IfcOpenShell, FromRawLineData } from './ifc2x4_helper'
 import { FieldDescriptionKind, EntityReferenceFieldDescription } from '../core/entity_field_description'
+import { stringify } from 'querystring'
 export * from "./ifc2x4"
 
 
@@ -90,6 +91,24 @@ export interface IfcGeometry {
 
 export function ms() {
     return new Date().getTime()
+}
+
+enum IfcTokenType {
+    UNKNOWN = 0,
+    STRING,
+    LABEL,
+    ENUM,
+    REAL,
+    REF,
+    EMPTY,
+    SET_BEGIN,
+    SET_END,
+    LINE_END
+}
+
+interface Argument {
+    type: number
+    value: any | null
 }
 
 export type LocateFileHandlerFn = (path: string, prefix: string) => string
@@ -420,14 +439,34 @@ export class IfcAPI {
 
             const element = model.getElementByExpressID(expressID)
 
-            const args: any[] = []
+            let args: any[] = []
 
             if (element !== void 0) {
-                console.log(`element typeInfo : ${JSON.stringify(element.typeInfo)}`)
                 console.log(`element expressID: ${expressID}`)
+                const lineArguments = element.extractLineArguments()
 
-                //console.log(`[GetRawLineData]: type: ${shimIfcEntityReverseMap[element.type]}`)
-                for (let i = 0; i < element.orderedFields.length; i++) {
+                const parsingBuffer = new ParsingBuffer(lineArguments)
+                if (element.expressID !== void 0) {
+                    const result = IfcStepParser.Instance.extractArguments(parsingBuffer, element.expressID)
+                    console.log(JSON.stringify(result))
+                    if (result[1] === ParseResult.COMPLETE) {
+
+                        console.log(`${new Date().toISOString()} - result[0]: ${JSON.stringify(result[0])}`);
+
+                        const rawLineData: RawLineData = {
+                            ID: expressID,
+                            type: shimIfcEntityReverseMap[element.type],
+                            arguments: result[0]
+                        }
+
+                        return rawLineData
+                    }
+                } else {
+                    console.log("element express ID null")
+                }
+
+
+                /*for (let i = 0; i < element.orderedFields.length; i++) {
                     const [fieldName, fieldDescription] = element.orderedFields[i]
 
                     console.log(`fieldName: ${fieldName} - fieldDescription: ${JSON.stringify(fieldDescription)}`)
@@ -442,10 +481,20 @@ export class IfcAPI {
                             if (fieldDescription.offset !== void 0) {
                                 if (fieldDescription.optional) {
                                     const number_ = element.extractNumber(fieldDescription.offset, fieldDescription.optional)
-                                    args.push(number_)
+                                    if (number_ === null) {
+                                        args.push(null)
+                                    } else {
+                                        const arg: Argument = { "type": IfcTokenType.ENUM, "value": number_ }
+                                        args.push(arg)
+                                    }
                                 } else {
                                     const number_ = element.extractNumber(fieldDescription.offset, fieldDescription.optional)
-                                    args.push(number_)
+                                    if (number_ === null) {
+                                        args.push(null)
+                                    } else {
+                                        const arg: Argument = { "type": IfcTokenType.ENUM, "value": number_ }
+                                        args.push(arg)
+                                    }
                                 }
                             }
                             break
@@ -453,10 +502,20 @@ export class IfcAPI {
                             if (fieldDescription.offset !== void 0) {
                                 if (fieldDescription.optional) {
                                     const string_ = element.extractString(fieldDescription.offset, fieldDescription.optional)
-                                    args.push(string_)
+                                    if (string_ === null) {
+                                        args.push(null)
+                                    } else {
+                                        const arg: Argument = { "type": IfcTokenType.STRING, "value": string_ }
+                                        args.push(arg)
+                                    }
                                 } else {
                                     const string_ = element.extractString(fieldDescription.offset, fieldDescription.optional)
-                                    args.push(string_)
+                                    if (string_ === null) {
+                                        args.push(null)
+                                    } else {
+                                        const arg: Argument = { "type": IfcTokenType.STRING, "value": string_ }
+                                        args.push(arg)
+                                    }
                                 }
                             }
                             break
@@ -464,43 +523,86 @@ export class IfcAPI {
                             if (fieldDescription.offset !== void 0) {
                                 if (fieldDescription.optional) {
                                     const boolean_ = element.extractBoolean(fieldDescription.offset, fieldDescription.optional)
-                                    args.push(boolean_)
+
+                                    if (boolean_ === null) {
+                                        args.push(null)
+                                    } else {
+                                        const arg: Argument = { "type": IfcTokenType.REF, "value": boolean_ }
+                                        args.push(arg)
+                                    }
                                 } else {
                                     const boolean_ = element.extractBoolean(fieldDescription.offset, fieldDescription.optional)
-                                    args.push(boolean_)
+                                    if (boolean_ === null) {
+                                        args.push(null)
+                                    } else {
+                                        const arg: Argument = { "type": IfcTokenType.REF, "value": boolean_ }
+                                        args.push(arg)
+                                    }
                                 }
                             }
                             break
                         case FieldDescriptionKind.STEP_REFERENCE:
                             // It's an EntityReferenceFieldDescription
-                            if ('type' in fieldDescription) {
-                                //fieldDescription.type = shimIfcEntityMap[fieldDescription.type as number]
-                                console.log("This field can have a type parameter via type.")
-                                console.log("constructors: " + JSON.stringify(model.schema.constructors))
-                                console.log("queries: " + JSON.stringify(model.schema.queries))
-                                const queries_ = model.schema.queries[fieldDescription.type as number]
-                                
-                                const ctor_ = model.schema.constructors[fieldDescription.type as number]
-                                //   const queries = model.schema.queries[fieldDescription.type as number]
+
+                            if (fieldDescription.rank !== void 0) {
                                 if (fieldDescription.offset !== void 0) {
-                                    if (ctor_ !== undefined) {
-                                        if (fieldDescription.optional) {
-                                            const refElement = element.extractElement(fieldDescription.offset, fieldDescription.optional, ctor_)
-                                            if (refElement !== null) {
-                                                args.push(refElement.expressID)
+                                    const objectDefinitionArray = element.extractArray(fieldDescription.offset, fieldDescription.rank)
+                                    if (objectDefinitionArray !== null) {
+
+                                        const arguments_: Array<any> = []
+                                        for (let objectIndex = 0; objectIndex < objectDefinitionArray.length; ++objectIndex) {
+
+                                            if (objectDefinitionArray[objectIndex] === void 0) {
+                                                arguments_.push(null)
                                             } else {
-                                                console.log("refElement is null!")
-                                            }
-                                        } else {
-                                            const refElement = element.extractElement(fieldDescription.offset, fieldDescription.optional, ctor_)
-                                            if (refElement !== null) {
-                                                args.push(refElement.expressID)
-                                            } else {
-                                                console.log("refElement is null!")
+                                                const arg: Argument = {
+                                                    "type": IfcTokenType.REF,
+                                                    "value": objectDefinitionArray[objectIndex].expressID
+                                                }
+                                                arguments_.push(arg)
                                             }
                                         }
+                                        args.push(arguments_)
                                     } else {
-                                        console.log("ctor_ is undefined!")
+                                        args.push(null)
+                                        console.log("objectDefinitionArray is null!")
+                                    }
+                                }
+                            } else if ('type' in fieldDescription) {
+                                //fieldDescription.type = shimIfcEntityMap[fieldDescription.type as number]
+                                console.log("This field can have a type parameter via type.")
+
+                                if (fieldDescription.offset !== void 0) {
+                                    if (fieldDescription.optional) {
+                                        const refElement = element.extractReference(fieldDescription.offset, fieldDescription.optional)
+                                        if (refElement !== null) {
+                                            if (refElement.expressID === void 0) {
+                                                args.push(null)
+                                            } else {
+                                                const arg: Argument = {
+                                                    "type": IfcTokenType.REF,
+                                                    "value": refElement.expressID
+                                                }
+                                                args.push(arg)
+                                            }
+                                        } else {
+                                            args.push(null)
+                                        }
+                                    } else {
+                                        const refElement = element.extractReference(fieldDescription.offset, fieldDescription.optional)
+                                        if (refElement !== null) {
+                                            if (refElement.expressID === void 0) {
+                                                args.push(null)
+                                            } else {
+                                                const arg: Argument = {
+                                                    "type": IfcTokenType.REF,
+                                                    "value": refElement.expressID
+                                                }
+                                                args.push(arg)
+                                            }
+                                        } else {
+                                            args.push(null)
+                                        }
                                     }
                                 }
                             }
@@ -509,10 +611,21 @@ export class IfcAPI {
                             if (fieldDescription.offset !== void 0) {
                                 if (fieldDescription.optional) {
                                     const number_ = element.extractNumber(fieldDescription.offset, fieldDescription.optional)
-                                    args.push(number_)
+
+                                    if (number_ === null) {
+                                        args.push(null)
+                                    } else {
+                                        const arg: Argument = { "type": IfcTokenType.ENUM, "value": number_ }
+                                        args.push(arg)
+                                    }
                                 } else {
                                     const number_ = element.extractNumber(fieldDescription.offset, fieldDescription.optional)
-                                    args.push(number_)
+                                    if (number_ === null) {
+                                        args.push(null)
+                                    } else {
+                                        const arg: Argument = { "type": IfcTokenType.ENUM, "value": number_ }
+                                        args.push(arg)
+                                    }
                                 }
                             }
                             break
@@ -523,7 +636,7 @@ export class IfcAPI {
                             console.log("Field cannot have a type.")
                             break
                     }
-                }
+                }*/
 
 
                 const rawLineData: RawLineData = {
@@ -532,7 +645,7 @@ export class IfcAPI {
                     arguments: args
                 }
 
-                console.log(`args: ${JSON.stringify(args)}`)
+                console.log(`${new Date().toISOString()} - args: ${JSON.stringify(args)}`)
                 // console.log(`RawLineData: ${JSON.stringify(rawLineData.arguments)}`)
                 return rawLineData
             }

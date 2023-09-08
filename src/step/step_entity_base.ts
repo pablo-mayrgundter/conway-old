@@ -1,7 +1,9 @@
 import { Entity } from '../core/entity'
 import { EntityDescription, EntityFieldsDescription } from '../core/entity_description'
 import { EntityFieldDescription, EntityStringFieldDescription } from '../core/entity_field_description'
+import { IfcObjectDefinition } from '../ifc/ifc4_gen'
 import {
+  stepExtractArray,
   stepExtractBinary,
   stepExtractBoolean,
   stepExtractInlineElemement,
@@ -11,9 +13,36 @@ import {
   stepExtractReference,
   stepExtractString,
 } from './parsing/step_deserialization_functions'
+import { ParseResult } from './parsing/step_parser'
 import { StepEntityConstructorAbstract } from './step_entity_constructor'
 import StepEntityInternalReference from './step_entity_internal_reference'
 import StepModelBase from './step_model_base'
+
+enum IfcTokenType {
+  UNKNOWN = 0,
+  STRING,
+  LABEL,
+  ENUM,
+  REAL,
+  REF,
+  EMPTY,
+  SET_BEGIN,
+  SET_END,
+  LINE_END
+}
+
+const byteToTokenTypeMap: { [key: number]: IfcTokenType } = {
+  0x00: IfcTokenType.UNKNOWN,
+  0x01: IfcTokenType.STRING,
+  0x02: IfcTokenType.LABEL,
+  0x03: IfcTokenType.ENUM,
+  0x04: IfcTokenType.REAL,
+  0x05: IfcTokenType.REF,
+  0x06: IfcTokenType.EMPTY,
+  0x07: IfcTokenType.SET_BEGIN,
+  0x08: IfcTokenType.SET_END,
+  0x09: IfcTokenType.LINE_END
+}
 
 /**
  * Merge the entity field descriptions.
@@ -25,15 +54,15 @@ import StepModelBase from './step_model_base'
  * @param from Merge from this fields object.
  */
 function merge<EntityTypeIDs extends number>(
-    to: EntityFieldsDescription< EntityTypeIDs >,
-    from: EntityFieldsDescription< EntityTypeIDs > ): void {
+  to: EntityFieldsDescription<EntityTypeIDs>,
+  from: EntityFieldsDescription<EntityTypeIDs>): void {
 
-  for ( const key of Object.keys( from ) ) {
+  for (const key of Object.keys(from)) {
 
     // eslint-disable-next-line no-prototype-builtins
-    if ( !to.hasOwnProperty( key ) ) {
+    if (!to.hasOwnProperty(key)) {
 
-      to[ key ] = from[ key ]
+      to[key] = from[key]
 
     }
   }
@@ -53,11 +82,11 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    *
    * @return {EntityDescription} The entity description for this.
    */
-  public get typeInfo(): EntityDescription< EntityTypeIDs > {
+  public get typeInfo(): EntityDescription<EntityTypeIDs> {
 
     const localType = this.type
 
-    return this.model.schema.reflection[ localType ]
+    return this.model.schema.reflection[localType]
   }
 
   /**
@@ -65,18 +94,18 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    *
    * @return {EntityFieldsDescription}
    */
-  public get fields(): EntityFieldsDescription< EntityTypeIDs > {
+  public get fields(): EntityFieldsDescription<EntityTypeIDs> {
 
-    const fields = {} as EntityFieldsDescription< EntityTypeIDs >
+    const fields = {} as EntityFieldsDescription<EntityTypeIDs>
 
     let typeID: EntityTypeIDs | undefined = this.type
 
-    while ( typeID !== void 0 ) {
+    while (typeID !== void 0) {
 
-      const localTypeInfo: EntityDescription< EntityTypeIDs > =
-        this.model.schema.reflection[ typeID ]
+      const localTypeInfo: EntityDescription<EntityTypeIDs> =
+        this.model.schema.reflection[typeID]
 
-      merge( fields, localTypeInfo.fields )
+      merge(fields, localTypeInfo.fields)
 
       typeID = localTypeInfo.superType
     }
@@ -89,28 +118,28 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    *
    * @return {EntityFieldsDescription}
    */
-  public get orderedFields(): [string, EntityFieldDescription< EntityTypeIDs >][] {
+  public get orderedFields(): [string, EntityFieldDescription<EntityTypeIDs>][] {
 
-    const fields         = [] as [string, EntityFieldDescription< EntityTypeIDs >][]
+    const fields = [] as [string, EntityFieldDescription<EntityTypeIDs>][]
     const internalFields = this.fields
 
-    Object.keys( internalFields ).reduce< [string, EntityFieldDescription< EntityTypeIDs >][] >(
-        ( previous, current ) => {
+    Object.keys(internalFields).reduce<[string, EntityFieldDescription<EntityTypeIDs>][]>(
+      (previous, current) => {
 
-          // eslint-disable-next-line no-prototype-builtins
-          if ( internalFields.hasOwnProperty( current ) ) {
+        // eslint-disable-next-line no-prototype-builtins
+        if (internalFields.hasOwnProperty(current)) {
 
-            const field = internalFields[ current ]
+          const field = internalFields[current]
 
-            if ( field.offset !== void 0 ) {
-              previous.push( [current, internalFields[ current ]] )
-            }
+          if (field.offset !== void 0) {
+            previous.push([current, internalFields[current]])
           }
+        }
 
-          return previous
-        }, fields )
+        return previous
+      }, fields)
 
-    fields.sort( ( a, b ) => (a[ 1 ].offset as number) - (b[ 1 ].offset as number) )
+    fields.sort((a, b) => (a[1].offset as number) - (b[1].offset as number))
 
     return fields
   }
@@ -166,37 +195,37 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    * @param optional Whether this is a potentially optional field
    * @return {number | null | undefined} The extracted number.
    */
-  public extractNumber( offset: number, optional: true ): number | null
+  public extractNumber(offset: number, optional: true): number | null
   // eslint-disable-next-line no-dupe-class-members
-  public extractNumber( offset: number, optional: false ): number
+  public extractNumber(offset: number, optional: false): number
   // eslint-disable-next-line no-dupe-class-members, require-jsdoc
-  public extractNumber( offset: number, optional: boolean ): number |
-   null {
+  public extractNumber(offset: number, optional: boolean): number |
+    null {
 
     this.guaranteeVTable()
 
     const internalReference =
-      this.internalReference_ as Required< StepEntityInternalReference< EntityTypeIDs > >
+      this.internalReference_ as Required<StepEntityInternalReference<EntityTypeIDs>>
 
-    if ( offset >= internalReference.vtableCount ) {
-      throw new Error( 'Couldn\'t read field due to too few fields in record' )
+    if (offset >= internalReference.vtableCount) {
+      throw new Error('Couldn\'t read field due to too few fields in record')
     }
 
     const vtableSlot = internalReference.vtableIndex + offset
 
-    const cursor    = internalReference.vtable[ vtableSlot ]
-    const buffer    = internalReference.buffer
+    const cursor = internalReference.vtable[vtableSlot]
+    const buffer = internalReference.buffer
     const endCursor = buffer.length
 
-    const value = stepExtractNumber( buffer, cursor, endCursor )
+    const value = stepExtractNumber(buffer, cursor, endCursor)
 
-    if ( value === void 0 ) {
-      if ( !optional ) {
-        throw new Error( 'Value in STEP was incorrectly typed' )
+    if (value === void 0) {
+      if (!optional) {
+        throw new Error('Value in STEP was incorrectly typed')
       }
 
-      if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-        throw new Error( 'Value in STEP was incorrectly typed' )
+      if (stepExtractOptional(buffer, cursor, endCursor) !== null) {
+        throw new Error('Value in STEP was incorrectly typed')
       }
 
       return null
@@ -217,37 +246,37 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    * @return {string | null} The extracted string, or null if optional
    * and this value isn't specified.
    */
-  public extractString( offset: number, optional: true ): string | null
+  public extractString(offset: number, optional: true): string | null
   // eslint-disable-next-line no-dupe-class-members
-  public extractString( offset: number, optional: false ): string
+  public extractString(offset: number, optional: false): string
   // eslint-disable-next-line no-dupe-class-members, require-jsdoc
-  public extractString( offset: number, optional: boolean ): string |
-   null {
+  public extractString(offset: number, optional: boolean): string |
+    null {
 
     this.guaranteeVTable()
 
     const internalReference =
-      this.internalReference_ as Required< StepEntityInternalReference< EntityTypeIDs > >
+      this.internalReference_ as Required<StepEntityInternalReference<EntityTypeIDs>>
 
-    if ( offset >= internalReference.vtableCount ) {
-      throw new Error( 'Couldn\'t read field due to too few fields in record' )
+    if (offset >= internalReference.vtableCount) {
+      throw new Error('Couldn\'t read field due to too few fields in record')
     }
 
     const vtableSlot = internalReference.vtableIndex + offset
 
-    const cursor    = internalReference.vtable[ vtableSlot ]
-    const buffer    = internalReference.buffer
+    const cursor = internalReference.vtable[vtableSlot]
+    const buffer = internalReference.buffer
     const endCursor = buffer.length
 
-    const value = stepExtractString( buffer, cursor, endCursor )
+    const value = stepExtractString(buffer, cursor, endCursor)
 
-    if ( value === void 0 ) {
-      if ( !optional ) {
-        throw new Error( 'Value in STEP was incorrectly typed' )
+    if (value === void 0) {
+      if (!optional) {
+        throw new Error('Value in STEP was incorrectly typed')
       }
 
-      if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-        throw new Error( 'Value in STEP was incorrectly typed' )
+      if (stepExtractOptional(buffer, cursor, endCursor) !== null) {
+        throw new Error('Value in STEP was incorrectly typed')
       }
 
       return null
@@ -268,36 +297,36 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    * @param optional Is this an optional field?
    * @return {boolean | null} The extracted logical or null for optionals.
    */
-  public extractLogical( offset: number, optional: true ): boolean | null
+  public extractLogical(offset: number, optional: true): boolean | null
   // eslint-disable-next-line no-dupe-class-members
-  public extractLogical( offset: number, optional: false ): boolean
+  public extractLogical(offset: number, optional: false): boolean
   // eslint-disable-next-line no-dupe-class-members, require-jsdoc
-  public extractLogical( offset: number, optional: boolean ): boolean | null {
+  public extractLogical(offset: number, optional: boolean): boolean | null {
 
     this.guaranteeVTable()
 
     const internalReference =
-      this.internalReference_ as Required< StepEntityInternalReference< EntityTypeIDs > >
+      this.internalReference_ as Required<StepEntityInternalReference<EntityTypeIDs>>
 
-    if ( offset >= internalReference.vtableCount ) {
-      throw new Error( 'Couldn\'t read field due to too few fields in record' )
+    if (offset >= internalReference.vtableCount) {
+      throw new Error('Couldn\'t read field due to too few fields in record')
     }
 
     const vtableSlot = internalReference.vtableIndex + offset
 
-    const cursor    = internalReference.vtable[ vtableSlot ]
-    const buffer    = internalReference.buffer
+    const cursor = internalReference.vtable[vtableSlot]
+    const buffer = internalReference.buffer
     const endCursor = buffer.length
 
-    const value = stepExtractLogical( buffer, cursor, endCursor )
+    const value = stepExtractLogical(buffer, cursor, endCursor)
 
-    if ( value === void 0 ) {
-      if ( !optional ) {
-        throw new Error( 'Value in STEP was incorrectly typed' )
+    if (value === void 0) {
+      if (!optional) {
+        throw new Error('Value in STEP was incorrectly typed')
       }
 
-      if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-        throw new Error( 'Value in STEP was incorrectly typed' )
+      if (stepExtractOptional(buffer, cursor, endCursor) !== null) {
+        throw new Error('Value in STEP was incorrectly typed')
       }
 
       return null
@@ -314,47 +343,99 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    * @param optional Is this an optional field?
    * @return {StepEntityBase | undefined} Extracted entity or undefined.
    */
-  public extractReference( offset: number, optional: true ): StepEntityBase< EntityTypeIDs > | null
+  public extractReference(offset: number, optional: true): StepEntityBase<EntityTypeIDs> | null
   // eslint-disable-next-line no-dupe-class-members
-  public extractReference( offset: number, optional: false ): StepEntityBase< EntityTypeIDs >
+  public extractReference(offset: number, optional: false): StepEntityBase<EntityTypeIDs>
   // eslint-disable-next-line no-dupe-class-members, require-jsdoc
-  public extractReference( offset: number, optional: boolean ):
-    StepEntityBase< EntityTypeIDs > | null {
+  public extractReference(offset: number, optional: boolean):
+    StepEntityBase<EntityTypeIDs> | null {
 
     this.guaranteeVTable()
 
     const internalReference =
-      this.internalReference_ as Required< StepEntityInternalReference< EntityTypeIDs > >
+      this.internalReference_ as Required<StepEntityInternalReference<EntityTypeIDs>>
 
-    if ( offset >= internalReference.vtableCount ) {
-      throw new Error( 'Couldn\'t read field due to too few fields in record' )
+    if (offset >= internalReference.vtableCount) {
+      throw new Error('Couldn\'t read field due to too few fields in record')
     }
 
     const vtableSlot = internalReference.vtableIndex + offset
 
-    const cursor    = internalReference.vtable[ vtableSlot ]
-    const buffer    = internalReference.buffer
+    const cursor = internalReference.vtable[vtableSlot]
+    const buffer = internalReference.buffer
     const endCursor = buffer.length
 
-    const expressID = stepExtractReference( buffer, cursor, endCursor )
-    const value : StepEntityBase< EntityTypeIDs > | undefined =
-      expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-      (this.model.getInlineElementByAddress(
-          stepExtractInlineElemement( buffer, cursor, endCursor )))
+    const expressID = stepExtractReference(buffer, cursor, endCursor)
+    const value: StepEntityBase<EntityTypeIDs> | undefined =
+      expressID !== void 0 ? this.model.getElementByExpressID(expressID) :
+        (this.model.getInlineElementByAddress(
+          stepExtractInlineElemement(buffer, cursor, endCursor)))
 
-    if ( value === void 0 ) {
-      if ( !optional ) {
-        throw new Error( 'Value in STEP was incorrectly typed' )
+    if (value === void 0) {
+      if (!optional) {
+        throw new Error('Value in STEP was incorrectly typed')
       }
 
-      if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-        throw new Error( 'Value in STEP was incorrectly typed' )
+      if (stepExtractOptional(buffer, cursor, endCursor) !== null) {
+        throw new Error('Value in STEP was incorrectly typed')
       }
 
       return null
     }
 
     return value
+  }
+
+  readStringView(buffer: Uint8Array, cursor: number): { data: string, length: number } {
+    const view = new DataView(buffer.buffer)
+    const length = view.getUint16(cursor, true) // Little-endian
+    cursor += 2 // 2 bytes for UInt16
+
+    let data = ''
+    for (let i = 0; i < length; i++) {
+      data += String.fromCharCode(view.getUint8(cursor + i))
+    }
+
+    return { data, length }
+  }
+
+  readValue(buffer: Uint8Array, cursor: number, t: IfcTokenType): any {
+    const view = new DataView(buffer.buffer)
+    switch (t) {
+      case IfcTokenType.STRING:
+      case IfcTokenType.ENUM:
+        const { data, length } = this.readStringView(buffer, cursor)
+        return { value: data, length: 2 + length } // 2 bytes for length, plus the string itself
+
+      case IfcTokenType.REAL:
+        const realValue = view.getFloat64(cursor, true) // Little-endian
+        return { value: realValue, length: 8 } // 8 bytes for double
+
+      case IfcTokenType.REF:
+        const refValue = view.getUint32(cursor, true) // Little-endian
+        return { value: refValue, length: 4 } // 4 bytes for UInt32
+
+      default:
+        return { value: undefined, length: 0 }
+    }
+  }
+
+  extractLineArguments(): Uint8Array {
+    this.guaranteeVTable()
+
+    const internalReference = this.internalReference_ as Required<StepEntityInternalReference<EntityTypeIDs>>
+
+    let cursor = internalReference.vtable[internalReference.vtableIndex]
+    const buffer = internalReference.buffer
+    //const endCursor = buffer.length
+    const endCursor = buffer.indexOf(59, cursor) //59 == ';'
+
+    const subArray = buffer.subarray(cursor - 1, endCursor + 1) //include the Open parenthesis + ending semicolon 
+    const text = new TextDecoder().decode(subArray)
+
+    //console.log(text)  // Output:
+
+    return subArray
   }
 
   /**
@@ -366,17 +447,41 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    * @return {StepEntityBase | undefined} Extracted entity or undefined.
    */
   protected extractBufferReference(
-      buffer: Uint8Array,
-      cursor: number,
-      endCursor: number ): StepEntityBase< EntityTypeIDs > | undefined {
+    buffer: Uint8Array,
+    cursor: number,
+    endCursor: number): StepEntityBase<EntityTypeIDs> | undefined {
 
-    const expressID = stepExtractReference( buffer, cursor, endCursor )
-    const value : StepEntityBase< EntityTypeIDs > | undefined =
-      expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-      (this.model.getInlineElementByAddress(
-          stepExtractInlineElemement( buffer, cursor, endCursor )))
+    const expressID = stepExtractReference(buffer, cursor, endCursor)
+    const value: StepEntityBase<EntityTypeIDs> | undefined =
+      expressID !== void 0 ? this.model.getElementByExpressID(expressID) :
+        (this.model.getInlineElementByAddress(
+          stepExtractInlineElemement(buffer, cursor, endCursor)))
 
     return value
+  }
+
+  public extractArray(offset: number, rank: number): Array<any> {
+
+    let arrayObjects: Array<any> = this.extractLambda(offset, (buffer, cursor, endCursor) => {
+
+      let value: Array<any> = []
+
+      for (let address of stepExtractArray(buffer, cursor, endCursor)) {
+        value.push((() => {
+          const cursor = address
+          let value = this.extractBufferReference(buffer, cursor, endCursor)
+
+          /*if ( !( value instanceof IfcObjectDefinition ) )  {
+            throw new Error( 'Value in STEP was incorrectly typed for field' )
+          }*/
+
+          return value
+        })())
+      }
+      return value
+    }, false)
+
+    return arrayObjects
   }
 
   /**
@@ -392,11 +497,11 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    * @param optional Is this an optional field? (true)
    * @return {ExtractionType | null} The extracted value or null for optionals.
    */
-  public extractLambda< ExtractionType >(
+  public extractLambda<ExtractionType>(
     offset: number,
-    extractor: ( buffer: Uint8Array, cursor: number, endCursor: number ) =>
+    extractor: (buffer: Uint8Array, cursor: number, endCursor: number) =>
       ExtractionType | null | undefined,
-    optional: true ): ExtractionType | null
+    optional: true): ExtractionType | null
   /**
    * Extract a number at the particular vtable offset (i.e. the position
    * in the matching step object).
@@ -411,9 +516,9 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    * @return {ExtractionType} The extracted value or null for optionals.
    */
   // eslint-disable-next-line no-dupe-class-members
-  public extractLambda< ExtractionType >(
+  public extractLambda<ExtractionType>(
     offset: number,
-    extractor: ( buffer: Uint8Array, cursor: number, endCursor: number ) =>
+    extractor: (buffer: Uint8Array, cursor: number, endCursor: number) =>
       ExtractionType | undefined,
     optional: false): ExtractionType
   /**
@@ -430,36 +535,36 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    * @return {ExtractionType | null} The extracted value or null for optionals.
    */
   // eslint-disable-next-line no-dupe-class-members, require-jsdoc
-  public extractLambda< ExtractionType >(
-      offset: number,
-      extractor: ( buffer: Uint8Array, cursor: number, endCursor: number ) =>
-        ExtractionType | null | undefined,
-      optional: boolean ): ExtractionType | null {
+  public extractLambda<ExtractionType>(
+    offset: number,
+    extractor: (buffer: Uint8Array, cursor: number, endCursor: number) =>
+      ExtractionType | null | undefined,
+    optional: boolean): ExtractionType | null {
 
     this.guaranteeVTable()
 
     const internalReference =
-      this.internalReference_ as Required< StepEntityInternalReference< EntityTypeIDs > >
+      this.internalReference_ as Required<StepEntityInternalReference<EntityTypeIDs>>
 
-    if ( offset >= internalReference.vtableCount ) {
-      throw new Error( 'Couldn\'t read field due to too few fields in record' )
+    if (offset >= internalReference.vtableCount) {
+      throw new Error('Couldn\'t read field due to too few fields in record')
     }
 
     const vtableSlot = internalReference.vtableIndex + offset
 
-    const cursor    = internalReference.vtable[ vtableSlot ]
-    const buffer    = internalReference.buffer
+    const cursor = internalReference.vtable[vtableSlot]
+    const buffer = internalReference.buffer
     const endCursor = buffer.length
 
-    const value = extractor( buffer, cursor, endCursor )
+    const value = extractor(buffer, cursor, endCursor)
 
-    if ( value === void 0 ) {
-      if ( !optional ) {
-        throw new Error( 'Value in STEP was incorrectly typed' )
+    if (value === void 0) {
+      if (!optional) {
+        throw new Error('Value in STEP was incorrectly typed')
       }
 
-      if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-        throw new Error( 'Value in STEP was incorrectly typed' )
+      if (stepExtractOptional(buffer, cursor, endCursor) !== null) {
+        throw new Error('Value in STEP was incorrectly typed')
       }
 
       return null
@@ -481,11 +586,11 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    * @return {StepEntityBase | null} The extracted element, or null if optional
    * and this value isn't specified.
    */
-  public extractElement< T extends StepEntityConstructorAbstract< EntityTypeIDs > >(
+  public extractElement<T extends StepEntityConstructorAbstract<EntityTypeIDs>>(
     offset: number,
     optional: true,
-    entityConstructor: T ):
-      InstanceType< T > | null
+    entityConstructor: T):
+    InstanceType<T> | null
   /**
    * Extract a string at the particular vtable offset (i.e. the position
    * in the matching step object).
@@ -498,11 +603,11 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    * @return {StepEntityBase} The extracted element.
    */
   // eslint-disable-next-line no-dupe-class-members
-  public extractElement< T extends StepEntityConstructorAbstract< EntityTypeIDs > >(
+  public extractElement<T extends StepEntityConstructorAbstract<EntityTypeIDs>>(
     offset: number,
     optional: false,
-    entityConstructor: T ):
-      InstanceType< T >
+    entityConstructor: T):
+    InstanceType<T>
   /**
    * Extract a string at the particular vtable offset (i.e. the position
    * in the matching step object).
@@ -516,50 +621,50 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    * and this value isn't specified.
    */
   // eslint-disable-next-line no-dupe-class-members, require-jsdoc
-  public extractElement< T extends StepEntityConstructorAbstract< EntityTypeIDs > >(
-      offset: number,
-      optional: boolean,
-      entityConstructor: T ):
-      InstanceType< T > | null {
+  public extractElement<T extends StepEntityConstructorAbstract<EntityTypeIDs>>(
+    offset: number,
+    optional: boolean,
+    entityConstructor: T):
+    InstanceType<T> | null {
 
     this.guaranteeVTable()
 
     const internalReference =
-      this.internalReference_ as Required< StepEntityInternalReference< EntityTypeIDs > >
+      this.internalReference_ as Required<StepEntityInternalReference<EntityTypeIDs>>
 
-    if ( offset >= internalReference.vtableCount ) {
-      throw new Error( 'Couldn\'t read field due to too few fields in record' )
+    if (offset >= internalReference.vtableCount) {
+      throw new Error('Couldn\'t read field due to too few fields in record')
     }
 
     const vtableSlot = internalReference.vtableIndex + offset
 
-    const cursor    = internalReference.vtable[ vtableSlot ]
-    const buffer    = internalReference.buffer
+    const cursor = internalReference.vtable[vtableSlot]
+    const buffer = internalReference.buffer
     const endCursor = buffer.length
 
-    const expressID = stepExtractReference( buffer, cursor, endCursor )
+    const expressID = stepExtractReference(buffer, cursor, endCursor)
     const value =
-      expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-      this.model.getInlineElementByAddress(
-          stepExtractInlineElemement( buffer, cursor, endCursor ) )
+      expressID !== void 0 ? this.model.getElementByExpressID(expressID) :
+        this.model.getInlineElementByAddress(
+          stepExtractInlineElemement(buffer, cursor, endCursor))
 
-    if ( value === void 0 ) {
-      if ( !optional ) {
-        throw new Error( 'Value in STEP was incorrectly typed' )
+    if (value === void 0) {
+      if (!optional) {
+        throw new Error('Value in STEP was incorrectly typed')
       }
 
-      if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-        throw new Error( 'Value in STEP was incorrectly typed' )
+      if (stepExtractOptional(buffer, cursor, endCursor) !== null) {
+        throw new Error('Value in STEP was incorrectly typed')
       }
 
       return null
     }
 
-    if ( !( value instanceof entityConstructor ) ) {
-      throw new Error( 'Value in STEP was incorrectly typed for field' )
+    if (!(value instanceof entityConstructor)) {
+      throw new Error('Value in STEP was incorrectly typed for field')
     }
 
-    return value as InstanceType< T >
+    return value as InstanceType<T>
   }
 
   /**
@@ -573,36 +678,36 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    * @param optional Is this an optional field?
    * @return {boolean | null} The extracted number.
    */
-  public extractBinary( vtableOffset: number, optional: true ): [Uint8Array, number ] | null
+  public extractBinary(vtableOffset: number, optional: true): [Uint8Array, number] | null
   // eslint-disable-next-line no-dupe-class-members
-  public extractBinary( vtableOffset: number, optional: false ): [Uint8Array, number ]
+  public extractBinary(vtableOffset: number, optional: false): [Uint8Array, number]
   // eslint-disable-next-line no-dupe-class-members, require-jsdoc
-  public extractBinary( vtableOffset: number, optional: boolean ): [Uint8Array, number ] | null {
+  public extractBinary(vtableOffset: number, optional: boolean): [Uint8Array, number] | null {
 
     this.guaranteeVTable()
 
     const internalReference =
-      this.internalReference_ as Required< StepEntityInternalReference< EntityTypeIDs > >
+      this.internalReference_ as Required<StepEntityInternalReference<EntityTypeIDs>>
 
-    if ( vtableOffset >= internalReference.vtableCount ) {
-      throw new Error( 'Couldn\'t read field due to too few fields in record' )
+    if (vtableOffset >= internalReference.vtableCount) {
+      throw new Error('Couldn\'t read field due to too few fields in record')
     }
 
     const vtableSlot = internalReference.vtableIndex + vtableOffset
 
-    const cursor    = internalReference.vtable[ vtableSlot ]
-    const buffer    = internalReference.buffer
+    const cursor = internalReference.vtable[vtableSlot]
+    const buffer = internalReference.buffer
     const endCursor = buffer.length
 
-    const value = stepExtractBinary( buffer, cursor, endCursor )
+    const value = stepExtractBinary(buffer, cursor, endCursor)
 
-    if ( value === void 0 ) {
-      if ( !optional ) {
-        throw new Error( 'Value in STEP was incorrectly typed' )
+    if (value === void 0) {
+      if (!optional) {
+        throw new Error('Value in STEP was incorrectly typed')
       }
 
-      if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-        throw new Error( 'Value in STEP was incorrectly typed' )
+      if (stepExtractOptional(buffer, cursor, endCursor) !== null) {
+        throw new Error('Value in STEP was incorrectly typed')
       }
 
       return null
@@ -623,7 +728,7 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    * @return {boolean | null} The extracted number or null if it's
    * not supplied.
    */
-  public extractBoolean( offset: number, optional: true ): boolean | null
+  public extractBoolean(offset: number, optional: true): boolean | null
   /**
    * Extract a number at the particular vtable offset (i.e. the position
    * in the matching step object).
@@ -636,7 +741,7 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    * @return {boolean} The extracted number.
    */
   // eslint-disable-next-line no-dupe-class-members
-  public extractBoolean( offset: number, optional: false ): boolean
+  public extractBoolean(offset: number, optional: false): boolean
   /**
    * Extract a number at the particular vtable offset (i.e. the position
    * in the matching step object).
@@ -650,32 +755,32 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    * not supplied.
    */
   // eslint-disable-next-line no-dupe-class-members, require-jsdoc
-  public extractBoolean( offset: number, optional: boolean ): boolean | null {
+  public extractBoolean(offset: number, optional: boolean): boolean | null {
 
     this.guaranteeVTable()
 
     const internalReference =
-      this.internalReference_ as Required< StepEntityInternalReference< EntityTypeIDs > >
+      this.internalReference_ as Required<StepEntityInternalReference<EntityTypeIDs>>
 
-    if ( offset >= internalReference.vtableCount ) {
-      throw new Error( 'Couldn\'t read field due to too few fields in record' )
+    if (offset >= internalReference.vtableCount) {
+      throw new Error('Couldn\'t read field due to too few fields in record')
     }
 
     const vtableSlot = internalReference.vtableIndex + offset
 
-    const cursor    = internalReference.vtable[ vtableSlot ]
-    const buffer    = internalReference.buffer
+    const cursor = internalReference.vtable[vtableSlot]
+    const buffer = internalReference.buffer
     const endCursor = buffer.length
 
-    const value = stepExtractBoolean( buffer, cursor, endCursor )
+    const value = stepExtractBoolean(buffer, cursor, endCursor)
 
-    if ( value === void 0 ) {
-      if ( !optional ) {
-        throw new Error( 'Value in STEP was incorrectly typed' )
+    if (value === void 0) {
+      if (!optional) {
+        throw new Error('Value in STEP was incorrectly typed')
       }
 
-      if ( stepExtractOptional( buffer, cursor, endCursor ) !== null ) {
-        throw new Error( 'Value in STEP was incorrectly typed' )
+      if (stepExtractOptional(buffer, cursor, endCursor) !== null) {
+        throw new Error('Value in STEP was incorrectly typed')
       }
 
       return null
@@ -698,7 +803,7 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
   constructor(
     public readonly localID: number,
     protected readonly internalReference_: StepEntityInternalReference<EntityTypeIDs>,
-    public readonly model: StepModelBase<EntityTypeIDs>) {}
+    public readonly model: StepModelBase<EntityTypeIDs>) { }
   /* eslint-enable no-useless-constructor, require-jsdoc, no-empty-function */
 
   /**

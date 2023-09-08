@@ -9,35 +9,41 @@ import {
 } from '../../parsing/token_parsing'
 import StepAttributeMap, { ATTRIBUTE_PARSE_TYPE } from './step_attribute_map'
 import StepCommentParser from './step_comment_parser'
+import { stepExtractEnum, stepExtractReference, stepExtractString } from './step_deserialization_functions'
 import StepEntityIdentifierParser from './step_entity_identifier_parser'
 import StepEnumParser from './step_enum_parser'
 import StepStringParser from './step_string_parser'
 import StepVtableBuilder, { IndexMark } from './step_vtable_builder'
 
 
-export interface StepIndexEntryBase< TypeIDType > {
+export interface StepIndexEntryBase<TypeIDType> {
 
-    address: number;
-    length: number;
-    typeID?: TypeIDType;
-    expressID?: number;
-    inlineEntities?: StepInlineIndexEntry< TypeIDType > [];
+  address: number
+  length: number
+  typeID?: TypeIDType
+  expressID?: number
+  inlineEntities?: StepInlineIndexEntry<TypeIDType>[]
 }
 
-export interface StepInlineIndexEntry< TypeIDType > extends StepIndexEntryBase< TypeIDType > {
+export interface StepInlineIndexEntry<TypeIDType> extends StepIndexEntryBase<TypeIDType> {
 
-    expressID?: undefined;
+  expressID?: undefined
 }
 
-export interface StepIndexEntry< TypeIDType >  extends StepIndexEntryBase< TypeIDType > {
+export interface StepIndexEntry<TypeIDType> extends StepIndexEntryBase<TypeIDType> {
 
-    expressID: number;
+  expressID: number
 }
 
-export interface StepIndex< TypeIDType > {
+export interface StepIndex<TypeIDType> {
 
-    elements: StepIndexEntry< TypeIDType >[];
+  elements: StepIndexEntry<TypeIDType>[]
 
+}
+
+export interface Argument {
+  type: number
+  value: any
 }
 
 // https://github.com/stepcode/stepcode/blob/develop/src/cleditor/STEPfile.cc (REFERENCE)
@@ -49,49 +55,49 @@ export interface StepIndex< TypeIDType > {
 // -- eslint doesn't understand enums properly.
 export enum ParseResult {
 
-    COMPLETE     = 0,
-    INCOMPLETE   = 1,
-    SYNTAX_ERROR = 2,
-    MISSING_TYPE = 3,
-    INVALID_STEP = 4,
+  COMPLETE = 0,
+  INCOMPLETE = 1,
+  SYNTAX_ERROR = 2,
+  MISSING_TYPE = 3,
+  INVALID_STEP = 4,
 }
 /* eslint-enable no-shadow, no-unused-vars, no-magic-numbers */
 
-const ISO_10303_21 = encodeToken( 'ISO-10303-21' )
-const HEADER       = encodeToken( 'HEADER' )
-const DATA         = encodeToken( 'DATA' )
-const END_SECTION  = encodeToken( 'ENDSEC' )
-const HASH         = ParsingConstants.HASH
-const EQUALS       = ParsingConstants.EQUALS
-const COMMA        = ParsingConstants.COMMA
-const OPEN_PAREN   = ParsingConstants.OPEN_PAREN
-const CLOSE_PAREN  = ParsingConstants.CLOSE_PAREN
-const SEMICOLON    = ParsingConstants.SEMICOLON
-const WHITESPACE   = ParsingConstants.WHITE_SPACE_SET
-const QUOTE        = ParsingConstants.QUOTE
+const ISO_10303_21 = encodeToken('ISO-10303-21')
+const HEADER = encodeToken('HEADER')
+const DATA = encodeToken('DATA')
+const END_SECTION = encodeToken('ENDSEC')
+const HASH = ParsingConstants.HASH
+const EQUALS = ParsingConstants.EQUALS
+const COMMA = ParsingConstants.COMMA
+const OPEN_PAREN = ParsingConstants.OPEN_PAREN
+const CLOSE_PAREN = ParsingConstants.CLOSE_PAREN
+const SEMICOLON = ParsingConstants.SEMICOLON
+const WHITESPACE = ParsingConstants.WHITE_SPACE_SET
+const QUOTE = ParsingConstants.QUOTE
 
-const enumParser       = StepEnumParser.Instance.match
+const enumParser = StepEnumParser.Instance.match
 const identifierParser = StepEntityIdentifierParser.Instance.match
-const binaryParser     = HexParser.Instance.step
-const attributeMap     = StepAttributeMap.Instance.get
-const commentParser    = StepCommentParser.Instance.match
-const stringParser     = StepStringParser.Instance.match
+const binaryParser = HexParser.Instance.step
+const attributeMap = StepAttributeMap.Instance.get
+const commentParser = StepCommentParser.Instance.match
+const stringParser = StepStringParser.Instance.match
 
-export type BlockParseResult< TypeIDType > = [StepIndex< TypeIDType >, ParseResult];
+export type BlockParseResult<TypeIDType> = [StepIndex<TypeIDType>, ParseResult]
+export type LineArgumentParseResult<TypeIDType> = [StepIndex<TypeIDType>, ParseResult]
 
-export interface StepHeader
-{
-    headers: Map< string, string >;
+export interface StepHeader {
+  headers: Map<string, string>
 }
 
-export type HeaderParseResult = [StepHeader, ParseResult];
+export type HeaderParseResult = [StepHeader, ParseResult]
 
 const textDecoder = new TextDecoder()
 
 /**
  * Parses out STEP files to allow indexing and deserialization.
  */
-export default class StepParser< TypeIDType > {
+export default class StepParser<TypeIDType> {
 
   /* eslint-disable no-useless-constructor, no-empty-function */
   /**
@@ -100,7 +106,7 @@ export default class StepParser< TypeIDType > {
    *
    * @param index_ The index.
    */
-  constructor(private readonly index_: Readonly< TypeIndex< TypeIDType > >) {}
+  constructor(private readonly index_: Readonly<TypeIndex<TypeIDType>>) { }
   /* eslint-enable no-useless-constructor, no-empty-function */
 
   /**
@@ -109,64 +115,64 @@ export default class StepParser< TypeIDType > {
    * @param input The input buffer to parse the header from.
    * @return {HeaderParseResult} The parse result for the header, plus the header values.
    */
-  public parseHeader( input: ParsingBuffer ): HeaderParseResult {
-    const match          = input.match
-    const comment        = () => match( commentParser )
-    const whitespace     = () => {
+  public parseHeader(input: ParsingBuffer): HeaderParseResult {
+    const match = input.match
+    const comment = () => match(commentParser)
+    const whitespace = () => {
       do {
         input.whitespace()
-      } while ( comment() )
+      } while (comment())
     }
-    const char           = input.char
-    const charws         = ( encoded: EncodedAsciiCharacter ) => {
-      whitespace(); return char( encoded )
+    const char = input.char
+    const charws = (encoded: EncodedAsciiCharacter) => {
+      whitespace(); return char(encoded)
     }
-    const token          = input.token
-    const tokenws        = ( encoded: EncodedToken ) => {
-      whitespace(); return token( encoded )
+    const token = input.token
+    const tokenws = (encoded: EncodedToken) => {
+      whitespace(); return token(encoded)
     }
 
-    const stringMatch    = () => match( stringParser )
-    const binaryHex      = () => match( binaryParser )
-    const real           = input.real
-    const unsigned       = input.unsigned
-    const unsignedws     = () => {
+    const stringMatch = () => match(stringParser)
+    const binaryHex = () => match(binaryParser)
+    const real = input.real
+    const unsigned = input.unsigned
+    const unsignedws = () => {
       whitespace(); return unsigned()
     }
-    const enumeration    = () => match( enumParser )
-    const identifier     = () => match( identifierParser )
+    const enumeration = () => match(enumParser)
+    const identifier = () => match(identifierParser)
 
-    const headers: StepHeader = { headers: new Map< string, string >() }
+    const headers: StepHeader = { headers: new Map<string, string>() }
 
-    const parseResult    = ( value: ParseResult ): HeaderParseResult => [headers, value]
-    const syntaxError    = (): HeaderParseResult => [headers, ParseResult.SYNTAX_ERROR]
+    const parseResult = (value: ParseResult): HeaderParseResult => [headers, value]
+    const syntaxError = (): HeaderParseResult => [headers, ParseResult.SYNTAX_ERROR]
 
-    if ( !tokenws( ISO_10303_21 ) ) {
-      return parseResult( ParseResult.INVALID_STEP )
+    if (!tokenws(ISO_10303_21)) {
+      return parseResult(ParseResult.INVALID_STEP)
     }
 
-    if ( !charws( SEMICOLON ) ) {
-      return parseResult( ParseResult.SYNTAX_ERROR )
+    if (!charws(SEMICOLON)) {
+      return parseResult(ParseResult.SYNTAX_ERROR)
     }
 
-    if ( !tokenws( HEADER ) ) {
-      return parseResult( ParseResult.INVALID_STEP )
+    if (!tokenws(HEADER)) {
+      return parseResult(ParseResult.INVALID_STEP)
     }
 
-    if ( !charws( SEMICOLON ) ) {
-      return parseResult(  ParseResult.SYNTAX_ERROR )
+    if (!charws(SEMICOLON)) {
+      return parseResult(ParseResult.SYNTAX_ERROR)
     }
 
-    while ( input.unfinished && !tokenws( END_SECTION ) ) {
+    while (input.unfinished && !tokenws(END_SECTION)) {
       const startIdentifier = input.cursor
 
       whitespace()
 
-      if ( !identifier() ) {
+      if (!identifier()) {
         return syntaxError()
       }
 
-      const headerID = textDecoder.decode( input.buffer.subarray( startIdentifier, input.cursor ) )
+      const headerID = textDecoder.decode(input.buffer.subarray(startIdentifier, input.cursor))
 
       let firstAttribute = true
 
@@ -174,21 +180,21 @@ export default class StepParser< TypeIDType > {
 
       const startBlock = input.cursor
 
-      if ( !char( OPEN_PAREN ) ) {
+      if (!char(OPEN_PAREN)) {
         return syntaxError()
       }
 
       let stackDepth = 1
 
-      while ( stackDepth > 0 ) {
-        if ( charws( CLOSE_PAREN ) ) {
+      while (stackDepth > 0) {
+        if (charws(CLOSE_PAREN)) {
           firstAttribute = false
           --stackDepth
           continue
         }
 
-        if ( !firstAttribute ) {
-          if ( !char( COMMA ) ) {
+        if (!firstAttribute) {
+          if (!char(COMMA)) {
             return syntaxError()
           }
         }
@@ -199,32 +205,32 @@ export default class StepParser< TypeIDType > {
 
         const nextChar = input.peek()
 
-        if ( nextChar === (void 0) ) {
+        if (nextChar === (void 0)) {
           return syntaxError()
         }
 
-        switch ( attributeMap( nextChar ) ) {
+        switch (attributeMap(nextChar)) {
           case ATTRIBUTE_PARSE_TYPE.INVALID:
 
             return syntaxError()
 
           case ATTRIBUTE_PARSE_TYPE.NUMBER:
 
-            if ( !real() ) {
+            if (!real()) {
               return syntaxError()
             }
             break
 
           case ATTRIBUTE_PARSE_TYPE.ENUM:
 
-            if ( !enumeration() ) {
+            if (!enumeration()) {
               return syntaxError()
             }
             break
 
           case ATTRIBUTE_PARSE_TYPE.STRING:
 
-            if ( !stringMatch() ) {
+            if (!stringMatch()) {
               return syntaxError()
             }
             break
@@ -233,7 +239,7 @@ export default class StepParser< TypeIDType > {
 
             input.step()
 
-            if ( !unsignedws() ) {
+            if (!unsignedws()) {
               return syntaxError()
             }
             break
@@ -247,7 +253,7 @@ export default class StepParser< TypeIDType > {
 
           case ATTRIBUTE_PARSE_TYPE.HEXBITS:
 
-            if ( !binaryHex() ) {
+            if (!binaryHex()) {
               return syntaxError()
             }
             break
@@ -269,28 +275,28 @@ export default class StepParser< TypeIDType > {
 
       whitespace()
 
-      const headerBlock = textDecoder.decode( input.buffer.subarray( startBlock, input.cursor ) )
+      const headerBlock = textDecoder.decode(input.buffer.subarray(startBlock, input.cursor))
 
-      headers.headers.set( headerID, headerBlock )
+      headers.headers.set(headerID, headerBlock)
 
-      if ( !charws( SEMICOLON ) ) {
+      if (!charws(SEMICOLON)) {
         return syntaxError()
       }
     }
 
-    if ( !charws( SEMICOLON ) ) {
+    if (!charws(SEMICOLON)) {
       return syntaxError()
     }
 
-    if ( !tokenws( DATA ) ) {
+    if (!tokenws(DATA)) {
       return syntaxError()
     }
 
-    if ( !charws( SEMICOLON ) ) {
+    if (!charws(SEMICOLON)) {
       return syntaxError()
     }
 
-    return parseResult( ParseResult.COMPLETE )
+    return parseResult(ParseResult.COMPLETE)
   }
 
   /**
@@ -308,41 +314,41 @@ export default class StepParser< TypeIDType > {
    * defined due to an error.
    */
   public extractDataEntry(
-      input: Uint8Array,
-      cursor: number,
-      endCursor: number,
-      vtableBuilder: StepVtableBuilder ): [IndexMark, number] | undefined {
+    input: Uint8Array,
+    cursor: number,
+    endCursor: number,
+    vtableBuilder: StepVtableBuilder): [IndexMark, number] | undefined {
     let stackDepth = 1
 
-    while ( cursor < endCursor && stackDepth > 0 ) {
+    while (cursor < endCursor && stackDepth > 0) {
       // skip whitespace.
-      while ( cursor < endCursor && WHITESPACE.has( input[ cursor ] ) ) {
+      while (cursor < endCursor && WHITESPACE.has(input[cursor])) {
         ++cursor
       }
 
-      if ( cursor === endCursor ) {
-        if ( stackDepth === 1 ) {
+      if (cursor === endCursor) {
+        if (stackDepth === 1) {
           return vtableBuilder.complete()
         } else {
           return
         }
       }
 
-      if ( stackDepth === 1 ) {
-        vtableBuilder.push( cursor )
+      if (stackDepth === 1) {
+        vtableBuilder.push(cursor)
       }
 
       // Eat characters until we get to a comma or close paren.
-      while ( cursor < endCursor ) {
-        const readChar = input[ cursor ]
+      while (cursor < endCursor) {
+        const readChar = input[cursor]
 
         // String is a special case because it might contain control characters,
         // we will run the string parsing DFA to skip over it.
-        if ( readChar === QUOTE ) {
-          const parsedStringOffset = stringParser( input, cursor, endCursor )
+        if (readChar === QUOTE) {
+          const parsedStringOffset = stringParser(input, cursor, endCursor)
 
           // Couldn't parse a string, something's wrong.
-          if ( parsedStringOffset === void 0 ) {
+          if (parsedStringOffset === void 0) {
             return
           }
 
@@ -353,18 +359,18 @@ export default class StepParser< TypeIDType > {
         ++cursor
 
         // Comma starts a new param entry
-        if ( readChar === COMMA ) {
+        if (readChar === COMMA) {
           break
-        } else if ( readChar === SEMICOLON ) {
+        } else if (readChar === SEMICOLON) {
           return vtableBuilder.complete()
 
-        // Will effectively terminate if this is the end of the entity,
-        // or simply end the inline entity/container case otherwise.
-        } else if ( readChar === CLOSE_PAREN ) {
+          // Will effectively terminate if this is the end of the entity,
+          // or simply end the inline entity/container case otherwise.
+        } else if (readChar === CLOSE_PAREN) {
           --stackDepth
 
-        // Handles inline entity case and container cases.
-        } else if ( readChar === OPEN_PAREN ) {
+          // Handles inline entity case and container cases.
+        } else if (readChar === OPEN_PAREN) {
           ++stackDepth
           break
         }
@@ -380,84 +386,84 @@ export default class StepParser< TypeIDType > {
    * @param input The input parsing buffer, in the data section.
    * @return {BlockParseResult} The parsing result, including the index and result enum.
    */
-  public parseDataBlock( input: ParsingBuffer ): BlockParseResult< TypeIDType > {
+  public parseDataBlock(input: ParsingBuffer): BlockParseResult<TypeIDType> {
 
-    const indexResult: StepIndex< TypeIDType > = { elements: [] }
+    const indexResult: StepIndex<TypeIDType> = { elements: [] }
 
-    const match          = input.match
-    const comment        = () => match( commentParser )
-    const whitespace     = () => {
+    const match = input.match
+    const comment = () => match(commentParser)
+    const whitespace = () => {
       do {
         input.whitespace()
-      } while ( comment() )
+      } while (comment())
     }
-    const char           = input.char
-    const charws         = ( encoded: EncodedAsciiCharacter ) => {
-      whitespace(); return char( encoded )
+    const char = input.char
+    const charws = (encoded: EncodedAsciiCharacter) => {
+      whitespace(); return char(encoded)
     }
-    const token          = input.token
-    const tokenws        = ( encoded: EncodedToken ) => {
-      whitespace(); return token( encoded )
+    const token = input.token
+    const tokenws = (encoded: EncodedToken) => {
+      whitespace(); return token(encoded)
     }
 
-    const stringMatch    = () => match( stringParser )
-    const binaryHex      = () => match( binaryParser )
-    const real           = input.real
-    const unsigned       = input.unsigned
-    const unsignedws     = () => {
+    const stringMatch = () => match(stringParser)
+    const binaryHex = () => match(binaryParser)
+    const real = input.real
+    const unsigned = input.unsigned
+    const unsignedws = () => {
       whitespace(); return unsigned()
     }
-    const readUnsigned   = input.readUnsigned
+    const readUnsigned = input.readUnsigned
     const readUnsignedws = () => {
       whitespace(); return readUnsigned()
     }
-    const enumeration    = () => match( enumParser )
-    const identifier     = () => match( identifierParser )
-    const parseResult    = ( value: ParseResult ): BlockParseResult< TypeIDType > => {
+    const enumeration = () => match(enumParser)
+    const identifier = () => match(identifierParser)
+    const parseResult = (value: ParseResult): BlockParseResult<TypeIDType> => {
       /* console.trace();*/ return [indexResult, value]
     }
-    const syntaxError    = (): BlockParseResult< TypeIDType > => {
+    const syntaxError = (): BlockParseResult<TypeIDType> => {
       /* console.trace();*/ return [indexResult, ParseResult.SYNTAX_ERROR]
     }
 
-    let inlineElements: StepInlineIndexEntry< TypeIDType >[] | undefined
+    let inlineElements: StepInlineIndexEntry<TypeIDType>[] | undefined
 
-    const parseInlineElement = (): BlockParseResult< TypeIDType > | undefined => {
+    const parseInlineElement = (): BlockParseResult<TypeIDType> | undefined => {
 
       whitespace()
 
       const startIdentifier = input.cursor
 
-      if ( !identifier() ) {
+      if (!identifier()) {
         return syntaxError()
       }
 
-      const foundItem = this.index_.get( input.buffer, startIdentifier, input.cursor )
+      const foundItem = this.index_.get(input.buffer, startIdentifier, input.cursor)
 
       let firstAttribute = true
 
-      if ( !charws( OPEN_PAREN ) ) {
+      if (!charws(OPEN_PAREN)) {
         return syntaxError()
       }
 
       whitespace()
 
       const startElement = input.cursor
-      let stackDepth   = 1
+      let stackDepth = 1
 
       const savedInlineElements = inlineElements
 
       inlineElements = void 0
 
-      while ( stackDepth > 0 ) {
-        if ( charws( CLOSE_PAREN ) ) {
+      while (stackDepth > 0) {
+        if (charws(CLOSE_PAREN)) {
           firstAttribute = false
           --stackDepth
           continue
         }
 
-        if ( !firstAttribute ) {
-          if ( !char( COMMA ) ) {
+        if (!firstAttribute) {
+          if (!char(COMMA)) {
             return syntaxError()
           }
         }
@@ -468,47 +474,46 @@ export default class StepParser< TypeIDType > {
 
         const nextChar = input.peek()
 
-        if ( nextChar === (void 0) ) {
+        if (nextChar === (void 0)) {
           return syntaxError()
         }
 
-        switch ( attributeMap( nextChar ) ) {
+        switch (attributeMap(nextChar)) {
           case ATTRIBUTE_PARSE_TYPE.INVALID:
 
             return syntaxError()
 
-          case  ATTRIBUTE_PARSE_TYPE.INLINE_INSTANCE: {
+          case ATTRIBUTE_PARSE_TYPE.INLINE_INSTANCE: {
 
             // The semi-colon above is needed for an unambiguous
             // typescript parse.
             // eslint-disable-next-line semi
-            const elementResult = parseInlineElement();
+            const elementResult = parseInlineElement()
 
-            <StepInlineIndexEntry< TypeIDType >[] | undefined>inlineElements
-
-            if ( elementResult !== ( void 0 ) ) {
+            if (elementResult !== (void 0)) {
               return elementResult
             }
+            break
             break
           }
 
           case ATTRIBUTE_PARSE_TYPE.NUMBER:
 
-            if ( !real() ) {
+            if (!real()) {
               return syntaxError()
             }
             break
 
           case ATTRIBUTE_PARSE_TYPE.ENUM:
 
-            if ( !enumeration() ) {
+            if (!enumeration()) {
               return syntaxError()
             }
             break
 
           case ATTRIBUTE_PARSE_TYPE.STRING:
 
-            if ( !stringMatch() ) {
+            if (!stringMatch()) {
               return syntaxError()
             }
             break
@@ -517,7 +522,7 @@ export default class StepParser< TypeIDType > {
 
             input.step()
 
-            if ( !unsignedws() ) {
+            if (!unsignedws()) {
               return syntaxError()
             }
             break
@@ -531,7 +536,7 @@ export default class StepParser< TypeIDType > {
 
           case ATTRIBUTE_PARSE_TYPE.HEXBITS:
 
-            if ( !binaryHex() ) {
+            if (!binaryHex()) {
               return syntaxError()
             }
             break
@@ -558,34 +563,34 @@ export default class StepParser< TypeIDType > {
       inlineElements ??= []
 
       inlineElements.push(
-          {
-            address: startElement,
-            length: input.address,
-            typeID: foundItem,
-            inlineEntities: nestedInlineElements,
-          } )
+        {
+          address: startElement,
+          length: input.address,
+          typeID: foundItem,
+          inlineEntities: nestedInlineElements,
+        })
 
     }
 
-    while ( input.unfinished ) {
+    while (input.unfinished) {
 
-      if ( !charws( HASH ) ) {
-        if ( tokenws( END_SECTION ) ) {
-          return parseResult( ParseResult.COMPLETE )
+      if (!charws(HASH)) {
+        if (tokenws(END_SECTION)) {
+          return parseResult(ParseResult.COMPLETE)
 
         } else {
-          return parseResult( ParseResult.INCOMPLETE )
+          return parseResult(ParseResult.INCOMPLETE)
         }
       }
 
       // TODO! work out range check - CS
       const expressID = readUnsignedws()
 
-      if ( expressID === undefined ) {
+      if (expressID === undefined) {
         return syntaxError()
       }
 
-      if ( !charws( EQUALS ) ) {
+      if (!charws(EQUALS)) {
         return syntaxError()
       }
 
@@ -593,34 +598,34 @@ export default class StepParser< TypeIDType > {
 
       const startIdentifier = input.cursor
 
-      if ( !identifier() ) {
+      if (!identifier()) {
         return syntaxError()
       }
 
-      const foundItem = this.index_.get( input.buffer, startIdentifier, input.cursor )
+      const foundItem = this.index_.get(input.buffer, startIdentifier, input.cursor)
 
       let firstAttribute = true
 
-      if ( !charws( OPEN_PAREN ) ) {
+      if (!charws(OPEN_PAREN)) {
         return syntaxError()
       }
 
       whitespace()
 
       const startElement = input.cursor
-      let stackDepth   = 1
+      let stackDepth = 1
 
       inlineElements = void 0
 
-      while ( stackDepth > 0 ) {
-        if ( charws( CLOSE_PAREN ) ) {
+      while (stackDepth > 0) {
+        if (charws(CLOSE_PAREN)) {
           firstAttribute = false
           --stackDepth
           continue
         }
 
-        if ( !firstAttribute ) {
-          if ( !char( COMMA ) ) {
+        if (!firstAttribute) {
+          if (!char(COMMA)) {
             return syntaxError()
           }
         }
@@ -631,20 +636,20 @@ export default class StepParser< TypeIDType > {
 
         const nextChar = input.peek()
 
-        if ( nextChar === (void 0) ) {
+        if (nextChar === (void 0)) {
           return syntaxError()
         }
 
-        switch ( attributeMap( nextChar ) ) {
+        switch (attributeMap(nextChar)) {
           case ATTRIBUTE_PARSE_TYPE.INVALID:
 
             return syntaxError()
 
-          case  ATTRIBUTE_PARSE_TYPE.INLINE_INSTANCE: {
+          case ATTRIBUTE_PARSE_TYPE.INLINE_INSTANCE: {
 
             const elementResult = parseInlineElement()
 
-            if ( elementResult !== ( void 0 ) ) {
+            if (elementResult !== (void 0)) {
               return elementResult
             }
             break
@@ -652,21 +657,21 @@ export default class StepParser< TypeIDType > {
 
           case ATTRIBUTE_PARSE_TYPE.NUMBER:
 
-            if ( !real() ) {
+            if (!real()) {
               return syntaxError()
             }
             break
 
           case ATTRIBUTE_PARSE_TYPE.ENUM:
 
-            if ( !enumeration() ) {
+            if (!enumeration()) {
               return syntaxError()
             }
             break
 
           case ATTRIBUTE_PARSE_TYPE.STRING:
 
-            if ( !stringMatch() ) {
+            if (!stringMatch()) {
               return syntaxError()
             }
             break
@@ -675,7 +680,7 @@ export default class StepParser< TypeIDType > {
 
             input.step()
 
-            if ( !unsignedws() ) {
+            if (!unsignedws()) {
               return syntaxError()
             }
             break
@@ -689,7 +694,7 @@ export default class StepParser< TypeIDType > {
 
           case ATTRIBUTE_PARSE_TYPE.HEXBITS:
 
-            if ( !binaryHex() ) {
+            if (!binaryHex()) {
               return syntaxError()
             }
             break
@@ -709,22 +714,484 @@ export default class StepParser< TypeIDType > {
         }
       }
 
-      if ( !charws( SEMICOLON ) ) {
+      if (!charws(SEMICOLON)) {
         return syntaxError()
       }
 
       indexResult.elements.push(
-          {
-            address: startElement,
-            length: input.address,
-            typeID: foundItem,
-            expressID: expressID,
-            inlineEntities: inlineElements,
-          } )
+        {
+          address: startElement,
+          length: input.address,
+          typeID: foundItem,
+          expressID: expressID,
+          inlineEntities: inlineElements,
+        })
     }
 
     // Got here without finding an end of the section.
-    return parseResult( ParseResult.INCOMPLETE )
+    return parseResult(ParseResult.INCOMPLETE)
+  }
+
+  /**
+   * Parse arguments from a single line from a step file, indexing it.,
+   *
+   * @param input The input parsing buffer, in the data section.
+   * @return {LineArgumentParseResult} The parsing result, including the arguments array and result enum.
+   */
+  public extractArguments(input: ParsingBuffer, expressID: number): [any, ParseResult] {
+
+    const indexResult: any[] = []
+
+    const match = input.match
+    const comment = () => match(commentParser)
+    const whitespace = () => {
+      do {
+        input.whitespace()
+      } while (comment())
+    }
+    const char = input.char
+    const charws = (encoded: EncodedAsciiCharacter) => {
+      whitespace(); return char(encoded)
+    }
+    const token = input.token
+    const tokenws = (encoded: EncodedToken) => {
+      whitespace(); return token(encoded)
+    }
+
+    const stringMatch = () => match(stringParser)
+    const binaryHex = () => match(binaryParser)
+    const real = input.real
+    const unsigned = input.unsigned
+    const unsignedws = () => {
+      whitespace(); return unsigned()
+    }
+    const readUnsigned = input.readUnsigned
+    const readUnsignedws = () => {
+      whitespace(); return readUnsigned()
+    }
+    const enumeration = () => match(enumParser)
+    const identifier = () => match(identifierParser)
+    const parseResult = (value: ParseResult): [Argument[], ParseResult] => {
+      /* console.trace();*/ return [indexResult, value]
+    }
+    const syntaxError = (): [Argument[], ParseResult] => {
+      /* console.trace();*/ return [indexResult, ParseResult.SYNTAX_ERROR]
+    }
+
+    let inlineElements: StepInlineIndexEntry<TypeIDType>[] | undefined
+
+    const parseInlineElement = (): [Argument[], ParseResult] | undefined => {
+
+      whitespace()
+
+      const startIdentifier = input.cursor
+
+      if (!identifier()) {
+        return syntaxError()
+      }
+
+      const foundItem = this.index_.get(input.buffer, startIdentifier, input.cursor)
+
+      let firstAttribute = true
+
+      if (!charws(OPEN_PAREN)) {
+        return syntaxError()
+      }
+
+      whitespace()
+
+      const startElement = input.cursor
+      let stackDepth = 1
+
+      const savedInlineElements = inlineElements
+
+      inlineElements = void 0
+
+      let arg_: Argument
+
+      while (stackDepth > 0) {
+        if (charws(CLOSE_PAREN)) {
+          firstAttribute = false
+          --stackDepth
+          continue
+        }
+
+        if (!firstAttribute) {
+          if (!char(COMMA)) {
+            return syntaxError()
+          }
+        }
+
+        firstAttribute = false
+
+        whitespace()
+
+        const nextChar = input.peek()
+
+        if (nextChar === (void 0)) {
+          return syntaxError()
+        }
+
+        switch (attributeMap(nextChar)) {
+          case ATTRIBUTE_PARSE_TYPE.INVALID:
+
+            console.log("syntaxError parsing: INVALID")
+            return syntaxError()
+
+          case ATTRIBUTE_PARSE_TYPE.INLINE_INSTANCE: {
+
+            const elementResult = parseInlineElement()
+
+            if (elementResult !== (void 0)) {
+              return elementResult
+            }
+            break
+          }
+
+          case ATTRIBUTE_PARSE_TYPE.NUMBER:
+
+            const extractReal = input.readReal()
+            if (extractReal !== void 0) {
+              arg_ = {
+                type: 4,
+                value: extractReal,
+              }
+
+              indexResult.push(arg_)
+            } else {
+              console.log("syntaxError parsing NUMBER")
+              return syntaxError()
+            }
+
+            break
+
+          case ATTRIBUTE_PARSE_TYPE.ENUM:
+
+            if (!enumeration()) {
+              console.log("syntaxError parsing ENUM")
+              return syntaxError()
+            }
+            break
+
+          case ATTRIBUTE_PARSE_TYPE.STRING:
+
+            //console.log("extracting string...")
+            const extractString = stepExtractString(input.buffer, input.cursor, input.buffer.length)
+            if (extractString !== void 0) {
+              arg_ = {
+                type: 1,
+                value: extractString,
+              }
+
+              indexResult.push(arg_)
+
+              //skip size of string + 2 
+              for (let i = 0; i < extractString.length + 2; ++i) {
+                input.step()
+              }
+            } else {
+              console.log("syntaxError parsing STRING")
+              return syntaxError()
+            }
+            break
+
+          case ATTRIBUTE_PARSE_TYPE.REFERENCE:
+
+            //console.log("extracting reference...")
+            const expressID_ = stepExtractReference(input.buffer, input.cursor, input.buffer.length)
+            input.step()
+            //console.log("expressID ref: " + expressID_)
+
+            if (expressID_ !== void 0) {
+              arg_ = {
+                type: 5,
+                value: expressID_,
+              }
+              indexResult.push(arg_)
+
+              for (let i = 0; i < expressID_.toString().length; ++i) {
+                input.step()
+              }
+
+            } else {
+              console.log("syntaxError parsing REFERENCE")
+              return syntaxError()
+            }
+            break
+
+          case ATTRIBUTE_PARSE_TYPE.CONTAINER:
+
+            console.log("found container")
+            firstAttribute = true
+            input.step()
+            ++stackDepth
+            break
+
+          case ATTRIBUTE_PARSE_TYPE.HEXBITS:
+
+            if (!binaryHex()) {
+              console.log("syntaxError parsing HEXBITS")
+              return syntaxError()
+            }
+            break
+
+          case ATTRIBUTE_PARSE_TYPE.NULL:
+
+            input.step()
+            break
+
+          case ATTRIBUTE_PARSE_TYPE.DERIVED:
+
+            input.step()
+            break
+
+          default:
+
+        }
+      }
+
+      const nestedInlineElements = inlineElements
+
+      inlineElements = savedInlineElements
+
+      inlineElements ??= []
+
+      inlineElements.push(
+        {
+          address: startElement,
+          length: input.address,
+          typeID: foundItem,
+          inlineEntities: nestedInlineElements,
+        })
+
+    }
+
+
+    whitespace()
+
+    let firstAttribute = true
+
+    if (!charws(OPEN_PAREN)) {
+      console.log("OPEN_PAREN not found, exiting...")
+      return syntaxError()
+    }
+
+    whitespace()
+
+    const startElement = input.cursor
+    let stackDepth = 1
+    const containerStack: any[][] = []
+
+    inlineElements = void 0
+
+    while (stackDepth > 0) {
+      if (charws(CLOSE_PAREN)) {
+        firstAttribute = false
+        --stackDepth
+        if (containerStack.length > 0) {
+          indexResult.push(containerStack.pop())
+        }
+        continue
+      }
+
+      /* const testChar = input.peek()
+ 
+       if (testChar !== void 0) {
+         console.log("nextChar Peek: " + String.fromCharCode(testChar))
+       }*/
+      if (!firstAttribute) {
+        if (!char(COMMA)) {
+          console.log("COMMA not found, exiting...")
+          return syntaxError()
+        }
+      }
+
+      firstAttribute = false
+
+      whitespace()
+
+      const nextChar = input.peek()
+
+      if (nextChar === (void 0)) {
+        console.log("nextChar === undefined")
+        return syntaxError()
+      }
+
+
+      let arg: Argument
+      //console.log("attributeMap(nextChar): " + attributeMap(nextChar))
+      switch (attributeMap(nextChar)) {
+        case ATTRIBUTE_PARSE_TYPE.INVALID:
+
+          console.log("syntaxError parsing: INVALID")
+          return syntaxError()
+
+        case ATTRIBUTE_PARSE_TYPE.INLINE_INSTANCE: {
+
+          const elementResult = parseInlineElement()
+
+          if (elementResult !== (void 0)) {
+            return elementResult
+          }
+          break
+        }
+
+        case ATTRIBUTE_PARSE_TYPE.NUMBER:
+
+          const extractReal = input.readReal()
+          if (extractReal !== void 0) {
+            arg = {
+              type: 4,
+              value: extractReal,
+            }
+
+            if (containerStack.length > 0) {
+              containerStack[containerStack.length - 1].push(arg)
+            } else {
+              indexResult.push(arg)
+            }
+
+            //step over the trailing . delimiter
+            input.step()
+          } else {
+            console.log("syntaxError parsing NUMBER")
+            return syntaxError()
+          }
+
+          break
+
+        case ATTRIBUTE_PARSE_TYPE.ENUM:
+
+          //     console.log("extracting enum...")
+
+          const endCursor_ = input.buffer.indexOf(0x2E, input.cursor + 1) //0x2E == '.'
+
+          if (endCursor_ !== -1) {
+            const subArray = input.buffer.subarray(input.cursor + 1, endCursor_) //do not include the trailing period delimiter
+            const enumString = new TextDecoder().decode(subArray)
+
+            console.log("enumString: " + enumString)
+
+            arg = {
+              type: 3,
+              value: enumString,
+            }
+
+            if (containerStack.length > 0) {
+              containerStack[containerStack.length - 1].push(arg)
+            } else {
+              indexResult.push(arg)
+            }
+
+            if (!enumeration()) {
+              return syntaxError()
+            }
+          } else {
+            console.log("syntaxError parsing ENUM")
+            return syntaxError()
+          }
+          break
+
+        case ATTRIBUTE_PARSE_TYPE.STRING:
+
+          //console.log("extracting string...")
+          const extractString = stepExtractString(input.buffer, input.cursor, input.buffer.length)
+          if (extractString !== void 0) {
+            arg = {
+              type: 1,
+              value: extractString,
+            }
+
+            if (containerStack.length > 0) {
+              containerStack[containerStack.length - 1].push(arg)
+            } else {
+              indexResult.push(arg)
+            }
+
+            //skip size of string + 2 
+            for (let i = 0; i < extractString.length + 2; ++i) {
+              input.step()
+            }
+          } else {
+            console.log("syntaxError parsing STRING")
+            return syntaxError()
+          }
+          break
+
+        case ATTRIBUTE_PARSE_TYPE.REFERENCE:
+
+          //  console.log("extracting reference...")
+          const expressID_ = stepExtractReference(input.buffer, input.cursor, input.buffer.length)
+          input.step()
+          console.log("expressID ref: " + expressID_)
+
+          if (expressID_ !== void 0) {
+            arg = {
+              type: 5,
+              value: expressID_,
+            }
+
+            if (containerStack.length > 0) {
+              containerStack[containerStack.length - 1].push(arg)
+            } else {
+              indexResult.push(arg)
+            }
+
+            for (let i = 0; i < expressID_.toString().length; ++i) {
+              input.step()
+            }
+
+          } else {
+            console.log("syntaxError parsing REFERENCE")
+            return syntaxError()
+          }
+          break
+
+        case ATTRIBUTE_PARSE_TYPE.CONTAINER:
+
+          // console.log("found container")
+          firstAttribute = true
+          input.step()
+          ++stackDepth
+
+          // Start a new container: push a new empty array onto the stack.
+          containerStack.push([])
+          break
+
+        case ATTRIBUTE_PARSE_TYPE.HEXBITS:
+
+          if (!binaryHex()) {
+            console.log("syntaxError parsing HEXBITS")
+            return syntaxError()
+          }
+          break
+
+        case ATTRIBUTE_PARSE_TYPE.NULL:
+          if (containerStack.length > 0) {
+            containerStack[containerStack.length - 1].push(null)
+          } else {
+            indexResult.push(null)
+          }
+
+          input.step()
+          break
+
+        case ATTRIBUTE_PARSE_TYPE.DERIVED:
+
+          input.step()
+          break
+
+        default:
+
+      }
+    }
+
+    if (!charws(SEMICOLON)) {
+      console.log("syntaxError parsing SEMICOLON")
+      return syntaxError()
+    }
+
+    return parseResult(ParseResult.COMPLETE)
   }
 
 }
