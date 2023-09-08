@@ -26,6 +26,7 @@ const COMMA        = ParsingConstants.COMMA
 const stringParser = StepStringParser.Instance.match
 const HASH         = ParsingConstants.HASH
 const ZERO         = ParsingConstants.ZERO
+const SLASH        = ParsingConstants.SLASH
 
 const parsingBufferReusable = new ParsingBuffer( new Uint8Array( 1 ), 0, 1 )
 
@@ -171,6 +172,150 @@ export function stepExtractBoolean(
   if ( falseMatch.match( buffer, cursor, endCursor ) !== void 0 ) {
     return false
   }
+}
+
+/**
+ * Skip a value in the parse (doesn't apply to arrays, just flat),
+ * either til the next array end (close bracket) or the next comma.
+ *
+ * @param buffer The buffer to read from.
+ * @param cursor The current read cursor.
+ * @param endCursor The highest possible cursor to read from.
+ * @throws {Error} When the parse syntax is incorrect.
+ * @return {number} The new cursor.
+ */
+export function skipValue(
+    buffer: Uint8Array,
+    cursor: number,
+    endCursor: number ) : number {
+
+  // Eat characters until we get to a comma or close paren.
+  while ( cursor < endCursor ) {
+
+    let previousCursor: number
+
+    // Skip commment.
+    do {
+      previousCursor = cursor
+
+      while ( cursor < endCursor && WHITESPACE.has( buffer[ cursor ]) ) {
+        ++cursor
+      }
+
+      cursor = commentParser( buffer, cursor, endCursor ) ?? cursor
+    }
+    while ( previousCursor !== cursor )
+
+    const readChar = buffer[ cursor ]
+
+    switch ( readChar ) {
+
+      case SLASH:
+
+        cursor = commentParser( buffer, cursor, endCursor ) ?? ( cursor + 1 )
+        break
+
+      case QUOTE: {
+
+        const parsedStringOffset = stringParser( buffer, cursor, endCursor )
+
+        // Couldn't parse a string, something's wrong.
+        if ( parsedStringOffset === void 0 ) {
+          throw new Error( 'Couldn\'t parse string' )
+        }
+
+        cursor = parsedStringOffset
+        break
+      }
+
+      case COMMA:
+      case CLOSE_PAREN:
+
+        return cursor
+
+      default:
+
+        ++cursor
+    }
+
+    // String is a special case because it might contain control characters,
+    // we will run the string parsing DFA to skip over it.
+    if ( readChar === QUOTE ) {
+      const parsedStringOffset = stringParser( buffer, cursor, endCursor )
+
+      // Couldn't parse a string, something's wrong.
+      if ( parsedStringOffset === void 0 ) {
+        throw new Error( 'Couldn\'t parse string' )
+      }
+
+      cursor = parsedStringOffset
+      continue
+    }
+
+    // Comma starts a new param entry
+    if ( readChar === COMMA || readChar === CLOSE_PAREN ) {
+      return cursor
+    }
+
+    ++cursor
+  }
+
+  throw new Error( 'Unterminated value' )
+}
+
+
+/**
+ * Extract a STEP an array (iterable set of indices to array values to extract)
+ *
+ * @param isInitial Is this the initial element?
+ * @param buffer The buffer to extract it from.
+ * @param cursor The position in the buffer to try and extract it from.
+ * @param endCursor The last position accessible for this read in the buffer.
+ * @return {number} Returns a negative number on termination/error
+ * matching the values in IncermentalParseEndState, or the new cursor
+ * if there is a value in .
+ */
+export function stepExtractArrayToken(
+    isInitial: boolean,
+    buffer: Uint8Array,
+    cursor: number,
+    endCursor: number ): number {
+
+  if ( isInitial ) {
+    if ( ( cursor + 1 ) >= endCursor || buffer[ cursor ] !== OPEN_PAREN ) {
+      throw new Error( 'Couldn\'t extract array due to lack of opening parenthesis' )
+    }
+
+    ++cursor
+  }
+
+  let previousCursor: number
+
+  do {
+    previousCursor = cursor
+
+    while ( cursor < endCursor && WHITESPACE.has( buffer[ cursor ]) ) {
+      ++cursor
+    }
+
+    cursor = commentParser( buffer, cursor, endCursor ) ?? cursor
+  }
+  while ( previousCursor !== cursor )
+
+  if ( cursor >= endCursor ) {
+    throw new Error( 'Unterminated array' )
+  }
+
+  if ( buffer[ cursor ] === CLOSE_PAREN ) {
+    return -( cursor + 1 )
+  }
+
+  if ( buffer[ cursor ] !== COMMA ) {
+
+    throw new Error( 'Unterminated array' )
+  }
+
+  return cursor + 1
 }
 
 /**
