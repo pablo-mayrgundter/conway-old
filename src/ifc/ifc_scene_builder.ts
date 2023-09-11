@@ -41,14 +41,14 @@ export class IfcSceneTransform implements SceneNodeTransform {
    * @param parentIndex
    */
   constructor(
-        public readonly model: Model,
-        public readonly transform: ReadonlyArray<number>,
-        public readonly absoluteTransform: ReadonlyArray<number>,
-        public readonly localID: number,
-        public readonly index: number,
-        public readonly nativeTransform: IfcNativeTransform,
-        public readonly absoluteNativeTransform: IfcNativeTransform,
-        public readonly parentIndex?: number) { }
+    public readonly model: Model,
+    public readonly transform: ReadonlyArray<number>,
+    public readonly absoluteTransform: ReadonlyArray<number>,
+    public readonly localID: number,
+    public readonly index: number,
+    public readonly nativeTransform: IfcNativeTransform,
+    public readonly absoluteNativeTransform: IfcNativeTransform,
+    public readonly parentIndex?: number) { }
   /* eslint-enable no-useless-constructor, no-empty-function */
   public children: number[] = []
 }
@@ -70,11 +70,11 @@ export class IfcSceneGeometry implements SceneNodeGeometry {
    * @param parentIndex
    */
   constructor(
-        public readonly model: Model,
-        public readonly localID: number,
-        public readonly index: number,
-        public readonly relatedElementLocalId?: number,
-        public readonly parentIndex?: number ) { }
+    public readonly model: Model,
+    public readonly localID: number,
+    public readonly index: number,
+    public readonly relatedElementLocalId?: number,
+    public readonly parentIndex?: number) { }
   /* eslint-enable no-useless-constructor, no-empty-function */
 }
 
@@ -161,13 +161,13 @@ export class IfcSceneBuilder implements Scene {
    * @return {PackedMesh< IfcStepModel >} Maps materials to a geometry object
    * and triangle element map.
    */
-  public buildPackedMeshModel(): PackedMesh< IfcStepModel > {
+  public buildPackedMeshModel(): PackedMesh<IfcStepModel> {
 
-    const materialMap                        = new Map< CanonicalMaterial | undefined, number >()
-    const materials: CanonicalMaterial[]     = []
-    const primitives: GeometryObject[]       = []
+    const materialMap = new Map<CanonicalMaterial | undefined, number>()
+    const materials: CanonicalMaterial[] = []
+    const primitives: [GeometryObject, number | undefined][] = []
     const triangleMaps: TriangleElementMap[] = []
-    const elementMap                         = new Map< number, number >()
+    const elementMap = new Map<number, number>()
 
     // eslint-disable-next-line no-unused-vars
     for (const [_, nativeTransform, geometry, material, entity] of this.walk()) {
@@ -177,18 +177,19 @@ export class IfcSceneBuilder implements Scene {
 
         clonedGeometry.applyTransform(nativeTransform)
 
-        const primitiveIndex = materialMap.get( material )
+        const primitiveIndex = materialMap.get(material)
 
         if (primitiveIndex === void 0) {
 
           const triangleMap = new TriangleElementMap()
 
-          if ( material !== void 0 ) {
-            clonedGeometry.materialIndex      = materials.length
-            materials.push( material)
-            clonedGeometry.hasDefaultMaterial = false
+          let materialIndex: number | undefined
+
+          if (material !== void 0) {
+            materialIndex = materials.length
+            materials.push(material)
           } else {
-            clonedGeometry.hasDefaultMaterial = true
+            materialIndex = void 0
           }
 
           const entityLocalId = entity?.localID
@@ -201,19 +202,19 @@ export class IfcSceneBuilder implements Scene {
 
           const newPrimitiveIndex = primitives.length
 
-          if ( entityLocalId !== void 0 ) {
-            elementMap.set( entityLocalId, newPrimitiveIndex )
+          if (entityLocalId !== void 0) {
+            elementMap.set(entityLocalId, newPrimitiveIndex)
           }
 
-          materialMap.set( material, newPrimitiveIndex )
+          materialMap.set(material, newPrimitiveIndex)
 
-          primitives.push(clonedGeometry)
+          primitives.push([clonedGeometry, materialIndex])
           triangleMaps.push(triangleMap)
 
         } else {
 
-          const fullGeometry = primitives[ primitiveIndex ]
-          const triangleMap  = triangleMaps[ primitiveIndex ]
+          const fullGeometry = primitives[primitiveIndex][0]
+          const triangleMap = triangleMaps[primitiveIndex]
 
           const entityLocalId = entity?.localID
 
@@ -223,8 +224,8 @@ export class IfcSceneBuilder implements Scene {
               triangleMap.size + Math.trunc( clonedGeometry.GetIndexDataSize() / 3 ),
               entityLocalId ?? TriangleElementMap.NO_ELEMENT )
 
-          if ( entityLocalId !== void 0 ) {
-            elementMap.set( entityLocalId, primitiveIndex )
+          if (entityLocalId !== void 0) {
+            elementMap.set(entityLocalId, primitiveIndex)
           }
 
           fullGeometry.appendGeometry(clonedGeometry)
@@ -232,7 +233,7 @@ export class IfcSceneBuilder implements Scene {
       }
     }
 
-    return new PackedMesh< IfcStepModel >(
+    return new PackedMesh<IfcStepModel>(
         this.model,
         materials,
         primitives,
@@ -249,10 +250,10 @@ export class IfcSceneBuilder implements Scene {
    */
   public* walk(walkTemporary: boolean = false):
     IterableIterator<[readonly number[] | undefined,
-    IfcNativeTransform | undefined,
-    CanonicalMesh,
-    CanonicalMaterial | undefined,
-    StepEntityBase<EntityTypesIfc> | undefined]> {
+      IfcNativeTransform | undefined,
+      CanonicalMesh,
+      CanonicalMaterial | undefined,
+      StepEntityBase<EntityTypesIfc> | undefined]> {
 
     for (const node of this.scene_) {
 
@@ -272,13 +273,13 @@ export class IfcSceneBuilder implements Scene {
           parentNode = this.scene_[parentIndex] as IfcSceneTransform
         }
 
-        const material = this.materials.getMaterialByGeometryID( geometry.localID )
+        const material = this.materials.getMaterialByGeometryID(geometry.localID)
 
         yield [
           parentNode?.absoluteTransform,
           parentNode?.absoluteNativeTransform,
           geometry,
-          material !== void 0 ? material[ 0 ] : void 0,
+          material !== void 0 ? material[0] : void 0,
           node.relatedElementLocalId !== void 0 ?
             this.model.getElementByLocalID(node.relatedElementLocalId) : void 0,
         ]
@@ -354,7 +355,13 @@ export class IfcSceneBuilder implements Scene {
       nativeTransform: IfcNativeTransform): IfcSceneTransform {
 
     if (this.sceneLocalIdMap_.has(localID)) {
-      throw Error('Scene already has transform node')
+      const transform_ = this.getTransform(localID)
+
+      if (transform_ !== void 0) {
+        this.pushTransform(transform_)
+
+        return transform_
+      }
     }
 
     const nodeIndex = this.scene_.length
@@ -383,15 +390,15 @@ export class IfcSceneBuilder implements Scene {
     }
 
     const result =
-            new IfcSceneTransform(
-                this.model,
-                transform,
-                absoluteNativeTransform.getValues(),
-                localID,
-                nodeIndex,
-                nativeTransform,
-                absoluteNativeTransform,
-                parentIndex)
+      new IfcSceneTransform(
+          this.model,
+          transform,
+          absoluteNativeTransform.getValues(),
+          localID,
+          nodeIndex,
+          nativeTransform,
+          absoluteNativeTransform,
+          parentIndex)
 
     this.scene_.push(result)
 

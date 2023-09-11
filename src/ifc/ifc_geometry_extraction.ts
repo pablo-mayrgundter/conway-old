@@ -30,6 +30,7 @@ import {
   ParamsAddFaceToGeometry,
   SurfaceObject,
   ParamsGetRectangleProfileCurve,
+  GeometryCollection,
 } from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMaterial, ColorRGBA, exponentToRoughness } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
@@ -118,6 +119,7 @@ type NativeVectorIndexedPolygonalFace = StdVector<IndexedPolygonalFace>
 
 type NativeVectorSegment = StdVector<Segment>
 type NativeVectorGeometry = StdVector<GeometryObject>
+type NativeVectorGeometryCollection = StdVector<GeometryCollection>
 type NativeVectorMaterial = StdVector<MaterialObject>
 type NativeVectorProfile = StdVector<ProfileObject>
 type NativeVectorCurve = StdVector<CurveObject>
@@ -284,6 +286,20 @@ export class IfcGeometryExtraction {
   }
 
   /**
+   * Create a native vector of geometry collections.
+   *
+   * @return {NativeVectorGeometryCollection} A newly initialised native
+   * vector of geometry collections
+   */
+  nativeVectorGeometryCollection(): NativeVectorGeometryCollection {
+    const nativeVectorGeometryCollection =
+      // eslint-disable-next-line new-cap
+      (new (this.wasmModule.geometryCollectionArray)()) as NativeVectorGeometryCollection
+
+    return nativeVectorGeometryCollection
+  }
+
+  /**
    * Create a native material from a canonical one.
    *
    * @param from The material to create the native material from
@@ -369,26 +385,6 @@ export class IfcGeometryExtraction {
     }
 
     return nativeVectorCurve_
-  }
-
-
-  /**
-   * Create a native vector of glm::vec3 to pass across the boundary.
-   *
-   * @param initialSize number - initial size of the vector (optional)
-   * @return {NativeVectorMaterial} - a native std::vector<MaterialObject> from the wasm module
-   */
-  nativeVectorMaterial(initialSize?: number): NativeVectorMaterial {
-    const nativeVectorMaterial_ =
-      // eslint-disable-next-line new-cap
-      (new (this.wasmModule.materialArray)()) as NativeVectorMaterial
-
-    if (initialSize) {
-      // resize has a required second parameter to set default values
-      nativeVectorMaterial_.resize(initialSize)
-    }
-
-    return nativeVectorMaterial_
   }
 
   /**
@@ -550,7 +546,7 @@ export class IfcGeometryExtraction {
    * @param fileUri string - base filenames for GLTF / GLB files
    * @return {ResultsGltf} - Structure containing GLTF / GLB filenames + data vectors
    */
-  toGltf(geometry: NativeVectorGeometry, materials: NativeVectorMaterial, isGlb: boolean,
+  toGltf(geometry: NativeVectorGeometryCollection, materials: NativeVectorMaterial, isGlb: boolean,
       outputDraco: boolean, fileUri: string, modelId: number = 0): ResultsGltf {
     const noResults: ResultsGltf = { success: false, bufferUris: undefined, buffers: undefined }
     noResults.success = false
@@ -726,8 +722,8 @@ export class IfcGeometryExtraction {
           indices: coordIndex,
           face_starts: polygonalFaceStartIndices,
         }
-        polygonalFaceVector.push_back(indexedPolygonalFaceParameters)
 
+        polygonalFaceVector.push_back(indexedPolygonalFaceParameters)
       }
     }
 
@@ -764,14 +760,8 @@ export class IfcGeometryExtraction {
 
     // free allocated wasm vectors
     pointsArray.delete()
-
-    for (let i = 0; i < polygonalFaceVector.size(); i++) {
-      polygonalFaceVector.get(i).indices.delete()
-      if (polygonalFaceVector.get(i).face_starts.size() > 1) {
-        polygonalFaceVector.get(i).face_starts.delete()
-      }
-    }
     polygonalFaceVector.delete()
+
 
     return result
 
@@ -940,6 +930,9 @@ export class IfcGeometryExtraction {
         }
       }
     }
+
+    flatFirstMeshVector.delete()
+    flatSecondMeshVector.delete()
   }
 
   /**
@@ -1508,6 +1501,8 @@ export class IfcGeometryExtraction {
         // If profile is not already in the model's profiles, add it
         this.model.profiles.add(profile)
       }
+
+      holesArray.delete()
     }
 
     return profile
@@ -1878,6 +1873,8 @@ export class IfcGeometryExtraction {
       }
 
       const ifcCurve: CurveObject = this.conwayModel.getIndexedPolyCurve(paramsGetIndexedPolyCurve)
+
+      segmentVector.delete()
 
       return ifcCurve
     }
@@ -2250,15 +2247,15 @@ export class IfcGeometryExtraction {
     }
 
     const zAxisRef = {
-      x: from.Axis?.DirectionRatios[0],
-      y: from.Axis?.DirectionRatios[1],
-      z: from.Axis?.DirectionRatios[2],
+      x: from.Axis?.DirectionRatios[0] ?? 0,
+      y: from.Axis?.DirectionRatios[1] ?? 0,
+      z: from.Axis?.DirectionRatios[2] ?? 1,
     }
 
     const xAxisRef = {
-      x: from.RefDirection?.DirectionRatios[0],
-      y: from.RefDirection?.DirectionRatios[1],
-      z: from.RefDirection?.DirectionRatios[2],
+      x: from.RefDirection?.DirectionRatios[0] ?? 1,
+      y: from.RefDirection?.DirectionRatios[1] ?? 0,
+      z: from.RefDirection?.DirectionRatios[2] ?? 0,
     }
 
     const axis2Placement3DParameters: ParamsAxis2Placement3D = {
@@ -2362,6 +2359,8 @@ export class IfcGeometryExtraction {
       this.model.geometry.add(canonicalMesh)
 
       this.scene.addGeometry(from.localID)
+
+      relatedBuildingElementMeshVector.delete()
     }
   }
   /**
@@ -2608,7 +2607,7 @@ export class IfcGeometryExtraction {
               product.localID,
               relatingMaterial.localID)
         } else {
-          console.log(`type other than IfcProduct: ${EntityTypesIfc[product.type]}`)
+          //     console.log(`type other than IfcProduct: ${EntityTypesIfc[product.type]}`)
         }
       }
     }
@@ -2734,6 +2733,8 @@ export class IfcGeometryExtraction {
             }
           }
         }
+
+        relVoidsMeshVector?.delete()
       }
     }
 

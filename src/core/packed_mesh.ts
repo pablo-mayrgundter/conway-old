@@ -22,7 +22,7 @@ export class PackedMesh< ModelType extends Model > {
    * @param materials The materials array for the packed mesh (referenced
    * by index by primitives)
    * @param primitives The primitives for this mesh (the mesh fragments
-   * by material)
+   * by material), with the material index being the second item of the tuple.
    * @param triangleElementMaps Triangle element maps (one per primitive,
    * in the same order, to map elements to primitives)
    * @param elementPrimitiveIndex Element primitive index, maps
@@ -32,7 +32,7 @@ export class PackedMesh< ModelType extends Model > {
   constructor(
     public readonly model: ModelType,
     public readonly materials: ReadonlyArray< CanonicalMaterial >,
-    public readonly primitives: ReadonlyArray< GeometryObject >,
+    public readonly primitives: ReadonlyArray< [GeometryObject, number | undefined] >,
     public readonly triangleElementMaps: ReadonlyArray< TriangleElementMap >,
     // eslint-disable-next-line no-empty-function
     public readonly elementPrimitiveIndex: ReadonlyMap< number, number > ) {}

@@ -116,7 +116,7 @@ function correctTriangleCount(): boolean {
       (value, index) =>
         packedModelLocal.triangleElementMaps[ index ].size ===
         // eslint-disable-next-line no-magic-numbers
-        Math.trunc( value.GetIndexDataSize() / 3 ) )
+        Math.trunc( value[ 0 ].GetIndexDataSize() / 3 ) )
 }
 
 beforeAll(async () => {
