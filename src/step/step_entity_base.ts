@@ -510,7 +510,7 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    * @param cursor The cursor to extract from.
    * @param endCursor The end of the memory space to extract from.
    * @param entityConstructor The entity constructor to use for type checks.
-   * @return {InstanceType< T > | undefined } The extracted element, or null if optional
+   * @return {StepEntityBase | undefined } The extracted element, or null if optional
    * and this value isn't specified.
    */
   protected extractBufferElement< T extends StepEntityConstructorAbstract< EntityTypeIDs > >(

@@ -6,7 +6,9 @@ import { IfcLineIndex } from "./index"
 import { IfcBoolean } from "./index"
 import {
   stepExtractOptional,
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -35,26 +37,42 @@ export  class IfcIndexedPolyCurve extends IfcBoundedCurve {
 
   public get Segments() : Array<IfcArcIndex | IfcLineIndex> | null {
     if ( this.Segments_ === void 0 ) {
-      this.Segments_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 1 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      let value : Array<IfcArcIndex | IfcLineIndex> = [];
+      const value : Array<IfcArcIndex | IfcLineIndex> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-          const value : StepEntityBase< EntityTypesIfc > | undefined =
-            this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcArcIndex ) && !( value instanceof IfcLineIndex ) ) {
-            throw new Error( 'Value in select must be populated' )
-          }
-          return value as (IfcArcIndex | IfcLineIndex)})() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+
+        let currentChar = new TextDecoder().decode( buffer.subarray( cursor - 10, cursor + 10 ) )
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+          this.extractBufferReference( buffer, cursor, endCursor )
+
+        if ( !( value1Untyped instanceof IfcArcIndex ) && !( value1Untyped instanceof IfcLineIndex ) ) {
+          console.log( currentChar )
+          throw new Error( 'Value in select must be populated' )
+        }
+
+        const value1 = value1Untyped as (IfcArcIndex | IfcLineIndex)
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, true )
+
+      this.Segments_ = value
     }
 
     return this.Segments_ as Array<IfcArcIndex | IfcLineIndex> | null

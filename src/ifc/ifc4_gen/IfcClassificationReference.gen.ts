@@ -22,16 +22,16 @@ export  class IfcClassificationReference extends IfcExternalReference {
 
   public get ReferencedSource() : IfcClassification | IfcClassificationReference | null {
     if ( this.ReferencedSource_ === void 0 ) {
-      this.ReferencedSource_ = this.extractLambda( 3, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 3, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcClassification ) && !( value instanceof IfcClassificationReference ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcClassification ) && !( value instanceof IfcClassificationReference ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcClassification | IfcClassificationReference)
-}, true )
+
+      this.ReferencedSource_ = value as (IfcClassification | IfcClassificationReference)
+
     }
 
     return this.ReferencedSource_ as IfcClassification | IfcClassificationReference | null

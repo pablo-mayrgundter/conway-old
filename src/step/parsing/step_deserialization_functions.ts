@@ -189,6 +189,8 @@ export function skipValue(
     cursor: number,
     endCursor: number ) : number {
 
+  let stackDepth = 0
+
   // Eat characters until we get to a comma or close paren.
   while ( cursor < endCursor ) {
 
@@ -228,41 +230,80 @@ export function skipValue(
         break
       }
 
+      case OPEN_PAREN:
+
+        ++stackDepth
+        ++cursor
+        break
+
       case COMMA:
+
+        if ( stackDepth < 1 ) {
+          return cursor
+        }
+
+        ++cursor
+        break
+
       case CLOSE_PAREN:
 
-        return cursor
+        if ( stackDepth < 1 ) {
+          return cursor
+        }
+
+        --stackDepth
+        ++cursor
+        break
 
       default:
 
         ++cursor
     }
-
-    // String is a special case because it might contain control characters,
-    // we will run the string parsing DFA to skip over it.
-    if ( readChar === QUOTE ) {
-      const parsedStringOffset = stringParser( buffer, cursor, endCursor )
-
-      // Couldn't parse a string, something's wrong.
-      if ( parsedStringOffset === void 0 ) {
-        throw new Error( 'Couldn\'t parse string' )
-      }
-
-      cursor = parsedStringOffset
-      continue
-    }
-
-    // Comma starts a new param entry
-    if ( readChar === COMMA || readChar === CLOSE_PAREN ) {
-      return cursor
-    }
-
-    ++cursor
   }
 
   throw new Error( 'Unterminated value' )
 }
 
+/**
+ * Extract a STEP an array (iterable set of indices to array values to extract)
+ *
+ * @param buffer The buffer to extract it from.
+ * @param cursor The position in the buffer to try and extract it from.
+ * @param endCursor The last position accessible for this read in the buffer.
+ * @return {number} Returns a negative number on termination/error
+ * matching the values in IncermentalParseEndState, or the new cursor
+ * if there is a value in .
+ */
+export function stepExtractArrayBegin(
+    buffer: Uint8Array,
+    cursor: number,
+    endCursor: number ): number {
+
+  if ( ( cursor + 1 ) >= endCursor || buffer[ cursor ] !== OPEN_PAREN ) {
+    throw new Error( 'Couldn\'t extract array due to lack of opening parenthesis' )
+  }
+
+  ++cursor
+
+  let previousCursor
+
+  do {
+    previousCursor = cursor
+
+    while ( cursor < endCursor && WHITESPACE.has( buffer[ cursor ]) ) {
+      ++cursor
+    }
+
+    cursor = commentParser( buffer, cursor, endCursor ) ?? cursor
+  }
+  while ( previousCursor !== cursor )
+
+  if ( buffer[ cursor ] === CLOSE_PAREN ) {
+    return -( cursor + 1 )
+  }
+
+  return cursor
+}
 
 /**
  * Extract a STEP an array (iterable set of indices to array values to extract)
@@ -276,18 +317,9 @@ export function skipValue(
  * if there is a value in .
  */
 export function stepExtractArrayToken(
-    isInitial: boolean,
     buffer: Uint8Array,
     cursor: number,
     endCursor: number ): number {
-
-  if ( isInitial ) {
-    if ( ( cursor + 1 ) >= endCursor || buffer[ cursor ] !== OPEN_PAREN ) {
-      throw new Error( 'Couldn\'t extract array due to lack of opening parenthesis' )
-    }
-
-    ++cursor
-  }
 
   let previousCursor: number
 

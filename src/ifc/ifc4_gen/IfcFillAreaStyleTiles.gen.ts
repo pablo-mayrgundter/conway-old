@@ -4,7 +4,9 @@ import { IfcVector } from "./index"
 import { IfcStyledItem } from "./index"
 import { IfcPositiveRatioMeasure } from "./index"
 import {
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -25,23 +27,28 @@ export  class IfcFillAreaStyleTiles extends IfcGeometricRepresentationItem {
 
   public get TilingPattern() : Array<IfcVector> {
     if ( this.TilingPattern_ === void 0 ) {
-      this.TilingPattern_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 0 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<IfcVector> = [];
+      const value : Array<IfcVector> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-           let value = this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcVector ) )  {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
-          }
-    
-          return value
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcVector )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.TilingPattern_ = value
     }
 
     return this.TilingPattern_ as Array<IfcVector>
@@ -49,23 +56,28 @@ export  class IfcFillAreaStyleTiles extends IfcGeometricRepresentationItem {
 
   public get Tiles() : Array<IfcStyledItem> {
     if ( this.Tiles_ === void 0 ) {
-      this.Tiles_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 1 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<IfcStyledItem> = [];
+      const value : Array<IfcStyledItem> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-           let value = this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcStyledItem ) )  {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
-          }
-    
-          return value
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcStyledItem )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.Tiles_ = value
     }
 
     return this.Tiles_ as Array<IfcStyledItem>
