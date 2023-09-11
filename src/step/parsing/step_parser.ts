@@ -565,7 +565,7 @@ export default class StepParser<TypeIDType> {
       inlineElements.push(
         {
           address: startElement,
-          length: input.address,
+          length: input.address - startElement,
           typeID: foundItem,
           inlineEntities: nestedInlineElements,
         })
@@ -721,7 +721,7 @@ export default class StepParser<TypeIDType> {
       indexResult.elements.push(
         {
           address: startElement,
-          length: input.address,
+          length: input.address - startElement,
           typeID: foundItem,
           expressID: expressID,
           inlineEntities: inlineElements,
@@ -875,32 +875,34 @@ export default class StepParser<TypeIDType> {
 
           case ATTRIBUTE_PARSE_TYPE.STRING:
 
-            //console.log("extracting string...")
-            const extractString = stepExtractString(input.buffer, input.cursor, input.buffer.length)
-            if (extractString !== void 0) {
-              arg_ = {
-                type: 1,
-                value: extractString,
-              }
+            const startString_ = input.cursor
 
-              indexResult.push(arg_)
-
-              //skip size of string + 2 
-              for (let i = 0; i < extractString.length + 2; ++i) {
-                input.step()
-              }
-            } else {
-              console.log("syntaxError parsing STRING")
+            if (!stringMatch()) {
               return syntaxError()
             }
+
+            //console.log("extracting string...")
+            const extractString = stepExtractString(input.buffer, startString_, input.cursor)
+
+            if (extractString === void 0) {
+              return syntaxError()
+            }
+
+            arg_ = {
+              type: 1,
+              value: extractString,
+            }
+
+            indexResult.push(arg_)
             break
 
           case ATTRIBUTE_PARSE_TYPE.REFERENCE:
 
             //console.log("extracting reference...")
-            const expressID_ = stepExtractReference(input.buffer, input.cursor, input.buffer.length)
+
             input.step()
-            //console.log("expressID ref: " + expressID_)
+
+            const expressID_ = input.readUnsigned()
 
             if (expressID_ !== void 0) {
               arg_ = {
@@ -908,10 +910,6 @@ export default class StepParser<TypeIDType> {
                 value: expressID_,
               }
               indexResult.push(arg_)
-
-              for (let i = 0; i < expressID_.toString().length; ++i) {
-                input.step()
-              }
 
             } else {
               console.log("syntaxError parsing REFERENCE")
@@ -959,7 +957,7 @@ export default class StepParser<TypeIDType> {
       inlineElements.push(
         {
           address: startElement,
-          length: input.address,
+          length: input.address - startElement,
           typeID: foundItem,
           inlineEntities: nestedInlineElements,
         })
@@ -971,14 +969,7 @@ export default class StepParser<TypeIDType> {
 
     let firstAttribute = true
 
-    if (!charws(OPEN_PAREN)) {
-      console.log("OPEN_PAREN not found, exiting...")
-      return syntaxError()
-    }
-
-    whitespace()
-
-    const startElement = input.cursor
+   // const startElement = input.cursor
     let stackDepth = 1
     const containerStack: any[][] = []
 
@@ -994,11 +985,11 @@ export default class StepParser<TypeIDType> {
         continue
       }
 
-      /* const testChar = input.peek()
- 
-       if (testChar !== void 0) {
-         console.log("nextChar Peek: " + String.fromCharCode(testChar))
-       }*/
+      const testChar = input.peek()
+
+      if (testChar !== void 0) {
+        console.log("nextChar Peek: " + String.fromCharCode(testChar))
+      }
       if (!firstAttribute) {
         if (!char(COMMA)) {
           console.log("COMMA not found, exiting...")
@@ -1051,8 +1042,11 @@ export default class StepParser<TypeIDType> {
               indexResult.push(arg)
             }
 
-            //step over the trailing . delimiter
-            input.step()
+            const testChar_ = input.peek()
+
+            if (testChar_ !== void 0) {
+              console.log("read real, Peek: " + String.fromCharCode(testChar_))
+            }
           } else {
             console.log("syntaxError parsing NUMBER")
             return syntaxError()
@@ -1062,68 +1056,64 @@ export default class StepParser<TypeIDType> {
 
         case ATTRIBUTE_PARSE_TYPE.ENUM:
 
-          //     console.log("extracting enum...")
+          const startEnum_ = input.cursor
 
-          const endCursor_ = input.buffer.indexOf(0x2E, input.cursor + 1) //0x2E == '.'
-
-          if (endCursor_ !== -1) {
-            const subArray = input.buffer.subarray(input.cursor + 1, endCursor_) //do not include the trailing period delimiter
-            const enumString = new TextDecoder().decode(subArray)
-
-            console.log("enumString: " + enumString)
-
-            arg = {
-              type: 3,
-              value: enumString,
-            }
-
-            if (containerStack.length > 0) {
-              containerStack[containerStack.length - 1].push(arg)
-            } else {
-              indexResult.push(arg)
-            }
-
-            if (!enumeration()) {
-              return syntaxError()
-            }
-          } else {
-            console.log("syntaxError parsing ENUM")
+          if (!enumeration()) {
             return syntaxError()
           }
+
+          const subArray = input.buffer.subarray(startEnum_ + 1, input.cursor - 1) //do not include the trailing period delimiter
+          const enumString = new TextDecoder().decode(subArray)
+
+          console.log("enumString: " + enumString)
+
+          arg = {
+            type: 3,
+            value: enumString,
+          }
+
+          if (containerStack.length > 0) {
+            containerStack[containerStack.length - 1].push(arg)
+          } else {
+            indexResult.push(arg)
+          }
+
           break
 
         case ATTRIBUTE_PARSE_TYPE.STRING:
 
-          //console.log("extracting string...")
-          const extractString = stepExtractString(input.buffer, input.cursor, input.buffer.length)
-          if (extractString !== void 0) {
-            arg = {
-              type: 1,
-              value: extractString,
-            }
+          const startString_ = input.cursor
 
-            if (containerStack.length > 0) {
-              containerStack[containerStack.length - 1].push(arg)
-            } else {
-              indexResult.push(arg)
-            }
-
-            //skip size of string + 2 
-            for (let i = 0; i < extractString.length + 2; ++i) {
-              input.step()
-            }
-          } else {
-            console.log("syntaxError parsing STRING")
+          if (!stringMatch()) {
             return syntaxError()
           }
+
+          //console.log("extracting string...")
+          const extractString = stepExtractString(input.buffer, startString_, input.cursor)
+
+          if (extractString === void 0) {
+            return syntaxError()
+          }
+
+          arg = {
+            type: 1,
+            value: extractString,
+          }
+
+          if (containerStack.length > 0) {
+            containerStack[containerStack.length - 1].push(arg)
+          } else {
+            indexResult.push(arg)
+          }
           break
+
 
         case ATTRIBUTE_PARSE_TYPE.REFERENCE:
 
           //  console.log("extracting reference...")
-          const expressID_ = stepExtractReference(input.buffer, input.cursor, input.buffer.length)
           input.step()
-          console.log("expressID ref: " + expressID_)
+
+          const expressID_ = input.readUnsigned()
 
           if (expressID_ !== void 0) {
             arg = {
@@ -1137,8 +1127,10 @@ export default class StepParser<TypeIDType> {
               indexResult.push(arg)
             }
 
-            for (let i = 0; i < expressID_.toString().length; ++i) {
-              input.step()
+            const refTest = input.peek()
+
+            if (refTest !== void 0) {
+              console.log("reference case? Peek: " + String.fromCharCode(refTest))
             }
 
           } else {
@@ -1182,7 +1174,11 @@ export default class StepParser<TypeIDType> {
           break
 
         default:
+          const _testChar = input.peek()
 
+          if (_testChar !== void 0) {
+            console.log("default case? Peek: " + String.fromCharCode(_testChar))
+          }
       }
     }
 

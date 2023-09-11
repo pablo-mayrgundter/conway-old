@@ -108,6 +108,23 @@ implements Iterable<BaseEntity>, Model {
     return true
   }
 
+
+  /**
+   * Force the population of the the buffer entry for a particular element.
+   *
+   * @param localID The local id to fetch the buffer entry for.
+   * @throws {Error} Throws an error if the ID is invalid.
+   */
+  public populateBufferEntry(localID: number): void {
+    if (localID > this.elementIndex_.length) {
+      throw new Error(`Invalid localID ${localID}`)
+    }
+
+    const element = this.elementIndex_[localID]
+    
+    element.buffer = this.buffer_
+  }
+
   /**
    * Get the number of elements/entities in this model.
    *

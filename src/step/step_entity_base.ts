@@ -421,19 +421,19 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
   }
 
   extractLineArguments(): Uint8Array {
-    this.guaranteeVTable()
 
+    this.guaranteeBuffer()
     const internalReference = this.internalReference_ as Required<StepEntityInternalReference<EntityTypeIDs>>
 
-    let cursor = internalReference.vtable[internalReference.vtableIndex]
+    let cursor = internalReference.address
     const buffer = internalReference.buffer
     //const endCursor = buffer.length
-    const endCursor = buffer.indexOf(59, cursor) //59 == ';'
+    const endCursor = cursor + internalReference.length
 
-    const subArray = buffer.subarray(cursor - 1, endCursor + 1) //include the Open parenthesis + ending semicolon 
+    const subArray = buffer.subarray(cursor, endCursor) //include the Open parenthesis + ending semicolon 
     const text = new TextDecoder().decode(subArray)
 
-    //console.log(text)  // Output:
+    console.log(text)  // Output:
 
     return subArray
   }
@@ -816,6 +816,15 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
       if (!populated) {
         throw new Error('Entity does not have matching table entry to read from model')
       }
+    }
+  }
+
+  /**
+   * Guarantees the VTable of this has been parsed from the model so that values can be read out.
+   */
+  protected guaranteeBuffer(): void {
+    if (this.internalReference_.buffer === void 0) {
+      this.model.populateBufferEntry(this.localID)
     }
   }
 }
