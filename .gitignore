@@ -15,3 +15,7 @@ index_test_draco.gltf
 .DS_Store
 /.vs
 Momentum*
+index.gltf
+index.bin
+index_draco.gltf
+index_draco.bin
