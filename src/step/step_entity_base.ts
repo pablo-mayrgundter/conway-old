@@ -175,19 +175,8 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
   public extractNumber( offset: number, optional: boolean ): number |
    null {
 
-    this.guaranteeVTable()
-
-    const internalReference =
-      this.internalReference_ as Required< StepEntityInternalReference< EntityTypeIDs > >
-
-    if ( offset >= internalReference.vtableCount ) {
-      throw new Error( 'Couldn\'t read field due to too few fields in record' )
-    }
-
-    const vtableSlot = internalReference.vtableIndex + offset
-
-    const cursor    = internalReference.vtable[ vtableSlot ]
-    const buffer    = internalReference.buffer
+    const cursor    = this.getOffsetCursor( offset )
+    const buffer    = this.buffer
     const endCursor = buffer.length
 
     const value = stepExtractNumber( buffer, cursor, endCursor )
@@ -226,19 +215,8 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
   public extractString( offset: number, optional: boolean ): string |
    null {
 
-    this.guaranteeVTable()
-
-    const internalReference =
-      this.internalReference_ as Required< StepEntityInternalReference< EntityTypeIDs > >
-
-    if ( offset >= internalReference.vtableCount ) {
-      throw new Error( 'Couldn\'t read field due to too few fields in record' )
-    }
-
-    const vtableSlot = internalReference.vtableIndex + offset
-
-    const cursor    = internalReference.vtable[ vtableSlot ]
-    const buffer    = internalReference.buffer
+    const cursor    = this.getOffsetCursor( offset )
+    const buffer    = this.buffer
     const endCursor = buffer.length
 
     const value = stepExtractString( buffer, cursor, endCursor )
@@ -276,19 +254,8 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
   // eslint-disable-next-line no-dupe-class-members, require-jsdoc
   public extractLogical( offset: number, optional: boolean ): boolean | null {
 
-    this.guaranteeVTable()
-
-    const internalReference =
-      this.internalReference_ as Required< StepEntityInternalReference< EntityTypeIDs > >
-
-    if ( offset >= internalReference.vtableCount ) {
-      throw new Error( 'Couldn\'t read field due to too few fields in record' )
-    }
-
-    const vtableSlot = internalReference.vtableIndex + offset
-
-    const cursor    = internalReference.vtable[ vtableSlot ]
-    const buffer    = internalReference.buffer
+    const cursor    = this.getOffsetCursor( offset )
+    const buffer    = this.buffer
     const endCursor = buffer.length
 
     const value = stepExtractLogical( buffer, cursor, endCursor )
@@ -323,19 +290,8 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
   public extractReference( offset: number, optional: boolean ):
     StepEntityBase< EntityTypeIDs > | null {
 
-    this.guaranteeVTable()
-
-    const internalReference =
-      this.internalReference_ as Required< StepEntityInternalReference< EntityTypeIDs > >
-
-    if ( offset >= internalReference.vtableCount ) {
-      throw new Error( 'Couldn\'t read field due to too few fields in record' )
-    }
-
-    const vtableSlot = internalReference.vtableIndex + offset
-
-    const cursor    = internalReference.vtable[ vtableSlot ]
-    const buffer    = internalReference.buffer
+    const cursor    = this.getOffsetCursor( offset )
+    const buffer    = this.buffer
     const endCursor = buffer.length
 
     const expressID = stepExtractReference( buffer, cursor, endCursor )
@@ -438,19 +394,8 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
         ExtractionType | null | undefined,
       optional: boolean ): ExtractionType | null {
 
-    this.guaranteeVTable()
-
-    const internalReference =
-      this.internalReference_ as Required< StepEntityInternalReference< EntityTypeIDs > >
-
-    if ( offset >= internalReference.vtableCount ) {
-      throw new Error( 'Couldn\'t read field due to too few fields in record' )
-    }
-
-    const vtableSlot = internalReference.vtableIndex + offset
-
-    const cursor    = internalReference.vtable[ vtableSlot ]
-    const buffer    = internalReference.buffer
+    const cursor    = this.getOffsetCursor( offset )
+    const buffer    = this.buffer
     const endCursor = buffer.length
 
     const value = extractor( buffer, cursor, endCursor )
@@ -524,19 +469,8 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
       entityConstructor: T ):
       InstanceType< T > | null {
 
-    this.guaranteeVTable()
-
-    const internalReference =
-      this.internalReference_ as Required< StepEntityInternalReference< EntityTypeIDs > >
-
-    if ( offset >= internalReference.vtableCount ) {
-      throw new Error( 'Couldn\'t read field due to too few fields in record' )
-    }
-
-    const vtableSlot = internalReference.vtableIndex + offset
-
-    const cursor    = internalReference.vtable[ vtableSlot ]
-    const buffer    = internalReference.buffer
+    const cursor    = this.getOffsetCursor( offset )
+    const buffer    = this.buffer
     const endCursor = buffer.length
 
     const expressID = stepExtractReference( buffer, cursor, endCursor )
@@ -564,6 +498,45 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
     return value as InstanceType< T >
   }
 
+
+  /**
+   * Extract a string at the particular vtable offset (i.e. the position
+   * in the matching step object).
+   *
+   * Used by other extraction methods with wrappers to perform
+   * semantically correct extraction.
+   *
+   * @param buffer The buffer to extract from
+   * @param cursor The cursor to extract from.
+   * @param endCursor The end of the memory space to extract from.
+   * @param entityConstructor The entity constructor to use for type checks.
+   * @return {InstanceType< T > | undefined } The extracted element, or null if optional
+   * and this value isn't specified.
+   */
+  protected extractBufferElement< T extends StepEntityConstructorAbstract< EntityTypeIDs > >(
+      buffer: Uint8Array,
+      cursor: number,
+      endCursor: number,
+      entityConstructor: T ):
+      InstanceType< T > | undefined {
+
+    const expressID = stepExtractReference( buffer, cursor, endCursor )
+    const value =
+      expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
+      this.model.getInlineElementByAddress(
+          stepExtractInlineElemement( buffer, cursor, endCursor ) )
+
+    if ( value === void 0 ) {
+      return
+    }
+
+    if ( !( value instanceof entityConstructor ) ) {
+      throw new Error( 'Value in STEP was incorrectly typed for field' )
+    }
+
+    return value as InstanceType< T >
+  }
+
   /**
    * Extract a number at the particular vtable offset (i.e. the position
    * in the matching step object).
@@ -581,19 +554,8 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
   // eslint-disable-next-line no-dupe-class-members, require-jsdoc
   public extractBinary( vtableOffset: number, optional: boolean ): [Uint8Array, number ] | null {
 
-    this.guaranteeVTable()
-
-    const internalReference =
-      this.internalReference_ as Required< StepEntityInternalReference< EntityTypeIDs > >
-
-    if ( vtableOffset >= internalReference.vtableCount ) {
-      throw new Error( 'Couldn\'t read field due to too few fields in record' )
-    }
-
-    const vtableSlot = internalReference.vtableIndex + vtableOffset
-
-    const cursor    = internalReference.vtable[ vtableSlot ]
-    const buffer    = internalReference.buffer
+    const cursor    = this.getOffsetCursor( vtableOffset )
+    const buffer    = this.buffer
     const endCursor = buffer.length
 
     const value = stepExtractBinary( buffer, cursor, endCursor )
@@ -654,19 +616,8 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
   // eslint-disable-next-line no-dupe-class-members, require-jsdoc
   public extractBoolean( offset: number, optional: boolean ): boolean | null {
 
-    this.guaranteeVTable()
-
-    const internalReference =
-      this.internalReference_ as Required< StepEntityInternalReference< EntityTypeIDs > >
-
-    if ( offset >= internalReference.vtableCount ) {
-      throw new Error( 'Couldn\'t read field due to too few fields in record' )
-    }
-
-    const vtableSlot = internalReference.vtableIndex + offset
-
-    const cursor    = internalReference.vtable[ vtableSlot ]
-    const buffer    = internalReference.buffer
+    const cursor    = this.getOffsetCursor( offset )
+    const buffer    = this.buffer
     const endCursor = buffer.length
 
     const value = stepExtractBoolean( buffer, cursor, endCursor )
@@ -684,6 +635,38 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
     }
 
     return value
+  }
+
+  /**
+   * Get the backing buffer for this. Note this is only for internal
+   * code-gen purposes, and is unsafe otherwise.
+   *
+   * @return {Uint8Array} The buffer for this.
+   */
+  protected get buffer(): Uint8Array {
+
+    return this.internalReference_.buffer as Uint8Array
+  }
+
+  /**
+   * Get the buffer cursor for a particular offset.
+   *
+   * @param offset The offset in the v-table.
+   * @return {number} The cursor.
+   */
+  protected getOffsetCursor( offset: number ): number {
+    this.guaranteeVTable()
+
+    const internalReference =
+      this.internalReference_ as Required< StepEntityInternalReference< EntityTypeIDs > >
+
+    if ( offset >= internalReference.vtableCount ) {
+      throw new Error( 'Couldn\'t read field due to too few fields in record' )
+    }
+
+    const vtableSlot = internalReference.vtableIndex + offset
+
+    return internalReference.vtable[ vtableSlot ]
   }
 
   /**
