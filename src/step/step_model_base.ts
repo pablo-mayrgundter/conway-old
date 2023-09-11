@@ -8,6 +8,8 @@ import { extractOneHotLow } from '../indexing/bit_operations'
 import { MultiIndexSet } from '../indexing/multi_index_set'
 import { StepEntityConstructorAbstract } from './step_entity_constructor'
 import { Model } from '../core/model'
+import { ReadonlyUint32Array } from '../core/readonly_typed_array'
+import { TriangleElementMap } from '../core/triangle_element_map'
 
 /**
  * The base for models parsed from STEP.
@@ -171,6 +173,28 @@ implements Iterable<BaseEntity>, Model {
 
     return this.getElementByLocalID(localID)
   }
+
+  public mapLocalIDsToExpressIDs( from: ReadonlyUint32Array ): Uint32Array {
+
+    const index = this.elementIndex_
+
+    return from.map( (value) => index[ value ]?.expressID ?? TriangleElementMap.NO_ELEMENT )
+  }
+
+  /**
+   * Given an express ID, return the matching element if one exists.
+   *
+   * @param {number} localID The local ID to fetch the element for.
+   * @return {number | undefined} The express ID if one exists for that local ID,
+   * otherwise undefined.
+   */
+  public getExpressIDByLocalID(localID: number): number | undefined {
+
+    const index = this.elementIndex_
+
+    return index[ localID ]?.expressID
+  }
+
 
   /**
    * Given a local ID (i.e. dense index/reference), return the matching element if one

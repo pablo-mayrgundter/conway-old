@@ -1778,11 +1778,13 @@ export class IfcGeometryExtraction {
       const paramsGetCircleCurve: ParamsGetRectangleProfileCurve = {
         xDim: from.XDim,
         yDim: from.YDim,
-        hasPlacement: true,
-        matrix: void 0,
+        hasPlacement: false,
+        matrix:(new (this.wasmModule.Glmdmat3)),
       }
 
       const ifcCurve: CurveObject = this.conwayModel.getRectangleProfileCurve(paramsGetCircleCurve)
+
+      paramsGetCircleCurve.matrix.delete()
       return ifcCurve
     }
   }

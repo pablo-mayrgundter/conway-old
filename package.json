@@ -2,8 +2,7 @@
   "name": "bldrs-conway",
   "version": "0.0.1",
   "description": "",
-  "main": "./compiled/src/index.js",
-  "types": "./compiled/src/index.d.ts",
+  "type":"module",
   "files": [
     "./compiled/**/*"
   ],
