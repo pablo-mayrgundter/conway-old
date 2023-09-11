@@ -10,6 +10,7 @@ import {
   IfcCartesianPointList,
   IfcCartesianPointList3D,
   IfcClassification,
+  IfcGeometricRepresentationContext,
   IfcGeometricRepresentationSubContext,
   IfcPerson,
   IfcPostalAddress,
@@ -562,6 +563,45 @@ function indexTypeTest() {
   /* eslint-enable no-magic-numbers */
 }
 
+
+/**
+ * Test extracting a more complicated string with an unicode escape sequence.
+ *
+ * @return {boolean} True if the test passes, false otherwise.
+ */
+function extractRawReference() {
+  const bufferInput = new ParsingBuffer( derivedSubtextStringBuffer )
+
+  const model = parser.parseDataToModel( bufferInput )[ 1 ]
+
+  if ( model === void 0 ) {
+    return false
+  }
+
+  const geometricSubRepresentation =
+    model.getElementByExpressID( GEOMETRIC_SUB_REPRSENTATION_EXPRESS_ID )
+
+  if (!(geometricSubRepresentation instanceof IfcGeometricRepresentationSubContext)) {
+    return false
+  }
+
+  const PARENT_CONTEXT_OFFSET = 6
+
+  const rawParentContext =
+    geometricSubRepresentation?.extractReference( PARENT_CONTEXT_OFFSET, false )
+
+  // These aren't magic numbers, they match the above and this is an expected
+  // equality test.
+
+  if ( !(rawParentContext instanceof IfcGeometricRepresentationContext ) ) {
+    return false
+  }
+
+
+  return true
+}
+
+
 describe( 'IFC Step Model Test', () => {
   test( 'extractIFCData()', () => {
     expect( extractIFCData() ).toBe( ParseResult.COMPLETE )
@@ -605,5 +645,9 @@ describe( 'IFC Step Model Test', () => {
 
   test( 'indexTypeTest()', () => {
     expect( indexTypeTest() ).toBe( true )
+  } )
+
+  test( 'extractRawReference()', () => {
+    expect( extractRawReference() ).toBe( true )
   } )
 })

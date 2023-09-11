@@ -113,7 +113,8 @@
       "cfenv": "cpp",
       "csignal": "cpp",
       "ranges": "cpp",
-      "strstream": "cpp"
+      "strstream": "cpp",
+      "xthread": "cpp"
     }
 	}
 }
