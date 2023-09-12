@@ -71,6 +71,35 @@ implements Iterable<BaseEntity>, Model {
   }
 
   /**
+   * Invalidate the cache store for this, so new items will be created.
+   *
+   * @param dropVtable If true, remove the vtable entries for old entries as well,
+   * freeing up the v-table space on garbage collection.
+   */
+  public invalidate( dropVtable: boolean = false ): void {
+
+    if ( dropVtable ) {
+
+      this.vtableBuilder_.clear( true )
+
+      for ( const item of this.elementIndex_ ) {
+
+        delete item.buffer
+        delete item.entity
+        delete item.vtable
+        delete item.vtableCount
+        delete item.vtableIndex
+      }
+    } else {
+
+      for ( const item of this.elementIndex_ ) {
+
+        delete item.entity
+      }
+    }
+  }
+
+  /**
    * Force the population of the the vtable entry for a particular ID
    * (i.e. extracting the field locations)
    *

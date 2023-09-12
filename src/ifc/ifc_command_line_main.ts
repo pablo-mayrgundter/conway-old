@@ -244,6 +244,7 @@ function serializeGeometry(
     if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY && !geometry.temporary) {
 
       let fullGeometry = materialGeometry.get(material)
+
       if (fullGeometry === void 0) {
 
         fullGeometry = conwaywasm.nativeGeometryCollection()
@@ -477,6 +478,8 @@ async function geometryExtraction(model: IfcStepModel):
   // parse + extract data model + geometry data
   const [extractionResult, scene] =
     conwayModel.extractIFCGeometryData(true)
+
+  model.invalidate( true )
 
   if (extractionResult !== ExtractResult.COMPLETE) {
     console.error('Could not extract geometry, exiting...')

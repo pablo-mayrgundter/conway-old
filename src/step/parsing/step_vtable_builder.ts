@@ -31,6 +31,23 @@ export default class StepVtableBuilder {
   }
 
   /**
+   * Clear this out, note that anything using the table should also be invalidated.
+   *
+   * @param dropBuffer Should we also drop the buffer to allow it to be garbage collected,
+   * or should we drop it and allow the memory to be reclaimed.
+   */
+  public clear( dropBuffer: boolean = false ): void {
+
+    if ( dropBuffer ) {
+      // eslint-disable-next-line no-magic-numbers
+      this.buffer_ = new Uint32Array( 16 )
+    }
+
+    this.bufferMark_ = 0
+    this.indexMark_  = 0
+  }
+
+  /**
    * Push an address to the back of this current entry.
    *
    * @param address The address to put back.

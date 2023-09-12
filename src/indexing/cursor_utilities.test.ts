@@ -39,8 +39,6 @@ function testCursorMap(): boolean {
   const singleIndexSet = SingleIndexSet.createFromLocalIds( ID_SET )
   const idSet = Array.from( cursorMap( singleIndexSet.cursor(), ( localId ) => localId + 1 ) )
 
-  console.log( idSet.join() )
-
   if ( idSet.length !== ID_SET.length ||
        idSet.some( ( value, index ) => ( ID_SET[index] + 1 ) !== value ) ) {
     return false

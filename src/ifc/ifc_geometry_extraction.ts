@@ -230,11 +230,8 @@ export class IfcGeometryExtraction {
   private wasmModule: WasmModule
 
   public readonly scene: IfcSceneBuilder
-
   public readonly materials: IfcMaterialCache
-
-  private readonly relVoidsMap: Map<number, number>
-
+  //private readonly relVoidsMap: Map<number, number>
   private readonly productToVoidGeometryMap: Map<number, number>
 
   /**
@@ -249,7 +246,7 @@ export class IfcGeometryExtraction {
 
     this.materials = new IfcMaterialCache()
     this.scene = new IfcSceneBuilder(model, conwayModel, this.materials)
-    this.relVoidsMap = new Map<number, number>()
+    //this.relVoidsMap = new Map<number, number>()
     this.productToVoidGeometryMap = new Map<number, number>()
 
 
@@ -457,6 +454,30 @@ export class IfcGeometryExtraction {
     return nativeULongVector_
   }
 
+  private readonly freeVectorPolygonalFaces_: NativeVectorIndexedPolygonalFace[] = []
+
+  /**
+   * Drop and delete all the indexed polygonal face vectors.
+   */
+  dropAllNativeIndexedPolygonalFaceVector(): void {
+
+    while ( this.freeVectorPolygonalFaces_.length > 0 ) {
+
+      this.freeVectorPolygonalFaces_.pop()?.delete()
+    }
+  }
+
+  /**
+   * Free the native indexed polygon face.
+   *
+   * @param nativeVectorIndexedPolygonalFace The native item to free.
+   */
+  freeNativeIndexedPolygonalFaceVector(
+      nativeVectorIndexedPolygonalFace: NativeVectorIndexedPolygonalFace ): void {
+
+    this.freeVectorPolygonalFaces_.push( nativeVectorIndexedPolygonalFace )
+  }
+
   /**
    * Create a native vector of indexed polygonal faces uint vector.
    *
@@ -464,8 +485,20 @@ export class IfcGeometryExtraction {
    * @return {NativeVectorIndexedPolygonalFace} - a native object from the wasm module
    */
   nativeIndexedPolygonalFaceVector(initialize?: number): NativeVectorIndexedPolygonalFace {
-    const nativeVectorIndexedPolygonalFace = new
-      (this.wasmModule.VectorIndexedPolygonalFace)() as NativeVectorIndexedPolygonalFace
+    let nativeVectorIndexedPolygonalFace: NativeVectorIndexedPolygonalFace
+
+    if ( this.freeVectorPolygonalFaces_.length > 0 ) {
+      nativeVectorIndexedPolygonalFace = this.freeVectorPolygonalFaces_.pop() as
+        NativeVectorIndexedPolygonalFace
+
+      if ( nativeVectorIndexedPolygonalFace.size() > 0 ) {
+
+        nativeVectorIndexedPolygonalFace.resize( 0, nativeVectorIndexedPolygonalFace.get( 0 ) )
+      }
+    } else {
+      nativeVectorIndexedPolygonalFace = new
+        (this.wasmModule.VectorIndexedPolygonalFace)() as NativeVectorIndexedPolygonalFace
+    }
 
     if (initialize) {
       // resize has a required second parameter to set default values
@@ -712,6 +745,9 @@ export class IfcGeometryExtraction {
 
         polygonalFaceVector.push_back(indexedPolygonalFaceParameters)
 
+        coordIndex.delete()
+        polygonalFaceStartIndicesVoids.delete()
+
       } else {
 
         indicesPerFace = polygonalFace.CoordIndex.length
@@ -724,6 +760,8 @@ export class IfcGeometryExtraction {
         }
 
         polygonalFaceVector.push_back(indexedPolygonalFaceParameters)
+
+        coordIndex.delete()
       }
     }
 
@@ -743,6 +781,12 @@ export class IfcGeometryExtraction {
 
     const geometry: GeometryObject = this.conwayModel.getPolygonalFaceSetGeometry(parameters)
 
+    // free allocated wasm vectors
+    pointsArray.delete()
+
+    this.freeNativeIndexedPolygonalFaceVector(
+        polygonalFaceVector )
+
     const canonicalMesh: CanonicalMesh = {
       type: CanonicalMeshType.BUFFER_GEOMETRY,
       geometry: geometry,
@@ -757,11 +801,6 @@ export class IfcGeometryExtraction {
     } else {
       this.model.voidGeometry.add(canonicalMesh)
     }
-
-    // free allocated wasm vectors
-    pointsArray.delete()
-    polygonalFaceVector.delete()
-
 
     return result
 
@@ -2593,7 +2632,6 @@ export class IfcGeometryExtraction {
       const relatingMaterial = relAssociateMaterial.RelatingMaterial
       for (const relatedObject of relAssociateMaterial.RelatedObjects) {
         const product = relatedObject
-
 
         if (product instanceof IfcProduct) {
           if (product instanceof IfcOpeningElement ||
