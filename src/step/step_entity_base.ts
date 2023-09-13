@@ -430,9 +430,9 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
     const endCursor = cursor + internalReference.length
 
     const subArray = buffer.subarray(cursor, endCursor) //include the Open parenthesis + ending semicolon 
-    const text = new TextDecoder().decode(subArray)
+    //const text = new TextDecoder().decode(subArray)
 
-    console.log(text)  // Output:
+   // console.log(text)  // Output:
 
     return subArray
   }

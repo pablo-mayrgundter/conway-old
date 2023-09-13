@@ -985,11 +985,11 @@ export default class StepParser<TypeIDType> {
         continue
       }
 
-      const testChar = input.peek()
+      /*const testChar = input.peek()
 
       if (testChar !== void 0) {
         console.log("nextChar Peek: " + String.fromCharCode(testChar))
-      }
+      }*/
       if (!firstAttribute) {
         if (!char(COMMA)) {
           console.log("COMMA not found, exiting...")
@@ -1042,11 +1042,11 @@ export default class StepParser<TypeIDType> {
               indexResult.push(arg)
             }
 
-            const testChar_ = input.peek()
+            /*const testChar_ = input.peek()
 
             if (testChar_ !== void 0) {
               console.log("read real, Peek: " + String.fromCharCode(testChar_))
-            }
+            }*/
           } else {
             console.log("syntaxError parsing NUMBER")
             return syntaxError()
@@ -1065,7 +1065,7 @@ export default class StepParser<TypeIDType> {
           const subArray = input.buffer.subarray(startEnum_ + 1, input.cursor - 1) //do not include the trailing period delimiter
           const enumString = new TextDecoder().decode(subArray)
 
-          console.log("enumString: " + enumString)
+          //console.log("enumString: " + enumString)
 
           arg = {
             type: 3,
@@ -1127,11 +1127,11 @@ export default class StepParser<TypeIDType> {
               indexResult.push(arg)
             }
 
-            const refTest = input.peek()
+            /*const refTest = input.peek()
 
             if (refTest !== void 0) {
               console.log("reference case? Peek: " + String.fromCharCode(refTest))
-            }
+            }*/
 
           } else {
             console.log("syntaxError parsing REFERENCE")

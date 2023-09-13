@@ -22,6 +22,7 @@ import exp from 'constants'
 import { IfcClosedShell, IfcFace, IfcOpenShell, FromRawLineData } from './ifc2x4_helper'
 import { FieldDescriptionKind, EntityReferenceFieldDescription } from '../core/entity_field_description'
 import { stringify } from 'querystring'
+import { PackedMesh } from '../core/packed_mesh'
 export * from "./ifc2x4"
 
 
@@ -122,7 +123,7 @@ export class IfcAPI {
     globalModelIDCounter = 0
     // we can assign the first GeometryObject to another variable here to combine them all.
     //materialGeometry = new Map<CanonicalMaterial | undefined, GeometryObject>()
-    models: Map<number, [IfcStepModel, IfcSceneBuilder, Map<CanonicalMaterial | undefined, Vector<PlacedGeometry>>]> = new Map<number, [IfcStepModel, IfcSceneBuilder, Map<CanonicalMaterial | undefined, Vector<PlacedGeometry>>]>()
+    models: Map<number, [IfcStepModel, IfcSceneBuilder, Map<CanonicalMaterial | undefined, Vector<PlacedGeometry>>, PackedMesh<IfcStepModel>,Map<number, GeometryObject>]> = new Map<number, [IfcStepModel, IfcSceneBuilder, Map<CanonicalMaterial | undefined, Vector<PlacedGeometry>>, PackedMesh<IfcStepModel>, Map<number, GeometryObject>]>()
     conwaywasm = new ConwayGeometry()
     coordinationMatrix: glmatrix.mat4 = glmatrix.mat4.create()
     coordinationMatrixArray: number[] = Array.from(this.coordinationMatrix)
@@ -239,10 +240,17 @@ export class IfcAPI {
             return -1
         }
 
+        //build packed mesh model 
+        const packedMeshModel = scene.buildPackedMeshModel()
+
+        console.log("[openModel]: elementPrimitiveIndex size : " + packedMeshModel.elementPrimitiveIndex.size)
+
         const materialGeometry = new Map<CanonicalMaterial | undefined, Vector<PlacedGeometry>>()
 
+        const geometryMap = new Map<number, GeometryObject>()
+
         const tempModelID = this.globalModelIDCounter
-        this.models.set(this.globalModelIDCounter++, [model, scene, materialGeometry])
+        this.models.set(this.globalModelIDCounter++, [model, scene, materialGeometry, packedMeshModel, geometryMap])
 
         //save settings
         this.settings = settings
@@ -298,29 +306,16 @@ export class IfcAPI {
         const result = this.models.get(modelID)
 
         if (result !== void 0) {
-            const [model, scene] = result
+            const [model, scene, materialsMap, packedMeshModel, geometryMap ] = result
 
-            const geometryElement = model.getElementByExpressID(geometryExpressID)
+            const geometryObject = geometryMap.get(geometryExpressID)
 
-            if (geometryElement !== void 0) {
-                const canonicalMesh = model.geometry.getByLocalID(geometryElement.localID)
+            if (geometryObject !== void 0) {
+                const clone = geometryObject.clone()
 
-                if (canonicalMesh !== void 0) {
-                    if (canonicalMesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
-                        //TODO(nickcastel50): Web-Ifc-Three deletes the geometry buffer, which breaks instanced meshes
-                        //since we do not recompute geometry for instances. So we must clone here unfortunately to 
-                        //keep compatibility  
-                        const geometryClone = canonicalMesh.geometry.clone()
-
-                        return geometryClone
-                    } else {
-                        console.log(`[GetGeometry]: CanonicalMeshType !== BUFFER_GEOMETRY for expressID: ${geometryExpressID}`)
-                    }
-                } else {
-                    console.log(`[GetGeometry]: Could not find canonicalMesh for expressID: ${geometryExpressID}`)
-                }
+                return clone
             } else {
-                console.log(`[GetGeometry]: Could not find geometry for expressID: ${geometryExpressID}`)
+                console.log("[GetGeometry]: Geometry Object not found for expressID: " + geometryExpressID)
             }
         } else {
             console.log("[GetGeometry]: model === undefined")
@@ -333,7 +328,7 @@ export class IfcAPI {
 
     GetLine(modelID: number, expressID: number, flatten: boolean = false) {
 
-        console.log("[GetLine]: Shim - implemented")
+        // console.log("[GetLine]: Shim - implemented")
 
         let rawLineData = this.GetRawLineData(modelID, expressID)
         let lineData = FromRawLineData[rawLineData.type](rawLineData)
@@ -431,7 +426,7 @@ export class IfcAPI {
     GetRawLineData(modelID: number, expressID: number): RawLineData {
         //return this.wasmModule.GetLine(modelID, expressID) as RawLineData
 
-        console.log("[GetRawLineData]: Shim - implemented")
+        //  console.log("[GetRawLineData]: Shim - implemented")
         const result = this.models.get(modelID)
 
         if (result !== undefined) {
@@ -442,16 +437,16 @@ export class IfcAPI {
             let args: any[] = []
 
             if (element !== void 0) {
-                console.log(`element expressID: ${expressID}`)
+                // console.log(`element expressID: ${expressID}`)
                 const lineArguments = element.extractLineArguments()
 
                 const parsingBuffer = new ParsingBuffer(lineArguments)
                 if (element.expressID !== void 0) {
                     const result = IfcStepParser.Instance.extractArguments(parsingBuffer, element.expressID)
-                    console.log(JSON.stringify(result))
+                    // console.log(JSON.stringify(result))
                     if (result[1] === ParseResult.COMPLETE) {
 
-                        console.log(`${new Date().toISOString()} - result[0]: ${JSON.stringify(result[0])}`);
+                        //    console.log(`${new Date().toISOString()} - result[0]: ${JSON.stringify(result[0])}`);
 
                         const rawLineData: RawLineData = {
                             ID: expressID,
@@ -645,7 +640,7 @@ export class IfcAPI {
                     arguments: args
                 }
 
-                console.log(`${new Date().toISOString()} - args: ${JSON.stringify(args)}`)
+                // console.log(`${new Date().toISOString()} - args: ${JSON.stringify(args)}`)
                 // console.log(`RawLineData: ${JSON.stringify(rawLineData.arguments)}`)
                 return rawLineData
             }
@@ -1082,25 +1077,95 @@ export class IfcAPI {
         const result = this.models.get(modelID)
 
         if (result !== void 0) {
-            const [model, scene, materialGeometry] = result
+            const [model, scene, materialGeometry, packedMeshModel, geometryMap] = result
 
             //only walk scene if we haven't already 
             if (materialGeometry.size <= 0) {
                 // eslint-disable-next-line no-unused-vars
-                for (const [_, nativeTransform, geometry, material] of scene.walk()) {
+                packedMeshModel.elementPrimitiveIndex.forEach((primitiveIndex, productLocalID) => {
 
-                    //type check 
-                    //const typedElement = model.getElementByLocalID(geometry.localID)
-                    //console.log(`typedElement.fields: ${typedElement?.fields}`)
-                    //console.log(`typedElement?.orderedFields: ${typedElement?.orderedFields}`)
+                    const productExpressID = model.getElementByLocalID(productLocalID)?.expressID
+                    const [fullGeometry, materialIndex] = packedMeshModel.primitives[primitiveIndex]
 
-                    /*if (typedElement !== void 0) {
-                        console.log("typedElement: type: " + EntityTypesIfc[typedElement.type])
-                        //IFCFACETEDBREP
-                        if (!(EntityTypesIfc[typedElement.type] === "IFCEXTRUDEDAREASOLID")) {
-                            continue
+                    let material: CanonicalMaterial | undefined
+
+                    if (materialIndex !== void 0) {
+                        material = packedMeshModel.materials[materialIndex]
+                    }
+
+                    packedMeshModel.triangleElementMaps[primitiveIndex].inverseMap
+
+                    packedMeshModel.triangleElementMaps[primitiveIndex].inverseMap.forEach((array, localID) => {
+                        console.log(`Key: ${localID} Value: ${array}`)
+                    })
+
+                    //next, we need to utilize the inverse map to pack geometry 
+
+                    const placedGeometryArray = new Array<PlacedGeometry>()
+
+                    // Vector of PlacedGeometry
+                    const vectorOfPlacedGeometry: Vector<PlacedGeometry> = {
+                        get(index: number): PlacedGeometry {
+                            if (index >= placedGeometryArray.length) {
+                                return singlePlacedGeometry
+                            }
+
+                            return placedGeometryArray[index]
+                        },
+                        size(): number {
+                            return placedGeometryArray.length
+                        },
+                        push(parameter: PlacedGeometry): void {
+                            placedGeometryArray.push(parameter)
                         }
-                    }*/
+                    }
+
+                    //extract color
+                    if (material !== undefined) {
+                        const color = {
+                            x: material.baseColor[0],
+                            y: material.baseColor[1],
+                            z: material.baseColor[2],
+                            w: material.baseColor[3],
+                        }
+
+                        //create PlacedGeometry
+                        const newTransform = glmatrix.mat4.create()
+
+                        // Perform the matrix multiplications
+                        /*if (newMatrix !== void 0) {
+                            glmatrix.mat4.multiply(newTransform, this.coordinationMatrix, newMatrix)
+                            glmatrix.mat4.multiply(newTransform, newTransform, translationMatrixGeomMin)
+                            glmatrix.mat4.multiply(newTransform, this.NormalizeMat, newTransform)
+                        } else {
+                            glmatrix.mat4.multiply(newTransform, this.coordinationMatrix, newTransform)
+                            glmatrix.mat4.multiply(newTransform, newTransform, translationMatrixGeomMin)
+                            glmatrix.mat4.multiply(newTransform, this.NormalizeMat, newTransform)
+                        }*/
+
+                        glmatrix.mat4.multiply(newTransform, this.NormalizeMat, newTransform)
+
+                        const newTransformArr = Array.from(newTransform)
+                        const placedGeometry: PlacedGeometry = {
+                            color: color,
+                            geometryExpressID: productExpressID!,
+                            flatTransformation: newTransformArr
+                        }
+
+                        vectorOfPlacedGeometry.push(placedGeometry)
+
+                        const singleFlatMesh: FlatMesh = {
+                            geometries: vectorOfPlacedGeometry,
+                            expressID: productExpressID!
+                        }
+
+                        geometryMap.set(productExpressID!, fullGeometry)
+
+                        meshCallback(singleFlatMesh)
+                    }
+                })
+
+                /*for (const [_, nativeTransform, geometry, material] of scene.walk()) {
 
                     if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY && !geometry.temporary) {
                         const result = materialGeometry.get(material)
@@ -1233,62 +1298,12 @@ export class IfcAPI {
                             //set first material geometry 
                             //materialGeometry.set(material, vectorOfPlacedGeometry)
                         }
-                    } /*else {
-                            const vectorOfPlacedGeometry = result
-                            //add to vector of placed geometry
-                            if (material !== undefined) {
-                                const color = {
-                                    x: material.baseColor[0],
-                                    y: material.baseColor[1],
-                                    z: material.baseColor[2],
-                                    w: material.baseColor[3],
-                                }
-
-                                //normalize geometry 
-                                if (!geometry.geometry.normalized) {
-                                    geometry.geometry.NormalizeInPlace()
-                                }
-
-                                //create PlacedGeometry
-                                const newTransform = glmatrix.mat4.create()
-
-                                // Perform the matrix multiplications
-                                if (newMatrix !== void 0) {
-                                    glmatrix.mat4.multiply(newTransform, this.coordinationMatrix, newMatrix)
-                                    glmatrix.mat4.multiply(newTransform, newTransform, translationMatrixGeomMin)
-                                } else {
-                                    glmatrix.mat4.multiply(newTransform, this.coordinationMatrix, newTransform)
-                                    glmatrix.mat4.multiply(newTransform, newTransform, translationMatrixGeomMin)
-                                }
-                                const newTransformArr = Array.from(newTransform)
-
-                                //create PlacedGeometry
-                                const placedGeometry: PlacedGeometry = {
-                                    color: color,
-                                    geometryExpressID: expressID,
-                                    flatTransformation: newTransformArr
-                                }
-
-                                vectorOfPlacedGeometry.push(placedGeometry)
-                            }
-                        }
-                    }*/
-                }
+                    } 
+                }*/
             }
 
             //loop materialGeometry and create vector of FlatMesh and return 
             console.log("materialGeometrySize: " + materialGeometry.size)
-            /*materialGeometry.forEach((vector, material) => {
-
-                if (vector.size() > 0) {
-                    const singleFlatMesh: FlatMesh = {
-                        geometries: vector,
-                        expressID: vector.get(0).geometryExpressID
-                    }
-
-                    meshCallback(singleFlatMesh)
-                }
-            })*/
         }
     }
 
