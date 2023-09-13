@@ -103,6 +103,12 @@ import {
   IfcMaterialConstituentSet,
   IfcMaterialConstituent,
   IfcMaterialProfile,
+  IfcProject,
+  IfcSIUnit,
+  IfcSIPrefix,
+  IfcUnitEnum,
+  IfcSIUnitName,
+  IfcConversionBasedUnit,
 } from './ifc4_gen'
 import EntityTypesIfc from './ifc4_gen/entity_types_ifc.gen'
 import { IfcMaterialCache } from './ifc_material_cache'
@@ -236,6 +242,7 @@ export class IfcGeometryExtraction {
   private readonly relVoidsMap: Map<number, number>
 
   private readonly productToVoidGeometryMap: Map<number, number>
+  private linearScalingFactor: number
 
   /**
    * Construct a geometry extraction from an IFC step model and conway model
@@ -251,10 +258,15 @@ export class IfcGeometryExtraction {
     this.scene = new IfcSceneBuilder(model, conwayModel, this.materials)
     this.relVoidsMap = new Map<number, number>()
     this.productToVoidGeometryMap = new Map<number, number>()
+    this.linearScalingFactor = 1
 
 
     // console.log(`wasmModule: ${conwayModel.wasmModule}`)
     this.wasmModule = conwayModel.wasmModule
+  }
+
+  getLinearScalingFactor():number {
+    return this.linearScalingFactor
   }
 
   /**
@@ -1231,7 +1243,7 @@ export class IfcGeometryExtraction {
       // get geometry
       const parameters: ParamsGetHalfspaceSolid = {
         flipWinding: from.AgreementFlag,
-        optionalLinearScalingFactor: 1.0,
+        optionalLinearScalingFactor: this.linearScalingFactor,
       }
 
       const geometry: GeometryObject = this.conwayModel.getHalfSpaceSolid(parameters)
@@ -1265,7 +1277,8 @@ export class IfcGeometryExtraction {
    */
   /* extractPolygonalBoundedHalfSpace(from: IfcPolygonalBoundedHalfSpace,
     temporary: boolean = false) {
-    // TODO(nickcastel50):unfinished - not needed at the moment
+    // TODO(nickcastel50):unfinished - not needed at the moment - 
+    //also pass this.linearScalingFactor in parameters
     // extract position
     let axis2PlacementTransform: any | undefined = (void 0)
 
@@ -2576,6 +2589,95 @@ export class IfcGeometryExtraction {
     }
   }
 
+  extractLinearScalingFactor() {
+    const projects = this.model.types(IfcProject)
+
+    const projectsArray = Array.from(projects)
+
+
+    if (projectsArray.length <= 0) {
+      console.log("No IfcProjects found?")
+      return
+    }
+
+    const project = projectsArray[0]
+    const unitsInContext = project.UnitsInContext
+
+    if (unitsInContext === null) {
+      console.log("No units defined.")
+      return
+    }
+
+    console.log(`UnitsInContext expressID: ${unitsInContext.expressID}`)
+    for (const unit of unitsInContext.Units) {
+      console.log(`Unit type: ${EntityTypesIfc[unit.type]}, expressID: ${unit.expressID}`)
+
+      if (unit instanceof IfcSIUnit) {
+        const unitType = unit.UnitType
+        const unitName = unit.Name
+        const unitPrefix = unit.Prefix
+
+        if (unitPrefix === null) {
+          console.log("Unit prefix not found")
+          continue 
+        }
+
+        const unitPrefixVal = this.convertPrefix(unitPrefix)
+        if (unitType === IfcUnitEnum.LENGTHUNIT && unitName === IfcSIUnitName.METRE && unitPrefixVal !== null) {
+          this.linearScalingFactor *= unitPrefixVal
+          continue 
+        } else {
+          console.log("linear scaling factor not set for IfcSIUnit")
+        }
+      } else if (unit instanceof IfcConversionBasedUnit) {
+        //TODO: Linear scaling factor for IfcConversionBasedUnit
+        /*const unitType = unit.UnitType
+        unit.ConversionFactor.UnitComponent
+        unit.Dimensions
+        console.log("unit.Name: " + unit.Name)*/
+      }
+    }
+  }
+
+  convertPrefix(prefix: IfcSIPrefix): number | null {
+    switch (prefix) {
+      case IfcSIPrefix.EXA:
+        return 1e18
+      case IfcSIPrefix.PETA:
+        return 1e15
+      case IfcSIPrefix.TERA:
+        return 1e12
+      case IfcSIPrefix.GIGA:
+        return 1e9
+      case IfcSIPrefix.MEGA:
+        return 1e6
+      case IfcSIPrefix.KILO:
+        return 1e3
+      case IfcSIPrefix.HECTO:
+        return 1e2
+      case IfcSIPrefix.DECA:
+        return 1e1
+      case IfcSIPrefix.DECI:
+        return 1e-1
+      case IfcSIPrefix.CENTI:
+        return 1e-2
+      case IfcSIPrefix.MILLI:
+        return 1e-3
+      case IfcSIPrefix.MICRO:
+        return 1e-6
+      case IfcSIPrefix.NANO:
+        return 1e-9
+      case IfcSIPrefix.PICO:
+        return 1e-12
+      case IfcSIPrefix.FEMTO:
+        return 1e-15
+      case IfcSIPrefix.ATTO:
+        return 1e-18
+      default:
+        return null
+    }
+  }
+
   /**
    * Extract the geometry data from the IFC
    *
@@ -2589,6 +2691,8 @@ export class IfcGeometryExtraction {
     let result: ExtractResult = ExtractResult.INCOMPLETE
 
     const startTime = Date.now()
+
+    this.extractLinearScalingFactor()
 
     // populate relMaterialsMap
     const relAssociatesMaterials = this.model.types(IfcRelAssociatesMaterial)
