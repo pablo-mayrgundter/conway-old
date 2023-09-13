@@ -15,3 +15,8 @@ index_test_draco.gltf
 .DS_Store
 /.vs
 Momentum*
+v8.json
+isolate*.log
+index*.bin
+index*.gltf
+index*.glb

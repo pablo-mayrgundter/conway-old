@@ -167,7 +167,7 @@ export class IfcSceneBuilder implements Scene {
     const materials: CanonicalMaterial[] = []
     const primitives: [GeometryObject, number | undefined][] = []
     const triangleMaps: TriangleElementMap[] = []
-    const elementMap = new Map<number, number>()
+    const elementMap = new Map<number, number[]>()
 
     // eslint-disable-next-line no-unused-vars
     for (const [_, nativeTransform, geometry, material, entity] of this.walk()) {
@@ -203,7 +203,18 @@ export class IfcSceneBuilder implements Scene {
           const newPrimitiveIndex = primitives.length
 
           if (entityLocalId !== void 0) {
-            elementMap.set(entityLocalId, newPrimitiveIndex)
+
+            let currentPrimitives = elementMap.get( entityLocalId )
+
+            if ( currentPrimitives === void 0 ) {
+
+              currentPrimitives = []
+              elementMap.set(entityLocalId, currentPrimitives)
+            }
+
+            if ( !currentPrimitives.includes( newPrimitiveIndex ) ) {
+              currentPrimitives.push(newPrimitiveIndex)
+            }
           }
 
           materialMap.set(material, newPrimitiveIndex)
@@ -225,7 +236,18 @@ export class IfcSceneBuilder implements Scene {
               entityLocalId ?? TriangleElementMap.NO_ELEMENT)
 
           if (entityLocalId !== void 0) {
-            elementMap.set(entityLocalId, primitiveIndex)
+
+            let currentPrimitives = elementMap.get( entityLocalId )
+
+            if ( currentPrimitives === void 0 ) {
+
+              currentPrimitives = []
+              elementMap.set(entityLocalId, currentPrimitives)
+            }
+
+            if ( !currentPrimitives.includes( primitiveIndex ) ) {
+              currentPrimitives.push(primitiveIndex)
+            }
           }
 
           fullGeometry.appendGeometry(clonedGeometry)
