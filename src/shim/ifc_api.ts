@@ -128,6 +128,7 @@ export class IfcAPI {
     coordinationMatrix: glmatrix.mat4 = glmatrix.mat4.create()
     coordinationMatrixArray: number[] = Array.from(this.coordinationMatrix)
     _isCoordinated: boolean = false
+    linearScalingFactor:number = 1
 
     // Initialize the matrix using an array
     NormalizeMat: glmatrix.mat4 = glmatrix.mat4.fromValues(
@@ -232,6 +233,7 @@ export class IfcAPI {
         //TODO(nickcastel50): Doing geometry extraction in here for now...
         // parse + extract data model + geometry data
         const conwayGeometry = new IfcGeometryExtraction(this.conwaywasm, model)
+        
         const [extractionResult, scene] =
             conwayGeometry.extractIFCGeometryData(true)
 
@@ -239,6 +241,9 @@ export class IfcAPI {
             console.error('[OpenModel]: Error extracting geometry, exiting...')
             return -1
         }
+
+        //get linear scaling factor
+        this.linearScalingFactor = conwayGeometry.getLinearScalingFactor()
 
         //build packed mesh model 
         const packedMeshModel = scene.buildPackedMeshModel()
@@ -335,6 +340,7 @@ export class IfcAPI {
         // console.log("[GetLine]: Shim - implemented")
 
         let rawLineData = this.GetRawLineData(modelID, expressID)
+        console.log("rawLineData type: " + rawLineData.type)
         let lineData = FromRawLineData[rawLineData.type](rawLineData)
         if (flatten) {
             this.FlattenLine(modelID, lineData)
@@ -452,6 +458,11 @@ export class IfcAPI {
 
                         //    console.log(`${new Date().toISOString()} - result[0]: ${JSON.stringify(result[0])}`);
 
+                        const web_ifc_type = shimIfcEntityReverseMap[element.type]
+
+                        if (web_ifc_type === 0) {
+                            console.log("web_ifc_type === 0, native type: " + element.type)
+                        }
                         const rawLineData: RawLineData = {
                             ID: expressID,
                             type: shimIfcEntityReverseMap[element.type],
@@ -462,6 +473,7 @@ export class IfcAPI {
                     }
                 } else {
                     console.log("element express ID null")
+
                 }
 
 
@@ -647,6 +659,8 @@ export class IfcAPI {
                 // console.log(`${new Date().toISOString()} - args: ${JSON.stringify(args)}`)
                 // console.log(`RawLineData: ${JSON.stringify(rawLineData.arguments)}`)
                 return rawLineData
+            } else {
+                console.log("element === undefined, expressID: " + expressID)
             }
         }
 
@@ -1159,21 +1173,33 @@ export class IfcAPI {
                     if (material !== undefined) {
                         const newTransform = glmatrix.mat4.create()
 
+                        // Create a 4x4 identity matrix
+                        const scaleMatrix = glmatrix.mat4.create()
+
+                        // Create a 3D vector for scaling factors
+                        const scaleVec = glmatrix.vec3.fromValues(this.linearScalingFactor, 
+                            this.linearScalingFactor, 
+                            this.linearScalingFactor)
+
+                        // Scale the matrix
+                        glmatrix.mat4.scale(scaleMatrix, scaleMatrix, scaleVec)
+
                         // Perform the matrix multiplications
                         if (newMatrix !== void 0) {
                             glmatrix.mat4.multiply(newTransform, this.coordinationMatrix, newMatrix)
                             glmatrix.mat4.multiply(newTransform, newTransform, translationMatrixGeomMin)
                             glmatrix.mat4.multiply(newTransform, this.NormalizeMat, newTransform)
+                            glmatrix.mat4.multiply(newTransform, newTransform, scaleMatrix)
                         } else {
                             glmatrix.mat4.multiply(newTransform, this.coordinationMatrix, newTransform)
                             glmatrix.mat4.multiply(newTransform, newTransform, translationMatrixGeomMin)
                             glmatrix.mat4.multiply(newTransform, this.NormalizeMat, newTransform)
+                            glmatrix.mat4.multiply(newTransform, newTransform, scaleMatrix)
                         }
                         const newTransformArr = Array.from(newTransform)
 
 
                         geometryMaterialTransformMap.set(expressID, [geometry.geometry, material, newTransformArr])
-
 
                     }
                 }
@@ -1240,9 +1266,10 @@ export class IfcAPI {
                         }
                     }
 
+
                     const singleFlatMesh: FlatMesh = {
                         geometries: vectorOfPlacedGeometry_,
-                        expressID: productLocalID
+                        expressID: productExpressID!
                     }
 
                     placedGeometryVec.set(productLocalID, vectorOfPlacedGeometry_)
