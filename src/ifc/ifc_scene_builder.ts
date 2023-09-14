@@ -168,7 +168,6 @@ export class IfcSceneBuilder implements Scene {
     const primitives: [GeometryObject, number | undefined][] = []
     const triangleMaps: TriangleElementMap[] = []
     const elementMap = new Map<number, number[]>()
-    const productToGeometryIDsMap = new Map<number, number[]>()
 
     // eslint-disable-next-line no-unused-vars
     for (const [_, nativeTransform, geometry, material, entity] of this.walk()) {
@@ -206,7 +205,6 @@ export class IfcSceneBuilder implements Scene {
           if (entityLocalId !== void 0) {
 
             let currentPrimitives = elementMap.get( entityLocalId )
-            let currentGeometryLocalIDs = productToGeometryIDsMap.get(entityLocalId)
 
             if ( currentPrimitives === void 0 ) {
 
@@ -214,17 +212,8 @@ export class IfcSceneBuilder implements Scene {
               elementMap.set(entityLocalId, currentPrimitives)
             }
 
-            if (currentGeometryLocalIDs === void 0) {
-              currentGeometryLocalIDs = []
-              productToGeometryIDsMap.set(entityLocalId, currentGeometryLocalIDs)
-            }
-
             if ( !currentPrimitives.includes( newPrimitiveIndex ) ) {
               currentPrimitives.push(newPrimitiveIndex)
-            }
-
-            if (!currentGeometryLocalIDs.includes(geometry.localID)) {
-              currentGeometryLocalIDs.push(geometry.localID)
             }
           }
 
@@ -249,7 +238,6 @@ export class IfcSceneBuilder implements Scene {
           if (entityLocalId !== void 0) {
 
             let currentPrimitives = elementMap.get( entityLocalId )
-            let currentGeometryLocalIDs = productToGeometryIDsMap.get(entityLocalId)
 
             if ( currentPrimitives === void 0 ) {
 
@@ -257,17 +245,8 @@ export class IfcSceneBuilder implements Scene {
               elementMap.set(entityLocalId, currentPrimitives)
             }
 
-            if (currentGeometryLocalIDs === void 0) {
-              currentGeometryLocalIDs = []
-              productToGeometryIDsMap.set(entityLocalId, currentGeometryLocalIDs)
-            }
-
             if ( !currentPrimitives.includes( primitiveIndex ) ) {
               currentPrimitives.push(primitiveIndex)
-            }
-
-            if (!currentGeometryLocalIDs.includes(geometry.localID)) {
-              currentGeometryLocalIDs.push(geometry.localID)
             }
           }
 
@@ -281,8 +260,7 @@ export class IfcSceneBuilder implements Scene {
         materials,
         primitives,
         triangleMaps,
-        elementMap,
-        productToGeometryIDsMap)
+        elementMap)
   }
 
   /**

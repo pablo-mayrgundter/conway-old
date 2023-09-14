@@ -2608,9 +2608,9 @@ export class IfcGeometryExtraction {
       return
     }
 
-    console.log(`UnitsInContext expressID: ${unitsInContext.expressID}`)
+    //console.log(`UnitsInContext expressID: ${unitsInContext.expressID}`)
     for (const unit of unitsInContext.Units) {
-      console.log(`Unit type: ${EntityTypesIfc[unit.type]}, expressID: ${unit.expressID}`)
+      //console.log(`Unit type: ${EntityTypesIfc[unit.type]}, expressID: ${unit.expressID}`)
 
       if (unit instanceof IfcSIUnit) {
         const unitType = unit.UnitType
@@ -2618,7 +2618,7 @@ export class IfcGeometryExtraction {
         const unitPrefix = unit.Prefix
 
         if (unitPrefix === null) {
-          console.log("Unit prefix not found")
+         //console.log("Unit prefix not found")
           continue 
         }
 
@@ -2627,7 +2627,7 @@ export class IfcGeometryExtraction {
           this.linearScalingFactor *= unitPrefixVal
           continue 
         } else {
-          console.log("linear scaling factor not set for IfcSIUnit")
+          //console.log("linear scaling factor not set for IfcSIUnit")
         }
       } else if (unit instanceof IfcConversionBasedUnit) {
         //TODO: Linear scaling factor for IfcConversionBasedUnit

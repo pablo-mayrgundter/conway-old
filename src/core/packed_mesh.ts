@@ -27,8 +27,6 @@ export class PackedMesh< ModelType extends Model > {
    * in the same order, to map elements to primitives)
    * @param elementPrimitiveIndex Element primitive index, maps
    * element local ids to the correct primitive.
-   * @param productGeometryIndex Product Geometry index, maps
-   * element local ids to individual geometry components.
    */
   // eslint-disable-next-line no-useless-constructor, require-jsdoc
   constructor(
@@ -37,9 +35,7 @@ export class PackedMesh< ModelType extends Model > {
     public readonly primitives: ReadonlyArray< [GeometryObject, number | undefined] >,
     public readonly triangleElementMaps: ReadonlyArray< TriangleElementMap >,
     // eslint-disable-next-line no-empty-function
-    public readonly elementPrimitiveIndex: ReadonlyMap< number, number[] >, 
-    // eslint-disable-next-line no-empty-function
-    public readonly productGeometryIndex: ReadonlyMap< number, number[] >) {}
+    public readonly elementPrimitiveIndex: ReadonlyMap< number, number[] >) {}
 
   /**
    * Get triangles from a cursor.

@@ -1,27 +1,19 @@
 import IfcStepParser from '../ifc/ifc_step_parser'
 import ParsingBuffer from '../parsing/parsing_buffer'
 import { ParseResult } from '../step/parsing/step_parser'
-import EntityTypesIfc, { EntityTypesIfcCount } from '../ifc/ifc4_gen/entity_types_ifc.gen'
-import yargs from 'yargs/yargs'
-import fs from 'fs'
-import StepEntityBase from '../step/step_entity_base'
+import { EntityTypesIfcCount } from '../ifc/ifc4_gen/entity_types_ifc.gen'
 import IfcStepModel from '../ifc/ifc_step_model'
 import { ExtractResult, IfcGeometryExtraction } from '../ifc/ifc_geometry_extraction'
-import { IfcPropertyExtraction } from '../ifc/ifc_property_extraction'
 import { ConwayGeometry, GeometryObject }
     from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMeshType } from '../core/canonical_mesh'
 import { CanonicalMaterial } from '../core/canonical_material'
-import { IfcBooleanResult, IfcVector } from '../ifc/ifc4_gen'
 import { shimIfcEntityMap, shimIfcEntityReverseMap } from './shim_schema_mapping'
 import { IfcSceneBuilder } from '../ifc/ifc_scene_builder'
-import { IfcElements } from "./ifc2x4"
 import * as glmatrix from "gl-matrix"
 import { Properties } from './properties'
-import exp from 'constants'
 import { IfcClosedShell, IfcFace, IfcOpenShell, FromRawLineData } from './ifc2x4_helper'
 import { FieldDescriptionKind, EntityReferenceFieldDescription } from '../core/entity_field_description'
-import { stringify } from 'querystring'
 import { PackedMesh } from '../core/packed_mesh'
 export * from "./ifc2x4"
 
@@ -94,24 +86,6 @@ export function ms() {
     return new Date().getTime()
 }
 
-enum IfcTokenType {
-    UNKNOWN = 0,
-    STRING,
-    LABEL,
-    ENUM,
-    REAL,
-    REF,
-    EMPTY,
-    SET_BEGIN,
-    SET_END,
-    LINE_END
-}
-
-interface Argument {
-    type: number
-    value: any | null
-}
-
 export type LocateFileHandlerFn = (path: string, prefix: string) => string
 
 export class IfcAPI {
@@ -121,14 +95,25 @@ export class IfcAPI {
     isWasmPathAbsolute = false;
     settings: Loadersettings | undefined
     globalModelIDCounter = 0
-    // we can assign the first GeometryObject to another variable here to combine them all.
-    //materialGeometry = new Map<CanonicalMaterial | undefined, GeometryObject>()
-    models: Map<number, [IfcStepModel, IfcSceneBuilder, Map<number, Vector<PlacedGeometry>>, PackedMesh<IfcStepModel>, Map<number, [GeometryObject, CanonicalMaterial, number[]]>]> = new Map<number, [IfcStepModel, IfcSceneBuilder, Map<number, Vector<PlacedGeometry>>, PackedMesh<IfcStepModel>, Map<number, [GeometryObject, CanonicalMaterial, number[]]>]>()
+    models: Map<number,
+        [IfcStepModel,
+            IfcSceneBuilder,
+            Map<number, Vector<PlacedGeometry>>,
+            PackedMesh<IfcStepModel>,
+            Map<number, [GeometryObject, CanonicalMaterial, number[]]>, Map<number, number[]>]>
+        = new Map<number,
+            [IfcStepModel,
+                IfcSceneBuilder,
+                Map<number, Vector<PlacedGeometry>>,
+                PackedMesh<IfcStepModel>,
+                Map<number, [GeometryObject, CanonicalMaterial, number[]]>, Map<number, number[]>]>()
     conwaywasm = new ConwayGeometry()
     coordinationMatrix: glmatrix.mat4 = glmatrix.mat4.create()
     coordinationMatrixArray: number[] = Array.from(this.coordinationMatrix)
     _isCoordinated: boolean = false
-    linearScalingFactor:number = 1
+    linearScalingFactor: number = 1
+    // eslint-disable-next-line no-empty-function
+    productGeometryIndex: ReadonlyMap<number, number[]> = new Map<number, number[]>();
 
     // Initialize the matrix using an array
     NormalizeMat: glmatrix.mat4 = glmatrix.mat4.fromValues(
@@ -137,8 +122,6 @@ export class IfcAPI {
         0, 1, 0, 0,  // Third column
         0, 0, 0, 1   // Fourth column
     )
-
-    //ifcGuidMap: Map<number, Map<string | number, string | number>> = new Map<number, Map<string | number, string | number>>();
 
     /**
      * Contains all the logic and methods regarding properties, psets, qsets, etc.
@@ -174,8 +157,7 @@ export class IfcAPI {
             return
         }
 
-        this.wasmModule = this.conwaywasm.wasmModule /*await WebIFCWasm({ noInitialRun: true, locateFile: customLocateFileHandler || locateFileHandler })*/
-        // this.fs = this.wasmModule.FS
+        this.wasmModule = this.conwaywasm.wasmModule
     }
 
     /**  
@@ -233,7 +215,7 @@ export class IfcAPI {
         //TODO(nickcastel50): Doing geometry extraction in here for now...
         // parse + extract data model + geometry data
         const conwayGeometry = new IfcGeometryExtraction(this.conwaywasm, model)
-        
+
         const [extractionResult, scene] =
             conwayGeometry.extractIFCGeometryData(true)
 
@@ -248,14 +230,14 @@ export class IfcAPI {
         //build packed mesh model 
         const packedMeshModel = scene.buildPackedMeshModel()
 
-        console.log("[openModel]: elementPrimitiveIndex size : " + packedMeshModel.elementPrimitiveIndex.size)
-
         const vectorGeometryMap = new Map<number, Vector<PlacedGeometry>>()
 
         const geometryMap = new Map<number, [GeometryObject, CanonicalMaterial, number[]]>()
 
+        const productGeometryIndex = new Map<number, number[]>()
+
         const tempModelID = this.globalModelIDCounter
-        this.models.set(this.globalModelIDCounter++, [model, scene, vectorGeometryMap, packedMeshModel, geometryMap])
+        this.models.set(this.globalModelIDCounter++, [model, scene, vectorGeometryMap, packedMeshModel, geometryMap, productGeometryIndex])
 
         //save settings
         this.settings = settings
@@ -269,36 +251,14 @@ export class IfcAPI {
     */
     CreateModel(settings?: Loadersettings): number {
 
-        console.log("[CreateModel]: stubbed for shim, unnecessary")
-        /*let s: Loadersettings = {
-            COORDINATE_TO_ORIGIN: false,
-            USE_FAST_BOOLS: false,
-            CIRCLE_SEGMENTS_LOW: 5,
-            CIRCLE_SEGMENTS_MEDIUM: 8,
-            CIRCLE_SEGMENTS_HIGH: 12,
-            BOOL_ABORT_THRESHOLD: 10000,
-            ...settings
-        }
-        let result = this.wasmModule.CreateModel(s)
-        return result*/
-
+        console.log("[CreateModel]: Shim - Unimplemented")
         return 0
     }
 
     ExportFileAsIFC(modelID: number): Uint8Array {
-        /*this.wasmModule.ExportFileAsIFC(modelID)
-        //@ts-ignore
-        let result = this.fs.readFile("/export.ifc")
-        this.wasmModule['FS_unlink']("/export.ifc")
-        
-        return result*/
-
         console.log("[ExportFileAsIFC]: Shim - Unimplemented")
-
         const emptyArray = new Uint8Array(1)
-
         return emptyArray
-
     }
 
 
@@ -335,25 +295,30 @@ export class IfcAPI {
         return dummyGeometry
     }
 
+    /**
+     * 
+     * @param modelID 
+     * @param expressID 
+     * @param flatten 
+     * @returns 
+     */
     GetLine(modelID: number, expressID: number, flatten: boolean = false) {
 
-        // console.log("[GetLine]: Shim - implemented")
-
         let rawLineData = this.GetRawLineData(modelID, expressID)
-        console.log("rawLineData type: " + rawLineData.type)
         let lineData = FromRawLineData[rawLineData.type](rawLineData)
         if (flatten) {
             this.FlattenLine(modelID, lineData)
         }
 
-        // console.log(`[GetLine]: lineData: ${JSON.stringify(lineData, null, 2)}`)
-
         return lineData
     }
 
+    /**
+     * 
+     * @param modelID 
+     * @returns 
+     */
     GetAndClearErrors(modelID: number): Vector<LoaderError> {
-        //return this.wasmModule.GetAndClearErrors(modelID)
-
         console.log("[GetAndClearErrors]: Shim - Unimplemented")
         const wasmErrorsDummy: Vector<LoaderError> = {
             get(index: number): LoaderError {
@@ -373,51 +338,14 @@ export class IfcAPI {
     }
 
     WriteLine(modelID: number, lineObject: any) {
-        // this is pretty weakly-typed nonsense
-        /*Object.keys(lineObject).forEach(propertyName => {
-            let property = lineObject[propertyName]
-            if (property && property.expressID !== undefined) {
-                // this is a real object, we have to write it as well and convert to a handle
-                // TODO: detect if the object needs to be written at all, or if it's unchanged
-                this.WriteLine(modelID, property)
-
-                // overwrite the reference 
-                // NOTE: this modifies the parameter
-                lineObject[propertyName] = {
-                    type: 5,
-                    value: property.expressID
-                }
-            }
-            else if (Array.isArray(property) && property.length > 0) {
-                for (let i = 0; i < property.length; i++) {
-                    if (property[i].expressID !== undefined) {
-                        // this is a real object, we have to write it as well and convert to a handle
-                        // TODO: detect if the object needs to be written at all, or if it's unchanged
-                        this.WriteLine(modelID, property[i])
-
-                        // overwrite the reference 
-                        // NOTE: this modifies the parameter
-                        lineObject[propertyName][i] = {
-                            type: 5,
-                            value: property[i].expressID
-                        }
-                    }
-                }
-            }
-        })
-
-        let rawLineData: RawLineData = {
-            ID: lineObject.expressID,
-            type: lineObject.type,
-            arguments: lineObject.ToTape() as any[]
-        }
-
-        this.WriteRawLineData(modelID, rawLineData)*/
-
         console.log("[WriteLine]: Shim - Unimplemented")
-
     }
 
+    /**
+     * 
+     * @param modelID 
+     * @param line 
+     */
     FlattenLine(modelID: number, line: any) {
         console.log("[FlattenLine]: Shim - implemented")
         Object.keys(line).forEach(propertyName => {
@@ -433,10 +361,13 @@ export class IfcAPI {
         })
     }
 
+    /**
+     * 
+     * @param modelID 
+     * @param expressID 
+     * @returns 
+     */
     GetRawLineData(modelID: number, expressID: number): RawLineData {
-        //return this.wasmModule.GetLine(modelID, expressID) as RawLineData
-
-        //  console.log("[GetRawLineData]: Shim - implemented")
         const result = this.models.get(modelID)
 
         if (result !== undefined) {
@@ -447,22 +378,12 @@ export class IfcAPI {
             let args: any[] = []
 
             if (element !== void 0) {
-                // console.log(`element expressID: ${expressID}`)
                 const lineArguments = element.extractLineArguments()
 
                 const parsingBuffer = new ParsingBuffer(lineArguments)
                 if (element.expressID !== void 0) {
                     const result = IfcStepParser.Instance.extractArguments(parsingBuffer, element.expressID)
-                    // console.log(JSON.stringify(result))
                     if (result[1] === ParseResult.COMPLETE) {
-
-                        //    console.log(`${new Date().toISOString()} - result[0]: ${JSON.stringify(result[0])}`);
-
-                        const web_ifc_type = shimIfcEntityReverseMap[element.type]
-
-                        if (web_ifc_type === 0) {
-                            console.log("web_ifc_type === 0, native type: " + element.type)
-                        }
                         const rawLineData: RawLineData = {
                             ID: expressID,
                             type: shimIfcEntityReverseMap[element.type],
@@ -473,182 +394,7 @@ export class IfcAPI {
                     }
                 } else {
                     console.log("element express ID null")
-
                 }
-
-
-                /*for (let i = 0; i < element.orderedFields.length; i++) {
-                    const [fieldName, fieldDescription] = element.orderedFields[i]
-
-                    console.log(`fieldName: ${fieldName} - fieldDescription: ${JSON.stringify(fieldDescription)}`)
-
-                    switch (fieldDescription.kind) {
-                        case FieldDescriptionKind.SELECT:
-                            if ('options' in fieldDescription) {
-                                console.log("options: " + JSON.stringify(fieldDescription.options))
-                            }
-                            break
-                        case FieldDescriptionKind.NUMBER:
-                            if (fieldDescription.offset !== void 0) {
-                                if (fieldDescription.optional) {
-                                    const number_ = element.extractNumber(fieldDescription.offset, fieldDescription.optional)
-                                    if (number_ === null) {
-                                        args.push(null)
-                                    } else {
-                                        const arg: Argument = { "type": IfcTokenType.ENUM, "value": number_ }
-                                        args.push(arg)
-                                    }
-                                } else {
-                                    const number_ = element.extractNumber(fieldDescription.offset, fieldDescription.optional)
-                                    if (number_ === null) {
-                                        args.push(null)
-                                    } else {
-                                        const arg: Argument = { "type": IfcTokenType.ENUM, "value": number_ }
-                                        args.push(arg)
-                                    }
-                                }
-                            }
-                            break
-                        case FieldDescriptionKind.STRING:
-                            if (fieldDescription.offset !== void 0) {
-                                if (fieldDescription.optional) {
-                                    const string_ = element.extractString(fieldDescription.offset, fieldDescription.optional)
-                                    if (string_ === null) {
-                                        args.push(null)
-                                    } else {
-                                        const arg: Argument = { "type": IfcTokenType.STRING, "value": string_ }
-                                        args.push(arg)
-                                    }
-                                } else {
-                                    const string_ = element.extractString(fieldDescription.offset, fieldDescription.optional)
-                                    if (string_ === null) {
-                                        args.push(null)
-                                    } else {
-                                        const arg: Argument = { "type": IfcTokenType.STRING, "value": string_ }
-                                        args.push(arg)
-                                    }
-                                }
-                            }
-                            break
-                        case FieldDescriptionKind.BOOLEAN:
-                            if (fieldDescription.offset !== void 0) {
-                                if (fieldDescription.optional) {
-                                    const boolean_ = element.extractBoolean(fieldDescription.offset, fieldDescription.optional)
-
-                                    if (boolean_ === null) {
-                                        args.push(null)
-                                    } else {
-                                        const arg: Argument = { "type": IfcTokenType.REF, "value": boolean_ }
-                                        args.push(arg)
-                                    }
-                                } else {
-                                    const boolean_ = element.extractBoolean(fieldDescription.offset, fieldDescription.optional)
-                                    if (boolean_ === null) {
-                                        args.push(null)
-                                    } else {
-                                        const arg: Argument = { "type": IfcTokenType.REF, "value": boolean_ }
-                                        args.push(arg)
-                                    }
-                                }
-                            }
-                            break
-                        case FieldDescriptionKind.STEP_REFERENCE:
-                            // It's an EntityReferenceFieldDescription
-
-                            if (fieldDescription.rank !== void 0) {
-                                if (fieldDescription.offset !== void 0) {
-                                    const objectDefinitionArray = element.extractArray(fieldDescription.offset, fieldDescription.rank)
-                                    if (objectDefinitionArray !== null) {
-
-                                        const arguments_: Array<any> = []
-                                        for (let objectIndex = 0; objectIndex < objectDefinitionArray.length; ++objectIndex) {
-
-                                            if (objectDefinitionArray[objectIndex] === void 0) {
-                                                arguments_.push(null)
-                                            } else {
-                                                const arg: Argument = {
-                                                    "type": IfcTokenType.REF,
-                                                    "value": objectDefinitionArray[objectIndex].expressID
-                                                }
-                                                arguments_.push(arg)
-                                            }
-                                        }
-                                        args.push(arguments_)
-                                    } else {
-                                        args.push(null)
-                                        console.log("objectDefinitionArray is null!")
-                                    }
-                                }
-                            } else if ('type' in fieldDescription) {
-                                //fieldDescription.type = shimIfcEntityMap[fieldDescription.type as number]
-                                console.log("This field can have a type parameter via type.")
-
-                                if (fieldDescription.offset !== void 0) {
-                                    if (fieldDescription.optional) {
-                                        const refElement = element.extractReference(fieldDescription.offset, fieldDescription.optional)
-                                        if (refElement !== null) {
-                                            if (refElement.expressID === void 0) {
-                                                args.push(null)
-                                            } else {
-                                                const arg: Argument = {
-                                                    "type": IfcTokenType.REF,
-                                                    "value": refElement.expressID
-                                                }
-                                                args.push(arg)
-                                            }
-                                        } else {
-                                            args.push(null)
-                                        }
-                                    } else {
-                                        const refElement = element.extractReference(fieldDescription.offset, fieldDescription.optional)
-                                        if (refElement !== null) {
-                                            if (refElement.expressID === void 0) {
-                                                args.push(null)
-                                            } else {
-                                                const arg: Argument = {
-                                                    "type": IfcTokenType.REF,
-                                                    "value": refElement.expressID
-                                                }
-                                                args.push(arg)
-                                            }
-                                        } else {
-                                            args.push(null)
-                                        }
-                                    }
-                                }
-                            }
-                            break
-                        case FieldDescriptionKind.ENUM:
-                            if (fieldDescription.offset !== void 0) {
-                                if (fieldDescription.optional) {
-                                    const number_ = element.extractNumber(fieldDescription.offset, fieldDescription.optional)
-
-                                    if (number_ === null) {
-                                        args.push(null)
-                                    } else {
-                                        const arg: Argument = { "type": IfcTokenType.ENUM, "value": number_ }
-                                        args.push(arg)
-                                    }
-                                } else {
-                                    const number_ = element.extractNumber(fieldDescription.offset, fieldDescription.optional)
-                                    if (number_ === null) {
-                                        args.push(null)
-                                    } else {
-                                        const arg: Argument = { "type": IfcTokenType.ENUM, "value": number_ }
-                                        args.push(arg)
-                                    }
-                                }
-                            }
-                            break
-                        case FieldDescriptionKind.BINARY_DATA:
-                            break
-
-                        default:
-                            console.log("Field cannot have a type.")
-                            break
-                    }
-                }*/
-
 
                 const rawLineData: RawLineData = {
                     ID: expressID,
@@ -656,8 +402,6 @@ export class IfcAPI {
                     arguments: args
                 }
 
-                // console.log(`${new Date().toISOString()} - args: ${JSON.stringify(args)}`)
-                // console.log(`RawLineData: ${JSON.stringify(rawLineData.arguments)}`)
                 return rawLineData
             } else {
                 console.log("element === undefined, expressID: " + expressID)
@@ -673,11 +417,21 @@ export class IfcAPI {
         return dummyRawLineData
     }
 
+    /**
+     * 
+     * @param modelID 
+     * @param data 
+     */
     WriteRawLineData(modelID: number, data: RawLineData) {
-        //return this.wasmModule.WriteLine(modelID, data.ID, data.type, data.arguments)
         console.log("[WriteRawLineData]: Shim - Unimplemented")
     }
 
+    /**
+     * 
+     * @param modelID 
+     * @param type 
+     * @returns 
+     */
     GetLineIDsWithType(modelID: number, type: number): Vector<number> {
         let vectorArray: Array<number> = []
         const expressIDVector: Vector<number> = {
@@ -698,11 +452,10 @@ export class IfcAPI {
                 vectorArray.push(parameter)
             }
         }
-        console.log("[GetLineIDsWithType]: Shim - implemented")
 
         const result = this.models.get(modelID)
         if (result !== undefined) {
-            const [model, scene] = result
+            const [model, _] = result
             if (type in shimIfcEntityMap) {
                 const value = shimIfcEntityMap[type]
                 // Do something with value
@@ -729,6 +482,11 @@ export class IfcAPI {
         return expressIDVector
     }
 
+    /**
+     * 
+     * @param modelID 
+     * @returns 
+     */
     GetAllLines(modelID: Number): Vector<number> {
         let vectorArray: Array<number> = []
         const expressIDVector: Vector<number> = {
@@ -749,7 +507,6 @@ export class IfcAPI {
                 vectorArray.push(parameter)
             }
         }
-        console.log("[GetAllLines]: Shim - implemented")
 
         const result = this.models.get(modelID as number)
 
@@ -777,6 +534,11 @@ export class IfcAPI {
         return expressIDVector
     }
 
+    /**
+     * 
+     * @param modelID 
+     * @param transformationMatrix 
+     */
     setGeometryTransformation(modelID: number, transformationMatrix: Array<number>) {
         /*if (transformationMatrix.length != 16) {
             console.log(`Bad transformation matrix size: ${transformationMatrix.length}`)
@@ -787,21 +549,42 @@ export class IfcAPI {
         console.log("[setGeometryTransformation]: Shim - Unimplemented")
     }
 
+    /**
+     * 
+     * @param modelID 
+     * @returns 
+     */
     GetCoordinationMatrix(modelID: number): Array<number> {
-        //return this.wasmModule.GetCoordinationMatrix(modelID) as Array<number>
-        console.log("[GetCoordinationMatrix]: Shim - Implemented...")
         return this.coordinationMatrixArray
-        //return new Array<number>()
     }
 
+    /**
+     * 
+     * @param ptr 
+     * @param size 
+     * @returns 
+     */
     GetVertexArray(ptr: number, size: number): Float32Array {
         return this.getSubArray(this.wasmModule.HEAPF32, ptr, size) as Float32Array
     }
 
+    /**
+     * 
+     * @param ptr 
+     * @param size 
+     * @returns 
+     */
     GetIndexArray(ptr: number, size: number): Uint32Array {
         return this.getSubArray(this.wasmModule.HEAPU32, ptr, size) as Uint32Array
     }
 
+    /**
+     * 
+     * @param heap 
+     * @param startPtr 
+     * @param sizeBytes 
+     * @returns 
+     */
     getSubArray(heap: Float32Array | Uint32Array, startPtr: number, sizeBytes: number) {
         return heap.subarray(startPtr / 4, startPtr / 4 + sizeBytes).slice(0)
     }
@@ -814,242 +597,12 @@ export class IfcAPI {
         this.models.delete(modelID)
     }
 
-    /*StreamAllMeshes(modelID: number, meshCallback: (mesh: FlatMesh) => void) {
-        console.log("[StreamAllMeshes]: Shim - implemented")
-        const identity: number[] = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
-
-        //dummy vars 
-        const dummyColor = {
-            x: 0,
-            y: 0,
-            z: 0,
-            w: 0
-        }
-
-        // Single PlacedGeometry variable
-        const singlePlacedGeometry: PlacedGeometry = {
-            color: dummyColor,
-            geometryExpressID: 0, // replace with actual ID
-            flatTransformation: identity
-        }
-
-        const placedGeometryArray = new Array<PlacedGeometry>()
-
-        // Vector of PlacedGeometry
-        const vectorOfPlacedGeometry: Vector<PlacedGeometry> = {
-            get(index: number): PlacedGeometry {
-                if (index >= placedGeometryArray.length) {
-                    return singlePlacedGeometry
-                }
-
-                return placedGeometryArray[index]
-            },
-            size(): number {
-                return placedGeometryArray.length
-            },
-            push(parameter: PlacedGeometry): void {
-                placedGeometryArray.push(parameter)
-            }
-        }
-
-        const flatMeshArray = new Array<FlatMesh>()
-        const flatMeshDummy: FlatMesh = {
-            geometries: vectorOfPlacedGeometry,
-            expressID: 0 // replace with actual expressID
-        }
-
-        const result = this.models.get(modelID)
-
-        if (result !== void 0) {
-            const [model, scene, materialGeometry] = result
-
-            //only walk scene if we haven't already 
-            if (materialGeometry.size <= 0) {
-                // eslint-disable-next-line no-unused-vars
-                for (const [_, nativeTransform, geometry, material] of scene.walk()) {
-                    if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY && !geometry.temporary) {
-                        const result = materialGeometry.get(material)
-
-                        //extract min
-                        let geomMin: glmatrix.vec3 = glmatrix.vec3.create() // Replace with actual minimum coordinates
-                        geomMin[0] = geometry.geometry.min.x
-                        geomMin[1] = geometry.geometry.min.y
-                        geomMin[2] = geometry.geometry.min.z
-
-                        // Create a translation matrix from geom.min
-                        let translationMatrixGeomMin: glmatrix.mat4 = glmatrix.mat4.create()
-                        glmatrix.mat4.fromTranslation(translationMatrixGeomMin, geomMin)
-
-                        //create PlacedGeometry
-                        const expressID = model.getElementByLocalID(geometry.localID)?.expressID as number
-
-                        const geometryTransform = nativeTransform?.getValues()
-                        let newMatrix: glmatrix.mat4 | undefined = undefined
-                        if (geometryTransform !== void 0) {
-                            newMatrix = glmatrix.mat4.fromValues(
-                                geometryTransform[0],
-                                geometryTransform[1],
-                                geometryTransform[2],
-                                geometryTransform[3],
-                                geometryTransform[4],
-                                geometryTransform[5],
-                                geometryTransform[6],
-                                geometryTransform[7],
-                                geometryTransform[8],
-                                geometryTransform[9],
-                                geometryTransform[10],
-                                geometryTransform[11],
-                                geometryTransform[12],
-                                geometryTransform[13],
-                                geometryTransform[14],
-                                geometryTransform[15],
-                            )
-                        }
-
-                         if (result === void 0) {
-
-                        if (!this._isCoordinated && this.settings?.COORDINATE_TO_ORIGIN) {
-                            //coordinate the geometry to the origin 
-                            // Assuming geom.GetPoint(0) returns a glm::dvec3, i.e., a 3D vector.
-                            // In TypeScript, you can represent it as number[] or Float64Array.
-                            console.log("Setting up coordinationMatrix")
-
-                            const nativePt = geometry.geometry.GetPoint(0)
-                            let pt: number[] = [nativePt.x, nativePt.y, nativePt.z] // Replace x, y, z with actual coordinates.
-
-                            // Transform the point by the matrix.
-                            let transformedPt: glmatrix.vec4 = glmatrix.vec4.create()
-                            glmatrix.vec4.transformMat4(transformedPt, [pt[0], pt[1], pt[2], 1], newMatrix!)
-
-                            // Create the translation matrix.
-                            this.coordinationMatrix = glmatrix.mat4.create()
-
-                            glmatrix.mat4.fromTranslation(this.coordinationMatrix, [-transformedPt[0], -transformedPt[1], -transformedPt[2]])
-
-                            glmatrix.mat4.multiply(this.coordinationMatrix, this.coordinationMatrix, this.NormalizeMat)
-
-                            this.coordinationMatrixArray = Array.from(this.coordinationMatrix)
-                            this._isCoordinated = true
-                        }
-
-                        //normalize geometry 
-                        if (!geometry.geometry.normalized) {
-                            geometry.geometry.NormalizeInPlace()
-                        }
-
-                        const placedGeometryArray = new Array<PlacedGeometry>()
-
-                        // Vector of PlacedGeometry
-                        const vectorOfPlacedGeometry: Vector<PlacedGeometry> = {
-                            get(index: number): PlacedGeometry {
-                                if (index >= placedGeometryArray.length) {
-                                    return singlePlacedGeometry
-                                }
-
-                                return placedGeometryArray[index]
-                            },
-                            size(): number {
-                                return placedGeometryArray.length
-                            },
-                            push(parameter: PlacedGeometry): void {
-                                placedGeometryArray.push(parameter)
-                            }
-                        }
-
-
-                        //extract color
-                        if (material !== undefined) {
-                            const color = {
-                                x: material.baseColor[0],
-                                y: material.baseColor[1],
-                                z: material.baseColor[2],
-                                w: material.baseColor[3],
-                            }
-
-                            //create PlacedGeometry
-                            const newTransform = glmatrix.mat4.create()
-
-                            // Perform the matrix multiplications
-                            if (newMatrix !== void 0) {
-                                glmatrix.mat4.multiply(newTransform, this.coordinationMatrix, newMatrix)
-                                glmatrix.mat4.multiply(newTransform, newTransform, translationMatrixGeomMin)
-                            } else {
-                                glmatrix.mat4.multiply(newTransform, this.coordinationMatrix, newTransform)
-                                glmatrix.mat4.multiply(newTransform, newTransform, translationMatrixGeomMin)
-                            }
-                            const newTransformArr = Array.from(newTransform)
-                            const placedGeometry: PlacedGeometry = {
-                                color: color,
-                                geometryExpressID: expressID,
-                                flatTransformation: newTransformArr
-                            }
-
-                            vectorOfPlacedGeometry.push(placedGeometry)
-
-                            //set first material geometry 
-                            materialGeometry.set(material, vectorOfPlacedGeometry)
-                        }
-                    } else {
-                            const vectorOfPlacedGeometry = result
-                            //add to vector of placed geometry
-                            if (material !== undefined) {
-                                const color = {
-                                    x: material.baseColor[0],
-                                    y: material.baseColor[1],
-                                    z: material.baseColor[2],
-                                    w: material.baseColor[3],
-                                }
-
-                                //normalize geometry 
-                                if (!geometry.geometry.normalized) {
-                                    geometry.geometry.NormalizeInPlace()
-                                }
-
-                                //create PlacedGeometry
-                                const newTransform = glmatrix.mat4.create()
-
-                                // Perform the matrix multiplications
-                                if (newMatrix !== void 0) {
-                                    glmatrix.mat4.multiply(newTransform, this.coordinationMatrix, newMatrix)
-                                    glmatrix.mat4.multiply(newTransform, newTransform, translationMatrixGeomMin)
-                                } else {
-                                    glmatrix.mat4.multiply(newTransform, this.coordinationMatrix, newTransform)
-                                    glmatrix.mat4.multiply(newTransform, newTransform, translationMatrixGeomMin)
-                                }
-                                const newTransformArr = Array.from(newTransform)
-
-                                //create PlacedGeometry
-                                const placedGeometry: PlacedGeometry = {
-                                    color: color,
-                                    geometryExpressID: expressID,
-                                    flatTransformation: newTransformArr
-                                }
-
-                                vectorOfPlacedGeometry.push(placedGeometry)
-                            }
-                        }
-                    }
-                }
-            }
-
-            //loop materialGeometry and create vector of FlatMesh and return 
-            console.log("materialGeometrySize: " + materialGeometry.size)
-            materialGeometry.forEach((vector, material) => {
-
-                if (vector.size() > 0) {
-                    const singleFlatMesh: FlatMesh = {
-                        geometries: vector,
-                        expressID: vector.get(0).geometryExpressID
-                    }
-
-                    meshCallback(singleFlatMesh)
-                }
-            })
-        }
-    }*/
-
+    /**
+     * 
+     * @param modelID 
+     * @param meshCallback 
+     */
     StreamAllMeshes(modelID: number, meshCallback: (mesh: FlatMesh) => void) {
-        console.log("[StreamAllMeshes]: Shim - implemented")
         const identity: number[] = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
 
         //dummy vars 
@@ -1095,9 +648,9 @@ export class IfcAPI {
         const result = this.models.get(modelID)
 
         if (result !== void 0) {
-            const [model, scene, placedGeometryVec, packedMeshModel, geometryMaterialTransformMap] = result
+            const [model, scene, placedGeometryVec, packedMeshModel, geometryMaterialTransformMap, productGeometryIndex] = result
 
-            for (const [_, nativeTransform, geometry, material] of scene.walk()) {
+            for (const [_, nativeTransform, geometry, material, entity] of scene.walk()) {
 
                 if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY && !geometry.temporary) {
 
@@ -1137,8 +690,6 @@ export class IfcAPI {
                         )
                     }
 
-                    //  if (result === void 0) {
-
                     if (!this._isCoordinated && this.settings?.COORDINATE_TO_ORIGIN) {
                         //coordinate the geometry to the origin 
                         // Assuming geom.GetPoint(0) returns a glm::dvec3, i.e., a 3D vector.
@@ -1177,8 +728,8 @@ export class IfcAPI {
                         const scaleMatrix = glmatrix.mat4.create()
 
                         // Create a 3D vector for scaling factors
-                        const scaleVec = glmatrix.vec3.fromValues(this.linearScalingFactor, 
-                            this.linearScalingFactor, 
+                        const scaleVec = glmatrix.vec3.fromValues(this.linearScalingFactor,
+                            this.linearScalingFactor,
                             this.linearScalingFactor)
 
                         // Scale the matrix
@@ -1201,6 +752,18 @@ export class IfcAPI {
 
                         geometryMaterialTransformMap.set(expressID, [geometry.geometry, material, newTransformArr])
 
+                        if (entity?.localID !== void 0) {
+                            let currentGeometryLocalIDs = productGeometryIndex.get(entity?.localID)
+                            if (currentGeometryLocalIDs === void 0) {
+                                currentGeometryLocalIDs = []
+                                productGeometryIndex.set(entity.localID, currentGeometryLocalIDs)
+                            }
+
+                            if (!currentGeometryLocalIDs.includes(geometry.localID)) {
+                                currentGeometryLocalIDs.push(geometry.localID)
+                            }
+                        }
+
                     }
                 }
             }
@@ -1208,9 +771,8 @@ export class IfcAPI {
             //only walk scene if we haven't already 
             // if (materialGeometry.size <= 0) {
 
-            console.log("elementPrimitiveIndex: " + packedMeshModel.elementPrimitiveIndex)
             // eslint-disable-next-line no-unused-vars
-            packedMeshModel.productGeometryIndex.forEach((geometryLocalIDs, productLocalID) => {
+            productGeometryIndex.forEach((geometryLocalIDs, productLocalID) => {
 
                 const placedGeometryArray_ = new Array<PlacedGeometry>()
 
@@ -1235,7 +797,6 @@ export class IfcAPI {
                 if (geometryLocalIDs !== void 0) {
                     for (let index = 0; index < geometryLocalIDs.length; ++index) {
                         const geometryExpressID = model.getElementByLocalID(geometryLocalIDs[index])?.expressID
-                        console.log(`product expressID: ${productExpressID} geometry index ${index}: ${geometryExpressID}`)
 
                         if (geometryExpressID !== void 0) {
                             const mapResult = geometryMaterialTransformMap.get(geometryExpressID)
@@ -1258,14 +819,10 @@ export class IfcAPI {
                                     }
 
                                     vectorOfPlacedGeometry_.push(placedGeometry)
-
-
                                 }
-
                             }
                         }
                     }
-
 
                     const singleFlatMesh: FlatMesh = {
                         geometries: vectorOfPlacedGeometry_,
@@ -1277,10 +834,15 @@ export class IfcAPI {
                     meshCallback(singleFlatMesh)
                 }
             })
-            //     }
         }
     }
 
+    /**
+     * 
+     * @param modelID 
+     * @param types 
+     * @param meshCallback 
+     */
     StreamAllMeshesWithTypes(modelID: number, types: Array<number>, meshCallback: (mesh: FlatMesh) => void) {
         console.log("[StreamAllMeshesWithTypes]: Shim - implemented")
         const identity: number[] = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
@@ -1344,14 +906,6 @@ export class IfcAPI {
 
                 //type check 
                 const typedElement = model.getElementByLocalID(geometry.localID)
-
-                /*if (typedElement !== void 0) {
-                    console.log("typedElement: type: " + EntityTypesIfc[typedElement.type])
-                    //IFCFACETEDBREP
-                    if (!(EntityTypesIfc[typedElement.type] === "IFCEXTRUDEDAREASOLID")) {
-                        continue
-                    }
-                }*/
 
                 if (typedElement !== void 0) {
                     if (conwayTypesArray.indexOf(typedElement.type.valueOf()) === -1) {
@@ -1488,61 +1042,8 @@ export class IfcAPI {
 
                         meshCallback(singleFlatMesh)
                     }
-                } /*else {
-                            const vectorOfPlacedGeometry = result
-                            //add to vector of placed geometry
-                            if (material !== undefined) {
-                                const color = {
-                                    x: material.baseColor[0],
-                                    y: material.baseColor[1],
-                                    z: material.baseColor[2],
-                                    w: material.baseColor[3],
-                                }
-
-                                //normalize geometry 
-                                if (!geometry.geometry.normalized) {
-                                    geometry.geometry.NormalizeInPlace()
-                                }
-
-                                //create PlacedGeometry
-                                const newTransform = glmatrix.mat4.create()
-
-                                // Perform the matrix multiplications
-                                if (newMatrix !== void 0) {
-                                    glmatrix.mat4.multiply(newTransform, this.coordinationMatrix, newMatrix)
-                                    glmatrix.mat4.multiply(newTransform, newTransform, translationMatrixGeomMin)
-                                } else {
-                                    glmatrix.mat4.multiply(newTransform, this.coordinationMatrix, newTransform)
-                                    glmatrix.mat4.multiply(newTransform, newTransform, translationMatrixGeomMin)
-                                }
-                                const newTransformArr = Array.from(newTransform)
-
-                                //create PlacedGeometry
-                                const placedGeometry: PlacedGeometry = {
-                                    color: color,
-                                    geometryExpressID: expressID,
-                                    flatTransformation: newTransformArr
-                                }
-
-                                vectorOfPlacedGeometry.push(placedGeometry)
-                            }
-                        }
-                    }*/
-            }
-            //   }
-
-            //loop materialGeometry and create vector of FlatMesh and return 
-            /*materialGeometry.forEach((vector, material) => {
-    
-                if (vector.size() > 0) {
-                    const singleFlatMesh: FlatMesh = {
-                        geometries: vector,
-                        expressID: vector.get(0).geometryExpressID
-                    }
-    
-                    meshCallback(singleFlatMesh)
                 }
-            })*/
+            }
         }
     }
 
@@ -1632,8 +1133,6 @@ export class IfcAPI {
      * @modelID Model handle retrieved by OpenModel
     */
     GetFlatMesh(modelID: number, expressID: number): FlatMesh {
-        //return this.wasmModule.GetFlatMesh(modelID, expressID)
-
         const result = this.models.get(modelID)
 
         if (result !== void 0) {
@@ -1697,7 +1196,6 @@ export class IfcAPI {
             geometries: vectorOfPlacedGeometry,
             expressID: 0 // replace with actual expressID
         }
-        console.log("[GetFlatMesh]: Shim - Unimplemented")
 
         return flatMeshDummy
     }
@@ -1736,6 +1234,4 @@ export class IfcAPI {
         this.wasmPath = path
         this.isWasmPathAbsolute = absolute
     }
-
-
 }
