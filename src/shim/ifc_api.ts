@@ -99,14 +99,16 @@ export class IfcAPI {
         [IfcStepModel,
             IfcSceneBuilder,
             Map<number, Vector<PlacedGeometry>>,
-            PackedMesh<IfcStepModel>,
-            Map<number, [GeometryObject, CanonicalMaterial, number[]]>, Map<number, number[]>]>
+            Map<number, [GeometryObject, CanonicalMaterial, number[]]>, 
+            Map<number, number[]>,
+            Vector<FlatMesh>]>
         = new Map<number,
             [IfcStepModel,
                 IfcSceneBuilder,
                 Map<number, Vector<PlacedGeometry>>,
-                PackedMesh<IfcStepModel>,
-                Map<number, [GeometryObject, CanonicalMaterial, number[]]>, Map<number, number[]>]>()
+                Map<number, [GeometryObject, CanonicalMaterial, number[]]>, 
+                Map<number, number[]>,
+                Vector<FlatMesh>]>()
     conwaywasm = new ConwayGeometry()
     coordinationMatrix: glmatrix.mat4 = glmatrix.mat4.create()
     coordinationMatrixArray: number[] = Array.from(this.coordinationMatrix)
@@ -114,6 +116,7 @@ export class IfcAPI {
     linearScalingFactor: number = 1
     // eslint-disable-next-line no-empty-function
     productGeometryIndex: ReadonlyMap<number, number[]> = new Map<number, number[]>();
+    identity: number[] = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
 
     // Initialize the matrix using an array
     NormalizeMat: glmatrix.mat4 = glmatrix.mat4.fromValues(
@@ -228,7 +231,7 @@ export class IfcAPI {
         this.linearScalingFactor = conwayGeometry.getLinearScalingFactor()
 
         //build packed mesh model 
-        const packedMeshModel = scene.buildPackedMeshModel()
+       // const packedMeshModel = scene.buildPackedMeshModel()
 
         const vectorGeometryMap = new Map<number, Vector<PlacedGeometry>>()
 
@@ -236,8 +239,66 @@ export class IfcAPI {
 
         const productGeometryIndex = new Map<number, number[]>()
 
+        //dummy vars 
+        const dummyColor = {
+            x: 0,
+            y: 0,
+            z: 0,
+            w: 0
+        }
+
+        // Single PlacedGeometry variable
+        const singlePlacedGeometry: PlacedGeometry = {
+            color: dummyColor,
+            geometryExpressID: 0, // replace with actual ID
+            flatTransformation: this.identity
+        }
+
+        const placedGeometryArray = new Array<PlacedGeometry>()
+
+        // Vector of PlacedGeometry
+        const vectorOfPlacedGeometry: Vector<PlacedGeometry> = {
+            get(index: number): PlacedGeometry {
+                if (index >= placedGeometryArray.length) {
+                    return singlePlacedGeometry
+                }
+
+                return placedGeometryArray[index]
+            },
+            size(): number {
+                return placedGeometryArray.length
+            },
+            push(parameter: PlacedGeometry): void {
+                placedGeometryArray.push(parameter)
+            }
+        }
+
+        const flatMeshArray = new Array<FlatMesh>()
+        const flatMeshDummy: FlatMesh = {
+            geometries: vectorOfPlacedGeometry,
+            expressID: 0 // replace with actual expressID
+        }
+
+        // Vector of FlatMesh
+        const vectorFlatMesh: Vector<FlatMesh> = {
+            get(index: number): FlatMesh {
+                if (index >= placedGeometryArray.length) {
+                    return flatMeshDummy
+                }
+
+                return flatMeshArray[index]
+            },
+            size(): number {
+                // Your implementation here
+                return flatMeshArray.length
+            },
+            push(parameter: FlatMesh): void {
+                flatMeshArray.push(parameter)
+            }
+        }
+
         const tempModelID = this.globalModelIDCounter
-        this.models.set(this.globalModelIDCounter++, [model, scene, vectorGeometryMap, packedMeshModel, geometryMap, productGeometryIndex])
+        this.models.set(this.globalModelIDCounter++, [model, scene, vectorGeometryMap, geometryMap, productGeometryIndex, vectorFlatMesh])
 
         //save settings
         this.settings = settings
@@ -271,7 +332,7 @@ export class IfcAPI {
         const result = this.models.get(modelID)
 
         if (result !== void 0) {
-            const [model, scene, placedGeometryVec, packedMeshModel, geometryMap] = result
+            const [model, scene, placedGeometryVec, geometryMap] = result
 
             const mapResult = geometryMap.get(geometryExpressID)
 
@@ -603,6 +664,228 @@ export class IfcAPI {
      * @param meshCallback 
      */
     StreamAllMeshes(modelID: number, meshCallback: (mesh: FlatMesh) => void) {
+
+        //dummy vars 
+        const dummyColor = {
+            x: 0,
+            y: 0,
+            z: 0,
+            w: 0
+        }
+
+        // Single PlacedGeometry variable
+        const singlePlacedGeometry: PlacedGeometry = {
+            color: dummyColor,
+            geometryExpressID: 0, // replace with actual ID
+            flatTransformation: this.identity
+        }
+
+        const result = this.models.get(modelID)
+
+        if (result !== void 0) {
+            const [model, 
+                scene, 
+                placedGeometryVec, 
+                geometryMaterialTransformMap, 
+                productGeometryIndex, 
+                vectorFlatMesh] = result
+
+            for (const [_, nativeTransform, geometry, material, entity] of scene.walk()) {
+
+                if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY && !geometry.temporary) {
+
+                    //extract min
+                    let geomMin: glmatrix.vec3 = glmatrix.vec3.create() // Replace with actual minimum coordinates
+                    geomMin[0] = geometry.geometry.min.x
+                    geomMin[1] = geometry.geometry.min.y
+                    geomMin[2] = geometry.geometry.min.z
+
+                    // Create a translation matrix from geom.min
+                    let translationMatrixGeomMin: glmatrix.mat4 = glmatrix.mat4.create()
+                    glmatrix.mat4.fromTranslation(translationMatrixGeomMin, geomMin)
+
+                    //create PlacedGeometry
+                    const expressID = model.getElementByLocalID(geometry.localID)?.expressID as number
+
+                    const geometryTransform = nativeTransform?.getValues()
+                    let newMatrix: glmatrix.mat4 | undefined = undefined
+                    if (geometryTransform !== void 0) {
+                        newMatrix = glmatrix.mat4.fromValues(
+                            geometryTransform[0],
+                            geometryTransform[1],
+                            geometryTransform[2],
+                            geometryTransform[3],
+                            geometryTransform[4],
+                            geometryTransform[5],
+                            geometryTransform[6],
+                            geometryTransform[7],
+                            geometryTransform[8],
+                            geometryTransform[9],
+                            geometryTransform[10],
+                            geometryTransform[11],
+                            geometryTransform[12],
+                            geometryTransform[13],
+                            geometryTransform[14],
+                            geometryTransform[15],
+                        )
+                    }
+
+                    if (!this._isCoordinated && this.settings?.COORDINATE_TO_ORIGIN) {
+                        //coordinate the geometry to the origin 
+                        // Assuming geom.GetPoint(0) returns a glm::dvec3, i.e., a 3D vector.
+                        // In TypeScript, you can represent it as number[] or Float64Array.
+                        console.log("Setting up coordinationMatrix")
+
+                        const nativePt = geometry.geometry.GetPoint(0)
+                        let pt: number[] = [nativePt.x, nativePt.y, nativePt.z] // Replace x, y, z with actual coordinates.
+
+                        // Transform the point by the matrix.
+                        let transformedPt: glmatrix.vec4 = glmatrix.vec4.create()
+                        glmatrix.vec4.transformMat4(transformedPt, [pt[0], pt[1], pt[2], 1], newMatrix!)
+
+                        // Create the translation matrix.
+                        this.coordinationMatrix = glmatrix.mat4.create()
+
+                        glmatrix.mat4.fromTranslation(this.coordinationMatrix, [-transformedPt[0], -transformedPt[1], -transformedPt[2]])
+
+                        //glmatrix.mat4.multiply(this.coordinationMatrix, this.coordinationMatrix, this.NormalizeMat)
+
+                        this.coordinationMatrixArray = Array.from(this.coordinationMatrix)
+                        this._isCoordinated = true
+                    }
+
+                    //normalize geometry 
+                    if (!geometry.geometry.normalized) {
+                        geometry.geometry.NormalizeInPlace()
+                    }
+
+
+                    //extract color
+                    if (material !== undefined) {
+                        const newTransform = glmatrix.mat4.create()
+
+                        // Create a 4x4 identity matrix
+                        const scaleMatrix = glmatrix.mat4.create()
+
+                        // Create a 3D vector for scaling factors
+                        const scaleVec = glmatrix.vec3.fromValues(this.linearScalingFactor,
+                            this.linearScalingFactor,
+                            this.linearScalingFactor)
+
+                        // Scale the matrix
+                        glmatrix.mat4.scale(scaleMatrix, scaleMatrix, scaleVec)
+
+                        // Perform the matrix multiplications
+                        if (newMatrix !== void 0) {
+                            glmatrix.mat4.multiply(newTransform, this.coordinationMatrix, newMatrix)
+                            glmatrix.mat4.multiply(newTransform, newTransform, translationMatrixGeomMin)
+                            glmatrix.mat4.multiply(newTransform, this.NormalizeMat, newTransform)
+                            glmatrix.mat4.multiply(newTransform, newTransform, scaleMatrix)
+                        } else {
+                            glmatrix.mat4.multiply(newTransform, this.coordinationMatrix, newTransform)
+                            glmatrix.mat4.multiply(newTransform, newTransform, translationMatrixGeomMin)
+                            glmatrix.mat4.multiply(newTransform, this.NormalizeMat, newTransform)
+                            glmatrix.mat4.multiply(newTransform, newTransform, scaleMatrix)
+                        }
+                        const newTransformArr = Array.from(newTransform)
+
+
+                        geometryMaterialTransformMap.set(expressID, [geometry.geometry, material, newTransformArr])
+
+                        if (entity?.localID !== void 0) {
+                            let currentGeometryLocalIDs = productGeometryIndex.get(entity?.localID)
+                            if (currentGeometryLocalIDs === void 0) {
+                                currentGeometryLocalIDs = []
+                                productGeometryIndex.set(entity.localID, currentGeometryLocalIDs)
+                            }
+
+                            if (!currentGeometryLocalIDs.includes(geometry.localID)) {
+                                currentGeometryLocalIDs.push(geometry.localID)
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            //only walk scene if we haven't already 
+            // if (materialGeometry.size <= 0) {
+
+            // eslint-disable-next-line no-unused-vars
+            productGeometryIndex.forEach((geometryLocalIDs, productLocalID) => {
+
+                const placedGeometryArray_ = new Array<PlacedGeometry>()
+
+                // Vector of PlacedGeometry
+                const vectorOfPlacedGeometry_: Vector<PlacedGeometry> = {
+                    get(index: number): PlacedGeometry {
+                        if (index >= placedGeometryArray_.length) {
+                            return singlePlacedGeometry
+                        }
+
+                        return placedGeometryArray_[index]
+                    },
+                    size(): number {
+                        return placedGeometryArray_.length
+                    },
+                    push(parameter: PlacedGeometry): void {
+                        placedGeometryArray_.push(parameter)
+                    }
+                }
+                const productExpressID = model.getElementByLocalID(productLocalID)?.expressID
+
+                if (geometryLocalIDs !== void 0) {
+                    for (let index = 0; index < geometryLocalIDs.length; ++index) {
+                        const geometryExpressID = model.getElementByLocalID(geometryLocalIDs[index])?.expressID
+
+                        if (geometryExpressID !== void 0) {
+                            const mapResult = geometryMaterialTransformMap.get(geometryExpressID)
+
+                            if (mapResult !== void 0) {
+                                const [geometryObject_, material_, transformArr] = mapResult
+
+                                if (material_ !== undefined) {
+                                    const color = {
+                                        x: material_.baseColor[0],
+                                        y: material_.baseColor[1],
+                                        z: material_.baseColor[2],
+                                        w: material_.baseColor[3],
+                                    }
+
+                                    const placedGeometry: PlacedGeometry = {
+                                        color: color,
+                                        geometryExpressID: geometryExpressID,
+                                        flatTransformation: transformArr
+                                    }
+
+                                    vectorOfPlacedGeometry_.push(placedGeometry)
+                                }
+                            }
+                        }
+                    }
+
+                    const singleFlatMesh: FlatMesh = {
+                        geometries: vectorOfPlacedGeometry_,
+                        expressID: productExpressID!
+                    }
+
+                    placedGeometryVec.set(productLocalID, vectorOfPlacedGeometry_)
+
+                    vectorFlatMesh.push(singleFlatMesh)
+
+                    meshCallback(singleFlatMesh)
+                }
+            })
+        }
+    }
+
+    /**
+     * 
+     * @param modelID 
+     * @param types 
+     * @param meshCallback 
+     */
+    StreamAllMeshesWithTypes(modelID: number, types: Array<number>, meshCallback: (mesh: FlatMesh) => void) {
         const identity: number[] = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
 
         //dummy vars 
@@ -648,11 +931,27 @@ export class IfcAPI {
         const result = this.models.get(modelID)
 
         if (result !== void 0) {
-            const [model, scene, placedGeometryVec, packedMeshModel, geometryMaterialTransformMap, productGeometryIndex] = result
+            const [model, scene, placedGeometryVec, geometryMaterialTransformMap, productGeometryIndex] = result
+
+            const conwayTypesArray: number[] = []
+            types.forEach((type) => {
+                const value = shimIfcEntityMap[type]
+                // Do something with value
+                conwayTypesArray.push(value)
+            })
 
             for (const [_, nativeTransform, geometry, material, entity] of scene.walk()) {
 
                 if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY && !geometry.temporary) {
+
+                    //type check 
+                    const typedElement = model.getElementByLocalID(geometry.localID)
+
+                    if (typedElement !== void 0) {
+                        if (conwayTypesArray.indexOf(typedElement.type.valueOf()) === -1) {
+                            continue
+                        }
+                    }
 
                     //extract min
                     let geomMin: glmatrix.vec3 = glmatrix.vec3.create() // Replace with actual minimum coordinates
@@ -837,216 +1136,6 @@ export class IfcAPI {
         }
     }
 
-    /**
-     * 
-     * @param modelID 
-     * @param types 
-     * @param meshCallback 
-     */
-    StreamAllMeshesWithTypes(modelID: number, types: Array<number>, meshCallback: (mesh: FlatMesh) => void) {
-        console.log("[StreamAllMeshesWithTypes]: Shim - implemented")
-        const identity: number[] = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
-
-        //dummy vars 
-        const dummyColor = {
-            x: 0,
-            y: 0,
-            z: 0,
-            w: 0
-        }
-
-        // Single PlacedGeometry variable
-        const singlePlacedGeometry: PlacedGeometry = {
-            color: dummyColor,
-            geometryExpressID: 0, // replace with actual ID
-            flatTransformation: identity
-        }
-
-        const placedGeometryArray = new Array<PlacedGeometry>()
-
-        // Vector of PlacedGeometry
-        const vectorOfPlacedGeometry: Vector<PlacedGeometry> = {
-            get(index: number): PlacedGeometry {
-                if (index >= placedGeometryArray.length) {
-                    return singlePlacedGeometry
-                }
-
-                return placedGeometryArray[index]
-            },
-            size(): number {
-                return placedGeometryArray.length
-            },
-            push(parameter: PlacedGeometry): void {
-                placedGeometryArray.push(parameter)
-            }
-        }
-
-        const flatMeshArray = new Array<FlatMesh>()
-        const flatMeshDummy: FlatMesh = {
-            geometries: vectorOfPlacedGeometry,
-            expressID: 0 // replace with actual expressID
-        }
-
-        const result = this.models.get(modelID)
-
-        if (result !== void 0) {
-            const [model, scene, vectorGeometryMap] = result
-
-            const conwayTypesArray: number[] = []
-            types.forEach((type) => {
-                const value = shimIfcEntityMap[type]
-                // Do something with value
-                conwayTypesArray.push(value)
-            })
-
-            //only walk scene if we haven't already 
-            // if (materialGeometry.size <= 0) {
-            // eslint-disable-next-line no-unused-vars
-            for (const [_, nativeTransform, geometry, material] of scene.walk()) {
-
-                //type check 
-                const typedElement = model.getElementByLocalID(geometry.localID)
-
-                if (typedElement !== void 0) {
-                    if (conwayTypesArray.indexOf(typedElement.type.valueOf()) === -1) {
-                        continue
-                    }
-                }
-
-                if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY && !geometry.temporary) {
-                    //const result = materialGeometry.get(material)
-
-                    //extract min
-                    let geomMin: glmatrix.vec3 = glmatrix.vec3.create() // Replace with actual minimum coordinates
-                    geomMin[0] = geometry.geometry.min.x
-                    geomMin[1] = geometry.geometry.min.y
-                    geomMin[2] = geometry.geometry.min.z
-
-                    // Create a translation matrix from geom.min
-                    let translationMatrixGeomMin: glmatrix.mat4 = glmatrix.mat4.create()
-                    glmatrix.mat4.fromTranslation(translationMatrixGeomMin, geomMin)
-
-                    //create PlacedGeometry
-                    const expressID = model.getElementByLocalID(geometry.localID)?.expressID as number
-
-                    const geometryTransform = nativeTransform?.getValues()
-                    let newMatrix: glmatrix.mat4 | undefined = undefined
-                    if (geometryTransform !== void 0) {
-                        newMatrix = glmatrix.mat4.fromValues(
-                            geometryTransform[0],
-                            geometryTransform[1],
-                            geometryTransform[2],
-                            geometryTransform[3],
-                            geometryTransform[4],
-                            geometryTransform[5],
-                            geometryTransform[6],
-                            geometryTransform[7],
-                            geometryTransform[8],
-                            geometryTransform[9],
-                            geometryTransform[10],
-                            geometryTransform[11],
-                            geometryTransform[12],
-                            geometryTransform[13],
-                            geometryTransform[14],
-                            geometryTransform[15],
-                        )
-                    }
-
-                    //if (result === void 0) {
-
-                    if (!this._isCoordinated && this.settings?.COORDINATE_TO_ORIGIN) {
-                        //coordinate the geometry to the origin 
-                        // Assuming geom.GetPoint(0) returns a glm::dvec3, i.e., a 3D vector.
-                        // In TypeScript, you can represent it as number[] or Float64Array.
-                        console.log("Setting up coordinationMatrix")
-
-                        const nativePt = geometry.geometry.GetPoint(0)
-                        let pt: number[] = [nativePt.x, nativePt.y, nativePt.z] // Replace x, y, z with actual coordinates.
-
-                        // Transform the point by the matrix.
-                        let transformedPt: glmatrix.vec4 = glmatrix.vec4.create()
-                        glmatrix.vec4.transformMat4(transformedPt, [pt[0], pt[1], pt[2], 1], newMatrix!)
-
-                        // Create the translation matrix.
-                        this.coordinationMatrix = glmatrix.mat4.create()
-
-                        glmatrix.mat4.fromTranslation(this.coordinationMatrix, [-transformedPt[0], -transformedPt[1], -transformedPt[2]])
-
-                        //glmatrix.mat4.multiply(this.coordinationMatrix, this.coordinationMatrix, this.NormalizeMat)
-
-                        this.coordinationMatrixArray = Array.from(this.coordinationMatrix)
-                        this._isCoordinated = true
-                    }
-
-                    //normalize geometry 
-                    if (!geometry.geometry.normalized) {
-                        geometry.geometry.NormalizeInPlace()
-                    }
-
-                    const placedGeometryArray = new Array<PlacedGeometry>()
-
-                    // Vector of PlacedGeometry
-                    const vectorOfPlacedGeometry: Vector<PlacedGeometry> = {
-                        get(index: number): PlacedGeometry {
-                            if (index >= placedGeometryArray.length) {
-                                return singlePlacedGeometry
-                            }
-
-                            return placedGeometryArray[index]
-                        },
-                        size(): number {
-                            return placedGeometryArray.length
-                        },
-                        push(parameter: PlacedGeometry): void {
-                            placedGeometryArray.push(parameter)
-                        }
-                    }
-                    //set first material geometry 
-                    //materialGeometry.set(material, vectorOfPlacedGeometry)
-
-                    //extract color
-                    if (material !== undefined) {
-                        const color = {
-                            x: material.baseColor[0],
-                            y: material.baseColor[1],
-                            z: material.baseColor[2],
-                            w: material.baseColor[3],
-                        }
-
-                        //create PlacedGeometry
-                        const newTransform = glmatrix.mat4.create()
-
-                        // Perform the matrix multiplications
-                        if (newMatrix !== void 0) {
-                            glmatrix.mat4.multiply(newTransform, this.coordinationMatrix, newMatrix)
-                            glmatrix.mat4.multiply(newTransform, newTransform, translationMatrixGeomMin)
-                            glmatrix.mat4.multiply(newTransform, this.NormalizeMat, newTransform)
-                        } else {
-                            glmatrix.mat4.multiply(newTransform, this.coordinationMatrix, newTransform)
-                            glmatrix.mat4.multiply(newTransform, newTransform, translationMatrixGeomMin)
-                            glmatrix.mat4.multiply(newTransform, this.NormalizeMat, newTransform)
-                        }
-                        const newTransformArr = Array.from(newTransform)
-                        const placedGeometry: PlacedGeometry = {
-                            color: color,
-                            geometryExpressID: expressID,
-                            flatTransformation: newTransformArr
-                        }
-
-                        vectorOfPlacedGeometry.push(placedGeometry)
-
-                        const singleFlatMesh: FlatMesh = {
-                            geometries: vectorOfPlacedGeometry,
-                            expressID: vectorOfPlacedGeometry.get(0).geometryExpressID
-                        }
-
-                        meshCallback(singleFlatMesh)
-                    }
-                }
-            }
-        }
-    }
-
     /**  
      * Checks if a specific model ID is open or closed
      * @modelID Model handle retrieved by OpenModel
@@ -1122,6 +1211,204 @@ export class IfcAPI {
             push(parameter: FlatMesh): void {
                 flatMeshArray.push(parameter)
             }
+        }
+
+        const result = this.models.get(modelID)
+
+        if (result !== void 0) {
+            const [model, 
+                scene, 
+                placedGeometryVec, 
+                geometryMaterialTransformMap, 
+                productGeometryIndex, 
+                vectorFlatMesh] = result
+
+            for (const [_, nativeTransform, geometry, material, entity] of scene.walk()) {
+
+                if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY && !geometry.temporary) {
+
+                    //extract min
+                    let geomMin: glmatrix.vec3 = glmatrix.vec3.create() // Replace with actual minimum coordinates
+                    geomMin[0] = geometry.geometry.min.x
+                    geomMin[1] = geometry.geometry.min.y
+                    geomMin[2] = geometry.geometry.min.z
+
+                    // Create a translation matrix from geom.min
+                    let translationMatrixGeomMin: glmatrix.mat4 = glmatrix.mat4.create()
+                    glmatrix.mat4.fromTranslation(translationMatrixGeomMin, geomMin)
+
+                    //create PlacedGeometry
+                    const expressID = model.getElementByLocalID(geometry.localID)?.expressID as number
+
+                    const geometryTransform = nativeTransform?.getValues()
+                    let newMatrix: glmatrix.mat4 | undefined = undefined
+                    if (geometryTransform !== void 0) {
+                        newMatrix = glmatrix.mat4.fromValues(
+                            geometryTransform[0],
+                            geometryTransform[1],
+                            geometryTransform[2],
+                            geometryTransform[3],
+                            geometryTransform[4],
+                            geometryTransform[5],
+                            geometryTransform[6],
+                            geometryTransform[7],
+                            geometryTransform[8],
+                            geometryTransform[9],
+                            geometryTransform[10],
+                            geometryTransform[11],
+                            geometryTransform[12],
+                            geometryTransform[13],
+                            geometryTransform[14],
+                            geometryTransform[15],
+                        )
+                    }
+
+                    if (!this._isCoordinated && this.settings?.COORDINATE_TO_ORIGIN) {
+                        //coordinate the geometry to the origin 
+                        // Assuming geom.GetPoint(0) returns a glm::dvec3, i.e., a 3D vector.
+                        // In TypeScript, you can represent it as number[] or Float64Array.
+                        console.log("Setting up coordinationMatrix")
+
+                        const nativePt = geometry.geometry.GetPoint(0)
+                        let pt: number[] = [nativePt.x, nativePt.y, nativePt.z] // Replace x, y, z with actual coordinates.
+
+                        // Transform the point by the matrix.
+                        let transformedPt: glmatrix.vec4 = glmatrix.vec4.create()
+                        glmatrix.vec4.transformMat4(transformedPt, [pt[0], pt[1], pt[2], 1], newMatrix!)
+
+                        // Create the translation matrix.
+                        this.coordinationMatrix = glmatrix.mat4.create()
+
+                        glmatrix.mat4.fromTranslation(this.coordinationMatrix, [-transformedPt[0], -transformedPt[1], -transformedPt[2]])
+
+                        //glmatrix.mat4.multiply(this.coordinationMatrix, this.coordinationMatrix, this.NormalizeMat)
+
+                        this.coordinationMatrixArray = Array.from(this.coordinationMatrix)
+                        this._isCoordinated = true
+                    }
+
+                    //normalize geometry 
+                    if (!geometry.geometry.normalized) {
+                        geometry.geometry.NormalizeInPlace()
+                    }
+
+
+                    //extract color
+                    if (material !== undefined) {
+                        const newTransform = glmatrix.mat4.create()
+
+                        // Create a 4x4 identity matrix
+                        const scaleMatrix = glmatrix.mat4.create()
+
+                        // Create a 3D vector for scaling factors
+                        const scaleVec = glmatrix.vec3.fromValues(this.linearScalingFactor,
+                            this.linearScalingFactor,
+                            this.linearScalingFactor)
+
+                        // Scale the matrix
+                        glmatrix.mat4.scale(scaleMatrix, scaleMatrix, scaleVec)
+
+                        // Perform the matrix multiplications
+                        if (newMatrix !== void 0) {
+                            glmatrix.mat4.multiply(newTransform, this.coordinationMatrix, newMatrix)
+                            glmatrix.mat4.multiply(newTransform, newTransform, translationMatrixGeomMin)
+                            glmatrix.mat4.multiply(newTransform, this.NormalizeMat, newTransform)
+                            glmatrix.mat4.multiply(newTransform, newTransform, scaleMatrix)
+                        } else {
+                            glmatrix.mat4.multiply(newTransform, this.coordinationMatrix, newTransform)
+                            glmatrix.mat4.multiply(newTransform, newTransform, translationMatrixGeomMin)
+                            glmatrix.mat4.multiply(newTransform, this.NormalizeMat, newTransform)
+                            glmatrix.mat4.multiply(newTransform, newTransform, scaleMatrix)
+                        }
+                        const newTransformArr = Array.from(newTransform)
+
+
+                        geometryMaterialTransformMap.set(expressID, [geometry.geometry, material, newTransformArr])
+
+                        if (entity?.localID !== void 0) {
+                            let currentGeometryLocalIDs = productGeometryIndex.get(entity?.localID)
+                            if (currentGeometryLocalIDs === void 0) {
+                                currentGeometryLocalIDs = []
+                                productGeometryIndex.set(entity.localID, currentGeometryLocalIDs)
+                            }
+
+                            if (!currentGeometryLocalIDs.includes(geometry.localID)) {
+                                currentGeometryLocalIDs.push(geometry.localID)
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            //only walk scene if we haven't already 
+            // if (materialGeometry.size <= 0) {
+
+            // eslint-disable-next-line no-unused-vars
+            productGeometryIndex.forEach((geometryLocalIDs, productLocalID) => {
+
+                const placedGeometryArray_ = new Array<PlacedGeometry>()
+
+                // Vector of PlacedGeometry
+                const vectorOfPlacedGeometry_: Vector<PlacedGeometry> = {
+                    get(index: number): PlacedGeometry {
+                        if (index >= placedGeometryArray_.length) {
+                            return singlePlacedGeometry
+                        }
+
+                        return placedGeometryArray_[index]
+                    },
+                    size(): number {
+                        return placedGeometryArray_.length
+                    },
+                    push(parameter: PlacedGeometry): void {
+                        placedGeometryArray_.push(parameter)
+                    }
+                }
+                const productExpressID = model.getElementByLocalID(productLocalID)?.expressID
+
+                if (geometryLocalIDs !== void 0) {
+                    for (let index = 0; index < geometryLocalIDs.length; ++index) {
+                        const geometryExpressID = model.getElementByLocalID(geometryLocalIDs[index])?.expressID
+
+                        if (geometryExpressID !== void 0) {
+                            const mapResult = geometryMaterialTransformMap.get(geometryExpressID)
+
+                            if (mapResult !== void 0) {
+                                const [geometryObject_, material_, transformArr] = mapResult
+
+                                if (material_ !== undefined) {
+                                    const color = {
+                                        x: material_.baseColor[0],
+                                        y: material_.baseColor[1],
+                                        z: material_.baseColor[2],
+                                        w: material_.baseColor[3],
+                                    }
+
+                                    const placedGeometry: PlacedGeometry = {
+                                        color: color,
+                                        geometryExpressID: geometryExpressID,
+                                        flatTransformation: transformArr
+                                    }
+
+                                    vectorOfPlacedGeometry_.push(placedGeometry)
+                                }
+                            }
+                        }
+                    }
+
+                    const singleFlatMesh: FlatMesh = {
+                        geometries: vectorOfPlacedGeometry_,
+                        expressID: productExpressID!
+                    }
+
+                    placedGeometryVec.set(productLocalID, vectorOfPlacedGeometry_)
+
+                    vectorFlatMesh.push(singleFlatMesh)
+                }
+            })
+
+            return vectorFlatMesh
         }
 
         console.log("[LoadAllGeometry]: Shim - implemented")
