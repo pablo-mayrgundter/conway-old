@@ -601,7 +601,7 @@ function extractRawReference() {
   return true
 }
 
-const weirdArrayString = 
+const weirdArrayString =
 `
 #24761= IFCFACE((#24760));
 #24776= IFCFACE((#24775));

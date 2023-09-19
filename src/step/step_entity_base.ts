@@ -14,7 +14,8 @@ import {
   stepExtractString,
 } from './parsing/step_deserialization_functions'
 import { StepEntityConstructorAbstract } from './step_entity_constructor'
-import StepEntityInternalReference, { StepEntityInternalReferencePrivate } from './step_entity_internal_reference'
+import StepEntityInternalReference,
+{ StepEntityInternalReferencePrivate } from './step_entity_internal_reference'
 import StepModelBase from './step_model_base'
 
 /**
@@ -580,8 +581,9 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    */
   public invalidate(): void {
 
-    delete ( this.internalReference_ as
-      StepEntityInternalReferencePrivate< EntityTypeIDs, StepEntityBase< EntityTypeIDs > >).entity
+    ( this.internalReference_ as
+      StepEntityInternalReferencePrivate< EntityTypeIDs, StepEntityBase< EntityTypeIDs > >).entity =
+       void 0
   }
 
   /**
