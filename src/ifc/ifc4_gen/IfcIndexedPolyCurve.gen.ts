@@ -52,13 +52,10 @@ export  class IfcIndexedPolyCurve extends IfcBoundedCurve {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-
-        let currentChar = new TextDecoder().decode( buffer.subarray( cursor - 10, cursor + 10 ) )
         const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof IfcArcIndex ) && !( value1Untyped instanceof IfcLineIndex ) ) {
-          console.log( currentChar )
           throw new Error( 'Value in select must be populated' )
         }
 
