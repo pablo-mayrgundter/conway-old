@@ -24,6 +24,16 @@ implements Iterable<BaseEntity>, Model {
   private readonly elementIndex_: StepEntityInternalReferencePrivate<EntityTypeIDs, BaseEntity>[]
 
   /**
+   * Will this model memoize elements, set to false to disable,
+   * true to enable.
+   *
+   * Note that during periods where element memoization is disabled,
+   * it's not guaranteed element objects returned from this have referential
+   * equality even if they have ID equality.
+   */
+  public elementMemoization: boolean = true
+
+  /**
    * Construct this step model with its matching schema, a buffer to read from and an element index.
    *
    * @param schema The Step schema this is based on.
@@ -60,12 +70,18 @@ implements Iterable<BaseEntity>, Model {
       ++where
     }
 
+    console.log( 'Inline Address Map', inlineAddressMap.size )
+
+    const expressIDMap = this.expressIDMap_
+
     // Continguous dense array map from express IDs.
     for (const element of elementIndex) {
       if (element.expressID !== void 0) {
-        this.expressIDMap_.set(element.expressID, indexId++)
+        expressIDMap.set(element.expressID, indexId++)
       }
     }
+
+    console.log( 'Express ID Map', expressIDMap.size )
 
     this.elementIndex_ = localElementIndex
   }
@@ -84,17 +100,17 @@ implements Iterable<BaseEntity>, Model {
 
       for ( const item of this.elementIndex_ ) {
 
-        delete item.buffer
-        delete item.entity
-        delete item.vtable
-        delete item.vtableCount
-        delete item.vtableIndex
+        item.buffer = void 0
+        item.entity = void 0
+        item.vtable = void 0
+        item.vtableCount = void 0
+        item.vtableIndex = void 0
       }
     } else {
 
       for ( const item of this.elementIndex_ ) {
 
-        delete item.entity
+        item.entity = void 0
       }
     }
   }
@@ -210,7 +226,9 @@ implements Iterable<BaseEntity>, Model {
         // eslint-disable-next-line new-cap -- This is a variable constructor.
         entity = new constructorRead(localID, element, this)
 
-        element.entity = entity
+        if ( this.elementMemoization ) {
+          element.entity = entity
+        }
       }
     }
 
