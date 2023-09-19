@@ -196,7 +196,7 @@ export function skipValue(
 
     let previousCursor: number
 
-    // Skip commment.
+    // Skip commment and whitespace.
     do {
       previousCursor = cursor
 
@@ -347,7 +347,20 @@ export function stepExtractArrayToken(
     throw new Error( 'Unterminated array' )
   }
 
-  return cursor + 1
+  cursor += 1
+
+  do {
+    previousCursor = cursor
+
+    while ( cursor < endCursor && WHITESPACE.has( buffer[ cursor ]) ) {
+      ++cursor
+    }
+
+    cursor = commentParser( buffer, cursor, endCursor ) ?? cursor
+  }
+  while ( previousCursor !== cursor )
+
+  return cursor
 }
 
 /**

@@ -10,6 +10,7 @@ import {
   IfcCartesianPointList,
   IfcCartesianPointList3D,
   IfcClassification,
+  IfcClosedShell,
   IfcGeometricRepresentationContext,
   IfcGeometricRepresentationSubContext,
   IfcPerson,
@@ -460,7 +461,6 @@ const classificationTestString =
 '#314= IFCCLASSIFICATION(\'SP - GK\\X2\\00FC\\X0\\r\',\'2.0\',\'2022-02-28\',\'BLDRS\',\'Klassifizirunssystem f\\X2\\00FC\\X0\\r BLDRS Logo\',\'SP - GK\',$);'
 /* eslint-enable max-len */
 
-
 const classificationTestStringBuffer = new TextEncoder().encode( classificationTestString )
 
 const CLASSIFICATION_EXPRESS_ID = 314
@@ -601,6 +601,47 @@ function extractRawReference() {
   return true
 }
 
+const weirdArrayString = 
+`
+#24761= IFCFACE((#24760));
+#24776= IFCFACE((#24775));
+#25493= IFCFACE((#25492));
+#25498= IFCFACE((#25497));
+#27309= IFCCLOSEDSHELL( (
+  #24761, #24776,#25493 ,#25498) );`
+const weirdArrayBuffer = new TextEncoder().encode( weirdArrayString )
+const CLOSED_SHELL_EXPRESS_ID = 27309
+
+/**
+ * Extract a "weird" syntax array array
+ *
+ * @return {boolean} True if the test passes, false otherwise.
+ */
+function extractWeirdArrayTest() {
+  const bufferInput = new ParsingBuffer( weirdArrayBuffer )
+
+  const [result, model] = parser.parseDataToModel( bufferInput )
+
+  if ( model === void 0 ||
+    ( result !== ParseResult.COMPLETE && result !== ParseResult.INCOMPLETE ) ) {
+    return false
+  }
+
+  const closedShell = model.getElementByExpressID( CLOSED_SHELL_EXPRESS_ID )
+
+  if (!(closedShell instanceof IfcClosedShell)) {
+    return false
+  }
+
+  // These aren't magic numbers, they match the above and this is an expected
+  // equality test.
+  /* eslint-disable no-magic-numbers */
+  if ( closedShell.CfsFaces.length !== 4 ) {
+    return false
+  }
+
+  return true
+}
 
 describe( 'IFC Step Model Test', () => {
   test( 'extractIFCData()', () => {
@@ -629,6 +670,10 @@ describe( 'IFC Step Model Test', () => {
 
   test( 'extractArraysTest()', () => {
     expect( extractArraysTest() ).toBe( true )
+  } )
+
+  test( 'extractWeirdArrayTest()', () => {
+    expect( extractWeirdArrayTest() ).toBe( true )
   } )
 
   test( 'extractEnumsTest()', () => {
