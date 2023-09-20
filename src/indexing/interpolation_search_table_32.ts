@@ -191,7 +191,7 @@ export default class InterpolationSearchTable32 implements
 
   /**
    * Implements Map Foreach.
-   * 
+   *
    * @param callbackfn The for each callback.
    * @param thisArg Overridable this arg.
    */
@@ -244,7 +244,7 @@ export default class InterpolationSearchTable32 implements
   /**
    * Iterate through all keys in sort order.
    *
-   * @yields {number]} A key.
+   * @yields {number} A key.
    */
   public* keys(): IterableIterator<number> {
     const keyValues = this.keyValues_

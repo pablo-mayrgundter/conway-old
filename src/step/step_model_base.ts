@@ -49,10 +49,7 @@ implements Iterable<BaseEntity>, Model {
     const localElementIndex: StepEntityInternalReferencePrivate<EntityTypeIDs, BaseEntity>[] =
       elementIndex
 
-   // let indexId = 0
     let where = 0
-
-//    const inlineAddressMap = this.inlineAddressMap_
 
     const firstInlineElement = localElementIndex.length
 
@@ -60,14 +57,9 @@ implements Iterable<BaseEntity>, Model {
       const element = localElementIndex[where]
 
       if (element.inlineEntities !== void 0) {
-   //     let inlineLocalId = localElementIndex.length
+
 
         localElementIndex.push(...element.inlineEntities)
-
-        // // We're going to map inline elements backwards.
-        // for (; inlineLocalId < localElementIndex.length; ++inlineLocalId) {
-        //   inlineAddressMap.set(localElementIndex[inlineLocalId].address, inlineLocalId)
-        // }
       }
 
       ++where
