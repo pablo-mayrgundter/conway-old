@@ -8,6 +8,7 @@ import { extractOneHotLow } from '../indexing/bit_operations'
 import { MultiIndexSet } from '../indexing/multi_index_set'
 import { StepEntityConstructorAbstract } from './step_entity_constructor'
 import { Model } from '../core/model'
+import InterpolationSearchTable32 from '../indexing/interpolation_search_table_32'
 
 /**
  * The base for models parsed from STEP.
@@ -19,8 +20,8 @@ implements Iterable<BaseEntity>, Model {
   public readonly abstract typeIndex: MultiIndexSet<EntityTypeIDs>;
 
   private readonly vtableBuilder_: StepVtableBuilder = new StepVtableBuilder()
-  private readonly expressIDMap_ = new Map<number, number>()
-  private readonly inlineAddressMap_ = new Map<number, number>()
+  private readonly expressIDMap_: InterpolationSearchTable32
+  private readonly inlineAddressMap_: InterpolationSearchTable32
   private readonly elementIndex_: StepEntityInternalReferencePrivate<EntityTypeIDs, BaseEntity>[]
 
   /**
@@ -48,38 +49,87 @@ implements Iterable<BaseEntity>, Model {
     const localElementIndex: StepEntityInternalReferencePrivate<EntityTypeIDs, BaseEntity>[] =
       elementIndex
 
-    let indexId = 0
+   // let indexId = 0
     let where = 0
 
-    const inlineAddressMap = this.inlineAddressMap_
+//    const inlineAddressMap = this.inlineAddressMap_
+
+    const firstInlineElement = localElementIndex.length
 
     while (where < localElementIndex.length) {
       const element = localElementIndex[where]
 
       if (element.inlineEntities !== void 0) {
-        let inlineLocalId = localElementIndex.length
+   //     let inlineLocalId = localElementIndex.length
 
         localElementIndex.push(...element.inlineEntities)
 
-        // We're going to map inline elements backwards.
-        for (; inlineLocalId < localElementIndex.length; ++inlineLocalId) {
-          inlineAddressMap.set(localElementIndex[inlineLocalId].address, inlineLocalId)
-        }
+        // // We're going to map inline elements backwards.
+        // for (; inlineLocalId < localElementIndex.length; ++inlineLocalId) {
+        //   inlineAddressMap.set(localElementIndex[inlineLocalId].address, inlineLocalId)
+        // }
       }
 
       ++where
     }
 
+    const inlineElementEnd   = localElementIndex.length
+    const inlineElementCount = inlineElementEnd - firstInlineElement
+
+    const inlineElementTable = new Uint32Array( inlineElementCount << 1 )
+
+    for (
+      let inlineElementLocalId = firstInlineElement;
+      inlineElementLocalId < inlineElementEnd;
+      ++inlineElementLocalId ) {
+
+      const tableIndex = ( inlineElementLocalId - firstInlineElement ) << 1
+
+      inlineElementTable[ tableIndex ] = inlineElementLocalId
+      inlineElementTable[ tableIndex + 1 ] = localElementIndex[inlineElementLocalId].address
+    }
+
+    const inlineAddressMap = new InterpolationSearchTable32( inlineElementTable, true )
+
+    this.inlineAddressMap_ = inlineAddressMap
+
     console.log( 'Inline Address Map', inlineAddressMap.size )
 
-    const expressIDMap = this.expressIDMap_
+    const expressIdTable = new Uint32Array( firstInlineElement << 1 )
+
+    let expressIdsAlreadySorted = true
+    let previousExpressID = 0
+
+    for (
+      let elementLocalId = 0;
+      elementLocalId < firstInlineElement;
+      ++elementLocalId ) {
+
+      const tableIndex = elementLocalId << 1
+
+      const currentExpressId =  localElementIndex[elementLocalId].expressID as number
+
+      expressIdTable[ tableIndex ] = elementLocalId
+      expressIdTable[ tableIndex + 1 ] = currentExpressId
+
+      if ( currentExpressId < previousExpressID ) {
+
+        expressIdsAlreadySorted = false
+      }
+
+      previousExpressID = currentExpressId
+    }
+
+    const expressIDMap = new InterpolationSearchTable32( expressIdTable, expressIdsAlreadySorted )
 
     // Continguous dense array map from express IDs.
-    for (const element of elementIndex) {
-      if (element.expressID !== void 0) {
-        expressIDMap.set(element.expressID, indexId++)
-      }
-    }
+    // for (const element of elementIndex) {
+    //   if (element.expressID !== void 0) {
+    //     expressIDMap.set(element.expressID, indexId++)
+    //   }
+    // }
+
+    this.expressIDMap_ = expressIDMap
 
     console.log( 'Express ID Map', expressIDMap.size )
 
