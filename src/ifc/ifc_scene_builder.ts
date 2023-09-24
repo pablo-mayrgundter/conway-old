@@ -290,11 +290,11 @@ export class IfcSceneBuilder implements Scene {
           continue
         }
 
-        console.log(`node express ID: ${this.model.getElementByLocalID(node.localID)?.expressID}`)
+        //console.log(`node express ID: ${this.model.getElementByLocalID(node.localID)?.expressID}`)
 
-        if (node.relatedElementLocalId !== void 0) {
+       /* if (node.relatedElementLocalId !== void 0) {
           console.log(`related element express ID: ${this.model.getElementByLocalID(node.relatedElementLocalId)?.expressID}`)
-        }
+        }*/
 
         let parentNode: IfcSceneTransform | undefined
 
@@ -366,11 +366,11 @@ export class IfcSceneBuilder implements Scene {
         owningElementLocalID,
         parentIndex)
 
-    console.log("pushing geometry, express ID: " + this.model.getElementByLocalID(localID)?.expressID)
+    //console.log("pushing geometry, express ID: " + this.model.getElementByLocalID(localID)?.expressID)
 
-    if (owningElementLocalID !== void 0) {
+    /*if (owningElementLocalID !== void 0) {
       console.log("pushing geometry - owningElementExpressID: " + this.model.getElementByLocalID(owningElementLocalID)?.expressID)
-    }
+    }*/
     this.scene_.push(result)
 
     return result

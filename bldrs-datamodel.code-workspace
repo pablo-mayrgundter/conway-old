@@ -114,7 +114,24 @@
       "csignal": "cpp",
       "ranges": "cpp",
       "strstream": "cpp",
-      "xthread": "cpp"
+      "xthread": "cpp",
+      "__memory": "cpp",
+      "memory_resource": "cpp",
+      "hash_map": "cpp",
+      "__functional_03": "cpp",
+      "__functional_base_03": "cpp",
+      "orderingmethods": "cpp",
+      "*.evaluator": "cpp",
+      "*.expression": "cpp",
+      "adolcforward": "cpp",
+      "alignedvector3": "cpp",
+      "autodiff": "cpp",
+      "bvh": "cpp",
+      "fft": "cpp",
+      "mprealsupport": "cpp",
+      "matrixfunctions": "cpp",
+      "nonlinearoptimization": "cpp",
+      "openglsupport": "cpp"
     }
 	}
 }
