@@ -14,7 +14,8 @@ import {
   stepExtractString,
 } from './parsing/step_deserialization_functions'
 import { StepEntityConstructorAbstract } from './step_entity_constructor'
-import StepEntityInternalReference from './step_entity_internal_reference'
+import StepEntityInternalReference,
+{ StepEntityInternalReferencePrivate } from './step_entity_internal_reference'
 import StepModelBase from './step_model_base'
 
 /**
@@ -573,6 +574,16 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
     }
 
     return value
+  }
+
+  /**
+   * Make it so this particular object is not held in the cache.
+   */
+  public invalidate(): void {
+
+    ( this.internalReference_ as
+      StepEntityInternalReferencePrivate< EntityTypeIDs, StepEntityBase< EntityTypeIDs > >).entity =
+       void 0
   }
 
   /**

@@ -479,6 +479,8 @@ async function geometryExtraction(model: IfcStepModel):
   const [extractionResult, scene] =
     conwayModel.extractIFCGeometryData(true)
 
+  model.invalidate( true )
+
   if (extractionResult !== ExtractResult.COMPLETE) {
     console.error('Could not extract geometry, exiting...')
     return void 0
