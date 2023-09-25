@@ -3,7 +3,9 @@ import { IfcResourceLevelRelationship } from "./index"
 import { IfcMaterial } from "./index"
 import { IfcLabel } from "./index"
 import {
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -32,23 +34,28 @@ export  class IfcMaterialRelationship extends IfcResourceLevelRelationship {
 
   public get RelatedMaterials() : Array<IfcMaterial> {
     if ( this.RelatedMaterials_ === void 0 ) {
-      this.RelatedMaterials_ = this.extractLambda( 3, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 3 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<IfcMaterial> = [];
+      const value : Array<IfcMaterial> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-           let value = this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcMaterial ) )  {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
-          }
-    
-          return value
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcMaterial )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.RelatedMaterials_ = value
     }
 
     return this.RelatedMaterials_ as Array<IfcMaterial>

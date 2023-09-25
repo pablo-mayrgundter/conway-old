@@ -5,7 +5,9 @@ import { IfcRepresentation } from "./index"
 import { IfcRepresentationItem } from "./index"
 import { IfcIdentifier } from "./index"
 import {
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -43,22 +45,35 @@ export  class IfcPresentationLayerAssignment extends StepEntityBase< EntityTypes
 
   public get AssignedItems() : Array<IfcRepresentation | IfcRepresentationItem> {
     if ( this.AssignedItems_ === void 0 ) {
-      this.AssignedItems_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 2 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<IfcRepresentation | IfcRepresentationItem> = [];
+      const value : Array<IfcRepresentation | IfcRepresentationItem> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-          const value : StepEntityBase< EntityTypesIfc > | undefined =
-            this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcRepresentation ) && !( value instanceof IfcRepresentationItem ) ) {
-            throw new Error( 'Value in select must be populated' )
-          }
-          return value as (IfcRepresentation | IfcRepresentationItem)})() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+          this.extractBufferReference( buffer, cursor, endCursor )
+
+        if ( !( value1Untyped instanceof IfcRepresentation ) && !( value1Untyped instanceof IfcRepresentationItem ) ) {
+          throw new Error( 'Value in select must be populated' )
+        }
+
+        const value1 = value1Untyped as (IfcRepresentation | IfcRepresentationItem)
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.AssignedItems_ = value
     }
 
     return this.AssignedItems_ as Array<IfcRepresentation | IfcRepresentationItem>

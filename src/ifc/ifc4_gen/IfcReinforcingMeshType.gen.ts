@@ -8,7 +8,9 @@ import { IfcLengthMeasure } from "./index"
 import { IfcPlaneAngleMeasure } from "./index"
 import {
   stepExtractOptional,
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -117,26 +119,39 @@ export  class IfcReinforcingMeshType extends IfcReinforcingElementType {
 
   public get BendingParameters() : Array<IfcLengthMeasure | IfcPlaneAngleMeasure> | null {
     if ( this.BendingParameters_ === void 0 ) {
-      this.BendingParameters_ = this.extractLambda( 19, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 19 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      let value : Array<IfcLengthMeasure | IfcPlaneAngleMeasure> = [];
+      const value : Array<IfcLengthMeasure | IfcPlaneAngleMeasure> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-          const value : StepEntityBase< EntityTypesIfc > | undefined =
-            this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcLengthMeasure ) && !( value instanceof IfcPlaneAngleMeasure ) ) {
-            throw new Error( 'Value in select must be populated' )
-          }
-          return value as (IfcLengthMeasure | IfcPlaneAngleMeasure)})() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+          this.extractBufferReference( buffer, cursor, endCursor )
+
+        if ( !( value1Untyped instanceof IfcLengthMeasure ) && !( value1Untyped instanceof IfcPlaneAngleMeasure ) ) {
+          throw new Error( 'Value in select must be populated' )
+        }
+
+        const value1 = value1Untyped as (IfcLengthMeasure | IfcPlaneAngleMeasure)
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, true )
+
+      this.BendingParameters_ = value
     }
 
     return this.BendingParameters_ as Array<IfcLengthMeasure | IfcPlaneAngleMeasure> | null

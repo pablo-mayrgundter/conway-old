@@ -4,7 +4,9 @@ import { IfcInteger } from "./index"
 import { IfcConnectionTypeEnum, IfcConnectionTypeEnumDeserializeStep } from "./index"
 import {
   stepExtractNumber,
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -26,23 +28,29 @@ export  class IfcRelConnectsPathElements extends IfcRelConnectsElements {
 
   public get RelatingPriorities() : Array< number > {
     if ( this.RelatingPriorities_ === void 0 ) {
-      this.RelatingPriorities_ = this.extractLambda( 7, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 7 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<number> = [];
+      const value : Array<number> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-          const value = stepExtractNumber( buffer, cursor, endCursor )
-    
-          if ( value === void 0 ) {
-            throw new Error( 'Value needs to be defined in encapsulating context' )
-          }
-    
-          return value 
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = stepExtractNumber( buffer, cursor, endCursor )
+
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.RelatingPriorities_ = value
     }
 
     return this.RelatingPriorities_ as Array< number >
@@ -50,23 +58,29 @@ export  class IfcRelConnectsPathElements extends IfcRelConnectsElements {
 
   public get RelatedPriorities() : Array< number > {
     if ( this.RelatedPriorities_ === void 0 ) {
-      this.RelatedPriorities_ = this.extractLambda( 8, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 8 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<number> = [];
+      const value : Array<number> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-          const value = stepExtractNumber( buffer, cursor, endCursor )
-    
-          if ( value === void 0 ) {
-            throw new Error( 'Value needs to be defined in encapsulating context' )
-          }
-    
-          return value 
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = stepExtractNumber( buffer, cursor, endCursor )
+
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.RelatedPriorities_ = value
     }
 
     return this.RelatedPriorities_ as Array< number >

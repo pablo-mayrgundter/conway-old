@@ -5,7 +5,9 @@ import { IfcProfileDef } from "./index"
 import { IfcAxis2Placement3D } from "./index"
 import { IfcDimensionCount } from "./index"
 import {
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -34,23 +36,28 @@ export  class IfcSectionedSpine extends IfcGeometricRepresentationItem {
 
   public get CrossSections() : Array<IfcProfileDef> {
     if ( this.CrossSections_ === void 0 ) {
-      this.CrossSections_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 1 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<IfcProfileDef> = [];
+      const value : Array<IfcProfileDef> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-           let value = this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcProfileDef ) )  {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
-          }
-    
-          return value
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcProfileDef )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.CrossSections_ = value
     }
 
     return this.CrossSections_ as Array<IfcProfileDef>
@@ -58,23 +65,28 @@ export  class IfcSectionedSpine extends IfcGeometricRepresentationItem {
 
   public get CrossSectionPositions() : Array<IfcAxis2Placement3D> {
     if ( this.CrossSectionPositions_ === void 0 ) {
-      this.CrossSectionPositions_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 2 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<IfcAxis2Placement3D> = [];
+      const value : Array<IfcAxis2Placement3D> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-           let value = this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcAxis2Placement3D ) )  {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
-          }
-    
-          return value
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcAxis2Placement3D )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.CrossSectionPositions_ = value
     }
 
     return this.CrossSectionPositions_ as Array<IfcAxis2Placement3D>

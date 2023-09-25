@@ -21,16 +21,16 @@ export  class IfcBoundaryFaceCondition extends IfcBoundaryCondition {
 
   public get TranslationalStiffnessByAreaX() : IfcBoolean | IfcModulusOfSubgradeReactionMeasure | null {
     if ( this.TranslationalStiffnessByAreaX_ === void 0 ) {
-      this.TranslationalStiffnessByAreaX_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 1, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfSubgradeReactionMeasure ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfSubgradeReactionMeasure ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcBoolean | IfcModulusOfSubgradeReactionMeasure)
-}, true )
+
+      this.TranslationalStiffnessByAreaX_ = value as (IfcBoolean | IfcModulusOfSubgradeReactionMeasure)
+
     }
 
     return this.TranslationalStiffnessByAreaX_ as IfcBoolean | IfcModulusOfSubgradeReactionMeasure | null
@@ -38,16 +38,16 @@ export  class IfcBoundaryFaceCondition extends IfcBoundaryCondition {
 
   public get TranslationalStiffnessByAreaY() : IfcBoolean | IfcModulusOfSubgradeReactionMeasure | null {
     if ( this.TranslationalStiffnessByAreaY_ === void 0 ) {
-      this.TranslationalStiffnessByAreaY_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 2, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfSubgradeReactionMeasure ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfSubgradeReactionMeasure ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcBoolean | IfcModulusOfSubgradeReactionMeasure)
-}, true )
+
+      this.TranslationalStiffnessByAreaY_ = value as (IfcBoolean | IfcModulusOfSubgradeReactionMeasure)
+
     }
 
     return this.TranslationalStiffnessByAreaY_ as IfcBoolean | IfcModulusOfSubgradeReactionMeasure | null
@@ -55,16 +55,16 @@ export  class IfcBoundaryFaceCondition extends IfcBoundaryCondition {
 
   public get TranslationalStiffnessByAreaZ() : IfcBoolean | IfcModulusOfSubgradeReactionMeasure | null {
     if ( this.TranslationalStiffnessByAreaZ_ === void 0 ) {
-      this.TranslationalStiffnessByAreaZ_ = this.extractLambda( 3, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 3, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfSubgradeReactionMeasure ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfSubgradeReactionMeasure ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcBoolean | IfcModulusOfSubgradeReactionMeasure)
-}, true )
+
+      this.TranslationalStiffnessByAreaZ_ = value as (IfcBoolean | IfcModulusOfSubgradeReactionMeasure)
+
     }
 
     return this.TranslationalStiffnessByAreaZ_ as IfcBoolean | IfcModulusOfSubgradeReactionMeasure | null

@@ -8,6 +8,7 @@ import { extractOneHotLow } from '../indexing/bit_operations'
 import { MultiIndexSet } from '../indexing/multi_index_set'
 import { StepEntityConstructorAbstract } from './step_entity_constructor'
 import { Model } from '../core/model'
+import InterpolationSearchTable32 from '../indexing/interpolation_search_table_32'
 
 /**
  * The base for models parsed from STEP.
@@ -19,9 +20,19 @@ implements Iterable<BaseEntity>, Model {
   public readonly abstract typeIndex: MultiIndexSet<EntityTypeIDs>;
 
   private readonly vtableBuilder_: StepVtableBuilder = new StepVtableBuilder()
-  private readonly expressIDMap_ = new Map<number, number>()
-  private readonly inlineAddressMap_ = new Map<number, number>()
+  private readonly expressIDMap_: InterpolationSearchTable32
+  private readonly inlineAddressMap_: InterpolationSearchTable32
   private readonly elementIndex_: StepEntityInternalReferencePrivate<EntityTypeIDs, BaseEntity>[]
+
+  /**
+   * Will this model memoize elements, set to false to disable,
+   * true to enable.
+   *
+   * Note that during periods where element memoization is disabled,
+   * it's not guaranteed element objects returned from this have referential
+   * equality even if they have ID equality.
+   */
+  public elementMemoization: boolean = true
 
   /**
    * Construct this step model with its matching schema, a buffer to read from and an element index.
@@ -38,36 +49,112 @@ implements Iterable<BaseEntity>, Model {
     const localElementIndex: StepEntityInternalReferencePrivate<EntityTypeIDs, BaseEntity>[] =
       elementIndex
 
-    let indexId = 0
     let where = 0
 
-    const inlineAddressMap = this.inlineAddressMap_
+    const firstInlineElement = localElementIndex.length
 
     while (where < localElementIndex.length) {
       const element = localElementIndex[where]
 
       if (element.inlineEntities !== void 0) {
-        let inlineLocalId = localElementIndex.length
+
 
         localElementIndex.push(...element.inlineEntities)
-
-        // We're going to map inline elements backwards.
-        for (; inlineLocalId < localElementIndex.length; ++inlineLocalId) {
-          inlineAddressMap.set(localElementIndex[inlineLocalId].address, inlineLocalId)
-        }
       }
 
       ++where
     }
 
-    // Continguous dense array map from express IDs.
-    for (const element of elementIndex) {
-      if (element.expressID !== void 0) {
-        this.expressIDMap_.set(element.expressID, indexId++)
-      }
+    const inlineElementEnd   = localElementIndex.length
+    const inlineElementCount = inlineElementEnd - firstInlineElement
+
+    const inlineElementTable = new Uint32Array( inlineElementCount << 1 )
+
+    for (
+      let inlineElementLocalId = firstInlineElement;
+      inlineElementLocalId < inlineElementEnd;
+      ++inlineElementLocalId ) {
+
+      const tableIndex = ( inlineElementLocalId - firstInlineElement ) << 1
+
+      inlineElementTable[ tableIndex ] = inlineElementLocalId
+      inlineElementTable[ tableIndex + 1 ] = localElementIndex[inlineElementLocalId].address
     }
 
+    const inlineAddressMap = new InterpolationSearchTable32( inlineElementTable, true )
+
+    this.inlineAddressMap_ = inlineAddressMap
+
+    console.log( 'Inline Address Map', inlineAddressMap.size )
+
+    const expressIdTable = new Uint32Array( firstInlineElement << 1 )
+
+    let expressIdsAlreadySorted = true
+    let previousExpressID = 0
+
+    for (
+      let elementLocalId = 0;
+      elementLocalId < firstInlineElement;
+      ++elementLocalId ) {
+
+      const tableIndex = elementLocalId << 1
+
+      const currentExpressId =  localElementIndex[elementLocalId].expressID as number
+
+      expressIdTable[ tableIndex ] = elementLocalId
+      expressIdTable[ tableIndex + 1 ] = currentExpressId
+
+      if ( currentExpressId < previousExpressID ) {
+
+        expressIdsAlreadySorted = false
+      }
+
+      previousExpressID = currentExpressId
+    }
+
+    const expressIDMap = new InterpolationSearchTable32( expressIdTable, expressIdsAlreadySorted )
+
+    // Continguous dense array map from express IDs.
+    // for (const element of elementIndex) {
+    //   if (element.expressID !== void 0) {
+    //     expressIDMap.set(element.expressID, indexId++)
+    //   }
+    // }
+
+    this.expressIDMap_ = expressIDMap
+
+    console.log( 'Express ID Map', expressIDMap.size )
+
     this.elementIndex_ = localElementIndex
+  }
+
+  /**
+   * Invalidate the cache store for this, so new items will be created.
+   *
+   * @param dropVtable If true, remove the vtable entries for old entries as well,
+   * freeing up the v-table space on garbage collection.
+   */
+  public invalidate( dropVtable: boolean = false ): void {
+
+    if ( dropVtable ) {
+
+      this.vtableBuilder_.clear( true )
+
+      for ( const item of this.elementIndex_ ) {
+
+        item.buffer = void 0
+        item.entity = void 0
+        item.vtable = void 0
+        item.vtableCount = void 0
+        item.vtableIndex = void 0
+      }
+    } else {
+
+      for ( const item of this.elementIndex_ ) {
+
+        item.entity = void 0
+      }
+    }
   }
 
   /**
@@ -181,7 +268,9 @@ implements Iterable<BaseEntity>, Model {
         // eslint-disable-next-line new-cap -- This is a variable constructor.
         entity = new constructorRead(localID, element, this)
 
-        element.entity = entity
+        if ( this.elementMemoization ) {
+          element.entity = entity
+        }
       }
     }
 
