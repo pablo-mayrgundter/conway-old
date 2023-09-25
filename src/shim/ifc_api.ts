@@ -135,7 +135,7 @@ export class IfcAPI {
      */
     async Init(customLocateFileHandler?: LocateFileHandlerFn) {
 
-        console.log("Conway Web-Ifc Shim v0.1")
+        console.log("Conway Web-Ifc Shim v0.1 testing")
         let locateFileHandler: LocateFileHandlerFn = (path, prefix) => {
             // when the wasm module requests the wasm file, we redirect to include the user specified path
             if (path.endsWith(".wasm")) {

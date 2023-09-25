@@ -34,16 +34,16 @@ export  class IfcFillAreaStyleHatching extends IfcGeometricRepresentationItem {
 
   public get StartOfNextHatchLine() : IfcPositiveLengthMeasure | IfcVector {
     if ( this.StartOfNextHatchLine_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc > =
-        this.extractReference( 1, false )
+      this.StartOfNextHatchLine_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
+
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcPositiveLengthMeasure ) && !( value instanceof IfcVector ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      this.StartOfNextHatchLine_ = value as (IfcPositiveLengthMeasure | IfcVector)
-
+      return value as (IfcPositiveLengthMeasure | IfcVector)
+}, false )
     }
 
     return this.StartOfNextHatchLine_ as IfcPositiveLengthMeasure | IfcVector

@@ -20,16 +20,16 @@ export  class IfcTextStyleForDefinedFont extends IfcPresentationItem {
 
   public get Colour() : IfcColourSpecification | IfcPreDefinedColour {
     if ( this.Colour_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc > =
-        this.extractReference( 0, false )
+      this.Colour_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
+
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcColourSpecification ) && !( value instanceof IfcPreDefinedColour ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      this.Colour_ = value as (IfcColourSpecification | IfcPreDefinedColour)
-
+      return value as (IfcColourSpecification | IfcPreDefinedColour)
+}, false )
     }
 
     return this.Colour_ as IfcColourSpecification | IfcPreDefinedColour
@@ -37,16 +37,16 @@ export  class IfcTextStyleForDefinedFont extends IfcPresentationItem {
 
   public get BackgroundColour() : IfcColourSpecification | IfcPreDefinedColour | null {
     if ( this.BackgroundColour_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc >| null =
-        this.extractReference( 1, true )
+      this.BackgroundColour_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
-      if ( !( value instanceof IfcColourSpecification ) && !( value instanceof IfcPreDefinedColour ) && value !== null ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
+
+      if ( !( value instanceof IfcColourSpecification ) && !( value instanceof IfcPreDefinedColour ) ) {
+        return ( void 0 )
       }
-
-      this.BackgroundColour_ = value as (IfcColourSpecification | IfcPreDefinedColour)
-
+      return value as (IfcColourSpecification | IfcPreDefinedColour)
+}, true )
     }
 
     return this.BackgroundColour_ as IfcColourSpecification | IfcPreDefinedColour | null

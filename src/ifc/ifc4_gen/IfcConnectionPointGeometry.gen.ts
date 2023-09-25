@@ -20,16 +20,16 @@ export  class IfcConnectionPointGeometry extends IfcConnectionGeometry {
 
   public get PointOnRelatingElement() : IfcPoint | IfcVertexPoint {
     if ( this.PointOnRelatingElement_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc > =
-        this.extractReference( 0, false )
+      this.PointOnRelatingElement_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
+
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcPoint ) && !( value instanceof IfcVertexPoint ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      this.PointOnRelatingElement_ = value as (IfcPoint | IfcVertexPoint)
-
+      return value as (IfcPoint | IfcVertexPoint)
+}, false )
     }
 
     return this.PointOnRelatingElement_ as IfcPoint | IfcVertexPoint
@@ -37,16 +37,16 @@ export  class IfcConnectionPointGeometry extends IfcConnectionGeometry {
 
   public get PointOnRelatedElement() : IfcPoint | IfcVertexPoint | null {
     if ( this.PointOnRelatedElement_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc >| null =
-        this.extractReference( 1, true )
+      this.PointOnRelatedElement_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
-      if ( !( value instanceof IfcPoint ) && !( value instanceof IfcVertexPoint ) && value !== null ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
+
+      if ( !( value instanceof IfcPoint ) && !( value instanceof IfcVertexPoint ) ) {
+        return ( void 0 )
       }
-
-      this.PointOnRelatedElement_ = value as (IfcPoint | IfcVertexPoint)
-
+      return value as (IfcPoint | IfcVertexPoint)
+}, true )
     }
 
     return this.PointOnRelatedElement_ as IfcPoint | IfcVertexPoint | null

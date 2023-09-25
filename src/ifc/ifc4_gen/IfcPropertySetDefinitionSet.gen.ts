@@ -1,9 +1,7 @@
 
 /* This is generated code, don't alter */
 import {
-  stepExtractArrayToken,
-  stepExtractArrayBegin,
-  skipValue,
+  stepExtractArray,
 } from '../../step/parsing/step_deserialization_functions'
 import { IfcPropertySetDefinition } from './index'
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -23,28 +21,23 @@ export class IfcPropertySetDefinitionSet extends StepEntityBase< EntityTypesIfc 
 
   public get Value() : Array<IfcPropertySetDefinition> {
     if ( this.Value_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 0 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.Value_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
 
-      const value : Array<IfcPropertySetDefinition> = []
+      let value : Array<IfcPropertySetDefinition> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcPropertySetDefinition )
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
+    
+          if ( !( value instanceof IfcPropertySetDefinition ) )  {
+            throw new Error( 'Value in STEP was incorrectly typed for field' )
+          }
+    
+          return value
+        })() )
       }
-
-      this.Value_ = value
+      return value }, false )
     }
 
     return this.Value_ as Array<IfcPropertySetDefinition>

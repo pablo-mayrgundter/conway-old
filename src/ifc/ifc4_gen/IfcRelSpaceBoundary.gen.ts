@@ -27,16 +27,16 @@ export  class IfcRelSpaceBoundary extends IfcRelConnects {
 
   public get RelatingSpace() : IfcExternalSpatialElement | IfcSpace {
     if ( this.RelatingSpace_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc > =
-        this.extractReference( 4, false )
+      this.RelatingSpace_ = this.extractLambda( 4, (buffer, cursor, endCursor) => {
+
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcExternalSpatialElement ) && !( value instanceof IfcSpace ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      this.RelatingSpace_ = value as (IfcExternalSpatialElement | IfcSpace)
-
+      return value as (IfcExternalSpatialElement | IfcSpace)
+}, false )
     }
 
     return this.RelatingSpace_ as IfcExternalSpatialElement | IfcSpace

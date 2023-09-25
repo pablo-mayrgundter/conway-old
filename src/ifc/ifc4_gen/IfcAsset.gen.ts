@@ -63,16 +63,16 @@ export  class IfcAsset extends IfcGroup {
 
   public get Owner() : IfcOrganization | IfcPerson | IfcPersonAndOrganization | null {
     if ( this.Owner_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc >| null =
-        this.extractReference( 9, true )
+      this.Owner_ = this.extractLambda( 9, (buffer, cursor, endCursor) => {
 
-      if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) && value !== null ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
+
+      if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) ) {
+        return ( void 0 )
       }
-
-      this.Owner_ = value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization)
-
+      return value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization)
+}, true )
     }
 
     return this.Owner_ as IfcOrganization | IfcPerson | IfcPersonAndOrganization | null
@@ -80,16 +80,16 @@ export  class IfcAsset extends IfcGroup {
 
   public get User() : IfcOrganization | IfcPerson | IfcPersonAndOrganization | null {
     if ( this.User_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc >| null =
-        this.extractReference( 10, true )
+      this.User_ = this.extractLambda( 10, (buffer, cursor, endCursor) => {
 
-      if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) && value !== null ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
+
+      if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) ) {
+        return ( void 0 )
       }
-
-      this.User_ = value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization)
-
+      return value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization)
+}, true )
     }
 
     return this.User_ as IfcOrganization | IfcPerson | IfcPersonAndOrganization | null

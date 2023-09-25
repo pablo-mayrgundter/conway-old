@@ -87,7 +87,7 @@ implements Iterable<BaseEntity>, Model {
 
     this.inlineAddressMap_ = inlineAddressMap
 
-    console.log( 'Inline Address Map', inlineAddressMap.size )
+    //console.log( 'Inline Address Map', inlineAddressMap.size )
 
     const expressIdTable = new Uint32Array( firstInlineElement << 1 )
 
@@ -125,7 +125,7 @@ implements Iterable<BaseEntity>, Model {
 
     this.expressIDMap_ = expressIDMap
 
-    console.log( 'Express ID Map', expressIDMap.size )
+    //console.log( 'Express ID Map', expressIDMap.size )
 
     this.elementIndex_ = localElementIndex
   }

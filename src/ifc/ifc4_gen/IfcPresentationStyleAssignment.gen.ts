@@ -5,9 +5,7 @@ import { IfcNullStyle, IfcNullStyleDeserializeStep } from "./index"
 import { IfcSurfaceStyle } from "./index"
 import { IfcTextStyle } from "./index"
 import {
-  stepExtractArrayToken,
-  stepExtractArrayBegin,
-  skipValue,
+  stepExtractArray,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -26,35 +24,22 @@ export  class IfcPresentationStyleAssignment extends StepEntityBase< EntityTypes
 
   public get Styles() : Array<IfcCurveStyle | IfcFillAreaStyle | IfcNullStyle | IfcSurfaceStyle | IfcTextStyle> {
     if ( this.Styles_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 0 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.Styles_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
 
-      const value : Array<IfcCurveStyle | IfcFillAreaStyle | IfcNullStyle | IfcSurfaceStyle | IfcTextStyle> = []
+      let value : Array<IfcCurveStyle | IfcFillAreaStyle | IfcNullStyle | IfcSurfaceStyle | IfcTextStyle> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | IfcNullStyle | undefined =
-          this.extractBufferReference( buffer, cursor, endCursor ) ?? IfcNullStyleDeserializeStep( buffer, cursor, endCursor )
-
-        if ( !( value1Untyped instanceof IfcCurveStyle ) && !( value1Untyped instanceof IfcFillAreaStyle ) && !( value1Untyped instanceof IfcSurfaceStyle ) && !( value1Untyped instanceof IfcTextStyle ) && (value1Untyped !== IfcNullStyle.NULL) ) {
-          throw new Error( 'Value in select must be populated' )
-        }
-
-        const value1 = value1Untyped as (IfcCurveStyle | IfcFillAreaStyle | IfcNullStyle | IfcSurfaceStyle | IfcTextStyle)
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+          const value : StepEntityBase< EntityTypesIfc > | IfcNullStyle | undefined =
+            this.extractBufferReference( buffer, cursor, endCursor ) ?? IfcNullStyleDeserializeStep( buffer, cursor, endCursor )
+    
+          if ( !( value instanceof IfcCurveStyle ) && !( value instanceof IfcFillAreaStyle ) && !( value instanceof IfcSurfaceStyle ) && !( value instanceof IfcTextStyle ) && value !== IfcNullStyle.NULL ) {
+            throw new Error( 'Value in select must be populated' )
+          }
+          return value as (IfcCurveStyle | IfcFillAreaStyle | IfcNullStyle | IfcSurfaceStyle | IfcTextStyle)})() )
       }
-
-      this.Styles_ = value
+      return value }, false )
     }
 
     return this.Styles_ as Array<IfcCurveStyle | IfcFillAreaStyle | IfcNullStyle | IfcSurfaceStyle | IfcTextStyle>

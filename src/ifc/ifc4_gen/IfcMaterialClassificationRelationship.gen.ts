@@ -3,9 +3,7 @@ import { IfcClassification } from "./index"
 import { IfcClassificationReference } from "./index"
 import { IfcMaterial } from "./index"
 import {
-  stepExtractArrayToken,
-  stepExtractArrayBegin,
-  skipValue,
+  stepExtractArray,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -25,35 +23,22 @@ export  class IfcMaterialClassificationRelationship extends StepEntityBase< Enti
 
   public get MaterialClassifications() : Array<IfcClassification | IfcClassificationReference> {
     if ( this.MaterialClassifications_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 0 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.MaterialClassifications_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
 
-      const value : Array<IfcClassification | IfcClassificationReference> = []
+      let value : Array<IfcClassification | IfcClassificationReference> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
-          this.extractBufferReference( buffer, cursor, endCursor )
-
-        if ( !( value1Untyped instanceof IfcClassification ) && !( value1Untyped instanceof IfcClassificationReference ) ) {
-          throw new Error( 'Value in select must be populated' )
-        }
-
-        const value1 = value1Untyped as (IfcClassification | IfcClassificationReference)
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+          const value : StepEntityBase< EntityTypesIfc > | undefined =
+            this.extractBufferReference( buffer, cursor, endCursor )
+    
+          if ( !( value instanceof IfcClassification ) && !( value instanceof IfcClassificationReference ) ) {
+            throw new Error( 'Value in select must be populated' )
+          }
+          return value as (IfcClassification | IfcClassificationReference)})() )
       }
-
-      this.MaterialClassifications_ = value
+      return value }, false )
     }
 
     return this.MaterialClassifications_ as Array<IfcClassification | IfcClassificationReference>

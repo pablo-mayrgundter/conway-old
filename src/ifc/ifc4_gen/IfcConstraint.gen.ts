@@ -61,16 +61,16 @@ export abstract class IfcConstraint extends StepEntityBase< EntityTypesIfc > {
 
   public get CreatingActor() : IfcOrganization | IfcPerson | IfcPersonAndOrganization | null {
     if ( this.CreatingActor_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc >| null =
-        this.extractReference( 4, true )
+      this.CreatingActor_ = this.extractLambda( 4, (buffer, cursor, endCursor) => {
 
-      if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) && value !== null ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
+
+      if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) ) {
+        return ( void 0 )
       }
-
-      this.CreatingActor_ = value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization)
-
+      return value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization)
+}, true )
     }
 
     return this.CreatingActor_ as IfcOrganization | IfcPerson | IfcPersonAndOrganization | null
