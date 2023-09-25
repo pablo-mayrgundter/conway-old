@@ -29,6 +29,12 @@ Clone the repository, then in the root directory of the repository, run the yarn
 	yarn install
 	yarn submodule-update
 
+        # set emsdk environment
+	cd dependencies/conway-geom/dependencies/wasm/
+	unzip dependencies.zip
+ 	cd -
+	yarn build-conway_geom
+
 After this, you can build using either an incremental build (which will not perform code-gen and will lead to the fastest build times), a watch build (which will automatically update changes), or a full rebuild, which will clean all build artefacts and perform code-gen, before running a build.
 
 For the incremental build:
@@ -60,6 +66,8 @@ Conway has a test application for parsing IFC step files to see the performance 
 Use an incremental or full build to compile this file from typescript and then it can be run with:
 
 	node --experimental-specifier-resolution=node ./compiled/src/ifc/ifc_command_line_main.js [ifc file path]
+
+	node --experimental-specifier-resolution=node ./compiled/src/ifc/ifc_command_line_main.js -g [ifc file path]
 
 The included index.ifc in the repo is recommended for testing.
 
