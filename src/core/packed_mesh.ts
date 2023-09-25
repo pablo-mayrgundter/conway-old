@@ -35,7 +35,7 @@ export class PackedMesh< ModelType extends Model > {
     public readonly primitives: ReadonlyArray< [GeometryObject, number | undefined] >,
     public readonly triangleElementMaps: ReadonlyArray< TriangleElementMap >,
     // eslint-disable-next-line no-empty-function
-    public readonly elementPrimitiveIndex: ReadonlyMap< number, number[] > ) {}
+    public readonly elementPrimitiveIndex: ReadonlyMap< number, number > ) {}
 
   /**
    * Get triangles from a cursor.
@@ -43,9 +43,6 @@ export class PackedMesh< ModelType extends Model > {
    * @param cursor The cursor to extract triangles for
    * @yields {[number, number, ReadonlyUint32Array]} Returns a tuple containing
    * the local ID of the element, the primitive index, and the triangles.
-   *
-   * Note - there may be multiple batches of triangles from the same element,
-   * because the triangles maybe in different primitives.
    */
   public* triangles( cursor: IIndexSetCursor ):
     IterableIterator< [number, number, ReadonlyUint32Array] > {
@@ -62,23 +59,20 @@ export class PackedMesh< ModelType extends Model > {
         low ^= (1 << lowestOneHot)
 
         const localID = (high | lowestOneHot)
-        const primitiveIndices = localElementPrimitiveIndex.get( localID )
+        const primitiveIndex = localElementPrimitiveIndex.get( localID )
 
-        if ( primitiveIndices === void 0 ) {
+        if ( primitiveIndex === void 0 ) {
           continue
         }
 
-        for ( const primitiveIndex of primitiveIndices ) {
+        const inverseMap = this.triangleElementMaps[ primitiveIndex ].inverseMap
+        const foundTriangles = inverseMap.get( localID )
 
-          const inverseMap = this.triangleElementMaps[ primitiveIndex ].inverseMap
-          const foundTriangles = inverseMap.get( localID )
-
-          if (foundTriangles === void 0) {
-            continue
-          }
-
-          yield [localID, primitiveIndex, foundTriangles]
+        if (foundTriangles === void 0) {
+          continue
         }
+
+        yield [localID, primitiveIndex, foundTriangles]
       }
     }
   }

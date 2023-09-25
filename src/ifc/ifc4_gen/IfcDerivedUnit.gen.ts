@@ -4,7 +4,9 @@ import { IfcDerivedUnitEnum, IfcDerivedUnitEnumDeserializeStep } from "./index"
 import { IfcLabel } from "./index"
 import { IfcDimensionalExponents } from "./index"
 import {
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 import {
   IfcDeriveDimensionalExponents,
@@ -28,23 +30,28 @@ export  class IfcDerivedUnit extends StepEntityBase< EntityTypesIfc > {
 
   public get Elements() : Array<IfcDerivedUnitElement> {
     if ( this.Elements_ === void 0 ) {
-      this.Elements_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 0 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<IfcDerivedUnitElement> = [];
+      const value : Array<IfcDerivedUnitElement> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-           let value = this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcDerivedUnitElement ) )  {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
-          }
-    
-          return value
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcDerivedUnitElement )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.Elements_ = value
     }
 
     return this.Elements_ as Array<IfcDerivedUnitElement>

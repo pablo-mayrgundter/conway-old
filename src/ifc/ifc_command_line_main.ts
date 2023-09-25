@@ -244,6 +244,7 @@ function serializeGeometry(
     if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY && !geometry.temporary) {
 
       let fullGeometry = materialGeometry.get(material)
+
       if (fullGeometry === void 0) {
 
         fullGeometry = conwaywasm.nativeGeometryCollection()

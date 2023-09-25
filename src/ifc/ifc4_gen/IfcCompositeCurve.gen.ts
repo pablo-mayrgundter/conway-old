@@ -4,7 +4,9 @@ import { IfcCompositeCurveSegment } from "./index"
 import { IfcLogical } from "./index"
 import { IfcInteger } from "./index"
 import {
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
   SIZEOF,
 } from '../../step/parsing/step_deserialization_functions'
 
@@ -25,23 +27,28 @@ export  class IfcCompositeCurve extends IfcBoundedCurve {
 
   public get Segments() : Array<IfcCompositeCurveSegment> {
     if ( this.Segments_ === void 0 ) {
-      this.Segments_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 0 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<IfcCompositeCurveSegment> = [];
+      const value : Array<IfcCompositeCurveSegment> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-           let value = this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcCompositeCurveSegment ) )  {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
-          }
-    
-          return value
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcCompositeCurveSegment )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.Segments_ = value
     }
 
     return this.Segments_ as Array<IfcCompositeCurveSegment>

@@ -19,16 +19,16 @@ export  class IfcRelAssociatesClassification extends IfcRelAssociates {
 
   public get RelatingClassification() : IfcClassification | IfcClassificationReference {
     if ( this.RelatingClassification_ === void 0 ) {
-      this.RelatingClassification_ = this.extractLambda( 5, (buffer, cursor, endCursor) => {
-
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
+      
+      const value : StepEntityBase< EntityTypesIfc > =
+        this.extractReference( 5, false )
 
       if ( !( value instanceof IfcClassification ) && !( value instanceof IfcClassificationReference ) ) {
-        return ( void 0 )
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcClassification | IfcClassificationReference)
-}, false )
+
+      this.RelatingClassification_ = value as (IfcClassification | IfcClassificationReference)
+
     }
 
     return this.RelatingClassification_ as IfcClassification | IfcClassificationReference

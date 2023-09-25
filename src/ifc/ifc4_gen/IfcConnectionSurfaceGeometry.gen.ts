@@ -21,16 +21,16 @@ export  class IfcConnectionSurfaceGeometry extends IfcConnectionGeometry {
 
   public get SurfaceOnRelatingElement() : IfcFaceBasedSurfaceModel | IfcFaceSurface | IfcSurface {
     if ( this.SurfaceOnRelatingElement_ === void 0 ) {
-      this.SurfaceOnRelatingElement_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
-
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
+      
+      const value : StepEntityBase< EntityTypesIfc > =
+        this.extractReference( 0, false )
 
       if ( !( value instanceof IfcFaceBasedSurfaceModel ) && !( value instanceof IfcFaceSurface ) && !( value instanceof IfcSurface ) ) {
-        return ( void 0 )
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcFaceBasedSurfaceModel | IfcFaceSurface | IfcSurface)
-}, false )
+
+      this.SurfaceOnRelatingElement_ = value as (IfcFaceBasedSurfaceModel | IfcFaceSurface | IfcSurface)
+
     }
 
     return this.SurfaceOnRelatingElement_ as IfcFaceBasedSurfaceModel | IfcFaceSurface | IfcSurface
@@ -38,16 +38,16 @@ export  class IfcConnectionSurfaceGeometry extends IfcConnectionGeometry {
 
   public get SurfaceOnRelatedElement() : IfcFaceBasedSurfaceModel | IfcFaceSurface | IfcSurface | null {
     if ( this.SurfaceOnRelatedElement_ === void 0 ) {
-      this.SurfaceOnRelatedElement_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 1, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcFaceBasedSurfaceModel ) && !( value instanceof IfcFaceSurface ) && !( value instanceof IfcSurface ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcFaceBasedSurfaceModel ) && !( value instanceof IfcFaceSurface ) && !( value instanceof IfcSurface ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcFaceBasedSurfaceModel | IfcFaceSurface | IfcSurface)
-}, true )
+
+      this.SurfaceOnRelatedElement_ = value as (IfcFaceBasedSurfaceModel | IfcFaceSurface | IfcSurface)
+
     }
 
     return this.SurfaceOnRelatedElement_ as IfcFaceBasedSurfaceModel | IfcFaceSurface | IfcSurface | null
