@@ -4,7 +4,9 @@ import { IfcContext } from "./index"
 import { IfcObjectDefinition } from "./index"
 import { IfcPropertyDefinition } from "./index"
 import {
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -32,22 +34,35 @@ export  class IfcRelDeclares extends IfcRelationship {
 
   public get RelatedDefinitions() : Array<IfcObjectDefinition | IfcPropertyDefinition> {
     if ( this.RelatedDefinitions_ === void 0 ) {
-      this.RelatedDefinitions_ = this.extractLambda( 5, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 5 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<IfcObjectDefinition | IfcPropertyDefinition> = [];
+      const value : Array<IfcObjectDefinition | IfcPropertyDefinition> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-          const value : StepEntityBase< EntityTypesIfc > | undefined =
-            this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcObjectDefinition ) && !( value instanceof IfcPropertyDefinition ) ) {
-            throw new Error( 'Value in select must be populated' )
-          }
-          return value as (IfcObjectDefinition | IfcPropertyDefinition)})() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+          this.extractBufferReference( buffer, cursor, endCursor )
+
+        if ( !( value1Untyped instanceof IfcObjectDefinition ) && !( value1Untyped instanceof IfcPropertyDefinition ) ) {
+          throw new Error( 'Value in select must be populated' )
+        }
+
+        const value1 = value1Untyped as (IfcObjectDefinition | IfcPropertyDefinition)
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.RelatedDefinitions_ = value
     }
 
     return this.RelatedDefinitions_ as Array<IfcObjectDefinition | IfcPropertyDefinition>

@@ -32,16 +32,16 @@ export  class IfcTextStyleTextModel extends IfcPresentationItem {
 
   public get TextIndent() : IfcDescriptiveMeasure | IfcLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveLengthMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure | null {
     if ( this.TextIndent_ === void 0 ) {
-      this.TextIndent_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 0, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcDescriptiveMeasure ) && !( value instanceof IfcLengthMeasure ) && !( value instanceof IfcNormalisedRatioMeasure ) && !( value instanceof IfcPositiveLengthMeasure ) && !( value instanceof IfcPositiveRatioMeasure ) && !( value instanceof IfcRatioMeasure ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcDescriptiveMeasure ) && !( value instanceof IfcLengthMeasure ) && !( value instanceof IfcNormalisedRatioMeasure ) && !( value instanceof IfcPositiveLengthMeasure ) && !( value instanceof IfcPositiveRatioMeasure ) && !( value instanceof IfcRatioMeasure ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcDescriptiveMeasure | IfcLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveLengthMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure)
-}, true )
+
+      this.TextIndent_ = value as (IfcDescriptiveMeasure | IfcLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveLengthMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure)
+
     }
 
     return this.TextIndent_ as IfcDescriptiveMeasure | IfcLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveLengthMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure | null
@@ -65,16 +65,16 @@ export  class IfcTextStyleTextModel extends IfcPresentationItem {
 
   public get LetterSpacing() : IfcDescriptiveMeasure | IfcLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveLengthMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure | null {
     if ( this.LetterSpacing_ === void 0 ) {
-      this.LetterSpacing_ = this.extractLambda( 3, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 3, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcDescriptiveMeasure ) && !( value instanceof IfcLengthMeasure ) && !( value instanceof IfcNormalisedRatioMeasure ) && !( value instanceof IfcPositiveLengthMeasure ) && !( value instanceof IfcPositiveRatioMeasure ) && !( value instanceof IfcRatioMeasure ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcDescriptiveMeasure ) && !( value instanceof IfcLengthMeasure ) && !( value instanceof IfcNormalisedRatioMeasure ) && !( value instanceof IfcPositiveLengthMeasure ) && !( value instanceof IfcPositiveRatioMeasure ) && !( value instanceof IfcRatioMeasure ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcDescriptiveMeasure | IfcLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveLengthMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure)
-}, true )
+
+      this.LetterSpacing_ = value as (IfcDescriptiveMeasure | IfcLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveLengthMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure)
+
     }
 
     return this.LetterSpacing_ as IfcDescriptiveMeasure | IfcLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveLengthMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure | null
@@ -82,16 +82,16 @@ export  class IfcTextStyleTextModel extends IfcPresentationItem {
 
   public get WordSpacing() : IfcDescriptiveMeasure | IfcLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveLengthMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure | null {
     if ( this.WordSpacing_ === void 0 ) {
-      this.WordSpacing_ = this.extractLambda( 4, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 4, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcDescriptiveMeasure ) && !( value instanceof IfcLengthMeasure ) && !( value instanceof IfcNormalisedRatioMeasure ) && !( value instanceof IfcPositiveLengthMeasure ) && !( value instanceof IfcPositiveRatioMeasure ) && !( value instanceof IfcRatioMeasure ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcDescriptiveMeasure ) && !( value instanceof IfcLengthMeasure ) && !( value instanceof IfcNormalisedRatioMeasure ) && !( value instanceof IfcPositiveLengthMeasure ) && !( value instanceof IfcPositiveRatioMeasure ) && !( value instanceof IfcRatioMeasure ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcDescriptiveMeasure | IfcLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveLengthMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure)
-}, true )
+
+      this.WordSpacing_ = value as (IfcDescriptiveMeasure | IfcLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveLengthMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure)
+
     }
 
     return this.WordSpacing_ as IfcDescriptiveMeasure | IfcLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveLengthMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure | null
@@ -107,16 +107,16 @@ export  class IfcTextStyleTextModel extends IfcPresentationItem {
 
   public get LineHeight() : IfcDescriptiveMeasure | IfcLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveLengthMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure | null {
     if ( this.LineHeight_ === void 0 ) {
-      this.LineHeight_ = this.extractLambda( 6, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 6, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcDescriptiveMeasure ) && !( value instanceof IfcLengthMeasure ) && !( value instanceof IfcNormalisedRatioMeasure ) && !( value instanceof IfcPositiveLengthMeasure ) && !( value instanceof IfcPositiveRatioMeasure ) && !( value instanceof IfcRatioMeasure ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcDescriptiveMeasure ) && !( value instanceof IfcLengthMeasure ) && !( value instanceof IfcNormalisedRatioMeasure ) && !( value instanceof IfcPositiveLengthMeasure ) && !( value instanceof IfcPositiveRatioMeasure ) && !( value instanceof IfcRatioMeasure ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcDescriptiveMeasure | IfcLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveLengthMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure)
-}, true )
+
+      this.LineHeight_ = value as (IfcDescriptiveMeasure | IfcLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveLengthMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure)
+
     }
 
     return this.LineHeight_ as IfcDescriptiveMeasure | IfcLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveLengthMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure | null

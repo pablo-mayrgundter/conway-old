@@ -19,16 +19,16 @@ export  class IfcRelAssignsToProduct extends IfcRelAssigns {
 
   public get RelatingProduct() : IfcProduct | IfcTypeProduct {
     if ( this.RelatingProduct_ === void 0 ) {
-      this.RelatingProduct_ = this.extractLambda( 6, (buffer, cursor, endCursor) => {
-
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
+      
+      const value : StepEntityBase< EntityTypesIfc > =
+        this.extractReference( 6, false )
 
       if ( !( value instanceof IfcProduct ) && !( value instanceof IfcTypeProduct ) ) {
-        return ( void 0 )
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcProduct | IfcTypeProduct)
-}, false )
+
+      this.RelatingProduct_ = value as (IfcProduct | IfcTypeProduct)
+
     }
 
     return this.RelatingProduct_ as IfcProduct | IfcTypeProduct

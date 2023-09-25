@@ -8,7 +8,9 @@ import { IfcDate } from "./index"
 import { IfcCostValue } from "./index"
 import {
   stepExtractOptional,
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -40,16 +42,16 @@ export  class IfcInventory extends IfcGroup {
 
   public get Jurisdiction() : IfcOrganization | IfcPerson | IfcPersonAndOrganization | null {
     if ( this.Jurisdiction_ === void 0 ) {
-      this.Jurisdiction_ = this.extractLambda( 6, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 6, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization)
-}, true )
+
+      this.Jurisdiction_ = value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization)
+
     }
 
     return this.Jurisdiction_ as IfcOrganization | IfcPerson | IfcPersonAndOrganization | null
@@ -57,27 +59,32 @@ export  class IfcInventory extends IfcGroup {
 
   public get ResponsiblePersons() : Array<IfcPerson> | null {
     if ( this.ResponsiblePersons_ === void 0 ) {
-      this.ResponsiblePersons_ = this.extractLambda( 7, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 7 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      let value : Array<IfcPerson> = [];
+      const value : Array<IfcPerson> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-           let value = this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcPerson ) )  {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
-          }
-    
-          return value
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcPerson )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, true )
+
+      this.ResponsiblePersons_ = value
     }
 
     return this.ResponsiblePersons_ as Array<IfcPerson> | null

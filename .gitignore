@@ -20,3 +20,4 @@ isolate*.log
 index*.bin
 index*.gltf
 index*.glb
+*.bin

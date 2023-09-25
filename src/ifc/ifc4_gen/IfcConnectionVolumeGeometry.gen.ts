@@ -20,16 +20,16 @@ export  class IfcConnectionVolumeGeometry extends IfcConnectionGeometry {
 
   public get VolumeOnRelatingElement() : IfcClosedShell | IfcSolidModel {
     if ( this.VolumeOnRelatingElement_ === void 0 ) {
-      this.VolumeOnRelatingElement_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
-
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
+      
+      const value : StepEntityBase< EntityTypesIfc > =
+        this.extractReference( 0, false )
 
       if ( !( value instanceof IfcClosedShell ) && !( value instanceof IfcSolidModel ) ) {
-        return ( void 0 )
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcClosedShell | IfcSolidModel)
-}, false )
+
+      this.VolumeOnRelatingElement_ = value as (IfcClosedShell | IfcSolidModel)
+
     }
 
     return this.VolumeOnRelatingElement_ as IfcClosedShell | IfcSolidModel
@@ -37,16 +37,16 @@ export  class IfcConnectionVolumeGeometry extends IfcConnectionGeometry {
 
   public get VolumeOnRelatedElement() : IfcClosedShell | IfcSolidModel | null {
     if ( this.VolumeOnRelatedElement_ === void 0 ) {
-      this.VolumeOnRelatedElement_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 1, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcClosedShell ) && !( value instanceof IfcSolidModel ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcClosedShell ) && !( value instanceof IfcSolidModel ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcClosedShell | IfcSolidModel)
-}, true )
+
+      this.VolumeOnRelatedElement_ = value as (IfcClosedShell | IfcSolidModel)
+
     }
 
     return this.VolumeOnRelatedElement_ as IfcClosedShell | IfcSolidModel | null

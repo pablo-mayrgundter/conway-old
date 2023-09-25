@@ -4,7 +4,9 @@ import { IfcLayerSetDirectionEnum, IfcLayerSetDirectionEnumDeserializeStep } fro
 import { IfcLengthMeasure } from "./index"
 import {
   stepExtractNumber,
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -32,23 +34,29 @@ export  class IfcMaterialLayerWithOffsets extends IfcMaterialLayer {
 
   public get OffsetValues() : Array< number > {
     if ( this.OffsetValues_ === void 0 ) {
-      this.OffsetValues_ = this.extractLambda( 8, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 8 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<number> = [];
+      const value : Array<number> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-          const value = stepExtractNumber( buffer, cursor, endCursor )
-    
-          if ( value === void 0 ) {
-            throw new Error( 'Value needs to be defined in encapsulating context' )
-          }
-    
-          return value 
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = stepExtractNumber( buffer, cursor, endCursor )
+
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.OffsetValues_ = value
     }
 
     return this.OffsetValues_ as Array< number >

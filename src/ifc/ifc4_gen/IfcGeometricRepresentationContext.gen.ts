@@ -41,16 +41,16 @@ export  class IfcGeometricRepresentationContext extends IfcRepresentationContext
 
   public get WorldCoordinateSystem() : IfcAxis2Placement2D | IfcAxis2Placement3D {
     if ( this.WorldCoordinateSystem_ === void 0 ) {
-      this.WorldCoordinateSystem_ = this.extractLambda( 4, (buffer, cursor, endCursor) => {
-
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
+      
+      const value : StepEntityBase< EntityTypesIfc > =
+        this.extractReference( 4, false )
 
       if ( !( value instanceof IfcAxis2Placement2D ) && !( value instanceof IfcAxis2Placement3D ) ) {
-        return ( void 0 )
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcAxis2Placement2D | IfcAxis2Placement3D)
-}, false )
+
+      this.WorldCoordinateSystem_ = value as (IfcAxis2Placement2D | IfcAxis2Placement3D)
+
     }
 
     return this.WorldCoordinateSystem_ as IfcAxis2Placement2D | IfcAxis2Placement3D
