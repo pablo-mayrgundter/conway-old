@@ -195,10 +195,10 @@ export class IfcSceneBuilder implements Scene {
           const entityLocalId = entity?.localID
 
           triangleMap.addMappingRange(
-            0,
-            // eslint-disable-next-line no-magic-numbers
-            Math.trunc(clonedGeometry.GetIndexDataSize() / 3),
-            entityLocalId ?? TriangleElementMap.NO_ELEMENT)
+              0,
+              // eslint-disable-next-line no-magic-numbers, new-cap
+              Math.trunc(clonedGeometry.GetIndexDataSize() / 3),
+              entityLocalId ?? TriangleElementMap.NO_ELEMENT)
 
           const newPrimitiveIndex = primitives.length
 
@@ -230,10 +230,10 @@ export class IfcSceneBuilder implements Scene {
           const entityLocalId = entity?.localID
 
           triangleMap.addMappingRange(
-            triangleMap.size,
-            // eslint-disable-next-line no-magic-numbers
-            triangleMap.size + Math.trunc(clonedGeometry.GetIndexDataSize() / 3),
-            entityLocalId ?? TriangleElementMap.NO_ELEMENT)
+              triangleMap.size,
+              // eslint-disable-next-line no-magic-numbers, new-cap
+              triangleMap.size + Math.trunc(clonedGeometry.GetIndexDataSize() / 3),
+              entityLocalId ?? TriangleElementMap.NO_ELEMENT)
 
           if (entityLocalId !== void 0) {
 
@@ -256,11 +256,11 @@ export class IfcSceneBuilder implements Scene {
     }
 
     return new PackedMesh<IfcStepModel>(
-      this.model,
-      materials,
-      primitives,
-      triangleMaps,
-      elementMap)
+        this.model,
+        materials,
+        primitives,
+        triangleMaps,
+        elementMap)
   }
 
   /**
@@ -270,7 +270,7 @@ export class IfcSceneBuilder implements Scene {
    * the canonical material and the associated step element as it walks the hierarchy.
    * @param walkTemporary Include temporary items.
    */
-  public * walk(walkTemporary: boolean = false):
+  public* walk(walkTemporary: boolean = false):
     IterableIterator<[readonly number[] | undefined,
       IfcNativeTransform | undefined,
       CanonicalMesh,
@@ -286,15 +286,10 @@ export class IfcSceneBuilder implements Scene {
         const geometry = node.model.geometry?.getByLocalID(node.localID)
 
         if (geometry === void 0) {
-          console.log("skipping due to null geometry, express ID: " + this.model.getElementByLocalID(node.localID)?.expressID)
+          console.log(`skipping due to null geometry, express ID: 
+          ${  this.model.getElementByLocalID(node.localID)?.expressID}`)
           continue
         }
-
-        //console.log(`node express ID: ${this.model.getElementByLocalID(node.localID)?.expressID}`)
-
-       /* if (node.relatedElementLocalId !== void 0) {
-          console.log(`related element express ID: ${this.model.getElementByLocalID(node.relatedElementLocalId)?.expressID}`)
-        }*/
 
         let parentNode: IfcSceneTransform | undefined
 
@@ -360,17 +355,12 @@ export class IfcSceneBuilder implements Scene {
 
     const result =
       new IfcSceneGeometry(
-        this.model,
-        localID,
-        nodeIndex,
-        owningElementLocalID,
-        parentIndex)
+          this.model,
+          localID,
+          nodeIndex,
+          owningElementLocalID,
+          parentIndex)
 
-    //console.log("pushing geometry, express ID: " + this.model.getElementByLocalID(localID)?.expressID)
-
-    /*if (owningElementLocalID !== void 0) {
-      console.log("pushing geometry - owningElementExpressID: " + this.model.getElementByLocalID(owningElementLocalID)?.expressID)
-    }*/
     this.scene_.push(result)
 
     return result
@@ -384,9 +374,9 @@ export class IfcSceneBuilder implements Scene {
    * @return {IfcSceneTransform}
    */
   public addTransform(
-    localID: number,
-    transform: ReadonlyArray<number>,
-    nativeTransform: IfcNativeTransform): IfcSceneTransform {
+      localID: number,
+      transform: ReadonlyArray<number>,
+      nativeTransform: IfcNativeTransform): IfcSceneTransform {
 
     if (this.sceneLocalIdMap_.has(localID)) {
       const transform_ = this.getTransform(localID)
@@ -412,7 +402,7 @@ export class IfcSceneBuilder implements Scene {
       }
 
       absoluteNativeTransform = this.conwayGeometry
-        .getLocalPlacement(localPlacementParameters)
+          .getLocalPlacement(localPlacementParameters)
 
       parentIndex = this.currentParent_.index
       this.currentParent_.children.push(nodeIndex)
@@ -425,14 +415,14 @@ export class IfcSceneBuilder implements Scene {
 
     const result =
       new IfcSceneTransform(
-        this.model,
-        transform,
-        absoluteNativeTransform.getValues(),
-        localID,
-        nodeIndex,
-        nativeTransform,
-        absoluteNativeTransform,
-        parentIndex)
+          this.model,
+          transform,
+          absoluteNativeTransform.getValues(),
+          localID,
+          nodeIndex,
+          nativeTransform,
+          absoluteNativeTransform,
+          parentIndex)
 
     this.scene_.push(result)
 

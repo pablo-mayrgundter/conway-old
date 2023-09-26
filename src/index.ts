@@ -1,4 +1,4 @@
-export { default as IfcStepParser } from './ifc/ifc_step_parser';
+export { default as IfcStepParser } from './ifc/ifc_step_parser'
 export {default as ParsingBuffer} from './parsing/parsing_buffer'
 export { ParseResult } from './step/parsing/step_parser'
 export {default as EntityTypesIfc} from './ifc/ifc4_gen/entity_types_ifc.gen'

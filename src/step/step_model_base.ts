@@ -87,7 +87,7 @@ implements Iterable<BaseEntity>, Model {
 
     this.inlineAddressMap_ = inlineAddressMap
 
-    //console.log( 'Inline Address Map', inlineAddressMap.size )
+    // console.log( 'Inline Address Map', inlineAddressMap.size )
 
     const expressIdTable = new Uint32Array( firstInlineElement << 1 )
 
@@ -125,7 +125,7 @@ implements Iterable<BaseEntity>, Model {
 
     this.expressIDMap_ = expressIDMap
 
-    //console.log( 'Express ID Map', expressIDMap.size )
+    // console.log( 'Express ID Map', expressIDMap.size )
 
     this.elementIndex_ = localElementIndex
   }
@@ -210,7 +210,7 @@ implements Iterable<BaseEntity>, Model {
     }
 
     const element = this.elementIndex_[localID]
-    
+
     element.buffer = this.buffer_
   }
 
@@ -261,6 +261,11 @@ implements Iterable<BaseEntity>, Model {
     return this.getElementByLocalID(localID)
   }
 
+  /**
+   *
+   * @param {from} local ID array
+   * @return {Uint32Array} express ID array
+   */
   public mapLocalIDsToExpressIDs( from: ReadonlyUint32Array ): Uint32Array {
 
     const index = this.elementIndex_

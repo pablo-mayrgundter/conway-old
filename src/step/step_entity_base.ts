@@ -12,12 +12,12 @@ import {
   stepExtractReference,
   stepExtractString,
 } from './parsing/step_deserialization_functions'
-import { ParseResult } from './parsing/step_parser'
 import { StepEntityConstructorAbstract } from './step_entity_constructor'
 import StepEntityInternalReference,
 { StepEntityInternalReferencePrivate } from './step_entity_internal_reference'
 import StepModelBase from './step_model_base'
 
+/* eslint-disable no-shadow,no-unused-vars,no-magic-numbers */
 enum IfcTokenType {
   UNKNOWN = 0,
   STRING,
@@ -31,19 +31,6 @@ enum IfcTokenType {
   LINE_END
 }
 
-const byteToTokenTypeMap: { [key: number]: IfcTokenType } = {
-  0x00: IfcTokenType.UNKNOWN,
-  0x01: IfcTokenType.STRING,
-  0x02: IfcTokenType.LABEL,
-  0x03: IfcTokenType.ENUM,
-  0x04: IfcTokenType.REAL,
-  0x05: IfcTokenType.REF,
-  0x06: IfcTokenType.EMPTY,
-  0x07: IfcTokenType.SET_BEGIN,
-  0x08: IfcTokenType.SET_END,
-  0x09: IfcTokenType.LINE_END
-}
-
 /**
  * Merge the entity field descriptions.
  *
@@ -54,8 +41,8 @@ const byteToTokenTypeMap: { [key: number]: IfcTokenType } = {
  * @param from Merge from this fields object.
  */
 function merge<EntityTypeIDs extends number>(
-  to: EntityFieldsDescription<EntityTypeIDs>,
-  from: EntityFieldsDescription<EntityTypeIDs>): void {
+    to: EntityFieldsDescription<EntityTypeIDs>,
+    from: EntityFieldsDescription<EntityTypeIDs>): void {
 
   for (const key of Object.keys(from)) {
 
@@ -124,20 +111,20 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
     const internalFields = this.fields
 
     Object.keys(internalFields).reduce<[string, EntityFieldDescription<EntityTypeIDs>][]>(
-      (previous, current) => {
+        (previous, current) => {
 
-        // eslint-disable-next-line no-prototype-builtins
-        if (internalFields.hasOwnProperty(current)) {
+          // eslint-disable-next-line no-prototype-builtins
+          if (internalFields.hasOwnProperty(current)) {
 
-          const field = internalFields[current]
+            const field = internalFields[current]
 
-          if (field.offset !== void 0) {
-            previous.push([current, internalFields[current]])
+            if (field.offset !== void 0) {
+              previous.push([current, internalFields[current]])
+            }
           }
-        }
 
-        return previous
-      }, fields)
+          return previous
+        }, fields)
 
     fields.sort((a, b) => (a[1].offset as number) - (b[1].offset as number))
 
@@ -325,7 +312,7 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
     const value: StepEntityBase<EntityTypeIDs> | undefined =
       expressID !== void 0 ? this.model.getElementByExpressID(expressID) :
         (this.model.getInlineElementByAddress(
-          stepExtractInlineElemement(buffer, cursor, endCursor)))
+            stepExtractInlineElemement(buffer, cursor, endCursor)))
 
     if (value === void 0) {
       if (!optional) {
@@ -342,6 +329,12 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
     return value
   }
 
+  /**
+   *
+   * @param {buffer} string buffer
+   * @param {cursor} current cursor
+   * @return {{ data: string, length: number }} string and length
+   */
   readStringView(buffer: Uint8Array, cursor: number): { data: string, length: number } {
     const view = new DataView(buffer.buffer)
     const length = view.getUint16(cursor, true) // Little-endian
@@ -355,8 +348,18 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
     return { data, length }
   }
 
+  /* eslint-disable jsdoc/no-undefined-types */
+  /**
+   *
+   * @param {buffer} value array
+   * @param {cursor} current cursor
+   * // eslint-disable-next-line jsdoc/no-undefined-types
+   * @param {t} ifc token type
+   * @return {any} ifc token
+   */
   readValue(buffer: Uint8Array, cursor: number, t: IfcTokenType): any {
     const view = new DataView(buffer.buffer)
+    /* eslint-disable no-case-declarations */
     switch (t) {
       case IfcTokenType.STRING:
       case IfcTokenType.ENUM:
@@ -374,23 +377,26 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
       default:
         return { value: undefined, length: 0 }
     }
+    /* eslint-enable no-case-declarations */
+    /* eslint-enable jsdoc/no-undefined-types */
   }
 
+  /**
+   *
+   * @return {Uint8Array} buffer containing line data up to the semicolon
+   */
   extractLineArguments(): Uint8Array {
 
     this.guaranteeBuffer()
-    const internalReference = this.internalReference_ as Required<StepEntityInternalReference<EntityTypeIDs>>
+    const internalReference = this.internalReference_ as
+    Required<StepEntityInternalReference<EntityTypeIDs>>
 
-    let cursor = internalReference.address
+    const cursor = internalReference.address
     const buffer = internalReference.buffer
-    //const endCursor = buffer.length
     const endCursor = cursor + internalReference.length
 
-    const subArray = buffer.subarray(cursor, endCursor) //include the Open parenthesis + ending semicolon 
-    //const text = new TextDecoder().decode(subArray)
-
-   // console.log(text)  // Output:
-
+    // include the Open parenthesis + ending semicolon
+    const subArray = buffer.subarray(cursor, endCursor)
     return subArray
   }
 
@@ -403,31 +409,37 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    * @return {StepEntityBase | undefined} Extracted entity or undefined.
    */
   protected extractBufferReference(
-    buffer: Uint8Array,
-    cursor: number,
-    endCursor: number): StepEntityBase<EntityTypeIDs> | undefined {
+      buffer: Uint8Array,
+      cursor: number,
+      endCursor: number): StepEntityBase<EntityTypeIDs> | undefined {
 
     const expressID = stepExtractReference(buffer, cursor, endCursor)
     const value: StepEntityBase<EntityTypeIDs> | undefined =
       expressID !== void 0 ? this.model.getElementByExpressID(expressID) :
         (this.model.getInlineElementByAddress(
-          stepExtractInlineElemement(buffer, cursor, endCursor)))
+            stepExtractInlineElemement(buffer, cursor, endCursor)))
 
     return value
   }
 
+  /**
+   *
+   * @param offset offset in ifc line
+   * @param rank number array rank
+   * @return {Array<any>} array of values
+   */
   public extractArray(offset: number, rank: number): Array<any> {
 
-    let arrayObjects: Array<any> = this.extractLambda(offset, (buffer, cursor, endCursor) => {
+    const arrayObjects: Array<any> = this.extractLambda(offset, (buffer, cursor, endCursor) => {
 
-      let value: Array<any> = []
+      const value: Array<any> = []
 
-      for (let address of stepExtractArray(buffer, cursor, endCursor)) {
+      for (const address of stepExtractArray(buffer, cursor, endCursor)) {
         value.push((() => {
           const cursor = address
-          let value = this.extractBufferReference(buffer, cursor, endCursor)
+          const value = this.extractBufferReference(buffer, cursor, endCursor)
 
-          /*if ( !( value instanceof IfcObjectDefinition ) )  {
+          /* if ( !( value instanceof IfcObjectDefinition ) )  {
             throw new Error( 'Value in STEP was incorrectly typed for field' )
           }*/
 
@@ -492,10 +504,10 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    */
   // eslint-disable-next-line no-dupe-class-members, require-jsdoc
   public extractLambda<ExtractionType>(
-    offset: number,
-    extractor: (buffer: Uint8Array, cursor: number, endCursor: number) =>
+      offset: number,
+      extractor: (buffer: Uint8Array, cursor: number, endCursor: number) =>
       ExtractionType | null | undefined,
-    optional: boolean): ExtractionType | null {
+      optional: boolean): ExtractionType | null {
 
     const cursor    = this.getOffsetCursor( offset )
     const buffer    = this.buffer
@@ -567,9 +579,9 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    */
   // eslint-disable-next-line no-dupe-class-members, require-jsdoc
   public extractElement<T extends StepEntityConstructorAbstract<EntityTypeIDs>>(
-    offset: number,
-    optional: boolean,
-    entityConstructor: T):
+      offset: number,
+      optional: boolean,
+      entityConstructor: T):
     InstanceType<T> | null {
 
     const cursor    = this.getOffsetCursor( offset )
@@ -580,7 +592,7 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
     const value =
       expressID !== void 0 ? this.model.getElementByExpressID(expressID) :
         this.model.getInlineElementByAddress(
-          stepExtractInlineElemement(buffer, cursor, endCursor))
+            stepExtractInlineElemement(buffer, cursor, endCursor))
 
     if (value === void 0) {
       if (!optional) {
