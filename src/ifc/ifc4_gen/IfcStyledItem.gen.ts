@@ -4,9 +4,7 @@ import { IfcPresentationStyle } from "./index"
 import { IfcPresentationStyleAssignment } from "./index"
 import { IfcLabel } from "./index"
 import {
-  stepExtractArrayToken,
-  stepExtractArrayBegin,
-  skipValue,
+  stepExtractArray,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -35,35 +33,22 @@ export  class IfcStyledItem extends IfcRepresentationItem {
 
   public get Styles() : Array<IfcPresentationStyle | IfcPresentationStyleAssignment> {
     if ( this.Styles_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 1 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.Styles_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
-      const value : Array<IfcPresentationStyle | IfcPresentationStyleAssignment> = []
+      let value : Array<IfcPresentationStyle | IfcPresentationStyleAssignment> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
-          this.extractBufferReference( buffer, cursor, endCursor )
-
-        if ( !( value1Untyped instanceof IfcPresentationStyle ) && !( value1Untyped instanceof IfcPresentationStyleAssignment ) ) {
-          throw new Error( 'Value in select must be populated' )
-        }
-
-        const value1 = value1Untyped as (IfcPresentationStyle | IfcPresentationStyleAssignment)
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+          const value : StepEntityBase< EntityTypesIfc > | undefined =
+            this.extractBufferReference( buffer, cursor, endCursor )
+    
+          if ( !( value instanceof IfcPresentationStyle ) && !( value instanceof IfcPresentationStyleAssignment ) ) {
+            throw new Error( 'Value in select must be populated' )
+          }
+          return value as (IfcPresentationStyle | IfcPresentationStyleAssignment)})() )
       }
-
-      this.Styles_ = value
+      return value }, false )
     }
 
     return this.Styles_ as Array<IfcPresentationStyle | IfcPresentationStyleAssignment>

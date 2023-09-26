@@ -7,9 +7,7 @@ import { IfcStructuralResultGroup } from "./index"
 import { IfcObjectPlacement } from "./index"
 import {
   stepExtractOptional,
-  stepExtractArrayToken,
-  stepExtractArrayBegin,
-  skipValue,
+  stepExtractArray,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -48,32 +46,27 @@ export  class IfcStructuralAnalysisModel extends IfcSystem {
 
   public get LoadedBy() : Array<IfcStructuralLoadGroup> | null {
     if ( this.LoadedBy_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 7 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.LoadedBy_ = this.extractLambda( 7, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      const value : Array<IfcStructuralLoadGroup> = []
+      let value : Array<IfcStructuralLoadGroup> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcStructuralLoadGroup )
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
+    
+          if ( !( value instanceof IfcStructuralLoadGroup ) )  {
+            throw new Error( 'Value in STEP was incorrectly typed for field' )
+          }
+    
+          return value
+        })() )
       }
-
-      this.LoadedBy_ = value
+      return value }, true )
     }
 
     return this.LoadedBy_ as Array<IfcStructuralLoadGroup> | null
@@ -81,32 +74,27 @@ export  class IfcStructuralAnalysisModel extends IfcSystem {
 
   public get HasResults() : Array<IfcStructuralResultGroup> | null {
     if ( this.HasResults_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 8 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.HasResults_ = this.extractLambda( 8, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      const value : Array<IfcStructuralResultGroup> = []
+      let value : Array<IfcStructuralResultGroup> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcStructuralResultGroup )
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
+    
+          if ( !( value instanceof IfcStructuralResultGroup ) )  {
+            throw new Error( 'Value in STEP was incorrectly typed for field' )
+          }
+    
+          return value
+        })() )
       }
-
-      this.HasResults_ = value
+      return value }, true )
     }
 
     return this.HasResults_ as Array<IfcStructuralResultGroup> | null

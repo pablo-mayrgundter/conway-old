@@ -28,16 +28,16 @@ export  class IfcGridPlacement extends IfcObjectPlacement {
 
   public get PlacementRefDirection() : IfcDirection | IfcVirtualGridIntersection | null {
     if ( this.PlacementRefDirection_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc >| null =
-        this.extractReference( 1, true )
+      this.PlacementRefDirection_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
-      if ( !( value instanceof IfcDirection ) && !( value instanceof IfcVirtualGridIntersection ) && value !== null ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
+
+      if ( !( value instanceof IfcDirection ) && !( value instanceof IfcVirtualGridIntersection ) ) {
+        return ( void 0 )
       }
-
-      this.PlacementRefDirection_ = value as (IfcDirection | IfcVirtualGridIntersection)
-
+      return value as (IfcDirection | IfcVirtualGridIntersection)
+}, true )
     }
 
     return this.PlacementRefDirection_ as IfcDirection | IfcVirtualGridIntersection | null

@@ -8,6 +8,8 @@ import { extractOneHotLow } from '../indexing/bit_operations'
 import { MultiIndexSet } from '../indexing/multi_index_set'
 import { StepEntityConstructorAbstract } from './step_entity_constructor'
 import { Model } from '../core/model'
+import { ReadonlyUint32Array } from '../core/readonly_typed_array'
+import { TriangleElementMap } from '../core/triangle_element_map'
 import InterpolationSearchTable32 from '../indexing/interpolation_search_table_32'
 
 /**
@@ -85,7 +87,7 @@ implements Iterable<BaseEntity>, Model {
 
     this.inlineAddressMap_ = inlineAddressMap
 
-    console.log( 'Inline Address Map', inlineAddressMap.size )
+    // console.log( 'Inline Address Map', inlineAddressMap.size )
 
     const expressIdTable = new Uint32Array( firstInlineElement << 1 )
 
@@ -123,7 +125,7 @@ implements Iterable<BaseEntity>, Model {
 
     this.expressIDMap_ = expressIDMap
 
-    console.log( 'Express ID Map', expressIDMap.size )
+    // console.log( 'Express ID Map', expressIDMap.size )
 
     this.elementIndex_ = localElementIndex
   }
@@ -195,6 +197,23 @@ implements Iterable<BaseEntity>, Model {
     return true
   }
 
+
+  /**
+   * Force the population of the the buffer entry for a particular element.
+   *
+   * @param localID The local id to fetch the buffer entry for.
+   * @throws {Error} Throws an error if the ID is invalid.
+   */
+  public populateBufferEntry(localID: number): void {
+    if (localID > this.elementIndex_.length) {
+      throw new Error(`Invalid localID ${localID}`)
+    }
+
+    const element = this.elementIndex_[localID]
+
+    element.buffer = this.buffer_
+  }
+
   /**
    * Get the number of elements/entities in this model.
    *
@@ -241,6 +260,33 @@ implements Iterable<BaseEntity>, Model {
 
     return this.getElementByLocalID(localID)
   }
+
+  /**
+   *
+   * @param {from} local ID array
+   * @return {Uint32Array} express ID array
+   */
+  public mapLocalIDsToExpressIDs( from: ReadonlyUint32Array ): Uint32Array {
+
+    const index = this.elementIndex_
+
+    return from.map( (value) => index[ value ]?.expressID ?? TriangleElementMap.NO_ELEMENT )
+  }
+
+  /**
+   * Given an express ID, return the matching element if one exists.
+   *
+   * @param {number} localID The local ID to fetch the element for.
+   * @return {number | undefined} The express ID if one exists for that local ID,
+   * otherwise undefined.
+   */
+  public getExpressIDByLocalID(localID: number): number | undefined {
+
+    const index = this.elementIndex_
+
+    return index[ localID ]?.expressID
+  }
+
 
   /**
    * Given a local ID (i.e. dense index/reference), return the matching element if one

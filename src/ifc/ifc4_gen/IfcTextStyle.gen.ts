@@ -41,16 +41,16 @@ export  class IfcTextStyle extends IfcPresentationStyle {
 
   public get TextFontStyle() : IfcExternallyDefinedTextFont | IfcPreDefinedTextFont {
     if ( this.TextFontStyle_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc > =
-        this.extractReference( 3, false )
+      this.TextFontStyle_ = this.extractLambda( 3, (buffer, cursor, endCursor) => {
+
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcExternallyDefinedTextFont ) && !( value instanceof IfcPreDefinedTextFont ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      this.TextFontStyle_ = value as (IfcExternallyDefinedTextFont | IfcPreDefinedTextFont)
-
+      return value as (IfcExternallyDefinedTextFont | IfcPreDefinedTextFont)
+}, false )
     }
 
     return this.TextFontStyle_ as IfcExternallyDefinedTextFont | IfcPreDefinedTextFont

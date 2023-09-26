@@ -2,9 +2,7 @@
 /* This is generated code, don't alter */
 import {
   stepExtractNumber,
-  stepExtractArrayToken,
-  stepExtractArrayBegin,
-  skipValue,
+  stepExtractArray,
 } from '../../step/parsing/step_deserialization_functions'
 
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -24,29 +22,23 @@ export class IfcComplexNumber extends StepEntityBase< EntityTypesIfc > {
 
   public get Value() : Array<number> {
     if ( this.Value_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 0 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.Value_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
 
-      const value : Array<number> = []
+      let value : Array<number> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = stepExtractNumber( buffer, cursor, endCursor )
-
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+          const value = stepExtractNumber( buffer, cursor, endCursor )
+    
+          if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
+          }
+    
+          return value 
+        })() )
       }
-
-      this.Value_ = value
+      return value }, false )
     }
 
     return this.Value_ as Array<number>

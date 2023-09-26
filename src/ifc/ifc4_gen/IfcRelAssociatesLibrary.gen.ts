@@ -19,16 +19,16 @@ export  class IfcRelAssociatesLibrary extends IfcRelAssociates {
 
   public get RelatingLibrary() : IfcLibraryInformation | IfcLibraryReference {
     if ( this.RelatingLibrary_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc > =
-        this.extractReference( 5, false )
+      this.RelatingLibrary_ = this.extractLambda( 5, (buffer, cursor, endCursor) => {
+
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcLibraryInformation ) && !( value instanceof IfcLibraryReference ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      this.RelatingLibrary_ = value as (IfcLibraryInformation | IfcLibraryReference)
-
+      return value as (IfcLibraryInformation | IfcLibraryReference)
+}, false )
     }
 
     return this.RelatingLibrary_ as IfcLibraryInformation | IfcLibraryReference

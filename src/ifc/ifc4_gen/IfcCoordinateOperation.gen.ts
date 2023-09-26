@@ -19,16 +19,16 @@ export abstract class IfcCoordinateOperation extends StepEntityBase< EntityTypes
 
   public get SourceCRS() : IfcCoordinateReferenceSystem | IfcGeometricRepresentationContext {
     if ( this.SourceCRS_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc > =
-        this.extractReference( 0, false )
+      this.SourceCRS_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
+
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcCoordinateReferenceSystem ) && !( value instanceof IfcGeometricRepresentationContext ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      this.SourceCRS_ = value as (IfcCoordinateReferenceSystem | IfcGeometricRepresentationContext)
-
+      return value as (IfcCoordinateReferenceSystem | IfcGeometricRepresentationContext)
+}, false )
     }
 
     return this.SourceCRS_ as IfcCoordinateReferenceSystem | IfcGeometricRepresentationContext

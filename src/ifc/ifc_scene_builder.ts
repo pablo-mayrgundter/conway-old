@@ -196,23 +196,23 @@ export class IfcSceneBuilder implements Scene {
 
           triangleMap.addMappingRange(
               0,
-              // eslint-disable-next-line no-magic-numbers
-              Math.trunc(clonedGeometry.getIndexDataSize() / 3),
+              // eslint-disable-next-line no-magic-numbers, new-cap
+              Math.trunc(clonedGeometry.GetIndexDataSize() / 3),
               entityLocalId ?? TriangleElementMap.NO_ELEMENT)
 
           const newPrimitiveIndex = primitives.length
 
           if (entityLocalId !== void 0) {
 
-            let currentPrimitives = elementMap.get( entityLocalId )
+            let currentPrimitives = elementMap.get(entityLocalId)
 
-            if ( currentPrimitives === void 0 ) {
+            if (currentPrimitives === void 0) {
 
               currentPrimitives = []
               elementMap.set(entityLocalId, currentPrimitives)
             }
 
-            if ( !currentPrimitives.includes( newPrimitiveIndex ) ) {
+            if (!currentPrimitives.includes(newPrimitiveIndex)) {
               currentPrimitives.push(newPrimitiveIndex)
             }
           }
@@ -231,21 +231,21 @@ export class IfcSceneBuilder implements Scene {
 
           triangleMap.addMappingRange(
               triangleMap.size,
-              // eslint-disable-next-line no-magic-numbers
-              triangleMap.size + Math.trunc(clonedGeometry.getIndexDataSize() / 3),
+              // eslint-disable-next-line no-magic-numbers, new-cap
+              triangleMap.size + Math.trunc(clonedGeometry.GetIndexDataSize() / 3),
               entityLocalId ?? TriangleElementMap.NO_ELEMENT)
 
           if (entityLocalId !== void 0) {
 
-            let currentPrimitives = elementMap.get( entityLocalId )
+            let currentPrimitives = elementMap.get(entityLocalId)
 
-            if ( currentPrimitives === void 0 ) {
+            if (currentPrimitives === void 0) {
 
               currentPrimitives = []
               elementMap.set(entityLocalId, currentPrimitives)
             }
 
-            if ( !currentPrimitives.includes( primitiveIndex ) ) {
+            if (!currentPrimitives.includes(primitiveIndex)) {
               currentPrimitives.push(primitiveIndex)
             }
           }
@@ -286,6 +286,8 @@ export class IfcSceneBuilder implements Scene {
         const geometry = node.model.geometry?.getByLocalID(node.localID)
 
         if (geometry === void 0) {
+          console.log(`skipping due to null geometry, express ID: 
+          ${  this.model.getElementByLocalID(node.localID)?.expressID}`)
           continue
         }
 

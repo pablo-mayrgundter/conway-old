@@ -77,7 +77,7 @@ function doWork() {
             return EntityTypesIfc[value.toLocaleUpperCase() as keyof typeof EntityTypesIfc]
           }).filter((value) => value !== void 0)
           const fields = (argv['fields'] as string[] | undefined) ??
-            ['expressID', 'type', 'localID']
+          ['expressID', 'type', 'localID']
           const geometry = (argv['geometry'] as boolean | undefined)
 
           const outputProperties = (argv['properties'] as boolean | undefined)
@@ -175,12 +175,12 @@ function doWork() {
             let rowCount = 0
 
             const elements =
-              (expressIDs?.map((value) => model?.getElementByExpressID(value))?.filter(
-                  (value) => value !== void 0 && (types === void 0 ||
-                    types.includes(value.type))) ??
-                (types !== void 0 ? model.typeIDs(...types) : void 0) ??
-                model) as StepEntityBase<EntityTypesIfc>[] |
-              IterableIterator<StepEntityBase<EntityTypesIfc>>
+            (expressIDs?.map((value) => model?.getElementByExpressID(value))?.filter(
+                (value) => value !== void 0 && (types === void 0 ||
+                types.includes(value.type))) ??
+              (types !== void 0 ? model.typeIDs(...types) : void 0) ??
+              model) as StepEntityBase<EntityTypesIfc>[] |
+            IterableIterator<StepEntityBase<EntityTypesIfc>>
 
             for (const element of elements) {
               const elementTypeID = EntityTypesIfc[element.type]
@@ -239,6 +239,8 @@ function serializeGeometry(
   // we can assign the first GeometryObject to another variable here to combine them all.
   const materialGeometry = new Map<CanonicalMaterial | undefined, GeometryCollection>()
 
+  const identityTransform = conwaywasm.getIdentityTransform()
+
   // eslint-disable-next-line no-unused-vars
   for (const [_, nativeTransform, geometry, material] of scene.walk()) {
     if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY && !geometry.temporary) {
@@ -248,12 +250,18 @@ function serializeGeometry(
       if (fullGeometry === void 0) {
 
         fullGeometry = conwaywasm.nativeGeometryCollection()
-        materialGeometry.set( material, fullGeometry )
+        materialGeometry.set(material, fullGeometry)
       }
 
-      fullGeometry.addComponentWithTransform(geometry.geometry, nativeTransform)
+      if (nativeTransform === void 0) {
+        fullGeometry.addComponentWithTransform(geometry.geometry, identityTransform)
+      } else {
+        fullGeometry.addComponentWithTransform(geometry.geometry, nativeTransform)
+      }
     }
   }
+
+  identityTransform.delete()
 
   if (materialGeometry.size === 0) {
     console.log('No Geometry Found')
@@ -278,7 +286,7 @@ function serializeGeometry(
   // })
 
   const geometryCollectionVector = conwaywasm.nativeVectorGeometryCollection()
-  const materialVector           = conwaywasm.nativeVectorMaterial()
+  const materialVector = conwaywasm.nativeVectorMaterial()
 
   for (const [material, geometry] of materialGeometry) {
 
