@@ -14,6 +14,8 @@ import { ConwayGeometry, GeometryCollection }
 import { CanonicalMeshType } from '../core/canonical_mesh'
 import { CanonicalMaterial } from '../core/canonical_material'
 import { IfcSceneBuilder } from './ifc_scene_builder'
+import GeometryConvertor from '../core/geometry_convertor'
+import GeometryAggregator from '../core/geometry_aggregator'
 
 
 main()
@@ -236,26 +238,16 @@ function serializeGeometry(
     scene: IfcSceneBuilder,
     conwaywasm: ConwayGeometry,
     fileNameNoExtension: string) {
-  // we can assign the first GeometryObject to another variable here to combine them all.
-  const materialGeometry = new Map<CanonicalMaterial | undefined, GeometryCollection>()
+  const geometryAggregator =
+    new GeometryAggregator(
+        // eslint-disable-next-line no-magic-numbers
+        conwaywasm, { maxGeometrySize: 256 << 20  } )
 
-  // eslint-disable-next-line no-unused-vars
-  for (const [_, nativeTransform, geometry, material] of scene.walk()) {
-    if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY && !geometry.temporary) {
+  geometryAggregator.append( scene )
 
-      let fullGeometry = materialGeometry.get(material)
+  const aggregatedGeometry = geometryAggregator.aggregateNative()
 
-      if (fullGeometry === void 0) {
-
-        fullGeometry = conwaywasm.nativeGeometryCollection()
-        materialGeometry.set( material, fullGeometry )
-      }
-
-      fullGeometry.addComponentWithTransform(geometry.geometry, nativeTransform)
-    }
-  }
-
-  if (materialGeometry.size === 0) {
+  if ( aggregatedGeometry.geometry.size() === 0) {
     console.log('No Geometry Found')
     return
   }
@@ -277,176 +269,186 @@ function serializeGeometry(
   //   }
   // })
 
-  const geometryCollectionVector = conwaywasm.nativeVectorGeometryCollection()
-  const materialVector           = conwaywasm.nativeVectorMaterial()
 
-  for (const [material, geometry] of materialGeometry) {
-
-    if (material !== void 0) {
-      geometry.materialIndex = materialVector.size()
-      geometry.hasDefaultMaterial = false
-
-      const nativeMaterial = conwaywasm.nativeMaterial(material)
-
-      materialVector.push_back(nativeMaterial)
-    }
-
-    geometryCollectionVector.push_back(geometry)
-  }
+  const convertor = new GeometryConvertor( conwaywasm )
 
   const startTimeGlb = Date.now()
-  const glbResult =
-    conwaywasm.toGltf(
-        geometryCollectionVector,
-        materialVector,
+  const glbResults =
+    convertor.toGltfs(
+        aggregatedGeometry,
         true,
         false,
-        `${fileNameNoExtension}_test`)
+        `${fileNameNoExtension}_test` )
+
+  for ( const glbResult of glbResults ) {
+    if (glbResult.success) {
+
+      if (glbResult.buffers.size() !== glbResult.bufferUris.size()) {
+        console.log('Error! Buffer size != Buffer URI size!\n')
+        return
+      }
+
+      for (let uriIndex = 0; uriIndex < glbResult.bufferUris.size(); uriIndex++) {
+        const uri = glbResult.bufferUris.get(uriIndex)
+
+        // Create a (zero copy!) memory view from the native vector
+        const managedBuffer: Uint8Array =
+          conwaywasm.wasmModule.getUint8Array(glbResult.buffers.get(uriIndex))
+
+        try {
+          fs.writeFileSync(uri, managedBuffer)
+          // console.log(`Data written to file: ${uri}`)
+        } catch (err) {
+          console.error('Error writing to file:', err)
+        }
+      }
+    } else {
+      console.error('GLB generation unsuccessful')
+    }
+
+    glbResult.bufferUris?.delete()
+    glbResult.buffers?.delete()
+  }
+
   const endTimeGlb = Date.now()
   const executionTimeInMsGlb = endTimeGlb - startTimeGlb
 
-  if (glbResult.success) {
-
-    if (glbResult.buffers.size() !== glbResult.bufferUris.size()) {
-      console.log('Error! Buffer size != Buffer URI size!\n')
-      return
-    }
-
-    for (let uriIndex = 0; uriIndex < glbResult.bufferUris.size(); uriIndex++) {
-      const uri = glbResult.bufferUris.get(uriIndex)
-
-      // Create a (zero copy!) memory view from the native vector
-      const managedBuffer: Uint8Array =
-        conwaywasm.wasmModule.getUint8Array(glbResult.buffers.get(uriIndex))
-
-      try {
-        fs.writeFileSync(uri, managedBuffer)
-        // console.log(`Data written to file: ${uri}`)
-      } catch (err) {
-        console.error('Error writing to file:', err)
-      }
-    }
-  } else {
-    console.error('GLB generation unsuccessful')
-  }
-
   // draco test
   const startTimeGlbDraco = Date.now()
-  const glbDracoResult =
-    conwaywasm.toGltf(
-        geometryCollectionVector,
-        materialVector,
+  const glbDracoResults =
+    convertor.toGltfs(
+        aggregatedGeometry,
         true,
         true,
-        `${fileNameNoExtension}_test_draco`)
+        `${fileNameNoExtension}_test_draco` )
+
+  for ( const glbDracoResult of glbDracoResults ) {
+
+    if (glbDracoResult.success) {
+
+      if (glbDracoResult.buffers.size() !== glbDracoResult.bufferUris.size()) {
+        console.log('Error! Buffer size != Buffer URI size!\n')
+        return
+      }
+
+      for (let uriIndex = 0; uriIndex < glbDracoResult.bufferUris.size(); uriIndex++) {
+        const uri = glbDracoResult.bufferUris.get(uriIndex)
+
+        // Create a (zero copy!) memory view from the native vector
+        const managedBuffer: Uint8Array =
+          conwaywasm.wasmModule.getUint8Array(glbDracoResult.buffers.get(uriIndex))
+
+        try {
+          fs.writeFileSync(uri, managedBuffer)
+          // console.log(`Data written to file: ${uri}`)
+        } catch (err) {
+          console.error('Error writing to file:', err)
+        }
+      }
+    } else {
+      console.error('GLB Draco generation unsuccessful')
+    }
+
+    glbDracoResult.bufferUris?.delete()
+    glbDracoResult.buffers?.delete()
+  }
+
   const endTimeGlbDraco = Date.now()
   const executionTimeInMsGlbDraco = endTimeGlbDraco - startTimeGlbDraco
 
-  if (glbDracoResult.success) {
+  const startTimeGltf = Date.now()
+  const gltfResults =
+    convertor.toGltfs(
+        aggregatedGeometry,
+        false,
+        false,
+        `${fileNameNoExtension}` )
 
-    if (glbDracoResult.buffers.size() !== glbDracoResult.bufferUris.size()) {
-      console.log('Error! Buffer size != Buffer URI size!\n')
-      return
-    }
+  for ( const gltfResult of gltfResults ) {
 
-    for (let uriIndex = 0; uriIndex < glbDracoResult.bufferUris.size(); uriIndex++) {
-      const uri = glbDracoResult.bufferUris.get(uriIndex)
+    if (gltfResult.success) {
 
-      // Create a (zero copy!) memory view from the native vector
-      const managedBuffer: Uint8Array =
-        conwaywasm.wasmModule.getUint8Array(glbDracoResult.buffers.get(uriIndex))
-
-      try {
-        fs.writeFileSync(uri, managedBuffer)
-        // console.log(`Data written to file: ${uri}`)
-      } catch (err) {
-        console.error('Error writing to file:', err)
+      if (gltfResult.buffers.size() !== gltfResult.bufferUris.size()) {
+        console.log('Error! Buffer size !== Buffer URI size!\n')
+        return
       }
+
+      for (let uriIndex = 0; uriIndex < gltfResult.bufferUris.size(); uriIndex++) {
+        const uri = gltfResult.bufferUris.get(uriIndex)
+
+        // Create a memory view from the native vector
+        const managedBuffer: Uint8Array =
+          conwaywasm.wasmModule.
+              getUint8Array(gltfResult.buffers.get(uriIndex))
+
+        try {
+          fs.writeFileSync(uri, managedBuffer)
+          // console.log(`Data written to file: ${uri}`)
+        } catch (err) {
+          console.error('Error writing to file:', err)
+        }
+      }
+    } else {
+      console.error('GLTF generation unsuccessful')
     }
-  } else {
-    console.error('GLB Draco generation unsuccessful')
+
+    gltfResult.bufferUris?.delete()
+    gltfResult.buffers?.delete()
   }
 
-  const startTimeGltf = Date.now()
-  const gltfResult =
-    conwaywasm.toGltf(
-        geometryCollectionVector,
-        materialVector,
-        false,
-        false,
-        `${fileNameNoExtension}`)
   const endTimeGltf = Date.now()
   const executionTimeInMsGltf = endTimeGltf - startTimeGltf
 
-  if (gltfResult.success) {
-
-    if (gltfResult.buffers.size() !== gltfResult.bufferUris.size()) {
-      console.log('Error! Buffer size !== Buffer URI size!\n')
-      return
-    }
-
-    for (let uriIndex = 0; uriIndex < gltfResult.bufferUris.size(); uriIndex++) {
-      const uri = gltfResult.bufferUris.get(uriIndex)
-
-      // Create a memory view from the native vector
-      const managedBuffer: Uint8Array =
-        conwaywasm.wasmModule.
-            getUint8Array(gltfResult.buffers.get(uriIndex))
-
-      try {
-        fs.writeFileSync(uri, managedBuffer)
-        // console.log(`Data written to file: ${uri}`)
-      } catch (err) {
-        console.error('Error writing to file:', err)
-      }
-    }
-  } else {
-    console.error('GLTF generation unsuccessful')
-  }
-
   const startTimeGltfDraco = Date.now()
-  const gltfResultDraco =
-    conwaywasm.toGltf(
-        geometryCollectionVector,
-        materialVector,
+  const gltfResultsDraco =
+    convertor.toGltfs(
+        aggregatedGeometry,
         false,
         true,
-        `${fileNameNoExtension}_draco`)
+        `${fileNameNoExtension}_draco` )
+
+  for ( const gltfResultDraco of gltfResultsDraco ) {
+
+    if (gltfResultDraco.success) {
+
+      if (gltfResultDraco.buffers.size() !== gltfResultDraco.bufferUris.size()) {
+        console.log('Error! Buffer size !== Buffer URI size!\n')
+        return
+      }
+
+      for (let uriIndex = 0; uriIndex < gltfResultDraco.bufferUris.size(); uriIndex++) {
+        const uri = gltfResultDraco.bufferUris.get(uriIndex)
+
+        // Create a memory view from the native vector
+        const managedBuffer: Uint8Array =
+          conwaywasm.wasmModule.
+              getUint8Array(gltfResultDraco.buffers.get(uriIndex))
+
+        try {
+          fs.writeFileSync(uri, managedBuffer)
+          // console.log(`Data written to file: ${uri}`)
+        } catch (err) {
+          console.error('Error writing to file:', err)
+        }
+      }
+    } else {
+      console.error('Draco GLTF generation unsuccessful')
+    }
+
+    gltfResultDraco.bufferUris?.delete()
+    gltfResultDraco.buffers?.delete()
+  }
+
   const endTimeGltfDraco = Date.now()
   const executionTimeInMsGltfDraco = endTimeGltfDraco - startTimeGltfDraco
 
-  if (gltfResultDraco.success) {
-
-    if (gltfResultDraco.buffers.size() !== gltfResultDraco.bufferUris.size()) {
-      console.log('Error! Buffer size !== Buffer URI size!\n')
-      return
-    }
-
-    for (let uriIndex = 0; uriIndex < gltfResultDraco.bufferUris.size(); uriIndex++) {
-      const uri = gltfResultDraco.bufferUris.get(uriIndex)
-
-      // Create a memory view from the native vector
-      const managedBuffer: Uint8Array =
-        conwaywasm.wasmModule.
-            getUint8Array(gltfResultDraco.buffers.get(uriIndex))
-
-      try {
-        fs.writeFileSync(uri, managedBuffer)
-        // console.log(`Data written to file: ${uri}`)
-      } catch (err) {
-        console.error('Error writing to file:', err)
-      }
-    }
-  } else {
-    console.error('Draco GLTF generation unsuccessful')
-  }
-
   // clean up
-  geometryCollectionVector.delete()
-  materialVector.delete()
+  aggregatedGeometry.geometry.delete()
+  aggregatedGeometry.materials.delete()
 
+  console.log( `There were ${aggregatedGeometry.chunks.length} geometry chunks`)
   // console.log(`OBJ Generation took ${executionTimeInMsObj} milliseconds to execute.`)
-  console.log(`GLB Generation took ${executionTimeInMsGlb} milliseconds to execute.`)
+  console.log(`GLB Generation took ${executionTimeInMsGlb} milliseconds to execute}.`)
   console.log(`GLTF Generation took ${executionTimeInMsGltf} milliseconds to execute.`)
   console.log(`GLB Draco Generation took ${executionTimeInMsGlbDraco} milliseconds to execute.`)
   console.log(`GLTF Draco Generation took ${executionTimeInMsGltfDraco} milliseconds to execute.`)

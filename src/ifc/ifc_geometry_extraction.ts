@@ -2,7 +2,6 @@ import {
   ConwayGeometry,
   ParamsPolygonalFaceSet,
   GeometryObject,
-  ResultsGltf,
   IndexedPolygonalFace,
   ParamsAxis2Placement3D,
   ParamsCartesianTransformationOperator3D,
@@ -15,8 +14,6 @@ import {
   ParamsCreateNativeIfcProfile,
   ParamsGetExtrudedAreaSolid,
   ParamsGetBooleanResult,
-  ProfileObject,
-  StdVector,
   MaterialObject,
   BlendMode,
   toAlphaMode,
@@ -30,11 +27,11 @@ import {
   ParamsAddFaceToGeometry,
   SurfaceObject,
   ParamsGetRectangleProfileCurve,
-  GeometryCollection,
 } from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMaterial, ColorRGBA, exponentToRoughness } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
 import { CanonicalProfile } from '../core/canonical_profile'
+import { NativeULongVector, NativeUintVector, NativeVectorBound3D, NativeVectorCurve, NativeVectorGeometry, NativeVectorGeometryCollection, NativeVectorGlmVec2, NativeVectorGlmVec3, NativeVectorIndexedPolygonalFace, NativeVectorProfile, NativeVectorSegment, WasmModule } from '../core/native_types'
 import {
   IfcArbitraryClosedProfileDef,
   IfcAxis2Placement2D,
@@ -111,20 +108,6 @@ import IfcStepModel from './ifc_step_model'
 
 
 type Mutable<T> = { -readonly [P in keyof T]: T[P] }
-type NativeVectorGlmVec3 = StdVector<Vector3>
-type NativeVectorGlmVec2 = StdVector<Vector2>
-type NativeUintVector = StdVector<number>
-type NativeULongVector = StdVector<number>
-type NativeVectorIndexedPolygonalFace = StdVector<IndexedPolygonalFace>
-
-type NativeVectorSegment = StdVector<Segment>
-type NativeVectorGeometry = StdVector<GeometryObject>
-type NativeVectorGeometryCollection = StdVector<GeometryCollection>
-type NativeVectorMaterial = StdVector<MaterialObject>
-type NativeVectorProfile = StdVector<ProfileObject>
-type NativeVectorCurve = StdVector<CurveObject>
-type NativeVectorBound3D = StdVector<Bound3DObject>
-type WasmModule = any
 
 /**
  * Enum presenting the extraction results.
@@ -555,40 +538,6 @@ export class IfcGeometryExtraction {
     }
 
     return false
-  }
-
-  /**
-   * @param modelId - model ID
-   * @param geometry - GeometryObject to convert to OBJ
-   * @return {string} - Obj string or blank string
-   */
-  toObj(geometry: GeometryObject, modelId: number = 0): string {
-    if (this.conwayModel !== void 0) {
-      return this.conwayModel.toObj(geometry)
-    }
-
-    return ''
-  }
-
-  /**
-   * Convert this to a GLTF/GLB
-   *
-   * @param geometry - GeometryObject to convert to GLTF / GLB
-   * @param isGlb boolean - Should the output be a single GLB file?
-   * @param outputDraco boolean - Should the output be Draco compressed?
-   * @param fileUri string - base filenames for GLTF / GLB files
-   * @return {ResultsGltf} - Structure containing GLTF / GLB filenames + data vectors
-   */
-  toGltf(geometry: NativeVectorGeometryCollection, materials: NativeVectorMaterial, isGlb: boolean,
-      outputDraco: boolean, fileUri: string, modelId: number = 0): ResultsGltf {
-    const noResults: ResultsGltf = { success: false, bufferUris: undefined, buffers: undefined }
-    noResults.success = false
-    if (this.conwayModel !== void 0) {
-
-      return this.conwayModel.toGltf(geometry, materials, isGlb, outputDraco, fileUri)
-    }
-
-    return noResults
   }
 
   /**
