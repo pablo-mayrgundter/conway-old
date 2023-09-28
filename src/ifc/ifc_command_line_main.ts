@@ -9,10 +9,8 @@ import StepEntityBase from '../step/step_entity_base'
 import IfcStepModel from './ifc_step_model'
 import { ExtractResult, IfcGeometryExtraction } from './ifc_geometry_extraction'
 import { IfcPropertyExtraction } from './ifc_property_extraction'
-import { ConwayGeometry, GeometryCollection }
+import { ConwayGeometry }
   from '../../dependencies/conway-geom/conway_geometry'
-import { CanonicalMeshType } from '../core/canonical_mesh'
-import { CanonicalMaterial } from '../core/canonical_material'
 import { IfcSceneBuilder } from './ifc_scene_builder'
 import GeometryConvertor from '../core/geometry_convertor'
 import GeometryAggregator from '../core/geometry_aggregator'
@@ -66,6 +64,13 @@ function doWork() {
             describe: 'Output PropertySets',
             type: 'boolean',
             alias: 'p',
+          })
+          yargs2.option('maxchunk', {
+            // eslint-disable-next-line max-len
+            describe: 'Maximum chunk size in megabytes (note, this is the allocation size, not the output size)',
+            type: 'number',
+            alias: 'm',
+            default: 128,
           })
 
           yargs2.positional('filename', { describe: 'IFC File Paths', type: 'string' })
@@ -158,7 +163,12 @@ function doWork() {
                 propertyExtraction(model)
               }
 
-              serializeGeometry(scene, conwaywasm, fileName)
+              const DEFAULT_CHUNK = 128
+              const MEGABYTE_SHIFT = 20
+              const maxChunk = (argv['maxchunk'] as number | undefined) ?? DEFAULT_CHUNK
+              const maxGeometrySize = maxChunk << MEGABYTE_SHIFT
+
+              serializeGeometry(scene, conwaywasm, fileName, maxGeometrySize)
             }
 
 
@@ -237,11 +247,11 @@ function doWork() {
 function serializeGeometry(
     scene: IfcSceneBuilder,
     conwaywasm: ConwayGeometry,
-    fileNameNoExtension: string) {
+    fileNameNoExtension: string,
+    maxGeometrySize: number ) {
   const geometryAggregator =
     new GeometryAggregator(
-        // eslint-disable-next-line no-magic-numbers
-        conwaywasm, { maxGeometrySize: 256 << 20  } )
+        conwaywasm, { maxGeometrySize: maxGeometrySize } )
 
   geometryAggregator.append( scene )
 
@@ -448,7 +458,7 @@ function serializeGeometry(
 
   console.log( `There were ${aggregatedGeometry.chunks.length} geometry chunks`)
   // console.log(`OBJ Generation took ${executionTimeInMsObj} milliseconds to execute.`)
-  console.log(`GLB Generation took ${executionTimeInMsGlb} milliseconds to execute}.`)
+  console.log(`GLB Generation took ${executionTimeInMsGlb} milliseconds to execute.`)
   console.log(`GLTF Generation took ${executionTimeInMsGltf} milliseconds to execute.`)
   console.log(`GLB Draco Generation took ${executionTimeInMsGlbDraco} milliseconds to execute.`)
   console.log(`GLTF Draco Generation took ${executionTimeInMsGltfDraco} milliseconds to execute.`)

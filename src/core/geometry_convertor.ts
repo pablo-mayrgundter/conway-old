@@ -7,7 +7,6 @@ import { AggregatedNativeGeometry } from './geometry_aggregator'
 import { NativeVectorGeometryCollection, NativeVectorMaterial } from './native_types'
 
 
-
 /**
  * Converts geometry using the native wasm module.
  */

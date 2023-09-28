@@ -38,9 +38,9 @@ export interface AggregatedNativeGeometry {
 }
 
 /**
-  * Aggregates scene geometry and then allows incremental batches
-  * of geometry output to be fed to a convertor.
-  */
+ * Aggregates scene geometry and then allows incremental batches
+ * of geometry output to be fed to a convertor.
+ */
 export default class GeometryAggregator {
 
   private readonly materialGeometry = new Map<CanonicalMaterial | undefined, GeometryCollection[]>()
@@ -50,7 +50,7 @@ export default class GeometryAggregator {
    *
    * @param wasmModule The current wasm module.
    */
-  // eslint-disable-next-line no-useless-constructor, require-jsdoc, no-empty-function
+  // eslint-disable-next-line no-useless-constructor, require-jsdoc
   constructor(
     private readonly wasmModule: ConwayGeometry,
     // eslint-disable-next-line no-empty-function

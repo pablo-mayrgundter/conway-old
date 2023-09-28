@@ -31,7 +31,20 @@ import {
 import { CanonicalMaterial, ColorRGBA, exponentToRoughness } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
 import { CanonicalProfile } from '../core/canonical_profile'
-import { NativeULongVector, NativeUintVector, NativeVectorBound3D, NativeVectorCurve, NativeVectorGeometry, NativeVectorGeometryCollection, NativeVectorGlmVec2, NativeVectorGlmVec3, NativeVectorIndexedPolygonalFace, NativeVectorProfile, NativeVectorSegment, WasmModule } from '../core/native_types'
+import {
+  NativeULongVector,
+  NativeUintVector,
+  NativeVectorBound3D,
+  NativeVectorCurve,
+  NativeVectorGeometry,
+  NativeVectorGeometryCollection,
+  NativeVectorGlmVec2,
+  NativeVectorGlmVec3,
+  NativeVectorIndexedPolygonalFace,
+  NativeVectorProfile,
+  NativeVectorSegment,
+  WasmModule,
+} from '../core/native_types'
 import {
   IfcArbitraryClosedProfileDef,
   IfcAxis2Placement2D,
