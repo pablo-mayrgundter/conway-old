@@ -5,9 +5,7 @@ import { IfcCartesianPoint } from "./index"
 import { IfcBSplineCurveForm, IfcBSplineCurveFormDeserializeStep } from "./index"
 import { IfcLogical } from "./index"
 import {
-  stepExtractArrayToken,
-  stepExtractArrayBegin,
-  skipValue,
+  stepExtractArray,
   SIZEOF,
 } from '../../step/parsing/step_deserialization_functions'
 import {
@@ -42,28 +40,23 @@ export abstract class IfcBSplineCurve extends IfcBoundedCurve {
 
   public get ControlPointsList() : Array<IfcCartesianPoint> {
     if ( this.ControlPointsList_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 1 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.ControlPointsList_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
-      const value : Array<IfcCartesianPoint> = []
+      let value : Array<IfcCartesianPoint> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcCartesianPoint )
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
+    
+          if ( !( value instanceof IfcCartesianPoint ) )  {
+            throw new Error( 'Value in STEP was incorrectly typed for field' )
+          }
+    
+          return value
+        })() )
       }
-
-      this.ControlPointsList_ = value
+      return value }, false )
     }
 
     return this.ControlPointsList_ as Array<IfcCartesianPoint>

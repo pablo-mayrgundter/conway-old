@@ -67,6 +67,8 @@ export default class GeometryAggregator {
     const materialGeometry = this.materialGeometry
     const maxGeometrySize  = this.options.maxGeometrySize
 
+    const identityTransform = conwaywasm.getIdentityTransform()
+
     // eslint-disable-next-line no-unused-vars
     for (const [_, nativeTransform, geometry, material] of scene.walk()) {
       if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY && !geometry.temporary) {
@@ -92,7 +94,9 @@ export default class GeometryAggregator {
           geometryCollections.push( fullGeometry )
         }
 
-        fullGeometry.addComponentWithTransform(geometry.geometry, nativeTransform)
+        fullGeometry.addComponentWithTransform(
+            geometry.geometry,
+            nativeTransform ?? identityTransform)
       }
     }
   }

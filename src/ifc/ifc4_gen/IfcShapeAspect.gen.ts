@@ -6,9 +6,7 @@ import { IfcLogical } from "./index"
 import { IfcProductDefinitionShape } from "./index"
 import { IfcRepresentationMap } from "./index"
 import {
-  stepExtractArrayToken,
-  stepExtractArrayBegin,
-  skipValue,
+  stepExtractArray,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -31,28 +29,23 @@ export  class IfcShapeAspect extends StepEntityBase< EntityTypesIfc > {
 
   public get ShapeRepresentations() : Array<IfcShapeModel> {
     if ( this.ShapeRepresentations_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 0 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.ShapeRepresentations_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
 
-      const value : Array<IfcShapeModel> = []
+      let value : Array<IfcShapeModel> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcShapeModel )
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
+    
+          if ( !( value instanceof IfcShapeModel ) )  {
+            throw new Error( 'Value in STEP was incorrectly typed for field' )
+          }
+    
+          return value
+        })() )
       }
-
-      this.ShapeRepresentations_ = value
+      return value }, false )
     }
 
     return this.ShapeRepresentations_ as Array<IfcShapeModel>
@@ -84,16 +77,16 @@ export  class IfcShapeAspect extends StepEntityBase< EntityTypesIfc > {
 
   public get PartOfProductDefinitionShape() : IfcProductDefinitionShape | IfcRepresentationMap | null {
     if ( this.PartOfProductDefinitionShape_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc >| null =
-        this.extractReference( 4, true )
+      this.PartOfProductDefinitionShape_ = this.extractLambda( 4, (buffer, cursor, endCursor) => {
 
-      if ( !( value instanceof IfcProductDefinitionShape ) && !( value instanceof IfcRepresentationMap ) && value !== null ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
+
+      if ( !( value instanceof IfcProductDefinitionShape ) && !( value instanceof IfcRepresentationMap ) ) {
+        return ( void 0 )
       }
-
-      this.PartOfProductDefinitionShape_ = value as (IfcProductDefinitionShape | IfcRepresentationMap)
-
+      return value as (IfcProductDefinitionShape | IfcRepresentationMap)
+}, true )
     }
 
     return this.PartOfProductDefinitionShape_ as IfcProductDefinitionShape | IfcRepresentationMap | null

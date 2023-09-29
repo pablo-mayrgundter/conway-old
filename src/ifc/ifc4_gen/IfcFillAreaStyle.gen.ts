@@ -7,9 +7,7 @@ import { IfcFillAreaStyleHatching } from "./index"
 import { IfcFillAreaStyleTiles } from "./index"
 import { IfcBoolean } from "./index"
 import {
-  stepExtractArrayToken,
-  stepExtractArrayBegin,
-  skipValue,
+  stepExtractArray,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -29,35 +27,22 @@ export  class IfcFillAreaStyle extends IfcPresentationStyle {
 
   public get FillStyles() : Array<IfcColourSpecification | IfcPreDefinedColour | IfcExternallyDefinedHatchStyle | IfcFillAreaStyleHatching | IfcFillAreaStyleTiles> {
     if ( this.FillStyles_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 1 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.FillStyles_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
-      const value : Array<IfcColourSpecification | IfcPreDefinedColour | IfcExternallyDefinedHatchStyle | IfcFillAreaStyleHatching | IfcFillAreaStyleTiles> = []
+      let value : Array<IfcColourSpecification | IfcPreDefinedColour | IfcExternallyDefinedHatchStyle | IfcFillAreaStyleHatching | IfcFillAreaStyleTiles> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
-          this.extractBufferReference( buffer, cursor, endCursor )
-
-        if ( !( value1Untyped instanceof IfcColourSpecification ) && !( value1Untyped instanceof IfcPreDefinedColour ) && !( value1Untyped instanceof IfcExternallyDefinedHatchStyle ) && !( value1Untyped instanceof IfcFillAreaStyleHatching ) && !( value1Untyped instanceof IfcFillAreaStyleTiles ) ) {
-          throw new Error( 'Value in select must be populated' )
-        }
-
-        const value1 = value1Untyped as (IfcColourSpecification | IfcPreDefinedColour | IfcExternallyDefinedHatchStyle | IfcFillAreaStyleHatching | IfcFillAreaStyleTiles)
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+          const value : StepEntityBase< EntityTypesIfc > | undefined =
+            this.extractBufferReference( buffer, cursor, endCursor )
+    
+          if ( !( value instanceof IfcColourSpecification ) && !( value instanceof IfcPreDefinedColour ) && !( value instanceof IfcExternallyDefinedHatchStyle ) && !( value instanceof IfcFillAreaStyleHatching ) && !( value instanceof IfcFillAreaStyleTiles ) ) {
+            throw new Error( 'Value in select must be populated' )
+          }
+          return value as (IfcColourSpecification | IfcPreDefinedColour | IfcExternallyDefinedHatchStyle | IfcFillAreaStyleHatching | IfcFillAreaStyleTiles)})() )
       }
-
-      this.FillStyles_ = value
+      return value }, false )
     }
 
     return this.FillStyles_ as Array<IfcColourSpecification | IfcPreDefinedColour | IfcExternallyDefinedHatchStyle | IfcFillAreaStyleHatching | IfcFillAreaStyleTiles>

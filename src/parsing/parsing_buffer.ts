@@ -542,6 +542,7 @@ export default class ParsingBuffer {
       const firstChar = input[ cursor ] - ZERO
 
       if ( firstChar < 0 || firstChar > 9 ) {
+        this.cursor_ = cursor
         return primary
       }
 
@@ -567,6 +568,7 @@ export default class ParsingBuffer {
     /* eslint-enable no-magic-numbers */
 
     if ( absPrimary === 0 ) {
+      this.cursor_ = cursor
       return absPrimary
     }
 
@@ -579,6 +581,7 @@ export default class ParsingBuffer {
         const exponent = this.readInteger()
 
         if ( exponent !== void 0 ) {
+          cursor = this.cursor_
           decimals += exponent
         } else {
           this.cursor_ = cursor
@@ -587,6 +590,8 @@ export default class ParsingBuffer {
     }
 
     primary = primarySign * absPrimary
+
+    this.cursor_ = cursor
 
     if ( decimals === 0 ) {
       return primary

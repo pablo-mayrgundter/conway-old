@@ -3,9 +3,7 @@ import { IfcTimeSeries } from "./index"
 import { IfcTimeMeasure } from "./index"
 import { IfcTimeSeriesValue } from "./index"
 import {
-  stepExtractArrayToken,
-  stepExtractArrayBegin,
-  skipValue,
+  stepExtractArray,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -33,28 +31,23 @@ export  class IfcRegularTimeSeries extends IfcTimeSeries {
 
   public get Values() : Array<IfcTimeSeriesValue> {
     if ( this.Values_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 9 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.Values_ = this.extractLambda( 9, (buffer, cursor, endCursor) => {
 
-      const value : Array<IfcTimeSeriesValue> = []
+      let value : Array<IfcTimeSeriesValue> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcTimeSeriesValue )
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
+    
+          if ( !( value instanceof IfcTimeSeriesValue ) )  {
+            throw new Error( 'Value in STEP was incorrectly typed for field' )
+          }
+    
+          return value
+        })() )
       }
-
-      this.Values_ = value
+      return value }, false )
     }
 
     return this.Values_ as Array<IfcTimeSeriesValue>

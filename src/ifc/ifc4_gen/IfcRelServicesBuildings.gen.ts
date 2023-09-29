@@ -3,9 +3,7 @@ import { IfcRelConnects } from "./index"
 import { IfcSystem } from "./index"
 import { IfcSpatialElement } from "./index"
 import {
-  stepExtractArrayToken,
-  stepExtractArrayBegin,
-  skipValue,
+  stepExtractArray,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -33,28 +31,23 @@ export  class IfcRelServicesBuildings extends IfcRelConnects {
 
   public get RelatedBuildings() : Array<IfcSpatialElement> {
     if ( this.RelatedBuildings_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 5 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.RelatedBuildings_ = this.extractLambda( 5, (buffer, cursor, endCursor) => {
 
-      const value : Array<IfcSpatialElement> = []
+      let value : Array<IfcSpatialElement> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcSpatialElement )
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
+    
+          if ( !( value instanceof IfcSpatialElement ) )  {
+            throw new Error( 'Value in STEP was incorrectly typed for field' )
+          }
+    
+          return value
+        })() )
       }
-
-      this.RelatedBuildings_ = value
+      return value }, false )
     }
 
     return this.RelatedBuildings_ as Array<IfcSpatialElement>

@@ -15,9 +15,9 @@ const ROUGNESS_CONVERSION_FACTOR = 2.0
  * @param shininess The shinyness exponent/𝛼 to convert to roughness
  * @return {number} The resultant roughness.
  */
-export function exponentToRoughness( shininess: number ) : number {
-  return Math.sqrt( ROUGNESS_CONVERSION_FACTOR /
-    ( shininess + ROUGNESS_CONVERSION_FACTOR ) )
+export function exponentToRoughness(shininess: number): number {
+  return Math.sqrt(ROUGNESS_CONVERSION_FACTOR /
+    (shininess + ROUGNESS_CONVERSION_FACTOR))
 }
 
 /**
@@ -35,6 +35,11 @@ export interface CanonicalMaterial {
    * The base color of this material (in PBR terms)
    */
   readonly baseColor: ColorRGBA
+
+  /**
+   * Legacy color to match web-ifc display
+   */
+  readonly legacyColor: ColorRGBA
 
   /**
    * How metallic is this surface? 0 for dialletric, 1 for metal.

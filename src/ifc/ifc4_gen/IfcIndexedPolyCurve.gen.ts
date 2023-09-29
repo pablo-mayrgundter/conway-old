@@ -6,9 +6,7 @@ import { IfcLineIndex } from "./index"
 import { IfcBoolean } from "./index"
 import {
   stepExtractOptional,
-  stepExtractArrayToken,
-  stepExtractArrayBegin,
-  skipValue,
+  stepExtractArray,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -37,39 +35,26 @@ export  class IfcIndexedPolyCurve extends IfcBoundedCurve {
 
   public get Segments() : Array<IfcArcIndex | IfcLineIndex> | null {
     if ( this.Segments_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 1 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.Segments_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      const value : Array<IfcArcIndex | IfcLineIndex> = []
+      let value : Array<IfcArcIndex | IfcLineIndex> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
-          this.extractBufferReference( buffer, cursor, endCursor )
-
-        if ( !( value1Untyped instanceof IfcArcIndex ) && !( value1Untyped instanceof IfcLineIndex ) ) {
-          throw new Error( 'Value in select must be populated' )
-        }
-
-        const value1 = value1Untyped as (IfcArcIndex | IfcLineIndex)
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+          const value : StepEntityBase< EntityTypesIfc > | undefined =
+            this.extractBufferReference( buffer, cursor, endCursor )
+    
+          if ( !( value instanceof IfcArcIndex ) && !( value instanceof IfcLineIndex ) ) {
+            throw new Error( 'Value in select must be populated' )
+          }
+          return value as (IfcArcIndex | IfcLineIndex)})() )
       }
-
-      this.Segments_ = value
+      return value }, true )
     }
 
     return this.Segments_ as Array<IfcArcIndex | IfcLineIndex> | null

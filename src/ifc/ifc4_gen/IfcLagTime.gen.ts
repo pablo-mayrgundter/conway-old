@@ -21,16 +21,16 @@ export  class IfcLagTime extends IfcSchedulingTime {
 
   public get LagValue() : IfcDuration | IfcRatioMeasure {
     if ( this.LagValue_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc > =
-        this.extractReference( 3, false )
+      this.LagValue_ = this.extractLambda( 3, (buffer, cursor, endCursor) => {
+
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcDuration ) && !( value instanceof IfcRatioMeasure ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      this.LagValue_ = value as (IfcDuration | IfcRatioMeasure)
-
+      return value as (IfcDuration | IfcRatioMeasure)
+}, false )
     }
 
     return this.LagValue_ as IfcDuration | IfcRatioMeasure

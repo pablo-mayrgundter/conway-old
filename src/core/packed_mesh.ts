@@ -35,7 +35,7 @@ export class PackedMesh< ModelType extends Model > {
     public readonly primitives: ReadonlyArray< [GeometryObject, number | undefined] >,
     public readonly triangleElementMaps: ReadonlyArray< TriangleElementMap >,
     // eslint-disable-next-line no-empty-function
-    public readonly elementPrimitiveIndex: ReadonlyMap< number, number[] > ) {}
+    public readonly elementPrimitiveIndex: ReadonlyMap< number, number[] >) {}
 
   /**
    * Get triangles from a cursor.

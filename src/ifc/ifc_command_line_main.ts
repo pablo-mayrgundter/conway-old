@@ -84,7 +84,7 @@ function doWork() {
             return EntityTypesIfc[value.toLocaleUpperCase() as keyof typeof EntityTypesIfc]
           }).filter((value) => value !== void 0)
           const fields = (argv['fields'] as string[] | undefined) ??
-            ['expressID', 'type', 'localID']
+          ['expressID', 'type', 'localID']
           const geometry = (argv['geometry'] as boolean | undefined)
 
           const outputProperties = (argv['properties'] as boolean | undefined)
@@ -187,12 +187,12 @@ function doWork() {
             let rowCount = 0
 
             const elements =
-              (expressIDs?.map((value) => model?.getElementByExpressID(value))?.filter(
-                  (value) => value !== void 0 && (types === void 0 ||
-                    types.includes(value.type))) ??
-                (types !== void 0 ? model.typeIDs(...types) : void 0) ??
-                model) as StepEntityBase<EntityTypesIfc>[] |
-              IterableIterator<StepEntityBase<EntityTypesIfc>>
+            (expressIDs?.map((value) => model?.getElementByExpressID(value))?.filter(
+                (value) => value !== void 0 && (types === void 0 ||
+                types.includes(value.type))) ??
+              (types !== void 0 ? model.typeIDs(...types) : void 0) ??
+              model) as StepEntityBase<EntityTypesIfc>[] |
+            IterableIterator<StepEntityBase<EntityTypesIfc>>
 
             for (const element of elements) {
               const elementTypeID = EntityTypesIfc[element.type]

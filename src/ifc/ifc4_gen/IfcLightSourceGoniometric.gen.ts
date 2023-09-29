@@ -69,16 +69,16 @@ export  class IfcLightSourceGoniometric extends IfcLightSource {
 
   public get LightDistributionDataSource() : IfcExternalReference | IfcLightIntensityDistribution {
     if ( this.LightDistributionDataSource_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc > =
-        this.extractReference( 9, false )
+      this.LightDistributionDataSource_ = this.extractLambda( 9, (buffer, cursor, endCursor) => {
+
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcExternalReference ) && !( value instanceof IfcLightIntensityDistribution ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      this.LightDistributionDataSource_ = value as (IfcExternalReference | IfcLightIntensityDistribution)
-
+      return value as (IfcExternalReference | IfcLightIntensityDistribution)
+}, false )
     }
 
     return this.LightDistributionDataSource_ as IfcExternalReference | IfcLightIntensityDistribution

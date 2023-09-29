@@ -19,16 +19,16 @@ export  class IfcCsgSolid extends IfcSolidModel {
 
   public get TreeRootExpression() : IfcBooleanResult | IfcCsgPrimitive3D {
     if ( this.TreeRootExpression_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc > =
-        this.extractReference( 0, false )
+      this.TreeRootExpression_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
+
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcBooleanResult ) && !( value instanceof IfcCsgPrimitive3D ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      this.TreeRootExpression_ = value as (IfcBooleanResult | IfcCsgPrimitive3D)
-
+      return value as (IfcBooleanResult | IfcCsgPrimitive3D)
+}, false )
     }
 
     return this.TreeRootExpression_ as IfcBooleanResult | IfcCsgPrimitive3D

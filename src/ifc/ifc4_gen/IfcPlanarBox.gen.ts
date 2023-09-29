@@ -19,16 +19,16 @@ export  class IfcPlanarBox extends IfcPlanarExtent {
 
   public get Placement() : IfcAxis2Placement2D | IfcAxis2Placement3D {
     if ( this.Placement_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc > =
-        this.extractReference( 2, false )
+      this.Placement_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
+
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcAxis2Placement2D ) && !( value instanceof IfcAxis2Placement3D ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      this.Placement_ = value as (IfcAxis2Placement2D | IfcAxis2Placement3D)
-
+      return value as (IfcAxis2Placement2D | IfcAxis2Placement3D)
+}, false )
     }
 
     return this.Placement_ as IfcAxis2Placement2D | IfcAxis2Placement3D
