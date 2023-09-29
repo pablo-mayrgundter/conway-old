@@ -131,7 +131,10 @@
       "mprealsupport": "cpp",
       "matrixfunctions": "cpp",
       "nonlinearoptimization": "cpp",
-      "openglsupport": "cpp"
+      "openglsupport": "cpp",
+      "__availability": "cpp",
+      "format": "cpp",
+      "core": "cpp"
     }
 	}
 }
