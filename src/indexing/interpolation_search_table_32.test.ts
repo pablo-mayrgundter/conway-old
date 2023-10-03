@@ -93,18 +93,14 @@ function buildInterpolationSearchTable32(): boolean {
   for ( const [key, value] of searchTable ) {
 
     if ( matchingMap.get( key ) !== value ) {
-      console.log( `Get matching failed ${key} ${value} ${matchingMap.get( key )} ${itemCounter}` )
       return false
     }
 
     if ( searchTable.get( key ) !== value ) {
-      console.log( `Get search table failed ${key} ${value}` )
       return false
     }
 
     if ( previousKey >= key ) {
-
-      console.log( `Ascending order failed ${key} ${previousKey}` )
       return false
     }
 
