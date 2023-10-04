@@ -5,7 +5,9 @@ import { IfcParameterValue } from "./index"
 import { IfcKnotType, IfcKnotTypeDeserializeStep } from "./index"
 import {
   stepExtractNumber,
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
   SIZEOF,
 } from '../../step/parsing/step_deserialization_functions'
 
@@ -27,23 +29,29 @@ export  class IfcBSplineCurveWithKnots extends IfcBSplineCurve {
 
   public get KnotMultiplicities() : Array< number > {
     if ( this.KnotMultiplicities_ === void 0 ) {
-      this.KnotMultiplicities_ = this.extractLambda( 5, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 5 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<number> = [];
+      const value : Array<number> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-          const value = stepExtractNumber( buffer, cursor, endCursor )
-    
-          if ( value === void 0 ) {
-            throw new Error( 'Value needs to be defined in encapsulating context' )
-          }
-    
-          return value 
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = stepExtractNumber( buffer, cursor, endCursor )
+
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.KnotMultiplicities_ = value
     }
 
     return this.KnotMultiplicities_ as Array< number >
@@ -51,23 +59,29 @@ export  class IfcBSplineCurveWithKnots extends IfcBSplineCurve {
 
   public get Knots() : Array< number > {
     if ( this.Knots_ === void 0 ) {
-      this.Knots_ = this.extractLambda( 6, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 6 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<number> = [];
+      const value : Array<number> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-          const value = stepExtractNumber( buffer, cursor, endCursor )
-    
-          if ( value === void 0 ) {
-            throw new Error( 'Value needs to be defined in encapsulating context' )
-          }
-    
-          return value 
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = stepExtractNumber( buffer, cursor, endCursor )
+
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.Knots_ = value
     }
 
     return this.Knots_ as Array< number >

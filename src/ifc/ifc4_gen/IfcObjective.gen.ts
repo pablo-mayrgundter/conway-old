@@ -5,7 +5,9 @@ import { IfcObjectiveEnum, IfcObjectiveEnumDeserializeStep } from "./index"
 import { IfcLabel } from "./index"
 import {
   stepExtractOptional,
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -27,27 +29,32 @@ export  class IfcObjective extends IfcConstraint {
 
   public get BenchmarkValues() : Array<IfcConstraint> | null {
     if ( this.BenchmarkValues_ === void 0 ) {
-      this.BenchmarkValues_ = this.extractLambda( 7, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 7 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      let value : Array<IfcConstraint> = [];
+      const value : Array<IfcConstraint> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-           let value = this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcConstraint ) )  {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
-          }
-    
-          return value
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcConstraint )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, true )
+
+      this.BenchmarkValues_ = value
     }
 
     return this.BenchmarkValues_ as Array<IfcConstraint> | null

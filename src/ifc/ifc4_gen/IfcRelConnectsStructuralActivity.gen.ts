@@ -21,16 +21,16 @@ export  class IfcRelConnectsStructuralActivity extends IfcRelConnects {
 
   public get RelatingElement() : IfcElement | IfcStructuralItem {
     if ( this.RelatingElement_ === void 0 ) {
-      this.RelatingElement_ = this.extractLambda( 4, (buffer, cursor, endCursor) => {
-
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
+      
+      const value : StepEntityBase< EntityTypesIfc > =
+        this.extractReference( 4, false )
 
       if ( !( value instanceof IfcElement ) && !( value instanceof IfcStructuralItem ) ) {
-        return ( void 0 )
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcElement | IfcStructuralItem)
-}, false )
+
+      this.RelatingElement_ = value as (IfcElement | IfcStructuralItem)
+
     }
 
     return this.RelatingElement_ as IfcElement | IfcStructuralItem

@@ -4,7 +4,9 @@ import { IfcClosedShell } from "./index"
 import { IfcOpenShell } from "./index"
 import { IfcDimensionCount } from "./index"
 import {
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -23,22 +25,35 @@ export  class IfcShellBasedSurfaceModel extends IfcGeometricRepresentationItem {
 
   public get SbsmBoundary() : Array<IfcClosedShell | IfcOpenShell> {
     if ( this.SbsmBoundary_ === void 0 ) {
-      this.SbsmBoundary_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 0 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<IfcClosedShell | IfcOpenShell> = [];
+      const value : Array<IfcClosedShell | IfcOpenShell> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-          const value : StepEntityBase< EntityTypesIfc > | undefined =
-            this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcClosedShell ) && !( value instanceof IfcOpenShell ) ) {
-            throw new Error( 'Value in select must be populated' )
-          }
-          return value as (IfcClosedShell | IfcOpenShell)})() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+          this.extractBufferReference( buffer, cursor, endCursor )
+
+        if ( !( value1Untyped instanceof IfcClosedShell ) && !( value1Untyped instanceof IfcOpenShell ) ) {
+          throw new Error( 'Value in select must be populated' )
+        }
+
+        const value1 = value1Untyped as (IfcClosedShell | IfcOpenShell)
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.SbsmBoundary_ = value
     }
 
     return this.SbsmBoundary_ as Array<IfcClosedShell | IfcOpenShell>
