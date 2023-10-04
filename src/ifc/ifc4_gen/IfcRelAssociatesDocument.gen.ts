@@ -19,16 +19,16 @@ export  class IfcRelAssociatesDocument extends IfcRelAssociates {
 
   public get RelatingDocument() : IfcDocumentInformation | IfcDocumentReference {
     if ( this.RelatingDocument_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc > =
-        this.extractReference( 5, false )
+      this.RelatingDocument_ = this.extractLambda( 5, (buffer, cursor, endCursor) => {
+
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcDocumentInformation ) && !( value instanceof IfcDocumentReference ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      this.RelatingDocument_ = value as (IfcDocumentInformation | IfcDocumentReference)
-
+      return value as (IfcDocumentInformation | IfcDocumentReference)
+}, false )
     }
 
     return this.RelatingDocument_ as IfcDocumentInformation | IfcDocumentReference

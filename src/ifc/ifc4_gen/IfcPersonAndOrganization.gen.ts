@@ -4,9 +4,7 @@ import { IfcOrganization } from "./index"
 import { IfcActorRole } from "./index"
 import {
   stepExtractOptional,
-  stepExtractArrayToken,
-  stepExtractArrayBegin,
-  skipValue,
+  stepExtractArray,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -43,32 +41,27 @@ export  class IfcPersonAndOrganization extends StepEntityBase< EntityTypesIfc > 
 
   public get Roles() : Array<IfcActorRole> | null {
     if ( this.Roles_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 2 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.Roles_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      const value : Array<IfcActorRole> = []
+      let value : Array<IfcActorRole> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcActorRole )
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
+    
+          if ( !( value instanceof IfcActorRole ) )  {
+            throw new Error( 'Value in STEP was incorrectly typed for field' )
+          }
+    
+          return value
+        })() )
       }
-
-      this.Roles_ = value
+      return value }, true )
     }
 
     return this.Roles_ as Array<IfcActorRole> | null

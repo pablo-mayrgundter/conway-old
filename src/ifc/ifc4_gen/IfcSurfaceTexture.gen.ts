@@ -6,9 +6,7 @@ import { IfcCartesianTransformationOperator2D } from "./index"
 import {
   stepExtractString,
   stepExtractOptional,
-  stepExtractArrayToken,
-  stepExtractArrayBegin,
-  skipValue,
+  stepExtractArray,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -63,32 +61,27 @@ export abstract class IfcSurfaceTexture extends IfcPresentationItem {
 
   public get Parameter() : Array< string > | null {
     if ( this.Parameter_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 4 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.Parameter_ = this.extractLambda( 4, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      const value : Array<string> = []
+      let value : Array<string> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = stepExtractString( buffer, cursor, endCursor )
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+          const value = stepExtractString( buffer, cursor, endCursor )
+    
+          if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
+          }
+    
+          return value 
+        })() )
       }
-
-      this.Parameter_ = value
+      return value }, true )
     }
 
     return this.Parameter_ as Array< string > | null

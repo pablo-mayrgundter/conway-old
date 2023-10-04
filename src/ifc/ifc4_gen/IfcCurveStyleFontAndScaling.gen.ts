@@ -31,16 +31,16 @@ export  class IfcCurveStyleFontAndScaling extends IfcPresentationItem {
 
   public get CurveFont() : IfcCurveStyleFont | IfcPreDefinedCurveFont {
     if ( this.CurveFont_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc > =
-        this.extractReference( 1, false )
+      this.CurveFont_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
+
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcCurveStyleFont ) && !( value instanceof IfcPreDefinedCurveFont ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      this.CurveFont_ = value as (IfcCurveStyleFont | IfcPreDefinedCurveFont)
-
+      return value as (IfcCurveStyleFont | IfcPreDefinedCurveFont)
+}, false )
     }
 
     return this.CurveFont_ as IfcCurveStyleFont | IfcPreDefinedCurveFont

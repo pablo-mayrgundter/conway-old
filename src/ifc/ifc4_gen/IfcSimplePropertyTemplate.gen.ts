@@ -63,16 +63,16 @@ export  class IfcSimplePropertyTemplate extends IfcPropertyTemplate {
 
   public get PrimaryUnit() : IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit | null {
     if ( this.PrimaryUnit_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc >| null =
-        this.extractReference( 8, true )
+      this.PrimaryUnit_ = this.extractLambda( 8, (buffer, cursor, endCursor) => {
 
-      if ( !( value instanceof IfcDerivedUnit ) && !( value instanceof IfcMonetaryUnit ) && !( value instanceof IfcNamedUnit ) && value !== null ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
+
+      if ( !( value instanceof IfcDerivedUnit ) && !( value instanceof IfcMonetaryUnit ) && !( value instanceof IfcNamedUnit ) ) {
+        return ( void 0 )
       }
-
-      this.PrimaryUnit_ = value as (IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit)
-
+      return value as (IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit)
+}, true )
     }
 
     return this.PrimaryUnit_ as IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit | null
@@ -80,16 +80,16 @@ export  class IfcSimplePropertyTemplate extends IfcPropertyTemplate {
 
   public get SecondaryUnit() : IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit | null {
     if ( this.SecondaryUnit_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc >| null =
-        this.extractReference( 9, true )
+      this.SecondaryUnit_ = this.extractLambda( 9, (buffer, cursor, endCursor) => {
 
-      if ( !( value instanceof IfcDerivedUnit ) && !( value instanceof IfcMonetaryUnit ) && !( value instanceof IfcNamedUnit ) && value !== null ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
+
+      if ( !( value instanceof IfcDerivedUnit ) && !( value instanceof IfcMonetaryUnit ) && !( value instanceof IfcNamedUnit ) ) {
+        return ( void 0 )
       }
-
-      this.SecondaryUnit_ = value as (IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit)
-
+      return value as (IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit)
+}, true )
     }
 
     return this.SecondaryUnit_ as IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit | null

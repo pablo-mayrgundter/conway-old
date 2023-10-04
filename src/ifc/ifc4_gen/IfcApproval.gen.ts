@@ -87,16 +87,16 @@ export  class IfcApproval extends StepEntityBase< EntityTypesIfc > {
 
   public get RequestingApproval() : IfcOrganization | IfcPerson | IfcPersonAndOrganization | null {
     if ( this.RequestingApproval_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc >| null =
-        this.extractReference( 7, true )
+      this.RequestingApproval_ = this.extractLambda( 7, (buffer, cursor, endCursor) => {
 
-      if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) && value !== null ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
+
+      if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) ) {
+        return ( void 0 )
       }
-
-      this.RequestingApproval_ = value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization)
-
+      return value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization)
+}, true )
     }
 
     return this.RequestingApproval_ as IfcOrganization | IfcPerson | IfcPersonAndOrganization | null
@@ -104,16 +104,16 @@ export  class IfcApproval extends StepEntityBase< EntityTypesIfc > {
 
   public get GivingApproval() : IfcOrganization | IfcPerson | IfcPersonAndOrganization | null {
     if ( this.GivingApproval_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc >| null =
-        this.extractReference( 8, true )
+      this.GivingApproval_ = this.extractLambda( 8, (buffer, cursor, endCursor) => {
 
-      if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) && value !== null ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
+
+      if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) ) {
+        return ( void 0 )
       }
-
-      this.GivingApproval_ = value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization)
-
+      return value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization)
+}, true )
     }
 
     return this.GivingApproval_ as IfcOrganization | IfcPerson | IfcPersonAndOrganization | null

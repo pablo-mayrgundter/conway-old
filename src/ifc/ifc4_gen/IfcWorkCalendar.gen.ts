@@ -4,9 +4,7 @@ import { IfcWorkTime } from "./index"
 import { IfcWorkCalendarTypeEnum, IfcWorkCalendarTypeEnumDeserializeStep } from "./index"
 import {
   stepExtractOptional,
-  stepExtractArrayToken,
-  stepExtractArrayBegin,
-  skipValue,
+  stepExtractArray,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -27,32 +25,27 @@ export  class IfcWorkCalendar extends IfcControl {
 
   public get WorkingTimes() : Array<IfcWorkTime> | null {
     if ( this.WorkingTimes_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 6 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.WorkingTimes_ = this.extractLambda( 6, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      const value : Array<IfcWorkTime> = []
+      let value : Array<IfcWorkTime> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcWorkTime )
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
+    
+          if ( !( value instanceof IfcWorkTime ) )  {
+            throw new Error( 'Value in STEP was incorrectly typed for field' )
+          }
+    
+          return value
+        })() )
       }
-
-      this.WorkingTimes_ = value
+      return value }, true )
     }
 
     return this.WorkingTimes_ as Array<IfcWorkTime> | null
@@ -60,32 +53,27 @@ export  class IfcWorkCalendar extends IfcControl {
 
   public get ExceptionTimes() : Array<IfcWorkTime> | null {
     if ( this.ExceptionTimes_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 7 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.ExceptionTimes_ = this.extractLambda( 7, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      const value : Array<IfcWorkTime> = []
+      let value : Array<IfcWorkTime> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcWorkTime )
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
+    
+          if ( !( value instanceof IfcWorkTime ) )  {
+            throw new Error( 'Value in STEP was incorrectly typed for field' )
+          }
+    
+          return value
+        })() )
       }
-
-      this.ExceptionTimes_ = value
+      return value }, true )
     }
 
     return this.ExceptionTimes_ as Array<IfcWorkTime> | null

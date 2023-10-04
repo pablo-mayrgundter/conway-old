@@ -8,9 +8,7 @@ import { IfcTimePeriod } from "./index"
 import {
   stepExtractOptional,
   stepExtractNumber,
-  stepExtractArrayToken,
-  stepExtractArrayBegin,
-  skipValue,
+  stepExtractArray,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -44,33 +42,27 @@ export  class IfcRecurrencePattern extends StepEntityBase< EntityTypesIfc > {
 
   public get DayComponent() : Array< number > | null {
     if ( this.DayComponent_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 1 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.DayComponent_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      const value : Array<number> = []
+      let value : Array<number> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = stepExtractNumber( buffer, cursor, endCursor )
-
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+          const value = stepExtractNumber( buffer, cursor, endCursor )
+    
+          if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
+          }
+    
+          return value 
+        })() )
       }
-
-      this.DayComponent_ = value
+      return value }, true )
     }
 
     return this.DayComponent_ as Array< number > | null
@@ -78,33 +70,27 @@ export  class IfcRecurrencePattern extends StepEntityBase< EntityTypesIfc > {
 
   public get WeekdayComponent() : Array< number > | null {
     if ( this.WeekdayComponent_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 2 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.WeekdayComponent_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      const value : Array<number> = []
+      let value : Array<number> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = stepExtractNumber( buffer, cursor, endCursor )
-
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+          const value = stepExtractNumber( buffer, cursor, endCursor )
+    
+          if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
+          }
+    
+          return value 
+        })() )
       }
-
-      this.WeekdayComponent_ = value
+      return value }, true )
     }
 
     return this.WeekdayComponent_ as Array< number > | null
@@ -112,33 +98,27 @@ export  class IfcRecurrencePattern extends StepEntityBase< EntityTypesIfc > {
 
   public get MonthComponent() : Array< number > | null {
     if ( this.MonthComponent_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 3 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.MonthComponent_ = this.extractLambda( 3, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      const value : Array<number> = []
+      let value : Array<number> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = stepExtractNumber( buffer, cursor, endCursor )
-
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+          const value = stepExtractNumber( buffer, cursor, endCursor )
+    
+          if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
+          }
+    
+          return value 
+        })() )
       }
-
-      this.MonthComponent_ = value
+      return value }, true )
     }
 
     return this.MonthComponent_ as Array< number > | null
@@ -170,32 +150,27 @@ export  class IfcRecurrencePattern extends StepEntityBase< EntityTypesIfc > {
 
   public get TimePeriods() : Array<IfcTimePeriod> | null {
     if ( this.TimePeriods_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 7 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.TimePeriods_ = this.extractLambda( 7, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      const value : Array<IfcTimePeriod> = []
+      let value : Array<IfcTimePeriod> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcTimePeriod )
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
+    
+          if ( !( value instanceof IfcTimePeriod ) )  {
+            throw new Error( 'Value in STEP was incorrectly typed for field' )
+          }
+    
+          return value
+        })() )
       }
-
-      this.TimePeriods_ = value
+      return value }, true )
     }
 
     return this.TimePeriods_ as Array<IfcTimePeriod> | null

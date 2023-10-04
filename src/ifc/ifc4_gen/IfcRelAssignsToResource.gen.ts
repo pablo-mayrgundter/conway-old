@@ -19,16 +19,16 @@ export  class IfcRelAssignsToResource extends IfcRelAssigns {
 
   public get RelatingResource() : IfcResource | IfcTypeResource {
     if ( this.RelatingResource_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc > =
-        this.extractReference( 6, false )
+      this.RelatingResource_ = this.extractLambda( 6, (buffer, cursor, endCursor) => {
+
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcResource ) && !( value instanceof IfcTypeResource ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      this.RelatingResource_ = value as (IfcResource | IfcTypeResource)
-
+      return value as (IfcResource | IfcTypeResource)
+}, false )
     }
 
     return this.RelatingResource_ as IfcResource | IfcTypeResource

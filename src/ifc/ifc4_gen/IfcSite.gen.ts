@@ -7,9 +7,7 @@ import { IfcPostalAddress } from "./index"
 import {
   stepExtractOptional,
   stepExtractNumber,
-  stepExtractArrayToken,
-  stepExtractArrayBegin,
-  skipValue,
+  stepExtractArray,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -32,33 +30,27 @@ export  class IfcSite extends IfcSpatialStructureElement {
 
   public get RefLatitude() : Array< number > | null {
     if ( this.RefLatitude_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 9 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.RefLatitude_ = this.extractLambda( 9, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      const value : Array<number> = []
+      let value : Array<number> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = stepExtractNumber( buffer, cursor, endCursor )
-
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+          const value = stepExtractNumber( buffer, cursor, endCursor )
+    
+          if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
+          }
+    
+          return value 
+        })() )
       }
-
-      this.RefLatitude_ = value
+      return value }, true )
     }
 
     return this.RefLatitude_ as Array< number > | null
@@ -66,33 +58,27 @@ export  class IfcSite extends IfcSpatialStructureElement {
 
   public get RefLongitude() : Array< number > | null {
     if ( this.RefLongitude_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 10 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.RefLongitude_ = this.extractLambda( 10, (buffer, cursor, endCursor) => {
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      const value : Array<number> = []
+      let value : Array<number> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = stepExtractNumber( buffer, cursor, endCursor )
-
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+          const value = stepExtractNumber( buffer, cursor, endCursor )
+    
+          if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
+          }
+    
+          return value 
+        })() )
       }
-
-      this.RefLongitude_ = value
+      return value }, true )
     }
 
     return this.RefLongitude_ as Array< number > | null

@@ -3,9 +3,7 @@ import { IfcPlaneAngleMeasure } from "./index"
 import { IfcLuminousIntensityDistributionMeasure } from "./index"
 import {
   stepExtractNumber,
-  stepExtractArrayToken,
-  stepExtractArrayBegin,
-  skipValue,
+  stepExtractArray,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -34,29 +32,23 @@ export  class IfcLightDistributionData extends StepEntityBase< EntityTypesIfc > 
 
   public get SecondaryPlaneAngle() : Array< number > {
     if ( this.SecondaryPlaneAngle_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 1 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.SecondaryPlaneAngle_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
-      const value : Array<number> = []
+      let value : Array<number> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = stepExtractNumber( buffer, cursor, endCursor )
-
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+          const value = stepExtractNumber( buffer, cursor, endCursor )
+    
+          if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
+          }
+    
+          return value 
+        })() )
       }
-
-      this.SecondaryPlaneAngle_ = value
+      return value }, false )
     }
 
     return this.SecondaryPlaneAngle_ as Array< number >
@@ -64,29 +56,23 @@ export  class IfcLightDistributionData extends StepEntityBase< EntityTypesIfc > 
 
   public get LuminousIntensity() : Array< number > {
     if ( this.LuminousIntensity_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 2 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.LuminousIntensity_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
 
-      const value : Array<number> = []
+      let value : Array<number> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = stepExtractNumber( buffer, cursor, endCursor )
-
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+          const value = stepExtractNumber( buffer, cursor, endCursor )
+    
+          if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
+          }
+    
+          return value 
+        })() )
       }
-
-      this.LuminousIntensity_ = value
+      return value }, false )
     }
 
     return this.LuminousIntensity_ as Array< number >

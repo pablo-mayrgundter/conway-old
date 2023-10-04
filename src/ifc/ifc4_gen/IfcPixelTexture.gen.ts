@@ -4,9 +4,7 @@ import { IfcInteger } from "./index"
 import { IfcBinary } from "./index"
 import {
   stepExtractBinary,
-  stepExtractArrayToken,
-  stepExtractArrayBegin,
-  skipValue,
+  stepExtractArray,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -52,28 +50,23 @@ export  class IfcPixelTexture extends IfcSurfaceTexture {
 
   public get Pixel() : Array< [Uint8Array, number] > {
     if ( this.Pixel_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 8 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.Pixel_ = this.extractLambda( 8, (buffer, cursor, endCursor) => {
 
-      const value : Array<[Uint8Array, number]> = []
+      let value : Array<[Uint8Array, number]> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = stepExtractBinary( buffer, cursor, endCursor )
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+          const value = stepExtractBinary( buffer, cursor, endCursor )
+    
+          if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
+          }
+    
+          return value 
+        })() )
       }
-
-      this.Pixel_ = value
+      return value }, false )
     }
 
     return this.Pixel_ as Array< [Uint8Array, number] >

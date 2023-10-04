@@ -3,9 +3,7 @@ import { IfcGridAxis } from "./index"
 import { IfcLengthMeasure } from "./index"
 import {
   stepExtractNumber,
-  stepExtractArrayToken,
-  stepExtractArrayBegin,
-  skipValue,
+  stepExtractArray,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -25,28 +23,23 @@ export  class IfcVirtualGridIntersection extends StepEntityBase< EntityTypesIfc 
 
   public get IntersectingAxes() : Array<IfcGridAxis> {
     if ( this.IntersectingAxes_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 0 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.IntersectingAxes_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
 
-      const value : Array<IfcGridAxis> = []
+      let value : Array<IfcGridAxis> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcGridAxis )
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
+    
+          if ( !( value instanceof IfcGridAxis ) )  {
+            throw new Error( 'Value in STEP was incorrectly typed for field' )
+          }
+    
+          return value
+        })() )
       }
-
-      this.IntersectingAxes_ = value
+      return value }, false )
     }
 
     return this.IntersectingAxes_ as Array<IfcGridAxis>
@@ -54,29 +47,23 @@ export  class IfcVirtualGridIntersection extends StepEntityBase< EntityTypesIfc 
 
   public get OffsetDistances() : Array< number > {
     if ( this.OffsetDistances_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 1 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.OffsetDistances_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
 
-      const value : Array<number> = []
+      let value : Array<number> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = stepExtractNumber( buffer, cursor, endCursor )
-
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+          const value = stepExtractNumber( buffer, cursor, endCursor )
+    
+          if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
+          }
+    
+          return value 
+        })() )
       }
-
-      this.OffsetDistances_ = value
+      return value }, false )
     }
 
     return this.OffsetDistances_ as Array< number >

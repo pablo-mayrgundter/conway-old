@@ -3,9 +3,7 @@ import { IfcPresentationItem } from "./index"
 import { IfcNormalisedRatioMeasure } from "./index"
 import {
   stepExtractNumber,
-  stepExtractArrayToken,
-  stepExtractArrayBegin,
-  skipValue,
+  stepExtractArray,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -24,39 +22,35 @@ export  class IfcColourRgbList extends IfcPresentationItem {
 
   public get ColourList() : Array< Array< number > > {
     if ( this.ColourList_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 0 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.ColourList_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
 
-      const value : Array<Array<number>> = []
+      let value : Array<Array<number>> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 : Array<number> = []
-
-        let signedCursor1 = stepExtractArrayBegin( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor1 )
-
-        while ( signedCursor1 >= 0 ) {
-          const value2 = stepExtractNumber( buffer, cursor, endCursor )
-
-          if ( value2 === void 0 ) {
-            throw new Error( 'Value in STEP was incorrectly typed' )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+          let value : Array<number> = [];
+    
+          for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+            value.push( (() => {
+                  const cursor = address
+                  const value = stepExtractNumber( buffer, cursor, endCursor )
+            
+                  if ( value === void 0 ) {
+                    throw new Error( 'Value needs to be defined in encapsulating context' )
+                  }
+            
+                  return value 
+                })() )
           }
-          cursor = skipValue( buffer, cursor, endCursor )
-          value1.push( value2 )
-          signedCursor1 = stepExtractArrayToken( buffer, cursor, endCursor )
-          cursor = Math.abs( signedCursor1 )
-        }
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+                if ( value === void 0 ) {
+            throw new Error( 'Value needs to be defined in encapsulating context' )
+          }
+    
+          return value 
+        })() )
       }
-
-      this.ColourList_ = value
+      return value }, false )
     }
 
     return this.ColourList_ as Array< Array< number > >

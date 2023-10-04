@@ -4,9 +4,7 @@ import { IfcObjectDefinition } from "./index"
 import { IfcPropertySetDefinition } from "./index"
 import { IfcPropertySetDefinitionSet } from "./index"
 import {
-  stepExtractArrayToken,
-  stepExtractArrayBegin,
-  skipValue,
+  stepExtractArray,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -26,28 +24,23 @@ export  class IfcRelDefinesByProperties extends IfcRelDefines {
 
   public get RelatedObjects() : Array<IfcObjectDefinition> {
     if ( this.RelatedObjects_ === void 0 ) {
-      
-      let   cursor    = this.getOffsetCursor( 4 )
-      const buffer    = this.buffer
-      const endCursor = buffer.length
+      this.RelatedObjects_ = this.extractLambda( 4, (buffer, cursor, endCursor) => {
 
-      const value : Array<IfcObjectDefinition> = []
+      let value : Array<IfcObjectDefinition> = [];
 
-      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
-      cursor = Math.abs( signedCursor0 )
-
-      while ( signedCursor0 >= 0 ) {
-        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcObjectDefinition )
-        if ( value1 === void 0 ) {
-          throw new Error( 'Value in STEP was incorrectly typed' )
-        }
-        cursor = skipValue( buffer, cursor, endCursor )
-        value.push( value1 )
-        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
-        cursor = Math.abs( signedCursor0 )
+      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
+        value.push( (() => {
+          const cursor = address
+           let value = this.extractBufferReference( buffer, cursor, endCursor )
+    
+          if ( !( value instanceof IfcObjectDefinition ) )  {
+            throw new Error( 'Value in STEP was incorrectly typed for field' )
+          }
+    
+          return value
+        })() )
       }
-
-      this.RelatedObjects_ = value
+      return value }, false )
     }
 
     return this.RelatedObjects_ as Array<IfcObjectDefinition>
@@ -55,16 +48,16 @@ export  class IfcRelDefinesByProperties extends IfcRelDefines {
 
   public get RelatingPropertyDefinition() : IfcPropertySetDefinition | IfcPropertySetDefinitionSet {
     if ( this.RelatingPropertyDefinition_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc > =
-        this.extractReference( 5, false )
+      this.RelatingPropertyDefinition_ = this.extractLambda( 5, (buffer, cursor, endCursor) => {
+
+      const value : StepEntityBase< EntityTypesIfc > | undefined =
+        this.extractBufferReference( buffer, cursor, endCursor )
 
       if ( !( value instanceof IfcPropertySetDefinition ) && !( value instanceof IfcPropertySetDefinitionSet ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
+        return ( void 0 )
       }
-
-      this.RelatingPropertyDefinition_ = value as (IfcPropertySetDefinition | IfcPropertySetDefinitionSet)
-
+      return value as (IfcPropertySetDefinition | IfcPropertySetDefinitionSet)
+}, false )
     }
 
     return this.RelatingPropertyDefinition_ as IfcPropertySetDefinition | IfcPropertySetDefinitionSet
