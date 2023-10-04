@@ -28,16 +28,16 @@ export  class IfcLocalPlacement extends IfcObjectPlacement {
 
   public get RelativePlacement() : IfcAxis2Placement2D | IfcAxis2Placement3D {
     if ( this.RelativePlacement_ === void 0 ) {
-      this.RelativePlacement_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
-
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
+      
+      const value : StepEntityBase< EntityTypesIfc > =
+        this.extractReference( 1, false )
 
       if ( !( value instanceof IfcAxis2Placement2D ) && !( value instanceof IfcAxis2Placement3D ) ) {
-        return ( void 0 )
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcAxis2Placement2D | IfcAxis2Placement3D)
-}, false )
+
+      this.RelativePlacement_ = value as (IfcAxis2Placement2D | IfcAxis2Placement3D)
+
     }
 
     return this.RelativePlacement_ as IfcAxis2Placement2D | IfcAxis2Placement3D

@@ -5,7 +5,9 @@ import { IfcCartesianPoint } from "./index"
 import { IfcBSplineSurfaceForm, IfcBSplineSurfaceFormDeserializeStep } from "./index"
 import { IfcLogical } from "./index"
 import {
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
   SIZEOF,
 } from '../../step/parsing/step_deserialization_functions'
 import {
@@ -50,35 +52,38 @@ export abstract class IfcBSplineSurface extends IfcBoundedSurface {
 
   public get ControlPointsList() : Array<Array<IfcCartesianPoint>> {
     if ( this.ControlPointsList_ === void 0 ) {
-      this.ControlPointsList_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 2 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<Array<IfcCartesianPoint>> = [];
+      const value : Array<Array<IfcCartesianPoint>> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-          let value : Array<IfcCartesianPoint> = [];
-    
-          for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-            value.push( (() => {
-                  const cursor = address
-                   let value = this.extractBufferReference( buffer, cursor, endCursor )
-            
-                  if ( !( value instanceof IfcCartesianPoint ) )  {
-                    throw new Error( 'Value in STEP was incorrectly typed for field' )
-                  }
-            
-                  return value
-                })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 : Array<IfcCartesianPoint> = []
+
+        let signedCursor1 = stepExtractArrayBegin( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor1 )
+
+        while ( signedCursor1 >= 0 ) {
+          const value2 = this.extractBufferElement( buffer, cursor, endCursor, IfcCartesianPoint )
+          if ( value2 === void 0 ) {
+            throw new Error( 'Value in STEP was incorrectly typed' )
           }
-                if ( value === void 0 ) {
-            throw new Error( 'Value needs to be defined in encapsulating context' )
-          }
-    
-          return value 
-        })() )
+          cursor = skipValue( buffer, cursor, endCursor )
+          value1.push( value2 )
+          signedCursor1 = stepExtractArrayToken( buffer, cursor, endCursor )
+          cursor = Math.abs( signedCursor1 )
+        }
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.ControlPointsList_ = value
     }
 
     return this.ControlPointsList_ as Array<Array<IfcCartesianPoint>>

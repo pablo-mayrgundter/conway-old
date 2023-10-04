@@ -21,16 +21,16 @@ export  class IfcRelAssignsToProcess extends IfcRelAssigns {
 
   public get RelatingProcess() : IfcProcess | IfcTypeProcess {
     if ( this.RelatingProcess_ === void 0 ) {
-      this.RelatingProcess_ = this.extractLambda( 6, (buffer, cursor, endCursor) => {
-
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
+      
+      const value : StepEntityBase< EntityTypesIfc > =
+        this.extractReference( 6, false )
 
       if ( !( value instanceof IfcProcess ) && !( value instanceof IfcTypeProcess ) ) {
-        return ( void 0 )
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcProcess | IfcTypeProcess)
-}, false )
+
+      this.RelatingProcess_ = value as (IfcProcess | IfcTypeProcess)
+
     }
 
     return this.RelatingProcess_ as IfcProcess | IfcTypeProcess

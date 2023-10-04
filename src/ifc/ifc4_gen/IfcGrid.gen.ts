@@ -4,7 +4,9 @@ import { IfcGridAxis } from "./index"
 import { IfcGridTypeEnum, IfcGridTypeEnumDeserializeStep } from "./index"
 import {
   stepExtractOptional,
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -26,23 +28,28 @@ export  class IfcGrid extends IfcProduct {
 
   public get UAxes() : Array<IfcGridAxis> {
     if ( this.UAxes_ === void 0 ) {
-      this.UAxes_ = this.extractLambda( 7, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 7 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<IfcGridAxis> = [];
+      const value : Array<IfcGridAxis> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-           let value = this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcGridAxis ) )  {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
-          }
-    
-          return value
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcGridAxis )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.UAxes_ = value
     }
 
     return this.UAxes_ as Array<IfcGridAxis>
@@ -50,23 +57,28 @@ export  class IfcGrid extends IfcProduct {
 
   public get VAxes() : Array<IfcGridAxis> {
     if ( this.VAxes_ === void 0 ) {
-      this.VAxes_ = this.extractLambda( 8, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 8 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<IfcGridAxis> = [];
+      const value : Array<IfcGridAxis> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-           let value = this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcGridAxis ) )  {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
-          }
-    
-          return value
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcGridAxis )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.VAxes_ = value
     }
 
     return this.VAxes_ as Array<IfcGridAxis>
@@ -74,27 +86,32 @@ export  class IfcGrid extends IfcProduct {
 
   public get WAxes() : Array<IfcGridAxis> | null {
     if ( this.WAxes_ === void 0 ) {
-      this.WAxes_ = this.extractLambda( 9, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 9 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      let value : Array<IfcGridAxis> = [];
+      const value : Array<IfcGridAxis> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-           let value = this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcGridAxis ) )  {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
-          }
-    
-          return value
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcGridAxis )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, true )
+
+      this.WAxes_ = value
     }
 
     return this.WAxes_ as Array<IfcGridAxis> | null
