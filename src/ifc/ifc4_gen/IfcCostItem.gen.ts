@@ -5,7 +5,9 @@ import { IfcCostValue } from "./index"
 import { IfcPhysicalQuantity } from "./index"
 import {
   stepExtractOptional,
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -34,27 +36,32 @@ export  class IfcCostItem extends IfcControl {
 
   public get CostValues() : Array<IfcCostValue> | null {
     if ( this.CostValues_ === void 0 ) {
-      this.CostValues_ = this.extractLambda( 7, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 7 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      let value : Array<IfcCostValue> = [];
+      const value : Array<IfcCostValue> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-           let value = this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcCostValue ) )  {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
-          }
-    
-          return value
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcCostValue )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, true )
+
+      this.CostValues_ = value
     }
 
     return this.CostValues_ as Array<IfcCostValue> | null
@@ -62,27 +69,32 @@ export  class IfcCostItem extends IfcControl {
 
   public get CostQuantities() : Array<IfcPhysicalQuantity> | null {
     if ( this.CostQuantities_ === void 0 ) {
-      this.CostQuantities_ = this.extractLambda( 8, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 8 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      let value : Array<IfcPhysicalQuantity> = [];
+      const value : Array<IfcPhysicalQuantity> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-           let value = this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcPhysicalQuantity ) )  {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
-          }
-    
-          return value
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcPhysicalQuantity )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, true )
+
+      this.CostQuantities_ = value
     }
 
     return this.CostQuantities_ as Array<IfcPhysicalQuantity> | null

@@ -17,7 +17,9 @@ import { IfcProfileDef } from "./index"
 import { IfcPropertyAbstraction } from "./index"
 import { IfcTimeSeries } from "./index"
 import {
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -45,22 +47,35 @@ export  class IfcResourceConstraintRelationship extends IfcResourceLevelRelation
 
   public get RelatedResourceObjects() : Array<IfcActorRole | IfcAppliedValue | IfcApproval | IfcConstraint | IfcContextDependentUnit | IfcConversionBasedUnit | IfcExternalInformation | IfcExternalReference | IfcMaterialDefinition | IfcOrganization | IfcPerson | IfcPersonAndOrganization | IfcPhysicalQuantity | IfcProfileDef | IfcPropertyAbstraction | IfcTimeSeries> {
     if ( this.RelatedResourceObjects_ === void 0 ) {
-      this.RelatedResourceObjects_ = this.extractLambda( 3, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 3 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<IfcActorRole | IfcAppliedValue | IfcApproval | IfcConstraint | IfcContextDependentUnit | IfcConversionBasedUnit | IfcExternalInformation | IfcExternalReference | IfcMaterialDefinition | IfcOrganization | IfcPerson | IfcPersonAndOrganization | IfcPhysicalQuantity | IfcProfileDef | IfcPropertyAbstraction | IfcTimeSeries> = [];
+      const value : Array<IfcActorRole | IfcAppliedValue | IfcApproval | IfcConstraint | IfcContextDependentUnit | IfcConversionBasedUnit | IfcExternalInformation | IfcExternalReference | IfcMaterialDefinition | IfcOrganization | IfcPerson | IfcPersonAndOrganization | IfcPhysicalQuantity | IfcProfileDef | IfcPropertyAbstraction | IfcTimeSeries> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-          const value : StepEntityBase< EntityTypesIfc > | undefined =
-            this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcActorRole ) && !( value instanceof IfcAppliedValue ) && !( value instanceof IfcApproval ) && !( value instanceof IfcConstraint ) && !( value instanceof IfcContextDependentUnit ) && !( value instanceof IfcConversionBasedUnit ) && !( value instanceof IfcExternalInformation ) && !( value instanceof IfcExternalReference ) && !( value instanceof IfcMaterialDefinition ) && !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) && !( value instanceof IfcPhysicalQuantity ) && !( value instanceof IfcProfileDef ) && !( value instanceof IfcPropertyAbstraction ) && !( value instanceof IfcTimeSeries ) ) {
-            throw new Error( 'Value in select must be populated' )
-          }
-          return value as (IfcActorRole | IfcAppliedValue | IfcApproval | IfcConstraint | IfcContextDependentUnit | IfcConversionBasedUnit | IfcExternalInformation | IfcExternalReference | IfcMaterialDefinition | IfcOrganization | IfcPerson | IfcPersonAndOrganization | IfcPhysicalQuantity | IfcProfileDef | IfcPropertyAbstraction | IfcTimeSeries)})() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+          this.extractBufferReference( buffer, cursor, endCursor )
+
+        if ( !( value1Untyped instanceof IfcActorRole ) && !( value1Untyped instanceof IfcAppliedValue ) && !( value1Untyped instanceof IfcApproval ) && !( value1Untyped instanceof IfcConstraint ) && !( value1Untyped instanceof IfcContextDependentUnit ) && !( value1Untyped instanceof IfcConversionBasedUnit ) && !( value1Untyped instanceof IfcExternalInformation ) && !( value1Untyped instanceof IfcExternalReference ) && !( value1Untyped instanceof IfcMaterialDefinition ) && !( value1Untyped instanceof IfcOrganization ) && !( value1Untyped instanceof IfcPerson ) && !( value1Untyped instanceof IfcPersonAndOrganization ) && !( value1Untyped instanceof IfcPhysicalQuantity ) && !( value1Untyped instanceof IfcProfileDef ) && !( value1Untyped instanceof IfcPropertyAbstraction ) && !( value1Untyped instanceof IfcTimeSeries ) ) {
+          throw new Error( 'Value in select must be populated' )
+        }
+
+        const value1 = value1Untyped as (IfcActorRole | IfcAppliedValue | IfcApproval | IfcConstraint | IfcContextDependentUnit | IfcConversionBasedUnit | IfcExternalInformation | IfcExternalReference | IfcMaterialDefinition | IfcOrganization | IfcPerson | IfcPersonAndOrganization | IfcPhysicalQuantity | IfcProfileDef | IfcPropertyAbstraction | IfcTimeSeries)
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.RelatedResourceObjects_ = value
     }
 
     return this.RelatedResourceObjects_ as Array<IfcActorRole | IfcAppliedValue | IfcApproval | IfcConstraint | IfcContextDependentUnit | IfcConversionBasedUnit | IfcExternalInformation | IfcExternalReference | IfcMaterialDefinition | IfcOrganization | IfcPerson | IfcPersonAndOrganization | IfcPhysicalQuantity | IfcProfileDef | IfcPropertyAbstraction | IfcTimeSeries>

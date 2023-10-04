@@ -20,16 +20,16 @@ export  class IfcRepresentationMap extends StepEntityBase< EntityTypesIfc > {
 
   public get MappingOrigin() : IfcAxis2Placement2D | IfcAxis2Placement3D {
     if ( this.MappingOrigin_ === void 0 ) {
-      this.MappingOrigin_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
-
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
+      
+      const value : StepEntityBase< EntityTypesIfc > =
+        this.extractReference( 0, false )
 
       if ( !( value instanceof IfcAxis2Placement2D ) && !( value instanceof IfcAxis2Placement3D ) ) {
-        return ( void 0 )
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcAxis2Placement2D | IfcAxis2Placement3D)
-}, false )
+
+      this.MappingOrigin_ = value as (IfcAxis2Placement2D | IfcAxis2Placement3D)
+
     }
 
     return this.MappingOrigin_ as IfcAxis2Placement2D | IfcAxis2Placement3D

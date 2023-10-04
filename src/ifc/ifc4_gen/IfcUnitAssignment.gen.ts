@@ -3,7 +3,9 @@ import { IfcDerivedUnit } from "./index"
 import { IfcMonetaryUnit } from "./index"
 import { IfcNamedUnit } from "./index"
 import {
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -22,22 +24,35 @@ export  class IfcUnitAssignment extends StepEntityBase< EntityTypesIfc > {
 
   public get Units() : Array<IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit> {
     if ( this.Units_ === void 0 ) {
-      this.Units_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 0 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit> = [];
+      const value : Array<IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-          const value : StepEntityBase< EntityTypesIfc > | undefined =
-            this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcDerivedUnit ) && !( value instanceof IfcMonetaryUnit ) && !( value instanceof IfcNamedUnit ) ) {
-            throw new Error( 'Value in select must be populated' )
-          }
-          return value as (IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit)})() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+          this.extractBufferReference( buffer, cursor, endCursor )
+
+        if ( !( value1Untyped instanceof IfcDerivedUnit ) && !( value1Untyped instanceof IfcMonetaryUnit ) && !( value1Untyped instanceof IfcNamedUnit ) ) {
+          throw new Error( 'Value in select must be populated' )
+        }
+
+        const value1 = value1Untyped as (IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit)
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.Units_ = value
     }
 
     return this.Units_ as Array<IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit>

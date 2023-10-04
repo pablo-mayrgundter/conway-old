@@ -19,16 +19,16 @@ export abstract class IfcConic extends IfcCurve {
 
   public get Position() : IfcAxis2Placement2D | IfcAxis2Placement3D {
     if ( this.Position_ === void 0 ) {
-      this.Position_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
-
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
+      
+      const value : StepEntityBase< EntityTypesIfc > =
+        this.extractReference( 0, false )
 
       if ( !( value instanceof IfcAxis2Placement2D ) && !( value instanceof IfcAxis2Placement3D ) ) {
-        return ( void 0 )
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcAxis2Placement2D | IfcAxis2Placement3D)
-}, false )
+
+      this.Position_ = value as (IfcAxis2Placement2D | IfcAxis2Placement3D)
+
     }
 
     return this.Position_ as IfcAxis2Placement2D | IfcAxis2Placement3D
