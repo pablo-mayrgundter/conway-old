@@ -3,7 +3,9 @@ import { IfcPreDefinedPropertySet } from "./index"
 import { IfcLabel } from "./index"
 import { IfcSectionReinforcementProperties } from "./index"
 import {
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -31,23 +33,28 @@ export  class IfcReinforcementDefinitionProperties extends IfcPreDefinedProperty
 
   public get ReinforcementSectionDefinitions() : Array<IfcSectionReinforcementProperties> {
     if ( this.ReinforcementSectionDefinitions_ === void 0 ) {
-      this.ReinforcementSectionDefinitions_ = this.extractLambda( 5, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 5 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<IfcSectionReinforcementProperties> = [];
+      const value : Array<IfcSectionReinforcementProperties> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-           let value = this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcSectionReinforcementProperties ) )  {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
-          }
-    
-          return value
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcSectionReinforcementProperties )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.ReinforcementSectionDefinitions_ = value
     }
 
     return this.ReinforcementSectionDefinitions_ as Array<IfcSectionReinforcementProperties>

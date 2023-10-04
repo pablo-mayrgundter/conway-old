@@ -51,16 +51,16 @@ export  class IfcTableColumn extends StepEntityBase< EntityTypesIfc > {
 
   public get Unit() : IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit | null {
     if ( this.Unit_ === void 0 ) {
-      this.Unit_ = this.extractLambda( 3, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 3, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcDerivedUnit ) && !( value instanceof IfcMonetaryUnit ) && !( value instanceof IfcNamedUnit ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcDerivedUnit ) && !( value instanceof IfcMonetaryUnit ) && !( value instanceof IfcNamedUnit ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit)
-}, true )
+
+      this.Unit_ = value as (IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit)
+
     }
 
     return this.Unit_ as IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit | null

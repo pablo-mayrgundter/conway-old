@@ -20,16 +20,16 @@ export  class IfcActor extends IfcObject {
 
   public get TheActor() : IfcOrganization | IfcPerson | IfcPersonAndOrganization {
     if ( this.TheActor_ === void 0 ) {
-      this.TheActor_ = this.extractLambda( 5, (buffer, cursor, endCursor) => {
-
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
+      
+      const value : StepEntityBase< EntityTypesIfc > =
+        this.extractReference( 5, false )
 
       if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) ) {
-        return ( void 0 )
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization)
-}, false )
+
+      this.TheActor_ = value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization)
+
     }
 
     return this.TheActor_ as IfcOrganization | IfcPerson | IfcPersonAndOrganization

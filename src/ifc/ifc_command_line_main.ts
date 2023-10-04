@@ -72,6 +72,13 @@ function doWork() {
             alias: 'm',
             default: 128,
           })
+          yargs2.option('strict', {
+            // eslint-disable-next-line max-len
+            describe: 'Makes parser/reference errors on nullable fields return null instead of an error',
+            type: 'boolean',
+            alias: 's',
+            default: false,
+          })
 
           yargs2.positional('filename', { describe: 'IFC File Paths', type: 'string' })
         }, async (argv) => {
@@ -88,6 +95,7 @@ function doWork() {
           const geometry = (argv['geometry'] as boolean | undefined)
 
           const outputProperties = (argv['properties'] as boolean | undefined)
+          const strict = (argv['strict'] as boolean | undefined) ?? false
 
           try {
             indexIfcBuffer = fs.readFileSync(ifcFile)
@@ -147,6 +155,8 @@ function doWork() {
           if (model === void 0) {
             return
           }
+
+          model.nullOnErrors = !strict
 
           if (geometry) {
             console.log(`Data parse time ${parseDataTimeEnd - parseDataTimeStart} ms`)
