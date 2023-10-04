@@ -781,6 +781,9 @@ export class IfcAPI {
                 geometryTransform[14],
                 geometryTransform[15],
             )
+          } else {
+            //set to identity if no transform found 
+            newMatrix = glmatrix.mat4.create()
           }
 
           if (!this._isCoordinated && this.settings?.COORDINATE_TO_ORIGIN) {
