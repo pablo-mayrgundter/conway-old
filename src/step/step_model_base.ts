@@ -37,6 +37,12 @@ implements Iterable<BaseEntity>, Model {
   public elementMemoization: boolean = true
 
   /**
+   * When an atribute is parsed from an entity in the model that causes a recoverable
+   * error, and the field is optional, return null instead of throwing an exception.
+   */
+  public nullOnErrors: boolean = true
+
+  /**
    * Construct this step model with its matching schema, a buffer to read from and an element index.
    *
    * @param schema The Step schema this is based on.
