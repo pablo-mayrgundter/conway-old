@@ -200,7 +200,7 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
         throw new Error('Value in STEP was incorrectly typed')
       }
 
-      if (stepExtractOptional(buffer, cursor, endCursor) !== null) {
+      if ( !this.model.nullOnErrors && stepExtractOptional(buffer, cursor, endCursor) !== null ) {
         throw new Error('Value in STEP was incorrectly typed')
       }
 
@@ -240,7 +240,7 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
         throw new Error('Value in STEP was incorrectly typed')
       }
 
-      if (stepExtractOptional(buffer, cursor, endCursor) !== null) {
+      if ( !this.model.nullOnErrors && stepExtractOptional(buffer, cursor, endCursor) !== null) {
         throw new Error('Value in STEP was incorrectly typed')
       }
 
@@ -279,7 +279,7 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
         throw new Error('Value in STEP was incorrectly typed')
       }
 
-      if (stepExtractOptional(buffer, cursor, endCursor) !== null) {
+      if ( !this.model.nullOnErrors && stepExtractOptional(buffer, cursor, endCursor) !== null) {
         throw new Error('Value in STEP was incorrectly typed')
       }
 
@@ -319,7 +319,7 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
         throw new Error('Value in STEP was incorrectly typed')
       }
 
-      if (stepExtractOptional(buffer, cursor, endCursor) !== null) {
+      if ( !this.model.nullOnErrors && stepExtractOptional(buffer, cursor, endCursor) !== null) {
         throw new Error('Value in STEP was incorrectly typed')
       }
 
@@ -435,16 +435,10 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
       const value: Array<any> = []
 
       for (const address of stepExtractArray(buffer, cursor, endCursor)) {
-        value.push((() => {
-          const cursor = address
-          const value = this.extractBufferReference(buffer, cursor, endCursor)
 
-          /* if ( !( value instanceof IfcObjectDefinition ) )  {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
-          }*/
+        const itemValue = this.extractBufferReference(buffer, address, endCursor)
 
-          return value
-        })())
+        value.push( itemValue )
       }
       return value
     }, false)
@@ -520,7 +514,7 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
         throw new Error('Value in STEP was incorrectly typed')
       }
 
-      if (stepExtractOptional(buffer, cursor, endCursor) !== null) {
+      if ( !this.model.nullOnErrors && stepExtractOptional(buffer, cursor, endCursor) !== null) {
         throw new Error('Value in STEP was incorrectly typed')
       }
 
@@ -587,11 +581,12 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
     const cursor    = this.getOffsetCursor( offset )
     const buffer    = this.buffer
     const endCursor = buffer.length
+    const model     = this.model
 
     const expressID = stepExtractReference(buffer, cursor, endCursor)
     const value =
-      expressID !== void 0 ? this.model.getElementByExpressID(expressID) :
-        this.model.getInlineElementByAddress(
+      expressID !== void 0 ? model.getElementByExpressID(expressID) :
+        model.getInlineElementByAddress(
             stepExtractInlineElemement(buffer, cursor, endCursor))
 
     if (value === void 0) {
@@ -599,7 +594,7 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
         throw new Error('Value in STEP was incorrectly typed')
       }
 
-      if (stepExtractOptional(buffer, cursor, endCursor) !== null) {
+      if ( !model.nullOnErrors && stepExtractOptional(buffer, cursor, endCursor) !== null) {
         throw new Error('Value in STEP was incorrectly typed')
       }
 
@@ -635,10 +630,11 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
       entityConstructor: T ):
       InstanceType< T > | undefined {
 
+    const model = this.model
     const expressID = stepExtractReference( buffer, cursor, endCursor )
     const value =
-      expressID !== void 0 ? this.model.getElementByExpressID( expressID ) :
-      this.model.getInlineElementByAddress(
+      expressID !== void 0 ? model.getElementByExpressID( expressID ) :
+      model.getInlineElementByAddress(
           stepExtractInlineElemement( buffer, cursor, endCursor ) )
 
     if ( value === void 0 ) {
@@ -680,7 +676,7 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
         throw new Error('Value in STEP was incorrectly typed')
       }
 
-      if (stepExtractOptional(buffer, cursor, endCursor) !== null) {
+      if ( !this.model.nullOnErrors && stepExtractOptional(buffer, cursor, endCursor) !== null) {
         throw new Error('Value in STEP was incorrectly typed')
       }
 
@@ -752,7 +748,7 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
         throw new Error('Value in STEP was incorrectly typed')
       }
 
-      if (stepExtractOptional(buffer, cursor, endCursor) !== null) {
+      if ( !this.model.nullOnErrors && stepExtractOptional(buffer, cursor, endCursor) !== null) {
         throw new Error('Value in STEP was incorrectly typed')
       }
 
