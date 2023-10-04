@@ -20,16 +20,16 @@ export  class IfcConnectionCurveGeometry extends IfcConnectionGeometry {
 
   public get CurveOnRelatingElement() : IfcBoundedCurve | IfcEdgeCurve {
     if ( this.CurveOnRelatingElement_ === void 0 ) {
-      this.CurveOnRelatingElement_ = this.extractLambda( 0, (buffer, cursor, endCursor) => {
-
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
+      
+      const value : StepEntityBase< EntityTypesIfc > =
+        this.extractReference( 0, false )
 
       if ( !( value instanceof IfcBoundedCurve ) && !( value instanceof IfcEdgeCurve ) ) {
-        return ( void 0 )
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcBoundedCurve | IfcEdgeCurve)
-}, false )
+
+      this.CurveOnRelatingElement_ = value as (IfcBoundedCurve | IfcEdgeCurve)
+
     }
 
     return this.CurveOnRelatingElement_ as IfcBoundedCurve | IfcEdgeCurve
@@ -37,16 +37,16 @@ export  class IfcConnectionCurveGeometry extends IfcConnectionGeometry {
 
   public get CurveOnRelatedElement() : IfcBoundedCurve | IfcEdgeCurve | null {
     if ( this.CurveOnRelatedElement_ === void 0 ) {
-      this.CurveOnRelatedElement_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 1, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcBoundedCurve ) && !( value instanceof IfcEdgeCurve ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcBoundedCurve ) && !( value instanceof IfcEdgeCurve ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcBoundedCurve | IfcEdgeCurve)
-}, true )
+
+      this.CurveOnRelatedElement_ = value as (IfcBoundedCurve | IfcEdgeCurve)
+
     }
 
     return this.CurveOnRelatedElement_ as IfcBoundedCurve | IfcEdgeCurve | null

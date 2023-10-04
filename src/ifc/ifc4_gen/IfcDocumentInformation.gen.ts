@@ -13,7 +13,9 @@ import { IfcDocumentConfidentialityEnum, IfcDocumentConfidentialityEnumDeseriali
 import { IfcDocumentStatusEnum, IfcDocumentStatusEnumDeserializeStep } from "./index"
 import {
   stepExtractOptional,
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -112,16 +114,16 @@ export  class IfcDocumentInformation extends IfcExternalInformation {
 
   public get DocumentOwner() : IfcOrganization | IfcPerson | IfcPersonAndOrganization | null {
     if ( this.DocumentOwner_ === void 0 ) {
-      this.DocumentOwner_ = this.extractLambda( 8, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 8, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization)
-}, true )
+
+      this.DocumentOwner_ = value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization)
+
     }
 
     return this.DocumentOwner_ as IfcOrganization | IfcPerson | IfcPersonAndOrganization | null
@@ -129,26 +131,39 @@ export  class IfcDocumentInformation extends IfcExternalInformation {
 
   public get Editors() : Array<IfcOrganization | IfcPerson | IfcPersonAndOrganization> | null {
     if ( this.Editors_ === void 0 ) {
-      this.Editors_ = this.extractLambda( 9, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 9 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      let value : Array<IfcOrganization | IfcPerson | IfcPersonAndOrganization> = [];
+      const value : Array<IfcOrganization | IfcPerson | IfcPersonAndOrganization> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-          const value : StepEntityBase< EntityTypesIfc > | undefined =
-            this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) ) {
-            throw new Error( 'Value in select must be populated' )
-          }
-          return value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization)})() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+          this.extractBufferReference( buffer, cursor, endCursor )
+
+        if ( !( value1Untyped instanceof IfcOrganization ) && !( value1Untyped instanceof IfcPerson ) && !( value1Untyped instanceof IfcPersonAndOrganization ) ) {
+          throw new Error( 'Value in select must be populated' )
+        }
+
+        const value1 = value1Untyped as (IfcOrganization | IfcPerson | IfcPersonAndOrganization)
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, true )
+
+      this.Editors_ = value
     }
 
     return this.Editors_ as Array<IfcOrganization | IfcPerson | IfcPersonAndOrganization> | null

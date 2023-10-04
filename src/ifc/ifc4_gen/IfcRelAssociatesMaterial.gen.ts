@@ -20,16 +20,16 @@ export  class IfcRelAssociatesMaterial extends IfcRelAssociates {
 
   public get RelatingMaterial() : IfcMaterialDefinition | IfcMaterialList | IfcMaterialUsageDefinition {
     if ( this.RelatingMaterial_ === void 0 ) {
-      this.RelatingMaterial_ = this.extractLambda( 5, (buffer, cursor, endCursor) => {
-
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
+      
+      const value : StepEntityBase< EntityTypesIfc > =
+        this.extractReference( 5, false )
 
       if ( !( value instanceof IfcMaterialDefinition ) && !( value instanceof IfcMaterialList ) && !( value instanceof IfcMaterialUsageDefinition ) ) {
-        return ( void 0 )
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcMaterialDefinition | IfcMaterialList | IfcMaterialUsageDefinition)
-}, false )
+
+      this.RelatingMaterial_ = value as (IfcMaterialDefinition | IfcMaterialList | IfcMaterialUsageDefinition)
+
     }
 
     return this.RelatingMaterial_ as IfcMaterialDefinition | IfcMaterialList | IfcMaterialUsageDefinition

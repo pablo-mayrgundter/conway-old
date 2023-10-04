@@ -5,7 +5,9 @@ import { IfcReinforcingBarRoleEnum, IfcReinforcingBarRoleEnumDeserializeStep } f
 import { IfcSectionProperties } from "./index"
 import { IfcReinforcementBarProperties } from "./index"
 import {
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -69,23 +71,28 @@ export  class IfcSectionReinforcementProperties extends IfcPreDefinedProperties 
 
   public get CrossSectionReinforcementDefinitions() : Array<IfcReinforcementBarProperties> {
     if ( this.CrossSectionReinforcementDefinitions_ === void 0 ) {
-      this.CrossSectionReinforcementDefinitions_ = this.extractLambda( 5, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 5 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<IfcReinforcementBarProperties> = [];
+      const value : Array<IfcReinforcementBarProperties> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-           let value = this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcReinforcementBarProperties ) )  {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
-          }
-    
-          return value
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcReinforcementBarProperties )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.CrossSectionReinforcementDefinitions_ = value
     }
 
     return this.CrossSectionReinforcementDefinitions_ as Array<IfcReinforcementBarProperties>

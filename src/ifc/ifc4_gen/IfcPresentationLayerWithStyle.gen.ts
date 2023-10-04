@@ -3,7 +3,9 @@ import { IfcPresentationLayerAssignment } from "./index"
 import { IfcLogical } from "./index"
 import { IfcPresentationStyle } from "./index"
 import {
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -49,23 +51,28 @@ export  class IfcPresentationLayerWithStyle extends IfcPresentationLayerAssignme
 
   public get LayerStyles() : Array<IfcPresentationStyle> {
     if ( this.LayerStyles_ === void 0 ) {
-      this.LayerStyles_ = this.extractLambda( 7, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 7 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<IfcPresentationStyle> = [];
+      const value : Array<IfcPresentationStyle> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-           let value = this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcPresentationStyle ) )  {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
-          }
-    
-          return value
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcPresentationStyle )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.LayerStyles_ = value
     }
 
     return this.LayerStyles_ as Array<IfcPresentationStyle>

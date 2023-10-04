@@ -6,7 +6,9 @@ import { IfcActorRole } from "./index"
 import { IfcAddress } from "./index"
 import {
   stepExtractOptional,
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -53,27 +55,32 @@ export  class IfcOrganization extends StepEntityBase< EntityTypesIfc > {
 
   public get Roles() : Array<IfcActorRole> | null {
     if ( this.Roles_ === void 0 ) {
-      this.Roles_ = this.extractLambda( 3, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 3 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      let value : Array<IfcActorRole> = [];
+      const value : Array<IfcActorRole> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-           let value = this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcActorRole ) )  {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
-          }
-    
-          return value
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcActorRole )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, true )
+
+      this.Roles_ = value
     }
 
     return this.Roles_ as Array<IfcActorRole> | null
@@ -81,27 +88,32 @@ export  class IfcOrganization extends StepEntityBase< EntityTypesIfc > {
 
   public get Addresses() : Array<IfcAddress> | null {
     if ( this.Addresses_ === void 0 ) {
-      this.Addresses_ = this.extractLambda( 4, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 4 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
       if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
         return null
       }
 
-      let value : Array<IfcAddress> = [];
+      const value : Array<IfcAddress> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-           let value = this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcAddress ) )  {
-            throw new Error( 'Value in STEP was incorrectly typed for field' )
-          }
-    
-          return value
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = this.extractBufferElement( buffer, cursor, endCursor, IfcAddress )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, true )
+
+      this.Addresses_ = value
     }
 
     return this.Addresses_ as Array<IfcAddress> | null

@@ -27,7 +27,6 @@ import {
   ParamsAddFaceToGeometry,
   SurfaceObject,
   ParamsGetRectangleProfileCurve,
-  GeometryCollection,
   ParamsRelVoidSubtract,
 } from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMaterial, ColorRGBA, exponentToRoughness } from '../core/canonical_material'
