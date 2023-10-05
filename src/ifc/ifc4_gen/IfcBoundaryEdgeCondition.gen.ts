@@ -25,16 +25,16 @@ export  class IfcBoundaryEdgeCondition extends IfcBoundaryCondition {
 
   public get TranslationalStiffnessByLengthX() : IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure | null {
     if ( this.TranslationalStiffnessByLengthX_ === void 0 ) {
-      this.TranslationalStiffnessByLengthX_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 1, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfLinearSubgradeReactionMeasure ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfLinearSubgradeReactionMeasure ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure)
-}, true )
+
+      this.TranslationalStiffnessByLengthX_ = value as (IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure)
+
     }
 
     return this.TranslationalStiffnessByLengthX_ as IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure | null
@@ -42,16 +42,16 @@ export  class IfcBoundaryEdgeCondition extends IfcBoundaryCondition {
 
   public get TranslationalStiffnessByLengthY() : IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure | null {
     if ( this.TranslationalStiffnessByLengthY_ === void 0 ) {
-      this.TranslationalStiffnessByLengthY_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 2, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfLinearSubgradeReactionMeasure ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfLinearSubgradeReactionMeasure ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure)
-}, true )
+
+      this.TranslationalStiffnessByLengthY_ = value as (IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure)
+
     }
 
     return this.TranslationalStiffnessByLengthY_ as IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure | null
@@ -59,16 +59,16 @@ export  class IfcBoundaryEdgeCondition extends IfcBoundaryCondition {
 
   public get TranslationalStiffnessByLengthZ() : IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure | null {
     if ( this.TranslationalStiffnessByLengthZ_ === void 0 ) {
-      this.TranslationalStiffnessByLengthZ_ = this.extractLambda( 3, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 3, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfLinearSubgradeReactionMeasure ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfLinearSubgradeReactionMeasure ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure)
-}, true )
+
+      this.TranslationalStiffnessByLengthZ_ = value as (IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure)
+
     }
 
     return this.TranslationalStiffnessByLengthZ_ as IfcBoolean | IfcModulusOfLinearSubgradeReactionMeasure | null
@@ -76,16 +76,16 @@ export  class IfcBoundaryEdgeCondition extends IfcBoundaryCondition {
 
   public get RotationalStiffnessByLengthX() : IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure | null {
     if ( this.RotationalStiffnessByLengthX_ === void 0 ) {
-      this.RotationalStiffnessByLengthX_ = this.extractLambda( 4, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 4, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfRotationalSubgradeReactionMeasure ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfRotationalSubgradeReactionMeasure ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure)
-}, true )
+
+      this.RotationalStiffnessByLengthX_ = value as (IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure)
+
     }
 
     return this.RotationalStiffnessByLengthX_ as IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure | null
@@ -93,16 +93,16 @@ export  class IfcBoundaryEdgeCondition extends IfcBoundaryCondition {
 
   public get RotationalStiffnessByLengthY() : IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure | null {
     if ( this.RotationalStiffnessByLengthY_ === void 0 ) {
-      this.RotationalStiffnessByLengthY_ = this.extractLambda( 5, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 5, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfRotationalSubgradeReactionMeasure ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfRotationalSubgradeReactionMeasure ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure)
-}, true )
+
+      this.RotationalStiffnessByLengthY_ = value as (IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure)
+
     }
 
     return this.RotationalStiffnessByLengthY_ as IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure | null
@@ -110,16 +110,16 @@ export  class IfcBoundaryEdgeCondition extends IfcBoundaryCondition {
 
   public get RotationalStiffnessByLengthZ() : IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure | null {
     if ( this.RotationalStiffnessByLengthZ_ === void 0 ) {
-      this.RotationalStiffnessByLengthZ_ = this.extractLambda( 6, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 6, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfRotationalSubgradeReactionMeasure ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfRotationalSubgradeReactionMeasure ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure)
-}, true )
+
+      this.RotationalStiffnessByLengthZ_ = value as (IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure)
+
     }
 
     return this.RotationalStiffnessByLengthZ_ as IfcBoolean | IfcModulusOfRotationalSubgradeReactionMeasure | null

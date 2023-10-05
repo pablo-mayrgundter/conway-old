@@ -45,16 +45,16 @@ export  class IfcLibraryInformation extends IfcExternalInformation {
 
   public get Publisher() : IfcOrganization | IfcPerson | IfcPersonAndOrganization | null {
     if ( this.Publisher_ === void 0 ) {
-      this.Publisher_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 2, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization)
-}, true )
+
+      this.Publisher_ = value as (IfcOrganization | IfcPerson | IfcPersonAndOrganization)
+
     }
 
     return this.Publisher_ as IfcOrganization | IfcPerson | IfcPersonAndOrganization | null

@@ -6,7 +6,9 @@ import { IfcParameterValue } from "./index"
 import { IfcBoolean } from "./index"
 import { IfcTrimmingPreference, IfcTrimmingPreferenceDeserializeStep } from "./index"
 import {
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -37,22 +39,35 @@ export  class IfcTrimmedCurve extends IfcBoundedCurve {
 
   public get Trim1() : Array<IfcCartesianPoint | IfcParameterValue> {
     if ( this.Trim1_ === void 0 ) {
-      this.Trim1_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 1 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<IfcCartesianPoint | IfcParameterValue> = [];
+      const value : Array<IfcCartesianPoint | IfcParameterValue> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-          const value : StepEntityBase< EntityTypesIfc > | undefined =
-            this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcCartesianPoint ) && !( value instanceof IfcParameterValue ) ) {
-            throw new Error( 'Value in select must be populated' )
-          }
-          return value as (IfcCartesianPoint | IfcParameterValue)})() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+          this.extractBufferReference( buffer, cursor, endCursor )
+
+        if ( !( value1Untyped instanceof IfcCartesianPoint ) && !( value1Untyped instanceof IfcParameterValue ) ) {
+          throw new Error( 'Value in select must be populated' )
+        }
+
+        const value1 = value1Untyped as (IfcCartesianPoint | IfcParameterValue)
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.Trim1_ = value
     }
 
     return this.Trim1_ as Array<IfcCartesianPoint | IfcParameterValue>
@@ -60,22 +75,35 @@ export  class IfcTrimmedCurve extends IfcBoundedCurve {
 
   public get Trim2() : Array<IfcCartesianPoint | IfcParameterValue> {
     if ( this.Trim2_ === void 0 ) {
-      this.Trim2_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 2 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<IfcCartesianPoint | IfcParameterValue> = [];
+      const value : Array<IfcCartesianPoint | IfcParameterValue> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-          const value : StepEntityBase< EntityTypesIfc > | undefined =
-            this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcCartesianPoint ) && !( value instanceof IfcParameterValue ) ) {
-            throw new Error( 'Value in select must be populated' )
-          }
-          return value as (IfcCartesianPoint | IfcParameterValue)})() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+          this.extractBufferReference( buffer, cursor, endCursor )
+
+        if ( !( value1Untyped instanceof IfcCartesianPoint ) && !( value1Untyped instanceof IfcParameterValue ) ) {
+          throw new Error( 'Value in select must be populated' )
+        }
+
+        const value1 = value1Untyped as (IfcCartesianPoint | IfcParameterValue)
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.Trim2_ = value
     }
 
     return this.Trim2_ as Array<IfcCartesianPoint | IfcParameterValue>

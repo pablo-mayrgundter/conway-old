@@ -7,7 +7,9 @@ import { IfcSurfaceStyleRefraction } from "./index"
 import { IfcSurfaceStyleShading } from "./index"
 import { IfcSurfaceStyleWithTextures } from "./index"
 import {
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
@@ -35,22 +37,35 @@ export  class IfcSurfaceStyle extends IfcPresentationStyle {
 
   public get Styles() : Array<IfcExternallyDefinedSurfaceStyle | IfcSurfaceStyleLighting | IfcSurfaceStyleRefraction | IfcSurfaceStyleShading | IfcSurfaceStyleWithTextures> {
     if ( this.Styles_ === void 0 ) {
-      this.Styles_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 2 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<IfcExternallyDefinedSurfaceStyle | IfcSurfaceStyleLighting | IfcSurfaceStyleRefraction | IfcSurfaceStyleShading | IfcSurfaceStyleWithTextures> = [];
+      const value : Array<IfcExternallyDefinedSurfaceStyle | IfcSurfaceStyleLighting | IfcSurfaceStyleRefraction | IfcSurfaceStyleShading | IfcSurfaceStyleWithTextures> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-          const value : StepEntityBase< EntityTypesIfc > | undefined =
-            this.extractBufferReference( buffer, cursor, endCursor )
-    
-          if ( !( value instanceof IfcExternallyDefinedSurfaceStyle ) && !( value instanceof IfcSurfaceStyleLighting ) && !( value instanceof IfcSurfaceStyleRefraction ) && !( value instanceof IfcSurfaceStyleShading ) && !( value instanceof IfcSurfaceStyleWithTextures ) ) {
-            throw new Error( 'Value in select must be populated' )
-          }
-          return value as (IfcExternallyDefinedSurfaceStyle | IfcSurfaceStyleLighting | IfcSurfaceStyleRefraction | IfcSurfaceStyleShading | IfcSurfaceStyleWithTextures)})() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+          this.extractBufferReference( buffer, cursor, endCursor )
+
+        if ( !( value1Untyped instanceof IfcExternallyDefinedSurfaceStyle ) && !( value1Untyped instanceof IfcSurfaceStyleLighting ) && !( value1Untyped instanceof IfcSurfaceStyleRefraction ) && !( value1Untyped instanceof IfcSurfaceStyleShading ) && !( value1Untyped instanceof IfcSurfaceStyleWithTextures ) ) {
+          throw new Error( 'Value in select must be populated' )
+        }
+
+        const value1 = value1Untyped as (IfcExternallyDefinedSurfaceStyle | IfcSurfaceStyleLighting | IfcSurfaceStyleRefraction | IfcSurfaceStyleShading | IfcSurfaceStyleWithTextures)
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.Styles_ = value
     }
 
     return this.Styles_ as Array<IfcExternallyDefinedSurfaceStyle | IfcSurfaceStyleLighting | IfcSurfaceStyleRefraction | IfcSurfaceStyleShading | IfcSurfaceStyleWithTextures>

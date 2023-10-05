@@ -5,7 +5,9 @@ import { IfcParameterValue } from "./index"
 import { IfcKnotType, IfcKnotTypeDeserializeStep } from "./index"
 import {
   stepExtractNumber,
-  stepExtractArray,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
   SIZEOF,
 } from '../../step/parsing/step_deserialization_functions'
 
@@ -29,23 +31,29 @@ export  class IfcBSplineSurfaceWithKnots extends IfcBSplineSurface {
 
   public get UMultiplicities() : Array< number > {
     if ( this.UMultiplicities_ === void 0 ) {
-      this.UMultiplicities_ = this.extractLambda( 7, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 7 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<number> = [];
+      const value : Array<number> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-          const value = stepExtractNumber( buffer, cursor, endCursor )
-    
-          if ( value === void 0 ) {
-            throw new Error( 'Value needs to be defined in encapsulating context' )
-          }
-    
-          return value 
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = stepExtractNumber( buffer, cursor, endCursor )
+
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.UMultiplicities_ = value
     }
 
     return this.UMultiplicities_ as Array< number >
@@ -53,23 +61,29 @@ export  class IfcBSplineSurfaceWithKnots extends IfcBSplineSurface {
 
   public get VMultiplicities() : Array< number > {
     if ( this.VMultiplicities_ === void 0 ) {
-      this.VMultiplicities_ = this.extractLambda( 8, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 8 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<number> = [];
+      const value : Array<number> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-          const value = stepExtractNumber( buffer, cursor, endCursor )
-    
-          if ( value === void 0 ) {
-            throw new Error( 'Value needs to be defined in encapsulating context' )
-          }
-    
-          return value 
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = stepExtractNumber( buffer, cursor, endCursor )
+
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.VMultiplicities_ = value
     }
 
     return this.VMultiplicities_ as Array< number >
@@ -77,23 +91,29 @@ export  class IfcBSplineSurfaceWithKnots extends IfcBSplineSurface {
 
   public get UKnots() : Array< number > {
     if ( this.UKnots_ === void 0 ) {
-      this.UKnots_ = this.extractLambda( 9, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 9 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<number> = [];
+      const value : Array<number> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-          const value = stepExtractNumber( buffer, cursor, endCursor )
-    
-          if ( value === void 0 ) {
-            throw new Error( 'Value needs to be defined in encapsulating context' )
-          }
-    
-          return value 
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = stepExtractNumber( buffer, cursor, endCursor )
+
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.UKnots_ = value
     }
 
     return this.UKnots_ as Array< number >
@@ -101,23 +121,29 @@ export  class IfcBSplineSurfaceWithKnots extends IfcBSplineSurface {
 
   public get VKnots() : Array< number > {
     if ( this.VKnots_ === void 0 ) {
-      this.VKnots_ = this.extractLambda( 10, (buffer, cursor, endCursor) => {
+      
+      let   cursor    = this.getOffsetCursor( 10 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
 
-      let value : Array<number> = [];
+      const value : Array<number> = []
 
-      for ( let address of stepExtractArray( buffer, cursor, endCursor ) ) {
-        value.push( (() => {
-          const cursor = address
-          const value = stepExtractNumber( buffer, cursor, endCursor )
-    
-          if ( value === void 0 ) {
-            throw new Error( 'Value needs to be defined in encapsulating context' )
-          }
-    
-          return value 
-        })() )
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = stepExtractNumber( buffer, cursor, endCursor )
+
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
       }
-      return value }, false )
+
+      this.VKnots_ = value
     }
 
     return this.VKnots_ as Array< number >

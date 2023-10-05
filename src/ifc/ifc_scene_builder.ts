@@ -3,6 +3,7 @@ import { ConwayGeometry, GeometryObject, ParamsLocalPlacement } from
 import { CanonicalMaterial } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
 import { Model } from '../core/model'
+import { NativeTransform } from '../core/native_types'
 import { PackedMesh } from '../core/packed_mesh'
 import { Scene } from '../core/scene'
 import {
@@ -17,8 +18,6 @@ import EntityTypesIfc from './ifc4_gen/entity_types_ifc.gen'
 import { IfcMaterialCache } from './ifc_material_cache'
 import IfcStepModel from './ifc_step_model'
 
-
-export type IfcNativeTransform = { getValues(): Readonly<number[]> }
 
 /**
  *
@@ -46,8 +45,8 @@ export class IfcSceneTransform implements SceneNodeTransform {
     public readonly absoluteTransform: ReadonlyArray<number>,
     public readonly localID: number,
     public readonly index: number,
-    public readonly nativeTransform: IfcNativeTransform,
-    public readonly absoluteNativeTransform: IfcNativeTransform,
+    public readonly nativeTransform: NativeTransform,
+    public readonly absoluteNativeTransform: NativeTransform,
     public readonly parentIndex?: number) { }
   /* eslint-enable no-useless-constructor, no-empty-function */
   public children: number[] = []
@@ -83,7 +82,7 @@ export type IfcSceneNode = IfcSceneTransform | IfcSceneGeometry
 /**
  *
  */
-export class IfcSceneBuilder implements Scene {
+export class IfcSceneBuilder implements Scene< StepEntityBase< EntityTypesIfc > > {
 
   public roots: number[] = []
 
@@ -272,7 +271,7 @@ export class IfcSceneBuilder implements Scene {
    */
   public* walk(walkTemporary: boolean = false):
     IterableIterator<[readonly number[] | undefined,
-      IfcNativeTransform | undefined,
+      NativeTransform | undefined,
       CanonicalMesh,
       CanonicalMaterial | undefined,
       StepEntityBase<EntityTypesIfc> | undefined]> {
@@ -376,7 +375,7 @@ export class IfcSceneBuilder implements Scene {
   public addTransform(
       localID: number,
       transform: ReadonlyArray<number>,
-      nativeTransform: IfcNativeTransform): IfcSceneTransform {
+      nativeTransform: NativeTransform): IfcSceneTransform {
 
     if (this.sceneLocalIdMap_.has(localID)) {
       const transform_ = this.getTransform(localID)
@@ -391,7 +390,7 @@ export class IfcSceneBuilder implements Scene {
     const nodeIndex = this.scene_.length
     let parentIndex: number | undefined
 
-    let absoluteNativeTransform: IfcNativeTransform
+    let absoluteNativeTransform: NativeTransform
 
     if (this.currentParent_ !== void 0) {
 

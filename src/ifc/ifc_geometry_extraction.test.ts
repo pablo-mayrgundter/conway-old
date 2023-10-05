@@ -5,7 +5,7 @@ import { ParseResult } from '../step/parsing/step_parser'
 import IfcStepParser from './ifc_step_parser'
 import ParsingBuffer from '../parsing/parsing_buffer'
 import { ConwayGeometry } from '../../dependencies/conway-geom/conway_geometry'
-import { CanonicalMaterial, ColorRGBA } from '../core/canonical_material'
+import { ColorRGBA } from '../core/canonical_material'
 
 
 let conwayModel:IfcGeometryExtraction
@@ -64,16 +64,16 @@ function getMeshSize(): Number {
 /**
  * Get the materials from the model.
  *
- * @return {IterableIterator< CanonicalMaterial >} The materials for this.
+ * @return {number} The number of materials in this.
  */
 function getMaterialCount(): number {
   return conwayModel.materials.size
 }
 
 /**
- * Get the materials from the model.
+ * Test if a material colour at a particular index matches a value.
  *
- * @return {IterableIterator< CanonicalMaterial >} The materials for this.
+ * @return {boolean} True if a match, false otherwise.
  */
 function materialColorMatches(materialIndex: number, equal: ColorRGBA): boolean {
   return Array.from(

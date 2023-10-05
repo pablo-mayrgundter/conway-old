@@ -2,7 +2,6 @@ import {
   ConwayGeometry,
   ParamsPolygonalFaceSet,
   GeometryObject,
-  ResultsGltf,
   IndexedPolygonalFace,
   ParamsAxis2Placement3D,
   ParamsCartesianTransformationOperator3D,
@@ -15,8 +14,6 @@ import {
   ParamsCreateNativeIfcProfile,
   ParamsGetExtrudedAreaSolid,
   ParamsGetBooleanResult,
-  ProfileObject,
-  StdVector,
   MaterialObject,
   BlendMode,
   toAlphaMode,
@@ -30,12 +27,25 @@ import {
   ParamsAddFaceToGeometry,
   SurfaceObject,
   ParamsGetRectangleProfileCurve,
-  GeometryCollection,
   ParamsRelVoidSubtract,
 } from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMaterial, ColorRGBA, exponentToRoughness } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
 import { CanonicalProfile } from '../core/canonical_profile'
+import {
+  NativeULongVector,
+  NativeUintVector,
+  NativeVectorBound3D,
+  NativeVectorCurve,
+  NativeVectorGeometry,
+  NativeVectorGeometryCollection,
+  NativeVectorGlmVec2,
+  NativeVectorGlmVec3,
+  NativeVectorIndexedPolygonalFace,
+  NativeVectorProfile,
+  NativeVectorSegment,
+  WasmModule,
+} from '../core/native_types'
 import {
   IfcArbitraryClosedProfileDef,
   IfcAxis2Placement2D,
@@ -113,7 +123,6 @@ import {
   IfcFaceBasedSurfaceModel,
   IfcConnectedFaceSet,
   IfcArbitraryProfileDefWithVoids,
-  IfcFaceOuterBound,
 } from './ifc4_gen'
 import EntityTypesIfc from './ifc4_gen/entity_types_ifc.gen'
 import { IfcMaterialCache } from './ifc_material_cache'
@@ -122,20 +131,6 @@ import IfcStepModel from './ifc_step_model'
 
 
 type Mutable<T> = { -readonly [P in keyof T]: T[P] }
-type NativeVectorGlmVec3 = StdVector<Vector3>
-type NativeVectorGlmVec2 = StdVector<Vector2>
-type NativeUintVector = StdVector<number>
-type NativeULongVector = StdVector<number>
-type NativeVectorIndexedPolygonalFace = StdVector<IndexedPolygonalFace>
-
-type NativeVectorSegment = StdVector<Segment>
-type NativeVectorGeometry = StdVector<GeometryObject>
-type NativeVectorGeometryCollection = StdVector<GeometryCollection>
-type NativeVectorMaterial = StdVector<MaterialObject>
-type NativeVectorProfile = StdVector<ProfileObject>
-type NativeVectorCurve = StdVector<CurveObject>
-type NativeVectorBound3D = StdVector<Bound3DObject>
-type WasmModule = any
 
 /**
  * Enum presenting the extraction results.
@@ -159,7 +154,7 @@ export enum ExtractResult {
  * @return {number} A roughness value 1 (roughest) to zero (full specular/mirror).
  */
 export function extractSpecularHighlight(
-  from: IfcSpecularExponent | IfcSpecularRoughness | null): number | undefined {
+    from: IfcSpecularExponent | IfcSpecularRoughness | null): number | undefined {
 
   if (from === null) {
     return void 0
@@ -210,8 +205,8 @@ export function extractColorRGB(from: IfcColourRgb, alpha: number = 1): ColorRGB
  * @return {ColorRGBA}
  */
 export function extractColorOrFactor(
-  from: IfcColourRgb | IfcNormalisedRatioMeasure,
-  surfaceColor: ColorRGBA, alpha: number = 1): ColorRGBA {
+    from: IfcColourRgb | IfcNormalisedRatioMeasure,
+    surfaceColor: ColorRGBA, alpha: number = 1): ColorRGBA {
 
   if (from instanceof IfcColourRgb) {
     return extractColorRGB(from, alpha)
@@ -490,7 +485,7 @@ export class IfcGeometryExtraction {
    */
   dropAllNativeIndexedPolygonalFaceVector(): void {
 
-    while (this.freeVectorPolygonalFaces_.length > 0) {
+    while ( this.freeVectorPolygonalFaces_.length > 0 ) {
 
       this.freeVectorPolygonalFaces_.pop()?.delete()
     }
@@ -502,9 +497,9 @@ export class IfcGeometryExtraction {
    * @param nativeVectorIndexedPolygonalFace The native item to free.
    */
   freeNativeIndexedPolygonalFaceVector(
-    nativeVectorIndexedPolygonalFace: NativeVectorIndexedPolygonalFace): void {
+      nativeVectorIndexedPolygonalFace: NativeVectorIndexedPolygonalFace ): void {
 
-    this.freeVectorPolygonalFaces_.push(nativeVectorIndexedPolygonalFace)
+    this.freeVectorPolygonalFaces_.push( nativeVectorIndexedPolygonalFace )
   }
 
   /**
@@ -516,13 +511,13 @@ export class IfcGeometryExtraction {
   nativeIndexedPolygonalFaceVector(initialize?: number): NativeVectorIndexedPolygonalFace {
     let nativeVectorIndexedPolygonalFace: NativeVectorIndexedPolygonalFace
 
-    if (this.freeVectorPolygonalFaces_.length > 0) {
+    if ( this.freeVectorPolygonalFaces_.length > 0 ) {
       nativeVectorIndexedPolygonalFace = this.freeVectorPolygonalFaces_.pop() as
         NativeVectorIndexedPolygonalFace
 
-      if (nativeVectorIndexedPolygonalFace.size() > 0) {
+      if ( nativeVectorIndexedPolygonalFace.size() > 0 ) {
 
-        nativeVectorIndexedPolygonalFace.resize(0, nativeVectorIndexedPolygonalFace.get(0))
+        nativeVectorIndexedPolygonalFace.resize( 0, nativeVectorIndexedPolygonalFace.get( 0 ) )
       }
     } else {
       nativeVectorIndexedPolygonalFace = new
@@ -587,40 +582,6 @@ export class IfcGeometryExtraction {
   }
 
   /**
-   * @param modelId - model ID
-   * @param geometry - GeometryObject to convert to OBJ
-   * @return {string} - Obj string or blank string
-   */
-  toObj(geometry: GeometryObject, modelId: number = 0): string {
-    if (this.conwayModel !== void 0) {
-      return this.conwayModel.toObj(geometry)
-    }
-
-    return ''
-  }
-
-  /**
-   * Convert this to a GLTF/GLB
-   *
-   * @param geometry - GeometryObject to convert to GLTF / GLB
-   * @param isGlb boolean - Should the output be a single GLB file?
-   * @param outputDraco boolean - Should the output be Draco compressed?
-   * @param fileUri string - base filenames for GLTF / GLB files
-   * @return {ResultsGltf} - Structure containing GLTF / GLB filenames + data vectors
-   */
-  toGltf(geometry: NativeVectorGeometryCollection, materials: NativeVectorMaterial, isGlb: boolean,
-    outputDraco: boolean, fileUri: string, modelId: number = 0): ResultsGltf {
-    const noResults: ResultsGltf = { success: false, bufferUris: undefined, buffers: undefined }
-    noResults.success = false
-    if (this.conwayModel !== void 0) {
-
-      return this.conwayModel.toGltf(geometry, materials, isGlb, outputDraco, fileUri)
-    }
-
-    return noResults
-  }
-
-  /**
    * Destroy geometry processor and deinitialize
    */
   destroy(modelId: number = 0) {
@@ -682,9 +643,9 @@ export class IfcGeometryExtraction {
    * @return {ExtractResult} - Extraction status result
    */
   private extractPolygonalFaceSet(entity: IfcPolygonalFaceSet,
-    polygonalFaceStartIndices: NativeULongVector,
-    temporary: boolean = false,
-    isRelVoid: boolean = false): ExtractResult {
+      polygonalFaceStartIndices: NativeULongVector,
+      temporary: boolean = false,
+      isRelVoid: boolean = false): ExtractResult {
     const result: ExtractResult = ExtractResult.COMPLETE
 
     // map points
@@ -784,7 +745,7 @@ export class IfcGeometryExtraction {
     pointsArray.delete()
 
     this.freeNativeIndexedPolygonalFaceVector(
-      polygonalFaceVector)
+        polygonalFaceVector )
 
     const canonicalMesh: CanonicalMesh = {
       type: CanonicalMeshType.BUFFER_GEOMETRY,
@@ -901,57 +862,42 @@ export class IfcGeometryExtraction {
    * @param from
    */
   extractBooleanResult(from: IfcBooleanResult | IfcBooleanClippingResult,
-    isRelVoid: boolean = false) {
+      isRelVoid: boolean = false) {
 
     if (from.FirstOperand instanceof IfcExtrudedAreaSolid ||
       from.FirstOperand instanceof IfcPolygonalFaceSet ||
       from.FirstOperand instanceof IfcBooleanResult ||
-      from.FirstOperand instanceof IfcBooleanClippingResult ||
-      from.FirstOperand instanceof IfcFacetedBrep) {
+      from.FirstOperand instanceof IfcBooleanClippingResult) {
       this.extractBooleanOperand(from.FirstOperand, isRelVoid)
     }
 
     if (from.SecondOperand instanceof IfcExtrudedAreaSolid ||
       from.SecondOperand instanceof IfcPolygonalFaceSet ||
       from.SecondOperand instanceof IfcBooleanResult ||
-      from.SecondOperand instanceof IfcHalfSpaceSolid ||
-      from.SecondOperand instanceof IfcFacetedBrep) {
+      from.SecondOperand instanceof IfcHalfSpaceSolid) {
       this.extractBooleanOperand(from.SecondOperand, isRelVoid)
     }
 
     // get geometry TODO(nickcastel50): eventually support flattening meshes
     const flatFirstMeshVector = this.nativeVectorGeometry(1)
-
-    let firstMesh: CanonicalMesh | undefined = undefined
-
-    if (!isRelVoid) {
-      firstMesh = this.model.geometry.getByLocalID(from.FirstOperand.localID)
-    } else {
-      firstMesh = this.model.voidGeometry.getByLocalID(from.FirstOperand.localID)
-    }
+    const firstMesh = this.model.geometry.getByLocalID(from.FirstOperand.localID)
 
     if (firstMesh !== void 0 && firstMesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
       flatFirstMeshVector.set(0, firstMesh.geometry)
     } else {
       console.log(
-        `Error extracting firstOperand geometry for expressID: 
+          `Error extracting firstOperand geometry for expressID: 
         ${from.FirstOperand.expressID} - type: ${EntityTypesIfc[from.FirstOperand.type]}`)
       return
     }
 
     const flatSecondMeshVector = this.nativeVectorGeometry(1)
-    let secondMesh: CanonicalMesh | undefined
-
-    if (!isRelVoid) {
-      secondMesh = this.model.geometry.getByLocalID(from.SecondOperand.localID)
-    } else {
-      secondMesh = this.model.voidGeometry.getByLocalID(from.SecondOperand.localID)
-    }
+    const secondMesh = this.model.geometry.getByLocalID(from.SecondOperand.localID)
     if (secondMesh !== void 0 && secondMesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
       flatSecondMeshVector.set(0, secondMesh.geometry)
     } else {
       console.log(
-        `Error extracting secondOperand geometry for expressID: 
+          `Error extracting secondOperand geometry for expressID: 
         ${from.SecondOperand.localID} - type: ${EntityTypesIfc[from.SecondOperand.type]}`)
       return
     }
@@ -961,9 +907,6 @@ export class IfcGeometryExtraction {
       flatSecondMesh: flatSecondMeshVector,
       operatorType: from.Operator.valueOf(),
     }
-
-    console.log("firstOperand expressID: " + from.FirstOperand.expressID)
-    console.log("secondOperand expressID: " + from.SecondOperand.expressID)
     const booleanGeometryObject: GeometryObject = this.conwayModel.getBooleanResult(parameters)
 
     if (firstMesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
@@ -1000,9 +943,8 @@ export class IfcGeometryExtraction {
     IfcPolygonalFaceSet |
     IfcBooleanResult |
     IfcHalfSpaceSolid |
-    IfcBooleanClippingResult |
-    IfcFacetedBrep,
-    isRelVoid: boolean = false) {
+    IfcBooleanClippingResult,
+  isRelVoid: boolean = false) {
 
     if (from instanceof IfcExtrudedAreaSolid) {
       // mark as temporary
@@ -1024,58 +966,41 @@ export class IfcGeometryExtraction {
       polygonalFaceStartIndices.delete()
     } else if (from instanceof IfcHalfSpaceSolid) {
       this.extractHalfspaceSolid(from, true, isRelVoid)
-    } else if (from instanceof IfcFacetedBrep) {
-      this.extractIfcFacetedBrep(from, true, isRelVoid)
-    }
-    else if (from instanceof IfcBooleanResult) {
+    } else if (from instanceof IfcBooleanResult) {
 
       if (from.FirstOperand instanceof IfcExtrudedAreaSolid ||
         from.FirstOperand instanceof IfcPolygonalFaceSet ||
         from.FirstOperand instanceof IfcBooleanResult ||
-        from.FirstOperand instanceof IfcBooleanClippingResult ||
-        from.FirstOperand instanceof IfcFacetedBrep) {
+        from.FirstOperand instanceof IfcBooleanClippingResult) {
         this.extractBooleanOperand(from.FirstOperand, isRelVoid)
       }
 
       if (from.SecondOperand instanceof IfcExtrudedAreaSolid ||
         from.SecondOperand instanceof IfcPolygonalFaceSet ||
         from.SecondOperand instanceof IfcBooleanResult ||
-        from.SecondOperand instanceof IfcHalfSpaceSolid ||
-        from.SecondOperand instanceof IfcFacetedBrep) {
+        from.SecondOperand instanceof IfcHalfSpaceSolid) {
         this.extractBooleanOperand(from.SecondOperand, isRelVoid)
       }
 
       // get geometry TODO(nickcastel50): eventually support flattening meshes
       const flatFirstMeshVector = this.nativeVectorGeometry(1)
-      let firstMesh: CanonicalMesh | undefined = undefined
-
-      if (!isRelVoid) {
-        firstMesh = this.model.geometry.getByLocalID(from.FirstOperand.localID)
-      } else {
-        firstMesh = this.model.voidGeometry.getByLocalID(from.FirstOperand.localID)
-      }
+      const firstMesh = this.model.geometry.getByLocalID(from.FirstOperand.localID)
       if (firstMesh !== void 0 && firstMesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
         flatFirstMeshVector.set(0, firstMesh.geometry)
       } else {
         console.log(
-          `(Operand) Error extracting firstOperand geometry for expressID: 
+            `(Operand) Error extracting firstOperand geometry for expressID: 
           ${from.FirstOperand.expressID} - type: ${EntityTypesIfc[from.FirstOperand.type]}`)
         return
       }
 
       const flatSecondMeshVector = this.nativeVectorGeometry(1)
-      let secondMesh: CanonicalMesh | undefined
-
-      if (!isRelVoid) {
-        secondMesh = this.model.geometry.getByLocalID(from.SecondOperand.localID)
-      } else {
-        secondMesh = this.model.voidGeometry.getByLocalID(from.SecondOperand.localID)
-      }
+      const secondMesh = this.model.geometry.getByLocalID(from.SecondOperand.localID)
       if (secondMesh !== void 0 && secondMesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
         flatSecondMeshVector.set(0, secondMesh.geometry)
       } else {
         console.log(
-          `(Operand) Error extracting secondOperand geometry for expressID: 
+            `(Operand) Error extracting secondOperand geometry for expressID: 
           ${from.SecondOperand.expressID} - type: ${EntityTypesIfc[from.SecondOperand.type]}`)
         return
       }
@@ -1086,8 +1011,6 @@ export class IfcGeometryExtraction {
         operatorType: from.Operator.valueOf(),
       }
 
-      console.log("(operand) firstOperand expressID: " + from.FirstOperand.expressID)
-      console.log("(operand) secondOperand expressID: " + from.SecondOperand.expressID)
       const booleanGeometryObject: GeometryObject = this.conwayModel.getBooleanResult(parameters)
 
       const canonicalMesh: CanonicalMesh = {
@@ -1252,7 +1175,7 @@ export class IfcGeometryExtraction {
    * @return {number | undefined}
    */
   extractStyledItem(from: IfcStyledItem,
-    representationItem?: IfcRepresentationItem): number | undefined {
+      representationItem?: IfcRepresentationItem): number | undefined {
 
     let surfaceStyleID: number | undefined = void 0
 
@@ -1296,14 +1219,14 @@ export class IfcGeometryExtraction {
    * @param temporary
    */
   extractHalfspaceSolid(from: IfcHalfSpaceSolid,
-    temporary: boolean = false,
-    isRelVoid: boolean = false) {
+      temporary: boolean = false,
+      isRelVoid: boolean = false) {
 
     if (from.BaseSurface instanceof IfcPlane) {
       const paramsAxis2Placement3D: ParamsAxis2Placement3D =
         this.extractAxis2Placement3D(from.BaseSurface.Position, from.localID, true)
       const axis2PlacementTransform = this.conwayModel
-        .getAxis2Placement3D(paramsAxis2Placement3D)
+          .getAxis2Placement3D(paramsAxis2Placement3D)
 
       // get geometry
       const parameters: ParamsGetHalfspaceSolid = {
@@ -1359,8 +1282,8 @@ export class IfcGeometryExtraction {
    * @param temporary
    */
   extractExtrudedAreaSolid(from: IfcExtrudedAreaSolid,
-    temporary: boolean = false,
-    isRelVoid: boolean = false) {
+      temporary: boolean = false,
+      isRelVoid: boolean = false) {
 
     let axis2PlacementTransform: any | undefined = (void 0)
     if (from.Position !== null) {
@@ -1369,15 +1292,13 @@ export class IfcGeometryExtraction {
         const paramsAxis2Placement3D: ParamsAxis2Placement3D =
           this.extractAxis2Placement3D(from.Position, from.localID, true)
         axis2PlacementTransform = this.conwayModel
-          .getAxis2Placement3D(paramsAxis2Placement3D)
+            .getAxis2Placement3D(paramsAxis2Placement3D)
       } else {
         // const paramsAxis2Placement3D: ParamsAxis2Placement3D =
         // this.extractAxis2Placement3DRelVoid(from.Position, from.localID)
         // axis2PlacementTransform = this.conwayModel
         //  .getAxis2Placement3D(paramsAxis2Placement3D)
       }
-    } else {
-      console.log("transform null: " + from.expressID)
     }
 
     const profile: CanonicalProfile | undefined = this.extractProfile(from.SweptArea)
@@ -1444,7 +1365,7 @@ export class IfcGeometryExtraction {
 
     let profile: CanonicalProfile | undefined
 
-    if (from instanceof IfcArbitraryProfileDefWithVoids) {
+    if (from instanceof IfcArbitraryProfileDefWithVoids ) {
       const outerCurve = from.OuterCurve
       if (outerCurve instanceof IfcCompositeCurve) {
         const compositeCurve = this.extractCompositeCurve(outerCurve)
@@ -1603,6 +1524,7 @@ export class IfcGeometryExtraction {
     // add profile to the list of profile objects
     let isComposite: boolean = false
     if (profile !== void 0) {
+
       if (profile.profiles !== void 0 && profile.profiles.length > 0) {
         isComposite = true
 
@@ -2098,9 +2020,9 @@ export class IfcGeometryExtraction {
         this.extractCartesianTransformOperator3D(mappingTarget)
 
       this.scene.addTransform(
-        from.localID,
-        nativeCartesianTransform.getValues(),
-        nativeCartesianTransform)
+          from.localID,
+          nativeCartesianTransform.getValues(),
+          nativeCartesianTransform)
 
       popTransform = true
     }
@@ -2114,7 +2036,7 @@ export class IfcGeometryExtraction {
         const styledItem_ = this.model.getElementByLocalID(styledItemLocalID_) as IfcStyledItem
         this.extractStyledItem(styledItem_)
       } else {
-        console.log(`no styled item for mapped item express ID: ${representationItem.expressID}`)
+        console.log(`no styled item for mapped item express ID: ${  representationItem.expressID}`)
       }
     }
 
@@ -2133,8 +2055,8 @@ export class IfcGeometryExtraction {
    * @param from The representation to extract from.
    */
   extractRepresentationItem(from: IfcRepresentationItem,
-    owningElementLocalID?: number,
-    isRelVoid: boolean = false) {
+      owningElementLocalID?: number,
+      isRelVoid: boolean = false) {
 
     let foundGeometry
     if (!isRelVoid) {
@@ -2194,12 +2116,12 @@ export class IfcGeometryExtraction {
       // web-ifc ignores IfcPolylines as meshes
       // //console.log(`IFCPOLYLINE, expressID: ${from.expressID}`)
     } else if (from instanceof IfcFacetedBrep) {
-      this.extractIfcFacetedBrep(from, false, isRelVoid)
+      this.extractIfcFacetedBrep(from, isRelVoid)
       if (!isRelVoid) {
         this.scene.addGeometry(from.localID, owningElementLocalID)
       }
     } else if (from instanceof IfcShellBasedSurfaceModel) {
-      this.extractIfcShellBasedSurfaceModel(from, owningElementLocalID, false, isRelVoid)
+      this.extractIfcShellBasedSurfaceModel(from, owningElementLocalID, isRelVoid)
       // todo, fix these
       /* if (!isRelVoid) {
         this.scene.addGeometry(from.localID, owningElementLocalID)
@@ -2225,9 +2147,8 @@ export class IfcGeometryExtraction {
    * @param parentLocalID parent element local ID
    */
   extractConnectedFaceSets(from: IfcConnectedFaceSet[],
-    parentLocalID: number,
-    temporary?: boolean | undefined,
-    isRelVoid: boolean = false) {
+      parentLocalID: number,
+      isRelVoid: boolean = false) {
 
     let geometry = (new (this.wasmModule.IfcGeometry)) as GeometryObject
     for (let faceSetIndex = 0; faceSetIndex < from.length; ++faceSetIndex) {
@@ -2241,7 +2162,7 @@ export class IfcGeometryExtraction {
       geometry: geometry,
       localID: parentLocalID,
       model: this.model,
-      temporary: temporary,
+      temporary: false,
     }
 
     // add mesh to the list of mesh objects
@@ -2258,24 +2179,21 @@ export class IfcGeometryExtraction {
    * @param from
    * @param isRelVoid
    */
-  extractIfcFaceBasedSurfaceModel(from: IfcFaceBasedSurfaceModel,
-    temporary?: boolean | undefined,
-    isRelVoid: boolean = false) {
+  extractIfcFaceBasedSurfaceModel(from: IfcFaceBasedSurfaceModel, isRelVoid: boolean = false) {
     const fbsmFaces = from.FbsmFaces
 
-    this.extractConnectedFaceSets(fbsmFaces, from.localID, temporary, isRelVoid)
+    this.extractConnectedFaceSets(fbsmFaces, from.localID, isRelVoid)
   }
 
   /**
    *
    * @param from
    */
-  extractIfcFacetedBrep(from: IfcFacetedBrep, temporary?: boolean | undefined, isRelVoid: boolean = false) {
+  extractIfcFacetedBrep(from: IfcFacetedBrep, isRelVoid: boolean = false) {
     const faces = from.Outer.CfsFaces
 
-    console.log("IfcFacetedBrep expressID: " + from.expressID)
-    console.log("faces count: " + faces.length)
-    this.extractFaces(faces, from.localID, undefined, temporary, isRelVoid)
+
+    this.extractFaces(faces, from.localID, undefined, isRelVoid)
   }
 
 
@@ -2284,9 +2202,8 @@ export class IfcGeometryExtraction {
    * @param from
    */
   extractIfcShellBasedSurfaceModel(from: IfcShellBasedSurfaceModel,
-    owningElementLocalID?: number,
-    temporary?: boolean | undefined,
-    isRelVoid: boolean = false) {
+      owningElementLocalID?: number,
+      isRelVoid: boolean = false) {
     const sbsmBoundary = from.SbsmBoundary
 
     if (sbsmBoundary.length > 0) {
@@ -2296,7 +2213,7 @@ export class IfcGeometryExtraction {
           const currentBoundary: IfcClosedShell = sbsmBoundary[sbsmBoundaryIndex]
           const faces = currentBoundary.CfsFaces
 
-          this.extractFaces(faces, currentBoundary.localID, undefined, temporary, isRelVoid)
+          this.extractFaces(faces, currentBoundary.localID, undefined, isRelVoid)
 
           if (!isRelVoid) {
             this.scene.addGeometry(currentBoundary.localID, owningElementLocalID)
@@ -2308,7 +2225,7 @@ export class IfcGeometryExtraction {
           const currentBoundary: IfcOpenShell = sbsmBoundary[sbsmBoundaryIndex]
           const faces = currentBoundary.CfsFaces
 
-          this.extractFaces(faces, currentBoundary.localID, undefined, temporary, isRelVoid)
+          this.extractFaces(faces, currentBoundary.localID, undefined, isRelVoid)
 
           if (!isRelVoid) {
             this.scene.addGeometry(currentBoundary.localID, owningElementLocalID)
@@ -2327,16 +2244,16 @@ export class IfcGeometryExtraction {
    * @return {GeometryObject}
    */
   extractFaces(from: IfcFace[],
-    parentLocalID: number,
-    geometry_?: GeometryObject | undefined,
-    temporary?: boolean | undefined,
-    isRelVoid: boolean = false): GeometryObject {
+      parentLocalID: number,
+      geometry_?: GeometryObject | undefined,
+      isRelVoid: boolean = false): GeometryObject {
 
     let passedGeometry: boolean = true
     if (geometry_ === void 0) {
       passedGeometry = false
       geometry_ = (new (this.wasmModule.IfcGeometry)) as GeometryObject
     }
+    // const geometry = (new (this.wasmModule.IfcGeometry)) as GeometryObject
     for (let faceIndex = 0; faceIndex < from.length; ++faceIndex) {
       const face: IfcFace = from[faceIndex]
       this.extractFace(face, geometry_)
@@ -2348,19 +2265,13 @@ export class IfcGeometryExtraction {
         geometry: geometry_,
         localID: parentLocalID,
         model: this.model,
-        temporary: temporary,
+        temporary: false,
       }
-
-      const objStr = this.conwayModel.toObj(geometry_);
-
-      console.log("ifcFacetedBrep express ID: " + this.model.getElementByLocalID(parentLocalID)?.expressID + "OBJ str:\n" + objStr)
 
       // add mesh to the list of mesh objects
       if (!isRelVoid) {
-        console.log("adding to geometry")
         this.model.geometry.add(canonicalMesh)
       } else {
-        console.log("adding to void geometry")
         this.model.voidGeometry.add(canonicalMesh)
       }
     }
@@ -2382,10 +2293,8 @@ export class IfcGeometryExtraction {
         const vec3Array = this.nativeVectorGlmdVec3()
         const bound = from.Bounds[boundIndex]
 
-        
-
         if (bound.Bound instanceof IfcPolyLoop) {
-           
+
           let prevLocalID: number = -1
 
           for (let pointIndex = 0; pointIndex < bound.Bound.Polygon.length; ++pointIndex) {
@@ -2421,7 +2330,7 @@ export class IfcGeometryExtraction {
         const bound3D: Bound3DObject = this.conwayModel.createBound3D(parametersCreateBounds3D)
 
         bound3DVector.push_back(bound3D)
-      //  vec3Array.delete()
+        vec3Array.delete()
       }
 
       // add face to geometry
@@ -2478,7 +2387,7 @@ export class IfcGeometryExtraction {
     }
 
     const axis2Placement2DTransform = this.conwayModel
-      .getAxis2Placement2D(axis2Placement2DParameters)
+        .getAxis2Placement2D(axis2Placement2DParameters)
 
     return axis2Placement2DTransform
   }
@@ -2506,9 +2415,9 @@ export class IfcGeometryExtraction {
     extractOnly: true): ParamsAxis2Placement3D
   // eslint-disable-next-line no-dupe-class-members, require-jsdoc
   extractAxis2Placement3D(
-    from: IfcAxis2Placement3D,
-    parentLocalId: number,
-    extractOnly: boolean = false): void | ParamsAxis2Placement3D {
+      from: IfcAxis2Placement3D,
+      parentLocalId: number,
+      extractOnly: boolean = false): void | ParamsAxis2Placement3D {
 
     if (from === null) {
       return
@@ -2565,12 +2474,12 @@ export class IfcGeometryExtraction {
     }
 
     const axis2PlacementTransform = this.conwayModel
-      .getAxis2Placement3D(axis2Placement3DParameters)
+        .getAxis2Placement3D(axis2Placement3DParameters)
 
     this.scene.addTransform(
-      parentLocalId,
-      axis2PlacementTransform.getValues(),
-      axis2PlacementTransform)
+        parentLocalId,
+        axis2PlacementTransform.getValues(),
+        axis2PlacementTransform)
   }
 
   /**
@@ -2596,9 +2505,9 @@ export class IfcGeometryExtraction {
     extractOnly: true): ParamsAxis2Placement3D
   // eslint-disable-next-line no-dupe-class-members, require-jsdoc
   extractAxis2Placement3DRelVoid(
-    from: IfcAxis2Placement3D,
-    parentLocalId: number,
-    extractOnly: boolean = false): void | ParamsAxis2Placement3D {
+      from: IfcAxis2Placement3D,
+      parentLocalId: number,
+      extractOnly: boolean = false): void | ParamsAxis2Placement3D {
 
     if (from === null) {
       return
@@ -2655,12 +2564,12 @@ export class IfcGeometryExtraction {
     }
 
     const axis2PlacementTransform = this.conwayModel
-      .getAxis2Placement3D(axis2Placement3DParameters)
+        .getAxis2Placement3D(axis2Placement3DParameters)
 
     this.voidScene.addTransform(
-      parentLocalId,
-      axis2PlacementTransform.getValues(),
-      axis2PlacementTransform)
+        parentLocalId,
+        axis2PlacementTransform.getValues(),
+        axis2PlacementTransform)
   }
 
   /**
@@ -2722,8 +2631,8 @@ export class IfcGeometryExtraction {
    * @param geometryCount
    */
   applyRelVoidToRepresentation(from: IfcRepresentationItem,
-    relVoidMeshVector: NativeVectorGeometry,
-    owningElementLocalID: number) {
+      relVoidMeshVector: NativeVectorGeometry,
+      owningElementLocalID: number) {
     // get geometry from product and flatten it
     let flattenedGeometry: GeometryObject | undefined
 
@@ -2747,24 +2656,20 @@ export class IfcGeometryExtraction {
             const paramsAxis2Placement3D: ParamsAxis2Placement3D =
               this.extractAxis2Placement3DRelVoid(from.Position, from.localID, true)
             const axis2PlacementTransform = this.conwayModel
-              .getAxis2Placement3D(paramsAxis2Placement3D)
+                .getAxis2Placement3D(paramsAxis2Placement3D)
 
             if (axis2PlacementTransform !== void 0) {
 
               if (productTransform !== void 0) {
                 const multiplyResultMat =
                   this.conwayModel.multiplyNativeMatrices(
-                    productTransform.absoluteNativeTransform, axis2PlacementTransform)
+                      productTransform.absoluteNativeTransform, axis2PlacementTransform)
 
                 flattenedGeometry.applyTransform(multiplyResultMat)
               } else {
                 flattenedGeometry.applyTransform(axis2PlacementTransform.absoluteNativeTransform)
               }
             }
-          }
-        } else {
-          if (productTransform !== void 0) {
-            flattenedGeometry.applyTransform(productTransform.absoluteNativeTransform)
           }
         }
       }
@@ -2879,19 +2784,19 @@ export class IfcGeometryExtraction {
                       const paramsAxis2Placement3D: ParamsAxis2Placement3D =
                         this.extractAxis2Placement3DRelVoid(item.Position, item.localID, true)
                       const axis2PlacementTransform = this.conwayModel
-                        .getAxis2Placement3D(paramsAxis2Placement3D)
+                          .getAxis2Placement3D(paramsAxis2Placement3D)
 
                       if (axis2PlacementTransform !== void 0) {
                         if (relVoidPlacementTransform !== void 0) {
                           const multiplyResultMat =
                             this.conwayModel.multiplyNativeMatrices(
-                              relVoidPlacementTransform.absoluteNativeTransform,
-                              axis2PlacementTransform)
+                                relVoidPlacementTransform.absoluteNativeTransform,
+                                axis2PlacementTransform)
 
                           localGeometry.applyTransform(multiplyResultMat)
                         } else {
                           localGeometry.applyTransform(
-                            axis2PlacementTransform.absoluteNativeTransform)
+                              axis2PlacementTransform.absoluteNativeTransform)
                         }
                       }
                     }
@@ -2925,7 +2830,7 @@ export class IfcGeometryExtraction {
    * @return {number | undefined}
    */
   extractMaterial(
-    from: IfcMaterial |
+      from: IfcMaterial |
       IfcMaterialList |
       IfcMaterialProfile |
       IfcMaterialProfileSet |
@@ -3052,8 +2957,8 @@ export class IfcGeometryExtraction {
         for (let itemIndex = 0; itemIndex < representation.Items.length; ++itemIndex) {
           // save mapping of IfcMaterial --> IfcStyledItem
           this.materials.materialDefinitionsMap.set(
-            materialDefinitionRep.RepresentedMaterial.localID,
-            representation.Items[itemIndex].localID)
+              materialDefinitionRep.RepresentedMaterial.localID,
+              representation.Items[itemIndex].localID)
         }
       }
     }
@@ -3068,7 +2973,7 @@ export class IfcGeometryExtraction {
     for (const relVoid of relVoids) {
       // map product --> relvoids opening elements
       const geometryLocalIDArray =
-        this.productToVoidGeometryMap.get(relVoid.RelatingBuildingElement.localID)
+      this.productToVoidGeometryMap.get(relVoid.RelatingBuildingElement.localID)
 
       if (geometryLocalIDArray === void 0) {
         const localIDArray: number[] = []
@@ -3078,7 +2983,7 @@ export class IfcGeometryExtraction {
         // append to it
         geometryLocalIDArray.push(relVoid.RelatedOpeningElement.localID)
         this.productToVoidGeometryMap.set(
-          relVoid.RelatingBuildingElement.localID, geometryLocalIDArray)
+            relVoid.RelatingBuildingElement.localID, geometryLocalIDArray)
       }
     }
   }
@@ -3222,8 +3127,8 @@ export class IfcGeometryExtraction {
 
             // save mapping of IfcProduct --> IfcMaterial
             this.materials.relMaterialsMap.set(
-              product.localID,
-              relatingMaterial.localID)
+                product.localID,
+                relatingMaterial.localID)
           } else {
             //     console.log(`type other than IfcProduct: ${EntityTypesIfc[product.type]}`)
           }
@@ -3291,7 +3196,7 @@ export class IfcGeometryExtraction {
                 // this check is essential -
                 // if RepresentationIdentifier !== Body or Facetation we must skip it
                 if (representation.RepresentationIdentifier !== 'Body' &&
-                  representation.RepresentationIdentifier !== 'Facetation') {
+                representation.RepresentationIdentifier !== 'Facetation') {
                   continue
                 }
               }
@@ -3301,14 +3206,14 @@ export class IfcGeometryExtraction {
 
                 if (hasRelVoid) {
                   this.applyRelVoidToRepresentation(
-                    item,
+                      item,
                     relVoidsMeshVector!,
                     product.localID)
                 }
                 const styledItemLocalID_ = this.materials.styledItemMap.get(item.localID)
                 if (styledItemLocalID_ !== undefined) {
                   const styledItem_ =
-                    this.model.getElementByLocalID(styledItemLocalID_) as IfcStyledItem
+                  this.model.getElementByLocalID(styledItemLocalID_) as IfcStyledItem
                   this.extractStyledItem(styledItem_)
                 } else if (reusableStyleID !== void 0) {
                   this.materials.addGeometryMapping(item.localID, reusableStyleID)
@@ -3325,7 +3230,7 @@ export class IfcGeometryExtraction {
                 // this check is essential -
                 // if RepresentationIdentifier !== Body or Facetation we must skip it
                 if (representation.RepresentationIdentifier !== 'Body' &&
-                  representation.RepresentationIdentifier !== 'Facetation') {
+                representation.RepresentationIdentifier !== 'Facetation') {
                   continue
                 }
               }
@@ -3335,13 +3240,13 @@ export class IfcGeometryExtraction {
                 const styledItemLocalID_ = this.materials.styledItemMap.get(item.localID)
                 if (styledItemLocalID_ !== void 0) {
                   const styledItem_ =
-                    this.model.getElementByLocalID(styledItemLocalID_) as IfcStyledItem
+                  this.model.getElementByLocalID(styledItemLocalID_) as IfcStyledItem
                   this.extractStyledItem(styledItem_)
                 }
 
                 if (hasRelVoid) {
                   this.applyRelVoidToRepresentation(
-                    item,
+                      item,
                     relVoidsMeshVector!,
                     product.localID)
                 }

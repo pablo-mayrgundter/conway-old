@@ -32,16 +32,16 @@ export  class IfcCurveStyle extends IfcPresentationStyle {
 
   public get CurveFont() : IfcCurveStyleFontAndScaling | IfcCurveStyleFont | IfcPreDefinedCurveFont | null {
     if ( this.CurveFont_ === void 0 ) {
-      this.CurveFont_ = this.extractLambda( 1, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 1, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcCurveStyleFontAndScaling ) && !( value instanceof IfcCurveStyleFont ) && !( value instanceof IfcPreDefinedCurveFont ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcCurveStyleFontAndScaling ) && !( value instanceof IfcCurveStyleFont ) && !( value instanceof IfcPreDefinedCurveFont ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcCurveStyleFontAndScaling | IfcCurveStyleFont | IfcPreDefinedCurveFont)
-}, true )
+
+      this.CurveFont_ = value as (IfcCurveStyleFontAndScaling | IfcCurveStyleFont | IfcPreDefinedCurveFont)
+
     }
 
     return this.CurveFont_ as IfcCurveStyleFontAndScaling | IfcCurveStyleFont | IfcPreDefinedCurveFont | null
@@ -49,16 +49,16 @@ export  class IfcCurveStyle extends IfcPresentationStyle {
 
   public get CurveWidth() : IfcDescriptiveMeasure | IfcLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveLengthMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure | null {
     if ( this.CurveWidth_ === void 0 ) {
-      this.CurveWidth_ = this.extractLambda( 2, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 2, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcDescriptiveMeasure ) && !( value instanceof IfcLengthMeasure ) && !( value instanceof IfcNormalisedRatioMeasure ) && !( value instanceof IfcPositiveLengthMeasure ) && !( value instanceof IfcPositiveRatioMeasure ) && !( value instanceof IfcRatioMeasure ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcDescriptiveMeasure ) && !( value instanceof IfcLengthMeasure ) && !( value instanceof IfcNormalisedRatioMeasure ) && !( value instanceof IfcPositiveLengthMeasure ) && !( value instanceof IfcPositiveRatioMeasure ) && !( value instanceof IfcRatioMeasure ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcDescriptiveMeasure | IfcLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveLengthMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure)
-}, true )
+
+      this.CurveWidth_ = value as (IfcDescriptiveMeasure | IfcLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveLengthMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure)
+
     }
 
     return this.CurveWidth_ as IfcDescriptiveMeasure | IfcLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveLengthMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure | null
@@ -66,16 +66,16 @@ export  class IfcCurveStyle extends IfcPresentationStyle {
 
   public get CurveColour() : IfcColourSpecification | IfcPreDefinedColour | null {
     if ( this.CurveColour_ === void 0 ) {
-      this.CurveColour_ = this.extractLambda( 3, (buffer, cursor, endCursor) => {
+      
+      const value : StepEntityBase< EntityTypesIfc >| null =
+        this.extractReference( 3, true )
 
-      const value : StepEntityBase< EntityTypesIfc > | undefined =
-        this.extractBufferReference( buffer, cursor, endCursor )
-
-      if ( !( value instanceof IfcColourSpecification ) && !( value instanceof IfcPreDefinedColour ) ) {
-        return ( void 0 )
+      if ( !( value instanceof IfcColourSpecification ) && !( value instanceof IfcPreDefinedColour ) && value !== null ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
-      return value as (IfcColourSpecification | IfcPreDefinedColour)
-}, true )
+
+      this.CurveColour_ = value as (IfcColourSpecification | IfcPreDefinedColour)
+
     }
 
     return this.CurveColour_ as IfcColourSpecification | IfcPreDefinedColour | null
