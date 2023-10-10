@@ -749,9 +749,11 @@ export class IfcAPI {
           }
           // extract min
           const geomMin: glmatrix.vec3 = glmatrix.vec3.create()
-          geomMin[0] = geometry.geometry.min.x
-          geomMin[1] = geometry.geometry.min.y
-          geomMin[2] = geometry.geometry.min.z
+
+          const minPt = geometry.geometry.getMin()
+          geomMin[0] = minPt.x
+          geomMin[1] = minPt.y
+          geomMin[2] = minPt.z
 
           // Create a translation matrix from geom.min
           const translationMatrixGeomMin: glmatrix.mat4 = glmatrix.mat4.create()
@@ -995,9 +997,10 @@ export class IfcAPI {
 
           // extract min
           const geomMin: glmatrix.vec3 = glmatrix.vec3.create()
-          geomMin[0] = geometry.geometry.min.x
-          geomMin[1] = geometry.geometry.min.y
-          geomMin[2] = geometry.geometry.min.z
+          const minPt = geometry.geometry.getMin()
+          geomMin[0] = minPt.x
+          geomMin[1] = minPt.y
+          geomMin[2] = minPt.z
 
           // Create a translation matrix from geom.min
           const translationMatrixGeomMin: glmatrix.mat4 = glmatrix.mat4.create()
@@ -1240,9 +1243,10 @@ export class IfcAPI {
 
           // extract min
           const geomMin: glmatrix.vec3 = glmatrix.vec3.create()
-          geomMin[0] = geometry.geometry.min.x
-          geomMin[1] = geometry.geometry.min.y
-          geomMin[2] = geometry.geometry.min.z
+          const minPt = geometry.geometry.getMin()
+          geomMin[0] = minPt.x
+          geomMin[1] = minPt.y
+          geomMin[2] = minPt.z
 
           // Create a translation matrix from geom.min
           const translationMatrixGeomMin: glmatrix.mat4 = glmatrix.mat4.create()
