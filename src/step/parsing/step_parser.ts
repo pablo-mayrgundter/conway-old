@@ -63,6 +63,7 @@ export enum ParseResult {
 }
 /* eslint-enable no-shadow, no-unused-vars, no-magic-numbers */
 
+const BYTE_ORDER_MARK = encodeToken(decodeURIComponent('%EF%BB%BF'))
 const ISO_10303_21 = encodeToken('ISO-10303-21')
 const HEADER = encodeToken('HEADER')
 const DATA = encodeToken('DATA')
@@ -146,6 +147,8 @@ export default class StepParser<TypeIDType> {
 
     const parseResult = (value: ParseResult): HeaderParseResult => [headers, value]
     const syntaxError = (): HeaderParseResult => [headers, ParseResult.SYNTAX_ERROR]
+
+    token( BYTE_ORDER_MARK )
 
     if (!tokenws(ISO_10303_21)) {
       return parseResult(ParseResult.INVALID_STEP)
