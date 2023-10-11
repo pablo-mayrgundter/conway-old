@@ -131,7 +131,8 @@
       "mprealsupport": "cpp",
       "matrixfunctions": "cpp",
       "nonlinearoptimization": "cpp",
-      "openglsupport": "cpp"
+      "openglsupport": "cpp",
+      "span": "cpp"
     }
 	}
 }
