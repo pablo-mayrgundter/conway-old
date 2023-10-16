@@ -782,7 +782,7 @@ export class IfcAPI {
                 geometryTransform[15],
             )
           } else {
-            //set to identity if no transform found 
+            // set to identity if no transform found
             newMatrix = glmatrix.mat4.create()
           }
 
