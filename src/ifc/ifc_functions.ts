@@ -257,10 +257,25 @@ export function IfcLoopHeadToTail(aLoop: IfcEdgeLoop) : boolean {
 }
 
 /**
- *
+ * Takes a 2D array 
  */
 export function IfcMakeArrayOfArray<T>(lis: Array<Array<T>>, low1: number, u1: number, low2: number, u2: number) : Array<Array<T>> {
-  throw 'This function is not yet implemented.'
+
+  const result = [] as Array< Array< T > >
+
+  for ( let u = low1; u < u1; ++u ) {
+
+    const toAdd = [] as Array< T >
+
+    for ( let v = low2; v < u2; ++v ) {
+
+      toAdd.push( lis[ v ][ u ] )
+    }
+
+    result.push( toAdd )
+  }
+
+  return result
 }
 
 /**

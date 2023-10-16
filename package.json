@@ -83,6 +83,5 @@
     "smart-buffer": "^4.2.0",
     "yargs": "^17.7.1"
   },
-  "main": "./compiled/src/index.js",
-  "types": "./compiled/src/index.d.ts"
+  "type": "module"
 }
