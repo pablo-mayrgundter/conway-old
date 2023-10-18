@@ -416,7 +416,7 @@ export class IfcGeometryExtraction {
    * @param initialSize number - initial size of the vector (optional)
    * @return {NativeVectorCurve} - a native std::vector<IfcCurve> from the wasm module
    */
-  nativeVectorCurve(initialSize?: number): NativeVectorCurve {
+  nativeVectorCurve(initialSize?: number): StdVector<CurveObject> {
     // eslint-disable-next-line new-cap
     const nativeVectorCurve_ = new (this.wasmModule.curveArray)() as NativeVectorCurve
 
@@ -2691,6 +2691,16 @@ export class IfcGeometryExtraction {
     return result
   }
 
+  notPresent(pt: Vector3, points: NativeVectorGlmVec3): boolean {
+    for (let pointIndex = 0; pointIndex < points.size(); ++pointIndex) {
+      const pt2 = points.get(pointIndex)
+      if (pt.x === pt2.x && pt.y === pt2.y && pt.z === pt2.z) {
+        return false
+      }
+    }
+    return true
+  }
+
 
   /**
    * Extract an advanced (NURBS) b-rep face.
@@ -2710,6 +2720,8 @@ export class IfcGeometryExtraction {
         const innerBound = bound.Bound
 
         let isEdgeLoop = false
+        let nativeEdgeCurves = this.nativeVectorCurve()
+        console.log("innerBound type: " + EntityTypesIfc[innerBound.type])
 
         if (innerBound instanceof IfcPolyLoop) {
 
@@ -2731,24 +2743,51 @@ export class IfcGeometryExtraction {
           }
         } else if (innerBound instanceof IfcEdgeLoop) {
 
+          
           for (const edge of innerBound.EdgeList) {
 
-            if (edge instanceof IfcEdgeCurve) {
+            edge.EdgeElement
+            console.log("edge type: " + EntityTypesIfc[edge.type])
+            if (edge.EdgeElement instanceof IfcEdgeCurve) {
 
-              const edgeCurve = edge.EdgeGeometry
+
+              const edgeCurve = edge.EdgeElement.EdgeGeometry
 
               const curve = this.extractCurve(edgeCurve)
 
+              console.log("curve type: " + EntityTypesIfc[edgeCurve.type])
+
               if (curve !== void 0) {
 
-                for (
-                  let where = 0, pointCount = curve.getPointsSize() - 1;
-                  where < pointCount;
-                  ++where) {
+                nativeEdgeCurves.push_back(curve)
+                console.log("nativeEdgeCurves size: " + nativeEdgeCurves.size())
 
-                  vec3Array.push_back(curve.get3d(where))
-                }
+                // Important not to repeat the last point otherwise triangulation fails
+                // if the list has zero points this is initial, no repetition is possible, 
+                //otherwise we must check
+               /* if (vec3Array.size() === 0) {
+                  for (
+                    let where = 0, pointCount = curve.getPointsSize();
+                    where < pointCount;
+                    ++where) {
 
+                    vec3Array.push_back(curve.get3d(where))
+                  }
+                } else {
+                  for (
+                    let where = 0, pointCount = curve.getPointsSize();
+                    where < pointCount;
+                    ++where) {
+
+                    const pt3d = curve.get3d(where)
+                    if (this.notPresent(pt3d, vec3Array)) {
+                      vec3Array.push_back(pt3d)
+                    }
+                  }
+                }*/
+
+              } else {
+                console.log("curve === undefined, type: " + EntityTypesIfc[edgeCurve.type])
               }
 
             } else {
@@ -2786,8 +2825,10 @@ export class IfcGeometryExtraction {
         const parameters: ParamsGetLoop = {
           isEdgeLoop: isEdgeLoop,
           points: vec3Array,
+          edges: nativeEdgeCurves,
         }
 
+        console.log("isEdgeLoop: " + (isEdgeLoop) ? "TRUE" : "FALSE")
         const curve: CurveObject = this.conwayModel.getLoop(parameters)
 
         // create bound vector
@@ -2801,6 +2842,7 @@ export class IfcGeometryExtraction {
 
         bound3DVector.push_back(bound3D)
         vec3Array.delete()
+        nativeEdgeCurves.delete()
       }
 
       const surface = from.FaceSurface
@@ -2994,10 +3036,12 @@ export class IfcGeometryExtraction {
           }
         }
 
+        const edgesDummy:StdVector<CurveObject> = this.nativeVectorCurve()
         // get curve
         const parameters: ParamsGetLoop = {
           isEdgeLoop: false,
           points: vec3Array,
+          edges: edgesDummy
         }
 
         const curve: CurveObject = this.conwayModel.getLoop(parameters)
@@ -3013,6 +3057,7 @@ export class IfcGeometryExtraction {
 
         bound3DVector.push_back(bound3D)
         vec3Array.delete()
+        edgesDummy.delete()
       }
 
       // add face to geometry
