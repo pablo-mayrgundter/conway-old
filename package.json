@@ -1,12 +1,13 @@
 {
   "name": "bldrs-conway",
-  "version": "0.0.1",
+  "version": "0.1",
   "description": "",
   "files": [
     "./compiled/**/*"
   ],
   "author": "bldrs.ai",
   "license": "ISC",
+  "private": true,
   "scripts": {
     "clean": "yarn clean-conway_geom",
     "build": "yarn clean && yarn build-all-release-node",
