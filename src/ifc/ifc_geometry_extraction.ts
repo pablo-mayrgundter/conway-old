@@ -32,6 +32,8 @@ import {
   ParamsAxis1Placement3D,
   ParamsGetBSplineCurve,
   BSplineSurface,
+  TrimmingArguments,
+  TrimmingSelect,
 } from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMaterial, ColorRGBA, exponentToRoughness } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
@@ -1746,16 +1748,25 @@ export class IfcGeometryExtraction {
     IfcCircle |
     IfcBSplineCurve |
     IfcBSplineCurveWithKnots |
-    IfcRationalBSplineCurveWithKnots): CurveObject | undefined {
+    IfcRationalBSplineCurveWithKnots, trimmingArguments: TrimmingArguments | undefined = void 0): CurveObject | undefined {
+
+    //console.log("[extractCurve]: curve express ID: " + from.expressID + " type: " + EntityTypesIfc[from.type])
 
     if (from instanceof IfcBSplineCurve) {
 
       const ifcCurve = this.extractBSplineCurve(from)
 
-      if (ifcCurve !== void 0) {
-        if (!ifcCurve.isCCW()) {
-          // console.log("inverting curve")
-          ifcCurve.invert()
+      if (trimmingArguments !== void 0) {
+        //invert curve 
+        console.log("inverting curve")
+        ifcCurve.invert()
+      }
+
+      //console.log(`Curve type: ${EntityTypesIfc[from.type]} - express ID: ${from.expressID}`)
+      for (let i = 0; i < ifcCurve.getPointsSize(); ++i) {
+        if (from.Degree === 2) {
+          const pt_ = ifcCurve.get2d(i)
+          console.log(`Point ${i}: x: ${pt_.x}, y: ${pt_.y}, z: ${pt_.z}`)
         }
       }
       return ifcCurve
@@ -1777,9 +1788,15 @@ export class IfcGeometryExtraction {
       const ifcCurve = this.extractIfcPolyline(from)
 
       if (ifcCurve !== void 0) {
-        if (!ifcCurve.isCCW()) {
-          // console.log("inverting curve")
+
+        if (trimmingArguments?.exist) {
+          console.log("edge curve, inverting...")
           ifcCurve.invert()
+        } else {
+          if (!ifcCurve.isCCW()) {
+            console.log("inverting curve")
+            ifcCurve.invert()
+          }
         }
       }
 
@@ -1823,7 +1840,17 @@ export class IfcGeometryExtraction {
    */
   extractBSplineCurve(from: IfcBSplineCurve): CurveObject {
 
+    console.log("express ID: " + from.expressID + " degree === " + from.Degree)
+
+
+    //degree is NOT dimensions (NC)
+    let dimensions: number = 3
+    if (from.ControlPointsList.length > 0) {
+      dimensions = from.ControlPointsList[0].Dim
+    }
+
     const params: ParamsGetBSplineCurve = {
+      dimensions: dimensions,
       degree: from.Degree,
       points2: this.nativeVectorGlmdVec2(),
       points3: this.nativeVectorGlmdVec3(),
@@ -1832,7 +1859,7 @@ export class IfcGeometryExtraction {
     }
 
     // eslint-disable-next-line no-magic-numbers
-    if (params.degree === 2) {
+    if (dimensions === 2) {
 
       const outputPoints = params.points2
 
@@ -1846,7 +1873,7 @@ export class IfcGeometryExtraction {
     } else {
 
       const outputPoints = params.points3
-
+      console.log("express ID: " + from.expressID + " controlPointsList: " + from.ControlPointsList)
       for (const point of from.ControlPointsList) {
 
         // eslint-disable-next-line no-magic-numbers
@@ -1855,6 +1882,8 @@ export class IfcGeometryExtraction {
         }
 
         const coords = point.Coordinates
+
+        console.log(`express ID: ${from.expressID} -  coords: ${coords}`)
 
         outputPoints.push_back({ x: coords[0], y: coords[1], z: coords[2] })
       }
@@ -1883,10 +1912,23 @@ export class IfcGeometryExtraction {
 
           outputWeights.push_back(weight)
         }
+      } else {
+        //create default weights 
+        const outputWeights = params.weights
+
+        if (dimensions === 2) {
+          for (let weightIndex = 0; weightIndex < params.points2.size(); ++weightIndex) {
+            outputWeights.push_back(1.0)
+          }
+        } else if (dimensions === 3) {
+          for (let weightIndex = 0; weightIndex < params.points3.size(); ++weightIndex) {
+            outputWeights.push_back(1.0)
+          }
+        }
       }
     } else {
       //This is just a IfcBsplineCurve, build default parameter lists
-      if (params.degree === 2) {
+      if (dimensions === 2) {
         //build default knots
         const outputKnots = params.knots
         for (let pointIndex = 0; pointIndex < params.points2.size() + params.degree + 1; ++pointIndex) {
@@ -1899,7 +1941,7 @@ export class IfcGeometryExtraction {
 
           outputWeights.push_back(1.0)
         }
-      } else if (params.degree === 3) {
+      } else if (dimensions === 3) {
         //build default knots
         const outputKnots = params.knots
         for (let pointIndex = 0; pointIndex < params.points3.size() + params.degree + 1; ++pointIndex) {
@@ -1915,7 +1957,10 @@ export class IfcGeometryExtraction {
       }
     }
 
-    return this.conwayModel.getBSplineCurve(params)
+    const curveObject = this.conwayModel.getBSplineCurve(params)
+
+
+    return curveObject
   }
 
 
@@ -2385,6 +2430,7 @@ export class IfcGeometryExtraction {
   public extractIfcAdvancedBrep(from: IfcAdvancedBrep, isRelVoid: boolean) {
     const faces = from.Outer.CfsFaces
 
+    console.log("extracting faces from IfcAdvancedBrep: " + from.expressID)
     this.extractFaces(faces, from.localID, undefined, isRelVoid)
   }
 
@@ -2505,6 +2551,7 @@ export class IfcGeometryExtraction {
     // const geometry = (new (this.wasmModule.IfcGeometry)) as GeometryObject
     for (const face of from) {
 
+      console.log(`face express ID: ${face.expressID} - type: ${EntityTypesIfc[face.type]}`)
       if (face instanceof IfcAdvancedFace) {
 
         this.extractAdvancedFace(face, geometry_)
@@ -2667,6 +2714,20 @@ export class IfcGeometryExtraction {
 
     const result = this.extractBSplineSurface(from)
 
+    console.log("selfIntersect: " + (from.SelfIntersect) ? "True" : "False")
+    /*from.UDegree // UDegree (0)
+    from.VDegree // VDegree (1)
+    from.ControlPoints //ControlPoints (2)
+    from.SurfaceForm //curve type, unused (3)
+    from.UClosed //closedU (4)
+    from.VClosed //closedV (5)
+    from.SelfIntersect //selfIntersect (6)
+    from.UMultiplicities //knotSetU (7)
+    from.VMultiplicities //knotSetV (8)
+    from.UKnots //indexesSetU (9)
+    from.VKnots //indexesSetV (10)*/
+
+
     this.extractToDoubleVector(from.UMultiplicities, result.uMultiplicity)
     this.extractToDoubleVector(from.VMultiplicities, result.vMultiplicity)
     this.extractToDoubleVector(from.UKnots, result.uKnots)
@@ -2723,6 +2784,8 @@ export class IfcGeometryExtraction {
         let nativeEdgeCurves = this.nativeVectorCurve()
         console.log("innerBound type: " + EntityTypesIfc[innerBound.type])
 
+
+
         if (innerBound instanceof IfcPolyLoop) {
 
           let prevLocalID: number = -1
@@ -2742,22 +2805,98 @@ export class IfcGeometryExtraction {
             }
           }
         } else if (innerBound instanceof IfcEdgeLoop) {
-
-          
+          console.log("innerBound Ne: " + innerBound.Ne)
           for (const edge of innerBound.EdgeList) {
-
-            edge.EdgeElement
-            console.log("edge type: " + EntityTypesIfc[edge.type])
+            console.log("IfcOrientedEdge expressID: " + edge.expressID)
             if (edge.EdgeElement instanceof IfcEdgeCurve) {
-
 
               const edgeCurve = edge.EdgeElement.EdgeGeometry
 
-              const curve = this.extractCurve(edgeCurve)
+              console.log("curve type: " + EntityTypesIfc[edgeCurve.type] + " express ID: " + edgeCurve.expressID)
 
-              console.log("curve type: " + EntityTypesIfc[edgeCurve.type])
+              const edgeStart = edge.EdgeElement.EdgeStart
+              const edgeEnd = edge.EdgeElement.EdgeEnd
+
+              let trimmingStart: TrimmingSelect | undefined
+              let trimmingEnd: TrimmingSelect | undefined
+
+              if (edgeStart instanceof IfcVertexPoint) {
+
+                const startPoint = edgeStart.VertexGeometry
+
+                // eslint-disable-next-line no-magic-numbers
+                if (startPoint instanceof IfcCartesianPoint && startPoint.Dim === 3) {
+
+                  const startCoords = startPoint.Coordinates
+
+                  trimmingStart = {
+                    hasParam: false,
+                    hasPos: true,
+                    hasLength: false,
+                    param: 0.0,
+                    pos: void 0,
+                    pos3D: {
+                      x: startCoords[0],
+                      y: startCoords[1],
+                      z: startCoords[2],
+                    }
+                  }
+                }
+              }
+
+              if (edgeEnd instanceof IfcVertexPoint) {
+
+                const endPoint = edgeEnd.VertexGeometry
+
+                // eslint-disable-next-line no-magic-numbers
+                if (endPoint instanceof IfcCartesianPoint && endPoint.Dim === 3) {
+
+                  const endCoords = endPoint.Coordinates
+
+                  trimmingEnd = {
+                    hasParam: false,
+                    hasPos: true,
+                    hasLength: false,
+                    param: 0.0,
+                    pos: void 0,
+                    pos3D: {
+                      x: endCoords[0],
+                      y: endCoords[1],
+                      z: endCoords[2],
+                    }
+                  }
+                }
+              }
+
+              const trimmingArguments: TrimmingArguments = {
+                exist: (trimmingStart !== void 0 && trimmingEnd !== void 0) ? true : false,
+                start: trimmingStart,
+                end: trimmingEnd
+              }
+
+              const curve = this.extractCurve(edgeCurve, trimmingArguments)
+
 
               if (curve !== void 0) {
+
+                if (edge.Orientation) {
+                  //reverse curve 
+                  console.log("edge orientation == true, inverting curve")
+                  curve.invert()
+                }
+
+                console.log("curve points size: " + curve.getPointsSize())
+                for (let i = 0; i < curve.getPointsSize(); ++i) {
+                  if (edgeCurve.Dim === 2) {
+                    const pt__ = curve.get2d(i)
+        
+                    console.log(`[${EntityTypesIfc[edge.type]}]: Point ${i}: x: ${pt__.x}, y: ${pt__.y}`)
+                  } else if (edgeCurve.Dim === 3) {
+                    const pt__ = curve.get3d(i)
+        
+                    console.log(`[${EntityTypesIfc[edge.type]}]: Point ${i}: x: ${pt__.x}, y: ${pt__.y}, z: ${pt__.z}`)
+                  }
+                }
 
                 nativeEdgeCurves.push_back(curve)
                 console.log("nativeEdgeCurves size: " + nativeEdgeCurves.size())
@@ -2765,26 +2904,26 @@ export class IfcGeometryExtraction {
                 // Important not to repeat the last point otherwise triangulation fails
                 // if the list has zero points this is initial, no repetition is possible, 
                 //otherwise we must check
-               /* if (vec3Array.size() === 0) {
-                  for (
-                    let where = 0, pointCount = curve.getPointsSize();
-                    where < pointCount;
-                    ++where) {
-
-                    vec3Array.push_back(curve.get3d(where))
-                  }
-                } else {
-                  for (
-                    let where = 0, pointCount = curve.getPointsSize();
-                    where < pointCount;
-                    ++where) {
-
-                    const pt3d = curve.get3d(where)
-                    if (this.notPresent(pt3d, vec3Array)) {
-                      vec3Array.push_back(pt3d)
-                    }
-                  }
-                }*/
+                /* if (vec3Array.size() === 0) {
+                   for (
+                     let where = 0, pointCount = curve.getPointsSize();
+                     where < pointCount;
+                     ++where) {
+ 
+                     vec3Array.push_back(curve.get3d(where))
+                   }
+                 } else {
+                   for (
+                     let where = 0, pointCount = curve.getPointsSize();
+                     where < pointCount;
+                     ++where) {
+ 
+                     const pt3d = curve.get3d(where)
+                     if (this.notPresent(pt3d, vec3Array)) {
+                       vec3Array.push_back(pt3d)
+                     }
+                   }
+                 }*/
 
               } else {
                 console.log("curve === undefined, type: " + EntityTypesIfc[edgeCurve.type])
@@ -2792,6 +2931,7 @@ export class IfcGeometryExtraction {
 
             } else {
 
+              console.log("curve === null")
               const start = edge.EdgeStart
 
               if (start instanceof IfcVertexPoint) {
@@ -2823,13 +2963,14 @@ export class IfcGeometryExtraction {
 
         // get curve
         const parameters: ParamsGetLoop = {
-          isEdgeLoop: isEdgeLoop,
           points: vec3Array,
           edges: nativeEdgeCurves,
         }
 
         console.log("isEdgeLoop: " + (isEdgeLoop) ? "TRUE" : "FALSE")
         const curve: CurveObject = this.conwayModel.getLoop(parameters)
+
+
 
         // create bound vector
         const parametersCreateBounds3D: ParamsCreateBound3D = {
@@ -2867,6 +3008,7 @@ export class IfcGeometryExtraction {
         nativeSurface.bspline = this.extractBSplineSurfaceWithKnots(surface)
 
         if (!nativeSurface.bspline.active) {
+          console.log("bspline surface not active, returning")
           return
         }
 
@@ -3036,10 +3178,9 @@ export class IfcGeometryExtraction {
           }
         }
 
-        const edgesDummy:StdVector<CurveObject> = this.nativeVectorCurve()
+        const edgesDummy: StdVector<CurveObject> = this.nativeVectorCurve()
         // get curve
         const parameters: ParamsGetLoop = {
-          isEdgeLoop: false,
           points: vec3Array,
           edges: edgesDummy
         }
