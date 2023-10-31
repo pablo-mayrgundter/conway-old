@@ -34,6 +34,8 @@ import {
   BSplineSurface,
   TrimmingArguments,
   TrimmingSelect,
+  ParamsGetEllipseCurve,
+  ParamsTransformProfile,
 } from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMaterial, ColorRGBA, exponentToRoughness } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
@@ -146,6 +148,18 @@ import {
   IfcEdgeLoop,
   IfcEdgeCurve,
   IfcVertexPoint,
+  IfcRectangleHollowProfileDef,
+  IfcEllipseProfileDef,
+  IfcCircleHollowProfileDef,
+  IfcIShapeProfileDef,
+  IfcUShapeProfileDef,
+  IfcDerivedProfileDef,
+  IfcCartesianTransformationOperator2D,
+  IfcCartesianTransformationOperator2DnonUniform,
+  IfcLShapeProfileDef,
+  IfcCShapeProfileDef,
+  IfcTShapeProfileDef,
+  IfcZShapeProfileDef,
 } from './ifc4_gen'
 import EntityTypesIfc from './ifc4_gen/entity_types_ifc.gen'
 import { IfcMaterialCache } from './ifc_material_cache'
@@ -271,6 +285,8 @@ export class IfcGeometryExtraction {
   private readonly productToVoidGeometryMap: Map<number, number[]>
   private linearScalingFactor: number
 
+  private circleSegments: number = 12
+
   /**
    * Construct a geometry extraction from an IFC step model and conway model
    *
@@ -298,6 +314,7 @@ export class IfcGeometryExtraction {
    * @return {number} linear matrix scaling factor for geometry
    */
   getLinearScalingFactor(): number {
+    console.log(`linearScalingFactor: ${this.linearScalingFactor}`)
     return this.linearScalingFactor
   }
 
@@ -866,7 +883,7 @@ export class IfcGeometryExtraction {
     return {
       x: from.DirectionRatios[0],
       y: from.DirectionRatios[1],
-      z: from.DirectionRatios[2],
+      z: (from.DirectionRatios.length > 2) ? from.DirectionRatios[2] : 0,
     }
   }
 
@@ -1576,18 +1593,40 @@ export class IfcGeometryExtraction {
           }
         }
       }
-    } else if (from instanceof IfcCircleProfileDef) {
+    } else if (from instanceof IfcEllipseProfileDef) {
+      const curveObject = this.extractEllipseProfileCurve(from)
+
+      if (curveObject !== void 0) {
+        if (!curveObject.isCCW()) {
+          // console.log("inverting curve")
+          curveObject.invert()
+        }
+        const holesArray: NativeVectorCurve = this.nativeVectorCurve()
+        profile = {
+          localID: from.localID,
+          curve: curveObject,
+          holes: holesArray,
+        }
+      }
+    }
+    else if (from instanceof IfcCircleProfileDef) {
 
       const curveObject = this.extractCircleCurve(from)
 
       if (curveObject !== void 0) {
-        if (curveObject !== void 0) {
-          if (!curveObject.isCCW()) {
-            // console.log("inverting curve")
-            curveObject.invert()
-          }
+        if (!curveObject.isCCW()) {
+          // console.log("inverting curve")
+          curveObject.invert()
         }
         const holesArray: NativeVectorCurve = this.nativeVectorCurve()
+
+        if (from instanceof IfcCircleHollowProfileDef) {
+          const holeCurve = this.extractCircleHollowHoleCurve(from)
+
+          if (holeCurve !== void 0) {
+            holesArray.push_back(holeCurve)
+          }
+        }
         profile = {
           localID: from.localID,
           curve: curveObject,
@@ -1614,11 +1653,18 @@ export class IfcGeometryExtraction {
 
       profile.profiles = profiles
     } else if (from instanceof IfcRectangleProfileDef) {
-      // console.log("profile expressID: " + from.expressID)
       const curveObject = this.extractRectangleCurve(from)
 
       if (curveObject !== void 0) {
         const holesArray: NativeVectorCurve = this.nativeVectorCurve()
+
+        if (from instanceof IfcRectangleHollowProfileDef) {
+          const holeCurve = this.extractRectangleHollowHoleCurve(from)
+
+          if (holeCurve !== void 0) {
+            holesArray.push_back(holeCurve)
+          }
+        }
         profile = {
           localID: from.localID,
           curve: curveObject,
@@ -1626,7 +1672,122 @@ export class IfcGeometryExtraction {
         }
       }
 
-    } else {
+    } else if (from instanceof IfcCShapeProfileDef) {
+      const curveObject = this.extractCShapeCurve(from)
+
+      if (curveObject !== void 0) {
+        const holesArray: NativeVectorCurve = this.nativeVectorCurve()
+
+        profile = {
+          localID: from.localID,
+          curve: curveObject,
+          holes: holesArray,
+        }
+      }
+    }
+    else if (from instanceof IfcIShapeProfileDef) {
+
+      const curveObject = this.extractIShapeCurve(from)
+
+      if (curveObject !== void 0) {
+        const holesArray: NativeVectorCurve = this.nativeVectorCurve()
+
+        profile = {
+          localID: from.localID,
+          curve: curveObject,
+          holes: holesArray,
+        }
+      }
+
+    } else if (from instanceof IfcLShapeProfileDef) {
+      const curveObject = this.extractLShapeCurve(from)
+
+      if (curveObject !== void 0) {
+        const holesArray: NativeVectorCurve = this.nativeVectorCurve()
+
+        profile = {
+          localID: from.localID,
+          curve: curveObject,
+          holes: holesArray,
+        }
+      }
+
+    } else if (from instanceof IfcTShapeProfileDef) {
+      const curveObject = this.extractTShapeCurve(from)
+
+      if (curveObject !== void 0) {
+        const holesArray: NativeVectorCurve = this.nativeVectorCurve()
+
+        profile = {
+          localID: from.localID,
+          curve: curveObject,
+          holes: holesArray,
+        }
+      }
+
+    } else if (from instanceof IfcUShapeProfileDef) {
+      const curveObject = this.extractUShapeCurve(from)
+
+      if (curveObject !== void 0) {
+        const holesArray: NativeVectorCurve = this.nativeVectorCurve()
+
+        profile = {
+          localID: from.localID,
+          curve: curveObject,
+          holes: holesArray,
+        }
+      }
+
+    } else if (from instanceof IfcZShapeProfileDef) {
+      const curveObject = this.extractZShapeCurve(from)
+
+      if (curveObject !== void 0) {
+        const holesArray: NativeVectorCurve = this.nativeVectorCurve()
+
+        profile = {
+          localID: from.localID,
+          curve: curveObject,
+          holes: holesArray,
+        }
+      }
+
+    } else if (from instanceof IfcDerivedProfileDef) {
+      const canonicalProfileParent = this.extractProfile(from.ParentProfile)
+
+      if (canonicalProfileParent?.nativeProfile !== void 0) {
+        const transformation = this.extractCartesianTransformOperator2D(from.Operator) //glm::dmat3
+
+        const paramsTransformProfile: ParamsTransformProfile = {
+          transform: transformation,
+          profile: canonicalProfileParent.nativeProfile
+        }
+
+        const newNativeProfile = this.conwayModel.transformProfile(paramsTransformProfile)
+
+        profile = {
+          localID: from.localID,
+          curve: newNativeProfile.getCurve(),
+          holes: newNativeProfile.getHoles(),
+          nativeProfile: newNativeProfile,
+          profiles: canonicalProfileParent.profiles
+        }
+
+        // Check if profile is already in the model's profiles
+        const existingProfile = this.model.profiles.getByLocalID(profile.localID)
+
+        if (!existingProfile) {
+          // If profile is not already in the model's profiles, add it
+          this.model.profiles.add(profile)
+        }
+
+        return profile
+
+      } else {
+        console.log("IfcDerivedProfileDef not parsed properly, express ID: " + from.expressID)
+      }
+
+    }
+    else {
       console.log(`Unsupported Profile! Type: 
       ${EntityTypesIfc[from.type]} expressID: ${from.expressID}`)
     }
@@ -1700,6 +1861,30 @@ export class IfcGeometryExtraction {
     }
 
     return profile
+  }
+
+  extractCShapeCurve(from: IfcCShapeProfileDef): CurveObject | undefined {
+
+  }
+
+  extractIShapeCurve(from: IfcIShapeProfileDef): CurveObject | undefined {
+
+  }
+
+  extractLShapeCurve(from: IfcLShapeProfileDef): CurveObject | undefined {
+
+  }
+
+  extractTShapeCurve(from: IfcTShapeProfileDef): CurveObject | undefined {
+
+  }
+
+  extractUShapeCurve(from: IfcUShapeProfileDef): CurveObject | undefined {
+
+  }
+
+  extractZShapeCurve(from: IfcZShapeProfileDef): CurveObject | undefined {
+
   }
 
   /**
@@ -2152,7 +2337,7 @@ export class IfcGeometryExtraction {
    * @param from
    * @return {CurveObject | undefined}
    */
-  extractRectangleCurve(from: IfcRectangleProfileDef): CurveObject | undefined {
+  extractRectangleCurve(from: IfcRectangleProfileDef | IfcRectangleHollowProfileDef): CurveObject | undefined {
     if (from.Position !== null) {
       const placement2D = this.extractAxis2Placement2D(from.Position)
 
@@ -2161,6 +2346,7 @@ export class IfcGeometryExtraction {
         yDim: from.YDim,
         hasPlacement: true,
         matrix: placement2D,
+        thickness: (from instanceof IfcRectangleHollowProfileDef) ? from.WallThickness : -1,
       }
 
       const ifcCurve: CurveObject = this.conwayModel.getRectangleProfileCurve(paramsGetCircleCurve)
@@ -2172,9 +2358,46 @@ export class IfcGeometryExtraction {
         yDim: from.YDim,
         hasPlacement: false,
         matrix: (new (this.wasmModule.Glmdmat3)),
+        thickness: (from instanceof IfcRectangleHollowProfileDef) ? from.WallThickness : -1,
       }
 
       const ifcCurve: CurveObject = this.conwayModel.getRectangleProfileCurve(paramsGetCircleCurve)
+
+      paramsGetCircleCurve.matrix.delete()
+      return ifcCurve
+    }
+  }
+
+  /**
+   *
+   * @param from
+   * @return {CurveObject | undefined}
+   */
+  extractRectangleHollowHoleCurve(from: IfcRectangleHollowProfileDef): CurveObject | undefined {
+    if (from.Position !== null) {
+      const placement2D = this.extractAxis2Placement2D(from.Position)
+
+      const paramsGetCircleCurve: ParamsGetRectangleProfileCurve = {
+        xDim: from.XDim,
+        yDim: from.YDim,
+        hasPlacement: true,
+        matrix: placement2D,
+        thickness: from.WallThickness,
+      }
+
+      const ifcCurve: CurveObject = this.conwayModel.getRectangleHollowProfileHole(paramsGetCircleCurve)
+      return ifcCurve
+
+    } else {
+      const paramsGetCircleCurve: ParamsGetRectangleProfileCurve = {
+        xDim: from.XDim,
+        yDim: from.YDim,
+        hasPlacement: false,
+        matrix: (new (this.wasmModule.Glmdmat3)),
+        thickness: from.WallThickness,
+      }
+
+      const ifcCurve: CurveObject = this.conwayModel.getRectangleHollowProfileHole(paramsGetCircleCurve)
 
       paramsGetCircleCurve.matrix.delete()
       return ifcCurve
@@ -2197,6 +2420,7 @@ export class IfcGeometryExtraction {
         radius: from.Radius,
         hasPlacement: true,
         placement: placement2D,
+        thickness: -1,
       }
 
       const ifcCurve: CurveObject = this.conwayModel.getCircleCurve(paramsGetCircleCurve)
@@ -2207,9 +2431,64 @@ export class IfcGeometryExtraction {
         radius: from.Radius,
         hasPlacement: false,
         placement: (void 0),
+        thickness: -1,
       }
 
       const ifcCurve: CurveObject = this.conwayModel.getCircleCurve(paramsGetCircleCurve)
+      return ifcCurve
+    }
+  }
+
+  extractCircleHollowHoleCurve(from: IfcCircleHollowProfileDef) {
+    if (from.Position !== null) {
+      const placement2D = this.extractAxis2Placement2D(from.Position)
+
+      const paramsGetCircleCurve: ParamsGetCircleCurve = {
+        radius: from.Radius,
+        hasPlacement: true,
+        placement: placement2D,
+        thickness: from.WallThickness
+      }
+
+      const ifcCurve: CurveObject = this.conwayModel.getCircleHoleCurve(paramsGetCircleCurve)
+      return ifcCurve
+    } else {
+      const paramsGetCircleCurve: ParamsGetCircleCurve = {
+        radius: from.Radius,
+        hasPlacement: false,
+        placement: void 0,
+        thickness: from.WallThickness
+      }
+
+      const ifcCurve: CurveObject = this.conwayModel.getCircleHoleCurve(paramsGetCircleCurve)
+      return ifcCurve
+    }
+  }
+
+  extractEllipseProfileCurve(from: IfcEllipseProfileDef): CurveObject | undefined {
+    if (from.Position !== null) {
+      const placement2D = this.extractAxis2Placement2D(from.Position)
+
+      const paramsGetEllipseCurve: ParamsGetEllipseCurve = {
+        radiusX: from.SemiAxis1,
+        radiusY: from.SemiAxis2,
+        hasPlacement: true,
+        placement: placement2D,
+        circleSegments: this.circleSegments
+      }
+
+      const ifcCurve: CurveObject = this.conwayModel.getEllipseCurve(paramsGetEllipseCurve)
+      return ifcCurve
+    } else {
+      const paramsGetEllipseCurve: ParamsGetEllipseCurve = {
+        radiusX: from.SemiAxis1,
+        radiusY: from.SemiAxis2,
+        hasPlacement: false,
+        placement: void 0,
+        circleSegments: this.circleSegments
+      }
+
+      const ifcCurve: CurveObject = this.conwayModel.getEllipseCurve(paramsGetEllipseCurve)
       return ifcCurve
     }
   }
@@ -2889,11 +3168,11 @@ export class IfcGeometryExtraction {
                 for (let i = 0; i < curve.getPointsSize(); ++i) {
                   if (edgeCurve.Dim === 2) {
                     const pt__ = curve.get2d(i)
-        
+
                     console.log(`[${EntityTypesIfc[edge.type]}]: Point ${i}: x: ${pt__.x}, y: ${pt__.y}`)
                   } else if (edgeCurve.Dim === 3) {
                     const pt__ = curve.get3d(i)
-        
+
                     console.log(`[${EntityTypesIfc[edge.type]}]: Point ${i}: x: ${pt__.x}, y: ${pt__.y}, z: ${pt__.z}`)
                   }
                 }
@@ -3259,6 +3538,52 @@ export class IfcGeometryExtraction {
       .getAxis2Placement2D(axis2Placement2DParameters)
 
     return axis2Placement2DTransform
+  }
+
+  extractCartesianTransformOperator2D(from: IfcCartesianTransformationOperator2D | IfcCartesianTransformationOperator2DnonUniform): any {
+    let is2DNonUniform: boolean = false
+    let scale1: number = 1.0
+    let scale2: number = 1.0
+
+    if (from.Scale !== null) {
+      scale1 = from.Scale
+    }
+
+    if (from instanceof IfcCartesianTransformationOperator2DnonUniform) {
+      is2DNonUniform = true
+      if (from.Scale2 !== null) {
+        scale2 = from.Scale2
+      }
+    } else {
+      scale2 = scale1
+    }
+
+    const position: Vector2 = {
+      x: from.LocalOrigin.Coordinates[0],
+      y: from.LocalOrigin.Coordinates[1]
+    }
+
+    const axis1Ref: Vector3 =
+      IfcGeometryExtraction.extractDirection(from.Axis1) ?? { x: 1, y: 0, z: 0 }
+    const axis2Ref: Vector3 =
+      IfcGeometryExtraction.extractDirection(from.Axis2) ?? { x: 0, y: 1, z: 0 }
+
+    const axis2Placement2DParameters: ParamsGetAxis2Placement2D = {
+      isAxis2Placement2D: false,
+      isCartesianTransformationOperator2D: is2DNonUniform,
+      isCartesianTransformationOperator2DNonUniform: is2DNonUniform,
+      position2D: position,
+      customAxis1Ref: true,
+      axis1Ref: axis1Ref,
+      customAxis2Ref: true,
+      axis2Ref: axis2Ref,
+      customScale: true,
+      scale1: scale1,
+      customScale2: true,
+      scale2: scale2,
+    }
+
+    return this.conwayModel.getAxis2Placement2D(axis2Placement2DParameters)
   }
 
   /**
