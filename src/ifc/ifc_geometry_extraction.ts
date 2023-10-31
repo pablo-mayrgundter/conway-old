@@ -36,6 +36,12 @@ import {
   TrimmingSelect,
   ParamsGetEllipseCurve,
   ParamsTransformProfile,
+  ParamsGetCShapeCurve,
+  ParamsGetIShapeCurve,
+  ParamsGetLShapeCurve,
+  ParamsGetTShapeCurve,
+  ParamsGetUShapeCurve,
+  ParamsGetZShapeCurve,
 } from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMaterial, ColorRGBA, exponentToRoughness } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
@@ -1864,27 +1870,238 @@ export class IfcGeometryExtraction {
   }
 
   extractCShapeCurve(from: IfcCShapeProfileDef): CurveObject | undefined {
+    if (from.Position !== null) {
+      const placement2D = this.extractAxis2Placement2D(from.Position)
 
+      const paramsGetCShapeCurve: ParamsGetCShapeCurve = {
+        hasPlacement: true,
+        placement: placement2D,
+        hasFillet: (from.InternalFilletRadius !== null),
+        depth: from.Depth,
+        width: from.Width,
+        thickness: from.WallThickness,
+        girth: from.Girth,
+        filletRadius: (from.InternalFilletRadius !== null) ? from.InternalFilletRadius : 0
+      };
+
+      const ifcCurve: CurveObject = this.conwayModel.getCShapeCurve(paramsGetCShapeCurve)
+      paramsGetCShapeCurve.placement.delete()
+      return ifcCurve
+
+    } else {
+      const paramsGetCShapeCurve: ParamsGetCShapeCurve = {
+        hasPlacement: false,
+        placement: void 0,
+        hasFillet: (from.InternalFilletRadius !== null),
+        depth: from.Depth,
+        width: from.Width,
+        thickness: from.WallThickness,
+        girth: from.Girth,
+        filletRadius: (from.InternalFilletRadius !== null) ? from.InternalFilletRadius : 0
+      };
+
+      const ifcCurve: CurveObject = this.conwayModel.getCShapeCurve(paramsGetCShapeCurve)
+
+      paramsGetCShapeCurve.placement.delete()
+      return ifcCurve
+    }
   }
 
   extractIShapeCurve(from: IfcIShapeProfileDef): CurveObject | undefined {
+    if (from.Position !== null) {
+      const placement2D = this.extractAxis2Placement2D(from.Position)
 
+      const paramsGetIShapeCurve: ParamsGetIShapeCurve = {
+        hasPlacement: true,
+        placement: placement2D,
+        hasFillet: (from.FilletRadius !== null),
+        width: from.OverallWidth,
+        depth: from.OverallDepth,
+        webThickness: from.WebThickness,
+        flangeThickness: from.FlangeThickness,
+        filletRadius:(from.FilletRadius !== null) ? from.FilletRadius : 0,
+      };
+      
+      const ifcCurve: CurveObject = this.conwayModel.getIShapeCurve(paramsGetIShapeCurve);
+      paramsGetIShapeCurve.placement.delete()
+      return ifcCurve;
+
+    } else {
+      const paramsGetIShapeCurve: ParamsGetIShapeCurve = {
+        hasPlacement: false,
+        placement: void 0,
+        hasFillet: (from.FilletRadius !== null),
+        width: from.OverallWidth,
+        depth: from.OverallDepth,
+        webThickness: from.WebThickness,
+        flangeThickness: from.FlangeThickness,
+        filletRadius:(from.FilletRadius !== null) ? from.FilletRadius : 0,
+      };
+      
+      const ifcCurve: CurveObject = this.conwayModel.getIShapeCurve(paramsGetIShapeCurve);
+
+      paramsGetIShapeCurve.placement.delete()
+      return ifcCurve
+    }
   }
 
   extractLShapeCurve(from: IfcLShapeProfileDef): CurveObject | undefined {
+    if (from.Position !== null) {
+      const placement2D = this.extractAxis2Placement2D(from.Position)
 
+      const paramsGetLShapeCurve: ParamsGetLShapeCurve = {
+        hasPlacement: true,
+        placement: placement2D,
+        hasFillet: (from.FilletRadius !== null),
+        filletRadius: (from.FilletRadius !== null) ? from.FilletRadius : 0 ,
+        depth: from.Depth,
+        width: (from.Width !== null) ? from.Width : 0,
+        thickness: from.Thickness,
+        edgeRadius: (from.EdgeRadius !== null) ? from.EdgeRadius : 0,
+        legSlope: (from.LegSlope !== null) ? from.LegSlope : 0,
+      };
+      
+      const ifcCurve: CurveObject = this.conwayModel.getLShapeCurve(paramsGetLShapeCurve);
+      paramsGetLShapeCurve.placement.delete()
+      return ifcCurve;
+
+    } else {
+      const paramsGetLShapeCurve: ParamsGetLShapeCurve = {
+        hasPlacement: false,
+        placement: void 0,
+        hasFillet: (from.FilletRadius !== null),
+        filletRadius: (from.FilletRadius !== null) ? from.FilletRadius : 0 ,
+        depth: from.Depth,
+        width: (from.Width !== null) ? from.Width : 0,
+        thickness: from.Thickness,
+        edgeRadius: (from.EdgeRadius !== null) ? from.EdgeRadius : 0,
+        legSlope: (from.LegSlope !== null) ? from.LegSlope : 0,
+      };
+      
+      const ifcCurve: CurveObject = this.conwayModel.getLShapeCurve(paramsGetLShapeCurve);
+      paramsGetLShapeCurve.placement.delete()
+      return ifcCurve;
+    }
   }
 
   extractTShapeCurve(from: IfcTShapeProfileDef): CurveObject | undefined {
+    if (from.Position !== null) {
+      const placement2D = this.extractAxis2Placement2D(from.Position)
 
+      const paramsGetTShapeCurve: ParamsGetTShapeCurve = {
+        hasPlacement: true,
+        placement: placement2D,
+        hasFillet: (from.FilletRadius !== null),
+        depth: from.Depth,
+        width: from.FlangeWidth,
+        webThickness: from.WebThickness,
+        filletRadius: (from.FilletRadius !== null) ? from.FilletRadius : 0,
+        flangeEdgeRadius: (from.FlangeEdgeRadius !== null) ? from.FlangeEdgeRadius : 0,
+        flangeScope: (from.FlangeSlope !== null) ? from.FlangeSlope : 0,
+      };
+      
+      const ifcCurve: CurveObject = this.conwayModel.getTShapeCurve(paramsGetTShapeCurve);
+      paramsGetTShapeCurve.placement.delete()
+      return ifcCurve;
+      
+
+    } else {
+      const paramsGetTShapeCurve: ParamsGetTShapeCurve = {
+        hasPlacement: false,
+        placement: void 0,
+        hasFillet: (from.FilletRadius !== null),
+        depth: from.Depth,
+        width: from.FlangeWidth,
+        webThickness: from.WebThickness,
+        filletRadius: (from.FilletRadius !== null) ? from.FilletRadius : 0,
+        flangeEdgeRadius: (from.FlangeEdgeRadius !== null) ? from.FlangeEdgeRadius : 0,
+        flangeScope: (from.FlangeSlope !== null) ? from.FlangeSlope : 0,
+      };
+      
+      const ifcCurve: CurveObject = this.conwayModel.getTShapeCurve(paramsGetTShapeCurve);
+      paramsGetTShapeCurve.placement.delete()
+      return ifcCurve;
+    }
   }
 
   extractUShapeCurve(from: IfcUShapeProfileDef): CurveObject | undefined {
+    if (from.Position !== null) {
+      const placement2D = this.extractAxis2Placement2D(from.Position)
 
+      const paramsGetUShapeCurve: ParamsGetUShapeCurve = {
+        hasPlacement: true,
+        placement: placement2D,
+        depth: from.Depth,
+        flangeWidth: from.FlangeWidth,
+        webThickness: from.WebThickness,
+        flangeThickness: from.FlangeThickness,
+        filletRadius: (from.FilletRadius !== null) ? from.FilletRadius : 0,
+        edgeRadius: (from.EdgeRadius !== null) ? from.EdgeRadius : 0,
+        flangeScope: (from.FlangeSlope !== null) ? from.FlangeSlope : 0,
+      };
+      
+      const ifcCurve: CurveObject = this.conwayModel.getUShapeCurve(paramsGetUShapeCurve);
+      paramsGetUShapeCurve.placement.delete()
+      return ifcCurve;
+      
+
+    } else {
+      const paramsGetUShapeCurve: ParamsGetUShapeCurve = {
+        hasPlacement: false,
+        placement: void 0,
+        depth: from.Depth,
+        flangeWidth: from.FlangeWidth,
+        webThickness: from.WebThickness,
+        flangeThickness: from.FlangeThickness,
+        filletRadius: (from.FilletRadius !== null) ? from.FilletRadius : 0,
+        edgeRadius: (from.EdgeRadius !== null) ? from.EdgeRadius : 0,
+        flangeScope: (from.FlangeSlope !== null) ? from.FlangeSlope : 0,
+      };
+      
+      const ifcCurve: CurveObject = this.conwayModel.getUShapeCurve(paramsGetUShapeCurve);
+      paramsGetUShapeCurve.placement.delete()
+      return ifcCurve;
+    }
   }
 
   extractZShapeCurve(from: IfcZShapeProfileDef): CurveObject | undefined {
+    if (from.Position !== null) {
+      const placement2D = this.extractAxis2Placement2D(from.Position)
 
+      const paramsGetZShapeCurve: ParamsGetZShapeCurve = {
+        hasPlacement: true,
+        placement: placement2D,
+        hasFillet: (from.FilletRadius !== null),
+        depth: from.Depth,
+        flangeWidth: from.FlangeWidth,
+        webThickness: from.WebThickness,
+        flangeThickness: from.FlangeThickness,
+        filletRadius: (from.FilletRadius !== null) ? from.FilletRadius : 0,
+        edgeRadius: (from.EdgeRadius !== null) ? from.EdgeRadius : 0,
+      };
+      
+      const ifcCurve: CurveObject = this.conwayModel.getZShapeCurve(paramsGetZShapeCurve);
+      paramsGetZShapeCurve.placement.delete()
+      return ifcCurve;
+      
+
+    } else {
+      const paramsGetZShapeCurve: ParamsGetZShapeCurve = {
+        hasPlacement: true,
+        placement: void 0,
+        hasFillet: (from.FilletRadius !== null),
+        depth: from.Depth,
+        flangeWidth: from.FlangeWidth,
+        webThickness: from.WebThickness,
+        flangeThickness: from.FlangeThickness,
+        filletRadius: (from.FilletRadius !== null) ? from.FilletRadius : 0,
+        edgeRadius: (from.EdgeRadius !== null) ? from.EdgeRadius : 0,
+      };
+      
+      const ifcCurve: CurveObject = this.conwayModel.getZShapeCurve(paramsGetZShapeCurve);
+      paramsGetZShapeCurve.placement.delete()
+      return ifcCurve;
+    }
   }
 
   /**
