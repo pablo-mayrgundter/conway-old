@@ -1,0 +1,83 @@
+
+import { bounded_surface } from "./index"
+import { surface } from "./index"
+import { boundary_curve } from "./index"
+import {
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
+} from '../../step/parsing/step_deserialization_functions'
+
+/* This is generated code, don't modify */
+import EntityTypesIfc from './entity_types_ifc.gen'
+import StepEntityInternalReference from '../../step/step_entity_internal_reference'
+import StepEntityBase from '../../step/step_entity_base'
+import StepModelBase from '../../step/step_model_base'
+
+///**
+// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/curve_bounded_surface.htm */
+export  class curve_bounded_surface extends bounded_surface {
+  public get type(): EntityTypesIfc {
+    return EntityTypesIfc.CURVE_BOUNDED_SURFACE
+  }
+  private basis_surface_? : surface
+  private boundaries_? : Array<boundary_curve>
+  private implicit_outer_? : boolean
+
+  public get basis_surface() : surface {
+    if ( this.basis_surface_ === void 0 ) {
+      this.basis_surface_ = this.extractElement( 1, false, surface )
+    }
+
+    return this.basis_surface_ as surface
+  }
+
+  public get boundaries() : Array<boundary_curve> {
+    if ( this.boundaries_ === void 0 ) {
+      
+      let   cursor    = this.getOffsetCursor( 2 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
+
+      const value : Array<boundary_curve> = []
+
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = this.extractBufferElement( buffer, cursor, endCursor, boundary_curve )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
+      }
+
+      this.boundaries_ = value
+    }
+
+    return this.boundaries_ as Array<boundary_curve>
+  }
+
+  public get implicit_outer() : boolean {
+    if ( this.implicit_outer_ === void 0 ) {
+      this.implicit_outer_ = this.extractBoolean( 3, false )
+    }
+
+    return this.implicit_outer_ as boolean
+  }
+  constructor(
+    localID: number,
+    internalReference: StepEntityInternalReference< EntityTypesIfc >,
+    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    super( localID, internalReference, model )
+  }
+
+  public static readonly query = 
+    [ EntityTypesIfc.CURVE_BOUNDED_SURFACE ]
+
+  public static readonly expectedType: EntityTypesIfc =
+    EntityTypesIfc.CURVE_BOUNDED_SURFACE
+}

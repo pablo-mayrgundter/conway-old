@@ -1,0 +1,165 @@
+
+import { identifier } from "./index"
+import { label } from "./index"
+import {
+  stepExtractString,
+  stepExtractOptional,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
+} from '../../step/parsing/step_deserialization_functions'
+
+/* This is generated code, don't modify */
+import EntityTypesIfc from './entity_types_ifc.gen'
+import StepEntityInternalReference from '../../step/step_entity_internal_reference'
+import StepEntityBase from '../../step/step_entity_base'
+import StepModelBase from '../../step/step_model_base'
+
+///**
+// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/person.htm */
+export  class person extends StepEntityBase< EntityTypesIfc > {
+  public get type(): EntityTypesIfc {
+    return EntityTypesIfc.PERSON
+  }
+  private id_? : string
+  private last_name_? : string | null
+  private first_name_? : string | null
+  private middle_names_? : Array< string > | null
+  private prefix_titles_? : Array< string > | null
+  private suffix_titles_? : Array< string > | null
+
+  public get id() : string {
+    if ( this.id_ === void 0 ) {
+      this.id_ = this.extractString( 0, false )
+    }
+
+    return this.id_ as string
+  }
+
+  public get last_name() : string | null {
+    if ( this.last_name_ === void 0 ) {
+      this.last_name_ = this.extractString( 1, true )
+    }
+
+    return this.last_name_ as string | null
+  }
+
+  public get first_name() : string | null {
+    if ( this.first_name_ === void 0 ) {
+      this.first_name_ = this.extractString( 2, true )
+    }
+
+    return this.first_name_ as string | null
+  }
+
+  public get middle_names() : Array< string > | null {
+    if ( this.middle_names_ === void 0 ) {
+      
+      let   cursor    = this.getOffsetCursor( 3 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return null
+      }
+
+      const value : Array<string> = []
+
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = stepExtractString( buffer, cursor, endCursor )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
+      }
+
+      this.middle_names_ = value
+    }
+
+    return this.middle_names_ as Array< string > | null
+  }
+
+  public get prefix_titles() : Array< string > | null {
+    if ( this.prefix_titles_ === void 0 ) {
+      
+      let   cursor    = this.getOffsetCursor( 4 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return null
+      }
+
+      const value : Array<string> = []
+
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = stepExtractString( buffer, cursor, endCursor )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
+      }
+
+      this.prefix_titles_ = value
+    }
+
+    return this.prefix_titles_ as Array< string > | null
+  }
+
+  public get suffix_titles() : Array< string > | null {
+    if ( this.suffix_titles_ === void 0 ) {
+      
+      let   cursor    = this.getOffsetCursor( 5 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return null
+      }
+
+      const value : Array<string> = []
+
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = stepExtractString( buffer, cursor, endCursor )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
+      }
+
+      this.suffix_titles_ = value
+    }
+
+    return this.suffix_titles_ as Array< string > | null
+  }
+  constructor(
+    localID: number,
+    internalReference: StepEntityInternalReference< EntityTypesIfc >,
+    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    super( localID, internalReference, model )
+  }
+
+  public static readonly query = 
+    [ EntityTypesIfc.PERSON ]
+
+  public static readonly expectedType: EntityTypesIfc =
+    EntityTypesIfc.PERSON
+}

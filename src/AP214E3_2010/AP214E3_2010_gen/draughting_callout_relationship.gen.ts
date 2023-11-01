@@ -1,0 +1,66 @@
+
+import { label } from "./index"
+import { text } from "./index"
+import { draughting_callout } from "./index"
+
+/* This is generated code, don't modify */
+import EntityTypesIfc from './entity_types_ifc.gen'
+import StepEntityInternalReference from '../../step/step_entity_internal_reference'
+import StepEntityBase from '../../step/step_entity_base'
+import StepModelBase from '../../step/step_model_base'
+
+///**
+// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/draughting_callout_relationship.htm */
+export  class draughting_callout_relationship extends StepEntityBase< EntityTypesIfc > {
+  public get type(): EntityTypesIfc {
+    return EntityTypesIfc.DRAUGHTING_CALLOUT_RELATIONSHIP
+  }
+  private name_? : string
+  private description_? : string
+  private relating_draughting_callout_? : draughting_callout
+  private related_draughting_callout_? : draughting_callout
+
+  public get name() : string {
+    if ( this.name_ === void 0 ) {
+      this.name_ = this.extractString( 0, false )
+    }
+
+    return this.name_ as string
+  }
+
+  public get description() : string {
+    if ( this.description_ === void 0 ) {
+      this.description_ = this.extractString( 1, false )
+    }
+
+    return this.description_ as string
+  }
+
+  public get relating_draughting_callout() : draughting_callout {
+    if ( this.relating_draughting_callout_ === void 0 ) {
+      this.relating_draughting_callout_ = this.extractElement( 2, false, draughting_callout )
+    }
+
+    return this.relating_draughting_callout_ as draughting_callout
+  }
+
+  public get related_draughting_callout() : draughting_callout {
+    if ( this.related_draughting_callout_ === void 0 ) {
+      this.related_draughting_callout_ = this.extractElement( 3, false, draughting_callout )
+    }
+
+    return this.related_draughting_callout_ as draughting_callout
+  }
+  constructor(
+    localID: number,
+    internalReference: StepEntityInternalReference< EntityTypesIfc >,
+    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    super( localID, internalReference, model )
+  }
+
+  public static readonly query = 
+    [ EntityTypesIfc.DRAUGHTING_CALLOUT_RELATIONSHIP ]
+
+  public static readonly expectedType: EntityTypesIfc =
+    EntityTypesIfc.DRAUGHTING_CALLOUT_RELATIONSHIP
+}
