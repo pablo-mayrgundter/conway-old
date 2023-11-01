@@ -46,6 +46,7 @@ import {
 import { CanonicalMaterial, ColorRGBA, exponentToRoughness } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
 import { CanonicalProfile } from '../core/canonical_profile'
+import { ObjectPool } from '../core/native_pool'
 import {
   NativeTransform,
   NativeULongVector,
@@ -293,6 +294,12 @@ export class IfcGeometryExtraction {
 
   private circleSegments: number = 12
 
+  private paramsGetBooleanResultPool: ObjectPool<ParamsGetBooleanResult> | undefined
+  private paramsTransformProfilePool: ObjectPool<ParamsTransformProfile> | undefined
+
+  private identity2DNativeMatrix: any
+  private identity3DNativeMatrix: any
+
   /**
    * Construct a geometry extraction from an IFC step model and conway model
    *
@@ -313,6 +320,39 @@ export class IfcGeometryExtraction {
     this.productToVoidGeometryMap = new Map<number, number[]>()
     this.linearScalingFactor = 1
     this.wasmModule = conwayModel.wasmModule
+    this.getIdentityMatrices()
+    this.initializeMemoryPools()
+  }
+
+  initializeMemoryPools() {
+    this.createParamsGetBooleanResultPool()
+    this.createParamsTransformProfilePool()
+  }
+
+  createParamsTransformProfilePool() {
+    if (this.paramsTransformProfilePool === void 0) {
+      // Create a pool for ParamsTransformProfile
+      this.paramsTransformProfilePool = new ObjectPool<ParamsTransformProfile>(
+        () => new (this.wasmModule.ParamsTransformProfile)() as ParamsTransformProfile,
+        (obj) => obj.delete()
+      )
+    }
+  }
+
+  createParamsGetBooleanResultPool() {
+
+    if (this.paramsGetBooleanResultPool === void 0) {
+      // Create a pool for ParamsGetBooleanResult
+      this.paramsGetBooleanResultPool = new ObjectPool<ParamsGetBooleanResult>(
+        () => new (this.wasmModule.ParamsGetBooleanResult)() as ParamsGetBooleanResult,
+        (obj) => obj.delete()
+      )
+    }
+  }
+
+  getIdentityMatrices() {
+    this.identity2DNativeMatrix = this.wasmModule.getIdentity2DMatrix()
+    this.identity3DNativeMatrix = this.wasmModule.getIdentity3DMatrix()
   }
 
   /**
@@ -520,12 +560,6 @@ export class IfcGeometryExtraction {
     }
 
     return nativeVectorGlmdVec2_
-  }
-
-  NativeParamsGetBooleanResult():ParamsGetBooleanResult {
-    const booleanResultPtr = (new (this.wasmModule.ParamsGetBooleanResult)()) as ParamsGetBooleanResult
-
-    return booleanResultPtr
   }
 
   /**
@@ -1026,16 +1060,11 @@ export class IfcGeometryExtraction {
       return
     }
 
-    const parameters = this.NativeParamsGetBooleanResult()
+    const parameters = this.paramsGetBooleanResultPool!.acquire()
 
     parameters.flatFirstMesh = flatFirstMeshVector
     parameters.flatSecondMesh = flatSecondMeshVector
     parameters.operatorType = from.Operator.valueOf()
-    /*const parameters: ParamsGetBooleanResult = {
-      flatFirstMesh: flatFirstMeshVector,
-      flatSecondMesh: flatSecondMeshVector,
-      operatorType: from.Operator.valueOf(),
-    }*/
 
     const booleanGeometryObject: GeometryObject = this.conwayModel.getBooleanResult(parameters)
 
@@ -1068,7 +1097,8 @@ export class IfcGeometryExtraction {
     }
 
     //console.log("deleting paramsGetBooleanResult...")
-    this.wasmModule.deleteParamsGetBooleanResult(parameters)
+    //this.wasmModule.deleteParamsGetBooleanResult(parameters)
+    this.paramsGetBooleanResultPool!.release(parameters)
   }
 
   /**
@@ -1127,7 +1157,7 @@ export class IfcGeometryExtraction {
 
       // get geometry TODO(nickcastel50): eventually support flattening meshes
       let flatFirstMeshVector: StdVector<GeometryObject>// = this.nativeVectorGeometry()
-      let flatFirstMeshVectorFromParts:boolean = false 
+      let flatFirstMeshVectorFromParts: boolean = false
       let firstMesh: CanonicalMesh | undefined
 
       if (isRelVoid) {
@@ -1156,7 +1186,7 @@ export class IfcGeometryExtraction {
       }
 
       let flatSecondMeshVector: StdVector<GeometryObject>// = this.nativeVectorGeometry()
-      let flatSecondMeshVectorFromParts:boolean = false 
+      let flatSecondMeshVectorFromParts: boolean = false
       let secondMesh: CanonicalMesh | undefined
 
       if (isRelVoid) {
@@ -1183,16 +1213,11 @@ export class IfcGeometryExtraction {
         return
       }
 
-      const parameters = this.NativeParamsGetBooleanResult()
+      const parameters = this.paramsGetBooleanResultPool!.acquire()
 
-    parameters.flatFirstMesh = flatFirstMeshVector
-    parameters.flatSecondMesh = flatSecondMeshVector
-    parameters.operatorType = from.Operator.valueOf()
-      /*const parameters: ParamsGetBooleanResult = {
-        flatFirstMesh: flatFirstMeshVector,
-        flatSecondMesh: flatSecondMeshVector,
-        operatorType: from.Operator.valueOf(),
-      }*/
+      parameters.flatFirstMesh = flatFirstMeshVector
+      parameters.flatSecondMesh = flatSecondMeshVector
+      parameters.operatorType = from.Operator.valueOf()
 
       const booleanGeometryObject: GeometryObject = this.conwayModel.getBooleanResult(parameters)
 
@@ -1214,13 +1239,14 @@ export class IfcGeometryExtraction {
       if (!flatFirstMeshVectorFromParts) {
         flatFirstMeshVector.delete()
       }
-  
+
       if (!flatSecondMeshVectorFromParts) {
         flatSecondMeshVector.delete()
       }
 
       //console.log("deleting params get boolean result [operand]...")
-      this.wasmModule.deleteParamsGetBooleanResult(parameters)
+      //this.wasmModule.deleteParamsGetBooleanResult(parameters)
+      this.paramsGetBooleanResultPool!.release(parameters)
 
       //console.log("element type: " + EntityTypesIfc[from.type] + " - expressID: " + from.expressID)
     }
@@ -1509,6 +1535,12 @@ export class IfcGeometryExtraction {
         profile: profile.nativeProfile,
       }
 
+      const _element = this.model.getElementByLocalID(profile.localID)
+
+      if (_element !== void 0) {
+        console.log(`IfcExtrudedAreaSolid express ID: ${from.expressID}`)
+        console.log(`Profile Type: ${EntityTypesIfc[_element.type]}: express ID: ${_element.expressID}`)
+      }
       const geometry: GeometryObject = this.conwayModel.getExtrudedAreaSolid(parameters)
 
       // apply transform
@@ -1816,12 +1848,27 @@ export class IfcGeometryExtraction {
       if (canonicalProfileParent?.nativeProfile !== void 0) {
         const transformation = this.extractCartesianTransformOperator2D(from.Operator) //glm::dmat3
 
-        const paramsTransformProfile: ParamsTransformProfile = {
-          transform: transformation,
-          profile: canonicalProfileParent.nativeProfile
-        }
+        const paramsTransformProfile = this.paramsTransformProfilePool!.acquire()
+        paramsTransformProfile.transform = transformation
+        paramsTransformProfile.profile = canonicalProfileParent.nativeProfile
 
         const newNativeProfile = this.conwayModel.transformProfile(paramsTransformProfile)
+
+        const __element = this.model.getElementByLocalID(canonicalProfileParent.localID)
+
+        if (__element !== void 0) {
+          console.log("parent profile type: " + EntityTypesIfc[__element.type] + " express ID: " + __element.expressID)
+        }
+
+        console.log("element type: " + EntityTypesIfc[from.type] + " express ID: " + from.expressID)
+
+        const __Curve = newNativeProfile.getCurve()
+
+        for (let i = 0; i < __Curve.getPointsSize(); ++i) {
+          const __point = __Curve.get2d(i)
+
+          console.log(`Point ${i}: x: ${__point.x}, y: ${__point.y}, z: ${__point.z}`)
+        }
 
         profile = {
           localID: from.localID,
@@ -1838,6 +1885,8 @@ export class IfcGeometryExtraction {
           // If profile is not already in the model's profiles, add it
           this.model.profiles.add(profile)
         }
+
+        this.paramsTransformProfilePool!.release(paramsTransformProfile)
 
         return profile
 
@@ -1944,7 +1993,7 @@ export class IfcGeometryExtraction {
     } else {
       const paramsGetCShapeCurve: ParamsGetCShapeCurve = {
         hasPlacement: false,
-        placement: void 0,
+        placement: this.identity2DNativeMatrix,
         hasFillet: (from.InternalFilletRadius !== null),
         depth: from.Depth,
         width: from.Width,
@@ -1954,8 +2003,6 @@ export class IfcGeometryExtraction {
       }
 
       const ifcCurve: CurveObject = this.conwayModel.getCShapeCurve(paramsGetCShapeCurve)
-
-      paramsGetCShapeCurve.placement.delete()
       return ifcCurve
     }
   }
@@ -1982,7 +2029,7 @@ export class IfcGeometryExtraction {
     } else {
       const paramsGetIShapeCurve: ParamsGetIShapeCurve = {
         hasPlacement: false,
-        placement: void 0,
+        placement: this.identity2DNativeMatrix,
         hasFillet: (from.FilletRadius !== null),
         width: from.OverallWidth,
         depth: from.OverallDepth,
@@ -1992,8 +2039,6 @@ export class IfcGeometryExtraction {
       }
 
       const ifcCurve: CurveObject = this.conwayModel.getIShapeCurve(paramsGetIShapeCurve)
-
-      paramsGetIShapeCurve.placement.delete()
       return ifcCurve
     }
   }
@@ -2021,7 +2066,7 @@ export class IfcGeometryExtraction {
     } else {
       const paramsGetLShapeCurve: ParamsGetLShapeCurve = {
         hasPlacement: false,
-        placement: void 0,
+        placement: this.identity2DNativeMatrix,
         hasFillet: (from.FilletRadius !== null),
         filletRadius: (from.FilletRadius !== null) ? from.FilletRadius : 0,
         depth: from.Depth,
@@ -2032,7 +2077,6 @@ export class IfcGeometryExtraction {
       }
 
       const ifcCurve: CurveObject = this.conwayModel.getLShapeCurve(paramsGetLShapeCurve)
-      paramsGetLShapeCurve.placement.delete()
       return ifcCurve
     }
   }
@@ -2061,7 +2105,7 @@ export class IfcGeometryExtraction {
     } else {
       const paramsGetTShapeCurve: ParamsGetTShapeCurve = {
         hasPlacement: false,
-        placement: void 0,
+        placement: this.identity2DNativeMatrix,
         hasFillet: (from.FilletRadius !== null),
         depth: from.Depth,
         width: from.FlangeWidth,
@@ -2072,7 +2116,6 @@ export class IfcGeometryExtraction {
       }
 
       const ifcCurve: CurveObject = this.conwayModel.getTShapeCurve(paramsGetTShapeCurve)
-      paramsGetTShapeCurve.placement.delete()
       return ifcCurve
     }
   }
@@ -2101,7 +2144,7 @@ export class IfcGeometryExtraction {
     } else {
       const paramsGetUShapeCurve: ParamsGetUShapeCurve = {
         hasPlacement: false,
-        placement: void 0,
+        placement: this.identity2DNativeMatrix,
         depth: from.Depth,
         flangeWidth: from.FlangeWidth,
         webThickness: from.WebThickness,
@@ -2112,7 +2155,6 @@ export class IfcGeometryExtraction {
       }
 
       const ifcCurve: CurveObject = this.conwayModel.getUShapeCurve(paramsGetUShapeCurve)
-      paramsGetUShapeCurve.placement.delete()
       return ifcCurve
     }
   }
@@ -2140,8 +2182,8 @@ export class IfcGeometryExtraction {
 
     } else {
       const paramsGetZShapeCurve: ParamsGetZShapeCurve = {
-        hasPlacement: true,
-        placement: void 0,
+        hasPlacement: false,
+        placement: this.identity2DNativeMatrix,
         hasFillet: (from.FilletRadius !== null),
         depth: from.Depth,
         flangeWidth: from.FlangeWidth,
@@ -2152,7 +2194,6 @@ export class IfcGeometryExtraction {
       }
 
       const ifcCurve: CurveObject = this.conwayModel.getZShapeCurve(paramsGetZShapeCurve)
-      paramsGetZShapeCurve.placement.delete()
       return ifcCurve
     }
   }
@@ -2209,7 +2250,7 @@ export class IfcGeometryExtraction {
 
     if (from instanceof IfcBSplineCurve) {
 
-      const ifcCurve = this.extractBSplineCurve(from)
+      /*const ifcCurve = this.extractBSplineCurve(from)
 
       if (trimmingArguments !== void 0) {
         //invert curve 
@@ -2224,7 +2265,7 @@ export class IfcGeometryExtraction {
           console.log(`Point ${i}: x: ${pt_.x}, y: ${pt_.y}, z: ${pt_.z}`)
         }
       }
-      return ifcCurve
+      return ifcCurve*/
     }
 
     if (from instanceof IfcTrimmedCurve) {
@@ -2700,7 +2741,7 @@ export class IfcGeometryExtraction {
       const paramsGetCircleCurve: ParamsGetCircleCurve = {
         radius: from.Radius,
         hasPlacement: false,
-        placement: (void 0),
+        placement: this.identity2DNativeMatrix,
         thickness: -1,
       }
 
@@ -2726,7 +2767,7 @@ export class IfcGeometryExtraction {
       const paramsGetCircleCurve: ParamsGetCircleCurve = {
         radius: from.Radius,
         hasPlacement: false,
-        placement: void 0,
+        placement: this.identity2DNativeMatrix,
         thickness: from.WallThickness
       }
 
@@ -2754,7 +2795,7 @@ export class IfcGeometryExtraction {
         radiusX: from.SemiAxis1,
         radiusY: from.SemiAxis2,
         hasPlacement: false,
-        placement: void 0,
+        placement: this.identity2DNativeMatrix,
         circleSegments: this.circleSegments
       }
 
@@ -3546,52 +3587,52 @@ export class IfcGeometryExtraction {
 
       } else if (surface instanceof IfcRationalBSplineSurfaceWithKnots) {
 
-        nativeSurface.bspline = this.extractRationalBSplineSurfaceWithKnots(surface)
+        /*nativeSurface.bspline = this.extractRationalBSplineSurfaceWithKnots(surface)
 
         if (!nativeSurface.bspline.active) {
           return
-        }
+        }*/
 
       } else if (surface instanceof IfcBSplineSurfaceWithKnots) {
 
-        nativeSurface.bspline = this.extractBSplineSurfaceWithKnots(surface)
+        /*nativeSurface.bspline = this.extractBSplineSurfaceWithKnots(surface)
 
         if (!nativeSurface.bspline.active) {
           console.log("bspline surface not active, returning")
           return
-        }
+        }*/
 
       } else if (surface instanceof IfcBSplineSurface) {
 
-        nativeSurface.bspline = this.extractBSplineSurface(surface)
+        /*nativeSurface.bspline = this.extractBSplineSurface(surface)
 
         if (!nativeSurface.bspline.active) {
           return
-        }
+        }*/
 
       } else if (surface instanceof IfcCylindricalSurface) {
 
-        this.extractCylindricalSurface(surface, nativeSurface)
+        /*this.extractCylindricalSurface(surface, nativeSurface)
 
         if (!nativeSurface.cylinder.active) {
           return
-        }
+        }*/
 
       } else if (surface instanceof IfcSurfaceOfRevolution) {
 
-        this.extractSurfaceOfRevolution(surface, nativeSurface)
+        /*this.extractSurfaceOfRevolution(surface, nativeSurface)
 
         if (!nativeSurface.revolution.active) {
           return
-        }
+        }*/
 
       } else if (surface instanceof IfcSurfaceOfLinearExtrusion) {
 
-        this.extractSurfaceOfLinearExtrusion(surface, nativeSurface)
+        /*this.extractSurfaceOfLinearExtrusion(surface, nativeSurface)
 
         if (!nativeSurface.extrusion.active) {
           return
-        }
+        }*/
 
       } else {
 
