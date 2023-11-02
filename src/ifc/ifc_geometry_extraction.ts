@@ -1852,6 +1852,14 @@ export class IfcGeometryExtraction {
         paramsTransformProfile.transform = transformation
         paramsTransformProfile.profile = canonicalProfileParent.nativeProfile
 
+        const beforeCurve = canonicalProfileParent.nativeProfile.getCurve()
+
+        for (let i = 0; i < beforeCurve.getPointsSize(); ++i) {
+          const __point = beforeCurve.get2d(i)
+
+          console.log(`[BeforeCurve]: Point ${i}: x: ${__point.x}, y: ${__point.y}, z: ${__point.z}`)
+        }
+
         const newNativeProfile = this.conwayModel.transformProfile(paramsTransformProfile)
 
         const __element = this.model.getElementByLocalID(canonicalProfileParent.localID)
@@ -2061,6 +2069,12 @@ export class IfcGeometryExtraction {
 
       const ifcCurve: CurveObject = this.conwayModel.getLShapeCurve(paramsGetLShapeCurve)
       paramsGetLShapeCurve.placement.delete()
+
+      for (let i = 0; i < ifcCurve.getPointsSize(); ++i) {
+        const __point = ifcCurve.get2d(i)
+
+        console.log(`[LShapeCurve]: Point ${i}: x: ${__point.x}, y: ${__point.y}, z: ${__point.z}`)
+      }
       return ifcCurve
 
     } else {
@@ -3882,7 +3896,7 @@ export class IfcGeometryExtraction {
 
     const axis2Placement2DParameters: ParamsGetAxis2Placement2D = {
       isAxis2Placement2D: false,
-      isCartesianTransformationOperator2D: is2DNonUniform,
+      isCartesianTransformationOperator2D: !is2DNonUniform,
       isCartesianTransformationOperator2DNonUniform: is2DNonUniform,
       position2D: position,
       customAxis1Ref: true,
