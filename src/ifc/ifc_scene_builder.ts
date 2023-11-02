@@ -285,8 +285,8 @@ export class IfcSceneBuilder implements Scene< StepEntityBase< EntityTypesIfc > 
         const geometry = node.model.geometry?.getByLocalID(node.localID)
 
         if (geometry === void 0) {
-          console.log(`skipping due to null geometry, express ID: 
-          ${  this.model.getElementByLocalID(node.localID)?.expressID}`)
+          // console.log(`skipping due to null geometry, express ID:
+        //  ${  this.model.getElementByLocalID(node.localID)?.expressID}`)
           continue
         }
 
