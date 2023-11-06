@@ -765,7 +765,7 @@ export class IfcGeometryExtraction {
     return profileArray
   }
 
-  private extractPolygonalFaceSetNew(entity: IfcPolygonalFaceSet,
+  private extractPolygonalFaceSet(entity: IfcPolygonalFaceSet,
     temporary: boolean = false,
     isRelVoid: boolean = false): ExtractResult {
       const result: ExtractResult = ExtractResult.COMPLETE
@@ -904,137 +904,6 @@ export class IfcGeometryExtraction {
 
   /**
    *
-   * @param entity - IfcPolygonalFaceSet
-   * @param polygonalFaceStartIndices - Vector of face start indices
-   * @param modelId - current modelId
-   * @return {ExtractResult} - Extraction status result
-   */
-  private extractPolygonalFaceSet(entity: IfcPolygonalFaceSet,
-    polygonalFaceStartIndices: NativeULongVector,
-    temporary: boolean = false,
-    isRelVoid: boolean = false): ExtractResult {
-    const result: ExtractResult = ExtractResult.COMPLETE
-
-    // map points
-    const points = entity.Coordinates.CoordList.map(([x, y, z]) => ({ x, y, z }))
-    // map indices
-    const faces = entity.Faces.values()
-
-    let indicesPerFace: number = -1
-
-    // initialize new polygonalFaceVector
-    const polygonalFaceVector: NativeVectorIndexedPolygonalFace =
-      this.nativeIndexedPolygonalFaceVector()
-
-    // handle faces + voids
-    for (const polygonalFace of faces) {
-      if (polygonalFace instanceof IfcIndexedPolygonalFaceWithVoids) {
-
-        indicesPerFace = polygonalFace.CoordIndex.length
-
-        // initialize new native indices array (free memory with delete())
-        const polygonalFaceStartIndicesVoids: NativeULongVector =
-          this.nativeULongVector(1 + polygonalFace.InnerCoordIndices.length)
-
-        // set the first index to 0
-        let voidsIndex = 0
-        let coordIndexIdx = 0
-        polygonalFaceStartIndicesVoids.set(voidsIndex++, coordIndexIdx)
-
-        // create a coordIndex with
-        // size == coordIndex.length + total size of innerCoordIndices array
-        const coordIndex: NativeUintVector =
-          this.nativeUintVector(polygonalFace.CoordIndex.length +
-            this.getTotalLength(polygonalFace.InnerCoordIndices))
-
-        for (let i = 0; i < polygonalFace.CoordIndex.length; i++) {
-          coordIndex.set(coordIndexIdx++, polygonalFace.CoordIndex[i])
-        }
-
-        // second index
-        polygonalFaceStartIndicesVoids.set(voidsIndex++, coordIndexIdx)
-
-        for (let i = 0; i < polygonalFace.InnerCoordIndices.length; i++) {
-          for (let j = 0; j < polygonalFace.InnerCoordIndices[i].length; j++) {
-            coordIndex.set(coordIndexIdx++, polygonalFace.InnerCoordIndices[i][j])
-          }
-
-          // Set the nth index if it's not the last iteration of the outer loop
-          if (i + 1 < polygonalFace.InnerCoordIndices.length) {
-            polygonalFaceStartIndicesVoids.set(voidsIndex++, coordIndexIdx)
-          }
-        }
-
-        const indexedPolygonalFaceParameters: IndexedPolygonalFace = {
-          indices: coordIndex,
-          face_starts: polygonalFaceStartIndicesVoids,
-        }
-
-        polygonalFaceVector.push_back(indexedPolygonalFaceParameters)
-
-        coordIndex.delete()
-        polygonalFaceStartIndicesVoids.delete()
-
-      } else {
-
-        indicesPerFace = polygonalFace.CoordIndex.length
-
-        const coordIndex = this.createAndPopulateNativeIndices(polygonalFace.CoordIndex)
-
-        const indexedPolygonalFaceParameters: IndexedPolygonalFace = {
-          indices: coordIndex,
-          face_starts: polygonalFaceStartIndices,
-        }
-
-        polygonalFaceVector.push_back(indexedPolygonalFaceParameters)
-
-        coordIndex.delete()
-      }
-    }
-
-    // initialize new native glm::vec3 array object (free memory with delete())
-    const pointsArray: NativeVectorGlmVec3 = this.nativeVectorGlmVec3(points.length)
-
-    // populate points array
-    for (let i = 0; i < points.length; i++) {
-      pointsArray.set(i, points[i])
-    }
-
-    const parameters: ParamsPolygonalFaceSet = {
-      indicesPerFace: indicesPerFace,
-      points: pointsArray,
-      faces: polygonalFaceVector,
-    }
-
-    const geometry: GeometryObject = this.conwayModel.getPolygonalFaceSetGeometry(parameters)
-
-    // free allocated wasm vectors
-    pointsArray.delete()
-
-    this.freeNativeIndexedPolygonalFaceVector(
-      polygonalFaceVector)
-
-    const canonicalMesh: CanonicalMesh = {
-      type: CanonicalMeshType.BUFFER_GEOMETRY,
-      geometry: geometry,
-      localID: entity.localID,
-      model: this.model,
-      temporary: temporary,
-    }
-
-    // add mesh to the list of mesh objects
-    if (!isRelVoid) {
-      this.model.geometry.add(canonicalMesh)
-    } else {
-      this.model.voidGeometry.add(canonicalMesh)
-    }
-
-    return result
-
-  }
-
-  /**
-   *
    * @param entities - IfcPolygonalFaceSet array
    * @param modelId - the modelId
    * @return {ExtractResult} - Extraction status result
@@ -1043,22 +912,15 @@ export class IfcGeometryExtraction {
 
     let result: ExtractResult = ExtractResult.COMPLETE
     let faceSetResult: ExtractResult = ExtractResult.INCOMPLETE
-    // initialize new native indices array (free memory with delete())
-    //const polygonalFaceStartIndices: NativeULongVector = this.nativeULongVector(1)
-
-   // polygonalFaceStartIndices.set(0, 0)
-
 
     for (const entity of entities) {
-      faceSetResult = this.extractPolygonalFaceSetNew(entity)//, polygonalFaceStartIndices)
+      faceSetResult = this.extractPolygonalFaceSet(entity)
 
       if (faceSetResult !== ExtractResult.COMPLETE) {
         console.log(`Warning, face set express ID: ${entity.expressID} extraction incomplete.`)
         result = ExtractResult.INCOMPLETE
       }
     }
-
-    //polygonalFaceStartIndices.delete()
 
     return result
   }
@@ -1273,20 +1135,14 @@ export class IfcGeometryExtraction {
       // mark as temporary
       this.extractExtrudedAreaSolid(from, true, isRelVoid)
     } else if (from instanceof IfcPolygonalFaceSet) {
-      // initialize new native indices array (free memory with delete())
-      //const polygonalFaceStartIndices: NativeULongVector = this.nativeULongVector(1)
-
-      //polygonalFaceStartIndices.set(0, 0)
-
       // mark as temporary
       const faceSetResult: ExtractResult =
-        this.extractPolygonalFaceSetNew(from, /*polygonalFaceStartIndices,*/ true, isRelVoid)
+        this.extractPolygonalFaceSet(from, true, isRelVoid)
 
       if (faceSetResult !== ExtractResult.COMPLETE) {
         console.log(`Warning, face set express ID: ${from.expressID} extraction incomplete.`)
       }
 
-     // polygonalFaceStartIndices.delete()
     } else if (from instanceof IfcHalfSpaceSolid) {
       this.extractHalfspaceSolid(from, true, isRelVoid)
     } else if (from instanceof IfcFacetedBrep) {
@@ -3145,19 +3001,12 @@ export class IfcGeometryExtraction {
 
     if (from instanceof IfcPolygonalFaceSet) {
 
-      // initialize new native indices array (free memory with delete())
-      //const polygonalFaceStartIndices: NativeULongVector = this.nativeULongVector(1)
-
-      //polygonalFaceStartIndices.set(0, 0)
-
       const faceSetResult: ExtractResult =
-        this.extractPolygonalFaceSetNew(from, /*polygonalFaceStartIndices,*/ false, isRelVoid)
+        this.extractPolygonalFaceSet(from, false, isRelVoid)
 
       if (faceSetResult !== ExtractResult.COMPLETE) {
         console.log(`Warning, face set express ID: ${from.expressID} extraction incomplete.`)
       }
-
-     // polygonalFaceStartIndices.delete()
 
       if (!isRelVoid) {
         this.scene.addGeometry(from.localID, owningElementLocalID)
