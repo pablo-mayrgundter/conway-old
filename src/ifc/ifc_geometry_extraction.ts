@@ -783,8 +783,6 @@ export class IfcGeometryExtraction {
       // Prepare indices and start indices for all faces
       entity.Faces.forEach((polygonalFace) => {
 
-    //    console.log("polygonal face express ID: " + polygonalFace.expressID)
-
         //set the offets for the memory buffers so we can rebuild the indexed polygonal face vector later
         polygonalFaceBufferOffsets.push(allIndices.length)
         startIndicesBufferOffsets.push(allStartIndices.length)
@@ -809,8 +807,6 @@ export class IfcGeometryExtraction {
           allStartIndices.push(0);
           allIndices.push(...polygonalFace.CoordIndex);
         }
-
-      //  console.log("indicesPerFace: " + indicesPerFace)
       });
     
 
@@ -826,12 +822,6 @@ export class IfcGeometryExtraction {
 
       //const pointsArray = new Float32Array(points)
       const pointsArrayPtr = this.arrayToWasmHeap(points)
-
-      /*console.log("allIndices: " + allIndices)
-      console.log("allStartIndices: " + allStartIndices)
-      console.log("points: " + points)
-      console.log("polygonalFaceBufferOffsets: " + polygonalFaceBufferOffsets)
-      console.log("startIndicesBufferOffsets: " + startIndicesBufferOffsets)*/
 
       const polygonalFaceVector = this.wasmModule.buildIndexedPolygonalFaceVector(
         indicesArrayPtr, 
