@@ -3,7 +3,7 @@
   "description": "bldrs.ai datamodel",
   "author": "bldrs.ai",
   "license": "AGPL-3.0",
-  "version": "0.1.0",
+  "version": "0.1.347",
   "repository": "https://github.com/bldrs-ai/conway",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -52,7 +52,8 @@
     "precommit-node": "yarn build-rebuild-node && yarn lint && yarn test",
     "precommit-web": "yarn build-rebuild-web && yarn lint && yarn test",
     "submodule-update": "git submodule update --init --recursive",
-    "test-watch": "jest --watchAll  --notify"
+    "test-watch": "jest --watchAll  --notify",
+    "update-version": "./scripts/updateVersion.mjs"
   },
   "dependencies": {
     "buffer": "^6.0.3",
