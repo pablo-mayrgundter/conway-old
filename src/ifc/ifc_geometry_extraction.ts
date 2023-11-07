@@ -1873,38 +1873,7 @@ export class IfcGeometryExtraction {
         paramsTransformProfile.transformation = transformation
         paramsTransformProfile.profile = canonicalProfileParent.nativeProfile
 
-        const beforeCurve = canonicalProfileParent.nativeProfile.getCurve()
-
-        console.log(`paramsTransformProfile: ${paramsTransformProfile}`)
-        console.log(`transform[TS]: transformation: ${transformation.getValues()}`)
-        console.log(`paramsTransformProfile.transform[TS]: 
-        transformation: ${paramsTransformProfile.transformation.getValues()}`)
-
-        for (let i = 0; i < beforeCurve.getPointsSize(); ++i) {
-          const __point = beforeCurve.get2d(i)
-
-          console.log(`[BeforeCurve]: Point ${i}:
-           x: ${__point.x}, y: ${__point.y}, z: ${__point.z}`)
-        }
-
         const newNativeProfile = this.conwayModel.transformProfile(paramsTransformProfile)
-
-        const __element = this.model.getElementByLocalID(canonicalProfileParent.localID)
-
-        if (__element !== void 0) {
-          console.log(`parent profile type: 
-          ${EntityTypesIfc[__element.type]} express ID: ${__element.expressID}`)
-        }
-
-        console.log(`element type: ${EntityTypesIfc[from.type]} express ID: ${from.expressID}`)
-
-        const __Curve = newNativeProfile.getCurve()
-
-        for (let i = 0; i < __Curve.getPointsSize(); ++i) {
-          const __point = __Curve.get2d(i)
-
-          console.log(`Point ${i}: x: ${__point.x}, y: ${__point.y}, z: ${__point.z}`)
-        }
 
         profile = {
           localID: from.localID,
@@ -2117,12 +2086,6 @@ export class IfcGeometryExtraction {
 
       const ifcCurve: CurveObject = this.conwayModel.getLShapeCurve(paramsGetLShapeCurve)
       paramsGetLShapeCurve.placement.delete()
-
-      for (let i = 0; i < ifcCurve.getPointsSize(); ++i) {
-        const __point = ifcCurve.get2d(i)
-
-        console.log(`[LShapeCurve]: Point ${i}: x: ${__point.x}, y: ${__point.y}, z: ${__point.z}`)
-      }
       return ifcCurve
 
     } else {
@@ -2355,6 +2318,7 @@ export class IfcGeometryExtraction {
       }
       return ifcCurve*/
       console.log('BSplineCurve not currently supported.')
+      return
     }
 
     if (from instanceof IfcTrimmedCurve) {
