@@ -3,6 +3,6 @@
 
 # TODO(pablo): weird issue
 # https://stackoverflow.com/questions/21058363/git-failing-to-find-the-index-when-in-submodule-index-file-open-failed-not-a
-# Going to stage this by introducing husky first then enabling this second.
+# Temporary workaround is to not cd into submodules in precommit.. just lint and update version.
 
-# yarn precommit
+yarn precommit

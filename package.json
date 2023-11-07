@@ -3,20 +3,19 @@
   "description": "bldrs.ai datamodel",
   "author": "bldrs.ai",
   "license": "AGPL-3.0",
-  "version": "0.1.349",
+  "version": "0.1.369",
   "repository": "https://github.com/bldrs-ai/conway",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
   "type": "module",
-  "main": "./compiled/src/index.js",
-  "types": "./compiled/src/index.d.ts",
   "files": [
     "./compiled/**/*"
   ],
   "scripts": {
     "clean": "yarn clean-conway_geom",
-    "build": "yarn clean && yarn build-all-release-node",
+    "build": "yarn clean && yarn build-all-release-node && yarn update-version",
+    "build-web": "yarn clean && yarn build-all-release-web && yarn update-version",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "build-all-profile-node": "yarn build-profile-conway_geom-node && yarn prebuild:node && tsc --build",
     "build-all-profile-web": "yarn build-profile-conway_geom-web && yarn prebuild:web && tsc --build",
@@ -49,13 +48,13 @@
     "clean-tsc": "tsc --build --clean",
     "code-gen": "cd ./external/IFC-gen && make \"OUTDIR=../../src/ifc/ifc4_gen\" && cd ../..",
     "dist": "tsc --project tsconfig.dist.json",
-    "husky-init": "husky install",
     "lint": "yarn eslint src",
     "prebuild:node": "node pre-build.cjs node",
     "prebuild:web": "node pre-build.cjs web",
     "precommit-node": "yarn build-rebuild-node && yarn lint && yarn test",
     "precommit-web": "yarn build-rebuild-web && yarn lint && yarn test",
-    "precommit": "yarn build && yarn test && yarn lint && yarn build-rebuild-web && yarn update-version",
+    "precommit": "yarn lint",
+    "prepare": "husky install",
     "submodule-update": "git submodule update --init --recursive",
     "test-watch": "jest --watchAll  --notify",
     "update-version": "./scripts/updateVersion.mjs"
