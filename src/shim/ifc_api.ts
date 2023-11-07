@@ -13,6 +13,7 @@ import { IfcSceneBuilder } from '../ifc/ifc_scene_builder'
 import * as glmatrix from 'gl-matrix'
 import { Properties } from './properties'
 import { FromRawLineData } from './ifc2x4_helper'
+import { versionString } from './version'
 
 
 export * from './ifc2x4'
@@ -139,7 +140,7 @@ export class IfcAPI {
    */
   async Init(customLocateFileHandler?: LocateFileHandlerFn) {
 
-    console.log('Conway Web-Ifc Shim v0.1.0')
+    console.log(versionString)
     const locateFileHandler: LocateFileHandlerFn = (path, prefix) => {
       // when the wasm module requests the wasm file, we redirect to include the user specified path
       if (path.endsWith('.wasm')) {
