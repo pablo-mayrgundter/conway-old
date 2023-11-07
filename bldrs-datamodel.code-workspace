@@ -134,7 +134,9 @@
       "openglsupport": "cpp",
       "__availability": "cpp",
       "format": "cpp",
-      "core": "cpp"
+      "core": "cpp",
+      "charconv": "cpp",
+      "span": "cpp"
     }
 	}
 }
