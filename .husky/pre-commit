@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# TODO(pablo): weird issue
+# https://stackoverflow.com/questions/21058363/git-failing-to-find-the-index-when-in-submodule-index-file-open-failed-not-a
+# Going to stage this by introducing husky first then enabling this second.
+
+# yarn precommit
