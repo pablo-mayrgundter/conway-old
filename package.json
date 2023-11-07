@@ -9,8 +9,6 @@
     "registry": "https://npm.pkg.github.com"
   },
   "type": "module",
-  "main": "./compiled/src/index.js",
-  "types": "./compiled/src/index.d.ts",
   "files": [
     "./compiled/**/*"
   ],
