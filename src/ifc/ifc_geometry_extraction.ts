@@ -1309,6 +1309,7 @@ export class IfcGeometryExtraction {
 
           let transparency = 0
 
+          // TODO(conor) - this will go away with more general schema skew handling
           try {
             transparency = style.Transparency ?? transparency
           } catch (e) {
