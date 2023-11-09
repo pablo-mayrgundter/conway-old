@@ -1307,7 +1307,15 @@ export class IfcGeometryExtraction {
 
         } else if (style instanceof IfcSurfaceStyleRendering) {
 
-          const transparency = style.Transparency ?? 0
+          let transparency = 0
+
+          // TODO(conor) - this will go away with more general schema skew handling
+          try {
+            transparency = style.Transparency ?? transparency
+          } catch (e) {
+            // TODO(conor) - This is hiding a version difference with IFC 2x3 (better skew handling)
+          }
+
           const surfaceColor = extractColorRGBPremultiplied(style.SurfaceColour, 1 - transparency)
 
           newMaterial.baseColor = style.DiffuseColour !== null ?
@@ -1389,7 +1397,13 @@ export class IfcGeometryExtraction {
 
         } else if (style instanceof IfcSurfaceStyleShading) {
 
-          const transparency = style.Transparency ?? 0
+          let transparency = 0
+
+          try {
+            transparency = style.Transparency ?? transparency
+          } catch (e) {
+            // This is hiding a version difference with IFC 2x3
+          }
 
           newMaterial.baseColor =
             extractColorRGBPremultiplied(style.SurfaceColour, 1 - transparency)
