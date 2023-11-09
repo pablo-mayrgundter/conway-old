@@ -1313,7 +1313,7 @@ export class IfcGeometryExtraction {
           try {
             transparency = style.Transparency ?? transparency
           } catch (e) {
-            // This is hiding a version difference with IFC 2x3
+            // TODO(conor) - This is hiding a version difference with IFC 2x3 (better skew handling)
           }
 
           const surfaceColor = extractColorRGBPremultiplied(style.SurfaceColour, 1 - transparency)
