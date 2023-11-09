@@ -1313,7 +1313,8 @@ export class IfcGeometryExtraction {
           try {
             transparency = style.Transparency ?? transparency
           } catch (e) {
-            // TODO(conor) - This is hiding a version difference with IFC 2x3 (better skew handling)
+            // TODO(conor) - This is hiding a version difference with IFC 2x3 (better skew
+            // handling)
           }
 
           const surfaceColor = extractColorRGBPremultiplied(style.SurfaceColour, 1 - transparency)
@@ -1322,9 +1323,7 @@ export class IfcGeometryExtraction {
             extractColorOrFactor(style.DiffuseColour, surfaceColor) : surfaceColor
 
           newMaterial.legacyColor = surfaceColor
-
           newMaterial.roughness = extractSpecularHighlight(style.SpecularHighlight)
-
           newMaterial.specular = style.SpecularColour !== null ?
             extractColorOrFactor(style.SpecularColour, surfaceColor) : void 0
 
@@ -1399,14 +1398,17 @@ export class IfcGeometryExtraction {
 
           let transparency = 0
 
+          // TODO(conor) - this will go away with more general schema skew handling
           try {
             transparency = style.Transparency ?? transparency
           } catch (e) {
-            // This is hiding a version difference with IFC 2x3
+            // TODO(conor) - This is hiding a version difference with IFC 2x3 (better skew
+            // handling)
           }
 
           newMaterial.baseColor =
             extractColorRGBPremultiplied(style.SurfaceColour, 1 - transparency)
+
         }
 
       }
@@ -1455,7 +1457,6 @@ export class IfcGeometryExtraction {
         this.extractSurfaceStyle(style)
       }
     }
-
 
     if (surfaceStyleID === void 0) {
       return
