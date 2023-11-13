@@ -88,6 +88,7 @@ export class IfcSceneBuilder implements Scene< StepEntityBase< EntityTypesIfc > 
 
   private scene_: IfcSceneNode[] = []
   private sceneLocalIdMap_ = new Map<number, number>()
+  private geometrySet_ = new Set< number >()
 
   private sceneStack_: IfcSceneTransform[] = []
   private currentParent_?: IfcSceneTransform
@@ -332,6 +333,17 @@ export class IfcSceneBuilder implements Scene< StepEntityBase< EntityTypesIfc > 
   }
 
   /**
+   * Does this scene have a particular piece of geometry?
+   *
+   * @param localID The local ID of the geometry
+   * @return {boolean} True if the scene has this geometry.
+   */
+  public hasGeometry(localID: number): boolean {
+
+    return this.geometrySet_.has( localID )
+  }
+
+  /**
    *
    * @param localID
    * @return {IfcSceneGeometry}
@@ -341,6 +353,8 @@ export class IfcSceneBuilder implements Scene< StepEntityBase< EntityTypesIfc > 
     const nodeIndex = this.scene_.length
 
     let parentIndex: number | undefined
+
+    this.geometrySet_.add( localID )
 
     if (this.currentParent_ !== void 0) {
 
