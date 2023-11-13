@@ -991,6 +991,17 @@ export class IfcGeometryExtraction {
     return conwayModel.getCartesianTransformationOperator3D(parameters)
   }
 
+  /**
+   * Drop geometry that isn't in the scene.
+   *
+   * @param localID The id of the mesh to drop.
+   */
+  dropNonSceneGeometry( localID: number ) {
+
+    if ( !this.scene.hasGeometry( localID ) ) {
+      this.model.geometry.delete( localID )
+    }
+  }
 
   /**
    * Accepts IfcBooleanResult and IfcBooleanClippingResult
@@ -1090,23 +1101,27 @@ export class IfcGeometryExtraction {
 
     const booleanGeometryObject: GeometryObject = this.conwayModel.getBooleanResult(parameters)
 
-    if (firstMesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
-      if (secondMesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
+    if (firstMesh.type === CanonicalMeshType.BUFFER_GEOMETRY &&
+        secondMesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
 
-        const canonicalMesh: CanonicalMesh = {
-          type: CanonicalMeshType.BUFFER_GEOMETRY,
-          geometry: booleanGeometryObject,
-          localID: from.localID,
-          model: this.model,
-          temporary: false,
-        }
+      const canonicalMesh: CanonicalMesh = {
+        type: CanonicalMeshType.BUFFER_GEOMETRY,
+        geometry: booleanGeometryObject,
+        localID: from.localID,
+        model: this.model,
+        temporary: false,
+      }
 
-        // add mesh to the list of mesh objects
-        if (!isRelVoid) {
-          this.model.geometry.add(canonicalMesh)
-        } else {
-          this.model.voidGeometry.add(canonicalMesh)
-        }
+      // add mesh to the list of mesh objects
+      if (!isRelVoid) {
+
+        this.dropNonSceneGeometry(firstMesh.localID)
+        this.dropNonSceneGeometry(secondMesh.localID)
+        this.model.geometry.add(canonicalMesh)
+      } else {
+        this.model.voidGeometry.delete(firstMesh.localID)
+        this.model.voidGeometry.delete(secondMesh.localID)
+        this.model.voidGeometry.add(canonicalMesh)
       }
     }
 
@@ -1251,8 +1266,12 @@ export class IfcGeometryExtraction {
 
       // add mesh to the list of mesh objects
       if (!isRelVoid) {
+        this.dropNonSceneGeometry(firstMesh.localID)
+        this.dropNonSceneGeometry(secondMesh.localID)
         this.model.geometry.add(canonicalMesh)
       } else {
+        this.model.voidGeometry.delete(firstMesh.localID)
+        this.model.voidGeometry.delete(secondMesh.localID)
         this.model.voidGeometry.add(canonicalMesh)
       }
 
