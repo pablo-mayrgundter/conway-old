@@ -4595,7 +4595,7 @@ export class IfcGeometryExtraction {
   extractMaterialStyle(from: IfcProduct): number | undefined {
     let styledItemID: number | undefined
     const materialID = this.materials.relMaterialsMap.get(from.localID)
-    if (materialID !== undefined) {
+    if ( materialID !== void 0 ) {
       if (this.materials.materialDefinitionsMap.has(materialID)) {
         // found material for mesh
         styledItemID = this.materials.materialDefinitionsMap.get(materialID)
@@ -4959,8 +4959,6 @@ export class IfcGeometryExtraction {
 
       for ( const relAggregate of relAggregates ) {
 
-        const relatingObject = relAggregate.RelatingObject
-
         for ( const productRepresentation of relAggregate.RelatedObjects ) {
 
           if ( productRepresentation instanceof IfcProduct ) {
@@ -4978,13 +4976,16 @@ export class IfcGeometryExtraction {
 
             const representations = product.Representation
 
-            if (representations !== null) {
+            if ( representations !== null ) {
+
               // extract styledItem material
               const styledItemID: number | undefined =
                 this.extractMaterialStyle(product)
 
-              let hasRelVoid: boolean = false
               const extractRelVoidsResult = this.extractRelVoids(product)
+
+              let hasRelVoid: boolean = false
+
               let relVoidsMeshVector: NativeVectorGeometry | undefined
               let relVoidLocalIDs: number[] | undefined
 
@@ -4997,13 +4998,15 @@ export class IfcGeometryExtraction {
                 hasRelVoid = true
               }
 
-              if (styledItemID) {
+              if ( styledItemID !== void 0 ) {
+
                 // optimization: extract the first representation item and cache
                 // the styleID to apply to the rest of the product geometry
                 const styledItem = this.model.getElementByLocalID(styledItemID)
                 let reusableStyleID: number | undefined
 
                 for (const representation of representations.Representations) {
+
                   if (representation instanceof IfcShapeRepresentation) {
 
                     // this check is essential -
@@ -5013,6 +5016,7 @@ export class IfcGeometryExtraction {
                       continue
                     }
                   }
+
                   for (const item of representation.Items) {
 
                     this.extractRepresentationItem(item, product.localID, hasRelVoid)
@@ -5047,17 +5051,19 @@ export class IfcGeometryExtraction {
                       continue
                     }
                   }
+
                   for (const item of representation.Items) {
                     this.extractRepresentationItem(item, product.localID, hasRelVoid)
 
                     const styledItemLocalID_ = this.materials.styledItemMap.get(item.localID)
+
                     if (styledItemLocalID_ !== void 0) {
                       const styledItem_ =
                         this.model.getElementByLocalID(styledItemLocalID_) as IfcStyledItem
                       this.extractStyledItem(styledItem_)
                     }
 
-                    if (hasRelVoid) {
+                    if ( hasRelVoid ) {
                       this.applyRelVoidToRepresentation(
                           item,
                         relVoidsMeshVector!,
