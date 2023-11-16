@@ -68,6 +68,7 @@ const ISO_10303_21 = encodeToken('ISO-10303-21')
 const HEADER = encodeToken('HEADER')
 const DATA = encodeToken('DATA')
 const END_SECTION = encodeToken('ENDSEC')
+const INF = encodeToken( 'INF' )
 const HASH = ParsingConstants.HASH
 const EQUALS = ParsingConstants.EQUALS
 const COMMA = ParsingConstants.COMMA
@@ -76,6 +77,7 @@ const CLOSE_PAREN = ParsingConstants.CLOSE_PAREN
 const SEMICOLON = ParsingConstants.SEMICOLON
 const WHITESPACE = ParsingConstants.WHITE_SPACE_SET
 const QUOTE = ParsingConstants.QUOTE
+const DASH = ParsingConstants.DASH
 
 const enumParser = StepEnumParser.Instance.match
 const identifierParser = StepEntityIdentifierParser.Instance.match
@@ -412,6 +414,7 @@ export default class StepParser<TypeIDType> {
     const stringMatch = () => match(stringParser)
     const binaryHex = () => match(binaryParser)
     const real = input.real
+    const negativeInf = () => input.char( DASH ) && tokenws( INF )
     const unsigned = input.unsigned
     const unsignedws = () => {
       whitespace(); return unsigned()
@@ -491,17 +494,27 @@ export default class StepParser<TypeIDType> {
             // The semi-colon above is needed for an unambiguous
             // typescript parse.
 
+            input.begin()
             const elementResult = parseInlineElement()
 
             if (elementResult !== (void 0)) {
+
+              input.rollback()
+
+              if ( tokenws( INF ) ) {
+                break
+              }
+
               return elementResult
             }
+
+            input.commit()
             break
           }
 
           case ATTRIBUTE_PARSE_TYPE.NUMBER:
 
-            if (!real()) {
+            if (!real() && !negativeInf()) {
               return syntaxError()
             }
             break
@@ -649,17 +662,27 @@ export default class StepParser<TypeIDType> {
 
           case ATTRIBUTE_PARSE_TYPE.INLINE_INSTANCE: {
 
+            input.begin()
             const elementResult = parseInlineElement()
 
             if (elementResult !== (void 0)) {
+
+              input.rollback()
+
+              if ( tokenws( INF ) ) {
+                break
+              }
+
               return elementResult
             }
+
+            input.commit()
             break
           }
 
           case ATTRIBUTE_PARSE_TYPE.NUMBER:
 
-            if (!real()) {
+            if (!real() && !negativeInf()) {
               return syntaxError()
             }
             break

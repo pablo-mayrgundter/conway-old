@@ -66,6 +66,17 @@ yarn build-test-watch
 
 If you have Visual Studio Code, Conway also comes with a Visual Studio Code workspace to add IDE accessability to these features, and also let you edit the IFC-gen C# code in place.
 
+# Npm
+```
+yarn pack
+cp bldrs-ai-conway-v0.1.378.tgz $SHARE_DIR
+cd $SHARE_DIR
+yarn remove @bldrs-ai/conway
+yarn add ./bldrs-ai-conway-v0.1.378.tgz
+yarn build && yarn test
+yarn serve-share-conway
+```
+
 # IFC Parser Console Test Application
 
 Conway has a test application for parsing IFC step files to see the performance and included entity types at src/core/ifc/ifc_command_line_main.ts. 

@@ -166,6 +166,7 @@ import {
   IfcCShapeProfileDef,
   IfcTShapeProfileDef,
   IfcZShapeProfileDef,
+  IfcRelAggregates,
 } from './ifc4_gen'
 import EntityTypesIfc from './ifc4_gen/entity_types_ifc.gen'
 import { IfcMaterialCache } from './ifc_material_cache'
@@ -991,6 +992,17 @@ export class IfcGeometryExtraction {
     return conwayModel.getCartesianTransformationOperator3D(parameters)
   }
 
+  /**
+   * Drop geometry that isn't in the scene.
+   *
+   * @param localID The id of the mesh to drop.
+   */
+  dropNonSceneGeometry( localID: number ) {
+
+    if ( !this.scene.hasGeometry( localID ) ) {
+      this.model.geometry.delete( localID )
+    }
+  }
 
   /**
    * Accepts IfcBooleanResult and IfcBooleanClippingResult
@@ -1062,15 +1074,12 @@ export class IfcGeometryExtraction {
       const geometryParts = secondMesh.geometry.getParts()
 
       if (geometryParts.size() > 0) {
-        /* for (let geometryPartIndex = 0;
-          geometryPartIndex < geometryParts.size(); ++geometryPartIndex) {
-          flatSecondMeshVector.push_back(geometryParts.get(geometryPartIndex))
-        }*/
 
         flatSecondMeshVector = geometryParts
         flatSecondMeshVectorFromParts = true
 
       } else {
+
         flatSecondMeshVector = this.nativeVectorGeometry()
         flatSecondMeshVector.push_back(secondMesh.geometry)
       }
@@ -1090,23 +1099,27 @@ export class IfcGeometryExtraction {
 
     const booleanGeometryObject: GeometryObject = this.conwayModel.getBooleanResult(parameters)
 
-    if (firstMesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
-      if (secondMesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
+    if (firstMesh.type === CanonicalMeshType.BUFFER_GEOMETRY &&
+        secondMesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
 
-        const canonicalMesh: CanonicalMesh = {
-          type: CanonicalMeshType.BUFFER_GEOMETRY,
-          geometry: booleanGeometryObject,
-          localID: from.localID,
-          model: this.model,
-          temporary: false,
-        }
+      const canonicalMesh: CanonicalMesh = {
+        type: CanonicalMeshType.BUFFER_GEOMETRY,
+        geometry: booleanGeometryObject,
+        localID: from.localID,
+        model: this.model,
+        temporary: false,
+      }
 
-        // add mesh to the list of mesh objects
-        if (!isRelVoid) {
-          this.model.geometry.add(canonicalMesh)
-        } else {
-          this.model.voidGeometry.add(canonicalMesh)
-        }
+      // add mesh to the list of mesh objects
+      if (!isRelVoid) {
+
+        this.dropNonSceneGeometry(firstMesh.localID)
+        this.dropNonSceneGeometry(secondMesh.localID)
+        this.model.geometry.add(canonicalMesh)
+      } else {
+        this.model.voidGeometry.delete(firstMesh.localID)
+        this.model.voidGeometry.delete(secondMesh.localID)
+        this.model.voidGeometry.add(canonicalMesh)
       }
     }
 
@@ -1251,8 +1264,12 @@ export class IfcGeometryExtraction {
 
       // add mesh to the list of mesh objects
       if (!isRelVoid) {
+        this.dropNonSceneGeometry(firstMesh.localID)
+        this.dropNonSceneGeometry(secondMesh.localID)
         this.model.geometry.add(canonicalMesh)
       } else {
+        this.model.voidGeometry.delete(firstMesh.localID)
+        this.model.voidGeometry.delete(secondMesh.localID)
         this.model.voidGeometry.add(canonicalMesh)
       }
 
@@ -1307,16 +1324,23 @@ export class IfcGeometryExtraction {
 
         } else if (style instanceof IfcSurfaceStyleRendering) {
 
-          const transparency = style.Transparency ?? 0
+          let transparency = 0
+
+          // TODO(conor) - this will go away with more general schema skew handling
+          try {
+            transparency = style.Transparency ?? transparency
+          } catch (e) {
+            // TODO(conor) - This is hiding a version difference with IFC 2x3 (better skew
+            // handling)
+          }
+
           const surfaceColor = extractColorRGBPremultiplied(style.SurfaceColour, 1 - transparency)
 
           newMaterial.baseColor = style.DiffuseColour !== null ?
             extractColorOrFactor(style.DiffuseColour, surfaceColor) : surfaceColor
 
           newMaterial.legacyColor = surfaceColor
-
           newMaterial.roughness = extractSpecularHighlight(style.SpecularHighlight)
-
           newMaterial.specular = style.SpecularColour !== null ?
             extractColorOrFactor(style.SpecularColour, surfaceColor) : void 0
 
@@ -1389,10 +1413,19 @@ export class IfcGeometryExtraction {
 
         } else if (style instanceof IfcSurfaceStyleShading) {
 
-          const transparency = style.Transparency ?? 0
+          let transparency = 0
+
+          // TODO(conor) - this will go away with more general schema skew handling
+          try {
+            transparency = style.Transparency ?? transparency
+          } catch (e) {
+            // TODO(conor) - This is hiding a version difference with IFC 2x3 (better skew
+            // handling)
+          }
 
           newMaterial.baseColor =
             extractColorRGBPremultiplied(style.SurfaceColour, 1 - transparency)
+
         }
 
       }
@@ -1441,7 +1474,6 @@ export class IfcGeometryExtraction {
         this.extractSurfaceStyle(style)
       }
     }
-
 
     if (surfaceStyleID === void 0) {
       return
@@ -4563,7 +4595,7 @@ export class IfcGeometryExtraction {
   extractMaterialStyle(from: IfcProduct): number | undefined {
     let styledItemID: number | undefined
     const materialID = this.materials.relMaterialsMap.get(from.localID)
-    if (materialID !== undefined) {
+    if ( materialID !== void 0 ) {
       if (this.materials.materialDefinitionsMap.has(materialID)) {
         // found material for mesh
         styledItemID = this.materials.materialDefinitionsMap.get(materialID)
@@ -4920,6 +4952,130 @@ export class IfcGeometryExtraction {
           }
 
           relVoidsMeshVector?.delete()
+        }
+      }
+
+      const relAggregates = this.model.types(IfcRelAggregates)
+
+      for ( const relAggregate of relAggregates ) {
+
+        for ( const productRepresentation of relAggregate.RelatedObjects ) {
+
+          if ( productRepresentation instanceof IfcProduct ) {
+
+            const product = productRepresentation
+
+            this.scene.clearParentStack()
+
+            const objectPlacement = product.ObjectPlacement
+
+            if (objectPlacement !== null) {
+
+              this.extractPlacement(objectPlacement)
+            }
+
+            const representations = product.Representation
+
+            if ( representations !== null ) {
+
+              // extract styledItem material
+              const styledItemID: number | undefined =
+                this.extractMaterialStyle(product)
+
+              const extractRelVoidsResult = this.extractRelVoids(product)
+
+              let hasRelVoid: boolean = false
+
+              let relVoidsMeshVector: NativeVectorGeometry | undefined
+              let relVoidLocalIDs: number[] | undefined
+
+              if (extractRelVoidsResult !== void 0) {
+                // eslint-disable-next-line no-unused-vars
+                [relVoidsMeshVector, relVoidLocalIDs] = extractRelVoidsResult
+              }
+
+              if (relVoidsMeshVector !== void 0) {
+                hasRelVoid = true
+              }
+
+              if ( styledItemID !== void 0 ) {
+
+                // optimization: extract the first representation item and cache
+                // the styleID to apply to the rest of the product geometry
+                const styledItem = this.model.getElementByLocalID(styledItemID)
+                let reusableStyleID: number | undefined
+
+                for (const representation of representations.Representations) {
+
+                  if (representation instanceof IfcShapeRepresentation) {
+
+                    // this check is essential -
+                    // if RepresentationIdentifier !== Body or Facetation we must skip it
+                    if (representation.RepresentationIdentifier !== 'Body' &&
+                      representation.RepresentationIdentifier !== 'Facetation') {
+                      continue
+                    }
+                  }
+
+                  for (const item of representation.Items) {
+
+                    this.extractRepresentationItem(item, product.localID, hasRelVoid)
+
+                    if (hasRelVoid) {
+                      this.applyRelVoidToRepresentation(
+                          item,
+                        relVoidsMeshVector!,
+                        product.localID)
+                    }
+                    const styledItemLocalID_ = this.materials.styledItemMap.get(item.localID)
+                    if (styledItemLocalID_ !== undefined) {
+                      const styledItem_ =
+                        this.model.getElementByLocalID(styledItemLocalID_) as IfcStyledItem
+                      this.extractStyledItem(styledItem_)
+                    } else if (reusableStyleID !== void 0) {
+                      this.materials.addGeometryMapping(item.localID, reusableStyleID)
+                    } else if (styledItem instanceof IfcStyledItem) {
+                      // here we have the styled item, apply it to all geometry in this IfcProduct
+                      reusableStyleID = this.extractStyledItem(styledItem, item)
+                    }
+                  }
+                }
+              } else {
+                for (const representation of representations.Representations) {
+                  if (representation instanceof IfcShapeRepresentation) {
+
+                    // this check is essential -
+                    // if RepresentationIdentifier !== Body or Facetation we must skip it
+                    if (representation.RepresentationIdentifier !== 'Body' &&
+                      representation.RepresentationIdentifier !== 'Facetation') {
+                      continue
+                    }
+                  }
+
+                  for (const item of representation.Items) {
+                    this.extractRepresentationItem(item, product.localID, hasRelVoid)
+
+                    const styledItemLocalID_ = this.materials.styledItemMap.get(item.localID)
+
+                    if (styledItemLocalID_ !== void 0) {
+                      const styledItem_ =
+                        this.model.getElementByLocalID(styledItemLocalID_) as IfcStyledItem
+                      this.extractStyledItem(styledItem_)
+                    }
+
+                    if ( hasRelVoid ) {
+                      this.applyRelVoidToRepresentation(
+                          item,
+                        relVoidsMeshVector!,
+                        product.localID)
+                    }
+                  }
+                }
+              }
+
+              relVoidsMeshVector?.delete()
+            }
+          }
         }
       }
 
