@@ -111,8 +111,6 @@ import {
   IfcPlane,
   IfcBoundingBox,
   IfcShellBasedSurfaceModel,
-  IfcClosedShell,
-  IfcOpenShell,
   IfcFace,
   IfcPolyLoop,
   IfcFacetedBrep,
