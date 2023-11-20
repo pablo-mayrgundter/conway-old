@@ -111,8 +111,6 @@ import {
   IfcPlane,
   IfcBoundingBox,
   IfcShellBasedSurfaceModel,
-  IfcClosedShell,
-  IfcOpenShell,
   IfcFace,
   IfcPolyLoop,
   IfcFacetedBrep,
@@ -3073,7 +3071,8 @@ export class IfcGeometryExtraction {
       // web-ifc ignores IfcPolylines as meshes
       // //console.log(`IFCPOLYLINE, expressID: ${from.expressID}`)
     } else if (from instanceof IfcFacetedBrep) {
-      this.extractIfcFacetedBrep(from, isRelVoid)
+
+      this.extractIfcFacetedBrep(from, false, isRelVoid)
       if (!isRelVoid) {
         this.scene.addGeometry(from.localID, owningElementLocalID)
       }
@@ -3114,7 +3113,7 @@ export class IfcGeometryExtraction {
     const faces = from.Outer.CfsFaces
 
     // console.log("extracting faces from IfcAdvancedBrep: " + from.expressID)
-    this.extractFaces(faces, from.localID, undefined, isRelVoid)
+    this.extractFaces(faces, from.localID, void 0, false, isRelVoid)
   }
 
   /**
@@ -3170,8 +3169,7 @@ export class IfcGeometryExtraction {
       temporary: boolean = false, isRelVoid: boolean = false) {
     const faces = from.Outer.CfsFaces
 
-
-    this.extractFaces(faces, from.localID, undefined, temporary, isRelVoid)
+    this.extractFaces(faces, from.localID, void 0, temporary, isRelVoid)
   }
 
 
@@ -3179,36 +3177,19 @@ export class IfcGeometryExtraction {
    *
    * @param from
    */
-  extractIfcShellBasedSurfaceModel(from: IfcShellBasedSurfaceModel,
+  extractIfcShellBasedSurfaceModel(
+      from: IfcShellBasedSurfaceModel,
       owningElementLocalID?: number,
       isRelVoid: boolean = false) {
     const sbsmBoundary = from.SbsmBoundary
 
-    if (sbsmBoundary.length > 0) {
-      if (sbsmBoundary[0] instanceof IfcClosedShell) {
-        for (let sbsmBoundaryIndex = 0; sbsmBoundaryIndex < sbsmBoundary.length;
-          ++sbsmBoundaryIndex) {
-          const currentBoundary: IfcClosedShell = sbsmBoundary[sbsmBoundaryIndex]
-          const faces = currentBoundary.CfsFaces
+    for ( const currentBoundary of sbsmBoundary ) {
+      const faces = currentBoundary.CfsFaces
 
-          this.extractFaces(faces, currentBoundary.localID, undefined, isRelVoid)
+      this.extractFaces(faces, currentBoundary.localID, undefined, false, isRelVoid)
 
-          if (!isRelVoid) {
-            this.scene.addGeometry(currentBoundary.localID, owningElementLocalID)
-          }
-        }
-      } else if (sbsmBoundary[0] instanceof IfcOpenShell) {
-        for (let sbsmBoundaryIndex = 0; sbsmBoundaryIndex < sbsmBoundary.length;
-          ++sbsmBoundaryIndex) {
-          const currentBoundary: IfcOpenShell = sbsmBoundary[sbsmBoundaryIndex]
-          const faces = currentBoundary.CfsFaces
-
-          this.extractFaces(faces, currentBoundary.localID, undefined, isRelVoid)
-
-          if (!isRelVoid) {
-            this.scene.addGeometry(currentBoundary.localID, owningElementLocalID)
-          }
-        }
+      if (!isRelVoid) {
+        this.scene.addGeometry(currentBoundary.localID, owningElementLocalID)
       }
     }
   }
@@ -3259,6 +3240,7 @@ export class IfcGeometryExtraction {
       if (!isRelVoid) {
         this.model.geometry.add(canonicalMesh)
       } else {
+
         this.model.voidGeometry.add(canonicalMesh)
       }
     }
@@ -3479,16 +3461,18 @@ export class IfcGeometryExtraction {
 
           let prevLocalID: number = -1
 
-          for (let pointIndex = 0; pointIndex < innerBound.Polygon.length; ++pointIndex) {
+          for ( const point of innerBound.Polygon ) {
+
+            const coords = point.Coordinates
             const vec3 = {
-              x: innerBound.Polygon[pointIndex].Coordinates[0],
-              y: innerBound.Polygon[pointIndex].Coordinates[1],
-              z: innerBound.Polygon[pointIndex].Coordinates[2],
+              x: coords[0],
+              y: coords[1],
+              z: coords[2],
             }
 
-            const currentLocalID: number = innerBound.Polygon[pointIndex].localID
+            const currentLocalID: number = point.localID
 
-            if (currentLocalID !== prevLocalID) {
+            if ( currentLocalID !== prevLocalID ) {
               vec3Array.push_back(vec3)
               prevLocalID = currentLocalID
             }
@@ -4339,41 +4323,34 @@ export class IfcGeometryExtraction {
 
     if (mesh !== undefined && mesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
 
-      if (flattenedGeometry === undefined) {
-        flattenedGeometry = mesh.geometry.clone()
+      flattenedGeometry = mesh.geometry.clone()
 
-        if (from instanceof IfcExtrudedAreaSolid) {
-          if (from.Position !== null) {
+      if (from instanceof IfcExtrudedAreaSolid) {
+        if (from.Position !== null) {
 
-            const paramsAxis2Placement3D: ParamsAxis2Placement3D =
-              this.extractAxis2Placement3DRelVoid(from.Position, from.localID, true)
-            const axis2PlacementTransform = this.conwayModel
-                .getAxis2Placement3D(paramsAxis2Placement3D)
+          const paramsAxis2Placement3D: ParamsAxis2Placement3D =
+            this.extractAxis2Placement3DRelVoid(from.Position, from.localID, true)
+          const axis2PlacementTransform = this.conwayModel
+              .getAxis2Placement3D(paramsAxis2Placement3D)
 
-            if (axis2PlacementTransform !== void 0) {
+          if (axis2PlacementTransform !== void 0) {
 
-              if (productTransform !== void 0) {
-                const multiplyResultMat =
-                  this.conwayModel.multiplyNativeMatrices(
-                      productTransform.absoluteNativeTransform, axis2PlacementTransform)
+            if (productTransform !== void 0) {
+              const multiplyResultMat =
+                this.conwayModel.multiplyNativeMatrices(
+                    productTransform.absoluteNativeTransform, axis2PlacementTransform)
 
-                flattenedGeometry.applyTransform(multiplyResultMat)
-              } else {
-                flattenedGeometry.applyTransform(axis2PlacementTransform.absoluteNativeTransform)
-              }
+              flattenedGeometry.applyTransform(multiplyResultMat)
+            } else {
+              flattenedGeometry.applyTransform(axis2PlacementTransform.absoluteNativeTransform)
             }
           }
-        } else if (from instanceof IfcBooleanResult) {
-          if (productTransform !== void 0) {
-            flattenedGeometry.applyTransform(productTransform.absoluteNativeTransform)
-          }
         }
+      } else if (productTransform !== void 0) {
+        flattenedGeometry.applyTransform(productTransform.absoluteNativeTransform)
       }
 
-      // flatten the relvoid mesh vector
-      const relVoidFlattenedMesh = relVoidMeshVector.get(0)
-
-      if (relVoidFlattenedMesh === undefined) {
+      if (relVoidMeshVector.size() === 0 ) {
         const canonicalMesh: CanonicalMesh = {
           type: CanonicalMeshType.BUFFER_GEOMETRY,
           geometry: mesh.geometry,
@@ -4387,8 +4364,11 @@ export class IfcGeometryExtraction {
         this.scene.addGeometry(from.localID, owningElementLocalID)
 
         return
-
       }
+
+      // flatten the relvoid mesh vector
+      const relVoidFlattenedMesh = relVoidMeshVector.get(0)
+
       for (let vectorIndex = 1; vectorIndex < relVoidMeshVector.size(); ++vectorIndex) {
         relVoidFlattenedMesh.appendGeometry(relVoidMeshVector.get(vectorIndex))
       }
