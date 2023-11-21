@@ -296,6 +296,7 @@ export class IfcGeometryExtraction {
 
   private paramsGetBooleanResultPool: ObjectPool<ParamsGetBooleanResult> | undefined
   private paramsTransformProfilePool: ObjectPool<ParamsTransformProfile> | undefined
+  private paramsGetTriangulatedFaceSetPool:ObjectPool<ParamsGetTriangulatedFaceSetGeometry> | undefined
 
   private identity2DNativeMatrix: any
   private identity3DNativeMatrix: any
@@ -330,6 +331,20 @@ export class IfcGeometryExtraction {
   initializeMemoryPools() {
     this.createParamsGetBooleanResultPool()
     this.createParamsTransformProfilePool()
+    this.createParamsGetTriangulatedFaceSetPool()
+  }
+
+  /**
+   * Creates a memory pool for `ParamsGetTriangulatedFaceSet` objects if it does not exist.
+   */
+  createParamsGetTriangulatedFaceSetPool() {
+    if (this.paramsGetTriangulatedFaceSetPool === void 0) {
+      // Create a pool for ParamsTransformProfile
+      this.paramsGetTriangulatedFaceSetPool = new ObjectPool<ParamsGetTriangulatedFaceSetGeometry>(
+          () => new (this.wasmModule.ParamsGetTriangulatedFaceSetGeometry)() as ParamsGetTriangulatedFaceSetGeometry,
+          (obj) => obj.delete(),
+      )
+    }
   }
 
   /**
@@ -770,20 +785,14 @@ export class IfcGeometryExtraction {
     const points = new Float32Array(entity.Coordinates.CoordList.flat())
     const indices = new Uint32Array(entity.CoordIndex.flat())
 
-    /*console.log(`[IfcTriangulatedFaceSet]: Points: ${points}`)
-    console.log(`[IfcTriangulatedFaceSet]: Indices: ${indices}`)
-    console.log(`[IfcTriangulatedFaceSet]: NumberOfTriangles: ${entity.NumberOfTriangles}`)
-    console.log(`[IfcTriangulatedFaceSet]: indices size: ${indices.length}`)*/
-
     const pointsArrayPtr = this.arrayToWasmHeap(points)
     const indicesArrayPtr = this.arrayToWasmHeap(indices)
 
-    const parameters: ParamsGetTriangulatedFaceSetGeometry = {
-      indices: indicesArrayPtr,
-      indicesArrayLength: indices.length,
-      points: pointsArrayPtr,
-      pointsArrayLength: points.length
-    }
+    const parameters = this.paramsGetTriangulatedFaceSetPool!.acquire()
+    parameters.indices = indicesArrayPtr
+    parameters.indicesArrayLength = indices.length
+    parameters.points = pointsArrayPtr
+    parameters.pointsArrayLength = points.length
 
     const geometry = this.conwayModel.getTriangulatedFaceSetGeometry(parameters)
 

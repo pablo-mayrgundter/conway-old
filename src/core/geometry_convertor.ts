@@ -66,12 +66,6 @@ export default class GeometryConvertor {
           `${fileUri}${currentChunkIndex.toString().padStart( chunkDigits, '0' )}` :
           fileUri
 
-        console.log("chunkURI: " + chunkUri)
-
-        if (chunkUri.includes("draco")) {
-          console.log("includes draco.")
-        }
-
         yield this.toGltf(
             geometryVector,
             materialsVector,
