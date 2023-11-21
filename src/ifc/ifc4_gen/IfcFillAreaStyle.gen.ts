@@ -7,6 +7,7 @@ import { IfcFillAreaStyleHatching } from "./index"
 import { IfcFillAreaStyleTiles } from "./index"
 import { IfcBoolean } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -33,6 +34,10 @@ export  class IfcFillAreaStyle extends IfcPresentationStyle {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<IfcColourSpecification | IfcPreDefinedColour | IfcExternallyDefinedHatchStyle | IfcFillAreaStyleHatching | IfcFillAreaStyleTiles> = []
 

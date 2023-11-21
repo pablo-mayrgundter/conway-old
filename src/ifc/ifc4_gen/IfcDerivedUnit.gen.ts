@@ -4,6 +4,7 @@ import { IfcDerivedUnitEnum, IfcDerivedUnitEnumDeserializeStep } from "./index"
 import { IfcLabel } from "./index"
 import { IfcDimensionalExponents } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -34,6 +35,10 @@ export  class IfcDerivedUnit extends StepEntityBase< EntityTypesIfc > {
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<IfcDerivedUnitElement> = []
 

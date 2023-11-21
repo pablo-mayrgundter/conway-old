@@ -4,6 +4,7 @@ import { IfcInteger } from "./index"
 import { IfcParameterValue } from "./index"
 import { IfcKnotType, IfcKnotTypeDeserializeStep } from "./index"
 import {
+  stepExtractOptional,
   stepExtractNumber,
   stepExtractArrayToken,
   stepExtractArrayBegin,
@@ -34,6 +35,10 @@ export  class IfcBSplineCurveWithKnots extends IfcBSplineCurve {
       const buffer    = this.buffer
       const endCursor = buffer.length
 
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
+
       const value : Array<number> = []
 
       let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
@@ -63,6 +68,10 @@ export  class IfcBSplineCurveWithKnots extends IfcBSplineCurve {
       let   cursor    = this.getOffsetCursor( 6 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<number> = []
 

@@ -5,6 +5,7 @@ import { IfcLabel } from "./index"
 import { IfcText } from "./index"
 import { IfcLengthMeasure } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -35,6 +36,10 @@ export  class IfcMaterialLayerSet extends IfcMaterialDefinition {
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<IfcMaterialLayer> = []
 
