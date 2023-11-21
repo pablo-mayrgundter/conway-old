@@ -41,6 +41,7 @@ import {
   ParamsGetTShapeCurve,
   ParamsGetUShapeCurve,
   ParamsGetZShapeCurve,
+  ParamsGetTriangulatedFaceSetGeometry,
 } from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMaterial, ColorRGBA, exponentToRoughness } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
@@ -165,6 +166,7 @@ import {
   IfcTShapeProfileDef,
   IfcZShapeProfileDef,
   IfcRelAggregates,
+  IfcTriangulatedFaceSet,
 } from './ifc4_gen'
 import EntityTypesIfc from './ifc4_gen/entity_types_ifc.gen'
 import { IfcMaterialCache } from './ifc_material_cache'
@@ -294,6 +296,7 @@ export class IfcGeometryExtraction {
 
   private paramsGetBooleanResultPool: ObjectPool<ParamsGetBooleanResult> | undefined
   private paramsTransformProfilePool: ObjectPool<ParamsTransformProfile> | undefined
+  private paramsGetTriangulatedFaceSetPool:ObjectPool<ParamsGetTriangulatedFaceSetGeometry> | undefined
 
   private identity2DNativeMatrix: any
   private identity3DNativeMatrix: any
@@ -328,6 +331,20 @@ export class IfcGeometryExtraction {
   initializeMemoryPools() {
     this.createParamsGetBooleanResultPool()
     this.createParamsTransformProfilePool()
+    this.createParamsGetTriangulatedFaceSetPool()
+  }
+
+  /**
+   * Creates a memory pool for `ParamsGetTriangulatedFaceSet` objects if it does not exist.
+   */
+  createParamsGetTriangulatedFaceSetPool() {
+    if (this.paramsGetTriangulatedFaceSetPool === void 0) {
+      // Create a pool for ParamsTransformProfile
+      this.paramsGetTriangulatedFaceSetPool = new ObjectPool<ParamsGetTriangulatedFaceSetGeometry>(
+          () => new (this.wasmModule.ParamsGetTriangulatedFaceSetGeometry)() as ParamsGetTriangulatedFaceSetGeometry,
+          (obj) => obj.delete(),
+      )
+    }
   }
 
   /**
@@ -763,6 +780,41 @@ export class IfcGeometryExtraction {
     return profileArray
   }
 
+  private extractTriangulatedFaceSet(entity:IfcTriangulatedFaceSet, temporary:boolean = false, isRelVoid:boolean = false ) {
+    // Flatten points / indices into a single array
+    const points = new Float32Array(entity.Coordinates.CoordList.flat())
+    const indices = new Uint32Array(entity.CoordIndex.flat())
+
+    const pointsArrayPtr = this.arrayToWasmHeap(points)
+    const indicesArrayPtr = this.arrayToWasmHeap(indices)
+
+    const parameters = this.paramsGetTriangulatedFaceSetPool!.acquire()
+    parameters.indices = indicesArrayPtr
+    parameters.indicesArrayLength = indices.length
+    parameters.points = pointsArrayPtr
+    parameters.pointsArrayLength = points.length
+
+    const geometry = this.conwayModel.getTriangulatedFaceSetGeometry(parameters)
+
+
+    this.wasmModule._free(pointsArrayPtr)
+    this.wasmModule._free(indicesArrayPtr)
+
+    const canonicalMesh: CanonicalMesh = {
+      type: CanonicalMeshType.BUFFER_GEOMETRY,
+      geometry: geometry,
+      localID: entity.localID,
+      model: this.model,
+      temporary: temporary,
+    }
+
+    // add mesh to the list of mesh objects
+    if (!isRelVoid) {
+      this.model.geometry.add(canonicalMesh)
+    } else {
+      this.model.voidGeometry.add(canonicalMesh)
+    }
+  }
 
   /**
    * @return {ExtractResult}
@@ -3047,7 +3099,14 @@ export class IfcGeometryExtraction {
       if (!isRelVoid) {
         this.scene.addGeometry(from.localID, owningElementLocalID)
       }
-    } else if (from instanceof IfcBooleanResult) {
+    } else if (from instanceof IfcTriangulatedFaceSet) {
+      this.extractTriangulatedFaceSet(from, false, isRelVoid)
+
+      if (!isRelVoid) {
+        this.scene.addGeometry(from.localID, owningElementLocalID)
+      }
+    }
+    else if (from instanceof IfcBooleanResult) {
       // also handles IfcBooleanClippingResult
       this.extractBooleanResult(from, isRelVoid)
 
