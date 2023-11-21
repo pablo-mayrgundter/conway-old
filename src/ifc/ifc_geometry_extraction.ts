@@ -41,6 +41,7 @@ import {
   ParamsGetTShapeCurve,
   ParamsGetUShapeCurve,
   ParamsGetZShapeCurve,
+  ParamsGetTriangulatedFaceSetGeometry,
 } from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMaterial, ColorRGBA, exponentToRoughness } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
@@ -165,6 +166,7 @@ import {
   IfcTShapeProfileDef,
   IfcZShapeProfileDef,
   IfcRelAggregates,
+  IfcTriangulatedFaceSet,
 } from './ifc4_gen'
 import EntityTypesIfc from './ifc4_gen/entity_types_ifc.gen'
 import { IfcMaterialCache } from './ifc_material_cache'
@@ -763,6 +765,47 @@ export class IfcGeometryExtraction {
     return profileArray
   }
 
+  private extractTriangulatedFaceSet(entity:IfcTriangulatedFaceSet, temporary:boolean = false, isRelVoid:boolean = false ) {
+    // Flatten points / indices into a single array
+    const points = new Float32Array(entity.Coordinates.CoordList.flat())
+    const indices = new Uint32Array(entity.CoordIndex.flat())
+
+    /*console.log(`[IfcTriangulatedFaceSet]: Points: ${points}`)
+    console.log(`[IfcTriangulatedFaceSet]: Indices: ${indices}`)
+    console.log(`[IfcTriangulatedFaceSet]: NumberOfTriangles: ${entity.NumberOfTriangles}`)
+    console.log(`[IfcTriangulatedFaceSet]: indices size: ${indices.length}`)*/
+
+    const pointsArrayPtr = this.arrayToWasmHeap(points)
+    const indicesArrayPtr = this.arrayToWasmHeap(indices)
+
+    const parameters: ParamsGetTriangulatedFaceSetGeometry = {
+      indices: indicesArrayPtr,
+      indicesArrayLength: indices.length,
+      points: pointsArrayPtr,
+      pointsArrayLength: points.length
+    }
+
+    const geometry = this.conwayModel.getTriangulatedFaceSetGeometry(parameters)
+
+
+    this.wasmModule._free(pointsArrayPtr)
+    this.wasmModule._free(indicesArrayPtr)
+
+    const canonicalMesh: CanonicalMesh = {
+      type: CanonicalMeshType.BUFFER_GEOMETRY,
+      geometry: geometry,
+      localID: entity.localID,
+      model: this.model,
+      temporary: temporary,
+    }
+
+    // add mesh to the list of mesh objects
+    if (!isRelVoid) {
+      this.model.geometry.add(canonicalMesh)
+    } else {
+      this.model.voidGeometry.add(canonicalMesh)
+    }
+  }
 
   /**
    * @return {ExtractResult}
@@ -3047,7 +3090,14 @@ export class IfcGeometryExtraction {
       if (!isRelVoid) {
         this.scene.addGeometry(from.localID, owningElementLocalID)
       }
-    } else if (from instanceof IfcBooleanResult) {
+    } else if (from instanceof IfcTriangulatedFaceSet) {
+      this.extractTriangulatedFaceSet(from, false, isRelVoid)
+
+      if (!isRelVoid) {
+        this.scene.addGeometry(from.localID, owningElementLocalID)
+      }
+    }
+    else if (from instanceof IfcBooleanResult) {
       // also handles IfcBooleanClippingResult
       this.extractBooleanResult(from, isRelVoid)
 
