@@ -3,6 +3,7 @@ import { IfcSurfaceTexture } from "./index"
 import { IfcInteger } from "./index"
 import { IfcBinary } from "./index"
 import {
+  stepExtractOptional,
   stepExtractBinary,
   stepExtractArrayToken,
   stepExtractArrayBegin,
@@ -56,6 +57,10 @@ export  class IfcPixelTexture extends IfcSurfaceTexture {
       let   cursor    = this.getOffsetCursor( 8 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<[Uint8Array, number]> = []
 

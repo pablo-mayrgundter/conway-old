@@ -6,6 +6,7 @@ import { IfcLogical } from "./index"
 import { IfcProductDefinitionShape } from "./index"
 import { IfcRepresentationMap } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -35,6 +36,10 @@ export  class IfcShapeAspect extends StepEntityBase< EntityTypesIfc > {
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<IfcShapeModel> = []
 

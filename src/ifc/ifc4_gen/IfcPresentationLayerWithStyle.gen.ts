@@ -3,6 +3,7 @@ import { IfcPresentationLayerAssignment } from "./index"
 import { IfcLogical } from "./index"
 import { IfcPresentationStyle } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -55,6 +56,10 @@ export  class IfcPresentationLayerWithStyle extends IfcPresentationLayerAssignme
       let   cursor    = this.getOffsetCursor( 7 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<IfcPresentationStyle> = []
 
