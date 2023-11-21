@@ -296,7 +296,8 @@ export class IfcGeometryExtraction {
 
   private paramsGetBooleanResultPool: ObjectPool<ParamsGetBooleanResult> | undefined
   private paramsTransformProfilePool: ObjectPool<ParamsTransformProfile> | undefined
-  private paramsGetTriangulatedFaceSetPool:ObjectPool<ParamsGetTriangulatedFaceSetGeometry> | undefined
+  private paramsGetTriangulatedFaceSetPool:
+  ObjectPool<ParamsGetTriangulatedFaceSetGeometry> | undefined
 
   private identity2DNativeMatrix: any
   private identity3DNativeMatrix: any
@@ -340,8 +341,10 @@ export class IfcGeometryExtraction {
   createParamsGetTriangulatedFaceSetPool() {
     if (this.paramsGetTriangulatedFaceSetPool === void 0) {
       // Create a pool for ParamsTransformProfile
-      this.paramsGetTriangulatedFaceSetPool = new ObjectPool<ParamsGetTriangulatedFaceSetGeometry>(
-          () => new (this.wasmModule.ParamsGetTriangulatedFaceSetGeometry)() as ParamsGetTriangulatedFaceSetGeometry,
+      this.paramsGetTriangulatedFaceSetPool = new
+      ObjectPool<ParamsGetTriangulatedFaceSetGeometry>(
+          () => new (this.wasmModule.ParamsGetTriangulatedFaceSetGeometry)() as
+           ParamsGetTriangulatedFaceSetGeometry,
           (obj) => obj.delete(),
       )
     }
@@ -780,7 +783,15 @@ export class IfcGeometryExtraction {
     return profileArray
   }
 
-  private extractTriangulatedFaceSet(entity:IfcTriangulatedFaceSet, temporary:boolean = false, isRelVoid:boolean = false ) {
+  /**
+   *
+   * @param entity - the IfcTriangulatedFaceSet from the data model
+   * @param temporary - is this geometry temporary?
+   * @param isRelVoid - is this geometry a relvoid?
+   */
+  private extractTriangulatedFaceSet(entity:IfcTriangulatedFaceSet,
+      temporary:boolean = false,
+      isRelVoid:boolean = false ) {
     // Flatten points / indices into a single array
     const points = new Float32Array(entity.Coordinates.CoordList.flat())
     const indices = new Uint32Array(entity.CoordIndex.flat())
@@ -3105,8 +3116,7 @@ export class IfcGeometryExtraction {
       if (!isRelVoid) {
         this.scene.addGeometry(from.localID, owningElementLocalID)
       }
-    }
-    else if (from instanceof IfcBooleanResult) {
+    } else if (from instanceof IfcBooleanResult) {
       // also handles IfcBooleanClippingResult
       this.extractBooleanResult(from, isRelVoid)
 
