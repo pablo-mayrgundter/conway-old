@@ -11,7 +11,9 @@ export interface Scene< BaseEntityType > {
 
     readonly roots: ReadonlyUint32Array | ReadonlyArray< number >
 
-    walk( walkTemporary?: boolean ):
+    isAllSpaces(): boolean
+
+    walk( walkTemporary?: boolean, includeSpaces?: boolean ):
       IterableIterator<[readonly number[] | undefined,
         NativeTransform | undefined,
         CanonicalMesh,

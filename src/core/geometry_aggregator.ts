@@ -69,8 +69,10 @@ export default class GeometryAggregator {
 
     const identityTransform = conwaywasm.getIdentityTransform()
 
+    const allSpaces = scene.isAllSpaces()
+
     // eslint-disable-next-line no-unused-vars
-    for (const [_, nativeTransform, geometry, material] of scene.walk()) {
+    for (const [_, nativeTransform, geometry, material] of scene.walk( false, allSpaces )) {
       if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY && !geometry.temporary) {
 
         let geometryCollections = materialGeometry.get(material)
