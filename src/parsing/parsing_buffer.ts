@@ -28,6 +28,8 @@ const MAX_INTERN_SHIFT   = 16
 const positiveFloatLut = new Float64Array( ( MAX_INTERN_PRIMARY + 1 ) * MAX_INTERN_POWER )
 const negativeFloatLut = new Float64Array( ( MAX_INTERN_PRIMARY + 1 ) * MAX_INTERN_POWER )
 
+// eslint-disable-next-line no-magic-numbers
+const MAX_SAFE_FACTOR_INT = Math.trunc( Number.MAX_SAFE_INTEGER / 10 )
 
 /**
  * Inteface encoding a function that matches a parse.
@@ -557,12 +559,27 @@ export default class ParsingBuffer {
           break
         }
 
+        if ( absPrimary >= MAX_SAFE_FACTOR_INT ) {
+          break
+        }
+
         absPrimary *= 10
         absPrimary += currentChar
+
         ++cursor
       }
 
       decimals -= ( ( cursor ) - this.cursor_ ) - 1
+
+      while ( cursor < end ) {
+        const currentChar = input[ cursor ] - ZERO
+
+        if ( currentChar < 0 || currentChar > 9 ) {
+          break
+        }
+
+        ++cursor
+      }
     }
 
     /* eslint-enable no-magic-numbers */
