@@ -68,6 +68,8 @@ If you have Visual Studio Code, Conway also comes with a Visual Studio Code work
 
 # Production NPM Build
 ```
+yarn test
+yarn build-web  # stamps build version string
 yarn pack
 ```
 
