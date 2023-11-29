@@ -224,7 +224,6 @@ export function extractSpecularHighlight(
  * @return {ColorRGBA} The created colour.
  */
 export function extractColorRGBPremultiplied(from: IfcColourRgb, alpha: number = 1): ColorRGBA {
-
   return [from.Red * alpha, from.Green * alpha, from.Blue * alpha, alpha]
 }
 
@@ -3090,7 +3089,13 @@ export class IfcGeometryExtraction {
         const styledItem_ = this.model.getElementByLocalID(styledItemLocalID_) as IfcStyledItem
         this.extractStyledItem(styledItem_)
       } else {
-        console.log(`no styled item for mapped item express ID: ${representationItem.expressID}`)
+        // get parent
+        const styledItemParentLocalID = this.materials.styledItemMap.get(from.localID)
+        if (styledItemParentLocalID !== undefined) {
+          const styledItemParent =
+          this.model.getElementByLocalID(styledItemParentLocalID) as IfcStyledItem
+          this.extractStyledItem(styledItemParent, representationItem)
+        }
       }
     }
 
