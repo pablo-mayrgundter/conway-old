@@ -66,15 +66,33 @@ yarn build-test-watch
 
 If you have Visual Studio Code, Conway also comes with a Visual Studio Code workspace to add IDE accessability to these features, and also let you edit the IFC-gen C# code in place.
 
-# Npm
+# Production NPM Build
 ```
 yarn pack
-cp bldrs-ai-conway-v0.1.378.tgz $SHARE_DIR
-cd $SHARE_DIR
-yarn remove @bldrs-ai/conway
-yarn add ./bldrs-ai-conway-v0.1.378.tgz
+```
+
+## Push to Production: H3 & Share
+The following process works the same for headless-three and Share.
+
+Do H3 first, then Share
+```
+cp bldrs-ai-conway-<VERSION>.tgz $H3_DIR
+cd $H3_DIR
+git fetch upstream # or origin if not on fork
+git checkout -b conway-<VERSION> upstream/main
+## OLD WAY: yarn remove @bldrs-ai/conway
+## OLD WAY: yarn add ./bldrs-ai-conway-<VERSION>.tgz
+## New way: edit package.json dep for conway to point to new filename.
+yarn install
 yarn build && yarn test
-yarn serve-share-conway
+yarn serve
+# Smoke test local candidate: load all sample models, load local model, exercise dialogs, etc.
+git add . ; git ci -m 'Upgrad of conway from <LAST VERSION> to <VERSION>'
+git push origin HEAD
+# 1) Send PR for review
+# 2) On merge, Netlify will detect and build and deploy to prod; watch deploy logs on Netlify
+# 3) Smoke test prod.  Same as above
+# 4) Post to #bot or #share "New Conway <VERSION> in prod" with linked changelist
 ```
 
 # IFC Parser Console Test Application
