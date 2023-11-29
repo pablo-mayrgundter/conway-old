@@ -58,6 +58,9 @@
     "test-watch": "jest --watchAll  --notify",
     "update-version": "./scripts/updateVersion.mjs"
   },
+  "engines": {
+    "node": ">=16.0.0 <17.0.0"
+  },
   "dependencies": {
     "buffer": "^6.0.3",
     "gl-matrix": "^3.4.3",
