@@ -79,6 +79,11 @@ function doWork() {
             alias: 's',
             default: false,
           })
+          yargs2.option('spaces', {
+            describe: 'Output Spaces within Rel-Aggregates',
+            type: 'boolean',
+            alias: 'r',
+          })
 
           yargs2.positional('filename', { describe: 'IFC File Paths', type: 'string' })
         }, async (argv) => {
@@ -96,6 +101,7 @@ function doWork() {
 
           const outputProperties = (argv['properties'] as boolean | undefined)
           const strict = (argv['strict'] as boolean | undefined) ?? false
+          const includeSpace = (argv['spaces'] as boolean | undefined)
 
           try {
             indexIfcBuffer = fs.readFileSync(ifcFile)
@@ -178,7 +184,7 @@ function doWork() {
               const maxChunk = (argv['maxchunk'] as number | undefined) ?? DEFAULT_CHUNK
               const maxGeometrySize = maxChunk << MEGABYTE_SHIFT
 
-              serializeGeometry(scene, conwaywasm, fileName, maxGeometrySize)
+              serializeGeometry(scene, conwaywasm, fileName, maxGeometrySize, includeSpace)
             }
 
 
@@ -258,10 +264,11 @@ function serializeGeometry(
     scene: IfcSceneBuilder,
     conwaywasm: ConwayGeometry,
     fileNameNoExtension: string,
-    maxGeometrySize: number ) {
+    maxGeometrySize: number,
+    includeSpaces?: boolean  ) {
   const geometryAggregator =
     new GeometryAggregator(
-        conwaywasm, { maxGeometrySize: maxGeometrySize } )
+        conwaywasm, { maxGeometrySize: maxGeometrySize, outputSpaces: includeSpaces } )
 
   geometryAggregator.append( scene )
 
