@@ -73,7 +73,8 @@ export class IfcSceneGeometry implements SceneNodeGeometry {
     public readonly localID: number,
     public readonly index: number,
     public readonly relatedElementLocalId?: number,
-    public readonly parentIndex?: number) { }
+    public readonly parentIndex?: number,
+    public readonly isSpace: boolean = false ) { }
   /* eslint-enable no-useless-constructor, no-empty-function */
 }
 
@@ -264,13 +265,25 @@ export class IfcSceneBuilder implements Scene< StepEntityBase< EntityTypesIfc > 
   }
 
   /**
+   * Are all the geometry nodes in the scene spaces
+   *
+   * @return {boolean} Are all the geometry nodes in the scene spaces
+   */
+  public isAllSpaces(): boolean {
+
+    return this.scene_.every( ( node ) =>
+      !(node instanceof IfcSceneGeometry) ||
+      node.isSpace )
+  }
+
+  /**
    * Walk the current scene.
    *
    * @yields Raw absolute matrix transform, the native absolute transform, the canonical mesh,
    * the canonical material and the associated step element as it walks the hierarchy.
    * @param walkTemporary Include temporary items.
    */
-  public* walk(walkTemporary: boolean = false):
+  public* walk(walkTemporary: boolean = false, includeSpaces: boolean = false):
     IterableIterator<[readonly number[] | undefined,
       NativeTransform | undefined,
       CanonicalMesh,
@@ -279,10 +292,9 @@ export class IfcSceneBuilder implements Scene< StepEntityBase< EntityTypesIfc > 
 
     for (const node of this.scene_) {
 
-      if (node instanceof IfcSceneGeometry) {
+      if ( node instanceof IfcSceneGeometry && ( includeSpaces || !node.isSpace ) ) {
 
         const parentIndex = node.parentIndex
-
         const geometry = node.model.geometry?.getByLocalID(node.localID)
 
         if (geometry === void 0) {
@@ -348,7 +360,10 @@ export class IfcSceneBuilder implements Scene< StepEntityBase< EntityTypesIfc > 
    * @param localID
    * @return {IfcSceneGeometry}
    */
-  public addGeometry(localID: number, owningElementLocalID?: number): IfcSceneGeometry {
+  public addGeometry(
+      localID: number,
+      owningElementLocalID?: number,
+      isSpace?: boolean ): IfcSceneGeometry {
 
     const nodeIndex = this.scene_.length
 
@@ -372,7 +387,8 @@ export class IfcSceneBuilder implements Scene< StepEntityBase< EntityTypesIfc > 
           localID,
           nodeIndex,
           owningElementLocalID,
-          parentIndex)
+          parentIndex,
+          isSpace )
 
     this.scene_.push(result)
 

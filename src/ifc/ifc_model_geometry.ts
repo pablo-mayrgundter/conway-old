@@ -21,6 +21,7 @@ export class IfcModelGeometry implements ModelGeometry {
    * @param mesh
    */
   public add( mesh: CanonicalMesh ) {
+
     this.meshes_.set( mesh.localID, mesh )
   }
 
