@@ -3091,7 +3091,7 @@ export class IfcGeometryExtraction {
         const styledItem_ = this.model.getElementByLocalID(styledItemLocalID_) as IfcStyledItem
         this.extractStyledItem(styledItem_)
       } else {
-        // get parent
+        // get material from parent
         const styledItemParentLocalID = this.materials.styledItemMap.get(from.localID)
         if (styledItemParentLocalID !== undefined) {
           const styledItemParent =
