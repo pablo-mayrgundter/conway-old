@@ -3,7 +3,7 @@
   "description": "bldrs.ai datamodel",
   "author": "bldrs.ai",
   "license": "AGPL-3.0",
-  "version": "0.1.424",
+  "version": "0.1.425",
   "repository": "https://github.com/bldrs-ai/conway",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -59,7 +59,7 @@
     "update-version": "./scripts/updateVersion.mjs"
   },
   "engines": {
-    "node": ">=16.0.0 <17.0.0"
+    "node": ">=16.0.0 <19.0.0"
   },
   "dependencies": {
     "buffer": "^6.0.3",
