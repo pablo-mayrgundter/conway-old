@@ -3,7 +3,7 @@
   "description": "bldrs.ai datamodel",
   "author": "bldrs.ai",
   "license": "AGPL-3.0",
-  "version": "0.1.370",
+  "version": "0.1.424",
   "repository": "https://github.com/bldrs-ai/conway",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -13,8 +13,8 @@
   ],
   "scripts": {
     "clean": "yarn clean-conway_geom",
-    "build": "yarn clean && yarn build-all-release-node && yarn update-version",
-    "build-web": "yarn clean && yarn build-all-release-web && yarn update-version",
+    "build": "yarn clean && yarn update-version && yarn build-all-release-node",
+    "build-web": "yarn clean && yarn update-version && yarn build-all-release-web",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "build-all-profile-node": "yarn build-profile-conway_geom-node && yarn prebuild:node && tsc --build",
     "build-all-profile-web": "yarn build-profile-conway_geom-web && yarn prebuild:web && tsc --build",
@@ -98,5 +98,6 @@
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4"
   },
-  "type": "module"
+  "main": "./compiled/src/index.js",
+  "types": "./compiled/src/index.d.ts"
 }
