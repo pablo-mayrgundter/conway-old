@@ -42,6 +42,7 @@ import {
   ParamsGetUShapeCurve,
   ParamsGetZShapeCurve,
   ParamsGetTriangulatedFaceSetGeometry,
+  ParamsGetPolyCurve,
 } from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMaterial, ColorRGBA, exponentToRoughness } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
@@ -223,7 +224,6 @@ export function extractSpecularHighlight(
  * @return {ColorRGBA} The created colour.
  */
 export function extractColorRGBPremultiplied(from: IfcColourRgb, alpha: number = 1): ColorRGBA {
-
   return [from.Red * alpha, from.Green * alpha, from.Blue * alpha, alpha]
 }
 
@@ -299,6 +299,8 @@ export class IfcGeometryExtraction {
   private paramsGetTriangulatedFaceSetPool:
   ObjectPool<ParamsGetTriangulatedFaceSetGeometry> | undefined
 
+  private paramsGetPolyCurvePool:ObjectPool<ParamsGetPolyCurve> | undefined
+
   private identity2DNativeMatrix: any
   private identity3DNativeMatrix: any
 
@@ -333,6 +335,22 @@ export class IfcGeometryExtraction {
     this.createParamsGetBooleanResultPool()
     this.createParamsTransformProfilePool()
     this.createParamsGetTriangulatedFaceSetPool()
+    this.createParamsGetPolyCurvePool()
+  }
+
+  /**
+   * Creates a memory pool for `ParamsGetPolyCurve` objects if it does not exist.
+   */
+  createParamsGetPolyCurvePool() {
+    if (this.paramsGetPolyCurvePool === void 0) {
+      // Create a pool for ParamsTransformProfile
+      this.paramsGetPolyCurvePool = new
+      ObjectPool<ParamsGetPolyCurve>(
+          () => new (this.wasmModule.ParamsGetPolyCurve)() as
+           ParamsGetPolyCurve,
+          (obj) => obj.delete(),
+      )
+    }
   }
 
   /**
@@ -808,6 +826,7 @@ export class IfcGeometryExtraction {
     const geometry = this.conwayModel.getTriangulatedFaceSetGeometry(parameters)
 
 
+    this.paramsGetTriangulatedFaceSetPool?.release(parameters)
     this.wasmModule._free(pointsArrayPtr)
     this.wasmModule._free(indicesArrayPtr)
 
@@ -2745,6 +2764,26 @@ export class IfcGeometryExtraction {
     return undefined
   }
 
+  /**
+   * Efficiently flatten the points into a Float32Array
+   *
+   * @param points - Array of IfcCartesianPoint
+   * @param dimensions - dimensions of points
+   * @return {Float32Array}
+   */
+  flattenPointsToFloat32Array(points: IfcCartesianPoint[], dimensions:number): Float32Array {
+    const totalCoordinates = points.length * dimensions
+    const flatCoordinates = new Float32Array(totalCoordinates)
+
+    let offset = 0
+    points.forEach((point) => {
+      flatCoordinates.set(point.Coordinates, offset)
+      offset += point.Coordinates.length // move the offset by the number of coordinates
+    })
+
+    return flatCoordinates
+  }
+
 
   /**
    *
@@ -2752,37 +2791,27 @@ export class IfcGeometryExtraction {
    * @return {CurveObject | undefined }
    */
   extractIfcPolyline(from: IfcPolyline): CurveObject | undefined {
+    const points = from.Points
+    const pointsLength = from.Points.length
+    const dim = from.Dim
+    if (pointsLength > 0) {
+      const pointsFlattened = this.flattenPointsToFloat32Array(points, dim)
 
-    if (from.Points.length > 0) {
-      const nativeCurve = (new (this.wasmModule.IfcCurve)) as CurveObject
-      // dims check
-      if (from.Dim === this.TWO_DIMENSIONS) {
-        for (let pointsIndex = 0; pointsIndex < from.Points.length; ++pointsIndex) {
+      const pointsPtr = this.arrayToWasmHeap(pointsFlattened)
 
-          const coords = from.Points[pointsIndex].Coordinates
-          const coord = {
-            x: coords[0],
-            y: coords[1],
-          }
+      const parameters = this.paramsGetPolyCurvePool!.acquire()
 
-          nativeCurve.add2d(coord)
-        }
-      } else {
-        for (let pointsIndex = 0; pointsIndex < from.Points.length; ++pointsIndex) {
-          const coords = from.Points[pointsIndex].Coordinates
+      parameters.points = pointsPtr
+      parameters.pointsLength = pointsLength
+      parameters.dimensions = dim
 
-          const coord = {
-            x: coords[0],
-            y: coords[1],
-            z: coords[2],
-          }
+      const curve = this.conwayModel.getPolyCurve(parameters)
 
-          nativeCurve.add3d(coord)
-        }
-      }
+      this.paramsGetPolyCurvePool!.release(parameters)
 
-      return nativeCurve
+      this.wasmModule._free(pointsPtr)
 
+      return curve
     }
   }
 
@@ -3062,7 +3091,13 @@ export class IfcGeometryExtraction {
         const styledItem_ = this.model.getElementByLocalID(styledItemLocalID_) as IfcStyledItem
         this.extractStyledItem(styledItem_)
       } else {
-        console.log(`no styled item for mapped item express ID: ${representationItem.expressID}`)
+        // get material from parent
+        const styledItemParentLocalID = this.materials.styledItemMap.get(from.localID)
+        if (styledItemParentLocalID !== undefined) {
+          const styledItemParent =
+          this.model.getElementByLocalID(styledItemParentLocalID) as IfcStyledItem
+          this.extractStyledItem(styledItemParent, representationItem)
+        }
       }
     }
 
