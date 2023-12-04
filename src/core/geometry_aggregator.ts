@@ -1,3 +1,4 @@
+import { option } from 'yargs'
 import { ConwayGeometry, GeometryCollection } from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMaterial } from './canonical_material'
 import { CanonicalMeshType } from './canonical_mesh'
@@ -18,6 +19,8 @@ export interface GeometryAggregatorOptions {
    * alone.
    */
   maxGeometrySize?: number
+
+  outputSpaces?: boolean
 }
 
 export interface GeometryChunk {
@@ -69,10 +72,10 @@ export default class GeometryAggregator {
 
     const identityTransform = conwaywasm.getIdentityTransform()
 
-    const allSpaces = scene.isAllSpaces()
+    const outputSpaces = scene.isAllSpaces() || (!!this.options.outputSpaces)
 
     // eslint-disable-next-line no-unused-vars
-    for (const [_, nativeTransform, geometry, material] of scene.walk( false, allSpaces )) {
+    for (const [_, nativeTransform, geometry, material] of scene.walk( false, outputSpaces )) {
       if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY && !geometry.temporary) {
 
         let geometryCollections = materialGeometry.get(material)
