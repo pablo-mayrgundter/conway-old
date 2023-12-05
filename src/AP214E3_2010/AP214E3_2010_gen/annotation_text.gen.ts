@@ -15,10 +15,10 @@ export  class annotation_text extends mapped_item {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.ANNOTATION_TEXT
   }
-  private SELF\mapped_item.mapping_target_? : axis2_placement_2d | axis2_placement_3d
+  private mapping_target_? : axis2_placement_2d | axis2_placement_3d
 
-  public get SELF\mapped_item.mapping_target() : axis2_placement_2d | axis2_placement_3d {
-    if ( this.SELF\mapped_item.mapping_target_ === void 0 ) {
+  public get mapping_target() : axis2_placement_2d | axis2_placement_3d {
+    if ( this.mapping_target_ === void 0 ) {
       
       const value : StepEntityBase< EntityTypesIfc > =
         this.extractReference( 3, false )
@@ -27,11 +27,11 @@ export  class annotation_text extends mapped_item {
         throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
 
-      this.SELF\mapped_item.mapping_target_ = value as (axis2_placement_2d | axis2_placement_3d)
+      this.mapping_target_ = value as (axis2_placement_2d | axis2_placement_3d)
 
     }
 
-    return this.SELF\mapped_item.mapping_target_ as axis2_placement_2d | axis2_placement_3d
+    return this.mapping_target_ as axis2_placement_2d | axis2_placement_3d
   }
   constructor(
     localID: number,

@@ -3,6 +3,7 @@ import { b_spline_surface } from "./index"
 import { parameter_value } from "./index"
 import { knot_type, knot_typeDeserializeStep } from "./index"
 import {
+  stepExtractOptional,
   stepExtractNumber,
   stepExtractArrayToken,
   stepExtractArrayBegin,
@@ -35,6 +36,10 @@ export  class b_spline_surface_with_knots extends b_spline_surface {
       const buffer    = this.buffer
       const endCursor = buffer.length
 
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
+
       const value : Array<number> = []
 
       let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
@@ -64,6 +69,10 @@ export  class b_spline_surface_with_knots extends b_spline_surface {
       let   cursor    = this.getOffsetCursor( 9 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<number> = []
 
@@ -95,6 +104,10 @@ export  class b_spline_surface_with_knots extends b_spline_surface {
       const buffer    = this.buffer
       const endCursor = buffer.length
 
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
+
       const value : Array<number> = []
 
       let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
@@ -124,6 +137,10 @@ export  class b_spline_surface_with_knots extends b_spline_surface {
       let   cursor    = this.getOffsetCursor( 11 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<number> = []
 

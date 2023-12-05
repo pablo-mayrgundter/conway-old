@@ -18,10 +18,10 @@ export  class annotation_text_occurrence extends annotation_occurrence {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.ANNOTATION_TEXT_OCCURRENCE
   }
-  private SELF\styled_item.item_? : text_literal | annotation_text | annotation_text_character | defined_character_glyph | composite_text
+  private item_? : text_literal | annotation_text | annotation_text_character | defined_character_glyph | composite_text
 
-  public get SELF\styled_item.item() : text_literal | annotation_text | annotation_text_character | defined_character_glyph | composite_text {
-    if ( this.SELF\styled_item.item_ === void 0 ) {
+  public get item() : text_literal | annotation_text | annotation_text_character | defined_character_glyph | composite_text {
+    if ( this.item_ === void 0 ) {
       
       const value : StepEntityBase< EntityTypesIfc > =
         this.extractReference( 3, false )
@@ -30,11 +30,11 @@ export  class annotation_text_occurrence extends annotation_occurrence {
         throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
 
-      this.SELF\styled_item.item_ = value as (text_literal | annotation_text | annotation_text_character | defined_character_glyph | composite_text)
+      this.item_ = value as (text_literal | annotation_text | annotation_text_character | defined_character_glyph | composite_text)
 
     }
 
-    return this.SELF\styled_item.item_ as text_literal | annotation_text | annotation_text_character | defined_character_glyph | composite_text
+    return this.item_ as text_literal | annotation_text | annotation_text_character | defined_character_glyph | composite_text
   }
   constructor(
     localID: number,

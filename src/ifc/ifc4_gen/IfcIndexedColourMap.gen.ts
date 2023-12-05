@@ -5,7 +5,6 @@ import { IfcNormalisedRatioMeasure } from "./index"
 import { IfcColourRgbList } from "./index"
 import { IfcPositiveInteger } from "./index"
 import {
-  stepExtractOptional,
   stepExtractNumber,
   stepExtractArrayToken,
   stepExtractArrayBegin,
@@ -59,10 +58,6 @@ export  class IfcIndexedColourMap extends IfcPresentationItem {
       let   cursor    = this.getOffsetCursor( 3 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<number> = []
 

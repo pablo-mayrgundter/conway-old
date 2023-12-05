@@ -1,5 +1,5 @@
 
-import { class } from "./index"
+import { class_ } from "./index"
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -9,7 +9,7 @@ import StepModelBase from '../../step/step_model_base'
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/externally_defined_class.htm */
-export  class externally_defined_class extends class {
+export  class externally_defined_class extends class_ {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.EXTERNALLY_DEFINED_CLASS
   }

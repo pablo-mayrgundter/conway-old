@@ -3,6 +3,7 @@ import { pair_value } from "./index"
 import { parameter_value } from "./index"
 import { measure_with_unit } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -29,6 +30,10 @@ export  class configuration_definition extends StepEntityBase< EntityTypesIfc > 
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<pair_value> = []
 

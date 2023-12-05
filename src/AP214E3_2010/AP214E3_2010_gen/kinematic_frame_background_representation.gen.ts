@@ -5,6 +5,7 @@ import { curve } from "./index"
 import { surface } from "./index"
 import { geometric_representation_context } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -22,15 +23,19 @@ export  class kinematic_frame_background_representation extends representation {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.KINEMATIC_FRAME_BACKGROUND_REPRESENTATION
   }
-  private SELF\representation.items_? : Array<point | curve | surface>
-  private SELF\representation.context_of_items_? : geometric_representation_context
+  private items_? : Array<point | curve | surface>
+  private context_of_items_? : geometric_representation_context
 
-  public get SELF\representation.items() : Array<point | curve | surface> {
-    if ( this.SELF\representation.items_ === void 0 ) {
+  public get items() : Array<point | curve | surface> {
+    if ( this.items_ === void 0 ) {
       
       let   cursor    = this.getOffsetCursor( 3 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<point | curve | surface> = []
 
@@ -55,18 +60,18 @@ export  class kinematic_frame_background_representation extends representation {
         cursor = Math.abs( signedCursor0 )
       }
 
-      this.SELF\representation.items_ = value
+      this.items_ = value
     }
 
-    return this.SELF\representation.items_ as Array<point | curve | surface>
+    return this.items_ as Array<point | curve | surface>
   }
 
-  public get SELF\representation.context_of_items() : geometric_representation_context {
-    if ( this.SELF\representation.context_of_items_ === void 0 ) {
-      this.SELF\representation.context_of_items_ = this.extractElement( 4, false, geometric_representation_context )
+  public get context_of_items() : geometric_representation_context {
+    if ( this.context_of_items_ === void 0 ) {
+      this.context_of_items_ = this.extractElement( 4, false, geometric_representation_context )
     }
 
-    return this.SELF\representation.context_of_items_ as geometric_representation_context
+    return this.context_of_items_ as geometric_representation_context
   }
   constructor(
     localID: number,

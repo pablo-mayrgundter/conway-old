@@ -2,6 +2,7 @@
 import { topological_representation_item } from "./index"
 import { edge } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -27,6 +28,10 @@ export  class connected_edge_set extends topological_representation_item {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<edge> = []
 

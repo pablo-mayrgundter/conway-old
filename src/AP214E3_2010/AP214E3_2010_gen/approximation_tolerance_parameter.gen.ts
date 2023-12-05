@@ -3,6 +3,7 @@ import { founded_item } from "./index"
 import { curve_tolerance_parameter } from "./index"
 import { surface_tolerance_parameter } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -28,6 +29,10 @@ export  class approximation_tolerance_parameter extends founded_item {
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<curve_tolerance_parameter | surface_tolerance_parameter> = []
 

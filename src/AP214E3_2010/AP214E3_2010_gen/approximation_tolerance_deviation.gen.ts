@@ -5,6 +5,7 @@ import { curve_tolerance_deviation } from "./index"
 import { surface_tolerance_deviation } from "./index"
 import { product_or_presentation_space, product_or_presentation_spaceDeserializeStep } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -40,6 +41,10 @@ export  class approximation_tolerance_deviation extends founded_item {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<curve_tolerance_deviation | surface_tolerance_deviation> = []
 

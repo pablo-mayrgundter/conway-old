@@ -36,7 +36,7 @@ export  class conversion_based_unit extends named_unit {
   }
 
   public get dimensions() : dimensional_exponents {
-    return derive_dimensional_exponents(this?.conversion_factor\measure_with_unit?.unit_component);
+    return derive_dimensional_exponents(this?.conversion_factor?.unit_component);
   }
   constructor(
     localID: number,

@@ -4,6 +4,7 @@ import { text } from "./index"
 import { organization } from "./index"
 import { identifier } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -47,6 +48,10 @@ export  class organizational_project extends StepEntityBase< EntityTypesIfc > {
       let   cursor    = this.getOffsetCursor( 2 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<organization> = []
 

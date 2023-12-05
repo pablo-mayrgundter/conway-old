@@ -14,14 +14,14 @@ export  class presentation_representation extends representation {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.PRESENTATION_REPRESENTATION
   }
-  private SELF\representation.context_of_items_? : geometric_representation_context
+  private context_of_items_? : geometric_representation_context
 
-  public get SELF\representation.context_of_items() : geometric_representation_context {
-    if ( this.SELF\representation.context_of_items_ === void 0 ) {
-      this.SELF\representation.context_of_items_ = this.extractElement( 3, false, geometric_representation_context )
+  public get context_of_items() : geometric_representation_context {
+    if ( this.context_of_items_ === void 0 ) {
+      this.context_of_items_ = this.extractElement( 3, false, geometric_representation_context )
     }
 
-    return this.SELF\representation.context_of_items_ as geometric_representation_context
+    return this.context_of_items_ as geometric_representation_context
   }
   constructor(
     localID: number,

@@ -2,6 +2,7 @@
 import { tolerance_zone } from "./index"
 import { shape_aspect } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -36,6 +37,10 @@ export  class tolerance_zone_definition extends StepEntityBase< EntityTypesIfc >
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<shape_aspect> = []
 

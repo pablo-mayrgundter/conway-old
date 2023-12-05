@@ -15,15 +15,15 @@ export  class rolling_curve_pair_value extends pair_value {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.ROLLING_CURVE_PAIR_VALUE
   }
-  private SELF\pair_value.applies_to_pair_? : rolling_curve_pair
+  private applies_to_pair_? : rolling_curve_pair
   private actual_point_on_curve_1_? : point_on_curve
 
-  public get SELF\pair_value.applies_to_pair() : rolling_curve_pair {
-    if ( this.SELF\pair_value.applies_to_pair_ === void 0 ) {
-      this.SELF\pair_value.applies_to_pair_ = this.extractElement( 1, false, rolling_curve_pair )
+  public get applies_to_pair() : rolling_curve_pair {
+    if ( this.applies_to_pair_ === void 0 ) {
+      this.applies_to_pair_ = this.extractElement( 1, false, rolling_curve_pair )
     }
 
-    return this.SELF\pair_value.applies_to_pair_ as rolling_curve_pair
+    return this.applies_to_pair_ as rolling_curve_pair
   }
 
   public get actual_point_on_curve_1() : point_on_curve {

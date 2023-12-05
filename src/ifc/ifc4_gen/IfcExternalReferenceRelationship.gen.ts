@@ -17,7 +17,6 @@ import { IfcProfileDef } from "./index"
 import { IfcPropertyAbstraction } from "./index"
 import { IfcTimeSeries } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -52,10 +51,6 @@ export  class IfcExternalReferenceRelationship extends IfcResourceLevelRelations
       let   cursor    = this.getOffsetCursor( 3 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcActorRole | IfcAppliedValue | IfcApproval | IfcConstraint | IfcContextDependentUnit | IfcConversionBasedUnit | IfcExternalInformation | IfcExternalReference | IfcMaterialDefinition | IfcOrganization | IfcPerson | IfcPersonAndOrganization | IfcPhysicalQuantity | IfcProfileDef | IfcPropertyAbstraction | IfcTimeSeries> = []
 

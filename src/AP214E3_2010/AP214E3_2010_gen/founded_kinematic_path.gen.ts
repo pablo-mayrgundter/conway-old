@@ -3,6 +3,7 @@ import { representation } from "./index"
 import { kinematic_path } from "./index"
 import { geometric_representation_context } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -20,15 +21,19 @@ export  class founded_kinematic_path extends representation {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.FOUNDED_KINEMATIC_PATH
   }
-  private SELF\representation.items_? : Array<kinematic_path>
-  private SELF\representation.context_of_items_? : geometric_representation_context
+  private items_? : Array<kinematic_path>
+  private context_of_items_? : geometric_representation_context
 
-  public get SELF\representation.items() : Array<kinematic_path> {
-    if ( this.SELF\representation.items_ === void 0 ) {
+  public get items() : Array<kinematic_path> {
+    if ( this.items_ === void 0 ) {
       
       let   cursor    = this.getOffsetCursor( 3 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<kinematic_path> = []
 
@@ -46,18 +51,18 @@ export  class founded_kinematic_path extends representation {
         cursor = Math.abs( signedCursor0 )
       }
 
-      this.SELF\representation.items_ = value
+      this.items_ = value
     }
 
-    return this.SELF\representation.items_ as Array<kinematic_path>
+    return this.items_ as Array<kinematic_path>
   }
 
-  public get SELF\representation.context_of_items() : geometric_representation_context {
-    if ( this.SELF\representation.context_of_items_ === void 0 ) {
-      this.SELF\representation.context_of_items_ = this.extractElement( 4, false, geometric_representation_context )
+  public get context_of_items() : geometric_representation_context {
+    if ( this.context_of_items_ === void 0 ) {
+      this.context_of_items_ = this.extractElement( 4, false, geometric_representation_context )
     }
 
-    return this.SELF\representation.context_of_items_ as geometric_representation_context
+    return this.context_of_items_ as geometric_representation_context
   }
 
 

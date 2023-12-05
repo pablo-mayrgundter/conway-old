@@ -1,6 +1,7 @@
 
 import { numeric_expression } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -18,14 +19,18 @@ export abstract class binary_numeric_expression extends numeric_expression {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.BINARY_NUMERIC_EXPRESSION
   }
-  private SELF\binary_generic_expression.operands_? : Array<numeric_expression>
+  private operands_? : Array<numeric_expression>
 
-  public get SELF\binary_generic_expression.operands() : Array<numeric_expression> {
-    if ( this.SELF\binary_generic_expression.operands_ === void 0 ) {
+  public get operands() : Array<numeric_expression> {
+    if ( this.operands_ === void 0 ) {
       
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<numeric_expression> = []
 
@@ -43,10 +48,10 @@ export abstract class binary_numeric_expression extends numeric_expression {
         cursor = Math.abs( signedCursor0 )
       }
 
-      this.SELF\binary_generic_expression.operands_ = value
+      this.operands_ = value
     }
 
-    return this.SELF\binary_generic_expression.operands_ as Array<numeric_expression>
+    return this.operands_ as Array<numeric_expression>
   }
   constructor(
     localID: number,

@@ -16,16 +16,16 @@ export  class cylindrical_pair_value extends pair_value {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.CYLINDRICAL_PAIR_VALUE
   }
-  private SELF\pair_value.applies_to_pair_? : cylindrical_pair
+  private applies_to_pair_? : cylindrical_pair
   private actual_translation_? : number
   private actual_rotation_? : number
 
-  public get SELF\pair_value.applies_to_pair() : cylindrical_pair {
-    if ( this.SELF\pair_value.applies_to_pair_ === void 0 ) {
-      this.SELF\pair_value.applies_to_pair_ = this.extractElement( 1, false, cylindrical_pair )
+  public get applies_to_pair() : cylindrical_pair {
+    if ( this.applies_to_pair_ === void 0 ) {
+      this.applies_to_pair_ = this.extractElement( 1, false, cylindrical_pair )
     }
 
-    return this.SELF\pair_value.applies_to_pair_ as cylindrical_pair
+    return this.applies_to_pair_ as cylindrical_pair
   }
 
   public get actual_translation() : number {

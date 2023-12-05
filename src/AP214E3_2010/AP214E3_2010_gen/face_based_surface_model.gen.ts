@@ -2,6 +2,7 @@
 import { geometric_representation_item } from "./index"
 import { connected_face_set } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -27,6 +28,10 @@ export  class face_based_surface_model extends geometric_representation_item {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<connected_face_set> = []
 

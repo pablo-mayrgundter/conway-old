@@ -16,15 +16,15 @@ export  class screw_pair_value extends pair_value {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.SCREW_PAIR_VALUE
   }
-  private SELF\pair_value.applies_to_pair_? : screw_pair
+  private applies_to_pair_? : screw_pair
   private actual_rotation_? : number
 
-  public get SELF\pair_value.applies_to_pair() : screw_pair {
-    if ( this.SELF\pair_value.applies_to_pair_ === void 0 ) {
-      this.SELF\pair_value.applies_to_pair_ = this.extractElement( 1, false, screw_pair )
+  public get applies_to_pair() : screw_pair {
+    if ( this.applies_to_pair_ === void 0 ) {
+      this.applies_to_pair_ = this.extractElement( 1, false, screw_pair )
     }
 
-    return this.SELF\pair_value.applies_to_pair_ as screw_pair
+    return this.applies_to_pair_ as screw_pair
   }
 
   public get actual_rotation() : number {

@@ -3,6 +3,7 @@ import { surface_style_rendering } from "./index"
 import { surface_style_reflectance_ambient } from "./index"
 import { surface_style_transparent } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -28,6 +29,10 @@ export  class surface_style_rendering_with_properties extends surface_style_rend
       let   cursor    = this.getOffsetCursor( 2 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<surface_style_reflectance_ambient | surface_style_transparent> = []
 

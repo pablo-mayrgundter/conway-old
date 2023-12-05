@@ -32,10 +32,6 @@ export  class IfcStructuralLoadConfiguration extends IfcStructuralLoad {
       const buffer    = this.buffer
       const endCursor = buffer.length
 
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
-
       const value : Array<IfcStructuralLoadOrResult> = []
 
       let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )

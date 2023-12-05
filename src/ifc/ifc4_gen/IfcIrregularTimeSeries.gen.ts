@@ -2,7 +2,6 @@
 import { IfcTimeSeries } from "./index"
 import { IfcIrregularTimeSeriesValue } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -28,10 +27,6 @@ export  class IfcIrregularTimeSeries extends IfcTimeSeries {
       let   cursor    = this.getOffsetCursor( 8 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcIrregularTimeSeriesValue> = []
 

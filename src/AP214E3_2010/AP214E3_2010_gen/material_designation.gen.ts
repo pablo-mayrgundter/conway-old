@@ -7,6 +7,7 @@ import { product_definition_shape } from "./index"
 import { shape_aspect } from "./index"
 import { shape_aspect_relationship } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -41,6 +42,10 @@ export  class material_designation extends StepEntityBase< EntityTypesIfc > {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<characterized_object | product_definition | product_definition_relationship | product_definition_shape | shape_aspect | shape_aspect_relationship> = []
 

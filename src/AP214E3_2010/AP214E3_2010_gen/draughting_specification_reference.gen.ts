@@ -2,6 +2,7 @@
 import { document_reference } from "./index"
 import { drawing_revision } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -27,6 +28,10 @@ export  class draughting_specification_reference extends document_reference {
       let   cursor    = this.getOffsetCursor( 2 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<drawing_revision> = []
 

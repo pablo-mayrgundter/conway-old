@@ -2,6 +2,7 @@
 import { representation_context } from "./index"
 import { uncertainty_measure_with_unit } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -27,6 +28,10 @@ export  class global_uncertainty_assigned_context extends representation_context
       let   cursor    = this.getOffsetCursor( 2 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<uncertainty_measure_with_unit> = []
 

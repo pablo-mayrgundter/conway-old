@@ -17,7 +17,7 @@ export  class mechanism_base_placement extends representation_relationship_with_
     return EntityTypesIfc.MECHANISM_BASE_PLACEMENT
   }
   private base_of_mechanism_? : mechanism
-  private SELF\representation_relationship_with_transformation.transformation_operator_? : cartesian_transformation_operator_3d
+  private transformation_operator_? : cartesian_transformation_operator_3d
 
   public get base_of_mechanism() : mechanism {
     if ( this.base_of_mechanism_ === void 0 ) {
@@ -27,12 +27,12 @@ export  class mechanism_base_placement extends representation_relationship_with_
     return this.base_of_mechanism_ as mechanism
   }
 
-  public get SELF\representation_relationship_with_transformation.transformation_operator() : cartesian_transformation_operator_3d {
-    if ( this.SELF\representation_relationship_with_transformation.transformation_operator_ === void 0 ) {
-      this.SELF\representation_relationship_with_transformation.transformation_operator_ = this.extractElement( 6, false, cartesian_transformation_operator_3d )
+  public get transformation_operator() : cartesian_transformation_operator_3d {
+    if ( this.transformation_operator_ === void 0 ) {
+      this.transformation_operator_ = this.extractElement( 6, false, cartesian_transformation_operator_3d )
     }
 
-    return this.SELF\representation_relationship_with_transformation.transformation_operator_ as cartesian_transformation_operator_3d
+    return this.transformation_operator_ as cartesian_transformation_operator_3d
   }
 
   public get rep_2() : kinematic_link_representation {

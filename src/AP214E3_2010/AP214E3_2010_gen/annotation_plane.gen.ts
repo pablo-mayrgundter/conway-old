@@ -24,7 +24,7 @@ export  class annotation_plane extends annotation_occurrence {
     return EntityTypesIfc.ANNOTATION_PLANE
   }
   private elements_? : Array<draughting_callout | styled_item> | null
-  private SELF\styled_item.item_? : plane | planar_box
+  private item_? : plane | planar_box
 
   public get elements() : Array<draughting_callout | styled_item> | null {
     if ( this.elements_ === void 0 ) {
@@ -66,8 +66,8 @@ export  class annotation_plane extends annotation_occurrence {
     return this.elements_ as Array<draughting_callout | styled_item> | null
   }
 
-  public get SELF\styled_item.item() : plane | planar_box {
-    if ( this.SELF\styled_item.item_ === void 0 ) {
+  public get item() : plane | planar_box {
+    if ( this.item_ === void 0 ) {
       
       const value : StepEntityBase< EntityTypesIfc > =
         this.extractReference( 4, false )
@@ -76,11 +76,11 @@ export  class annotation_plane extends annotation_occurrence {
         throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
 
-      this.SELF\styled_item.item_ = value as (plane | planar_box)
+      this.item_ = value as (plane | planar_box)
 
     }
 
-    return this.SELF\styled_item.item_ as plane | planar_box
+    return this.item_ as plane | planar_box
   }
   constructor(
     localID: number,

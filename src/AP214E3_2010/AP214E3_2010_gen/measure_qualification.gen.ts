@@ -6,6 +6,7 @@ import { precision_qualifier } from "./index"
 import { type_qualifier } from "./index"
 import { uncertainty_qualifier } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -58,6 +59,10 @@ export  class measure_qualification extends StepEntityBase< EntityTypesIfc > {
       let   cursor    = this.getOffsetCursor( 3 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<precision_qualifier | type_qualifier | uncertainty_qualifier> = []
 

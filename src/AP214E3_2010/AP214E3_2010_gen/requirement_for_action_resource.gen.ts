@@ -2,6 +2,7 @@
 import { action_resource_requirement } from "./index"
 import { action_resource } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -27,6 +28,10 @@ export  class requirement_for_action_resource extends action_resource_requiremen
       let   cursor    = this.getOffsetCursor( 4 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<action_resource> = []
 

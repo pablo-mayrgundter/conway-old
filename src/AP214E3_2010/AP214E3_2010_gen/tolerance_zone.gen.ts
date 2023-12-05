@@ -3,6 +3,7 @@ import { shape_aspect } from "./index"
 import { geometric_tolerance } from "./index"
 import { tolerance_zone_form } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -29,6 +30,10 @@ export  class tolerance_zone extends shape_aspect {
       let   cursor    = this.getOffsetCursor( 4 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<geometric_tolerance> = []
 

@@ -3,7 +3,6 @@ import { IfcGeometricRepresentationItem } from "./index"
 import { IfcConnectedFaceSet } from "./index"
 import { IfcDimensionCount } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -29,10 +28,6 @@ export  class IfcFaceBasedSurfaceModel extends IfcGeometricRepresentationItem {
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcConnectedFaceSet> = []
 

@@ -2,6 +2,7 @@
 import { product_definition } from "./index"
 import { document } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -27,6 +28,10 @@ export  class product_definition_with_associated_documents extends product_defin
       let   cursor    = this.getOffsetCursor( 4 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<document> = []
 

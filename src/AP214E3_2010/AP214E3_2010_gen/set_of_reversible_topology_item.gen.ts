@@ -1,6 +1,7 @@
 
 /* This is generated code, don't alter */
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -27,6 +28,10 @@ export class set_of_reversible_topology_item extends StepEntityBase< EntityTypes
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<edge | path | face | face_bound | closed_shell | open_shell> = []
 

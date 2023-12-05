@@ -1,6 +1,7 @@
 
 import { configuration_interpolation } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -26,6 +27,10 @@ export  class interpolated_configuration_sequence extends StepEntityBase< Entity
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<configuration_interpolation> = []
 

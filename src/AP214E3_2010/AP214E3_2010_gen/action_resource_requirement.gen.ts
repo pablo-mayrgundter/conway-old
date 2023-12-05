@@ -7,6 +7,7 @@ import { action_method } from "./index"
 import { action_method_relationship } from "./index"
 import { action_relationship } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -59,6 +60,10 @@ export  class action_resource_requirement extends StepEntityBase< EntityTypesIfc
       let   cursor    = this.getOffsetCursor( 3 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<action | action_method | action_method_relationship | action_relationship> = []
 

@@ -14,14 +14,14 @@ export  class annotation_curve_occurrence extends annotation_occurrence {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.ANNOTATION_CURVE_OCCURRENCE
   }
-  private SELF\styled_item.item_? : curve
+  private item_? : curve
 
-  public get SELF\styled_item.item() : curve {
-    if ( this.SELF\styled_item.item_ === void 0 ) {
-      this.SELF\styled_item.item_ = this.extractElement( 3, false, curve )
+  public get item() : curve {
+    if ( this.item_ === void 0 ) {
+      this.item_ = this.extractElement( 3, false, curve )
     }
 
-    return this.SELF\styled_item.item_ as curve
+    return this.item_ as curve
   }
   constructor(
     localID: number,

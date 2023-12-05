@@ -8,6 +8,7 @@ import { composite_text } from "./index"
 import { axis2_placement_2d } from "./index"
 import { axis2_placement_3d } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -25,14 +26,18 @@ export  class text_string_representation extends representation {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.TEXT_STRING_REPRESENTATION
   }
-  private SELF\representation.items_? : Array<text_literal | annotation_text | annotation_text_character | defined_character_glyph | composite_text | axis2_placement_2d | axis2_placement_3d>
+  private items_? : Array<text_literal | annotation_text | annotation_text_character | defined_character_glyph | composite_text | axis2_placement_2d | axis2_placement_3d>
 
-  public get SELF\representation.items() : Array<text_literal | annotation_text | annotation_text_character | defined_character_glyph | composite_text | axis2_placement_2d | axis2_placement_3d> {
-    if ( this.SELF\representation.items_ === void 0 ) {
+  public get items() : Array<text_literal | annotation_text | annotation_text_character | defined_character_glyph | composite_text | axis2_placement_2d | axis2_placement_3d> {
+    if ( this.items_ === void 0 ) {
       
       let   cursor    = this.getOffsetCursor( 3 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<text_literal | annotation_text | annotation_text_character | defined_character_glyph | composite_text | axis2_placement_2d | axis2_placement_3d> = []
 
@@ -57,10 +62,10 @@ export  class text_string_representation extends representation {
         cursor = Math.abs( signedCursor0 )
       }
 
-      this.SELF\representation.items_ = value
+      this.items_ = value
     }
 
-    return this.SELF\representation.items_ as Array<text_literal | annotation_text | annotation_text_character | defined_character_glyph | composite_text | axis2_placement_2d | axis2_placement_3d>
+    return this.items_ as Array<text_literal | annotation_text | annotation_text_character | defined_character_glyph | composite_text | axis2_placement_2d | axis2_placement_3d>
   }
   constructor(
     localID: number,

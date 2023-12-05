@@ -3,7 +3,6 @@ import { IfcPresentationItem } from "./index"
 import { IfcLabel } from "./index"
 import { IfcCurveStyleFontPattern } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -38,10 +37,6 @@ export  class IfcCurveStyleFont extends IfcPresentationItem {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcCurveStyleFontPattern> = []
 

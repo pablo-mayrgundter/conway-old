@@ -3,6 +3,7 @@ import { bounded_surface } from "./index"
 import { cartesian_point } from "./index"
 import { b_spline_surface_form, b_spline_surface_formDeserializeStep } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -51,6 +52,10 @@ export  class b_spline_surface extends bounded_surface {
       let   cursor    = this.getOffsetCursor( 3 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<Array<cartesian_point>> = []
 

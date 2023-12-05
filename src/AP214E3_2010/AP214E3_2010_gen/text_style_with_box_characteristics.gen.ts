@@ -5,6 +5,7 @@ import { box_width } from "./index"
 import { box_slant_angle } from "./index"
 import { box_rotate_angle } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -30,6 +31,10 @@ export  class text_style_with_box_characteristics extends text_style {
       let   cursor    = this.getOffsetCursor( 2 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<box_height | box_width | box_slant_angle | box_rotate_angle> = []
 

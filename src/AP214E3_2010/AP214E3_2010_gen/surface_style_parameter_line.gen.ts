@@ -5,6 +5,7 @@ import { curve_style_rendering } from "./index"
 import { u_direction_count } from "./index"
 import { v_direction_count } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -48,6 +49,10 @@ export  class surface_style_parameter_line extends founded_item {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<u_direction_count | v_direction_count> = []
 

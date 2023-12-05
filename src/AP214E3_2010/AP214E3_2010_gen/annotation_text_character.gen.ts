@@ -17,7 +17,7 @@ export  class annotation_text_character extends mapped_item {
     return EntityTypesIfc.ANNOTATION_TEXT_CHARACTER
   }
   private alignment_? : string
-  private SELF\mapped_item.mapping_target_? : axis2_placement_2d | axis2_placement_3d
+  private mapping_target_? : axis2_placement_2d | axis2_placement_3d
 
   public get alignment() : string {
     if ( this.alignment_ === void 0 ) {
@@ -27,8 +27,8 @@ export  class annotation_text_character extends mapped_item {
     return this.alignment_ as string
   }
 
-  public get SELF\mapped_item.mapping_target() : axis2_placement_2d | axis2_placement_3d {
-    if ( this.SELF\mapped_item.mapping_target_ === void 0 ) {
+  public get mapping_target() : axis2_placement_2d | axis2_placement_3d {
+    if ( this.mapping_target_ === void 0 ) {
       
       const value : StepEntityBase< EntityTypesIfc > =
         this.extractReference( 4, false )
@@ -37,11 +37,11 @@ export  class annotation_text_character extends mapped_item {
         throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
 
-      this.SELF\mapped_item.mapping_target_ = value as (axis2_placement_2d | axis2_placement_3d)
+      this.mapping_target_ = value as (axis2_placement_2d | axis2_placement_3d)
 
     }
 
-    return this.SELF\mapped_item.mapping_target_ as axis2_placement_2d | axis2_placement_3d
+    return this.mapping_target_ as axis2_placement_2d | axis2_placement_3d
   }
   constructor(
     localID: number,

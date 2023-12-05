@@ -5,6 +5,7 @@ import { externally_defined_class } from "./index"
 import { externally_defined_general_property } from "./index"
 import { product_definition } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -30,6 +31,10 @@ export  class applied_external_identification_assignment extends external_identi
       let   cursor    = this.getOffsetCursor( 3 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<document_file | externally_defined_class | externally_defined_general_property | product_definition> = []
 

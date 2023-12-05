@@ -5,6 +5,7 @@ import { cartesian_point } from "./index"
 import { parameter_value } from "./index"
 import { trimming_preference, trimming_preferenceDeserializeStep } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -43,6 +44,10 @@ export  class trimmed_curve extends bounded_curve {
       const buffer    = this.buffer
       const endCursor = buffer.length
 
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
+
       const value : Array<cartesian_point | parameter_value> = []
 
       let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
@@ -78,6 +83,10 @@ export  class trimmed_curve extends bounded_curve {
       let   cursor    = this.getOffsetCursor( 3 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<cartesian_point | parameter_value> = []
 

@@ -2,7 +2,6 @@
 import { IfcMaterialProfile } from "./index"
 import { IfcLengthMeasure } from "./index"
 import {
-  stepExtractOptional,
   stepExtractNumber,
   stepExtractArrayToken,
   stepExtractArrayBegin,
@@ -29,10 +28,6 @@ export  class IfcMaterialProfileWithOffsets extends IfcMaterialProfile {
       let   cursor    = this.getOffsetCursor( 6 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<number> = []
 

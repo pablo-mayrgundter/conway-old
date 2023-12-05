@@ -33,6 +33,7 @@ import { resource_property } from "./index"
 import { shape_aspect } from "./index"
 import { shape_representation } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -58,6 +59,10 @@ export  class applied_action_request_assignment extends action_request_assignmen
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<action | action_method | action_property | action_relationship | alternate_product_relationship | assembly_component_usage_substitute | configuration_design | configuration_effectivity | configuration_item | configured_effectivity_assignment | document_file | draughting_model | drawing_revision | general_property | material_designation | mechanical_design_geometric_presentation_representation | organizational_project | presentation_area | product | product_concept | product_concept_feature | product_concept_feature_association | product_concept_feature_category | product_concept_feature_category_usage | product_definition | product_definition_formation | product_definition_relationship | product_definition_substitute | property_definition | resource_property | shape_aspect | shape_representation> = []
 

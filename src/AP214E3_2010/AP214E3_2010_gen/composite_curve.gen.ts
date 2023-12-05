@@ -2,6 +2,7 @@
 import { bounded_curve } from "./index"
 import { composite_curve_segment } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -29,6 +30,10 @@ export  class composite_curve extends bounded_curve {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<composite_curve_segment> = []
 

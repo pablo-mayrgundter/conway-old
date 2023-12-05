@@ -42,10 +42,6 @@ export  class IfcPolygonalFaceSet extends IfcTessellatedFaceSet {
       const buffer    = this.buffer
       const endCursor = buffer.length
 
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
-
       const value : Array<IfcIndexedPolygonalFace> = []
 
       let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )

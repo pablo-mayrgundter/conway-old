@@ -12,7 +12,6 @@ import { IfcPositiveRatioMeasure } from "./index"
 import { IfcRatioMeasure } from "./index"
 import {
   stepExtractString,
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -42,10 +41,6 @@ export  class IfcTextStyleFontModel extends IfcPreDefinedTextFont {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<string> = []
 

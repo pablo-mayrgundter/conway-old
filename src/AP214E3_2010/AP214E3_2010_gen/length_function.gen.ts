@@ -14,14 +14,14 @@ export  class length_function extends numeric_expression {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.LENGTH_FUNCTION
   }
-  private SELF\unary_generic_expression.operand_? : string_expression
+  private operand_? : string_expression
 
-  public get SELF\unary_generic_expression.operand() : string_expression {
-    if ( this.SELF\unary_generic_expression.operand_ === void 0 ) {
-      this.SELF\unary_generic_expression.operand_ = this.extractElement( 0, false, string_expression )
+  public get operand() : string_expression {
+    if ( this.operand_ === void 0 ) {
+      this.operand_ = this.extractElement( 0, false, string_expression )
     }
 
-    return this.SELF\unary_generic_expression.operand_ as string_expression
+    return this.operand_ as string_expression
   }
   constructor(
     localID: number,

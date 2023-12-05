@@ -2,6 +2,7 @@
 import { boolean_expression } from "./index"
 import { expression } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -19,14 +20,18 @@ export abstract class comparison_expression extends boolean_expression {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.COMPARISON_EXPRESSION
   }
-  private SELF\binary_generic_expression.operands_? : Array<expression>
+  private operands_? : Array<expression>
 
-  public get SELF\binary_generic_expression.operands() : Array<expression> {
-    if ( this.SELF\binary_generic_expression.operands_ === void 0 ) {
+  public get operands() : Array<expression> {
+    if ( this.operands_ === void 0 ) {
       
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<expression> = []
 
@@ -44,10 +49,10 @@ export abstract class comparison_expression extends boolean_expression {
         cursor = Math.abs( signedCursor0 )
       }
 
-      this.SELF\binary_generic_expression.operands_ = value
+      this.operands_ = value
     }
 
-    return this.SELF\binary_generic_expression.operands_ as Array<expression>
+    return this.operands_ as Array<expression>
   }
   constructor(
     localID: number,

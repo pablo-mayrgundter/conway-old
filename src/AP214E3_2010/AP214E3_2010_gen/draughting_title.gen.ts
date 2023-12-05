@@ -4,6 +4,7 @@ import { drawing_sheet_revision } from "./index"
 import { label } from "./index"
 import { text } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -31,6 +32,10 @@ export  class draughting_title extends StepEntityBase< EntityTypesIfc > {
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<drawing_revision | drawing_sheet_revision> = []
 

@@ -89,10 +89,6 @@ export  class IfcTriangulatedFaceSet extends IfcTessellatedFaceSet {
       const buffer    = this.buffer
       const endCursor = buffer.length
 
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
-
       const value : Array<Array<number>> = []
 
       let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )

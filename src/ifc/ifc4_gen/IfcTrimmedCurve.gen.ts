@@ -6,7 +6,6 @@ import { IfcParameterValue } from "./index"
 import { IfcBoolean } from "./index"
 import { IfcTrimmingPreference, IfcTrimmingPreferenceDeserializeStep } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -45,10 +44,6 @@ export  class IfcTrimmedCurve extends IfcBoundedCurve {
       const buffer    = this.buffer
       const endCursor = buffer.length
 
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
-
       const value : Array<IfcCartesianPoint | IfcParameterValue> = []
 
       let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
@@ -84,10 +79,6 @@ export  class IfcTrimmedCurve extends IfcBoundedCurve {
       let   cursor    = this.getOffsetCursor( 2 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcCartesianPoint | IfcParameterValue> = []
 

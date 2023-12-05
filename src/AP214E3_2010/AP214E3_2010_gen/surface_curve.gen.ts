@@ -4,6 +4,7 @@ import { pcurve } from "./index"
 import { surface } from "./index"
 import { preferred_surface_curve_representation, preferred_surface_curve_representationDeserializeStep } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -39,6 +40,10 @@ export  class surface_curve extends curve {
       let   cursor    = this.getOffsetCursor( 2 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<pcurve | surface> = []
 

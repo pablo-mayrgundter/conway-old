@@ -2,6 +2,7 @@
 import { mechanism } from "./index"
 import { interpolated_configuration_sequence } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -36,6 +37,10 @@ export  class kinematic_control extends StepEntityBase< EntityTypesIfc > {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<interpolated_configuration_sequence> = []
 

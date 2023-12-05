@@ -3,6 +3,7 @@ import { bounded_surface } from "./index"
 import { surface } from "./index"
 import { boundary_curve } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -38,6 +39,10 @@ export  class curve_bounded_surface extends bounded_surface {
       let   cursor    = this.getOffsetCursor( 2 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<boundary_curve> = []
 

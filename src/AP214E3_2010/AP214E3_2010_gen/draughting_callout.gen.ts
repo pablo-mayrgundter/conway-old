@@ -4,6 +4,7 @@ import { annotation_text_occurrence } from "./index"
 import { annotation_symbol_occurrence } from "./index"
 import { annotation_curve_occurrence } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -29,6 +30,10 @@ export  class draughting_callout extends geometric_representation_item {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<annotation_text_occurrence | annotation_symbol_occurrence | annotation_curve_occurrence> = []
 

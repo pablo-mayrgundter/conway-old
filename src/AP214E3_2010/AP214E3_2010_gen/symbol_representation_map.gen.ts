@@ -16,19 +16,19 @@ export  class symbol_representation_map extends representation_map {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.SYMBOL_REPRESENTATION_MAP
   }
-  private SELF\representation_map.mapped_representation_? : symbol_representation
-  private SELF\representation_map.mapping_origin_? : axis2_placement_2d | axis2_placement_3d
+  private mapped_representation_? : symbol_representation
+  private mapping_origin_? : axis2_placement_2d | axis2_placement_3d
 
-  public get SELF\representation_map.mapped_representation() : symbol_representation {
-    if ( this.SELF\representation_map.mapped_representation_ === void 0 ) {
-      this.SELF\representation_map.mapped_representation_ = this.extractElement( 2, false, symbol_representation )
+  public get mapped_representation() : symbol_representation {
+    if ( this.mapped_representation_ === void 0 ) {
+      this.mapped_representation_ = this.extractElement( 2, false, symbol_representation )
     }
 
-    return this.SELF\representation_map.mapped_representation_ as symbol_representation
+    return this.mapped_representation_ as symbol_representation
   }
 
-  public get SELF\representation_map.mapping_origin() : axis2_placement_2d | axis2_placement_3d {
-    if ( this.SELF\representation_map.mapping_origin_ === void 0 ) {
+  public get mapping_origin() : axis2_placement_2d | axis2_placement_3d {
+    if ( this.mapping_origin_ === void 0 ) {
       
       const value : StepEntityBase< EntityTypesIfc > =
         this.extractReference( 3, false )
@@ -37,11 +37,11 @@ export  class symbol_representation_map extends representation_map {
         throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
 
-      this.SELF\representation_map.mapping_origin_ = value as (axis2_placement_2d | axis2_placement_3d)
+      this.mapping_origin_ = value as (axis2_placement_2d | axis2_placement_3d)
 
     }
 
-    return this.SELF\representation_map.mapping_origin_ as axis2_placement_2d | axis2_placement_3d
+    return this.mapping_origin_ as axis2_placement_2d | axis2_placement_3d
   }
   constructor(
     localID: number,

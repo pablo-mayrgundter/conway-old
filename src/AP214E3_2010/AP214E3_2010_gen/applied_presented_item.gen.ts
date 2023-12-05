@@ -10,6 +10,7 @@ import { product_definition } from "./index"
 import { product_definition_formation } from "./index"
 import { product_definition_relationship } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -35,6 +36,10 @@ export  class applied_presented_item extends presented_item {
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<action | action_method | action_relationship | product_concept | product_concept_feature | product_concept_feature_category | product_definition | product_definition_formation | product_definition_relationship> = []
 

@@ -3,7 +3,6 @@ import { IfcQuantitySet } from "./index"
 import { IfcLabel } from "./index"
 import { IfcPhysicalQuantity } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -38,10 +37,6 @@ export  class IfcElementQuantity extends IfcQuantitySet {
       let   cursor    = this.getOffsetCursor( 5 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcPhysicalQuantity> = []
 

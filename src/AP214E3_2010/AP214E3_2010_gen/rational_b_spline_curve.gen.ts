@@ -1,6 +1,7 @@
 
 import { b_spline_curve } from "./index"
 import {
+  stepExtractOptional,
   stepExtractNumber,
   stepExtractArrayToken,
   stepExtractArrayBegin,
@@ -27,6 +28,10 @@ export  class rational_b_spline_curve extends b_spline_curve {
       let   cursor    = this.getOffsetCursor( 6 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<number> = []
 

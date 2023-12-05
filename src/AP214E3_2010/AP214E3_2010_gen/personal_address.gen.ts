@@ -3,6 +3,7 @@ import { address } from "./index"
 import { person } from "./index"
 import { text } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -29,6 +30,10 @@ export  class personal_address extends address {
       let   cursor    = this.getOffsetCursor( 12 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<person> = []
 

@@ -4,7 +4,6 @@ import { IfcCompositeCurveSegment } from "./index"
 import { IfcLogical } from "./index"
 import { IfcInteger } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -32,10 +31,6 @@ export  class IfcCompositeCurve extends IfcBoundedCurve {
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcCompositeCurveSegment> = []
 

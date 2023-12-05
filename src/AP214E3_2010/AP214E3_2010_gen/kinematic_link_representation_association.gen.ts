@@ -14,14 +14,14 @@ export  class kinematic_link_representation_association extends representation_r
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.KINEMATIC_LINK_REPRESENTATION_ASSOCIATION
   }
-  private SELF\representation_relationship.rep_1_? : kinematic_link_representation
+  private rep_1_? : kinematic_link_representation
 
-  public get SELF\representation_relationship.rep_1() : kinematic_link_representation {
-    if ( this.SELF\representation_relationship.rep_1_ === void 0 ) {
-      this.SELF\representation_relationship.rep_1_ = this.extractElement( 4, false, kinematic_link_representation )
+  public get rep_1() : kinematic_link_representation {
+    if ( this.rep_1_ === void 0 ) {
+      this.rep_1_ = this.extractElement( 4, false, kinematic_link_representation )
     }
 
-    return this.SELF\representation_relationship.rep_1_ as kinematic_link_representation
+    return this.rep_1_ as kinematic_link_representation
   }
   constructor(
     localID: number,

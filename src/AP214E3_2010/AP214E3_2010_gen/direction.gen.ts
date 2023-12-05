@@ -1,6 +1,7 @@
 
 import { geometric_representation_item } from "./index"
 import {
+  stepExtractOptional,
   stepExtractNumber,
   stepExtractArrayToken,
   stepExtractArrayBegin,
@@ -27,6 +28,10 @@ export  class direction extends geometric_representation_item {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<number> = []
 

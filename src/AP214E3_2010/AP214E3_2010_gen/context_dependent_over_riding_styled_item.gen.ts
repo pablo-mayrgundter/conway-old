@@ -7,6 +7,7 @@ import { representation } from "./index"
 import { representation_item } from "./index"
 import { shape_representation_relationship } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -32,6 +33,10 @@ export  class context_dependent_over_riding_styled_item extends over_riding_styl
       let   cursor    = this.getOffsetCursor( 4 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<group | presentation_layer_assignment | presentation_set | representation | representation_item | shape_representation_relationship> = []
 

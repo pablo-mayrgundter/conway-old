@@ -30,6 +30,7 @@ import { resource_property } from "./index"
 import { shape_representation } from "./index"
 import { versioned_action_request } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -55,6 +56,10 @@ export  class applied_security_classification_assignment extends security_classi
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<action | action_directive | action_property | applied_action_assignment | assembly_component_usage_substitute | class_system | configuration_design | configuration_effectivity | configured_effectivity_assignment | document_file | draughting_model | drawing_revision | executed_action | general_property | material_designation | mechanical_design_geometric_presentation_representation | organizational_project | presentation_area | product | product_concept | product_concept_feature | product_concept_feature_category | product_definition | product_definition_formation | product_definition_relationship | property_definition | resource_property | shape_representation | versioned_action_request> = []
 

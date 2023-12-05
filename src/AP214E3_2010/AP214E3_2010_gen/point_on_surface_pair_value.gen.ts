@@ -17,16 +17,16 @@ export  class point_on_surface_pair_value extends pair_value {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.POINT_ON_SURFACE_PAIR_VALUE
   }
-  private SELF\pair_value.applies_to_pair_? : point_on_surface_pair
+  private applies_to_pair_? : point_on_surface_pair
   private actual_point_on_surface_? : point_on_surface
   private input_orientation_? : ypr_rotation | rotation_about_direction
 
-  public get SELF\pair_value.applies_to_pair() : point_on_surface_pair {
-    if ( this.SELF\pair_value.applies_to_pair_ === void 0 ) {
-      this.SELF\pair_value.applies_to_pair_ = this.extractElement( 1, false, point_on_surface_pair )
+  public get applies_to_pair() : point_on_surface_pair {
+    if ( this.applies_to_pair_ === void 0 ) {
+      this.applies_to_pair_ = this.extractElement( 1, false, point_on_surface_pair )
     }
 
-    return this.SELF\pair_value.applies_to_pair_ as point_on_surface_pair
+    return this.applies_to_pair_ as point_on_surface_pair
   }
 
   public get actual_point_on_surface() : point_on_surface {

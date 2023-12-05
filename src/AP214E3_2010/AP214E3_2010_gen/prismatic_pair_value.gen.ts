@@ -15,15 +15,15 @@ export  class prismatic_pair_value extends pair_value {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.PRISMATIC_PAIR_VALUE
   }
-  private SELF\pair_value.applies_to_pair_? : prismatic_pair
+  private applies_to_pair_? : prismatic_pair
   private actual_translation_? : number
 
-  public get SELF\pair_value.applies_to_pair() : prismatic_pair {
-    if ( this.SELF\pair_value.applies_to_pair_ === void 0 ) {
-      this.SELF\pair_value.applies_to_pair_ = this.extractElement( 1, false, prismatic_pair )
+  public get applies_to_pair() : prismatic_pair {
+    if ( this.applies_to_pair_ === void 0 ) {
+      this.applies_to_pair_ = this.extractElement( 1, false, prismatic_pair )
     }
 
-    return this.SELF\pair_value.applies_to_pair_ as prismatic_pair
+    return this.applies_to_pair_ as prismatic_pair
   }
 
   public get actual_translation() : number {

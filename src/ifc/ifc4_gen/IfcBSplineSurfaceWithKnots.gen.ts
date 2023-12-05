@@ -4,7 +4,6 @@ import { IfcInteger } from "./index"
 import { IfcParameterValue } from "./index"
 import { IfcKnotType, IfcKnotTypeDeserializeStep } from "./index"
 import {
-  stepExtractOptional,
   stepExtractNumber,
   stepExtractArrayToken,
   stepExtractArrayBegin,
@@ -37,10 +36,6 @@ export  class IfcBSplineSurfaceWithKnots extends IfcBSplineSurface {
       const buffer    = this.buffer
       const endCursor = buffer.length
 
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
-
       const value : Array<number> = []
 
       let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
@@ -70,10 +65,6 @@ export  class IfcBSplineSurfaceWithKnots extends IfcBSplineSurface {
       let   cursor    = this.getOffsetCursor( 8 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<number> = []
 
@@ -105,10 +96,6 @@ export  class IfcBSplineSurfaceWithKnots extends IfcBSplineSurface {
       const buffer    = this.buffer
       const endCursor = buffer.length
 
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
-
       const value : Array<number> = []
 
       let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
@@ -138,10 +125,6 @@ export  class IfcBSplineSurfaceWithKnots extends IfcBSplineSurface {
       let   cursor    = this.getOffsetCursor( 10 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<number> = []
 

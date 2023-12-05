@@ -2,6 +2,7 @@
 import { mechanism } from "./index"
 import { pair_value } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -36,6 +37,10 @@ export  class initial_state extends StepEntityBase< EntityTypesIfc > {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<pair_value> = []
 

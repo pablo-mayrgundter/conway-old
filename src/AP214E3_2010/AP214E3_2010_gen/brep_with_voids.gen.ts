@@ -2,6 +2,7 @@
 import { manifold_solid_brep } from "./index"
 import { oriented_closed_shell } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -27,6 +28,10 @@ export  class brep_with_voids extends manifold_solid_brep {
       let   cursor    = this.getOffsetCursor( 2 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<oriented_closed_shell> = []
 

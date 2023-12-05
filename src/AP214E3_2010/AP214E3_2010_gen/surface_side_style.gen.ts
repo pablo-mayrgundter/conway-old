@@ -9,6 +9,7 @@ import { surface_style_control_grid } from "./index"
 import { surface_style_parameter_line } from "./index"
 import { surface_style_rendering } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -43,6 +44,10 @@ export  class surface_side_style extends founded_item {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<surface_style_fill_area | surface_style_boundary | surface_style_silhouette | surface_style_segmentation_curve | surface_style_control_grid | surface_style_parameter_line | surface_style_rendering> = []
 

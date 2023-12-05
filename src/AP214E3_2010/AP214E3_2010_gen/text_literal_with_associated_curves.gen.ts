@@ -2,6 +2,7 @@
 import { text_literal } from "./index"
 import { curve } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -27,6 +28,10 @@ export  class text_literal_with_associated_curves extends text_literal {
       let   cursor    = this.getOffsetCursor( 6 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<curve> = []
 

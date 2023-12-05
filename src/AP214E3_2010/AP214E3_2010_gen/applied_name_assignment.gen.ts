@@ -4,6 +4,7 @@ import { kinematic_joint } from "./index"
 import { kinematic_link } from "./index"
 import { kinematic_structure } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -29,6 +30,10 @@ export  class applied_name_assignment extends name_assignment {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<kinematic_joint | kinematic_link | kinematic_structure> = []
 

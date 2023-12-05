@@ -3,7 +3,6 @@ import { IfcBoundedSurface } from "./index"
 import { IfcPlane } from "./index"
 import { IfcCurve } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -47,10 +46,6 @@ export  class IfcCurveBoundedPlane extends IfcBoundedSurface {
       let   cursor    = this.getOffsetCursor( 2 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcCurve> = []
 

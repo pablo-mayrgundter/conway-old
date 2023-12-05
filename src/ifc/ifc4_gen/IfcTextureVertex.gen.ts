@@ -2,7 +2,6 @@
 import { IfcPresentationItem } from "./index"
 import { IfcParameterValue } from "./index"
 import {
-  stepExtractOptional,
   stepExtractNumber,
   stepExtractArrayToken,
   stepExtractArrayBegin,
@@ -29,10 +28,6 @@ export  class IfcTextureVertex extends IfcPresentationItem {
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<number> = []
 

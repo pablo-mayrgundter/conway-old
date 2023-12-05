@@ -5,6 +5,7 @@ import { process_plan } from "./index"
 import { product_definition } from "./index"
 import { product_process_plan } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -30,6 +31,10 @@ export  class configured_effectivity_assignment extends effectivity_assignment {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<action_relationship | process_plan | product_definition | product_process_plan> = []
 

@@ -4,7 +4,6 @@ import { IfcClosedShell } from "./index"
 import { IfcOpenShell } from "./index"
 import { IfcDimensionCount } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -30,10 +29,6 @@ export  class IfcShellBasedSurfaceModel extends IfcGeometricRepresentationItem {
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcClosedShell | IfcOpenShell> = []
 

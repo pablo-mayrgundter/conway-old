@@ -3,7 +3,6 @@ import { IfcRelDefines } from "./index"
 import { IfcPropertySetDefinition } from "./index"
 import { IfcPropertySetTemplate } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -30,10 +29,6 @@ export  class IfcRelDefinesByTemplate extends IfcRelDefines {
       let   cursor    = this.getOffsetCursor( 4 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcPropertySetDefinition> = []
 

@@ -9,9 +9,9 @@ import StepModelBase from '../../step/step_model_base'
 
 ///**
 // * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/class.htm */
-export  class class extends group {
+export  class class_ extends group {
   public get type(): EntityTypesIfc {
-    return EntityTypesIfc.CLASS
+    return EntityTypesIfc.CLASS_
   }
 
 
@@ -23,8 +23,8 @@ export  class class extends group {
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.CLASS ]
+    [ EntityTypesIfc.CLASS_ ]
 
   public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.CLASS
+    EntityTypesIfc.CLASS_
 }

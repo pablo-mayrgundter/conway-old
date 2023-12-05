@@ -15,15 +15,15 @@ export  class unconstrained_pair_value extends pair_value {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.UNCONSTRAINED_PAIR_VALUE
   }
-  private SELF\pair_value.applies_to_pair_? : unconstrained_pair
+  private applies_to_pair_? : unconstrained_pair
   private actual_placement_? : axis2_placement_3d
 
-  public get SELF\pair_value.applies_to_pair() : unconstrained_pair {
-    if ( this.SELF\pair_value.applies_to_pair_ === void 0 ) {
-      this.SELF\pair_value.applies_to_pair_ = this.extractElement( 1, false, unconstrained_pair )
+  public get applies_to_pair() : unconstrained_pair {
+    if ( this.applies_to_pair_ === void 0 ) {
+      this.applies_to_pair_ = this.extractElement( 1, false, unconstrained_pair )
     }
 
-    return this.SELF\pair_value.applies_to_pair_ as unconstrained_pair
+    return this.applies_to_pair_ as unconstrained_pair
   }
 
   public get actual_placement() : axis2_placement_3d {

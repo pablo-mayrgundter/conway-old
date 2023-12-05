@@ -5,7 +5,6 @@ import { IfcPoint } from "./index"
 import { IfcSurface } from "./index"
 import { IfcDimensionCount } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -31,10 +30,6 @@ export  class IfcGeometricSet extends IfcGeometricRepresentationItem {
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcCurve | IfcPoint | IfcSurface> = []
 

@@ -5,6 +5,7 @@ import { representation_context } from "./index"
 import { identifier } from "./index"
 import { text } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -40,6 +41,10 @@ export  class representation extends StepEntityBase< EntityTypesIfc > {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<representation_item> = []
 

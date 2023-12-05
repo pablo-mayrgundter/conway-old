@@ -16,18 +16,18 @@ export  class universal_pair_range extends simple_pair_range {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.UNIVERSAL_PAIR_RANGE
   }
-  private SELF\simple_pair_range.applies_to_pair_? : universal_pair
+  private applies_to_pair_? : universal_pair
   private lower_limit_first_rotation_? : plane_angle_measure | unlimited_range
   private upper_limit_first_rotation_? : plane_angle_measure | unlimited_range
   private lower_limit_second_rotation_? : plane_angle_measure | unlimited_range
   private upper_limit_second_rotation_? : plane_angle_measure | unlimited_range
 
-  public get SELF\simple_pair_range.applies_to_pair() : universal_pair {
-    if ( this.SELF\simple_pair_range.applies_to_pair_ === void 0 ) {
-      this.SELF\simple_pair_range.applies_to_pair_ = this.extractElement( 1, false, universal_pair )
+  public get applies_to_pair() : universal_pair {
+    if ( this.applies_to_pair_ === void 0 ) {
+      this.applies_to_pair_ = this.extractElement( 1, false, universal_pair )
     }
 
-    return this.SELF\simple_pair_range.applies_to_pair_ as universal_pair
+    return this.applies_to_pair_ as universal_pair
   }
 
   public get lower_limit_first_rotation() : plane_angle_measure | unlimited_range {

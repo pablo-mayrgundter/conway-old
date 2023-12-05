@@ -11,6 +11,7 @@ import { approximation_tolerance } from "./index"
 import { externally_defined_style } from "./index"
 import { null_style, null_styleDeserializeStep } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -36,6 +37,10 @@ export  class presentation_style_assignment extends founded_item {
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<pre_defined_presentation_style | point_style | curve_style | surface_style_usage | symbol_style | fill_area_style | text_style | approximation_tolerance | externally_defined_style | null_style> = []
 

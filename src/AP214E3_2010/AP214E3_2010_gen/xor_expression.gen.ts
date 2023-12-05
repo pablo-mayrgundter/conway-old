@@ -2,6 +2,7 @@
 import { binary_boolean_expression } from "./index"
 import { boolean_expression } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -19,14 +20,18 @@ export  class xor_expression extends binary_boolean_expression {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.XOR_EXPRESSION
   }
-  private SELF\binary_generic_expression.operands_? : Array<boolean_expression>
+  private operands_? : Array<boolean_expression>
 
-  public get SELF\binary_generic_expression.operands() : Array<boolean_expression> {
-    if ( this.SELF\binary_generic_expression.operands_ === void 0 ) {
+  public get operands() : Array<boolean_expression> {
+    if ( this.operands_ === void 0 ) {
       
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<boolean_expression> = []
 
@@ -44,10 +49,10 @@ export  class xor_expression extends binary_boolean_expression {
         cursor = Math.abs( signedCursor0 )
       }
 
-      this.SELF\binary_generic_expression.operands_ = value
+      this.operands_ = value
     }
 
-    return this.SELF\binary_generic_expression.operands_ as Array<boolean_expression>
+    return this.operands_ as Array<boolean_expression>
   }
   constructor(
     localID: number,

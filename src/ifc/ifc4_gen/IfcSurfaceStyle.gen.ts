@@ -7,7 +7,6 @@ import { IfcSurfaceStyleRefraction } from "./index"
 import { IfcSurfaceStyleShading } from "./index"
 import { IfcSurfaceStyleWithTextures } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -42,10 +41,6 @@ export  class IfcSurfaceStyle extends IfcPresentationStyle {
       let   cursor    = this.getOffsetCursor( 2 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcExternallyDefinedSurfaceStyle | IfcSurfaceStyleLighting | IfcSurfaceStyleRefraction | IfcSurfaceStyleShading | IfcSurfaceStyleWithTextures> = []
 

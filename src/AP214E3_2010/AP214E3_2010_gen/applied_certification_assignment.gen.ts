@@ -5,6 +5,7 @@ import { product_definition_formation } from "./index"
 import { product_definition_formation_relationship } from "./index"
 import { product_definition_relationship } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -30,6 +31,10 @@ export  class applied_certification_assignment extends certification_assignment 
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<product_definition | product_definition_formation | product_definition_formation_relationship | product_definition_relationship> = []
 

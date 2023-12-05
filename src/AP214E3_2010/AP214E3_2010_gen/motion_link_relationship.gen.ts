@@ -16,24 +16,24 @@ export  class motion_link_relationship extends representation_relationship {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.MOTION_LINK_RELATIONSHIP
   }
-  private SELF\representation_relationship.rep_1_? : founded_kinematic_path
-  private SELF\representation_relationship.rep_2_? : kinematic_link_representation
+  private rep_1_? : founded_kinematic_path
+  private rep_2_? : kinematic_link_representation
   private related_frame_? : axis2_placement_3d
 
-  public get SELF\representation_relationship.rep_1() : founded_kinematic_path {
-    if ( this.SELF\representation_relationship.rep_1_ === void 0 ) {
-      this.SELF\representation_relationship.rep_1_ = this.extractElement( 4, false, founded_kinematic_path )
+  public get rep_1() : founded_kinematic_path {
+    if ( this.rep_1_ === void 0 ) {
+      this.rep_1_ = this.extractElement( 4, false, founded_kinematic_path )
     }
 
-    return this.SELF\representation_relationship.rep_1_ as founded_kinematic_path
+    return this.rep_1_ as founded_kinematic_path
   }
 
-  public get SELF\representation_relationship.rep_2() : kinematic_link_representation {
-    if ( this.SELF\representation_relationship.rep_2_ === void 0 ) {
-      this.SELF\representation_relationship.rep_2_ = this.extractElement( 5, false, kinematic_link_representation )
+  public get rep_2() : kinematic_link_representation {
+    if ( this.rep_2_ === void 0 ) {
+      this.rep_2_ = this.extractElement( 5, false, kinematic_link_representation )
     }
 
-    return this.SELF\representation_relationship.rep_2_ as kinematic_link_representation
+    return this.rep_2_ as kinematic_link_representation
   }
 
   public get related_frame() : axis2_placement_3d {

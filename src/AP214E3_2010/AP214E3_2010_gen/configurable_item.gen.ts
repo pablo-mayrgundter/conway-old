@@ -2,6 +2,7 @@
 import { configuration_item } from "./index"
 import { product_concept_feature_association } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -27,6 +28,10 @@ export  class configurable_item extends configuration_item {
       let   cursor    = this.getOffsetCursor( 5 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<product_concept_feature_association> = []
 

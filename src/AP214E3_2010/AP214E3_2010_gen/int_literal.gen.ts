@@ -13,14 +13,14 @@ export  class int_literal extends literal_number {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.INT_LITERAL
   }
-  private SELF\literal_number.the_value_? : number
+  private the_value_? : number
 
-  public get SELF\literal_number.the_value() : number {
-    if ( this.SELF\literal_number.the_value_ === void 0 ) {
-      this.SELF\literal_number.the_value_ = this.extractNumber( 1, false )
+  public get the_value() : number {
+    if ( this.the_value_ === void 0 ) {
+      this.the_value_ = this.extractNumber( 1, false )
     }
 
-    return this.SELF\literal_number.the_value_ as number
+    return this.the_value_ as number
   }
   constructor(
     localID: number,

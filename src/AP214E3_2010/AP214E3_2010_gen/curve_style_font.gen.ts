@@ -3,6 +3,7 @@ import { founded_item } from "./index"
 import { label } from "./index"
 import { curve_style_font_pattern } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -37,6 +38,10 @@ export  class curve_style_font extends founded_item {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<curve_style_font_pattern> = []
 

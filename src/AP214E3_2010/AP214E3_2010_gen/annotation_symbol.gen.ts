@@ -15,23 +15,23 @@ export  class annotation_symbol extends mapped_item {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.ANNOTATION_SYMBOL
   }
-  private SELF\mapped_item.mapping_source_? : symbol_representation_map
-  private SELF\mapped_item.mapping_target_? : symbol_target
+  private mapping_source_? : symbol_representation_map
+  private mapping_target_? : symbol_target
 
-  public get SELF\mapped_item.mapping_source() : symbol_representation_map {
-    if ( this.SELF\mapped_item.mapping_source_ === void 0 ) {
-      this.SELF\mapped_item.mapping_source_ = this.extractElement( 3, false, symbol_representation_map )
+  public get mapping_source() : symbol_representation_map {
+    if ( this.mapping_source_ === void 0 ) {
+      this.mapping_source_ = this.extractElement( 3, false, symbol_representation_map )
     }
 
-    return this.SELF\mapped_item.mapping_source_ as symbol_representation_map
+    return this.mapping_source_ as symbol_representation_map
   }
 
-  public get SELF\mapped_item.mapping_target() : symbol_target {
-    if ( this.SELF\mapped_item.mapping_target_ === void 0 ) {
-      this.SELF\mapped_item.mapping_target_ = this.extractElement( 4, false, symbol_target )
+  public get mapping_target() : symbol_target {
+    if ( this.mapping_target_ === void 0 ) {
+      this.mapping_target_ = this.extractElement( 4, false, symbol_target )
     }
 
-    return this.SELF\mapped_item.mapping_target_ as symbol_target
+    return this.mapping_target_ as symbol_target
   }
   constructor(
     localID: number,

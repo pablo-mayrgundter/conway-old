@@ -14,14 +14,14 @@ export  class kinematic_frame_background_representation_association extends repr
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.KINEMATIC_FRAME_BACKGROUND_REPRESENTATION_ASSOCIATION
   }
-  private SELF\representation_relationship_with_transformation.transformation_operator_? : kinematic_frame_based_transformation
+  private transformation_operator_? : kinematic_frame_based_transformation
 
-  public get SELF\representation_relationship_with_transformation.transformation_operator() : kinematic_frame_based_transformation {
-    if ( this.SELF\representation_relationship_with_transformation.transformation_operator_ === void 0 ) {
-      this.SELF\representation_relationship_with_transformation.transformation_operator_ = this.extractElement( 5, false, kinematic_frame_based_transformation )
+  public get transformation_operator() : kinematic_frame_based_transformation {
+    if ( this.transformation_operator_ === void 0 ) {
+      this.transformation_operator_ = this.extractElement( 5, false, kinematic_frame_based_transformation )
     }
 
-    return this.SELF\representation_relationship_with_transformation.transformation_operator_ as kinematic_frame_based_transformation
+    return this.transformation_operator_ as kinematic_frame_based_transformation
   }
   constructor(
     localID: number,

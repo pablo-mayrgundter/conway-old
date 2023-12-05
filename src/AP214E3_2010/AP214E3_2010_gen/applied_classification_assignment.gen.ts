@@ -6,7 +6,7 @@ import { action_method } from "./index"
 import { action_property } from "./index"
 import { action_relationship } from "./index"
 import { approval_status } from "./index"
-import { class } from "./index"
+import { class_ } from "./index"
 import { configuration_item } from "./index"
 import { contract } from "./index"
 import { descriptive_representation_item } from "./index"
@@ -34,6 +34,7 @@ import { security_classification_level } from "./index"
 import { shape_aspect } from "./index"
 import { versioned_action_request } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -51,16 +52,20 @@ export  class applied_classification_assignment extends classification_assignmen
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.APPLIED_CLASSIFICATION_ASSIGNMENT
   }
-  private items_? : Array<action | action_directive | action_method | action_property | action_relationship | approval_status | class | configuration_item | contract | descriptive_representation_item | document_file | document_type | effectivity | executed_action | feature_definition | general_feature | general_property | material_designation | organizational_project | plus_minus_tolerance | process_operation | product | product_concept | product_concept_feature | product_concept_feature_category | product_definition | product_definition_formation | product_definition_relationship | property_definition | resource_property | security_classification_level | shape_aspect | versioned_action_request>
+  private items_? : Array<action | action_directive | action_method | action_property | action_relationship | approval_status | class_ | configuration_item | contract | descriptive_representation_item | document_file | document_type | effectivity | executed_action | feature_definition | general_feature | general_property | material_designation | organizational_project | plus_minus_tolerance | process_operation | product | product_concept | product_concept_feature | product_concept_feature_category | product_definition | product_definition_formation | product_definition_relationship | property_definition | resource_property | security_classification_level | shape_aspect | versioned_action_request>
 
-  public get items() : Array<action | action_directive | action_method | action_property | action_relationship | approval_status | class | configuration_item | contract | descriptive_representation_item | document_file | document_type | effectivity | executed_action | feature_definition | general_feature | general_property | material_designation | organizational_project | plus_minus_tolerance | process_operation | product | product_concept | product_concept_feature | product_concept_feature_category | product_definition | product_definition_formation | product_definition_relationship | property_definition | resource_property | security_classification_level | shape_aspect | versioned_action_request> {
+  public get items() : Array<action | action_directive | action_method | action_property | action_relationship | approval_status | class_ | configuration_item | contract | descriptive_representation_item | document_file | document_type | effectivity | executed_action | feature_definition | general_feature | general_property | material_designation | organizational_project | plus_minus_tolerance | process_operation | product | product_concept | product_concept_feature | product_concept_feature_category | product_definition | product_definition_formation | product_definition_relationship | property_definition | resource_property | security_classification_level | shape_aspect | versioned_action_request> {
     if ( this.items_ === void 0 ) {
       
       let   cursor    = this.getOffsetCursor( 2 )
       const buffer    = this.buffer
       const endCursor = buffer.length
 
-      const value : Array<action | action_directive | action_method | action_property | action_relationship | approval_status | class | configuration_item | contract | descriptive_representation_item | document_file | document_type | effectivity | executed_action | feature_definition | general_feature | general_property | material_designation | organizational_project | plus_minus_tolerance | process_operation | product | product_concept | product_concept_feature | product_concept_feature_category | product_definition | product_definition_formation | product_definition_relationship | property_definition | resource_property | security_classification_level | shape_aspect | versioned_action_request> = []
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
+
+      const value : Array<action | action_directive | action_method | action_property | action_relationship | approval_status | class_ | configuration_item | contract | descriptive_representation_item | document_file | document_type | effectivity | executed_action | feature_definition | general_feature | general_property | material_designation | organizational_project | plus_minus_tolerance | process_operation | product | product_concept | product_concept_feature | product_concept_feature_category | product_definition | product_definition_formation | product_definition_relationship | property_definition | resource_property | security_classification_level | shape_aspect | versioned_action_request> = []
 
       let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
       cursor = Math.abs( signedCursor0 )
@@ -69,11 +74,11 @@ export  class applied_classification_assignment extends classification_assignmen
         const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
           this.extractBufferReference( buffer, cursor, endCursor )
 
-        if ( !( value1Untyped instanceof action ) && !( value1Untyped instanceof action_directive ) && !( value1Untyped instanceof action_method ) && !( value1Untyped instanceof action_property ) && !( value1Untyped instanceof action_relationship ) && !( value1Untyped instanceof approval_status ) && !( value1Untyped instanceof class ) && !( value1Untyped instanceof configuration_item ) && !( value1Untyped instanceof contract ) && !( value1Untyped instanceof descriptive_representation_item ) && !( value1Untyped instanceof document_file ) && !( value1Untyped instanceof document_type ) && !( value1Untyped instanceof effectivity ) && !( value1Untyped instanceof executed_action ) && !( value1Untyped instanceof feature_definition ) && !( value1Untyped instanceof general_feature ) && !( value1Untyped instanceof general_property ) && !( value1Untyped instanceof material_designation ) && !( value1Untyped instanceof organizational_project ) && !( value1Untyped instanceof plus_minus_tolerance ) && !( value1Untyped instanceof process_operation ) && !( value1Untyped instanceof product ) && !( value1Untyped instanceof product_concept ) && !( value1Untyped instanceof product_concept_feature ) && !( value1Untyped instanceof product_concept_feature_category ) && !( value1Untyped instanceof product_definition ) && !( value1Untyped instanceof product_definition_formation ) && !( value1Untyped instanceof product_definition_relationship ) && !( value1Untyped instanceof property_definition ) && !( value1Untyped instanceof resource_property ) && !( value1Untyped instanceof security_classification_level ) && !( value1Untyped instanceof shape_aspect ) && !( value1Untyped instanceof versioned_action_request ) ) {
+        if ( !( value1Untyped instanceof action ) && !( value1Untyped instanceof action_directive ) && !( value1Untyped instanceof action_method ) && !( value1Untyped instanceof action_property ) && !( value1Untyped instanceof action_relationship ) && !( value1Untyped instanceof approval_status ) && !( value1Untyped instanceof class_ ) && !( value1Untyped instanceof configuration_item ) && !( value1Untyped instanceof contract ) && !( value1Untyped instanceof descriptive_representation_item ) && !( value1Untyped instanceof document_file ) && !( value1Untyped instanceof document_type ) && !( value1Untyped instanceof effectivity ) && !( value1Untyped instanceof executed_action ) && !( value1Untyped instanceof feature_definition ) && !( value1Untyped instanceof general_feature ) && !( value1Untyped instanceof general_property ) && !( value1Untyped instanceof material_designation ) && !( value1Untyped instanceof organizational_project ) && !( value1Untyped instanceof plus_minus_tolerance ) && !( value1Untyped instanceof process_operation ) && !( value1Untyped instanceof product ) && !( value1Untyped instanceof product_concept ) && !( value1Untyped instanceof product_concept_feature ) && !( value1Untyped instanceof product_concept_feature_category ) && !( value1Untyped instanceof product_definition ) && !( value1Untyped instanceof product_definition_formation ) && !( value1Untyped instanceof product_definition_relationship ) && !( value1Untyped instanceof property_definition ) && !( value1Untyped instanceof resource_property ) && !( value1Untyped instanceof security_classification_level ) && !( value1Untyped instanceof shape_aspect ) && !( value1Untyped instanceof versioned_action_request ) ) {
           throw new Error( 'Value in select must be populated' )
         }
 
-        const value1 = value1Untyped as (action | action_directive | action_method | action_property | action_relationship | approval_status | class | configuration_item | contract | descriptive_representation_item | document_file | document_type | effectivity | executed_action | feature_definition | general_feature | general_property | material_designation | organizational_project | plus_minus_tolerance | process_operation | product | product_concept | product_concept_feature | product_concept_feature_category | product_definition | product_definition_formation | product_definition_relationship | property_definition | resource_property | security_classification_level | shape_aspect | versioned_action_request)
+        const value1 = value1Untyped as (action | action_directive | action_method | action_property | action_relationship | approval_status | class_ | configuration_item | contract | descriptive_representation_item | document_file | document_type | effectivity | executed_action | feature_definition | general_feature | general_property | material_designation | organizational_project | plus_minus_tolerance | process_operation | product | product_concept | product_concept_feature | product_concept_feature_category | product_definition | product_definition_formation | product_definition_relationship | property_definition | resource_property | security_classification_level | shape_aspect | versioned_action_request)
         if ( value1 === void 0 ) {
           throw new Error( 'Value in STEP was incorrectly typed' )
         }
@@ -86,7 +91,7 @@ export  class applied_classification_assignment extends classification_assignmen
       this.items_ = value
     }
 
-    return this.items_ as Array<action | action_directive | action_method | action_property | action_relationship | approval_status | class | configuration_item | contract | descriptive_representation_item | document_file | document_type | effectivity | executed_action | feature_definition | general_feature | general_property | material_designation | organizational_project | plus_minus_tolerance | process_operation | product | product_concept | product_concept_feature | product_concept_feature_category | product_definition | product_definition_formation | product_definition_relationship | property_definition | resource_property | security_classification_level | shape_aspect | versioned_action_request>
+    return this.items_ as Array<action | action_directive | action_method | action_property | action_relationship | approval_status | class_ | configuration_item | contract | descriptive_representation_item | document_file | document_type | effectivity | executed_action | feature_definition | general_feature | general_property | material_designation | organizational_project | plus_minus_tolerance | process_operation | product | product_concept | product_concept_feature | product_concept_feature_category | product_definition | product_definition_formation | product_definition_relationship | property_definition | resource_property | security_classification_level | shape_aspect | versioned_action_request>
   }
   constructor(
     localID: number,

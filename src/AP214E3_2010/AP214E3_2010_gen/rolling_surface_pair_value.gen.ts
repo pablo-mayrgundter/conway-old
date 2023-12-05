@@ -16,16 +16,16 @@ export  class rolling_surface_pair_value extends pair_value {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.ROLLING_SURFACE_PAIR_VALUE
   }
-  private SELF\pair_value.applies_to_pair_? : rolling_surface_pair
+  private applies_to_pair_? : rolling_surface_pair
   private actual_point_on_surface_? : point_on_surface
   private actual_rotation_? : number
 
-  public get SELF\pair_value.applies_to_pair() : rolling_surface_pair {
-    if ( this.SELF\pair_value.applies_to_pair_ === void 0 ) {
-      this.SELF\pair_value.applies_to_pair_ = this.extractElement( 1, false, rolling_surface_pair )
+  public get applies_to_pair() : rolling_surface_pair {
+    if ( this.applies_to_pair_ === void 0 ) {
+      this.applies_to_pair_ = this.extractElement( 1, false, rolling_surface_pair )
     }
 
-    return this.SELF\pair_value.applies_to_pair_ as rolling_surface_pair
+    return this.applies_to_pair_ as rolling_surface_pair
   }
 
   public get actual_point_on_surface() : point_on_surface {

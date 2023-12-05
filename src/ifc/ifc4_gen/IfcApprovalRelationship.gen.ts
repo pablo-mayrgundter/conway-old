@@ -2,7 +2,6 @@
 import { IfcResourceLevelRelationship } from "./index"
 import { IfcApproval } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -37,10 +36,6 @@ export  class IfcApprovalRelationship extends IfcResourceLevelRelationship {
       let   cursor    = this.getOffsetCursor( 3 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcApproval> = []
 

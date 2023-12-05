@@ -241,7 +241,7 @@ import { character_glyph_symbol } from './index'
 import { generic_character_glyph_symbol } from './index'
 import { characterized_class } from './index'
 import { characterized_object } from './index'
-import { class } from './index'
+import { class_ } from './index'
 import { circle } from './index'
 import { conic } from './index'
 import { circular_closed_profile } from './index'
@@ -1233,7 +1233,7 @@ let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< Enti
   void 0,
   characterized_class,
   characterized_object,
-  class,
+  class_,
   circle,
   conic,
   circular_closed_profile,
@@ -2202,7 +2202,7 @@ let queries : EntityTypesIfc[][] = [
   generic_character_glyph_symbol.query,
   characterized_class.query,
   characterized_object.query,
-  class.query,
+  class_.query,
   circle.query,
   conic.query,
   circular_closed_profile.query,
@@ -3833,7 +3833,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\multiple_arity_generic_expression.operands: {
+      operands: {
         kind: f.STEP_REFERENCE,
         rank: 1,
         optional: false,
@@ -3950,7 +3950,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\styled_item.item: {
+      item: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -4037,7 +4037,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
         offset: 3,
         type: e.POINT,
       },
-      SELF\styled_item.item: {
+      item: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -4051,7 +4051,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\styled_item.item: {
+      item: {
         kind: f.SELECT,
         optional: false,
         derived: false,
@@ -4096,7 +4096,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\styled_item.item: {
+      item: {
         kind: f.SELECT,
         optional: false,
         derived: false,
@@ -4205,7 +4205,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
           },
         ],
       },
-      SELF\styled_item.item: {
+      item: {
         kind: f.SELECT,
         optional: false,
         derived: false,
@@ -4239,14 +4239,14 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\mapped_item.mapping_source: {
+      mapping_source: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
         offset: 3,
         type: e.SYMBOL_REPRESENTATION_MAP,
       },
-      SELF\mapped_item.mapping_target: {
+      mapping_target: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -4281,7 +4281,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\mapped_item.mapping_target: {
+      mapping_target: {
         kind: f.SELECT,
         optional: false,
         derived: false,
@@ -4314,7 +4314,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
         derived: false,
         offset: 3,
       },
-      SELF\mapped_item.mapping_target: {
+      mapping_target: {
         kind: f.SELECT,
         optional: false,
         derived: false,
@@ -4618,7 +4618,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
             kind: f.STEP_REFERENCE,
             optional: false,
             derived: false,
-            type: e.CLASS,
+            type: e.CLASS_,
           },
           {
             kind: f.STEP_REFERENCE,
@@ -5118,7 +5118,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
             kind: f.STEP_REFERENCE,
             optional: false,
             derived: false,
-            type: e.CLASS,
+            type: e.CLASS_,
           },
           {
             kind: f.STEP_REFERENCE,
@@ -5465,7 +5465,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
             kind: f.STEP_REFERENCE,
             optional: false,
             derived: false,
-            type: e.CLASS,
+            type: e.CLASS_,
           },
           {
             kind: f.STEP_REFERENCE,
@@ -5806,7 +5806,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
             kind: f.STEP_REFERENCE,
             optional: false,
             derived: false,
-            type: e.CLASS,
+            type: e.CLASS_,
           },
           {
             kind: f.STEP_REFERENCE,
@@ -6154,7 +6154,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
             kind: f.STEP_REFERENCE,
             optional: false,
             derived: false,
-            type: e.CLASS,
+            type: e.CLASS_,
           },
           {
             kind: f.STEP_REFERENCE,
@@ -6448,7 +6448,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
             kind: f.STEP_REFERENCE,
             optional: false,
             derived: false,
-            type: e.CLASS,
+            type: e.CLASS_,
           },
           {
             kind: f.STEP_REFERENCE,
@@ -6735,7 +6735,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
             kind: f.STEP_REFERENCE,
             optional: false,
             derived: false,
-            type: e.CLASS,
+            type: e.CLASS_,
           },
           {
             kind: f.STEP_REFERENCE,
@@ -7017,7 +7017,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
             kind: f.STEP_REFERENCE,
             optional: false,
             derived: false,
-            type: e.CLASS,
+            type: e.CLASS_,
           },
           {
             kind: f.STEP_REFERENCE,
@@ -7304,7 +7304,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
             kind: f.STEP_REFERENCE,
             optional: false,
             derived: false,
-            type: e.CLASS,
+            type: e.CLASS_,
           },
           {
             kind: f.STEP_REFERENCE,
@@ -7717,7 +7717,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
             kind: f.STEP_REFERENCE,
             optional: false,
             derived: false,
-            type: e.CLASS,
+            type: e.CLASS_,
           },
           {
             kind: f.STEP_REFERENCE,
@@ -7956,7 +7956,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
             kind: f.STEP_REFERENCE,
             optional: false,
             derived: false,
-            type: e.CLASS,
+            type: e.CLASS_,
           },
           {
             kind: f.STEP_REFERENCE,
@@ -8294,7 +8294,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
             kind: f.STEP_REFERENCE,
             optional: false,
             derived: false,
-            type: e.CLASS,
+            type: e.CLASS_,
           },
           {
             kind: f.STEP_REFERENCE,
@@ -8732,7 +8732,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
             kind: f.STEP_REFERENCE,
             optional: false,
             derived: false,
-            type: e.CLASS,
+            type: e.CLASS_,
           },
           {
             kind: f.STEP_REFERENCE,
@@ -9365,7 +9365,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
             kind: f.STEP_REFERENCE,
             optional: false,
             derived: false,
-            type: e.CLASS,
+            type: e.CLASS_,
           },
           {
             kind: f.STEP_REFERENCE,
@@ -11029,7 +11029,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\binary_generic_expression.operands: {
+      operands: {
         kind: f.STEP_REFERENCE,
         rank: 1,
         optional: false,
@@ -11082,7 +11082,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\binary_generic_expression.operands: {
+      operands: {
         kind: f.STEP_REFERENCE,
         rank: 1,
         optional: false,
@@ -11250,7 +11250,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\binary_generic_expression.operands: {
+      operands: {
         kind: f.STEP_REFERENCE,
         rank: 1,
         optional: false,
@@ -11985,14 +11985,14 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\mapped_item.mapping_source: {
+      mapping_source: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
         offset: 3,
         type: e.CAMERA_USAGE,
       },
-      SELF\mapped_item.mapping_target: {
+      mapping_target: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -12095,7 +12095,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\representation_map.mapping_origin: {
+      mapping_origin: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -12391,7 +12391,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   {
     fields: {
     },
-    typeId: e.CLASS,
+    typeId: e.CLASS_,
     isAbstract: false,
     superType: e.GROUP,
   },
@@ -12920,7 +12920,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\multiple_arity_generic_expression.operands: {
+      operands: {
         kind: f.STEP_REFERENCE,
         rank: 1,
         optional: false,
@@ -14201,7 +14201,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\simple_pair_range.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -14308,7 +14308,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\pair_value.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -15686,21 +15686,21 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\item_identified_representation_usage.definition: {
+      definition: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
         offset: 5,
         type: e.SHAPE_ASPECT,
       },
-      SELF\item_identified_representation_usage.used_representation: {
+      used_representation: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
         offset: 6,
         type: e.DRAUGHTING_MODEL,
       },
-      SELF\item_identified_representation_usage.identified_item: {
+      identified_item: {
         kind: f.SELECT,
         optional: false,
         derived: false,
@@ -16578,7 +16578,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
     },
     typeId: e.EXTERNALLY_DEFINED_CLASS,
     isAbstract: false,
-    superType: e.CLASS,
+    superType: e.CLASS_,
   },
   {
     fields: {
@@ -17138,7 +17138,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\representation.items: {
+      items: {
         kind: f.STEP_REFERENCE,
         rank: 1,
         optional: false,
@@ -17146,7 +17146,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
         offset: 3,
         type: e.KINEMATIC_PATH,
       },
-      SELF\representation.context_of_items: {
+      context_of_items: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -17217,7 +17217,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\simple_pair_range.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -17271,7 +17271,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\pair_value.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -17473,21 +17473,21 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\item_identified_representation_usage.definition: {
+      definition: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
         offset: 5,
         type: e.SHAPE_ASPECT,
       },
-      SELF\item_identified_representation_usage.used_representation: {
+      used_representation: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
         offset: 6,
         type: e.SHAPE_REPRESENTATION,
       },
-      SELF\item_identified_representation_usage.identified_item: {
+      identified_item: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -18113,7 +18113,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\literal_number.the_value: {
+      the_value: {
         kind: f.NUMBER,
         optional: false,
         derived: false,
@@ -18168,7 +18168,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\unary_generic_expression.operand: {
+      operand: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -18338,7 +18338,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\representation.items: {
+      items: {
         kind: f.SELECT,
         rank: 1,
         optional: false,
@@ -18365,7 +18365,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
           },
         ],
       },
-      SELF\representation.context_of_items: {
+      context_of_items: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -18379,7 +18379,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\representation_relationship_with_transformation.transformation_operator: {
+      transformation_operator: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -18488,7 +18488,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\representation.context_of_items: {
+      context_of_items: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -18515,7 +18515,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\representation_relationship.rep_1: {
+      rep_1: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -18832,7 +18832,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\unary_generic_expression.operand: {
+      operand: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -19016,7 +19016,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\literal_number.the_value: {
+      the_value: {
         kind: f.NUMBER,
         optional: false,
         derived: false,
@@ -19472,7 +19472,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
         offset: 5,
         type: e.MECHANISM,
       },
-      SELF\representation_relationship_with_transformation.transformation_operator: {
+      transformation_operator: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -19534,14 +19534,14 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\representation_relationship.rep_1: {
+      rep_1: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
         offset: 4,
         type: e.FOUNDED_KINEMATIC_PATH,
       },
-      SELF\representation_relationship.rep_2: {
+      rep_2: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -19588,7 +19588,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\multiple_arity_generic_expression.operands: {
+      operands: {
         kind: f.STEP_REFERENCE,
         rank: 1,
         optional: false,
@@ -20192,7 +20192,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\unary_generic_expression.operand: {
+      operand: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -20213,7 +20213,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\unary_generic_expression.operand: {
+      operand: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -20255,7 +20255,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\unary_generic_expression.operand: {
+      operand: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -20917,7 +20917,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\simple_pair_range.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -20952,7 +20952,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\simple_pair_range.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -21086,7 +21086,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\pair_value.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -21279,7 +21279,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\simple_pair_range.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -21420,7 +21420,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\pair_value.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -21480,7 +21480,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\simple_pair_range.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -21621,7 +21621,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\pair_value.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -21815,7 +21815,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\representation.context_of_items: {
+      context_of_items: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -22085,7 +22085,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\simple_pair_range.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -22139,7 +22139,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\pair_value.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -23012,7 +23012,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\simple_pair_range.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -23066,7 +23066,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\pair_value.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -23493,7 +23493,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\simple_pair_range.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -23547,7 +23547,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\pair_value.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -23720,7 +23720,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\pair_value.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -23775,7 +23775,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\pair_value.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -23936,7 +23936,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\simple_pair_range.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -23990,7 +23990,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\pair_value.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -24174,7 +24174,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\pair_value.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -24209,7 +24209,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\pair_value.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -24330,7 +24330,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\simple_pair_range.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -24464,7 +24464,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\pair_value.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -24656,7 +24656,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\simple_pair_range.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -25185,14 +25185,14 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\representation_map.mapped_representation: {
+      mapped_representation: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
         offset: 2,
         type: e.SYMBOL_REPRESENTATION,
       },
-      SELF\representation_map.mapping_origin: {
+      mapping_origin: {
         kind: f.SELECT,
         optional: false,
         derived: false,
@@ -25378,7 +25378,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\representation.items: {
+      items: {
         kind: f.SELECT,
         rank: 1,
         optional: false,
@@ -25858,7 +25858,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\pair_value.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -25879,7 +25879,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\simple_pair_range.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,
@@ -25973,7 +25973,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
   {
     fields: {
-      SELF\pair_value.applies_to_pair: {
+      applies_to_pair: {
         kind: f.STEP_REFERENCE,
         optional: false,
         derived: false,

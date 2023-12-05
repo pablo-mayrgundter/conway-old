@@ -4,6 +4,7 @@ import { presentation_layer_assignment } from "./index"
 import { representation } from "./index"
 import { styled_item } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -29,6 +30,10 @@ export  class invisibility extends StepEntityBase< EntityTypesIfc > {
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<draughting_callout | presentation_layer_assignment | representation | styled_item> = []
 

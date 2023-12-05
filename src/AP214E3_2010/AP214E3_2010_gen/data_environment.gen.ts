@@ -3,6 +3,7 @@ import { label } from "./index"
 import { text } from "./index"
 import { property_definition_representation } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -46,6 +47,10 @@ export  class data_environment extends StepEntityBase< EntityTypesIfc > {
       let   cursor    = this.getOffsetCursor( 2 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<property_definition_representation> = []
 

@@ -4,6 +4,7 @@ import { two_direction_repeat_factor } from "./index"
 import { fill_area_style_tile_symbol_with_style } from "./index"
 import { positive_ratio_measure } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -39,6 +40,10 @@ export  class fill_area_style_tiles extends geometric_representation_item {
       let   cursor    = this.getOffsetCursor( 2 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<fill_area_style_tile_symbol_with_style> = []
 

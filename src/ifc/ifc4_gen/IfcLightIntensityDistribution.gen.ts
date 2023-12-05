@@ -2,7 +2,6 @@
 import { IfcLightDistributionCurveEnum, IfcLightDistributionCurveEnumDeserializeStep } from "./index"
 import { IfcLightDistributionData } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -37,10 +36,6 @@ export  class IfcLightIntensityDistribution extends StepEntityBase< EntityTypesI
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcLightDistributionData> = []
 

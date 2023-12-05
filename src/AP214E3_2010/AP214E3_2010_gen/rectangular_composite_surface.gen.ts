@@ -2,6 +2,7 @@
 import { bounded_surface } from "./index"
 import { surface_patch } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -28,6 +29,10 @@ export  class rectangular_composite_surface extends bounded_surface {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<Array<surface_patch>> = []
 

@@ -3,7 +3,6 @@ import { IfcRelConnects } from "./index"
 import { IfcElement } from "./index"
 import { IfcCovering } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -38,10 +37,6 @@ export  class IfcRelCoversBldgElements extends IfcRelConnects {
       let   cursor    = this.getOffsetCursor( 5 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcCovering> = []
 

@@ -4,6 +4,7 @@ import { drawing_revision } from "./index"
 import { executed_action } from "./index"
 import { product_definition_formation } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -29,6 +30,10 @@ export  class applied_contract_assignment extends contract_assignment {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<drawing_revision | executed_action | product_definition_formation> = []
 

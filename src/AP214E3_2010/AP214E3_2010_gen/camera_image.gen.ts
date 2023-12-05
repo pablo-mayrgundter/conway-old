@@ -15,23 +15,23 @@ export  class camera_image extends mapped_item {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.CAMERA_IMAGE
   }
-  private SELF\mapped_item.mapping_source_? : camera_usage
-  private SELF\mapped_item.mapping_target_? : planar_box
+  private mapping_source_? : camera_usage
+  private mapping_target_? : planar_box
 
-  public get SELF\mapped_item.mapping_source() : camera_usage {
-    if ( this.SELF\mapped_item.mapping_source_ === void 0 ) {
-      this.SELF\mapped_item.mapping_source_ = this.extractElement( 3, false, camera_usage )
+  public get mapping_source() : camera_usage {
+    if ( this.mapping_source_ === void 0 ) {
+      this.mapping_source_ = this.extractElement( 3, false, camera_usage )
     }
 
-    return this.SELF\mapped_item.mapping_source_ as camera_usage
+    return this.mapping_source_ as camera_usage
   }
 
-  public get SELF\mapped_item.mapping_target() : planar_box {
-    if ( this.SELF\mapped_item.mapping_target_ === void 0 ) {
-      this.SELF\mapped_item.mapping_target_ = this.extractElement( 4, false, planar_box )
+  public get mapping_target() : planar_box {
+    if ( this.mapping_target_ === void 0 ) {
+      this.mapping_target_ = this.extractElement( 4, false, planar_box )
     }
 
-    return this.SELF\mapped_item.mapping_target_ as planar_box
+    return this.mapping_target_ as planar_box
   }
   constructor(
     localID: number,

@@ -16,16 +16,16 @@ export  class rack_and_pinion_pair_range extends simple_pair_range {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.RACK_AND_PINION_PAIR_RANGE
   }
-  private SELF\simple_pair_range.applies_to_pair_? : rack_and_pinion_pair
+  private applies_to_pair_? : rack_and_pinion_pair
   private lower_limit_rack_displacement_? : length_measure | unlimited_range
   private upper_limit_rack_displacement_? : length_measure | unlimited_range
 
-  public get SELF\simple_pair_range.applies_to_pair() : rack_and_pinion_pair {
-    if ( this.SELF\simple_pair_range.applies_to_pair_ === void 0 ) {
-      this.SELF\simple_pair_range.applies_to_pair_ = this.extractElement( 1, false, rack_and_pinion_pair )
+  public get applies_to_pair() : rack_and_pinion_pair {
+    if ( this.applies_to_pair_ === void 0 ) {
+      this.applies_to_pair_ = this.extractElement( 1, false, rack_and_pinion_pair )
     }
 
-    return this.SELF\simple_pair_range.applies_to_pair_ as rack_and_pinion_pair
+    return this.applies_to_pair_ as rack_and_pinion_pair
   }
 
   public get lower_limit_rack_displacement() : length_measure | unlimited_range {

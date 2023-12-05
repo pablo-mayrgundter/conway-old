@@ -7,6 +7,7 @@ import { fill_area_style_tiles } from "./index"
 import { externally_defined_hatch_style } from "./index"
 import { fill_area_style_hatching } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -41,6 +42,10 @@ export  class fill_area_style extends founded_item {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<fill_area_style_colour | externally_defined_tile_style | fill_area_style_tiles | externally_defined_hatch_style | fill_area_style_hatching> = []
 

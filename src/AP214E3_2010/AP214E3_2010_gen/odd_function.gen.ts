@@ -14,14 +14,14 @@ export  class odd_function extends unary_boolean_expression {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.ODD_FUNCTION
   }
-  private SELF\unary_generic_expression.operand_? : numeric_expression
+  private operand_? : numeric_expression
 
-  public get SELF\unary_generic_expression.operand() : numeric_expression {
-    if ( this.SELF\unary_generic_expression.operand_ === void 0 ) {
-      this.SELF\unary_generic_expression.operand_ = this.extractElement( 0, false, numeric_expression )
+  public get operand() : numeric_expression {
+    if ( this.operand_ === void 0 ) {
+      this.operand_ = this.extractElement( 0, false, numeric_expression )
     }
 
-    return this.SELF\unary_generic_expression.operand_ as numeric_expression
+    return this.operand_ as numeric_expression
   }
   constructor(
     localID: number,

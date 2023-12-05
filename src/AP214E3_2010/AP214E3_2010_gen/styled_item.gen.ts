@@ -2,6 +2,7 @@
 import { representation_item } from "./index"
 import { presentation_style_assignment } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -28,6 +29,10 @@ export  class styled_item extends representation_item {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<presentation_style_assignment> = []
 

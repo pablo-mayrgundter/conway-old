@@ -5,6 +5,7 @@ import { annotation_text_character } from "./index"
 import { defined_character_glyph } from "./index"
 import { text_literal } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -30,6 +31,10 @@ export  class composite_text extends geometric_representation_item {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<annotation_text | annotation_text_character | defined_character_glyph | composite_text | text_literal> = []
 

@@ -3,6 +3,7 @@ import { label } from "./index"
 import { text } from "./index"
 import { versioned_action_request } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -64,6 +65,10 @@ export  class action_directive extends StepEntityBase< EntityTypesIfc > {
       let   cursor    = this.getOffsetCursor( 4 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<versioned_action_request> = []
 

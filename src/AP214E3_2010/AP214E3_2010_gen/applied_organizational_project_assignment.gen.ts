@@ -8,6 +8,7 @@ import { product_concept } from "./index"
 import { product_definition } from "./index"
 import { product_definition_formation } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -33,6 +34,10 @@ export  class applied_organizational_project_assignment extends organizational_p
       let   cursor    = this.getOffsetCursor( 2 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<assembly_component_usage | configuration_item | executed_action | product | product_concept | product_definition | product_definition_formation> = []
 

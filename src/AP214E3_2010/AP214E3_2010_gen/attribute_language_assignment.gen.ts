@@ -72,6 +72,7 @@ import { versioned_action_request } from "./index"
 import { versioned_action_request_relationship } from "./index"
 import { label } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -97,6 +98,10 @@ export  class attribute_language_assignment extends attribute_classification_ass
       let   cursor    = this.getOffsetCursor( 3 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<action | action_directive | action_method | action_property | action_relationship | alternate_product_relationship | application_context | approval_relationship | assembly_component_usage_substitute | attribute_value_assignment | certification | configuration_design | configuration_item | contract | data_environment | date_role | date_time_role | descriptive_representation_item | document_relationship | draughting_title | effectivity | effectivity_relationship | event_occurrence | external_source | general_property | general_property_relationship | geometric_representation_item | geometric_tolerance | group | group_relationship | identification_role | kinematic_pair | mapped_item | name_assignment | organization_relationship | organization_role | organizational_project | organizational_project_relationship | pair_actuator | person_and_organization_role | presentation_layer_assignment | process_product_association | product | product_concept | product_concept_feature | product_concept_feature_association | product_concept_relationship | product_definition | product_definition_formation | product_definition_formation_relationship | product_definition_relationship | product_definition_substitute | product_related_product_category | property_definition | property_definition_relationship | representation | representation_relationship | requirement_for_action_resource | resource_property | resource_requirement_type | security_classification | shape_aspect | shape_aspect_relationship | styled_item | time_interval_role | topological_representation_item | uncertainty_measure_with_unit | uncertainty_qualifier | versioned_action_request | versioned_action_request_relationship> = []
 

@@ -7,6 +7,7 @@ import { shape_aspect } from "./index"
 import { styled_item } from "./index"
 import { topological_representation_item } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -32,6 +33,10 @@ export  class applied_group_assignment extends group_assignment {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<geometric_representation_item | mapped_item | product_concept_feature | shape_aspect | styled_item | topological_representation_item> = []
 

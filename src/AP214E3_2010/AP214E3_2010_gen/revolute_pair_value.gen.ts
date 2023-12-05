@@ -15,15 +15,15 @@ export  class revolute_pair_value extends pair_value {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.REVOLUTE_PAIR_VALUE
   }
-  private SELF\pair_value.applies_to_pair_? : revolute_pair
+  private applies_to_pair_? : revolute_pair
   private actual_rotation_? : number
 
-  public get SELF\pair_value.applies_to_pair() : revolute_pair {
-    if ( this.SELF\pair_value.applies_to_pair_ === void 0 ) {
-      this.SELF\pair_value.applies_to_pair_ = this.extractElement( 1, false, revolute_pair )
+  public get applies_to_pair() : revolute_pair {
+    if ( this.applies_to_pair_ === void 0 ) {
+      this.applies_to_pair_ = this.extractElement( 1, false, revolute_pair )
     }
 
-    return this.SELF\pair_value.applies_to_pair_ as revolute_pair
+    return this.applies_to_pair_ as revolute_pair
   }
 
   public get actual_rotation() : number {

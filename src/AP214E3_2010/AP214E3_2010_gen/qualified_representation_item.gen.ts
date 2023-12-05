@@ -4,6 +4,7 @@ import { precision_qualifier } from "./index"
 import { type_qualifier } from "./index"
 import { uncertainty_qualifier } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -29,6 +30,10 @@ export  class qualified_representation_item extends representation_item {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<precision_qualifier | type_qualifier | uncertainty_qualifier> = []
 

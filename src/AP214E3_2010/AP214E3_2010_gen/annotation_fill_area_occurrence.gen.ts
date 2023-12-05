@@ -16,7 +16,7 @@ export  class annotation_fill_area_occurrence extends annotation_occurrence {
     return EntityTypesIfc.ANNOTATION_FILL_AREA_OCCURRENCE
   }
   private fill_style_target_? : point
-  private SELF\styled_item.item_? : annotation_fill_area
+  private item_? : annotation_fill_area
 
   public get fill_style_target() : point {
     if ( this.fill_style_target_ === void 0 ) {
@@ -26,12 +26,12 @@ export  class annotation_fill_area_occurrence extends annotation_occurrence {
     return this.fill_style_target_ as point
   }
 
-  public get SELF\styled_item.item() : annotation_fill_area {
-    if ( this.SELF\styled_item.item_ === void 0 ) {
-      this.SELF\styled_item.item_ = this.extractElement( 4, false, annotation_fill_area )
+  public get item() : annotation_fill_area {
+    if ( this.item_ === void 0 ) {
+      this.item_ = this.extractElement( 4, false, annotation_fill_area )
     }
 
-    return this.SELF\styled_item.item_ as annotation_fill_area
+    return this.item_ as annotation_fill_area
   }
   constructor(
     localID: number,

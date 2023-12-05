@@ -1,6 +1,7 @@
 
 import { string_expression } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -18,14 +19,18 @@ export  class concat_expression extends string_expression {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.CONCAT_EXPRESSION
   }
-  private SELF\multiple_arity_generic_expression.operands_? : Array<string_expression>
+  private operands_? : Array<string_expression>
 
-  public get SELF\multiple_arity_generic_expression.operands() : Array<string_expression> {
-    if ( this.SELF\multiple_arity_generic_expression.operands_ === void 0 ) {
+  public get operands() : Array<string_expression> {
+    if ( this.operands_ === void 0 ) {
       
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<string_expression> = []
 
@@ -43,10 +48,10 @@ export  class concat_expression extends string_expression {
         cursor = Math.abs( signedCursor0 )
       }
 
-      this.SELF\multiple_arity_generic_expression.operands_ = value
+      this.operands_ = value
     }
 
-    return this.SELF\multiple_arity_generic_expression.operands_ as Array<string_expression>
+    return this.operands_ as Array<string_expression>
   }
   constructor(
     localID: number,

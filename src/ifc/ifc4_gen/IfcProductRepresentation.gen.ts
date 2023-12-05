@@ -3,7 +3,6 @@ import { IfcLabel } from "./index"
 import { IfcText } from "./index"
 import { IfcRepresentation } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -47,10 +46,6 @@ export abstract class IfcProductRepresentation extends StepEntityBase< EntityTyp
       let   cursor    = this.getOffsetCursor( 2 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcRepresentation> = []
 

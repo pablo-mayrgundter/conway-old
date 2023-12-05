@@ -3,6 +3,7 @@ import { representation_context } from "./index"
 import { derived_unit } from "./index"
 import { named_unit } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -28,6 +29,10 @@ export  class global_unit_assigned_context extends representation_context {
       let   cursor    = this.getOffsetCursor( 2 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<derived_unit | named_unit> = []
 

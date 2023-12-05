@@ -2,6 +2,7 @@
 import { effectivity_context_assignment } from "./index"
 import { product_concept_feature_association } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -27,6 +28,10 @@ export  class configured_effectivity_context_assignment extends effectivity_cont
       let   cursor    = this.getOffsetCursor( 2 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<product_concept_feature_association> = []
 
