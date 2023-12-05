@@ -5,6 +5,7 @@ import { IfcCartesianPoint } from "./index"
 import { IfcBSplineCurveForm, IfcBSplineCurveFormDeserializeStep } from "./index"
 import { IfcLogical } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -46,6 +47,10 @@ export abstract class IfcBSplineCurve extends IfcBoundedCurve {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<IfcCartesianPoint> = []
 

@@ -48,6 +48,7 @@ export default class ParsingConstants {
   public static readonly EQUALS          = encodeCharacter( '=' )
   public static readonly QUOTE           = encodeCharacter( '\'' )
   public static readonly DOUBLEQUOTE     = encodeCharacter( '"' )
+  public static readonly DASH            = encodeCharacter( '-' )
   public static readonly WHITE_SPACE     = whiteSpaceBuffer
   public static readonly WHITE_SPACE_SET = whitespaceSet
 }

@@ -1,3 +1,4 @@
+import { option } from 'yargs'
 import { ConwayGeometry, GeometryCollection } from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMaterial } from './canonical_material'
 import { CanonicalMeshType } from './canonical_mesh'
@@ -18,6 +19,8 @@ export interface GeometryAggregatorOptions {
    * alone.
    */
   maxGeometrySize?: number
+
+  outputSpaces?: boolean
 }
 
 export interface GeometryChunk {
@@ -69,8 +72,10 @@ export default class GeometryAggregator {
 
     const identityTransform = conwaywasm.getIdentityTransform()
 
+    const outputSpaces = scene.isAllSpaces() || (!!this.options.outputSpaces)
+
     // eslint-disable-next-line no-unused-vars
-    for (const [_, nativeTransform, geometry, material] of scene.walk()) {
+    for (const [_, nativeTransform, geometry, material] of scene.walk( false, outputSpaces )) {
       if (geometry.type === CanonicalMeshType.BUFFER_GEOMETRY && !geometry.temporary) {
 
         let geometryCollections = materialGeometry.get(material)
@@ -130,19 +135,34 @@ export default class GeometryAggregator {
 
     for (const [material, geometries] of materialGeometry) {
 
+      let materialIndex: number | undefined = void 0
+
+      if (material !== void 0) {
+
+        materialIndex = materialVector.size()
+
+        const nativeMaterial = conwaywasm.nativeMaterial(material)
+
+        materialVector.push_back(nativeMaterial)
+      }
+
       for ( const geometry of geometries ) {
 
-        if (material !== void 0) {
+        if (materialIndex !== void 0) {
 
-          geometry.materialIndex = materialVector.size()
+          geometry.materialIndex = materialIndex
           geometry.hasDefaultMaterial = false
 
-          const nativeMaterial = conwaywasm.nativeMaterial(material)
+        } else {
 
-          materialVector.push_back(nativeMaterial)
+          geometry.hasDefaultMaterial = true
         }
 
         const geometryCurrentSize = geometry.currentSize
+
+        if ( geometryCurrentSize === 0 ) {
+          continue
+        }
 
         if (
           currentChunkByteSize !== 0 &&
@@ -167,7 +187,7 @@ export default class GeometryAggregator {
     return {
       geometry: outputGeometry,
       materials: materialVector,
-      chunks: chunks,
+      chunks: chunks.filter( ( where ) => where.count !== 0 ),
     }
   }
 }

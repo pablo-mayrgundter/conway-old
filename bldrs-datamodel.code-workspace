@@ -132,6 +132,10 @@
       "matrixfunctions": "cpp",
       "nonlinearoptimization": "cpp",
       "openglsupport": "cpp",
+      "__availability": "cpp",
+      "format": "cpp",
+      "core": "cpp",
+      "charconv": "cpp",
       "span": "cpp"
     }
 	}

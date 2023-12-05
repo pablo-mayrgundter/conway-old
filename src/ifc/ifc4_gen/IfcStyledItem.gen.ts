@@ -4,6 +4,7 @@ import { IfcPresentationStyle } from "./index"
 import { IfcPresentationStyleAssignment } from "./index"
 import { IfcLabel } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -39,6 +40,10 @@ export  class IfcStyledItem extends IfcRepresentationItem {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<IfcPresentationStyle | IfcPresentationStyleAssignment> = []
 

@@ -5,6 +5,7 @@ import { IfcProfileDef } from "./index"
 import { IfcAxis2Placement3D } from "./index"
 import { IfcDimensionCount } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -41,6 +42,10 @@ export  class IfcSectionedSpine extends IfcGeometricRepresentationItem {
       const buffer    = this.buffer
       const endCursor = buffer.length
 
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
+
       const value : Array<IfcProfileDef> = []
 
       let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
@@ -69,6 +74,10 @@ export  class IfcSectionedSpine extends IfcGeometricRepresentationItem {
       let   cursor    = this.getOffsetCursor( 2 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<IfcAxis2Placement3D> = []
 
