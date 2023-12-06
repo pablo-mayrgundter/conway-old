@@ -5,7 +5,6 @@ import { IfcRepresentation } from "./index"
 import { IfcRepresentationItem } from "./index"
 import { IfcIdentifier } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -50,10 +49,6 @@ export  class IfcPresentationLayerAssignment extends StepEntityBase< EntityTypes
       let   cursor    = this.getOffsetCursor( 2 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcRepresentation | IfcRepresentationItem> = []
 

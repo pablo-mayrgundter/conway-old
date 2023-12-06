@@ -2,7 +2,6 @@
 import { IfcTopologicalRepresentationItem } from "./index"
 import { IfcFaceBound } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -28,10 +27,6 @@ export  class IfcFace extends IfcTopologicalRepresentationItem {
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcFaceBound> = []
 

@@ -4,7 +4,6 @@ import { IfcPropertySetTemplateTypeEnum, IfcPropertySetTemplateTypeEnumDeseriali
 import { IfcIdentifier } from "./index"
 import { IfcPropertyTemplate } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -48,10 +47,6 @@ export  class IfcPropertySetTemplate extends IfcPropertyTemplateDefinition {
       let   cursor    = this.getOffsetCursor( 6 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcPropertyTemplate> = []
 

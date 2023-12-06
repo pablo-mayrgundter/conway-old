@@ -3,7 +3,6 @@ import { IfcRelationship } from "./index"
 import { IfcObjectDefinition } from "./index"
 import { IfcObjectTypeEnum, IfcObjectTypeEnumDeserializeStep } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -30,10 +29,6 @@ export abstract class IfcRelAssigns extends IfcRelationship {
       let   cursor    = this.getOffsetCursor( 4 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcObjectDefinition> = []
 

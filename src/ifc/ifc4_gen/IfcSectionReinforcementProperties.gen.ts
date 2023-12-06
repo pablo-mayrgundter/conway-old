@@ -5,7 +5,6 @@ import { IfcReinforcingBarRoleEnum, IfcReinforcingBarRoleEnumDeserializeStep } f
 import { IfcSectionProperties } from "./index"
 import { IfcReinforcementBarProperties } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -76,10 +75,6 @@ export  class IfcSectionReinforcementProperties extends IfcPreDefinedProperties 
       let   cursor    = this.getOffsetCursor( 5 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcReinforcementBarProperties> = []
 

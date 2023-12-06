@@ -1,5 +1,5 @@
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
-import {ModelGeometry} from '../core/model'
+import { ModelGeometry } from '../core/model'
 
 
 /**
@@ -7,7 +7,7 @@ import {ModelGeometry} from '../core/model'
  */
 export class IfcModelGeometry implements ModelGeometry {
 
-  private readonly meshes_ = new Map< number, CanonicalMesh >()
+  private readonly meshes_ = new Map<number, CanonicalMesh>()
 
   /**
    * @return {number}
@@ -20,9 +20,9 @@ export class IfcModelGeometry implements ModelGeometry {
    *
    * @param mesh
    */
-  public add( mesh: CanonicalMesh ) {
+  public add(mesh: CanonicalMesh) {
 
-    this.meshes_.set( mesh.localID, mesh )
+    this.meshes_.set(mesh.localID, mesh)
   }
 
   /**
@@ -30,15 +30,15 @@ export class IfcModelGeometry implements ModelGeometry {
    *
    * @param localID The local ID of the item to delete.
    */
-  public delete( localID: number ) {
+  public delete(localID: number) {
 
-    const value = this.meshes_.get( localID )
+    const value = this.meshes_.get(localID)
 
-    if ( value !== void 0 ) {
+    if (value !== void 0) {
 
-      this.meshes_.delete( localID )
+      this.meshes_.delete(localID)
 
-      if ( value.type === CanonicalMeshType.BUFFER_GEOMETRY ) {
+      if (value.type === CanonicalMeshType.BUFFER_GEOMETRY) {
 
         value.geometry.delete()
       }
@@ -60,6 +60,31 @@ export class IfcModelGeometry implements ModelGeometry {
    */
   public [Symbol.iterator](): IterableIterator<CanonicalMesh> {
     return this.meshes_.values()
+  }
+
+  /**
+   *
+   * @return {number} - size of the geometry data
+   */
+  public calculateGeometrySize(): number {
+    let size:number = 0
+
+    // eslint-disable-next-line no-unused-vars
+    for (const [_, mesh] of this.meshes_) {
+      if (mesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
+        const geometryObject = mesh.geometry
+
+        // using * 8 here because the points are being stored as doubles
+        // eslint-disable-next-line new-cap,no-magic-numbers
+        const pointsDataSize = geometryObject.GetVertexDataSize() * 8
+
+        // eslint-disable-next-line new-cap,no-magic-numbers
+        const indexDataSize = geometryObject.GetIndexDataSize() * 4
+        size += pointsDataSize + indexDataSize
+      }
+    }
+
+    return size
   }
 
 }

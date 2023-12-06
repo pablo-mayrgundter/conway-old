@@ -3,7 +3,6 @@ import { IfcRelConnects } from "./index"
 import { IfcDistributionControlElement } from "./index"
 import { IfcDistributionFlowElement } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -30,10 +29,6 @@ export  class IfcRelFlowControlElements extends IfcRelConnects {
       let   cursor    = this.getOffsetCursor( 4 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcDistributionControlElement> = []
 

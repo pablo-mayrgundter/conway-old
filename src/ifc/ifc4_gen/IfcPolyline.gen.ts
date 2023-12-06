@@ -2,7 +2,6 @@
 import { IfcBoundedCurve } from "./index"
 import { IfcCartesianPoint } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -28,10 +27,6 @@ export  class IfcPolyline extends IfcBoundedCurve {
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcCartesianPoint> = []
 

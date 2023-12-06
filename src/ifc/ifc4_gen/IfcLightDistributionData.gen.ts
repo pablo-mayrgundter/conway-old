@@ -2,7 +2,6 @@
 import { IfcPlaneAngleMeasure } from "./index"
 import { IfcLuminousIntensityDistributionMeasure } from "./index"
 import {
-  stepExtractOptional,
   stepExtractNumber,
   stepExtractArrayToken,
   stepExtractArrayBegin,
@@ -40,10 +39,6 @@ export  class IfcLightDistributionData extends StepEntityBase< EntityTypesIfc > 
       const buffer    = this.buffer
       const endCursor = buffer.length
 
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
-
       const value : Array<number> = []
 
       let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
@@ -73,10 +68,6 @@ export  class IfcLightDistributionData extends StepEntityBase< EntityTypesIfc > 
       let   cursor    = this.getOffsetCursor( 2 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<number> = []
 

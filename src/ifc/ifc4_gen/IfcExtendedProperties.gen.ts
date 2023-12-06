@@ -4,7 +4,6 @@ import { IfcIdentifier } from "./index"
 import { IfcText } from "./index"
 import { IfcProperty } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -48,10 +47,6 @@ export abstract class IfcExtendedProperties extends IfcPropertyAbstraction {
       let   cursor    = this.getOffsetCursor( 2 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcProperty> = []
 

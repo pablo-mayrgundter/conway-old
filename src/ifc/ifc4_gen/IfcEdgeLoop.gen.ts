@@ -3,7 +3,6 @@ import { IfcLoop } from "./index"
 import { IfcOrientedEdge } from "./index"
 import { IfcInteger } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -30,10 +29,6 @@ export  class IfcEdgeLoop extends IfcLoop {
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcOrientedEdge> = []
 

@@ -33,10 +33,6 @@ export  class IfcGrid extends IfcProduct {
       const buffer    = this.buffer
       const endCursor = buffer.length
 
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
-
       const value : Array<IfcGridAxis> = []
 
       let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
@@ -65,10 +61,6 @@ export  class IfcGrid extends IfcProduct {
       let   cursor    = this.getOffsetCursor( 8 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcGridAxis> = []
 

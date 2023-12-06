@@ -3,7 +3,6 @@ import { IfcRelConnectsElements } from "./index"
 import { IfcElement } from "./index"
 import { IfcLabel } from "./index"
 import {
-  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -30,10 +29,6 @@ export  class IfcRelConnectsWithRealizingElements extends IfcRelConnectsElements
       let   cursor    = this.getOffsetCursor( 7 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<IfcElement> = []
 

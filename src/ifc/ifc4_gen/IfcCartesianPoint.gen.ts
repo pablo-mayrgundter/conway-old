@@ -3,7 +3,6 @@ import { IfcPoint } from "./index"
 import { IfcLengthMeasure } from "./index"
 import { IfcDimensionCount } from "./index"
 import {
-  stepExtractOptional,
   stepExtractNumber,
   stepExtractArrayToken,
   stepExtractArrayBegin,
@@ -31,10 +30,6 @@ export  class IfcCartesianPoint extends IfcPoint {
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
-
-      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
-        return []
-      }
 
       const value : Array<number> = []
 
