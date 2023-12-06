@@ -68,7 +68,9 @@ If you have Visual Studio Code, Conway also comes with a Visual Studio Code work
 
 # Production NPM Build
 ```
-yarn pack
+yarn test
+yarn build-web  # stamps build version string
+npm pack
 ```
 
 ## Push to Production: H3 & Share
@@ -80,6 +82,7 @@ cp bldrs-ai-conway-<VERSION>.tgz $H3_DIR
 cd $H3_DIR
 git fetch upstream # or origin if not on fork
 git checkout -b conway-<VERSION> upstream/main
+rm bldrs-ai-conway-<OLD VERSION>.tgz
 ## OLD WAY: yarn remove @bldrs-ai/conway
 ## OLD WAY: yarn add ./bldrs-ai-conway-<VERSION>.tgz
 ## New way: edit package.json dep for conway to point to new filename.
@@ -87,7 +90,7 @@ yarn install
 yarn build && yarn test
 yarn serve
 # Smoke test local candidate: load all sample models, load local model, exercise dialogs, etc.
-git add . ; git ci -m 'Upgrad of conway from <LAST VERSION> to <VERSION>'
+git add . ; git ci -m 'Upgrad of conway from <OLD VERSION> to <VERSION>'
 git push origin HEAD
 # 1) Send PR for review
 # 2) On merge, Netlify will detect and build and deploy to prod; watch deploy logs on Netlify
