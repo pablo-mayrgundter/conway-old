@@ -17,7 +17,6 @@ export  class point_on_planar_curve_pair_range extends simple_pair_range {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.POINT_ON_PLANAR_CURVE_PAIR_RANGE
   }
-  private applies_to_pair_? : point_on_planar_curve_pair
   private range_on_pair_curve_? : trimmed_curve
   private lower_limit_yaw_? : plane_angle_measure | unlimited_range
   private upper_limit_yaw_? : plane_angle_measure | unlimited_range
@@ -26,13 +25,6 @@ export  class point_on_planar_curve_pair_range extends simple_pair_range {
   private lower_limit_roll_? : plane_angle_measure | unlimited_range
   private upper_limit_roll_? : plane_angle_measure | unlimited_range
 
-  public get applies_to_pair() : point_on_planar_curve_pair {
-    if ( this.applies_to_pair_ === void 0 ) {
-      this.applies_to_pair_ = this.extractElement( 1, false, point_on_planar_curve_pair )
-    }
-
-    return this.applies_to_pair_ as point_on_planar_curve_pair
-  }
 
   public get range_on_pair_curve() : trimmed_curve {
     if ( this.range_on_pair_curve_ === void 0 ) {

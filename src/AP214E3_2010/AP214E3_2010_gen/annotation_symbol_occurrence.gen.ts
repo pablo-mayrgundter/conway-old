@@ -15,24 +15,8 @@ export  class annotation_symbol_occurrence extends annotation_occurrence {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.ANNOTATION_SYMBOL_OCCURRENCE
   }
-  private item_? : annotation_symbol | defined_symbol
 
-  public get item() : annotation_symbol | defined_symbol {
-    if ( this.item_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc > =
-        this.extractReference( 3, false )
 
-      if ( !( value instanceof annotation_symbol ) && !( value instanceof defined_symbol ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      this.item_ = value as (annotation_symbol | defined_symbol)
-
-    }
-
-    return this.item_ as annotation_symbol | defined_symbol
-  }
   constructor(
     localID: number,
     internalReference: StepEntityInternalReference< EntityTypesIfc >,

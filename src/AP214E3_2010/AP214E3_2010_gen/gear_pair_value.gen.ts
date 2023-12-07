@@ -15,16 +15,8 @@ export  class gear_pair_value extends pair_value {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.GEAR_PAIR_VALUE
   }
-  private applies_to_pair_? : gear_pair
   private actual_rotation_1_? : number
 
-  public get applies_to_pair() : gear_pair {
-    if ( this.applies_to_pair_ === void 0 ) {
-      this.applies_to_pair_ = this.extractElement( 1, false, gear_pair )
-    }
-
-    return this.applies_to_pair_ as gear_pair
-  }
 
   public get actual_rotation_1() : number {
     if ( this.actual_rotation_1_ === void 0 ) {

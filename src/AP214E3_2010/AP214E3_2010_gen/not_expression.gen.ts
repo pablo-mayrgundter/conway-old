@@ -14,15 +14,8 @@ export  class not_expression extends unary_boolean_expression {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.NOT_EXPRESSION
   }
-  private operand_? : boolean_expression
 
-  public get operand() : boolean_expression {
-    if ( this.operand_ === void 0 ) {
-      this.operand_ = this.extractElement( 0, false, boolean_expression )
-    }
 
-    return this.operand_ as boolean_expression
-  }
   constructor(
     localID: number,
     internalReference: StepEntityInternalReference< EntityTypesIfc >,

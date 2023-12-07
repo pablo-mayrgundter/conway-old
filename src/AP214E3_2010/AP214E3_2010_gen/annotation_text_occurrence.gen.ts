@@ -18,24 +18,8 @@ export  class annotation_text_occurrence extends annotation_occurrence {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.ANNOTATION_TEXT_OCCURRENCE
   }
-  private item_? : text_literal | annotation_text | annotation_text_character | defined_character_glyph | composite_text
 
-  public get item() : text_literal | annotation_text | annotation_text_character | defined_character_glyph | composite_text {
-    if ( this.item_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc > =
-        this.extractReference( 3, false )
 
-      if ( !( value instanceof text_literal ) && !( value instanceof annotation_text ) && !( value instanceof annotation_text_character ) && !( value instanceof defined_character_glyph ) && !( value instanceof composite_text ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      this.item_ = value as (text_literal | annotation_text | annotation_text_character | defined_character_glyph | composite_text)
-
-    }
-
-    return this.item_ as text_literal | annotation_text | annotation_text_character | defined_character_glyph | composite_text
-  }
   constructor(
     localID: number,
     internalReference: StepEntityInternalReference< EntityTypesIfc >,

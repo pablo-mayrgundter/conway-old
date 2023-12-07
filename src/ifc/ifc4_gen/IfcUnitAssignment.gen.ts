@@ -3,6 +3,7 @@ import { IfcDerivedUnit } from "./index"
 import { IfcMonetaryUnit } from "./index"
 import { IfcNamedUnit } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -28,6 +29,10 @@ export  class IfcUnitAssignment extends StepEntityBase< EntityTypesIfc > {
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit> = []
 

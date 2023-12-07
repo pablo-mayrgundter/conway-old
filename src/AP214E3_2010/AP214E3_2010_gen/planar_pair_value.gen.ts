@@ -16,18 +16,10 @@ export  class planar_pair_value extends pair_value {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.PLANAR_PAIR_VALUE
   }
-  private applies_to_pair_? : planar_pair
   private actual_rotation_? : number
   private actual_translation_x_? : number
   private actual_translation_y_? : number
 
-  public get applies_to_pair() : planar_pair {
-    if ( this.applies_to_pair_ === void 0 ) {
-      this.applies_to_pair_ = this.extractElement( 1, false, planar_pair )
-    }
-
-    return this.applies_to_pair_ as planar_pair
-  }
 
   public get actual_rotation() : number {
     if ( this.actual_rotation_ === void 0 ) {

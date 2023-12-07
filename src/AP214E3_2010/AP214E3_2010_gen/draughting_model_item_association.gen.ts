@@ -17,42 +17,10 @@ export  class draughting_model_item_association extends item_identified_represen
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.DRAUGHTING_MODEL_ITEM_ASSOCIATION
   }
-  private definition_? : shape_aspect
-  private used_representation_? : draughting_model
-  private identified_item_? : annotation_occurrence | draughting_callout
 
-  public get definition() : shape_aspect {
-    if ( this.definition_ === void 0 ) {
-      this.definition_ = this.extractElement( 5, false, shape_aspect )
-    }
 
-    return this.definition_ as shape_aspect
-  }
 
-  public get used_representation() : draughting_model {
-    if ( this.used_representation_ === void 0 ) {
-      this.used_representation_ = this.extractElement( 6, false, draughting_model )
-    }
 
-    return this.used_representation_ as draughting_model
-  }
-
-  public get identified_item() : annotation_occurrence | draughting_callout {
-    if ( this.identified_item_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc > =
-        this.extractReference( 7, false )
-
-      if ( !( value instanceof annotation_occurrence ) && !( value instanceof draughting_callout ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      this.identified_item_ = value as (annotation_occurrence | draughting_callout)
-
-    }
-
-    return this.identified_item_ as annotation_occurrence | draughting_callout
-  }
   constructor(
     localID: number,
     internalReference: StepEntityInternalReference< EntityTypesIfc >,

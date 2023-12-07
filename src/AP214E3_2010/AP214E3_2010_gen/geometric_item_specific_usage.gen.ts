@@ -16,33 +16,10 @@ export  class geometric_item_specific_usage extends item_identified_representati
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.GEOMETRIC_ITEM_SPECIFIC_USAGE
   }
-  private definition_? : shape_aspect
-  private used_representation_? : shape_representation
-  private identified_item_? : geometric_representation_item
 
-  public get definition() : shape_aspect {
-    if ( this.definition_ === void 0 ) {
-      this.definition_ = this.extractElement( 5, false, shape_aspect )
-    }
 
-    return this.definition_ as shape_aspect
-  }
 
-  public get used_representation() : shape_representation {
-    if ( this.used_representation_ === void 0 ) {
-      this.used_representation_ = this.extractElement( 6, false, shape_representation )
-    }
 
-    return this.used_representation_ as shape_representation
-  }
-
-  public get identified_item() : geometric_representation_item {
-    if ( this.identified_item_ === void 0 ) {
-      this.identified_item_ = this.extractElement( 7, false, geometric_representation_item )
-    }
-
-    return this.identified_item_ as geometric_representation_item
-  }
   constructor(
     localID: number,
     internalReference: StepEntityInternalReference< EntityTypesIfc >,

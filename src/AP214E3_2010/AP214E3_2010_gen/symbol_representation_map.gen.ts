@@ -16,33 +16,9 @@ export  class symbol_representation_map extends representation_map {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.SYMBOL_REPRESENTATION_MAP
   }
-  private mapped_representation_? : symbol_representation
-  private mapping_origin_? : axis2_placement_2d | axis2_placement_3d
 
-  public get mapped_representation() : symbol_representation {
-    if ( this.mapped_representation_ === void 0 ) {
-      this.mapped_representation_ = this.extractElement( 2, false, symbol_representation )
-    }
 
-    return this.mapped_representation_ as symbol_representation
-  }
 
-  public get mapping_origin() : axis2_placement_2d | axis2_placement_3d {
-    if ( this.mapping_origin_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc > =
-        this.extractReference( 3, false )
-
-      if ( !( value instanceof axis2_placement_2d ) && !( value instanceof axis2_placement_3d ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      this.mapping_origin_ = value as (axis2_placement_2d | axis2_placement_3d)
-
-    }
-
-    return this.mapping_origin_ as axis2_placement_2d | axis2_placement_3d
-  }
   constructor(
     localID: number,
     internalReference: StepEntityInternalReference< EntityTypesIfc >,

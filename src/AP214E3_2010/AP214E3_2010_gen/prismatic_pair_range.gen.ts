@@ -16,17 +16,9 @@ export  class prismatic_pair_range extends simple_pair_range {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.PRISMATIC_PAIR_RANGE
   }
-  private applies_to_pair_? : prismatic_pair
   private lower_limit_actual_translation_? : length_measure | unlimited_range
   private upper_limit_actual_translation_? : length_measure | unlimited_range
 
-  public get applies_to_pair() : prismatic_pair {
-    if ( this.applies_to_pair_ === void 0 ) {
-      this.applies_to_pair_ = this.extractElement( 1, false, prismatic_pair )
-    }
-
-    return this.applies_to_pair_ as prismatic_pair
-  }
 
   public get lower_limit_actual_translation() : length_measure | unlimited_range {
     if ( this.lower_limit_actual_translation_ === void 0 ) {

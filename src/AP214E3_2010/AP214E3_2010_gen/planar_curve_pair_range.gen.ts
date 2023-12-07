@@ -15,17 +15,9 @@ export  class planar_curve_pair_range extends simple_pair_range {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.PLANAR_CURVE_PAIR_RANGE
   }
-  private applies_to_pair_? : planar_curve_pair
   private range_on_curve_1_? : trimmed_curve
   private range_on_curve_2_? : trimmed_curve
 
-  public get applies_to_pair() : planar_curve_pair {
-    if ( this.applies_to_pair_ === void 0 ) {
-      this.applies_to_pair_ = this.extractElement( 1, false, planar_curve_pair )
-    }
-
-    return this.applies_to_pair_ as planar_curve_pair
-  }
 
   public get range_on_curve_1() : trimmed_curve {
     if ( this.range_on_curve_1_ === void 0 ) {

@@ -13,15 +13,8 @@ export abstract class unary_numeric_expression extends numeric_expression {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.UNARY_NUMERIC_EXPRESSION
   }
-  private operand_? : numeric_expression
 
-  public get operand() : numeric_expression {
-    if ( this.operand_ === void 0 ) {
-      this.operand_ = this.extractElement( 0, false, numeric_expression )
-    }
 
-    return this.operand_ as numeric_expression
-  }
   constructor(
     localID: number,
     internalReference: StepEntityInternalReference< EntityTypesIfc >,

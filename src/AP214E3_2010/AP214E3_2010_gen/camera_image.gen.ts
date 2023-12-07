@@ -15,24 +15,9 @@ export  class camera_image extends mapped_item {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.CAMERA_IMAGE
   }
-  private mapping_source_? : camera_usage
-  private mapping_target_? : planar_box
 
-  public get mapping_source() : camera_usage {
-    if ( this.mapping_source_ === void 0 ) {
-      this.mapping_source_ = this.extractElement( 3, false, camera_usage )
-    }
 
-    return this.mapping_source_ as camera_usage
-  }
 
-  public get mapping_target() : planar_box {
-    if ( this.mapping_target_ === void 0 ) {
-      this.mapping_target_ = this.extractElement( 4, false, planar_box )
-    }
-
-    return this.mapping_target_ as planar_box
-  }
   constructor(
     localID: number,
     internalReference: StepEntityInternalReference< EntityTypesIfc >,
