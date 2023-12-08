@@ -3,6 +3,7 @@ import { IfcResourceLevelRelationship } from "./index"
 import { IfcDocumentInformation } from "./index"
 import { IfcLabel } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -38,6 +39,10 @@ export  class IfcDocumentInformationRelationship extends IfcResourceLevelRelatio
       let   cursor    = this.getOffsetCursor( 3 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<IfcDocumentInformation> = []
 

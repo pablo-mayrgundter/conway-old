@@ -2,6 +2,7 @@
 import { IfcIndexedPolygonalFace } from "./index"
 import { IfcPositiveInteger } from "./index"
 import {
+  stepExtractOptional,
   stepExtractNumber,
   stepExtractArrayToken,
   stepExtractArrayBegin,
@@ -28,6 +29,10 @@ export  class IfcIndexedPolygonalFaceWithVoids extends IfcIndexedPolygonalFace {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<Array<number>> = []
 

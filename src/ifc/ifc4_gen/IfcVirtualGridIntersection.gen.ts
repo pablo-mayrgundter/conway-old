@@ -2,6 +2,7 @@
 import { IfcGridAxis } from "./index"
 import { IfcLengthMeasure } from "./index"
 import {
+  stepExtractOptional,
   stepExtractNumber,
   stepExtractArrayToken,
   stepExtractArrayBegin,
@@ -29,6 +30,10 @@ export  class IfcVirtualGridIntersection extends StepEntityBase< EntityTypesIfc 
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<IfcGridAxis> = []
 
@@ -58,6 +63,10 @@ export  class IfcVirtualGridIntersection extends StepEntityBase< EntityTypesIfc 
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<number> = []
 

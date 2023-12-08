@@ -28,6 +28,7 @@ main()
  */
 function main() {
   Environment.checkEnvironment()
+  Logger.initializeWasmCallbacks()
   try {
     doWork()
   } catch (error) {

@@ -4,6 +4,7 @@ import { IfcVector } from "./index"
 import { IfcStyledItem } from "./index"
 import { IfcPositiveRatioMeasure } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -31,6 +32,10 @@ export  class IfcFillAreaStyleTiles extends IfcGeometricRepresentationItem {
       let   cursor    = this.getOffsetCursor( 0 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<IfcVector> = []
 
@@ -60,6 +65,10 @@ export  class IfcFillAreaStyleTiles extends IfcGeometricRepresentationItem {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<IfcStyledItem> = []
 

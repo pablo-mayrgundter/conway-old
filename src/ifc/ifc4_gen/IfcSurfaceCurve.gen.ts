@@ -4,6 +4,7 @@ import { IfcPcurve } from "./index"
 import { IfcPreferredSurfaceCurveRepresentation, IfcPreferredSurfaceCurveRepresentationDeserializeStep } from "./index"
 import { IfcSurface } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -42,6 +43,10 @@ export  class IfcSurfaceCurve extends IfcCurve {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<IfcPcurve> = []
 

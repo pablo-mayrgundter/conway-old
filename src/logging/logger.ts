@@ -1,4 +1,5 @@
 import { Statistics } from '../statistics/statistics'
+import Environment, { EnvironmentType } from '../utilities/environment'
 
 
 type LogLevel = 'info' | 'warning' | 'error'
@@ -21,7 +22,28 @@ export interface LoggingProxy {
 export default class Logger {
   private static logs: LogEntry[] = []
   private static proxies: LoggingProxy[] = []
-  private static statistics:Map<number, Statistics> = new Map<number, Statistics>()
+  private static statistics: Map<number, Statistics> = new Map<number, Statistics>()
+
+
+  /**
+   * Detects environment and initializes wasm callbacks
+   */
+  public static initializeWasmCallbacks() {
+    const environment = Environment.environmentType
+
+    if (environment === EnvironmentType.BROWSER) {
+      const globalScope = window;
+      (globalScope as any).logInfo = Logger.info;
+      (globalScope as any).logWarning = Logger.warning;
+      (globalScope as any).logError = Logger.error
+    } else if (environment === EnvironmentType.NODE ||
+        environment === EnvironmentType.BOTH_FEATURES) {
+      const globalScope = global;
+      (globalScope as any).logInfo = Logger.info;
+      (globalScope as any).logWarning = Logger.warning;
+      (globalScope as any).logError = Logger.error
+    }
+  }
 
   /**
    *
@@ -74,7 +96,7 @@ export default class Logger {
    * @param modelID
    * @return {Statistics | undefined}
    */
-  public static getStatistics(modelID:number):Statistics | undefined {
+  public static getStatistics(modelID: number): Statistics | undefined {
     return this.statistics.get(modelID)
   }
 
@@ -82,8 +104,8 @@ export default class Logger {
    *
    * @param modelID
    */
-  public static createStatistics(modelID:number):void {
-    const statistics:Statistics = new Statistics()
+  public static createStatistics(modelID: number): void {
+    const statistics: Statistics = new Statistics()
 
     this.statistics.set(modelID, statistics)
   }
@@ -92,13 +114,13 @@ export default class Logger {
    *
    * @param modelID
    */
-  public static printStatistics(modelID:number) {
+  public static printStatistics(modelID: number) {
     const statistics_ = this.statistics.get(modelID)
 
     if (statistics_ !== void 0) {
       statistics_.printStatistics()
     } else {
-      Logger.error(`No statistics for modelID: ${  modelID}`)
+      Logger.error(`No statistics for modelID: ${modelID}`)
     }
   }
 

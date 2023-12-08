@@ -143,6 +143,7 @@ export class IfcAPI {
    */
   async Init(customLocateFileHandler?: LocateFileHandlerFn) {
     Environment.checkEnvironment()
+    Logger.initializeWasmCallbacks()
     Logger.info(versionString)
     const locateFileHandler: LocateFileHandlerFn = (path, prefix) => {
       // when the wasm module requests the wasm file, we redirect to include the user specified path
