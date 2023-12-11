@@ -45,7 +45,7 @@ async function initializeGeometryExtractor() {
  * @return {ExtractResult} indicating whether the geometry extraction was successful.
  */
 function extractGeometry(): ExtractResult {
-  return conwayModel.extractIFCGeometryData(true)[0]
+  return conwayModel.extractIFCGeometryData()[0]
 }
 
 /**

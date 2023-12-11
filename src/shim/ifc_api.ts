@@ -14,6 +14,9 @@ import * as glmatrix from 'gl-matrix'
 import { Properties } from './properties'
 import { FromRawLineData } from './ifc2x4_helper'
 import { versionString } from './version'
+import Logger from '../logging/logger'
+import Environment from '../utilities/environment'
+import Memory from '../memory/memory'
 
 
 export * from './ifc2x4'
@@ -31,62 +34,62 @@ export const SET_END = 8
 export const LINE_END = 9
 
 export interface Loadersettings {
-    COORDINATE_TO_ORIGIN: boolean
-    USE_FAST_BOOLS: boolean
-    CIRCLE_SEGMENTS_LOW?: number
-    CIRCLE_SEGMENTS_MEDIUM?: number
-    CIRCLE_SEGMENTS_HIGH?: number
-    BOOL_ABORT_THRESHOLD?: number
+  COORDINATE_TO_ORIGIN: boolean
+  USE_FAST_BOOLS: boolean
+  CIRCLE_SEGMENTS_LOW?: number
+  CIRCLE_SEGMENTS_MEDIUM?: number
+  CIRCLE_SEGMENTS_HIGH?: number
+  BOOL_ABORT_THRESHOLD?: number
 }
 
 export interface Vector<T> {
-    get(index: number): T
-    push(parameter: T): void
-    size(): number
+  get(index: number): T
+  push(parameter: T): void
+  size(): number
 }
 
 export interface Color {
-    x: number
-    y: number
-    z: number
-    w: number
+  x: number
+  y: number
+  z: number
+  w: number
 }
 
 export interface PlacedGeometry {
-    color: Color
-    geometryExpressID: number
-    flatTransformation: Array<number>
+  color: Color
+  geometryExpressID: number
+  flatTransformation: Array<number>
 }
 
 export interface FlatMesh {
-    geometries: Vector<PlacedGeometry>
-    expressID: number
+  geometries: Vector<PlacedGeometry>
+  expressID: number
 }
 
 export interface RawLineData {
-    ID: number
-    type: number
-    arguments: any[]
+  ID: number
+  type: number
+  arguments: any[]
 }
 
 export interface LoaderError {
-    type: string
-    message: string
-    expressID: number
-    ifcType: number
+  type: string
+  message: string
+  expressID: number
+  ifcType: number
 }
 
 export interface IfcGeometry {
-    GetVertexData(): number
-    GetVertexDataSize(): number
-    GetIndexData(): number
-    GetIndexDataSize(): number
+  GetVertexData(): number
+  GetVertexDataSize(): number
+  GetIndexData(): number
+  GetIndexDataSize(): number
 }
 
 /**
  * @return {number} current time in ms
  */
-export function ms():number {
+export function ms(): number {
   return new Date().getTime()
 }
 
@@ -103,17 +106,17 @@ export class IfcAPI {
   settings: Loadersettings | undefined
   globalModelIDCounter = 0
   models: Map<number,
-        [IfcStepModel,
-            IfcSceneBuilder,
-            Map<number, [Vector<PlacedGeometry>, FlatMesh]>,
-            Map<number, [GeometryObject, CanonicalMaterial, number[]]>,
-            Vector<FlatMesh>, glmatrix.mat4]> =
+    [IfcStepModel,
+      IfcSceneBuilder,
+      Map<number, [Vector<PlacedGeometry>, FlatMesh]>,
+      Map<number, [GeometryObject, CanonicalMaterial, number[]]>,
+      Vector<FlatMesh>, glmatrix.mat4]> =
       new Map<number,
-            [IfcStepModel,
-                IfcSceneBuilder,
-                Map<number, [Vector<PlacedGeometry>, FlatMesh]>,
-                Map<number, [GeometryObject, CanonicalMaterial, number[]]>,
-                Vector<FlatMesh>, glmatrix.mat4]>()
+      [IfcStepModel,
+        IfcSceneBuilder,
+        Map<number, [Vector<PlacedGeometry>, FlatMesh]>,
+        Map<number, [GeometryObject, CanonicalMaterial, number[]]>,
+        Vector<FlatMesh>, glmatrix.mat4]>()
   conwaywasm = new ConwayGeometry()
   _isCoordinated: boolean = false
   linearScalingFactor: number = 1
@@ -139,8 +142,9 @@ export class IfcAPI {
    * you override the path from which the wasm module is loaded.
    */
   async Init(customLocateFileHandler?: LocateFileHandlerFn) {
-
-    console.log(versionString)
+    Environment.checkEnvironment()
+    Logger.initializeWasmCallbacks()
+    Logger.info(versionString)
     const locateFileHandler: LocateFileHandlerFn = (path, prefix) => {
       // when the wasm module requests the wasm file, we redirect to include the user specified path
       if (path.endsWith('.wasm')) {
@@ -157,10 +161,10 @@ export class IfcAPI {
     // @ts-ignore
     const initializationStatus = await
     this.conwaywasm.initialize((customLocateFileHandler !== void 0) ?
-    customLocateFileHandler : locateFileHandler)
+        customLocateFileHandler : locateFileHandler)
 
     if (!initializationStatus) {
-      console.log('Could not initialize Conway Wasm')
+      Logger.error('Could not initialize Conway Wasm')
       return
     }
 
@@ -175,9 +179,15 @@ export class IfcAPI {
    * @return {number} model ID
    */
   OpenModel(data: Uint8Array, settings?: Loadersettings): number {
+    const allTimeStart = Date.now()
     const parser = IfcStepParser.Instance
     const bufferInput = new ParsingBuffer(data)
-    const result0 = parser.parseHeader(bufferInput)[1]
+    const [stepHeader, result0] = parser.parseHeader(bufferInput)
+    const tempModelID = this.globalModelIDCounter
+    Logger.createStatistics(tempModelID)
+
+    const statistics = Logger.getStatistics(tempModelID)
+
 
     switch (result0) {
       case ParseResult.COMPLETE:
@@ -186,48 +196,69 @@ export class IfcAPI {
 
       case ParseResult.INCOMPLETE:
 
-        console.log('Parse incomplete but no errors')
+        Logger.warning('Parse incomplete but no errors')
+        statistics?.setLoadStatus('HEADER PARSE: INCOMPLETE')
         break
 
       case ParseResult.INVALID_STEP:
 
-        console.log('Error: Invalid STEP detected in parse, but no syntax error detected')
+        Logger.error('Error: Invalid STEP detected in parse, but no syntax error detected')
+        statistics?.setLoadStatus('HEADER PARSE: INVALID_STEP')
         break
 
       case ParseResult.MISSING_TYPE:
 
-        console.log('Error: missing STEP type, but no syntax error detected')
+        Logger.warning('Error: missing STEP type, but no syntax error detected')
+        statistics?.setLoadStatus('HEADER PARSE: MISSING_TYPE')
         break
 
       case ParseResult.SYNTAX_ERROR:
 
-        console.log(`Error: Syntax error detected on line ${bufferInput.lineCount}`)
+        Logger.error(`Error: Syntax error detected on line ${bufferInput.lineCount}`)
+        statistics?.setLoadStatus('HEADER PARSE: SYNTAX_ERROR')
         break
 
       default:
     }
 
+
+    const parseStartTime = Date.now()
     const model = parser.parseDataToModel(bufferInput)[1]
+    const parseEndTime = Date.now()
 
     if (model === void 0) {
-      console.log('[OpenModel]: model === undefined')
+      Logger.error('[OpenModel]: model === undefined')
+      statistics?.setLoadStatus('PARSE_FAIL')
       return -1
     }
+
+    statistics?.setParseTime(parseEndTime - parseStartTime)
 
     // TODO(nickcastel50): Doing geometry extraction in here for now...
     // parse + extract data model + geometry data
     const conwayGeometry = new IfcGeometryExtraction(this.conwaywasm, model)
 
+    const startTime = Date.now()
     const [extractionResult, scene] =
-            conwayGeometry.extractIFCGeometryData(true)
+      conwayGeometry.extractIFCGeometryData()
+
+    const endTime = Date.now()
+    const executionTimeInMs = endTime - startTime
 
     if (extractionResult !== ExtractResult.COMPLETE) {
-      console.error('[OpenModel]: Error extracting geometry, exiting...')
+      Logger.error('[OpenModel]: Error extracting geometry, exiting...')
+      statistics?.setLoadStatus('FAIL')
       return -1
     }
 
     // get linear scaling factor
     this.linearScalingFactor = conwayGeometry.getLinearScalingFactor()
+
+    const ifcProjectName = conwayGeometry.getIfcProjectName()
+
+    if (ifcProjectName !== null) {
+      statistics?.setProjectName(ifcProjectName)
+    }
 
     // build packed mesh model
     // const packedMeshModel = scene.buildPackedMeshModel()
@@ -298,12 +329,46 @@ export class IfcAPI {
 
     const coordinationMatrix: glmatrix.mat4 = glmatrix.mat4.create()
 
-    const tempModelID = this.globalModelIDCounter
+
     this.models.set(this.globalModelIDCounter++,
         [model, scene, vectorGeometryMap, geometryMap, vectorFlatMesh, coordinationMatrix])
 
     // save settings
     this.settings = settings
+
+    const FILE_NAME = stepHeader.headers.get('FILE_NAME')
+    const ifcVersion = stepHeader.headers.get('FILE_SCHEMA')
+
+    const allTimeEnd = Date.now()
+
+    const allTime = allTimeEnd - allTimeStart
+
+    statistics?.setLoadStatus('OK')
+    statistics?.setTotalTime(allTime)
+
+    if (ifcVersion !== void 0) {
+      statistics?.setVersion(ifcVersion)
+    }
+
+    if (FILE_NAME !== void 0) {
+      const fileNameSplit: string[] = FILE_NAME.split(',')
+
+      // eslint-disable-next-line no-magic-numbers
+      if (fileNameSplit.length > 5) {
+        const preprocessorVersion = fileNameSplit[4]
+        const originatingSystem = fileNameSplit[5]
+
+        statistics?.setPreprocessorVersion(preprocessorVersion)
+        statistics?.setOriginatingSystem(originatingSystem)
+      }
+    }
+
+    statistics?.setMemoryStatistics(Memory.checkMemoryUsage())
+
+    statistics?.setGeometryTime(executionTimeInMs)
+    // eslint-disable-next-line no-magic-numbers
+    statistics?.setGeometryMemory(scene.model.geometry.calculateGeometrySize() / (1024 * 1024))
+
 
     return tempModelID
   }
@@ -316,7 +381,7 @@ export class IfcAPI {
    */
   CreateModel(settings?: Loadersettings): number {
 
-    console.log('[CreateModel]: Shim - Unimplemented')
+    Logger.warning('[CreateModel]: Shim - Unimplemented')
     return 0
   }
 
@@ -326,7 +391,7 @@ export class IfcAPI {
    * @return {Uint8Array} unimplemented
    */
   ExportFileAsIFC(modelID: number): Uint8Array {
-    console.log(`[ExportFileAsIFC]: Model ${modelID}: Shim - Unimplemented`)
+    Logger.warning(`[ExportFileAsIFC]: Model ${modelID}: Shim - Unimplemented`)
     const emptyArray = new Uint8Array(1)
     return emptyArray
   }
@@ -357,15 +422,15 @@ export class IfcAPI {
 
           return clone
         } else {
-          console.log(`[GetGeometry]: Geometry Object not found for expressID: 
-          ${ geometryExpressID}`)
+          Logger.error(`[GetGeometry]: Geometry Object not found for expressID: 
+          ${geometryExpressID}`)
         }
       }
     } else {
-      console.log('[GetGeometry]: model === undefined')
+      Logger.error('[GetGeometry]: model === undefined')
     }
 
-    console.log('[GetGeometry]: Error - returning dummyGeometry object')
+    Logger.error('[GetGeometry]: Error - returning dummyGeometry object')
     const dummyGeometry: IfcGeometry = (new (this.wasmModule.IfcGeometry)())
     return dummyGeometry
   }
@@ -383,7 +448,7 @@ export class IfcAPI {
     const rawLineData = this.GetRawLineData(modelID, expressID)
 
     if (rawLineData.type === -1) {
-      console.log(`RawLineData null, expressID: ${  expressID}`)
+      Logger.warning(`RawLineData null, expressID: ${expressID}`)
       return
     }
 
@@ -402,7 +467,7 @@ export class IfcAPI {
    * @return {Vector<LoaderError>}
    */
   GetAndClearErrors(modelID: number): Vector<LoaderError> {
-    console.log('[GetAndClearErrors]: Shim - Unimplemented')
+    Logger.warning('[GetAndClearErrors]: Shim - Unimplemented')
     const wasmErrorsDummy: Vector<LoaderError> = {
       get(index: number): LoaderError {
         // Implementation here
@@ -427,7 +492,7 @@ export class IfcAPI {
    * @param lineObject
    */
   WriteLine(modelID: number, lineObject: any) {
-    console.log('[WriteLine]: Shim - Unimplemented')
+    Logger.warning('[WriteLine]: Shim - Unimplemented')
   }
 
   /**
@@ -436,7 +501,7 @@ export class IfcAPI {
    * @param line
    */
   FlattenLine(modelID: number, line: any) {
-    console.log('[FlattenLine]: Shim - implemented')
+    Logger.warning('[FlattenLine]: Shim - implemented')
     Object.keys(line).forEach((propertyName) => {
       const property = line[propertyName]
       // eslint-disable-next-line no-magic-numbers
@@ -486,7 +551,7 @@ export class IfcAPI {
             return rawLineData
           }
         } else {
-          console.log('element express ID null')
+          Logger.warning('element express ID null')
         }
 
         const rawLineData: RawLineData = {
@@ -497,7 +562,7 @@ export class IfcAPI {
 
         return rawLineData
       } else {
-        console.log(`element === undefined, expressID: ${  expressID}`)
+        Logger.warning(`element === undefined, expressID: ${expressID}`)
       }
     }
 
@@ -516,7 +581,7 @@ export class IfcAPI {
    * @param data
    */
   WriteRawLineData(modelID: number, data: RawLineData) {
-    console.log('[WriteRawLineData]: Shim - Unimplemented')
+    Logger.warning('[WriteRawLineData]: Shim - Unimplemented')
   }
 
   /**
@@ -561,16 +626,16 @@ export class IfcAPI {
           if (arr[arrIndex].expressID !== void 0) {
             expressIDVector.push(arr[arrIndex].expressID!)
           } else {
-            console.log('[GetLineIDsWithType] No express ID found?')
+            Logger.warning('[GetLineIDsWithType] No express ID found?')
           }
         }
 
       } else {
         // Handle case where key does not exist
-        console.log(`[GetLineIDsWithType] Type: ${type} does not exist in shimIfcEntityMap`)
+        Logger.warning(`[GetLineIDsWithType] Type: ${type} does not exist in shimIfcEntityMap`)
       }
     } else {
-      console.log('[GetLineIDsWithType]: model is undefined...')
+      Logger.error('[GetLineIDsWithType]: model is undefined...')
     }
 
     return expressIDVector
@@ -618,12 +683,12 @@ export class IfcAPI {
           if (arr[arrIndex].expressID !== void 0) {
             expressIDVector.push(arr[arrIndex].expressID!)
           } else {
-            console.log('[GetLineIDsWithType] No express ID found?')
+            Logger.warning('[GetLineIDsWithType] No express ID found?')
           }
         }
       }
     } else {
-      console.log('[GetLineIDsWithType]: model is undefined...')
+      Logger.error('[GetLineIDsWithType]: model is undefined...')
     }
 
     return expressIDVector
@@ -636,12 +701,12 @@ export class IfcAPI {
    */
   setGeometryTransformation(modelID: number, transformationMatrix: Array<number>) {
     /* if (transformationMatrix.length != 16) {
-            console.log(`Bad transformation matrix size: ${transformationMatrix.length}`)
+            Logger.error(`Bad transformation matrix size: ${transformationMatrix.length}`)
             return
         }
         this.wasmModule.setGeometryTransformation(modelID, transformationMatrix)*/
 
-    console.log('[setGeometryTransformation]: Shim - Unimplemented')
+    Logger.warning('[setGeometryTransformation]: Shim - Unimplemented')
   }
 
   /**
@@ -699,7 +764,7 @@ export class IfcAPI {
    * @return {Float32Array | Uint32Array}
    */
   getSubArray(heap: Float32Array | Uint32Array, startPtr: number, sizeBytes: number):
-  Float32Array | Uint32Array {
+    Float32Array | Uint32Array {
     // eslint-disable-next-line no-magic-numbers, no-mixed-operators
     return heap.subarray(startPtr / 4, startPtr / 4 + sizeBytes).slice(0)
   }
@@ -941,6 +1006,9 @@ export class IfcAPI {
         meshCallback(mesh[1])
       })
     }
+
+    Logger.displayLogs()
+    Logger.printStatistics(modelID)
   }
 
   /**
@@ -1040,7 +1108,7 @@ export class IfcAPI {
             // coordinate the geometry to the origin
             // Assuming geom.GetPoint(0) returns a glm::dvec3, i.e., a 3D vector.
             // In TypeScript, you can represent it as number[] or Float64Array.
-            console.log('Setting up coordinationMatrix')
+            Logger.info('Setting up coordinationMatrix')
 
             // eslint-disable-next-line new-cap
             const nativePt = geometry.geometry.GetPoint(0)
@@ -1286,7 +1354,7 @@ export class IfcAPI {
             // coordinate the geometry to the origin
             // Assuming geom.GetPoint(0) returns a glm::dvec3, i.e., a 3D vector.
             // In TypeScript, you can represent it as number[] or Float64Array.
-            console.log('Setting up coordinationMatrix')
+            Logger.info('Setting up coordinationMatrix')
 
             // eslint-disable-next-line new-cap
             const nativePt = geometry.geometry.GetPoint(0)
@@ -1591,7 +1659,7 @@ export class IfcAPI {
 
         this.ifcGuidMap.push(modelID, map)*/
 
-    console.log(`[CreateIfcGuidToExpressIdMapping]: Model ${modelID}: Shim - Unimplemented`)
+    Logger.warning(`[CreateIfcGuidToExpressIdMapping]: Model ${modelID}: Shim - Unimplemented`)
   }
 
   /**

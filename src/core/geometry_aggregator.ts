@@ -1,4 +1,3 @@
-import { option } from 'yargs'
 import { ConwayGeometry, GeometryCollection } from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMaterial } from './canonical_material'
 import { CanonicalMeshType } from './canonical_mesh'

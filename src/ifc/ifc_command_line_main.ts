@@ -14,7 +14,12 @@ import { ConwayGeometry }
 import { IfcSceneBuilder } from './ifc_scene_builder'
 import GeometryConvertor from '../core/geometry_convertor'
 import GeometryAggregator from '../core/geometry_aggregator'
+import Logger from '../logging/logger'
+import Environment from '../utilities/environment'
+import Memory from '../memory/memory'
 
+// create a model ID
+const modelID: number = 0
 
 main()
 
@@ -22,6 +27,8 @@ main()
  * Generalised error handling wrapper
  */
 function main() {
+  Environment.checkEnvironment()
+  Logger.initializeWasmCallbacks()
   try {
     doWork()
   } catch (error) {
@@ -33,6 +40,7 @@ function main() {
  * Actual execution function.
  */
 function doWork() {
+  const allTimeStart = Date.now()
   const SKIP_PARAMS = 2
 
   const args = // eslint-disable-line no-unused-vars
@@ -66,14 +74,14 @@ function doWork() {
             alias: 'p',
           })
           yargs2.option('maxchunk', {
-            // eslint-disable-next-line max-len
+          // eslint-disable-next-line max-len
             describe: 'Maximum chunk size in megabytes (note, this is the allocation size, not the output size)',
             type: 'number',
             alias: 'm',
             default: 128,
           })
           yargs2.option('strict', {
-            // eslint-disable-next-line max-len
+          // eslint-disable-next-line max-len
             describe: 'Makes parser/reference errors on nullable fields return null instead of an error',
             type: 'boolean',
             alias: 's',
@@ -106,23 +114,27 @@ function doWork() {
           try {
             indexIfcBuffer = fs.readFileSync(ifcFile)
           } catch (ex) {
-            console.log(
-                'Error: couldn\'t read file, check that it is accessible at the specified path.')
+            Logger.error(
+                'Couldn\'t read file, check that it is accessible at the specified path.')
             exit()
           }
 
           if (indexIfcBuffer === void 0) {
-            console.log(
-                'Error: couldn\'t read file, check that it is accessible at the specified path.')
+            Logger.error(
+                'Couldn\'t read file, check that it is accessible at the specified path.')
             exit()
           }
+
+          // create a statistics object
+          Logger.createStatistics(modelID)
 
           const parser = IfcStepParser.Instance
           const bufferInput = new ParsingBuffer(indexIfcBuffer)
 
           const headerDataTimeStart = Date.now()
 
-          const result0 = parser.parseHeader(bufferInput)[1]
+
+          const [stepHeader, result0] = parser.parseHeader(bufferInput)
 
           const headerDataTimeEnd = Date.now()
 
@@ -133,22 +145,22 @@ function doWork() {
 
             case ParseResult.INCOMPLETE:
 
-              console.log('Parse incomplete but no errors')
+              Logger.warning('Parse incomplete but no errors')
               break
 
             case ParseResult.INVALID_STEP:
 
-              console.log('Error: Invalid STEP detected in parse, but no syntax error detected')
+              Logger.error('Invalid STEP detected in parse, but no syntax error detected')
               break
 
             case ParseResult.MISSING_TYPE:
 
-              console.log('Error: missing STEP type, but no syntax error detected')
+              Logger.error('Missing STEP type, but no syntax error detected')
               break
 
             case ParseResult.SYNTAX_ERROR:
 
-              console.log(`Error: Syntax error detected on line ${bufferInput.lineCount}`)
+              Logger.error(`Syntax error detected on line ${bufferInput.lineCount}`)
               break
 
             default:
@@ -165,8 +177,7 @@ function doWork() {
           model.nullOnErrors = !strict
 
           if (geometry) {
-            console.log(`Data parse time ${parseDataTimeEnd - parseDataTimeStart} ms`)
-            // Get the filename with extension
+          // Get the filename with extension
             const fileNameWithExtension = ifcFile.split('/').pop()!
             // Get the filename without extension
             const fileName = fileNameWithExtension.split('.')[0]
@@ -242,9 +253,8 @@ function doWork() {
             }
 
             console.log('\n')
-            console.log(`Row Count: ${rowCount}`)
-            console.log(`Header parse time ${headerDataTimeEnd - headerDataTimeStart} ms`)
-            console.log(`Data parse time ${parseDataTimeEnd - parseDataTimeStart} ms`)
+            Logger.info(`Row Count: ${rowCount}`)
+            Logger.info(`Header parse time ${headerDataTimeEnd - headerDataTimeStart} ms`)
           }
 
           if (!geometry) {
@@ -252,6 +262,47 @@ function doWork() {
               propertyExtraction(model!)
             }
           }
+
+          const allTimeEnd = Date.now()
+
+          const allTime = allTimeEnd - allTimeStart
+
+          const statistics = Logger.getStatistics(modelID)
+
+          if (statistics !== void 0) {
+            const dataParseTime = parseDataTimeEnd - parseDataTimeStart
+
+            statistics.setLoadStatus('OK')
+            statistics.setParseTime(dataParseTime)
+            statistics.setTotalTime(allTime)
+
+            const FILE_NAME = stepHeader.headers.get('FILE_NAME')
+            const ifcVersion = stepHeader.headers.get('FILE_SCHEMA')
+
+            if (ifcVersion !== void 0) {
+              statistics.setVersion(ifcVersion)
+            }
+
+            if (FILE_NAME !== void 0) {
+              const fileNameSplit: string[] = FILE_NAME.split(',')
+
+
+              // eslint-disable-next-line no-magic-numbers
+              if (fileNameSplit.length > 5) {
+                const preprocessorVersion = fileNameSplit[4]
+                const originatingSystem = fileNameSplit[5]
+
+                statistics.setPreprocessorVersion(preprocessorVersion)
+                statistics.setOriginatingSystem(originatingSystem)
+              }
+            }
+
+            statistics.setMemoryStatistics(Memory.checkMemoryUsage())
+          }
+
+
+          Logger.displayLogs()
+          Logger.printStatistics(modelID)
         })
         .help().argv
 }
@@ -270,34 +321,16 @@ function serializeGeometry(
     new GeometryAggregator(
         conwaywasm, { maxGeometrySize: maxGeometrySize, outputSpaces: includeSpaces } )
 
-  geometryAggregator.append( scene )
+  geometryAggregator.append(scene)
 
   const aggregatedGeometry = geometryAggregator.aggregateNative()
 
-  if ( aggregatedGeometry.geometry.size() === 0) {
-    console.log('No Geometry Found')
+  if (aggregatedGeometry.geometry.size() === 0) {
+    Logger.warning('No Geometry Found')
     return
   }
 
-  // returns a string containing a full obj
-  // const startTimeObj = Date.now()
-  // const objResult = conwayModel.toObj(fullGeometry)
-  // const endTimeObj = Date.now()
-  // const executionTimeInMsObj = endTimeObj - startTimeObj
-
-  // write to FS
-  // const filename = `${fileNameNoExtension}_test.obj`
-
-  // fs.writeFile(filename, objResult, function(err) {
-  //   if (err) {
-  //     console.error('Error writing to file: ', err)
-  //   } else {
-  //     console.log('Data written to file: ', filename)
-  //   }
-  // })
-
-
-  const convertor = new GeometryConvertor( conwaywasm )
+  const convertor = new GeometryConvertor(conwaywasm)
 
   const startTimeGlb = Date.now()
   const glbResults =
@@ -305,13 +338,13 @@ function serializeGeometry(
         aggregatedGeometry,
         true,
         false,
-        `${fileNameNoExtension}_test` )
+        `${fileNameNoExtension}_test`)
 
-  for ( const glbResult of glbResults ) {
+  for (const glbResult of glbResults) {
     if (glbResult.success) {
 
       if (glbResult.buffers.size() !== glbResult.bufferUris.size()) {
-        console.log('Error! Buffer size != Buffer URI size!\n')
+        Logger.error('Buffer size != Buffer URI size!\n')
         return
       }
 
@@ -324,13 +357,12 @@ function serializeGeometry(
 
         try {
           fs.writeFileSync(uri, managedBuffer)
-          // console.log(`Data written to file: ${uri}`)
         } catch (err) {
-          console.error('Error writing to file:', err)
+          Logger.error(`Error writing to file: ${err}`)
         }
       }
     } else {
-      console.error('GLB generation unsuccessful')
+      Logger.error('GLB generation unsuccessful')
     }
 
     glbResult.bufferUris?.delete()
@@ -347,14 +379,14 @@ function serializeGeometry(
         aggregatedGeometry,
         true,
         true,
-        `${fileNameNoExtension}_test_draco` )
+        `${fileNameNoExtension}_test_draco`)
 
-  for ( const glbDracoResult of glbDracoResults ) {
+  for (const glbDracoResult of glbDracoResults) {
 
     if (glbDracoResult.success) {
 
       if (glbDracoResult.buffers.size() !== glbDracoResult.bufferUris.size()) {
-        console.log('Error! Buffer size != Buffer URI size!\n')
+        Logger.error('Buffer size != Buffer URI size!\n')
         return
       }
 
@@ -367,9 +399,8 @@ function serializeGeometry(
 
         try {
           fs.writeFileSync(uri, managedBuffer)
-          // console.log(`Data written to file: ${uri}`)
         } catch (err) {
-          console.error('Error writing to file:', err)
+          Logger.error(`Error writing to file: ${err}`)
         }
       }
     } else {
@@ -389,14 +420,14 @@ function serializeGeometry(
         aggregatedGeometry,
         false,
         false,
-        `${fileNameNoExtension}` )
+        `${fileNameNoExtension}`)
 
-  for ( const gltfResult of gltfResults ) {
+  for (const gltfResult of gltfResults) {
 
     if (gltfResult.success) {
 
       if (gltfResult.buffers.size() !== gltfResult.bufferUris.size()) {
-        console.log('Error! Buffer size !== Buffer URI size!\n')
+        Logger.error('Buffer size !== Buffer URI size!\n')
         return
       }
 
@@ -410,13 +441,12 @@ function serializeGeometry(
 
         try {
           fs.writeFileSync(uri, managedBuffer)
-          // console.log(`Data written to file: ${uri}`)
         } catch (err) {
-          console.error('Error writing to file:', err)
+          Logger.error(`Error writing to file: ${err}`)
         }
       }
     } else {
-      console.error('GLTF generation unsuccessful')
+      Logger.error('GLTF generation unsuccessful')
     }
 
     gltfResult.bufferUris?.delete()
@@ -432,14 +462,14 @@ function serializeGeometry(
         aggregatedGeometry,
         false,
         true,
-        `${fileNameNoExtension}_draco` )
+        `${fileNameNoExtension}_draco`)
 
-  for ( const gltfResultDraco of gltfResultsDraco ) {
+  for (const gltfResultDraco of gltfResultsDraco) {
 
     if (gltfResultDraco.success) {
 
       if (gltfResultDraco.buffers.size() !== gltfResultDraco.bufferUris.size()) {
-        console.log('Error! Buffer size !== Buffer URI size!\n')
+        Logger.error('Buffer size !== Buffer URI size!\n')
         return
       }
 
@@ -453,13 +483,12 @@ function serializeGeometry(
 
         try {
           fs.writeFileSync(uri, managedBuffer)
-          // console.log(`Data written to file: ${uri}`)
         } catch (err) {
-          console.error('Error writing to file:', err)
+          Logger.error(`Error writing to file: ${err}`)
         }
       }
     } else {
-      console.error('Draco GLTF generation unsuccessful')
+      Logger.error('Draco GLTF generation unsuccessful')
     }
 
     gltfResultDraco.bufferUris?.delete()
@@ -473,12 +502,11 @@ function serializeGeometry(
   aggregatedGeometry.geometry.delete()
   aggregatedGeometry.materials.delete()
 
-  console.log( `There were ${aggregatedGeometry.chunks.length} geometry chunks`)
-  // console.log(`OBJ Generation took ${executionTimeInMsObj} milliseconds to execute.`)
-  console.log(`GLB Generation took ${executionTimeInMsGlb} milliseconds to execute.`)
-  console.log(`GLTF Generation took ${executionTimeInMsGltf} milliseconds to execute.`)
-  console.log(`GLB Draco Generation took ${executionTimeInMsGlbDraco} milliseconds to execute.`)
-  console.log(`GLTF Draco Generation took ${executionTimeInMsGltfDraco} milliseconds to execute.`)
+  Logger.info(`There were ${aggregatedGeometry.chunks.length} geometry chunks`)
+  Logger.info(`GLB Generation took ${executionTimeInMsGlb} milliseconds to execute.`)
+  Logger.info(`GLTF Generation took ${executionTimeInMsGltf} milliseconds to execute.`)
+  Logger.info(`GLB Draco Generation took ${executionTimeInMsGlbDraco} milliseconds to execute.`)
+  Logger.info(`GLTF Draco Generation took ${executionTimeInMsGltfDraco} milliseconds to execute.`)
 }
 
 /**
@@ -505,10 +533,27 @@ async function geometryExtraction(model: IfcStepModel):
   const conwayModel = new IfcGeometryExtraction(conwaywasm, model)
 
   // parse + extract data model + geometry data
+  const startTime = Date.now()
   const [extractionResult, scene] =
-    conwayModel.extractIFCGeometryData(true)
+    conwayModel.extractIFCGeometryData()
+  const endTime = Date.now()
+  const executionTimeInMs = endTime - startTime
 
-  model.invalidate( true )
+  const statistics = Logger.getStatistics(0)
+  statistics?.setGeometryTime(executionTimeInMs)
+
+
+  // eslint-disable-next-line no-magic-numbers
+  statistics?.setGeometryMemory(conwayModel.model.geometry.calculateGeometrySize() / (1024 * 1024))
+
+
+  const ifcProjectName = conwayModel.getIfcProjectName()
+
+  if (ifcProjectName !== null) {
+    statistics?.setProjectName(ifcProjectName)
+  }
+
+  model.invalidate(true)
 
   if (extractionResult !== ExtractResult.COMPLETE) {
     console.error('Could not extract geometry, exiting...')
