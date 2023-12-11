@@ -15,24 +15,8 @@ export  class annotation_text extends mapped_item {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.ANNOTATION_TEXT
   }
-  private mapping_target_? : axis2_placement_2d | axis2_placement_3d
 
-  public get mapping_target() : axis2_placement_2d | axis2_placement_3d {
-    if ( this.mapping_target_ === void 0 ) {
-      
-      const value : StepEntityBase< EntityTypesIfc > =
-        this.extractReference( 3, false )
 
-      if ( !( value instanceof axis2_placement_2d ) && !( value instanceof axis2_placement_3d ) ) {
-        throw new Error( 'Value in STEP was incorrectly typed for field' )
-      }
-
-      this.mapping_target_ = value as (axis2_placement_2d | axis2_placement_3d)
-
-    }
-
-    return this.mapping_target_ as axis2_placement_2d | axis2_placement_3d
-  }
   constructor(
     localID: number,
     internalReference: StepEntityInternalReference< EntityTypesIfc >,

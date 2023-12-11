@@ -16,18 +16,10 @@ export  class sliding_surface_pair_value extends pair_value {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.SLIDING_SURFACE_PAIR_VALUE
   }
-  private applies_to_pair_? : sliding_surface_pair
   private actual_point_on_surface_1_? : point_on_surface
   private actual_point_on_surface_2_? : point_on_surface
   private actual_rotation_? : number
 
-  public get applies_to_pair() : sliding_surface_pair {
-    if ( this.applies_to_pair_ === void 0 ) {
-      this.applies_to_pair_ = this.extractElement( 1, false, sliding_surface_pair )
-    }
-
-    return this.applies_to_pair_ as sliding_surface_pair
-  }
 
   public get actual_point_on_surface_1() : point_on_surface {
     if ( this.actual_point_on_surface_1_ === void 0 ) {

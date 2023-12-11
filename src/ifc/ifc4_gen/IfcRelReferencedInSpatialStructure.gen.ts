@@ -3,6 +3,7 @@ import { IfcRelConnects } from "./index"
 import { IfcProduct } from "./index"
 import { IfcSpatialElement } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -29,6 +30,10 @@ export  class IfcRelReferencedInSpatialStructure extends IfcRelConnects {
       let   cursor    = this.getOffsetCursor( 4 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<IfcProduct> = []
 

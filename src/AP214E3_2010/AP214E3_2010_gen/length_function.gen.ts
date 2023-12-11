@@ -14,15 +14,8 @@ export  class length_function extends numeric_expression {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.LENGTH_FUNCTION
   }
-  private operand_? : string_expression
 
-  public get operand() : string_expression {
-    if ( this.operand_ === void 0 ) {
-      this.operand_ = this.extractElement( 0, false, string_expression )
-    }
 
-    return this.operand_ as string_expression
-  }
   constructor(
     localID: number,
     internalReference: StepEntityInternalReference< EntityTypesIfc >,

@@ -16,17 +16,9 @@ export  class screw_pair_range extends simple_pair_range {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.SCREW_PAIR_RANGE
   }
-  private applies_to_pair_? : screw_pair
   private lower_limit_actual_rotation_? : plane_angle_measure | unlimited_range
   private upper_limit_actual_rotation_? : plane_angle_measure | unlimited_range
 
-  public get applies_to_pair() : screw_pair {
-    if ( this.applies_to_pair_ === void 0 ) {
-      this.applies_to_pair_ = this.extractElement( 1, false, screw_pair )
-    }
-
-    return this.applies_to_pair_ as screw_pair
-  }
 
   public get lower_limit_actual_rotation() : plane_angle_measure | unlimited_range {
     if ( this.lower_limit_actual_rotation_ === void 0 ) {

@@ -17,17 +17,9 @@ export  class point_on_planar_curve_pair_value extends pair_value {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.POINT_ON_PLANAR_CURVE_PAIR_VALUE
   }
-  private applies_to_pair_? : point_on_planar_curve_pair
   private actual_point_on_curve_? : point_on_curve
   private input_orientation_? : ypr_rotation | rotation_about_direction
 
-  public get applies_to_pair() : point_on_planar_curve_pair {
-    if ( this.applies_to_pair_ === void 0 ) {
-      this.applies_to_pair_ = this.extractElement( 1, false, point_on_planar_curve_pair )
-    }
-
-    return this.applies_to_pair_ as point_on_planar_curve_pair
-  }
 
   public get actual_point_on_curve() : point_on_curve {
     if ( this.actual_point_on_curve_ === void 0 ) {

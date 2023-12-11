@@ -15,17 +15,9 @@ export  class universal_pair_value extends pair_value {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.UNIVERSAL_PAIR_VALUE
   }
-  private applies_to_pair_? : universal_pair
   private first_rotation_angle_? : number
   private second_rotation_angle_? : number
 
-  public get applies_to_pair() : universal_pair {
-    if ( this.applies_to_pair_ === void 0 ) {
-      this.applies_to_pair_ = this.extractElement( 1, false, universal_pair )
-    }
-
-    return this.applies_to_pair_ as universal_pair
-  }
 
   public get first_rotation_angle() : number {
     if ( this.first_rotation_angle_ === void 0 ) {

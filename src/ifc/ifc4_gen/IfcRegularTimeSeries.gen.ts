@@ -3,6 +3,7 @@ import { IfcTimeSeries } from "./index"
 import { IfcTimeMeasure } from "./index"
 import { IfcTimeSeriesValue } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -37,6 +38,10 @@ export  class IfcRegularTimeSeries extends IfcTimeSeries {
       let   cursor    = this.getOffsetCursor( 9 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<IfcTimeSeriesValue> = []
 

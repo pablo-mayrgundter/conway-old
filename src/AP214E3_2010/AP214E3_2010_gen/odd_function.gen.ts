@@ -14,15 +14,8 @@ export  class odd_function extends unary_boolean_expression {
   public get type(): EntityTypesIfc {
     return EntityTypesIfc.ODD_FUNCTION
   }
-  private operand_? : numeric_expression
 
-  public get operand() : numeric_expression {
-    if ( this.operand_ === void 0 ) {
-      this.operand_ = this.extractElement( 0, false, numeric_expression )
-    }
 
-    return this.operand_ as numeric_expression
-  }
   constructor(
     localID: number,
     internalReference: StepEntityInternalReference< EntityTypesIfc >,

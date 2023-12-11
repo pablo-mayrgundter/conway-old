@@ -2,6 +2,7 @@
 import { IfcAdvancedBrep } from "./index"
 import { IfcClosedShell } from "./index"
 import {
+  stepExtractOptional,
   stepExtractArrayToken,
   stepExtractArrayBegin,
   skipValue,
@@ -27,6 +28,10 @@ export  class IfcAdvancedBrepWithVoids extends IfcAdvancedBrep {
       let   cursor    = this.getOffsetCursor( 1 )
       const buffer    = this.buffer
       const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
 
       const value : Array<IfcClosedShell> = []
 
