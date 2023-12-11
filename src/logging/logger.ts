@@ -151,7 +151,18 @@ export default class Logger {
   /**
    * display logs in a table
    */
-  public static displayLogs(): void {
+  public static displayLogs(clearLogs:boolean = false): void {
     console.table(Logger.logs)
+
+    if (clearLogs) {
+      Logger.logs = []
+    }
+  }
+
+  /**
+   * clear logs
+   */
+  public static clearLogs(): void {
+    Logger.logs = []
   }
 }

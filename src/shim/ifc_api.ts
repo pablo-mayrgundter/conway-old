@@ -1007,7 +1007,7 @@ export class IfcAPI {
       })
     }
 
-    Logger.displayLogs()
+    Logger.displayLogs(true)
     Logger.printStatistics(modelID)
   }
 
