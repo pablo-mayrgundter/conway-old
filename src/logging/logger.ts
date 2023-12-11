@@ -151,12 +151,8 @@ export default class Logger {
   /**
    * display logs in a table
    */
-  public static displayLogs(clearLogs:boolean = false): void {
+  public static displayLogs(): void {
     console.table(Logger.logs)
-
-    if (clearLogs) {
-      Logger.logs = []
-    }
   }
 
   /**
