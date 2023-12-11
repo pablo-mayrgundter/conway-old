@@ -39,7 +39,7 @@ export abstract class time_interval_assignment extends StepEntityBase< EntityTyp
     super( localID, internalReference, model )
   }
 
-  public static readonly query = 
+  public static readonly query: EntityTypesIfc[] = 
     [  ]
 
   public static readonly expectedType: EntityTypesIfc =

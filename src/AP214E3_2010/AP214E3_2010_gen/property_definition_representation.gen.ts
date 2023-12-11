@@ -7,6 +7,10 @@ import { shape_aspect_relationship } from "./index"
 import { representation } from "./index"
 import { text } from "./index"
 import { label } from "./index"
+import {
+  get_name_value,
+  get_description_value,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'

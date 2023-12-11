@@ -1,5 +1,9 @@
 
 import { expression } from "./index"
+import {
+  is_sql_mappable,
+  is_int_expr,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'

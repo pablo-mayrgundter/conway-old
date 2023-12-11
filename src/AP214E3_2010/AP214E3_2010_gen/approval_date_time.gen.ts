@@ -4,6 +4,9 @@ import { date_and_time } from "./index"
 import { local_time } from "./index"
 import { approval } from "./index"
 import { object_role } from "./index"
+import {
+  get_role,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'

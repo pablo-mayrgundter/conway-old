@@ -21,7 +21,7 @@ export abstract class presented_item extends StepEntityBase< EntityTypesIfc > {
     super( localID, internalReference, model )
   }
 
-  public static readonly query = 
+  public static readonly query: EntityTypesIfc[] = 
     [  ]
 
   public static readonly expectedType: EntityTypesIfc =

@@ -3,6 +3,9 @@ import { named_unit } from "./index"
 import { si_prefix, si_prefixDeserializeStep } from "./index"
 import { si_unit_name, si_unit_nameDeserializeStep } from "./index"
 import { dimensional_exponents } from "./index"
+import {
+  dimensions_for_si_unit,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'

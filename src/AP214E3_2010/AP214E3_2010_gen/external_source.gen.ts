@@ -1,6 +1,9 @@
 
 import { identifier } from "./index"
 import { text } from "./index"
+import {
+  get_description_value,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'

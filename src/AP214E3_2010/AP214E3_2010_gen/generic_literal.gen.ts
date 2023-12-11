@@ -22,7 +22,7 @@ export abstract class generic_literal extends simple_generic_expression {
     super( localID, internalReference, model )
   }
 
-  public static readonly query = 
+  public static readonly query: EntityTypesIfc[] = 
     [  ]
 
   public static readonly expectedType: EntityTypesIfc =

@@ -39,7 +39,7 @@ export abstract class effectivity_context_assignment extends StepEntityBase< Ent
     super( localID, internalReference, model )
   }
 
-  public static readonly query = 
+  public static readonly query: EntityTypesIfc[] = 
     [  ]
 
   public static readonly expectedType: EntityTypesIfc =

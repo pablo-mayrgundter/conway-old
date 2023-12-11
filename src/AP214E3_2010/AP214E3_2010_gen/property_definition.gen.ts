@@ -8,6 +8,9 @@ import { product_definition_shape } from "./index"
 import { shape_aspect } from "./index"
 import { shape_aspect_relationship } from "./index"
 import { identifier } from "./index"
+import {
+  get_id_value,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'

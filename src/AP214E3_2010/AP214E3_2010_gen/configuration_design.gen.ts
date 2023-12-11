@@ -4,6 +4,10 @@ import { product_definition } from "./index"
 import { product_definition_formation } from "./index"
 import { label } from "./index"
 import { text } from "./index"
+import {
+  get_name_value,
+  get_description_value,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'

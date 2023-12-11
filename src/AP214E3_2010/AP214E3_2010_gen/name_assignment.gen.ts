@@ -1,6 +1,9 @@
 
 import { label } from "./index"
 import { object_role } from "./index"
+import {
+  get_role,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -34,7 +37,7 @@ export abstract class name_assignment extends StepEntityBase< EntityTypesIfc > {
     super( localID, internalReference, model )
   }
 
-  public static readonly query = 
+  public static readonly query: EntityTypesIfc[] = 
     [  ]
 
   public static readonly expectedType: EntityTypesIfc =

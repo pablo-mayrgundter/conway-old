@@ -7,6 +7,9 @@ import {
   stepExtractArrayBegin,
   skipValue,
 } from '../../step/parsing/step_deserialization_functions'
+import {
+  get_name_value,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
