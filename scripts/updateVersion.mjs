@@ -46,7 +46,7 @@ rewriteVersion(
 //
 // const versionString: string = 'Conway Web-Ifc Shim v0.1.370'"
 rewriteVersion(
-    'src/shim/version.ts',
+    'src/version/version.ts',
     /^const versionString: string = 'Conway Web-Ifc Shim v(?<major>\d+).(?<minor>\d+).\d+'$/m,
     `const versionString: string = 'Conway Web-Ifc Shim v$<major>.$<minor>.${newPatch}'`,
 )
