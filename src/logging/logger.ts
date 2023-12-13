@@ -8,6 +8,7 @@ export interface LogEntry {
     level: LogLevel
     message: string
     count: number
+    expressIDs:Set<string>
 }
 
 
@@ -61,19 +62,58 @@ export default class Logger {
    * @param message - log message
    */
   private static log(level: LogLevel, message: string): void {
-    const index = Logger.findLogIndex(message, level)
+    const baseMessage = message.split(' expressID: ')[0] // Extract the base message
+    const data = message.split(' expressID: ')[1] // Extract the expressID
+
+    const index = Logger.findLogIndex(baseMessage, level)
     let logEntry: LogEntry
 
     if (index >= 0) {
       Logger.logs[index].count += 1
+      if (data) {
+        Logger.logs[index].expressIDs = Logger.logs[index].expressIDs || new Set<string>()
+        Logger.logs[index].expressIDs.add(data)
+      }
       logEntry = Logger.logs[index]
     } else {
-      logEntry = { level, message, count: 1 }
+      logEntry = {
+        level,
+        message: baseMessage,
+        count: 1,
+        expressIDs: data ? new Set([data]) : new Set(),
+      }
       Logger.logs.push(logEntry)
     }
 
     Logger.proxies.forEach((proxy) => proxy.log(logEntry))
   }
+
+
+  /**
+   * Compresses similar logs to a single line
+   */
+  public static compressLogs(): void {
+    const compressedLogs: LogEntry[] = []
+
+    Logger.logs.forEach((log) => {
+      const existingLog = compressedLogs.find((l) =>
+        l.message === log.message && l.level === log.level)
+      if (existingLog) {
+        existingLog.count += log.count
+        if (log.expressIDs) {
+          log.expressIDs.forEach((d) => existingLog.expressIDs?.add(d))
+        }
+      } else {
+        compressedLogs.push({
+          ...log,
+          expressIDs: log.expressIDs ? new Set(log.expressIDs) : new Set(),
+        })
+      }
+    })
+
+    Logger.logs = compressedLogs // Replace the original logs with compressed logs
+  }
+
 
   /**
    *
@@ -152,6 +192,7 @@ export default class Logger {
    * display logs in a table
    */
   public static displayLogs(): void {
+    Logger.compressLogs()
     console.table(Logger.logs)
   }
 

@@ -3200,8 +3200,8 @@ export class IfcGeometryExtraction {
         this.scene.addGeometry(from.localID, owningElementLocalID, isSpace)
       }
     } else {
-      Logger.warning(`Unsupported type: ${EntityTypesIfc[from.type]} 
-      expressID: ${from.expressID}`)
+      Logger.warning(`Unsupported type: ${EntityTypesIfc[from.type]} ` +
+      `expressID: ${from.expressID}`)
     }
   }
 

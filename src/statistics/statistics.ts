@@ -1,3 +1,5 @@
+import { versionString } from '../version/version'
+
 /**
  * Class to compile a list of runtime statistics for models and memory
  */
@@ -179,14 +181,51 @@ export class Statistics {
    * prints statistics
    */
   printStatistics(): void {
+    const date = new Date()
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      timeZone: 'UTC',
+    }
+
+    const dateString = date.toLocaleDateString('en-US', options)
+    const versionMatch = versionString.match(/v(\d+\.\d+\.\d+)/)
+    let conwayVersionNumber: string
+
+    if (versionMatch !== null) {
+      conwayVersionNumber = versionMatch[1]
+    } else {
+      conwayVersionNumber = 'Version Not Found'
+    }
+
+    let versionStr:string
+    if (this.version !== void 0) {
+      const match = this.version.match(/'([^']+)'/)
+      if (match) {
+        versionStr = match[1]
+      } else {
+        versionStr = 'No match found'
+      }
+    } else {
+      versionStr = 'Version not defined'
+    }
+
+    /* eslint-disable no-magic-numbers */
     console.log(
-        `[${new Date()}]: Load Status: ${this.loadStatus}, ` +
-            `Project Name: ${this.projectName}, Version: ${this.version}, ` +
+        `[${dateString}]: Load Status: ${this.loadStatus}, ` +
+            `Project Name: ${this.projectName}, Version: ${versionStr}, ` +
+            `Conway Version: ${conwayVersionNumber}, ` +
             `Parse Time: ${this.parseTime} ms, Geometry Time: ${this.geometryTime} ms, ` +
-            `Total Time: ${this.totalTime} ms, Geometry Memory: ${this.geometryMemory} MB, ` +
+            `Total Time: ${this.totalTime} ms, ` +
+            `Geometry Memory: ${this.geometryMemory?.toFixed(3)} MB, ` +
+            `Memory Statistics: ${this.memoryStatistics}, ` +
             `Preprocessor Version: ${this.preprocessorVersion}, ` +
-            `Originating System: ${this.originatingSystem}, ` +
-            `Memory Statistics: ${this.memoryStatistics}`,
+            `Originating System: ${this.originatingSystem}`,
     )
+    /* eslint-enable no-magic-numbers */
   }
 }
