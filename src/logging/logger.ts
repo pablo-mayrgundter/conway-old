@@ -70,7 +70,7 @@ export default class Logger {
 
     if (index >= 0) {
       Logger.logs[index].count += 1
-      if (data) {
+      if (data !== void 0) {
         Logger.logs[index].expressIDs = Logger.logs[index].expressIDs || new Set<string>()
         Logger.logs[index].expressIDs.add(data)
       }
@@ -98,9 +98,9 @@ export default class Logger {
     Logger.logs.forEach((log) => {
       const existingLog = compressedLogs.find((l) =>
         l.message === log.message && l.level === log.level)
-      if (existingLog) {
+      if (existingLog !== void 0) {
         existingLog.count += log.count
-        if (log.expressIDs) {
+        if (log.expressIDs !== void 0) {
           log.expressIDs.forEach((d) => existingLog.expressIDs?.add(d))
         }
       } else {
