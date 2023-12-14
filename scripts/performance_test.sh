@@ -3,14 +3,14 @@
 # Check if the server directory path is provided as the first argument
 if [ -z "$1" ]; then
   echo "Error: No server directory path provided."
-  echo "Usage: $0 /path/to/server_directory /path/to/model_directory"
+  echo "Usage: $0 /path/to/headless_three /path/to/model_directory"
   exit 1
 fi
 
 # Check if the model directory path is provided as the first argument
 if [ -z "$2" ]; then
   echo "Error: No model directory path provided."
-  echo "Usage: $0 /path/to/server_directory /path/to/model_directory"
+  echo "Usage: $0 /path/to/headless_three /path/to/model_directory"
   exit 1
 fi
 
@@ -43,7 +43,7 @@ csvFile="${outputDir}/statistics.csv"
 echo "Timestamp, uname, Conway Version, File name, Schema Version, Parse Time (ms), Geometry Time (ms), Total Time (ms), Geometry Memory (MB), RSS (MB), Heap Used (MB), Heap Total (MB), Preprocessor Version, Originating System" > "$csvFile"
 
 # Process files and save outputs to the new directory
-find "${modelDir}/ifc" -type f \( -name "*.bld" -o -name "*.fbx" -o -name "*.ifc" -o -name "*.obj" -o -name "*.stl" -o -name "*.pdb" -o -name "*.xyz" \) -print0 | while IFS= read -r -d '' f; do
+find "${modelDir}/ifc" -type f \( -name "*.ifc" \) -print0 | while IFS= read -r -d '' f; do
   # Change to server directory
   cd "$serverDir"
 
