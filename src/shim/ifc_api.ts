@@ -359,17 +359,6 @@ export class IfcAPI {
     if (FILE_NAME !== void 0) {
       const fileNameSplit: string[] = this.parseFileHeader(FILE_NAME)
 
-
-      console.log(`FILE_NAME: ${  FILE_NAME}`)
-      console.log(`fileNameSplit: ${  fileNameSplit}`)
-
-      console.log(`fileNameSplit[0]: ${fileNameSplit[0]}`)
-      console.log(`fileNameSplit[1]: ${fileNameSplit[1]}`)
-      console.log(`fileNameSplit[2]: ${fileNameSplit[2]}`)
-      console.log(`fileNameSplit[3]: ${fileNameSplit[3]}`)
-      console.log(`fileNameSplit[4]: ${fileNameSplit[4]}`)
-      console.log(`fileNameSplit[5]: ${fileNameSplit[5]}`)
-
       // eslint-disable-next-line no-magic-numbers
       if (fileNameSplit.length > 5) {
         const preprocessorVersion = fileNameSplit[5]
