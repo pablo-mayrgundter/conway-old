@@ -40,7 +40,7 @@ export  class surface_style_rendering_with_properties extends surface_style_rend
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof surface_style_reflectance_ambient ) && !( value1Untyped instanceof surface_style_transparent ) ) {

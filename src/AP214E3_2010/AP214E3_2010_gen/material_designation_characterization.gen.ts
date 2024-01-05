@@ -48,7 +48,7 @@ export  class material_designation_characterization extends StepEntityBase< Enti
   public get property() : material_property_representation {
     if ( this.property_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 3, false )
 
       if ( !( value instanceof material_property_representation ) ) {

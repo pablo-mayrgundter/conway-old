@@ -47,7 +47,7 @@ export  class property_definition extends StepEntityBase< EntityTypesIfc > {
   public get definition() : characterized_object | product_definition | product_definition_relationship | product_definition_shape | shape_aspect | shape_aspect_relationship {
     if ( this.definition_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 2, false )
 
       if ( !( value instanceof characterized_object ) && !( value instanceof product_definition ) && !( value instanceof product_definition_relationship ) && !( value instanceof product_definition_shape ) && !( value instanceof shape_aspect ) && !( value instanceof shape_aspect_relationship ) ) {

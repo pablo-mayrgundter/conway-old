@@ -30,7 +30,7 @@ export abstract class attribute_value_assignment extends StepEntityBase< EntityT
   public get attribute_value() : label | text {
     if ( this.attribute_value_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof label ) && !( value instanceof text ) ) {

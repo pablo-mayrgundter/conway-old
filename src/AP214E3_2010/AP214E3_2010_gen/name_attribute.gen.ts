@@ -37,7 +37,7 @@ export  class name_attribute extends StepEntityBase< EntityTypesIfc > {
   public get named_item() : action_request_solution | address | configuration_design | context_dependent_shape_representation | derived_unit | effectivity | person_and_organization | product_definition | product_definition_substitute | property_definition_representation {
     if ( this.named_item_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof action_request_solution ) && !( value instanceof address ) && !( value instanceof configuration_design ) && !( value instanceof context_dependent_shape_representation ) && !( value instanceof derived_unit ) && !( value instanceof effectivity ) && !( value instanceof person_and_organization ) && !( value instanceof product_definition ) && !( value instanceof product_definition_substitute ) && !( value instanceof property_definition_representation ) ) {

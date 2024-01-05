@@ -25,7 +25,7 @@ export  class csg_solid extends solid_model {
   public get tree_root_expression() : boolean_result | sphere | block | right_angular_wedge | torus | right_circular_cone | right_circular_cylinder {
     if ( this.tree_root_expression_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof boolean_result ) && !( value instanceof sphere ) && !( value instanceof block ) && !( value instanceof right_angular_wedge ) && !( value instanceof torus ) && !( value instanceof right_circular_cone ) && !( value instanceof right_circular_cylinder ) ) {

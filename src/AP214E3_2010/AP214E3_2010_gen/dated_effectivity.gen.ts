@@ -23,7 +23,7 @@ export  class dated_effectivity extends effectivity {
   public get effectivity_end_date() : date | date_and_time | local_time | event_occurrence | null {
     if ( this.effectivity_end_date_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 1, true )
 
       if ( !( value instanceof date ) && !( value instanceof date_and_time ) && !( value instanceof local_time ) && !( value instanceof event_occurrence ) && value !== null ) {
@@ -40,7 +40,7 @@ export  class dated_effectivity extends effectivity {
   public get effectivity_start_date() : date | date_and_time | local_time | event_occurrence {
     if ( this.effectivity_start_date_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 2, false )
 
       if ( !( value instanceof date ) && !( value instanceof date_and_time ) && !( value instanceof local_time ) && !( value instanceof event_occurrence ) ) {

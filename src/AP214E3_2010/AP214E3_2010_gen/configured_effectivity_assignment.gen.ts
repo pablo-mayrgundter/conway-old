@@ -42,7 +42,7 @@ export  class configured_effectivity_assignment extends effectivity_assignment {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof action_relationship ) && !( value1Untyped instanceof process_plan ) && !( value1Untyped instanceof product_definition ) && !( value1Untyped instanceof product_process_plan ) ) {

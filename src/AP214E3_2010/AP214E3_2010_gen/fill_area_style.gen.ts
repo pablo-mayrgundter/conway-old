@@ -53,7 +53,7 @@ export  class fill_area_style extends founded_item {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof fill_area_style_colour ) && !( value1Untyped instanceof externally_defined_tile_style ) && !( value1Untyped instanceof fill_area_style_tiles ) && !( value1Untyped instanceof externally_defined_hatch_style ) && !( value1Untyped instanceof fill_area_style_hatching ) ) {

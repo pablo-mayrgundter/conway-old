@@ -22,7 +22,7 @@ export  class plus_minus_tolerance extends StepEntityBase< EntityTypesIfc > {
   public get range() : tolerance_value | limits_and_fits {
     if ( this.range_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof tolerance_value ) && !( value instanceof limits_and_fits ) ) {
@@ -39,7 +39,7 @@ export  class plus_minus_tolerance extends StepEntityBase< EntityTypesIfc > {
   public get toleranced_dimension() : dimensional_location | dimensional_size {
     if ( this.toleranced_dimension_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof dimensional_location ) && !( value instanceof dimensional_size ) ) {

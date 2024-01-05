@@ -24,7 +24,7 @@ export  class approval_person_organization extends StepEntityBase< EntityTypesIf
   public get person_organization() : person | organization | person_and_organization {
     if ( this.person_organization_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof person ) && !( value instanceof organization ) && !( value instanceof person_and_organization ) ) {

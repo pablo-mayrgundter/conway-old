@@ -41,7 +41,7 @@ export  class description_attribute extends StepEntityBase< EntityTypesIfc > {
   public get described_item() : action_request_solution | application_context | approval_role | configuration_design | date_role | date_time_role | context_dependent_shape_representation | effectivity | external_source | organization_role | person_and_organization_role | person_and_organization | property_definition_representation | representation {
     if ( this.described_item_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof action_request_solution ) && !( value instanceof application_context ) && !( value instanceof approval_role ) && !( value instanceof configuration_design ) && !( value instanceof date_role ) && !( value instanceof date_time_role ) && !( value instanceof context_dependent_shape_representation ) && !( value instanceof effectivity ) && !( value instanceof external_source ) && !( value instanceof organization_role ) && !( value instanceof person_and_organization_role ) && !( value instanceof person_and_organization ) && !( value instanceof property_definition_representation ) && !( value instanceof representation ) ) {

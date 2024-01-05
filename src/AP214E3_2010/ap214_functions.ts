@@ -134,10 +134,22 @@ export function derive_dimensional_exponents( unit: derived_unit | named_unit ):
   throw new Error("Function not implemented.")
 }
 
-export function dimension_of(arg0: geometric_representation_item): number {
+/**
+ * Get the dimension of an entity.
+ *
+ * @param arg0 The object to get the dimension of
+ * @throws {Error} Not implemented.
+ */
+export function dimension_of(arg0: StepEntityBase< EntityTypesIfc >): number {
   throw new Error("Function not implemented.")
 }
 
+/**
+ * Get the role from an entity.
+ *
+ * @param arg0 The object to get the role from
+ * @throws {Error} Not implemented.
+ */
 export function get_role(arg0: StepEntityBase< EntityTypesIfc >): object_role {
   throw new Error("Function not implemented.")
 }

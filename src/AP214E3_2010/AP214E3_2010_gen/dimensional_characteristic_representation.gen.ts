@@ -21,7 +21,7 @@ export  class dimensional_characteristic_representation extends StepEntityBase< 
   public get dimension() : dimensional_location | dimensional_size {
     if ( this.dimension_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof dimensional_location ) && !( value instanceof dimensional_size ) ) {

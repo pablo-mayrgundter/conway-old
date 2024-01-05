@@ -20,7 +20,7 @@ export  class context_dependent_invisibility extends invisibility {
   public get presentation_context() : presentation_representation | presentation_set {
     if ( this.presentation_context_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof presentation_representation ) && !( value instanceof presentation_set ) ) {

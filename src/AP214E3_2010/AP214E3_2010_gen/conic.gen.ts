@@ -20,7 +20,7 @@ export  class conic extends curve {
   public get position() : axis2_placement_2d | axis2_placement_3d {
     if ( this.position_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof axis2_placement_2d ) && !( value instanceof axis2_placement_3d ) ) {

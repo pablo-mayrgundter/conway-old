@@ -36,10 +36,12 @@ export  class point_style extends founded_item {
   public get marker() : marker_type | pre_defined_marker {
     if ( this.marker_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const enumValue : marker_type | null =
+        this.extractLambda( 1, marker_typeDeserializeStep, true )
+      const value : StepEntityBase< EntityTypesIfc > | marker_type = enumValue ?? 
         this.extractReference( 1, false )
 
-      if ( !( value instanceof marker_type ) && !( value instanceof pre_defined_marker ) ) {
+      if ( enumValue === null && !( value instanceof pre_defined_marker ) ) {
         throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
 
@@ -53,7 +55,7 @@ export  class point_style extends founded_item {
   public get marker_size() : positive_length_measure | measure_with_unit | descriptive_measure {
     if ( this.marker_size_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 2, false )
 
       if ( !( value instanceof positive_length_measure ) && !( value instanceof measure_with_unit ) && !( value instanceof descriptive_measure ) ) {

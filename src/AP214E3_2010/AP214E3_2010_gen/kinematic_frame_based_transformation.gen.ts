@@ -19,7 +19,7 @@ export  class kinematic_frame_based_transformation extends geometric_representat
   public get transformator() : axis2_placement_3d {
     if ( this.transformator_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof axis2_placement_3d ) ) {

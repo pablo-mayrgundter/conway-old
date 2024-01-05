@@ -44,7 +44,7 @@ export  class context_dependent_over_riding_styled_item extends over_riding_styl
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof group ) && !( value1Untyped instanceof presentation_layer_assignment ) && !( value1Untyped instanceof presentation_set ) && !( value1Untyped instanceof representation ) && !( value1Untyped instanceof representation_item ) && !( value1Untyped instanceof shape_representation_relationship ) ) {

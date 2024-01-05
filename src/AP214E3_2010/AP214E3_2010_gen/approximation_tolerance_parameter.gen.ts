@@ -40,7 +40,7 @@ export  class approximation_tolerance_parameter extends founded_item {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof curve_tolerance_parameter ) && !( value1Untyped instanceof surface_tolerance_parameter ) ) {

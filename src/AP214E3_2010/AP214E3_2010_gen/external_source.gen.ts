@@ -22,7 +22,7 @@ export  class external_source extends StepEntityBase< EntityTypesIfc > {
   public get source_id() : identifier {
     if ( this.source_id_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof identifier ) ) {

@@ -38,7 +38,7 @@ export  class role_association extends StepEntityBase< EntityTypesIfc > {
   public get item_with_role() : action_assignment | action_request_assignment | approval_assignment | approval_date_time | certification_assignment | contract_assignment | document_reference | effectivity_assignment | group_assignment | name_assignment | security_classification_assignment {
     if ( this.item_with_role_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof action_assignment ) && !( value instanceof action_request_assignment ) && !( value instanceof approval_assignment ) && !( value instanceof approval_date_time ) && !( value instanceof certification_assignment ) && !( value instanceof contract_assignment ) && !( value instanceof document_reference ) && !( value instanceof effectivity_assignment ) && !( value instanceof group_assignment ) && !( value instanceof name_assignment ) && !( value instanceof security_classification_assignment ) ) {

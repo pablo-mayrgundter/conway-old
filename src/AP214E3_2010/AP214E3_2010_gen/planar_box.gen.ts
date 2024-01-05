@@ -20,7 +20,7 @@ export  class planar_box extends planar_extent {
   public get placement() : axis2_placement_2d | axis2_placement_3d {
     if ( this.placement_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 3, false )
 
       if ( !( value instanceof axis2_placement_2d ) && !( value instanceof axis2_placement_3d ) ) {

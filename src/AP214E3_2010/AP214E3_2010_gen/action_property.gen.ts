@@ -41,7 +41,7 @@ export  class action_property extends StepEntityBase< EntityTypesIfc > {
   public get definition() : action | action_method | action_method_relationship | action_relationship {
     if ( this.definition_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 2, false )
 
       if ( !( value instanceof action ) && !( value instanceof action_method ) && !( value instanceof action_method_relationship ) && !( value instanceof action_relationship ) ) {

@@ -51,7 +51,7 @@ export  class process_property_association extends StepEntityBase< EntityTypesIf
   public get property_or_shape() : property_definition | product_definition_shape | shape_aspect | shape_aspect_relationship {
     if ( this.property_or_shape_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 3, false )
 
       if ( !( value instanceof property_definition ) && !( value instanceof product_definition_shape ) && !( value instanceof shape_aspect ) && !( value instanceof shape_aspect_relationship ) ) {

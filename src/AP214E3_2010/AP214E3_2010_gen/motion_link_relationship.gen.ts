@@ -23,7 +23,7 @@ export  class motion_link_relationship extends representation_relationship {
   public get related_frame() : axis2_placement_3d {
     if ( this.related_frame_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 6, false )
 
       if ( !( value instanceof axis2_placement_3d ) ) {

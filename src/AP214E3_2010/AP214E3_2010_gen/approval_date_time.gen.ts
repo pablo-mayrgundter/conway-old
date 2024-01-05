@@ -26,7 +26,7 @@ export  class approval_date_time extends StepEntityBase< EntityTypesIfc > {
   public get date_time() : date | date_and_time | local_time {
     if ( this.date_time_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof date ) && !( value instanceof date_and_time ) && !( value instanceof local_time ) ) {

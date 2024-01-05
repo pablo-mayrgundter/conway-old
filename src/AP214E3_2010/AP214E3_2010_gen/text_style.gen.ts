@@ -29,7 +29,7 @@ export  class text_style extends founded_item {
   public get character_appearance() : text_style_for_defined_font {
     if ( this.character_appearance_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof text_style_for_defined_font ) ) {

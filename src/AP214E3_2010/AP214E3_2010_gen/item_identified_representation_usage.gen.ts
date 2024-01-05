@@ -46,7 +46,7 @@ export  class item_identified_representation_usage extends StepEntityBase< Entit
   public get definition() : general_property | property_definition | property_definition_relationship | shape_aspect | shape_aspect_relationship {
     if ( this.definition_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 2, false )
 
       if ( !( value instanceof general_property ) && !( value instanceof property_definition ) && !( value instanceof property_definition_relationship ) && !( value instanceof shape_aspect ) && !( value instanceof shape_aspect_relationship ) ) {

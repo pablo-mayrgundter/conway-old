@@ -42,7 +42,7 @@ export  class composite_text extends geometric_representation_item {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof annotation_text ) && !( value1Untyped instanceof annotation_text_character ) && !( value1Untyped instanceof defined_character_glyph ) && !( value1Untyped instanceof composite_text ) && !( value1Untyped instanceof text_literal ) ) {

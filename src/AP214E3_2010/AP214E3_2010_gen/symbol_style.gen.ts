@@ -29,7 +29,7 @@ export  class symbol_style extends founded_item {
   public get style_of_symbol() : symbol_colour {
     if ( this.style_of_symbol_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof symbol_colour ) ) {

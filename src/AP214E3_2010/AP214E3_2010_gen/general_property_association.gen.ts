@@ -50,7 +50,7 @@ export  class general_property_association extends StepEntityBase< EntityTypesIf
   public get derived_definition() : property_definition | action_property | resource_property {
     if ( this.derived_definition_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 3, false )
 
       if ( !( value instanceof property_definition ) && !( value instanceof action_property ) && !( value instanceof resource_property ) ) {

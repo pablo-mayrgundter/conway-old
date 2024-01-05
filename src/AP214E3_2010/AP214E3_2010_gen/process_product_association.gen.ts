@@ -41,7 +41,7 @@ export  class process_product_association extends StepEntityBase< EntityTypesIfc
   public get defined_product() : product_definition | product_definition_relationship {
     if ( this.defined_product_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 2, false )
 
       if ( !( value instanceof product_definition ) && !( value instanceof product_definition_relationship ) ) {

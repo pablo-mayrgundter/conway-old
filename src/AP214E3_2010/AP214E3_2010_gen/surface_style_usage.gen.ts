@@ -29,7 +29,7 @@ export  class surface_style_usage extends founded_item {
   public get style() : surface_side_style {
     if ( this.style_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof surface_side_style ) ) {

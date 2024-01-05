@@ -35,7 +35,7 @@ export  class configuration_design extends StepEntityBase< EntityTypesIfc > {
   public get design() : product_definition | product_definition_formation {
     if ( this.design_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof product_definition ) && !( value instanceof product_definition_formation ) ) {

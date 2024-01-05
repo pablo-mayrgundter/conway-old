@@ -25,7 +25,7 @@ export  class time_interval_with_bounds extends time_interval {
   public get primary_bound() : date | date_and_time | local_time | event_occurrence | null {
     if ( this.primary_bound_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 3, true )
 
       if ( !( value instanceof date ) && !( value instanceof date_and_time ) && !( value instanceof local_time ) && !( value instanceof event_occurrence ) && value !== null ) {
@@ -42,7 +42,7 @@ export  class time_interval_with_bounds extends time_interval {
   public get secondary_bound() : date | date_and_time | local_time | event_occurrence | null {
     if ( this.secondary_bound_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 4, true )
 
       if ( !( value instanceof date ) && !( value instanceof date_and_time ) && !( value instanceof local_time ) && !( value instanceof event_occurrence ) && value !== null ) {

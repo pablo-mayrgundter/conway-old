@@ -22,7 +22,7 @@ export  class presentation_size extends StepEntityBase< EntityTypesIfc > {
   public get unit() : presentation_view | presentation_area | area_in_set {
     if ( this.unit_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof presentation_view ) && !( value instanceof presentation_area ) && !( value instanceof area_in_set ) ) {

@@ -37,7 +37,7 @@ export  class id_attribute extends StepEntityBase< EntityTypesIfc > {
   public get identified_item() : action | address | product_category | property_definition | shape_aspect | shape_aspect_relationship | application_context | group | organizational_project | representation {
     if ( this.identified_item_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof action ) && !( value instanceof address ) && !( value instanceof product_category ) && !( value instanceof property_definition ) && !( value instanceof shape_aspect ) && !( value instanceof shape_aspect_relationship ) && !( value instanceof application_context ) && !( value instanceof group ) && !( value instanceof organizational_project ) && !( value instanceof representation ) ) {

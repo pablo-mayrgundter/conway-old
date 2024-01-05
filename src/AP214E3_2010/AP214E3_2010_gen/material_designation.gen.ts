@@ -53,7 +53,7 @@ export  class material_designation extends StepEntityBase< EntityTypesIfc > {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof characterized_object ) && !( value1Untyped instanceof product_definition ) && !( value1Untyped instanceof product_definition_relationship ) && !( value1Untyped instanceof product_definition_shape ) && !( value1Untyped instanceof shape_aspect ) && !( value1Untyped instanceof shape_aspect_relationship ) ) {

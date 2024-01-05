@@ -45,7 +45,7 @@ export  class applied_organizational_project_assignment extends organizational_p
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof assembly_component_usage ) && !( value1Untyped instanceof configuration_item ) && !( value1Untyped instanceof executed_action ) && !( value1Untyped instanceof product ) && !( value1Untyped instanceof product_concept ) && !( value1Untyped instanceof product_definition ) && !( value1Untyped instanceof product_definition_formation ) ) {
