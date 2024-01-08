@@ -22,7 +22,7 @@ export  class IfcConnectionSurfaceGeometry extends IfcConnectionGeometry {
   public get SurfaceOnRelatingElement() : IfcFaceBasedSurfaceModel | IfcFaceSurface | IfcSurface {
     if ( this.SurfaceOnRelatingElement_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof IfcFaceBasedSurfaceModel ) && !( value instanceof IfcFaceSurface ) && !( value instanceof IfcSurface ) ) {
@@ -39,7 +39,7 @@ export  class IfcConnectionSurfaceGeometry extends IfcConnectionGeometry {
   public get SurfaceOnRelatedElement() : IfcFaceBasedSurfaceModel | IfcFaceSurface | IfcSurface | null {
     if ( this.SurfaceOnRelatedElement_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 1, true )
 
       if ( !( value instanceof IfcFaceBasedSurfaceModel ) && !( value instanceof IfcFaceSurface ) && !( value instanceof IfcSurface ) && value !== null ) {

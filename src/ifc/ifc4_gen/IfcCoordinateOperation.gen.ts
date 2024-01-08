@@ -20,7 +20,7 @@ export abstract class IfcCoordinateOperation extends StepEntityBase< EntityTypes
   public get SourceCRS() : IfcCoordinateReferenceSystem | IfcGeometricRepresentationContext {
     if ( this.SourceCRS_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof IfcCoordinateReferenceSystem ) && !( value instanceof IfcGeometricRepresentationContext ) ) {

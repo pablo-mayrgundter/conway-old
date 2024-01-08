@@ -22,7 +22,7 @@ export  class IfcLagTime extends IfcSchedulingTime {
   public get LagValue() : IfcDuration | IfcRatioMeasure {
     if ( this.LagValue_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 3, false )
 
       if ( !( value instanceof IfcDuration ) && !( value instanceof IfcRatioMeasure ) ) {

@@ -20,7 +20,7 @@ export  class IfcPlanarBox extends IfcPlanarExtent {
   public get Placement() : IfcAxis2Placement2D | IfcAxis2Placement3D {
     if ( this.Placement_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 2, false )
 
       if ( !( value instanceof IfcAxis2Placement2D ) && !( value instanceof IfcAxis2Placement3D ) ) {

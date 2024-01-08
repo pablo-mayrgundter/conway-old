@@ -29,7 +29,7 @@ export  class IfcLocalPlacement extends IfcObjectPlacement {
   public get RelativePlacement() : IfcAxis2Placement2D | IfcAxis2Placement3D {
     if ( this.RelativePlacement_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof IfcAxis2Placement2D ) && !( value instanceof IfcAxis2Placement3D ) ) {

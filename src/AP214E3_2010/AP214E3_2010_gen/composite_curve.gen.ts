@@ -69,9 +69,6 @@ export  class composite_curve extends bounded_curve {
     return SIZEOF(this?.segments);
   }
 
-  public get closed_curve() : boolean {
-    return this?.segments?.[n_segments - 1].transition!==discontinuous;
-  }
   constructor(
     localID: number,
     internalReference: StepEntityInternalReference< EntityTypesIfc >,

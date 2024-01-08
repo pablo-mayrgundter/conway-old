@@ -21,7 +21,7 @@ export  class IfcRepresentationMap extends StepEntityBase< EntityTypesIfc > {
   public get MappingOrigin() : IfcAxis2Placement2D | IfcAxis2Placement3D {
     if ( this.MappingOrigin_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof IfcAxis2Placement2D ) && !( value instanceof IfcAxis2Placement3D ) ) {

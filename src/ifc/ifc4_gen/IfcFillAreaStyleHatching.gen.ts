@@ -35,7 +35,7 @@ export  class IfcFillAreaStyleHatching extends IfcGeometricRepresentationItem {
   public get StartOfNextHatchLine() : IfcPositiveLengthMeasure | IfcVector {
     if ( this.StartOfNextHatchLine_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof IfcPositiveLengthMeasure ) && !( value instanceof IfcVector ) ) {

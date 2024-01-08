@@ -20,7 +20,7 @@ export  class IfcRelAssociatesClassification extends IfcRelAssociates {
   public get RelatingClassification() : IfcClassification | IfcClassificationReference {
     if ( this.RelatingClassification_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 5, false )
 
       if ( !( value instanceof IfcClassification ) && !( value instanceof IfcClassificationReference ) ) {

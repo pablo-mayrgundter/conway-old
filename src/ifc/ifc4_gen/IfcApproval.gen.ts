@@ -88,7 +88,7 @@ export  class IfcApproval extends StepEntityBase< EntityTypesIfc > {
   public get RequestingApproval() : IfcOrganization | IfcPerson | IfcPersonAndOrganization | null {
     if ( this.RequestingApproval_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 7, true )
 
       if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) && value !== null ) {
@@ -105,7 +105,7 @@ export  class IfcApproval extends StepEntityBase< EntityTypesIfc > {
   public get GivingApproval() : IfcOrganization | IfcPerson | IfcPersonAndOrganization | null {
     if ( this.GivingApproval_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 8, true )
 
       if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) && value !== null ) {

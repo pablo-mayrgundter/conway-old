@@ -21,7 +21,7 @@ export  class IfcConnectionVolumeGeometry extends IfcConnectionGeometry {
   public get VolumeOnRelatingElement() : IfcClosedShell | IfcSolidModel {
     if ( this.VolumeOnRelatingElement_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof IfcClosedShell ) && !( value instanceof IfcSolidModel ) ) {
@@ -38,7 +38,7 @@ export  class IfcConnectionVolumeGeometry extends IfcConnectionGeometry {
   public get VolumeOnRelatedElement() : IfcClosedShell | IfcSolidModel | null {
     if ( this.VolumeOnRelatedElement_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 1, true )
 
       if ( !( value instanceof IfcClosedShell ) && !( value instanceof IfcSolidModel ) && value !== null ) {

@@ -20,7 +20,7 @@ export  class IfcBoundaryNodeConditionWarping extends IfcBoundaryNodeCondition {
   public get WarpingStiffness() : IfcBoolean | IfcWarpingMomentMeasure | null {
     if ( this.WarpingStiffness_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 7, true )
 
       if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcWarpingMomentMeasure ) && value !== null ) {

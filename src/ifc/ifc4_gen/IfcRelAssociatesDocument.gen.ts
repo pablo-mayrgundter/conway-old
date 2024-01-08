@@ -20,7 +20,7 @@ export  class IfcRelAssociatesDocument extends IfcRelAssociates {
   public get RelatingDocument() : IfcDocumentInformation | IfcDocumentReference {
     if ( this.RelatingDocument_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 5, false )
 
       if ( !( value instanceof IfcDocumentInformation ) && !( value instanceof IfcDocumentReference ) ) {

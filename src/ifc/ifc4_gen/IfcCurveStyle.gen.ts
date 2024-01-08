@@ -33,7 +33,7 @@ export  class IfcCurveStyle extends IfcPresentationStyle {
   public get CurveFont() : IfcCurveStyleFontAndScaling | IfcCurveStyleFont | IfcPreDefinedCurveFont | null {
     if ( this.CurveFont_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 1, true )
 
       if ( !( value instanceof IfcCurveStyleFontAndScaling ) && !( value instanceof IfcCurveStyleFont ) && !( value instanceof IfcPreDefinedCurveFont ) && value !== null ) {
@@ -50,7 +50,7 @@ export  class IfcCurveStyle extends IfcPresentationStyle {
   public get CurveWidth() : IfcDescriptiveMeasure | IfcLengthMeasure | IfcNormalisedRatioMeasure | IfcPositiveLengthMeasure | IfcPositiveRatioMeasure | IfcRatioMeasure | null {
     if ( this.CurveWidth_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 2, true )
 
       if ( !( value instanceof IfcDescriptiveMeasure ) && !( value instanceof IfcLengthMeasure ) && !( value instanceof IfcNormalisedRatioMeasure ) && !( value instanceof IfcPositiveLengthMeasure ) && !( value instanceof IfcPositiveRatioMeasure ) && !( value instanceof IfcRatioMeasure ) && value !== null ) {
@@ -67,7 +67,7 @@ export  class IfcCurveStyle extends IfcPresentationStyle {
   public get CurveColour() : IfcColourSpecification | IfcPreDefinedColour | null {
     if ( this.CurveColour_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 3, true )
 
       if ( !( value instanceof IfcColourSpecification ) && !( value instanceof IfcPreDefinedColour ) && value !== null ) {

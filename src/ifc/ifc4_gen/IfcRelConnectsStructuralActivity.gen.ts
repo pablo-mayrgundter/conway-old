@@ -22,7 +22,7 @@ export  class IfcRelConnectsStructuralActivity extends IfcRelConnects {
   public get RelatingElement() : IfcElement | IfcStructuralItem {
     if ( this.RelatingElement_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 4, false )
 
       if ( !( value instanceof IfcElement ) && !( value instanceof IfcStructuralItem ) ) {

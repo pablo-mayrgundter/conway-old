@@ -88,7 +88,7 @@ export abstract class IfcTimeSeries extends StepEntityBase< EntityTypesIfc > {
   public get Unit() : IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit | null {
     if ( this.Unit_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 7, true )
 
       if ( !( value instanceof IfcDerivedUnit ) && !( value instanceof IfcMonetaryUnit ) && !( value instanceof IfcNamedUnit ) && value !== null ) {

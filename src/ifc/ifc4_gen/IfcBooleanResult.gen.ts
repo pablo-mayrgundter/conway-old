@@ -34,7 +34,7 @@ export  class IfcBooleanResult extends IfcGeometricRepresentationItem {
   public get FirstOperand() : IfcBooleanResult | IfcCsgPrimitive3D | IfcHalfSpaceSolid | IfcSolidModel | IfcTessellatedFaceSet {
     if ( this.FirstOperand_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof IfcBooleanResult ) && !( value instanceof IfcCsgPrimitive3D ) && !( value instanceof IfcHalfSpaceSolid ) && !( value instanceof IfcSolidModel ) && !( value instanceof IfcTessellatedFaceSet ) ) {
@@ -51,7 +51,7 @@ export  class IfcBooleanResult extends IfcGeometricRepresentationItem {
   public get SecondOperand() : IfcBooleanResult | IfcCsgPrimitive3D | IfcHalfSpaceSolid | IfcSolidModel | IfcTessellatedFaceSet {
     if ( this.SecondOperand_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 2, false )
 
       if ( !( value instanceof IfcBooleanResult ) && !( value instanceof IfcCsgPrimitive3D ) && !( value instanceof IfcHalfSpaceSolid ) && !( value instanceof IfcSolidModel ) && !( value instanceof IfcTessellatedFaceSet ) ) {

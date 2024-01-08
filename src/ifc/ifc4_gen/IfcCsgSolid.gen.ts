@@ -20,7 +20,7 @@ export  class IfcCsgSolid extends IfcSolidModel {
   public get TreeRootExpression() : IfcBooleanResult | IfcCsgPrimitive3D {
     if ( this.TreeRootExpression_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof IfcBooleanResult ) && !( value instanceof IfcCsgPrimitive3D ) ) {

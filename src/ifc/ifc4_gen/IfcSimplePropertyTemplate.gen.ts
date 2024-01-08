@@ -64,7 +64,7 @@ export  class IfcSimplePropertyTemplate extends IfcPropertyTemplate {
   public get PrimaryUnit() : IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit | null {
     if ( this.PrimaryUnit_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 8, true )
 
       if ( !( value instanceof IfcDerivedUnit ) && !( value instanceof IfcMonetaryUnit ) && !( value instanceof IfcNamedUnit ) && value !== null ) {
@@ -81,7 +81,7 @@ export  class IfcSimplePropertyTemplate extends IfcPropertyTemplate {
   public get SecondaryUnit() : IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit | null {
     if ( this.SecondaryUnit_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 9, true )
 
       if ( !( value instanceof IfcDerivedUnit ) && !( value instanceof IfcMonetaryUnit ) && !( value instanceof IfcNamedUnit ) && value !== null ) {

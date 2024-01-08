@@ -20,7 +20,7 @@ export  class IfcRelAssignsToResource extends IfcRelAssigns {
   public get RelatingResource() : IfcResource | IfcTypeResource {
     if ( this.RelatingResource_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 6, false )
 
       if ( !( value instanceof IfcResource ) && !( value instanceof IfcTypeResource ) ) {

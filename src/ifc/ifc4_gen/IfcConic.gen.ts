@@ -20,7 +20,7 @@ export abstract class IfcConic extends IfcCurve {
   public get Position() : IfcAxis2Placement2D | IfcAxis2Placement3D {
     if ( this.Position_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof IfcAxis2Placement2D ) && !( value instanceof IfcAxis2Placement3D ) ) {

@@ -32,7 +32,7 @@ export  class IfcCurveStyleFontAndScaling extends IfcPresentationItem {
   public get CurveFont() : IfcCurveStyleFont | IfcPreDefinedCurveFont {
     if ( this.CurveFont_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof IfcCurveStyleFont ) && !( value instanceof IfcPreDefinedCurveFont ) ) {

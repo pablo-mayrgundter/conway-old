@@ -26,7 +26,7 @@ export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition {
   public get TranslationalStiffnessX() : IfcBoolean | IfcLinearStiffnessMeasure | null {
     if ( this.TranslationalStiffnessX_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 1, true )
 
       if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcLinearStiffnessMeasure ) && value !== null ) {
@@ -43,7 +43,7 @@ export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition {
   public get TranslationalStiffnessY() : IfcBoolean | IfcLinearStiffnessMeasure | null {
     if ( this.TranslationalStiffnessY_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 2, true )
 
       if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcLinearStiffnessMeasure ) && value !== null ) {
@@ -60,7 +60,7 @@ export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition {
   public get TranslationalStiffnessZ() : IfcBoolean | IfcLinearStiffnessMeasure | null {
     if ( this.TranslationalStiffnessZ_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 3, true )
 
       if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcLinearStiffnessMeasure ) && value !== null ) {
@@ -77,7 +77,7 @@ export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition {
   public get RotationalStiffnessX() : IfcBoolean | IfcRotationalStiffnessMeasure | null {
     if ( this.RotationalStiffnessX_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 4, true )
 
       if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcRotationalStiffnessMeasure ) && value !== null ) {
@@ -94,7 +94,7 @@ export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition {
   public get RotationalStiffnessY() : IfcBoolean | IfcRotationalStiffnessMeasure | null {
     if ( this.RotationalStiffnessY_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 5, true )
 
       if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcRotationalStiffnessMeasure ) && value !== null ) {
@@ -111,7 +111,7 @@ export  class IfcBoundaryNodeCondition extends IfcBoundaryCondition {
   public get RotationalStiffnessZ() : IfcBoolean | IfcRotationalStiffnessMeasure | null {
     if ( this.RotationalStiffnessZ_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 6, true )
 
       if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcRotationalStiffnessMeasure ) && value !== null ) {

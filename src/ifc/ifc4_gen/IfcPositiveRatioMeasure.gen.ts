@@ -1,6 +1,7 @@
 
 /* This is generated code, don't alter */
-import { IfcRatioMeasure } from './index'
+import { IfcRatioMeasure } from "./index"
+
 import EntityTypesIfc from './entity_types_ifc.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'

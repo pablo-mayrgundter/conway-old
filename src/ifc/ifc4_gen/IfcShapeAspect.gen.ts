@@ -90,7 +90,7 @@ export  class IfcShapeAspect extends StepEntityBase< EntityTypesIfc > {
   public get PartOfProductDefinitionShape() : IfcProductDefinitionShape | IfcRepresentationMap | null {
     if ( this.PartOfProductDefinitionShape_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 4, true )
 
       if ( !( value instanceof IfcProductDefinitionShape ) && !( value instanceof IfcRepresentationMap ) && value !== null ) {

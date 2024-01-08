@@ -45,7 +45,7 @@ export  class IfcFillAreaStyle extends IfcPresentationStyle {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof IfcColourSpecification ) && !( value1Untyped instanceof IfcPreDefinedColour ) && !( value1Untyped instanceof IfcExternallyDefinedHatchStyle ) && !( value1Untyped instanceof IfcFillAreaStyleHatching ) && !( value1Untyped instanceof IfcFillAreaStyleTiles ) ) {
