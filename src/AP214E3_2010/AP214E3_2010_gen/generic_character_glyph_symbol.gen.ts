@@ -22,7 +22,7 @@ export abstract class generic_character_glyph_symbol extends symbol_representati
     super( localID, internalReference, model )
   }
 
-  public static readonly query = 
+  public static readonly query: EntityTypesIfc[] = 
     [  ]
 
   public static readonly expectedType: EntityTypesIfc =

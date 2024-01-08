@@ -20,7 +20,7 @@ export  class approximation_tolerance extends founded_item {
   public get tolerance() : approximation_tolerance_deviation | approximation_tolerance_parameter {
     if ( this.tolerance_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof approximation_tolerance_deviation ) && !( value instanceof approximation_tolerance_parameter ) ) {

@@ -7,6 +7,10 @@ import { shape_aspect_relationship } from "./index"
 import { representation } from "./index"
 import { text } from "./index"
 import { label } from "./index"
+import {
+  get_name_value,
+  get_description_value,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -26,7 +30,7 @@ export  class property_definition_representation extends StepEntityBase< EntityT
   public get definition() : general_property | property_definition | property_definition_relationship | shape_aspect | shape_aspect_relationship {
     if ( this.definition_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof general_property ) && !( value instanceof property_definition ) && !( value instanceof property_definition_relationship ) && !( value instanceof shape_aspect ) && !( value instanceof shape_aspect_relationship ) ) {

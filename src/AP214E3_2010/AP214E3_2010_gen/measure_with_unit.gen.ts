@@ -42,7 +42,7 @@ export  class measure_with_unit extends StepEntityBase< EntityTypesIfc > {
   public get value_component() : amount_of_substance_measure | area_measure | celsius_temperature_measure | context_dependent_measure | count_measure | descriptive_measure | electric_current_measure | length_measure | luminous_intensity_measure | mass_measure | numeric_measure | non_negative_length_measure | parameter_value | plane_angle_measure | positive_length_measure | positive_plane_angle_measure | positive_ratio_measure | ratio_measure | solid_angle_measure | thermodynamic_temperature_measure | time_measure | volume_measure {
     if ( this.value_component_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof amount_of_substance_measure ) && !( value instanceof area_measure ) && !( value instanceof celsius_temperature_measure ) && !( value instanceof context_dependent_measure ) && !( value instanceof count_measure ) && !( value instanceof descriptive_measure ) && !( value instanceof electric_current_measure ) && !( value instanceof length_measure ) && !( value instanceof luminous_intensity_measure ) && !( value instanceof mass_measure ) && !( value instanceof numeric_measure ) && !( value instanceof non_negative_length_measure ) && !( value instanceof parameter_value ) && !( value instanceof plane_angle_measure ) && !( value instanceof positive_length_measure ) && !( value instanceof positive_plane_angle_measure ) && !( value instanceof positive_ratio_measure ) && !( value instanceof ratio_measure ) && !( value instanceof solid_angle_measure ) && !( value instanceof thermodynamic_temperature_measure ) && !( value instanceof time_measure ) && !( value instanceof volume_measure ) ) {
@@ -59,7 +59,7 @@ export  class measure_with_unit extends StepEntityBase< EntityTypesIfc > {
   public get unit_component() : derived_unit | named_unit {
     if ( this.unit_component_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof derived_unit ) && !( value instanceof named_unit ) ) {

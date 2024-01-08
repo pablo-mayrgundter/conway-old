@@ -3,6 +3,9 @@ import { representation_relationship_with_transformation } from "./index"
 import { mechanism } from "./index"
 import { cartesian_transformation_operator_3d } from "./index"
 import { kinematic_link_representation } from "./index"
+import {
+  representation_of_link,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'

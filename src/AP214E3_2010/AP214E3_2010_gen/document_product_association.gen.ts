@@ -50,7 +50,7 @@ export  class document_product_association extends StepEntityBase< EntityTypesIf
   public get related_product() : product | product_definition_formation | product_definition {
     if ( this.related_product_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 3, false )
 
       if ( !( value instanceof product ) && !( value instanceof product_definition_formation ) && !( value instanceof product_definition ) ) {

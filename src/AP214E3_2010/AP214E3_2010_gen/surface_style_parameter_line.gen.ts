@@ -29,7 +29,7 @@ export  class surface_style_parameter_line extends founded_item {
   public get style_of_parameter_lines() : curve_style | curve_style_rendering {
     if ( this.style_of_parameter_lines_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof curve_style ) && !( value instanceof curve_style_rendering ) ) {
@@ -60,7 +60,7 @@ export  class surface_style_parameter_line extends founded_item {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof u_direction_count ) && !( value1Untyped instanceof v_direction_count ) ) {

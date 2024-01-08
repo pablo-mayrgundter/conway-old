@@ -20,7 +20,7 @@ export  class externally_defined_item extends StepEntityBase< EntityTypesIfc > {
   public get item_id() : identifier {
     if ( this.item_id_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof identifier ) ) {

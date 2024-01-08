@@ -22,7 +22,7 @@ export abstract class real_defined_function extends numeric_defined_function {
     super( localID, internalReference, model )
   }
 
-  public static readonly query = 
+  public static readonly query: EntityTypesIfc[] = 
     [  ]
 
   public static readonly expectedType: EntityTypesIfc =

@@ -28,10 +28,12 @@ export  class planar_pair_range extends simple_pair_range {
   public get lower_limit_actual_rotation() : plane_angle_measure | unlimited_range {
     if ( this.lower_limit_actual_rotation_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const enumValue : unlimited_range | null =
+        this.extractLambda( 2, unlimited_rangeDeserializeStep, true )
+      const value : StepEntityBase< EntityTypesIfc > | unlimited_range = enumValue ?? 
         this.extractReference( 2, false )
 
-      if ( !( value instanceof plane_angle_measure ) && !( value instanceof unlimited_range ) ) {
+      if ( enumValue === null && !( value instanceof plane_angle_measure ) ) {
         throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
 
@@ -45,10 +47,12 @@ export  class planar_pair_range extends simple_pair_range {
   public get upper_limit_actual_rotation() : plane_angle_measure | unlimited_range {
     if ( this.upper_limit_actual_rotation_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const enumValue : unlimited_range | null =
+        this.extractLambda( 3, unlimited_rangeDeserializeStep, true )
+      const value : StepEntityBase< EntityTypesIfc > | unlimited_range = enumValue ?? 
         this.extractReference( 3, false )
 
-      if ( !( value instanceof plane_angle_measure ) && !( value instanceof unlimited_range ) ) {
+      if ( enumValue === null && !( value instanceof plane_angle_measure ) ) {
         throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
 
@@ -62,10 +66,12 @@ export  class planar_pair_range extends simple_pair_range {
   public get lower_limit_actual_translation_x() : length_measure | unlimited_range {
     if ( this.lower_limit_actual_translation_x_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const enumValue : unlimited_range | null =
+        this.extractLambda( 4, unlimited_rangeDeserializeStep, true )
+      const value : StepEntityBase< EntityTypesIfc > | unlimited_range = enumValue ?? 
         this.extractReference( 4, false )
 
-      if ( !( value instanceof length_measure ) && !( value instanceof unlimited_range ) ) {
+      if ( enumValue === null && !( value instanceof length_measure ) ) {
         throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
 
@@ -79,10 +85,12 @@ export  class planar_pair_range extends simple_pair_range {
   public get upper_limit_actual_translation_x() : length_measure | unlimited_range {
     if ( this.upper_limit_actual_translation_x_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const enumValue : unlimited_range | null =
+        this.extractLambda( 5, unlimited_rangeDeserializeStep, true )
+      const value : StepEntityBase< EntityTypesIfc > | unlimited_range = enumValue ?? 
         this.extractReference( 5, false )
 
-      if ( !( value instanceof length_measure ) && !( value instanceof unlimited_range ) ) {
+      if ( enumValue === null && !( value instanceof length_measure ) ) {
         throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
 
@@ -96,10 +104,12 @@ export  class planar_pair_range extends simple_pair_range {
   public get lower_limit_actual_translation_y() : length_measure | unlimited_range {
     if ( this.lower_limit_actual_translation_y_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const enumValue : unlimited_range | null =
+        this.extractLambda( 6, unlimited_rangeDeserializeStep, true )
+      const value : StepEntityBase< EntityTypesIfc > | unlimited_range = enumValue ?? 
         this.extractReference( 6, false )
 
-      if ( !( value instanceof length_measure ) && !( value instanceof unlimited_range ) ) {
+      if ( enumValue === null && !( value instanceof length_measure ) ) {
         throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
 
@@ -113,10 +123,12 @@ export  class planar_pair_range extends simple_pair_range {
   public get upper_limit_actual_translation_y() : length_measure | unlimited_range {
     if ( this.upper_limit_actual_translation_y_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const enumValue : unlimited_range | null =
+        this.extractLambda( 7, unlimited_rangeDeserializeStep, true )
+      const value : StepEntityBase< EntityTypesIfc > | unlimited_range = enumValue ?? 
         this.extractReference( 7, false )
 
-      if ( !( value instanceof length_measure ) && !( value instanceof unlimited_range ) ) {
+      if ( enumValue === null && !( value instanceof length_measure ) ) {
         throw new Error( 'Value in STEP was incorrectly typed for field' )
       }
 

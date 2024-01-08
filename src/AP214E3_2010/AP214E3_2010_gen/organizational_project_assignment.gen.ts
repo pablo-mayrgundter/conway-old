@@ -39,7 +39,7 @@ export abstract class organizational_project_assignment extends StepEntityBase< 
     super( localID, internalReference, model )
   }
 
-  public static readonly query = 
+  public static readonly query: EntityTypesIfc[] = 
     [  ]
 
   public static readonly expectedType: EntityTypesIfc =

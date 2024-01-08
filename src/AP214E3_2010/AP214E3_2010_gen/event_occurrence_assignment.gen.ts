@@ -39,7 +39,7 @@ export abstract class event_occurrence_assignment extends StepEntityBase< Entity
     super( localID, internalReference, model )
   }
 
-  public static readonly query = 
+  public static readonly query: EntityTypesIfc[] = 
     [  ]
 
   public static readonly expectedType: EntityTypesIfc =

@@ -24,7 +24,7 @@ export  class presentation_style_by_context extends presentation_style_assignmen
   public get style_context() : group | presentation_layer_assignment | presentation_set | representation | representation_item | shape_representation_relationship {
     if ( this.style_context_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof group ) && !( value instanceof presentation_layer_assignment ) && !( value instanceof presentation_set ) && !( value instanceof representation ) && !( value instanceof representation_item ) && !( value instanceof shape_representation_relationship ) ) {

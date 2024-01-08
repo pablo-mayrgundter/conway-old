@@ -1,6 +1,9 @@
 
 import { face } from "./index"
 import { face_bound } from "./index"
+import {
+  conditional_reverse,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'

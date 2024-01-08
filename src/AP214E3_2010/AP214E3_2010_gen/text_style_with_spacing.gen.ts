@@ -22,7 +22,7 @@ export  class text_style_with_spacing extends text_style {
   public get character_spacing() : length_measure | ratio_measure | measure_with_unit | descriptive_measure {
     if ( this.character_spacing_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 2, false )
 
       if ( !( value instanceof length_measure ) && !( value instanceof ratio_measure ) && !( value instanceof measure_with_unit ) && !( value instanceof descriptive_measure ) ) {

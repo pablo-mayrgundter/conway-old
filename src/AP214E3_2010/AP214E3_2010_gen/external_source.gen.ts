@@ -1,6 +1,9 @@
 
 import { identifier } from "./index"
 import { text } from "./index"
+import {
+  get_description_value,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -19,7 +22,7 @@ export  class external_source extends StepEntityBase< EntityTypesIfc > {
   public get source_id() : identifier {
     if ( this.source_id_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof identifier ) ) {

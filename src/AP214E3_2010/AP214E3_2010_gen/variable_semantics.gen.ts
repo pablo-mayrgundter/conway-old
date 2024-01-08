@@ -21,7 +21,7 @@ export abstract class variable_semantics extends StepEntityBase< EntityTypesIfc 
     super( localID, internalReference, model )
   }
 
-  public static readonly query = 
+  public static readonly query: EntityTypesIfc[] = 
     [  ]
 
   public static readonly expectedType: EntityTypesIfc =

@@ -39,7 +39,7 @@ export  class resource_property extends StepEntityBase< EntityTypesIfc > {
   public get resource() : action_resource | action_resource_requirement {
     if ( this.resource_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 2, false )
 
       if ( !( value instanceof action_resource ) && !( value instanceof action_resource_requirement ) ) {

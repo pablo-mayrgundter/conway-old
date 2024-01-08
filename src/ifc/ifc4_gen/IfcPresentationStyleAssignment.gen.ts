@@ -45,7 +45,7 @@ export  class IfcPresentationStyleAssignment extends StepEntityBase< EntityTypes
         const value1Untyped : StepEntityBase< EntityTypesIfc > | IfcNullStyle | undefined =
           this.extractBufferReference( buffer, cursor, endCursor ) ?? IfcNullStyleDeserializeStep( buffer, cursor, endCursor )
 
-        if ( !( value1Untyped instanceof IfcCurveStyle ) && !( value1Untyped instanceof IfcFillAreaStyle ) && !( value1Untyped instanceof IfcSurfaceStyle ) && !( value1Untyped instanceof IfcTextStyle ) && (value1Untyped !== IfcNullStyle.NULL) ) {
+        if ( !( value1Untyped instanceof IfcCurveStyle ) && !( value1Untyped instanceof IfcFillAreaStyle ) && !( value1Untyped instanceof IfcSurfaceStyle ) && !( value1Untyped instanceof IfcTextStyle ) && value1Untyped !== IfcNullStyle.NULL ) {
           throw new Error( 'Value in select must be populated' )
         }
 

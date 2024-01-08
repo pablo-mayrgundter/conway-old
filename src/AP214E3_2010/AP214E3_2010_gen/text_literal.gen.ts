@@ -37,7 +37,7 @@ export  class text_literal extends geometric_representation_item {
   public get placement() : axis2_placement_2d | axis2_placement_3d {
     if ( this.placement_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 2, false )
 
       if ( !( value instanceof axis2_placement_2d ) && !( value instanceof axis2_placement_3d ) ) {
@@ -70,7 +70,7 @@ export  class text_literal extends geometric_representation_item {
   public get font() : pre_defined_text_font | externally_defined_text_font {
     if ( this.font_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 5, false )
 
       if ( !( value instanceof pre_defined_text_font ) && !( value instanceof externally_defined_text_font ) ) {

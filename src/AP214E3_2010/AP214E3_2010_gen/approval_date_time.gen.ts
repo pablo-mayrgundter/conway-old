@@ -4,6 +4,9 @@ import { date_and_time } from "./index"
 import { local_time } from "./index"
 import { approval } from "./index"
 import { object_role } from "./index"
+import {
+  get_role,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -23,7 +26,7 @@ export  class approval_date_time extends StepEntityBase< EntityTypesIfc > {
   public get date_time() : date | date_and_time | local_time {
     if ( this.date_time_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof date ) && !( value instanceof date_and_time ) && !( value instanceof local_time ) ) {

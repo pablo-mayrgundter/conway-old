@@ -37,7 +37,7 @@ export  class curve_style extends founded_item {
   public get curve_font() : curve_style_font | pre_defined_curve_font | externally_defined_curve_font {
     if ( this.curve_font_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof curve_style_font ) && !( value instanceof pre_defined_curve_font ) && !( value instanceof externally_defined_curve_font ) ) {
@@ -54,7 +54,7 @@ export  class curve_style extends founded_item {
   public get curve_width() : positive_length_measure | measure_with_unit | descriptive_measure {
     if ( this.curve_width_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 2, false )
 
       if ( !( value instanceof positive_length_measure ) && !( value instanceof measure_with_unit ) && !( value instanceof descriptive_measure ) ) {

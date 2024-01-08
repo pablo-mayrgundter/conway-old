@@ -37,7 +37,7 @@ export  class boolean_result extends geometric_representation_item {
   public get first_operand() : solid_model | half_space_solid | sphere | block | right_angular_wedge | torus | right_circular_cone | right_circular_cylinder | boolean_result {
     if ( this.first_operand_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 2, false )
 
       if ( !( value instanceof solid_model ) && !( value instanceof half_space_solid ) && !( value instanceof sphere ) && !( value instanceof block ) && !( value instanceof right_angular_wedge ) && !( value instanceof torus ) && !( value instanceof right_circular_cone ) && !( value instanceof right_circular_cylinder ) && !( value instanceof boolean_result ) ) {
@@ -54,7 +54,7 @@ export  class boolean_result extends geometric_representation_item {
   public get second_operand() : solid_model | half_space_solid | sphere | block | right_angular_wedge | torus | right_circular_cone | right_circular_cylinder | boolean_result {
     if ( this.second_operand_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 3, false )
 
       if ( !( value instanceof solid_model ) && !( value instanceof half_space_solid ) && !( value instanceof sphere ) && !( value instanceof block ) && !( value instanceof right_angular_wedge ) && !( value instanceof torus ) && !( value instanceof right_circular_cone ) && !( value instanceof right_circular_cylinder ) && !( value instanceof boolean_result ) ) {

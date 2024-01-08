@@ -20,7 +20,7 @@ export  class representation_relationship_with_transformation extends representa
   public get transformation_operator() : item_defined_transformation | functionally_defined_transformation {
     if ( this.transformation_operator_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 4, false )
 
       if ( !( value instanceof item_defined_transformation ) && !( value instanceof functionally_defined_transformation ) ) {

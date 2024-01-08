@@ -21,7 +21,7 @@ export  class presented_item_representation extends StepEntityBase< EntityTypesI
   public get presentation() : presentation_representation | presentation_set {
     if ( this.presentation_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof presentation_representation ) && !( value instanceof presentation_set ) ) {

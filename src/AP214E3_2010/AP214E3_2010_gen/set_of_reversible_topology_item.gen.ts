@@ -39,7 +39,7 @@ export class set_of_reversible_topology_item extends StepEntityBase< EntityTypes
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof edge ) && !( value1Untyped instanceof path ) && !( value1Untyped instanceof face ) && !( value1Untyped instanceof face_bound ) && !( value1Untyped instanceof closed_shell ) && !( value1Untyped instanceof open_shell ) ) {

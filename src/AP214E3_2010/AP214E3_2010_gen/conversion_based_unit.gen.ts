@@ -3,6 +3,9 @@ import { named_unit } from "./index"
 import { label } from "./index"
 import { measure_with_unit } from "./index"
 import { dimensional_exponents } from "./index"
+import {
+  derive_dimensional_exponents,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'

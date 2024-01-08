@@ -3,6 +3,9 @@ import { text } from "./index"
 import { product_definition_relationship } from "./index"
 import { product_definition } from "./index"
 import { label } from "./index"
+import {
+  get_name_value,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'

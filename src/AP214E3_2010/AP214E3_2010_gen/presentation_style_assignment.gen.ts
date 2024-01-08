@@ -48,10 +48,10 @@ export  class presentation_style_assignment extends founded_item {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
-          this.extractBufferReference( buffer, cursor, endCursor )
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | null_style | null_style | undefined = value1Enum ?? 
+          this.extractBufferReference( buffer, cursor, endCursor ) ?? null_styleDeserializeStep( buffer, cursor, endCursor )
 
-        if ( !( value1Untyped instanceof pre_defined_presentation_style ) && !( value1Untyped instanceof point_style ) && !( value1Untyped instanceof curve_style ) && !( value1Untyped instanceof surface_style_usage ) && !( value1Untyped instanceof symbol_style ) && !( value1Untyped instanceof fill_area_style ) && !( value1Untyped instanceof text_style ) && !( value1Untyped instanceof approximation_tolerance ) && !( value1Untyped instanceof externally_defined_style ) && !( value1Untyped instanceof null_style ) ) {
+        if ( !( value1Untyped instanceof pre_defined_presentation_style ) && !( value1Untyped instanceof point_style ) && !( value1Untyped instanceof curve_style ) && !( value1Untyped instanceof surface_style_usage ) && !( value1Untyped instanceof symbol_style ) && !( value1Untyped instanceof fill_area_style ) && !( value1Untyped instanceof text_style ) && !( value1Untyped instanceof approximation_tolerance ) && !( value1Untyped instanceof externally_defined_style ) && value1Untyped !== null_style.NULL ) {
           throw new Error( 'Value in select must be populated' )
         }
 

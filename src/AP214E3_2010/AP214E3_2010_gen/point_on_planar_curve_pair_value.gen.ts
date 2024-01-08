@@ -32,7 +32,7 @@ export  class point_on_planar_curve_pair_value extends pair_value {
   public get input_orientation() : ypr_rotation | rotation_about_direction {
     if ( this.input_orientation_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 3, false )
 
       if ( !( value instanceof ypr_rotation ) && !( value instanceof rotation_about_direction ) ) {

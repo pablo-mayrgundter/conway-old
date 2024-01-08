@@ -20,7 +20,7 @@ export  class text_style_with_mirror extends text_style {
   public get mirror_placement() : axis2_placement_2d | axis2_placement_3d {
     if ( this.mirror_placement_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 2, false )
 
       if ( !( value instanceof axis2_placement_2d ) && !( value instanceof axis2_placement_3d ) ) {

@@ -40,7 +40,7 @@ export  class shell_based_surface_model extends geometric_representation_item {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof open_shell ) && !( value1Untyped instanceof closed_shell ) ) {

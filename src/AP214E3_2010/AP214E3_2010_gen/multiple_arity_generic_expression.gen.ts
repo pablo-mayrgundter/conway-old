@@ -60,7 +60,7 @@ export abstract class multiple_arity_generic_expression extends generic_expressi
     super( localID, internalReference, model )
   }
 
-  public static readonly query = 
+  public static readonly query: EntityTypesIfc[] = 
     [  ]
 
   public static readonly expectedType: EntityTypesIfc =

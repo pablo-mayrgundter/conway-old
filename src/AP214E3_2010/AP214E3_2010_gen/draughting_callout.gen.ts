@@ -41,7 +41,7 @@ export  class draughting_callout extends geometric_representation_item {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof annotation_text_occurrence ) && !( value1Untyped instanceof annotation_symbol_occurrence ) && !( value1Untyped instanceof annotation_curve_occurrence ) ) {

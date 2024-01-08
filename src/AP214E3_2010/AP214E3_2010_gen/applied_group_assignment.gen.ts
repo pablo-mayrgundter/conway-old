@@ -44,7 +44,7 @@ export  class applied_group_assignment extends group_assignment {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof geometric_representation_item ) && !( value1Untyped instanceof mapped_item ) && !( value1Untyped instanceof product_concept_feature ) && !( value1Untyped instanceof shape_aspect ) && !( value1Untyped instanceof styled_item ) && !( value1Untyped instanceof topological_representation_item ) ) {

@@ -20,7 +20,7 @@ export  class background_colour extends colour {
   public get presentation() : presentation_area | presentation_view {
     if ( this.presentation_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof presentation_area ) && !( value instanceof presentation_view ) ) {

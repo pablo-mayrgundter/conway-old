@@ -59,7 +59,7 @@ export  class presentation_layer_assignment extends StepEntityBase< EntityTypesI
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof presentation_representation ) && !( value1Untyped instanceof representation_item ) ) {

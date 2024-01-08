@@ -39,7 +39,7 @@ export abstract class document_usage_constraint_assignment extends StepEntityBas
     super( localID, internalReference, model )
   }
 
-  public static readonly query = 
+  public static readonly query: EntityTypesIfc[] = 
     [  ]
 
   public static readonly expectedType: EntityTypesIfc =

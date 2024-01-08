@@ -42,7 +42,7 @@ export  class text_style_with_box_characteristics extends text_style {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof box_height ) && !( value1Untyped instanceof box_width ) && !( value1Untyped instanceof box_slant_angle ) && !( value1Untyped instanceof box_rotate_angle ) ) {

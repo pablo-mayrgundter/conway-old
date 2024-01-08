@@ -1,6 +1,9 @@
 
 import { representation_item } from "./index"
 import { dimension_count } from "./index"
+import {
+  dimension_of,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'

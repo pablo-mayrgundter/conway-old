@@ -1,6 +1,9 @@
 
 import { open_shell } from "./index"
 import { face } from "./index"
+import {
+  conditional_reverse,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'

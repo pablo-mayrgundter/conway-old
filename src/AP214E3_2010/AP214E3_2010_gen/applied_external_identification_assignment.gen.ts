@@ -42,7 +42,7 @@ export  class applied_external_identification_assignment extends external_identi
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof document_file ) && !( value1Untyped instanceof externally_defined_class ) && !( value1Untyped instanceof externally_defined_general_property ) && !( value1Untyped instanceof product_definition ) ) {

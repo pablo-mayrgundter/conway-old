@@ -20,7 +20,7 @@ export  class surface_style_control_grid extends founded_item {
   public get style_of_control_grid() : curve_style | curve_style_rendering {
     if ( this.style_of_control_grid_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof curve_style ) && !( value instanceof curve_style_rendering ) ) {

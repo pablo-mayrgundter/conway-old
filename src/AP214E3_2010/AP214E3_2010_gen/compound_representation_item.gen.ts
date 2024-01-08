@@ -20,7 +20,7 @@ export  class compound_representation_item extends representation_item {
   public get item_element() : list_representation_item | set_representation_item {
     if ( this.item_element_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof list_representation_item ) && !( value instanceof set_representation_item ) ) {

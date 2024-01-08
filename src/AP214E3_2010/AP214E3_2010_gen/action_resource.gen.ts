@@ -62,7 +62,7 @@ export  class action_resource extends StepEntityBase< EntityTypesIfc > {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof action_directive ) && !( value1Untyped instanceof action ) && !( value1Untyped instanceof action_method ) ) {

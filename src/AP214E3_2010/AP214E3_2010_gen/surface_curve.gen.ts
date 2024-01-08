@@ -9,6 +9,9 @@ import {
   stepExtractArrayBegin,
   skipValue,
 } from '../../step/parsing/step_deserialization_functions'
+import {
+  get_basis_surface,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesIfc from './entity_types_ifc.gen'
@@ -51,7 +54,7 @@ export  class surface_curve extends curve {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof pcurve ) && !( value1Untyped instanceof surface ) ) {

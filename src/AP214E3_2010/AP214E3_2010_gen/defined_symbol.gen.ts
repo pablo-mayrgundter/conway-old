@@ -22,7 +22,7 @@ export  class defined_symbol extends geometric_representation_item {
   public get definition() : pre_defined_symbol | externally_defined_symbol {
     if ( this.definition_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof pre_defined_symbol ) && !( value instanceof externally_defined_symbol ) ) {

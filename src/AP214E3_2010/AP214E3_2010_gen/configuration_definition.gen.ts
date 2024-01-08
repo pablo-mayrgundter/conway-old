@@ -60,7 +60,7 @@ export  class configuration_definition extends StepEntityBase< EntityTypesIfc > 
   public get t_parameter() : parameter_value | measure_with_unit {
     if ( this.t_parameter_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof parameter_value ) && !( value instanceof measure_with_unit ) ) {
