@@ -22,7 +22,7 @@ export  class IfcBoundaryFaceCondition extends IfcBoundaryCondition {
   public get TranslationalStiffnessByAreaX() : IfcBoolean | IfcModulusOfSubgradeReactionMeasure | null {
     if ( this.TranslationalStiffnessByAreaX_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 1, true )
 
       if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfSubgradeReactionMeasure ) && value !== null ) {
@@ -39,7 +39,7 @@ export  class IfcBoundaryFaceCondition extends IfcBoundaryCondition {
   public get TranslationalStiffnessByAreaY() : IfcBoolean | IfcModulusOfSubgradeReactionMeasure | null {
     if ( this.TranslationalStiffnessByAreaY_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 2, true )
 
       if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfSubgradeReactionMeasure ) && value !== null ) {
@@ -56,7 +56,7 @@ export  class IfcBoundaryFaceCondition extends IfcBoundaryCondition {
   public get TranslationalStiffnessByAreaZ() : IfcBoolean | IfcModulusOfSubgradeReactionMeasure | null {
     if ( this.TranslationalStiffnessByAreaZ_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 3, true )
 
       if ( !( value instanceof IfcBoolean ) && !( value instanceof IfcModulusOfSubgradeReactionMeasure ) && value !== null ) {

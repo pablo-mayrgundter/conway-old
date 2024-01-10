@@ -21,7 +21,7 @@ export  class IfcTextStyleForDefinedFont extends IfcPresentationItem {
   public get Colour() : IfcColourSpecification | IfcPreDefinedColour {
     if ( this.Colour_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof IfcColourSpecification ) && !( value instanceof IfcPreDefinedColour ) ) {
@@ -38,7 +38,7 @@ export  class IfcTextStyleForDefinedFont extends IfcPresentationItem {
   public get BackgroundColour() : IfcColourSpecification | IfcPreDefinedColour | null {
     if ( this.BackgroundColour_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 1, true )
 
       if ( !( value instanceof IfcColourSpecification ) && !( value instanceof IfcPreDefinedColour ) && value !== null ) {

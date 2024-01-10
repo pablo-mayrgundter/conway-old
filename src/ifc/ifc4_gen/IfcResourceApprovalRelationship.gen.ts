@@ -55,7 +55,7 @@ export  class IfcResourceApprovalRelationship extends IfcResourceLevelRelationsh
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof IfcActorRole ) && !( value1Untyped instanceof IfcAppliedValue ) && !( value1Untyped instanceof IfcApproval ) && !( value1Untyped instanceof IfcConstraint ) && !( value1Untyped instanceof IfcContextDependentUnit ) && !( value1Untyped instanceof IfcConversionBasedUnit ) && !( value1Untyped instanceof IfcExternalInformation ) && !( value1Untyped instanceof IfcExternalReference ) && !( value1Untyped instanceof IfcMaterialDefinition ) && !( value1Untyped instanceof IfcOrganization ) && !( value1Untyped instanceof IfcPerson ) && !( value1Untyped instanceof IfcPersonAndOrganization ) && !( value1Untyped instanceof IfcPhysicalQuantity ) && !( value1Untyped instanceof IfcProfileDef ) && !( value1Untyped instanceof IfcPropertyAbstraction ) && !( value1Untyped instanceof IfcTimeSeries ) ) {

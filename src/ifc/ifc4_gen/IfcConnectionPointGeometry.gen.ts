@@ -21,7 +21,7 @@ export  class IfcConnectionPointGeometry extends IfcConnectionGeometry {
   public get PointOnRelatingElement() : IfcPoint | IfcVertexPoint {
     if ( this.PointOnRelatingElement_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof IfcPoint ) && !( value instanceof IfcVertexPoint ) ) {
@@ -38,7 +38,7 @@ export  class IfcConnectionPointGeometry extends IfcConnectionGeometry {
   public get PointOnRelatedElement() : IfcPoint | IfcVertexPoint | null {
     if ( this.PointOnRelatedElement_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 1, true )
 
       if ( !( value instanceof IfcPoint ) && !( value instanceof IfcVertexPoint ) && value !== null ) {

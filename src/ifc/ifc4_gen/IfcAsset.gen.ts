@@ -64,7 +64,7 @@ export  class IfcAsset extends IfcGroup {
   public get Owner() : IfcOrganization | IfcPerson | IfcPersonAndOrganization | null {
     if ( this.Owner_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 9, true )
 
       if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) && value !== null ) {
@@ -81,7 +81,7 @@ export  class IfcAsset extends IfcGroup {
   public get User() : IfcOrganization | IfcPerson | IfcPersonAndOrganization | null {
     if ( this.User_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 10, true )
 
       if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) && value !== null ) {

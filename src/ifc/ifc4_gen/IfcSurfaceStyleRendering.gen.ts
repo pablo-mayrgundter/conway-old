@@ -29,7 +29,7 @@ export  class IfcSurfaceStyleRendering extends IfcSurfaceStyleShading {
   public get DiffuseColour() : IfcColourRgb | IfcNormalisedRatioMeasure | null {
     if ( this.DiffuseColour_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 2, true )
 
       if ( !( value instanceof IfcColourRgb ) && !( value instanceof IfcNormalisedRatioMeasure ) && value !== null ) {
@@ -46,7 +46,7 @@ export  class IfcSurfaceStyleRendering extends IfcSurfaceStyleShading {
   public get TransmissionColour() : IfcColourRgb | IfcNormalisedRatioMeasure | null {
     if ( this.TransmissionColour_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 3, true )
 
       if ( !( value instanceof IfcColourRgb ) && !( value instanceof IfcNormalisedRatioMeasure ) && value !== null ) {
@@ -63,7 +63,7 @@ export  class IfcSurfaceStyleRendering extends IfcSurfaceStyleShading {
   public get DiffuseTransmissionColour() : IfcColourRgb | IfcNormalisedRatioMeasure | null {
     if ( this.DiffuseTransmissionColour_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 4, true )
 
       if ( !( value instanceof IfcColourRgb ) && !( value instanceof IfcNormalisedRatioMeasure ) && value !== null ) {
@@ -80,7 +80,7 @@ export  class IfcSurfaceStyleRendering extends IfcSurfaceStyleShading {
   public get ReflectionColour() : IfcColourRgb | IfcNormalisedRatioMeasure | null {
     if ( this.ReflectionColour_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 5, true )
 
       if ( !( value instanceof IfcColourRgb ) && !( value instanceof IfcNormalisedRatioMeasure ) && value !== null ) {
@@ -97,7 +97,7 @@ export  class IfcSurfaceStyleRendering extends IfcSurfaceStyleShading {
   public get SpecularColour() : IfcColourRgb | IfcNormalisedRatioMeasure | null {
     if ( this.SpecularColour_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 6, true )
 
       if ( !( value instanceof IfcColourRgb ) && !( value instanceof IfcNormalisedRatioMeasure ) && value !== null ) {
@@ -114,7 +114,7 @@ export  class IfcSurfaceStyleRendering extends IfcSurfaceStyleShading {
   public get SpecularHighlight() : IfcSpecularExponent | IfcSpecularRoughness | null {
     if ( this.SpecularHighlight_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 7, true )
 
       if ( !( value instanceof IfcSpecularExponent ) && !( value instanceof IfcSpecularRoughness ) && value !== null ) {

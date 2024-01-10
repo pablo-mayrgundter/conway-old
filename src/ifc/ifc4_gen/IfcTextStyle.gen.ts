@@ -42,7 +42,7 @@ export  class IfcTextStyle extends IfcPresentationStyle {
   public get TextFontStyle() : IfcExternallyDefinedTextFont | IfcPreDefinedTextFont {
     if ( this.TextFontStyle_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 3, false )
 
       if ( !( value instanceof IfcExternallyDefinedTextFont ) && !( value instanceof IfcPreDefinedTextFont ) ) {

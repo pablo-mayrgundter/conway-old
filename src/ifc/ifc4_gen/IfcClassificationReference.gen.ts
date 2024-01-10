@@ -23,7 +23,7 @@ export  class IfcClassificationReference extends IfcExternalReference {
   public get ReferencedSource() : IfcClassification | IfcClassificationReference | null {
     if ( this.ReferencedSource_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 3, true )
 
       if ( !( value instanceof IfcClassification ) && !( value instanceof IfcClassificationReference ) && value !== null ) {

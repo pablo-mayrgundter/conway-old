@@ -6,7 +6,13 @@ import {
   stepExtractArrayBegin,
   skipValue,
 } from '../../step/parsing/step_deserialization_functions'
-import { reversible_topology_item } from './index'
+import { edge } from "./index"
+import { path } from "./index"
+import { face } from "./index"
+import { face_bound } from "./index"
+import { closed_shell } from "./index"
+import { open_shell } from "./index"
+
 import EntityTypesIfc from './entity_types_ifc.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'

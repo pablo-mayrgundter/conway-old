@@ -70,7 +70,7 @@ export  class IfcLightSourceGoniometric extends IfcLightSource {
   public get LightDistributionDataSource() : IfcExternalReference | IfcLightIntensityDistribution {
     if ( this.LightDistributionDataSource_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 9, false )
 
       if ( !( value instanceof IfcExternalReference ) && !( value instanceof IfcLightIntensityDistribution ) ) {

@@ -115,7 +115,7 @@ export  class IfcDocumentInformation extends IfcExternalInformation {
   public get DocumentOwner() : IfcOrganization | IfcPerson | IfcPersonAndOrganization | null {
     if ( this.DocumentOwner_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 8, true )
 
       if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) && value !== null ) {
@@ -146,7 +146,7 @@ export  class IfcDocumentInformation extends IfcExternalInformation {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof IfcOrganization ) && !( value1Untyped instanceof IfcPerson ) && !( value1Untyped instanceof IfcPersonAndOrganization ) ) {

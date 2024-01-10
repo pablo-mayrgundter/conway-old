@@ -21,7 +21,7 @@ export  class IfcConnectionCurveGeometry extends IfcConnectionGeometry {
   public get CurveOnRelatingElement() : IfcBoundedCurve | IfcEdgeCurve {
     if ( this.CurveOnRelatingElement_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof IfcBoundedCurve ) && !( value instanceof IfcEdgeCurve ) ) {
@@ -38,7 +38,7 @@ export  class IfcConnectionCurveGeometry extends IfcConnectionGeometry {
   public get CurveOnRelatedElement() : IfcBoundedCurve | IfcEdgeCurve | null {
     if ( this.CurveOnRelatedElement_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 1, true )
 
       if ( !( value instanceof IfcBoundedCurve ) && !( value instanceof IfcEdgeCurve ) && value !== null ) {

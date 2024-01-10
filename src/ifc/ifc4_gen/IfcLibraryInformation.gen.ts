@@ -46,7 +46,7 @@ export  class IfcLibraryInformation extends IfcExternalInformation {
   public get Publisher() : IfcOrganization | IfcPerson | IfcPersonAndOrganization | null {
     if ( this.Publisher_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 2, true )
 
       if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) && value !== null ) {

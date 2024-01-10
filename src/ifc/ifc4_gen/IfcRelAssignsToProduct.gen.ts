@@ -20,7 +20,7 @@ export  class IfcRelAssignsToProduct extends IfcRelAssigns {
   public get RelatingProduct() : IfcProduct | IfcTypeProduct {
     if ( this.RelatingProduct_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 6, false )
 
       if ( !( value instanceof IfcProduct ) && !( value instanceof IfcTypeProduct ) ) {

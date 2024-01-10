@@ -21,7 +21,7 @@ export  class IfcRelAssociatesMaterial extends IfcRelAssociates {
   public get RelatingMaterial() : IfcMaterialDefinition | IfcMaterialList | IfcMaterialUsageDefinition {
     if ( this.RelatingMaterial_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 5, false )
 
       if ( !( value instanceof IfcMaterialDefinition ) && !( value instanceof IfcMaterialList ) && !( value instanceof IfcMaterialUsageDefinition ) ) {

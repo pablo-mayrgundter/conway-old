@@ -42,7 +42,7 @@ export  class IfcGeometricRepresentationContext extends IfcRepresentationContext
   public get WorldCoordinateSystem() : IfcAxis2Placement2D | IfcAxis2Placement3D {
     if ( this.WorldCoordinateSystem_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 4, false )
 
       if ( !( value instanceof IfcAxis2Placement2D ) && !( value instanceof IfcAxis2Placement3D ) ) {

@@ -52,7 +52,7 @@ export  class IfcTableColumn extends StepEntityBase< EntityTypesIfc > {
   public get Unit() : IfcDerivedUnit | IfcMonetaryUnit | IfcNamedUnit | null {
     if ( this.Unit_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 3, true )
 
       if ( !( value instanceof IfcDerivedUnit ) && !( value instanceof IfcMonetaryUnit ) && !( value instanceof IfcNamedUnit ) && value !== null ) {

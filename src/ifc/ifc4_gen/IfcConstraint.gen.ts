@@ -62,7 +62,7 @@ export abstract class IfcConstraint extends StepEntityBase< EntityTypesIfc > {
   public get CreatingActor() : IfcOrganization | IfcPerson | IfcPersonAndOrganization | null {
     if ( this.CreatingActor_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 4, true )
 
       if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) && value !== null ) {

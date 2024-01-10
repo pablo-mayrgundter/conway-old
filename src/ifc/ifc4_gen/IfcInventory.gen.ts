@@ -43,7 +43,7 @@ export  class IfcInventory extends IfcGroup {
   public get Jurisdiction() : IfcOrganization | IfcPerson | IfcPersonAndOrganization | null {
     if ( this.Jurisdiction_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 6, true )
 
       if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) && value !== null ) {

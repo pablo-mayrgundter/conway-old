@@ -21,7 +21,7 @@ export  class IfcActor extends IfcObject {
   public get TheActor() : IfcOrganization | IfcPerson | IfcPersonAndOrganization {
     if ( this.TheActor_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 5, false )
 
       if ( !( value instanceof IfcOrganization ) && !( value instanceof IfcPerson ) && !( value instanceof IfcPersonAndOrganization ) ) {

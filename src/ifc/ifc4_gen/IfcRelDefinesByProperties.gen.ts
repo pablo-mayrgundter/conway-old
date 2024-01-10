@@ -61,7 +61,7 @@ export  class IfcRelDefinesByProperties extends IfcRelDefines {
   public get RelatingPropertyDefinition() : IfcPropertySetDefinition | IfcPropertySetDefinitionSet {
     if ( this.RelatingPropertyDefinition_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 5, false )
 
       if ( !( value instanceof IfcPropertySetDefinition ) && !( value instanceof IfcPropertySetDefinitionSet ) ) {

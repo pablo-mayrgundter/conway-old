@@ -61,7 +61,7 @@ export  class IfcPresentationLayerAssignment extends StepEntityBase< EntityTypes
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined =
+        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof IfcRepresentation ) && !( value1Untyped instanceof IfcRepresentationItem ) ) {

@@ -28,7 +28,7 @@ export  class IfcRelSpaceBoundary extends IfcRelConnects {
   public get RelatingSpace() : IfcExternalSpatialElement | IfcSpace {
     if ( this.RelatingSpace_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 4, false )
 
       if ( !( value instanceof IfcExternalSpatialElement ) && !( value instanceof IfcSpace ) ) {

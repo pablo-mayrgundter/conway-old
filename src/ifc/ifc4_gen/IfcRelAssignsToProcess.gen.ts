@@ -22,7 +22,7 @@ export  class IfcRelAssignsToProcess extends IfcRelAssigns {
   public get RelatingProcess() : IfcProcess | IfcTypeProcess {
     if ( this.RelatingProcess_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 6, false )
 
       if ( !( value instanceof IfcProcess ) && !( value instanceof IfcTypeProcess ) ) {

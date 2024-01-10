@@ -20,7 +20,7 @@ export  class IfcRelAssociatesLibrary extends IfcRelAssociates {
   public get RelatingLibrary() : IfcLibraryInformation | IfcLibraryReference {
     if ( this.RelatingLibrary_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > =
+      const value : StepEntityBase< EntityTypesIfc > = 
         this.extractReference( 5, false )
 
       if ( !( value instanceof IfcLibraryInformation ) && !( value instanceof IfcLibraryReference ) ) {

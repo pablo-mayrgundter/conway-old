@@ -29,7 +29,7 @@ export  class IfcGridPlacement extends IfcObjectPlacement {
   public get PlacementRefDirection() : IfcDirection | IfcVirtualGridIntersection | null {
     if ( this.PlacementRefDirection_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null =
+      const value : StepEntityBase< EntityTypesIfc >| null = 
         this.extractReference( 1, true )
 
       if ( !( value instanceof IfcDirection ) && !( value instanceof IfcVirtualGridIntersection ) && value !== null ) {
