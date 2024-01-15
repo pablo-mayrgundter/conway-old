@@ -6,11 +6,12 @@ import { StepEntityInternalReferencePrivate } from './step_entity_internal_refer
 import { IIndexSetCursor } from '../core/i_index_set_cursor'
 import { extractOneHotLow } from '../indexing/bit_operations'
 import { MultiIndexSet } from '../indexing/multi_index_set'
-import { StepEntityConstructorAbstract } from './step_entity_constructor'
+import StepEntityConstructor, { StepEntityConstructorAbstract } from './step_entity_constructor'
 import { Model } from '../core/model'
 import { ReadonlyUint32Array } from '../core/readonly_typed_array'
 import { TriangleElementMap } from '../core/triangle_element_map'
 import InterpolationSearchTable32 from '../indexing/interpolation_search_table_32'
+import StepExternalMapping from './step_external_mapping'
 
 /**
  * The base for models parsed from STEP.
@@ -180,7 +181,7 @@ implements Iterable<BaseEntity>, Model {
 
     const element = this.elementIndex_[localID]
 
-    if (element.vtableIndex !== void 0) {
+    if (element.vtableIndex !== void 0 || element.typeID === 0 ) {
       return true
     }
 
@@ -312,9 +313,15 @@ implements Iterable<BaseEntity>, Model {
     let entity = element.entity
 
     if (entity === void 0 && element.typeID !== void 0) {
+
+      const elementTypeID = element.typeID
+
       // TODO - we actually need to make this handle unknown type IDs by adding
       // an ENTITY_UNKNOWN type - CS
-      const constructorRead = this.schema.constructors[element.typeID]
+      const constructorRead =
+        elementTypeID !== 0 ?
+          this.schema.constructors[elementTypeID] :
+          StepExternalMapping<EntityTypeIDs>
 
       if (constructorRead !== void 0) {
         // eslint-disable-next-line new-cap -- This is a variable constructor.

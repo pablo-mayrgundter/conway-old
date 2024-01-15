@@ -614,7 +614,47 @@ export default class StepParser<TypeIDType> {
       const startIdentifier = input.cursor
 
       if (!identifier()) {
-        return syntaxError()
+
+        if ( !char( OPEN_PAREN ) ) {
+          return syntaxError()
+        }
+
+        whitespace()
+
+        inlineElements = void 0
+
+        const startElement = input.cursor
+
+        // todo, loop and read inline then add them to a special "External Mapping" node.
+        while ( !charws( CLOSE_PAREN ) ) {
+
+          input.begin()
+          const elementResult = parseInlineElement()
+
+          if (elementResult !== (void 0)) {
+
+            input.rollback()
+
+            return elementResult
+          }
+
+          input.commit()
+        }
+
+        if (!charws(SEMICOLON)) {
+          return syntaxError()
+        }
+
+        indexResult.elements.push(
+            {
+              address: startElement,
+              length: input.address - startElement,
+              typeID: 0 as TypeIDType, // external mapping special case.
+              expressID: expressID,
+              inlineEntities: inlineElements,
+            })
+
+        continue
       }
 
       const foundItem = this.index_.get(input.buffer, startIdentifier, input.cursor)
