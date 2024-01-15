@@ -325,7 +325,7 @@ implements Iterable<BaseEntity>, Model {
 
       if (constructorRead !== void 0) {
         // eslint-disable-next-line new-cap -- This is a variable constructor.
-        entity = new constructorRead(localID, element, this)
+        entity = new constructorRead(localID, element, this) as BaseEntity
 
         if ( this.elementMemoization ) {
           element.entity = entity
