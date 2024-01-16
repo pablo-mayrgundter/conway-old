@@ -13,6 +13,8 @@ export default class StepExternalMapping<
 
   /**
    * Get the type of this entity (0 is always external mapping)
+   *
+   * @return {number} The type code of this.
    */
   public get type(): EntityTypeIDs {
     return 0 as EntityTypeIDs
