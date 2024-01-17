@@ -1001,6 +1001,7 @@ import { trimming_preference } from './index'
 import { unlimited_range } from './index'
 import { ypr_enumeration } from './index'
 let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > | undefined )[]  = [
+  void 0,
   abs_function,
   void 0,
   acos_function,
@@ -1970,6 +1971,7 @@ let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< Enti
 const f = FieldDescriptionKind
 const e = EntityTypesIfc
 let queries : EntityTypesIfc[][] = [
+  [ EntityTypesIfc.EXTERNALMAPPINGCONTAINER ],
   abs_function.query,
   unary_function_call.query,
   acos_function.query,
@@ -2937,6 +2939,12 @@ let queries : EntityTypesIfc[][] = [
   ypr_rotation.query,
 ]
 let descriptions : EntityDescription< EntityTypesIfc >[] = [
+  {
+    fields: {
+    },
+    typeId: e.EXTERNALMAPPINGCONTAINER,
+    isAbstract: false,
+  },
   {
     fields: {
     },

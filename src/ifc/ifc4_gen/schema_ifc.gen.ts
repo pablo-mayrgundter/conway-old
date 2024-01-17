@@ -1124,6 +1124,7 @@ import { IfcWorkCalendarTypeEnum } from './index'
 import { IfcWorkPlanTypeEnum } from './index'
 import { IfcWorkScheduleTypeEnum } from './index'
 let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > | undefined )[]  = [
+  void 0,
   IfcActionRequest,
   void 0,
   IfcActor,
@@ -2035,6 +2036,7 @@ let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< Enti
 const f = FieldDescriptionKind
 const e = EntityTypesIfc
 let queries : EntityTypesIfc[][] = [
+  [ EntityTypesIfc.EXTERNALMAPPINGCONTAINER ],
   IfcActionRequest.query,
   IfcControl.query,
   IfcActor.query,
@@ -2944,6 +2946,12 @@ let queries : EntityTypesIfc[][] = [
   IfcWarpingMomentMeasure.query,
 ]
 let descriptions : EntityDescription< EntityTypesIfc >[] = [
+  {
+    fields: {
+    },
+    typeId: e.EXTERNALMAPPINGCONTAINER,
+    isAbstract: false,
+  },
   {
     fields: {
       PredefinedType: {
