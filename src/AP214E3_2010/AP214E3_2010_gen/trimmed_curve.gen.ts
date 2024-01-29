@@ -12,16 +12,16 @@ import {
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/trimmed_curve.htm */
+// *  */
 export  class trimmed_curve extends bounded_curve {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.TRIMMED_CURVE
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.TRIMMED_CURVE
   }
   private basis_curve_? : curve
   private trim_1_? : Array<cartesian_point | parameter_value>
@@ -54,7 +54,7 @@ export  class trimmed_curve extends bounded_curve {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
+        const value1Untyped : StepEntityBase< EntityTypesAP214 > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof cartesian_point ) && !( value1Untyped instanceof parameter_value ) ) {
@@ -94,7 +94,7 @@ export  class trimmed_curve extends bounded_curve {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
+        const value1Untyped : StepEntityBase< EntityTypesAP214 > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof cartesian_point ) && !( value1Untyped instanceof parameter_value ) ) {
@@ -134,14 +134,14 @@ export  class trimmed_curve extends bounded_curve {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.TRIMMED_CURVE ]
+    [ EntityTypesAP214.TRIMMED_CURVE ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.TRIMMED_CURVE
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.TRIMMED_CURVE
 }

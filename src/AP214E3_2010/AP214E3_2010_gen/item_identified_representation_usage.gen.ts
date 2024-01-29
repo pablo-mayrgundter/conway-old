@@ -10,16 +10,16 @@ import { representation } from "./index"
 import { representation_item } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/item_identified_representation_usage.htm */
-export  class item_identified_representation_usage extends StepEntityBase< EntityTypesIfc > {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.ITEM_IDENTIFIED_REPRESENTATION_USAGE
+// *  */
+export  class item_identified_representation_usage extends StepEntityBase< EntityTypesAP214 > {
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.ITEM_IDENTIFIED_REPRESENTATION_USAGE
   }
   private name_? : string
   private description_? : string | null
@@ -46,7 +46,7 @@ export  class item_identified_representation_usage extends StepEntityBase< Entit
   public get definition() : general_property | property_definition | property_definition_relationship | shape_aspect | shape_aspect_relationship {
     if ( this.definition_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > = 
+      const value : StepEntityBase< EntityTypesAP214 > = 
         this.extractReference( 2, false )
 
       if ( !( value instanceof general_property ) && !( value instanceof property_definition ) && !( value instanceof property_definition_relationship ) && !( value instanceof shape_aspect ) && !( value instanceof shape_aspect_relationship ) ) {
@@ -77,14 +77,14 @@ export  class item_identified_representation_usage extends StepEntityBase< Entit
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.ITEM_IDENTIFIED_REPRESENTATION_USAGE ]
+    [ EntityTypesAP214.ITEM_IDENTIFIED_REPRESENTATION_USAGE ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.ITEM_IDENTIFIED_REPRESENTATION_USAGE
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.ITEM_IDENTIFIED_REPRESENTATION_USAGE
 }

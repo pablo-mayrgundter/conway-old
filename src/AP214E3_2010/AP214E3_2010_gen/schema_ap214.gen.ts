@@ -3,8 +3,8 @@ import {
   FieldDescriptionKind,
 } from '../../core/entity_field_description'
 import { EntityDescription } from '../../core/entity_description'
-import EntityTypesIfc from './entity_types_ifc.gen'
-import EntityTypesIfcSearch from './entity_types_search.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
+import EntityTypesAP214Search from './entity_types_search.gen'
 import StepEntityConstructor from '../../step/step_entity_constructor'
 import StepEntityBase from '../../step/step_entity_base'
 import StepEntitySchema from '../../step/step_entity_schema'
@@ -1000,7 +1000,7 @@ import { transition_code } from './index'
 import { trimming_preference } from './index'
 import { unlimited_range } from './index'
 import { ypr_enumeration } from './index'
-let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > | undefined )[]  = [
+let constructors : ( StepEntityConstructor< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > | undefined )[]  = [
   void 0,
   abs_function,
   void 0,
@@ -1969,9 +1969,9 @@ let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< Enti
   ypr_rotation,
 ]
 const f = FieldDescriptionKind
-const e = EntityTypesIfc
-let queries : EntityTypesIfc[][] = [
-  [ EntityTypesIfc.EXTERNALMAPPINGCONTAINER ],
+const e = EntityTypesAP214
+let queries : EntityTypesAP214[][] = [
+  [ EntityTypesAP214.EXTERNALMAPPINGCONTAINER ],
   abs_function.query,
   unary_function_call.query,
   acos_function.query,
@@ -2938,7 +2938,7 @@ let queries : EntityTypesIfc[][] = [
   year_number.query,
   ypr_rotation.query,
 ]
-let descriptions : EntityDescription< EntityTypesIfc >[] = [
+let descriptions : EntityDescription< EntityTypesAP214 >[] = [
   {
     fields: {
     },
@@ -26850,9 +26850,9 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
   },
 ]
 let parser =
-  new StepParser< EntityTypesIfc >( EntityTypesIfcSearch )
+  new StepParser< EntityTypesAP214 >( EntityTypesAP214Search )
 
-let SchemaIfc =
-  new StepEntitySchema< EntityTypesIfc >( constructors, parser, queries, descriptions )
+let SchemaAP214 =
+  new StepEntitySchema< EntityTypesAP214 >( constructors, parser, queries, descriptions )
 
-export default SchemaIfc
+export default SchemaAP214

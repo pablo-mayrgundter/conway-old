@@ -5,16 +5,16 @@ import { material_designation } from "./index"
 import { material_property_representation } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/material_designation_characterization.htm */
-export  class material_designation_characterization extends StepEntityBase< EntityTypesIfc > {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.MATERIAL_DESIGNATION_CHARACTERIZATION
+// *  */
+export  class material_designation_characterization extends StepEntityBase< EntityTypesAP214 > {
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.MATERIAL_DESIGNATION_CHARACTERIZATION
   }
   private name_? : string
   private description_? : string
@@ -48,7 +48,7 @@ export  class material_designation_characterization extends StepEntityBase< Enti
   public get property() : material_property_representation {
     if ( this.property_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > = 
+      const value : StepEntityBase< EntityTypesAP214 > = 
         this.extractReference( 3, false )
 
       if ( !( value instanceof material_property_representation ) ) {
@@ -63,14 +63,14 @@ export  class material_designation_characterization extends StepEntityBase< Enti
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.MATERIAL_DESIGNATION_CHARACTERIZATION ]
+    [ EntityTypesAP214.MATERIAL_DESIGNATION_CHARACTERIZATION ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.MATERIAL_DESIGNATION_CHARACTERIZATION
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.MATERIAL_DESIGNATION_CHARACTERIZATION
 }

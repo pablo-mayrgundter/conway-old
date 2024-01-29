@@ -9,16 +9,16 @@ import {
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/configurable_item.htm */
+// *  */
 export  class configurable_item extends configuration_item {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.CONFIGURABLE_ITEM
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.CONFIGURABLE_ITEM
   }
   private item_concept_feature_? : Array<product_concept_feature_association>
 
@@ -56,14 +56,14 @@ export  class configurable_item extends configuration_item {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.CONFIGURABLE_ITEM ]
+    [ EntityTypesAP214.CONFIGURABLE_ITEM ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.CONFIGURABLE_ITEM
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.CONFIGURABLE_ITEM
 }

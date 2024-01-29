@@ -2,17 +2,17 @@
 /* This is generated code, don't alter */
 import { length_measure } from "./index"
 
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/non_negative_length_measure.htm */
-export class non_negative_length_measure extends StepEntityBase< EntityTypesIfc > {    
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.NON_NEGATIVE_LENGTH_MEASURE
+// *  */
+export class non_negative_length_measure extends StepEntityBase< EntityTypesAP214 > {    
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.NON_NEGATIVE_LENGTH_MEASURE
   }
 
   private Value_? : number;
@@ -27,14 +27,14 @@ export class non_negative_length_measure extends StepEntityBase< EntityTypesIfc 
 
   constructor(
       localID: number,
-      internalReference: StepEntityInternalReference< EntityTypesIfc >,
-      model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+      internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+      model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
      super( localID, internalReference, model )
   }
 
   public static readonly query =
-    [ EntityTypesIfc.NON_NEGATIVE_LENGTH_MEASURE ]
+    [ EntityTypesAP214.NON_NEGATIVE_LENGTH_MEASURE ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.NON_NEGATIVE_LENGTH_MEASURE
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.NON_NEGATIVE_LENGTH_MEASURE
 }

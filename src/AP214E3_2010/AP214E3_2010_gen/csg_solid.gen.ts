@@ -9,23 +9,23 @@ import { right_circular_cone } from "./index"
 import { right_circular_cylinder } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/csg_solid.htm */
+// *  */
 export  class csg_solid extends solid_model {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.CSG_SOLID
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.CSG_SOLID
   }
   private tree_root_expression_? : boolean_result | sphere | block | right_angular_wedge | torus | right_circular_cone | right_circular_cylinder
 
   public get tree_root_expression() : boolean_result | sphere | block | right_angular_wedge | torus | right_circular_cone | right_circular_cylinder {
     if ( this.tree_root_expression_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > = 
+      const value : StepEntityBase< EntityTypesAP214 > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof boolean_result ) && !( value instanceof sphere ) && !( value instanceof block ) && !( value instanceof right_angular_wedge ) && !( value instanceof torus ) && !( value instanceof right_circular_cone ) && !( value instanceof right_circular_cylinder ) ) {
@@ -40,14 +40,14 @@ export  class csg_solid extends solid_model {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.CSG_SOLID ]
+    [ EntityTypesAP214.CSG_SOLID ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.CSG_SOLID
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.CSG_SOLID
 }

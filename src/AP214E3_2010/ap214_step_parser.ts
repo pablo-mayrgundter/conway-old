@@ -1,13 +1,13 @@
 import ParsingBuffer from '../parsing/parsing_buffer'
 import StepParser, {ParseResult} from '../step/parsing/step_parser'
 import AP214StepModel from './ap214_step_model'
-import EntityTypesIfc from './AP214E3_2010_gen/entity_types_ifc.gen'
+import EntityTypesAP214 from './AP214E3_2010_gen/entity_types_ap214.gen'
 import EntitTypesIfcSearch from './AP214E3_2010_gen/entity_types_search.gen'
 
 /**
  * Parser for taking IFC file serialized in step and turning them into a lazily parsed model.
  */
-export default class AP214StepParser extends StepParser< EntityTypesIfc > {
+export default class AP214StepParser extends StepParser< EntityTypesAP214 > {
   /**
    * Construct the IFC step parser.
    */

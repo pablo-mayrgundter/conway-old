@@ -3,16 +3,16 @@ import { composite_text } from "./index"
 import { planar_box } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/composite_text_with_blanking_box.htm */
+// *  */
 export  class composite_text_with_blanking_box extends composite_text {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.COMPOSITE_TEXT_WITH_BLANKING_BOX
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.COMPOSITE_TEXT_WITH_BLANKING_BOX
   }
   private blanking_? : planar_box
 
@@ -25,14 +25,14 @@ export  class composite_text_with_blanking_box extends composite_text {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.COMPOSITE_TEXT_WITH_BLANKING_BOX ]
+    [ EntityTypesAP214.COMPOSITE_TEXT_WITH_BLANKING_BOX ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.COMPOSITE_TEXT_WITH_BLANKING_BOX
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.COMPOSITE_TEXT_WITH_BLANKING_BOX
 }

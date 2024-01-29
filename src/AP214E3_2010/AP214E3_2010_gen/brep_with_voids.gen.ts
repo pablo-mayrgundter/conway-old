@@ -9,16 +9,16 @@ import {
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/brep_with_voids.htm */
+// *  */
 export  class brep_with_voids extends manifold_solid_brep {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.BREP_WITH_VOIDS
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.BREP_WITH_VOIDS
   }
   private voids_? : Array<oriented_closed_shell>
 
@@ -56,14 +56,14 @@ export  class brep_with_voids extends manifold_solid_brep {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.BREP_WITH_VOIDS ]
+    [ EntityTypesAP214.BREP_WITH_VOIDS ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.BREP_WITH_VOIDS
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.BREP_WITH_VOIDS
 }

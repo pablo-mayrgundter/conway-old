@@ -10,16 +10,16 @@ import {
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/configuration_definition.htm */
-export  class configuration_definition extends StepEntityBase< EntityTypesIfc > {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.CONFIGURATION_DEFINITION
+// *  */
+export  class configuration_definition extends StepEntityBase< EntityTypesAP214 > {
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.CONFIGURATION_DEFINITION
   }
   private pair_values_? : Array<pair_value>
   private t_parameter_? : parameter_value | measure_with_unit
@@ -60,7 +60,7 @@ export  class configuration_definition extends StepEntityBase< EntityTypesIfc > 
   public get t_parameter() : parameter_value | measure_with_unit {
     if ( this.t_parameter_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > = 
+      const value : StepEntityBase< EntityTypesAP214 > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof parameter_value ) && !( value instanceof measure_with_unit ) ) {
@@ -75,14 +75,14 @@ export  class configuration_definition extends StepEntityBase< EntityTypesIfc > 
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.CONFIGURATION_DEFINITION ]
+    [ EntityTypesAP214.CONFIGURATION_DEFINITION ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.CONFIGURATION_DEFINITION
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.CONFIGURATION_DEFINITION
 }

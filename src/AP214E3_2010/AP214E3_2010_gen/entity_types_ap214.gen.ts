@@ -1,5 +1,5 @@
 /* This is generated code, don't alter */
-enum EntityTypesIfc {
+enum EntityTypesAP214 {
   EXTERNALMAPPINGCONTAINER = 0,
   ABS_FUNCTION = 1,
   UNARY_FUNCTION_CALL = 2,
@@ -968,7 +968,7 @@ enum EntityTypesIfc {
   YPR_ROTATION = 965,
 }
 
-const EntityTypesIfcCount = 966
+const EntityTypesAP214Count = 966
 
-export default EntityTypesIfc
-export { EntityTypesIfcCount }
+export default EntityTypesAP214
+export { EntityTypesAP214Count }

@@ -6,16 +6,16 @@ import {
 } from '../ap214_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/numeric_expression.htm */
+// *  */
 export abstract class numeric_expression extends expression {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.NUMERIC_EXPRESSION
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.NUMERIC_EXPRESSION
   }
 
 
@@ -28,14 +28,14 @@ export abstract class numeric_expression extends expression {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.LENGTH_FUNCTION, EntityTypesIfc.VALUE_FUNCTION, EntityTypesIfc.NUMERIC_VARIABLE, EntityTypesIfc.INT_LITERAL, EntityTypesIfc.REAL_LITERAL, EntityTypesIfc.INT_NUMERIC_VARIABLE, EntityTypesIfc.REAL_NUMERIC_VARIABLE, EntityTypesIfc.ABS_FUNCTION, EntityTypesIfc.MINUS_FUNCTION, EntityTypesIfc.SIN_FUNCTION, EntityTypesIfc.COS_FUNCTION, EntityTypesIfc.TAN_FUNCTION, EntityTypesIfc.ASIN_FUNCTION, EntityTypesIfc.ACOS_FUNCTION, EntityTypesIfc.EXP_FUNCTION, EntityTypesIfc.LOG_FUNCTION, EntityTypesIfc.LOG2_FUNCTION, EntityTypesIfc.LOG10_FUNCTION, EntityTypesIfc.SQUARE_ROOT_FUNCTION, EntityTypesIfc.MINUS_EXPRESSION, EntityTypesIfc.DIV_EXPRESSION, EntityTypesIfc.MOD_EXPRESSION, EntityTypesIfc.SLASH_EXPRESSION, EntityTypesIfc.POWER_EXPRESSION, EntityTypesIfc.ATAN_FUNCTION, EntityTypesIfc.PLUS_EXPRESSION, EntityTypesIfc.MULT_EXPRESSION, EntityTypesIfc.MAXIMUM_FUNCTION, EntityTypesIfc.MINIMUM_FUNCTION ]
+    [ EntityTypesAP214.LENGTH_FUNCTION, EntityTypesAP214.VALUE_FUNCTION, EntityTypesAP214.NUMERIC_VARIABLE, EntityTypesAP214.INT_LITERAL, EntityTypesAP214.REAL_LITERAL, EntityTypesAP214.INT_NUMERIC_VARIABLE, EntityTypesAP214.REAL_NUMERIC_VARIABLE, EntityTypesAP214.ABS_FUNCTION, EntityTypesAP214.MINUS_FUNCTION, EntityTypesAP214.SIN_FUNCTION, EntityTypesAP214.COS_FUNCTION, EntityTypesAP214.TAN_FUNCTION, EntityTypesAP214.ASIN_FUNCTION, EntityTypesAP214.ACOS_FUNCTION, EntityTypesAP214.EXP_FUNCTION, EntityTypesAP214.LOG_FUNCTION, EntityTypesAP214.LOG2_FUNCTION, EntityTypesAP214.LOG10_FUNCTION, EntityTypesAP214.SQUARE_ROOT_FUNCTION, EntityTypesAP214.MINUS_EXPRESSION, EntityTypesAP214.DIV_EXPRESSION, EntityTypesAP214.MOD_EXPRESSION, EntityTypesAP214.SLASH_EXPRESSION, EntityTypesAP214.POWER_EXPRESSION, EntityTypesAP214.ATAN_FUNCTION, EntityTypesAP214.PLUS_EXPRESSION, EntityTypesAP214.MULT_EXPRESSION, EntityTypesAP214.MAXIMUM_FUNCTION, EntityTypesAP214.MINIMUM_FUNCTION ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.NUMERIC_EXPRESSION
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.NUMERIC_EXPRESSION
 }

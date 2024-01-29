@@ -10,16 +10,16 @@ import {
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/tolerance_zone.htm */
+// *  */
 export  class tolerance_zone extends shape_aspect {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.TOLERANCE_ZONE
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.TOLERANCE_ZONE
   }
   private defining_tolerance_? : Array<geometric_tolerance>
   private form_? : tolerance_zone_form
@@ -66,14 +66,14 @@ export  class tolerance_zone extends shape_aspect {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.TOLERANCE_ZONE ]
+    [ EntityTypesAP214.TOLERANCE_ZONE ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.TOLERANCE_ZONE
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.TOLERANCE_ZONE
 }

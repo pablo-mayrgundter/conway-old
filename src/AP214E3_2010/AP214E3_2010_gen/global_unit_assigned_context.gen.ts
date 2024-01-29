@@ -10,16 +10,16 @@ import {
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/global_unit_assigned_context.htm */
+// *  */
 export  class global_unit_assigned_context extends representation_context {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.GLOBAL_UNIT_ASSIGNED_CONTEXT
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.GLOBAL_UNIT_ASSIGNED_CONTEXT
   }
   private units_? : Array<derived_unit | named_unit>
 
@@ -40,7 +40,7 @@ export  class global_unit_assigned_context extends representation_context {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
+        const value1Untyped : StepEntityBase< EntityTypesAP214 > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof derived_unit ) && !( value1Untyped instanceof named_unit ) ) {
@@ -64,14 +64,14 @@ export  class global_unit_assigned_context extends representation_context {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.GLOBAL_UNIT_ASSIGNED_CONTEXT ]
+    [ EntityTypesAP214.GLOBAL_UNIT_ASSIGNED_CONTEXT ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.GLOBAL_UNIT_ASSIGNED_CONTEXT
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.GLOBAL_UNIT_ASSIGNED_CONTEXT
 }

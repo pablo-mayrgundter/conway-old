@@ -3,16 +3,16 @@ import { runout_zone_orientation } from "./index"
 import { shape_aspect_relationship } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/runout_zone_orientation_reference_direction.htm */
+// *  */
 export  class runout_zone_orientation_reference_direction extends runout_zone_orientation {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.RUNOUT_ZONE_ORIENTATION_REFERENCE_DIRECTION
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.RUNOUT_ZONE_ORIENTATION_REFERENCE_DIRECTION
   }
   private orientation_defining_relationship_? : shape_aspect_relationship
 
@@ -25,14 +25,14 @@ export  class runout_zone_orientation_reference_direction extends runout_zone_or
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.RUNOUT_ZONE_ORIENTATION_REFERENCE_DIRECTION ]
+    [ EntityTypesAP214.RUNOUT_ZONE_ORIENTATION_REFERENCE_DIRECTION ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.RUNOUT_ZONE_ORIENTATION_REFERENCE_DIRECTION
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.RUNOUT_ZONE_ORIENTATION_REFERENCE_DIRECTION
 }

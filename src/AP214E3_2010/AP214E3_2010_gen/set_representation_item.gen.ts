@@ -8,17 +8,17 @@ import {
 } from '../../step/parsing/step_deserialization_functions'
 import { representation_item } from "./index"
 
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/set_representation_item.htm */
-export class set_representation_item extends StepEntityBase< EntityTypesIfc > {    
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.SET_REPRESENTATION_ITEM
+// *  */
+export class set_representation_item extends StepEntityBase< EntityTypesAP214 > {    
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.SET_REPRESENTATION_ITEM
   }
 
   private Value_? : Array<representation_item>;
@@ -58,14 +58,14 @@ export class set_representation_item extends StepEntityBase< EntityTypesIfc > {
 
   constructor(
       localID: number,
-      internalReference: StepEntityInternalReference< EntityTypesIfc >,
-      model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+      internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+      model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
      super( localID, internalReference, model )
   }
 
   public static readonly query =
-    [ EntityTypesIfc.SET_REPRESENTATION_ITEM ]
+    [ EntityTypesAP214.SET_REPRESENTATION_ITEM ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.SET_REPRESENTATION_ITEM
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.SET_REPRESENTATION_ITEM
 }

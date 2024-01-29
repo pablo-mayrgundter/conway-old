@@ -3,16 +3,16 @@ import { date } from "./index"
 import { date_role } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/date_assignment.htm */
-export abstract class date_assignment extends StepEntityBase< EntityTypesIfc > {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.DATE_ASSIGNMENT
+// *  */
+export abstract class date_assignment extends StepEntityBase< EntityTypesAP214 > {
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.DATE_ASSIGNMENT
   }
   private assigned_date_? : date
   private role_? : date_role
@@ -34,14 +34,14 @@ export abstract class date_assignment extends StepEntityBase< EntityTypesIfc > {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
-  public static readonly query: EntityTypesIfc[] = 
+  public static readonly query: EntityTypesAP214[] = 
     [  ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.DATE_ASSIGNMENT
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.DATE_ASSIGNMENT
 }

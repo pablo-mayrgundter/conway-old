@@ -2,16 +2,16 @@
 import { colour } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/text_style_for_defined_font.htm */
-export  class text_style_for_defined_font extends StepEntityBase< EntityTypesIfc > {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.TEXT_STYLE_FOR_DEFINED_FONT
+// *  */
+export  class text_style_for_defined_font extends StepEntityBase< EntityTypesAP214 > {
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.TEXT_STYLE_FOR_DEFINED_FONT
   }
   private text_colour_? : colour
 
@@ -24,14 +24,14 @@ export  class text_style_for_defined_font extends StepEntityBase< EntityTypesIfc
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.TEXT_STYLE_FOR_DEFINED_FONT ]
+    [ EntityTypesAP214.TEXT_STYLE_FOR_DEFINED_FONT ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.TEXT_STYLE_FOR_DEFINED_FONT
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.TEXT_STYLE_FOR_DEFINED_FONT
 }

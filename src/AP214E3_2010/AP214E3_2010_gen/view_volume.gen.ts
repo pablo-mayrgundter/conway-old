@@ -6,16 +6,16 @@ import { length_measure } from "./index"
 import { planar_box } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/view_volume.htm */
+// *  */
 export  class view_volume extends founded_item {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.VIEW_VOLUME
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.VIEW_VOLUME
   }
   private projection_type_? : central_or_parallel
   private projection_point_? : cartesian_point
@@ -100,14 +100,14 @@ export  class view_volume extends founded_item {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.VIEW_VOLUME ]
+    [ EntityTypesAP214.VIEW_VOLUME ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.VIEW_VOLUME
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.VIEW_VOLUME
 }

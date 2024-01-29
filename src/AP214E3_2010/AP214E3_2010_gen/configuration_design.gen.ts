@@ -10,16 +10,16 @@ import {
 } from '../ap214_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/configuration_design.htm */
-export  class configuration_design extends StepEntityBase< EntityTypesIfc > {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.CONFIGURATION_DESIGN
+// *  */
+export  class configuration_design extends StepEntityBase< EntityTypesAP214 > {
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.CONFIGURATION_DESIGN
   }
   private configuration_? : configuration_item
   private design_? : product_definition | product_definition_formation
@@ -35,7 +35,7 @@ export  class configuration_design extends StepEntityBase< EntityTypesIfc > {
   public get design() : product_definition | product_definition_formation {
     if ( this.design_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > = 
+      const value : StepEntityBase< EntityTypesAP214 > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof product_definition ) && !( value instanceof product_definition_formation ) ) {
@@ -58,14 +58,14 @@ export  class configuration_design extends StepEntityBase< EntityTypesIfc > {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.CONFIGURATION_DESIGN ]
+    [ EntityTypesAP214.CONFIGURATION_DESIGN ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.CONFIGURATION_DESIGN
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.CONFIGURATION_DESIGN
 }

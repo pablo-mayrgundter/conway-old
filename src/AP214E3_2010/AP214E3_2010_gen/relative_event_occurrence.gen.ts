@@ -3,16 +3,16 @@ import { event_occurrence } from "./index"
 import { time_measure_with_unit } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/relative_event_occurrence.htm */
+// *  */
 export  class relative_event_occurrence extends event_occurrence {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.RELATIVE_EVENT_OCCURRENCE
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.RELATIVE_EVENT_OCCURRENCE
   }
   private base_event_? : event_occurrence
   private offset_? : time_measure_with_unit
@@ -34,14 +34,14 @@ export  class relative_event_occurrence extends event_occurrence {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.RELATIVE_EVENT_OCCURRENCE ]
+    [ EntityTypesAP214.RELATIVE_EVENT_OCCURRENCE ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.RELATIVE_EVENT_OCCURRENCE
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.RELATIVE_EVENT_OCCURRENCE
 }
