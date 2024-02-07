@@ -3,7 +3,7 @@ import ParsingBuffer from '../parsing/parsing_buffer'
 import { ParseResult } from '../step/parsing/step_parser'
 import { EntityTypesIfcCount } from '../ifc/ifc4_gen/entity_types_ifc.gen'
 import IfcStepModel from '../ifc/ifc_step_model'
-import { ExtractResult, IfcGeometryExtraction } from '../ifc/ifc_geometry_extraction'
+import { IfcGeometryExtraction } from '../ifc/ifc_geometry_extraction'
 import { BlendMode, ConwayGeometry, GeometryObject }
   from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMeshType } from '../core/canonical_mesh'
@@ -14,6 +14,7 @@ import * as glmatrix from 'gl-matrix'
 import { Properties } from './properties'
 import { FromRawLineData } from './ifc2x4_helper'
 import { versionString } from './version'
+import { ExtractResult } from '../core/shared_constants'
 
 
 export * from './ifc2x4'

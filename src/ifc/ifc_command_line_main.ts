@@ -7,13 +7,14 @@ import yargs from 'yargs/yargs'
 import fs from 'fs'
 import StepEntityBase from '../step/step_entity_base'
 import IfcStepModel from './ifc_step_model'
-import { ExtractResult, IfcGeometryExtraction } from './ifc_geometry_extraction'
+import { IfcGeometryExtraction } from './ifc_geometry_extraction'
 import { IfcPropertyExtraction } from './ifc_property_extraction'
 import { ConwayGeometry }
   from '../../dependencies/conway-geom/conway_geometry'
 import { IfcSceneBuilder } from './ifc_scene_builder'
 import GeometryConvertor from '../core/geometry_convertor'
 import GeometryAggregator from '../core/geometry_aggregator'
+import { ExtractResult } from '../core/shared_constants'
 
 
 main()

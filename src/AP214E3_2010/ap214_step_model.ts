@@ -4,6 +4,8 @@ import SchemaAP214 from './AP214E3_2010_gen/schema_ap214.gen'
 import {StepIndexEntry} from '../step/parsing/step_parser'
 import {StepTypeIndexer} from '../step/indexing/step_type_indexer'
 import {MultiIndexSet} from '../indexing/multi_index_set'
+import { AP214ModelGeometry } from './ap214_model_geometry'
+import { AP214ModelProfile } from './ap214_model_profile'
 
 
 const indexerInstance = new StepTypeIndexer< EntityTypesAP214 >( EntityTypesAP214Count )
@@ -12,7 +14,10 @@ const indexerInstance = new StepTypeIndexer< EntityTypesAP214 >( EntityTypesAP21
  * Represents an IFC model deserialized from step.
  */
 export default class AP214StepModel extends StepModelBase< EntityTypesAP214 > {
+
   public readonly typeIndex: MultiIndexSet< EntityTypesAP214 >
+  public readonly geometry = new AP214ModelGeometry()
+  public readonly profiles = new AP214ModelProfile()
 
   /**
    * Construct this model given a buffer containing the data and the parsed data index on that,

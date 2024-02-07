@@ -1,11 +1,12 @@
 import fs from 'fs'
 import { describe, expect, test, beforeAll } from '@jest/globals'
-import { ExtractResult, IfcGeometryExtraction } from '../ifc/ifc_geometry_extraction'
+import { IfcGeometryExtraction } from '../ifc/ifc_geometry_extraction'
 import { ParseResult } from '../step/parsing/step_parser'
 import IfcStepParser from '../ifc/ifc_step_parser'
 import ParsingBuffer from '../parsing/parsing_buffer'
 import { ConwayGeometry } from '../../dependencies/conway-geom/conway_geometry'
 import GeometryAggregator from './geometry_aggregator'
+import { ExtractResult } from './shared_constants'
 
 
 let conwayModel:IfcGeometryExtraction
