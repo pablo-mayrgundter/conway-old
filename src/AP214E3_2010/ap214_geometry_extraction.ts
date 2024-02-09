@@ -175,15 +175,8 @@ export class AP214GeometryExtraction {
 
   public readonly scene: AP214SceneBuilder
 
-  public readonly voidScene: AP214SceneBuilder
-
   public readonly materials: AP214MaterialCache
 
-  public readonly voidMaterials: AP214MaterialCache
-
-  private readonly relVoidsMap: Map<number, number>
-
-  private readonly productToVoidGeometryMap: Map<number, number[]>
   private linearScalingFactor: number
 
   private circleSegments: number = 12
@@ -211,11 +204,6 @@ export class AP214GeometryExtraction {
     this.materials = new AP214MaterialCache()
     this.scene = new AP214SceneBuilder(model, conwayModel, this.materials)
 
-    this.voidMaterials = new AP214MaterialCache()
-    this.voidScene = new AP214SceneBuilder(model, conwayModel, this.voidMaterials)
-
-    this.relVoidsMap = new Map<number, number>()
-    this.productToVoidGeometryMap = new Map<number, number[]>()
     this.linearScalingFactor = 1
     this.wasmModule = conwayModel.wasmModule
     this.getIdentityMatrices()
