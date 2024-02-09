@@ -13,16 +13,16 @@ import {
 } from '../ap214_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/property_definition_representation.htm */
-export  class property_definition_representation extends StepEntityBase< EntityTypesIfc > {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.PROPERTY_DEFINITION_REPRESENTATION
+// *  */
+export  class property_definition_representation extends StepEntityBase< EntityTypesAP214 > {
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.PROPERTY_DEFINITION_REPRESENTATION
   }
   private definition_? : general_property | property_definition | property_definition_relationship | shape_aspect | shape_aspect_relationship
   private used_representation_? : representation
@@ -30,7 +30,7 @@ export  class property_definition_representation extends StepEntityBase< EntityT
   public get definition() : general_property | property_definition | property_definition_relationship | shape_aspect | shape_aspect_relationship {
     if ( this.definition_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > = 
+      const value : StepEntityBase< EntityTypesAP214 > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof general_property ) && !( value instanceof property_definition ) && !( value instanceof property_definition_relationship ) && !( value instanceof shape_aspect ) && !( value instanceof shape_aspect_relationship ) ) {
@@ -61,14 +61,14 @@ export  class property_definition_representation extends StepEntityBase< EntityT
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.PROPERTY_DEFINITION_REPRESENTATION ]
+    [ EntityTypesAP214.PROPERTY_DEFINITION_REPRESENTATION ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.PROPERTY_DEFINITION_REPRESENTATION
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.PROPERTY_DEFINITION_REPRESENTATION
 }

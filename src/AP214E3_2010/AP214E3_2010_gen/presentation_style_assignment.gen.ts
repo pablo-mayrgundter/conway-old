@@ -18,16 +18,16 @@ import {
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/presentation_style_assignment.htm */
+// *  */
 export  class presentation_style_assignment extends founded_item {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.PRESENTATION_STYLE_ASSIGNMENT
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.PRESENTATION_STYLE_ASSIGNMENT
   }
   private styles_? : Array<pre_defined_presentation_style | point_style | curve_style | surface_style_usage | symbol_style | fill_area_style | text_style | approximation_tolerance | externally_defined_style | null_style>
 
@@ -48,7 +48,7 @@ export  class presentation_style_assignment extends founded_item {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | null_style | undefined = 
+        const value1Untyped : StepEntityBase< EntityTypesAP214 > | null_style | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor ) ?? null_styleDeserializeStep( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof pre_defined_presentation_style ) && !( value1Untyped instanceof point_style ) && !( value1Untyped instanceof curve_style ) && !( value1Untyped instanceof surface_style_usage ) && !( value1Untyped instanceof symbol_style ) && !( value1Untyped instanceof fill_area_style ) && !( value1Untyped instanceof text_style ) && !( value1Untyped instanceof approximation_tolerance ) && !( value1Untyped instanceof externally_defined_style ) && value1Untyped !== null_style.NULL ) {
@@ -72,14 +72,14 @@ export  class presentation_style_assignment extends founded_item {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.PRESENTATION_STYLE_ASSIGNMENT ]
+    [ EntityTypesAP214.PRESENTATION_STYLE_ASSIGNMENT ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.PRESENTATION_STYLE_ASSIGNMENT
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.PRESENTATION_STYLE_ASSIGNMENT
 }

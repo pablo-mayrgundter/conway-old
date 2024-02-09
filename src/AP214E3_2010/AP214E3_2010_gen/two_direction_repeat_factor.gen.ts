@@ -3,16 +3,16 @@ import { one_direction_repeat_factor } from "./index"
 import { vector } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/two_direction_repeat_factor.htm */
+// *  */
 export  class two_direction_repeat_factor extends one_direction_repeat_factor {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.TWO_DIRECTION_REPEAT_FACTOR
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.TWO_DIRECTION_REPEAT_FACTOR
   }
   private second_repeat_factor_? : vector
 
@@ -25,14 +25,14 @@ export  class two_direction_repeat_factor extends one_direction_repeat_factor {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.TWO_DIRECTION_REPEAT_FACTOR ]
+    [ EntityTypesAP214.TWO_DIRECTION_REPEAT_FACTOR ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.TWO_DIRECTION_REPEAT_FACTOR
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.TWO_DIRECTION_REPEAT_FACTOR
 }

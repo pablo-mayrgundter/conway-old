@@ -9,16 +9,16 @@ import {
 } from '../ap214_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/approval_date_time.htm */
-export  class approval_date_time extends StepEntityBase< EntityTypesIfc > {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.APPROVAL_DATE_TIME
+// *  */
+export  class approval_date_time extends StepEntityBase< EntityTypesAP214 > {
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.APPROVAL_DATE_TIME
   }
   private date_time_? : date | date_and_time | local_time
   private dated_approval_? : approval
@@ -26,7 +26,7 @@ export  class approval_date_time extends StepEntityBase< EntityTypesIfc > {
   public get date_time() : date | date_and_time | local_time {
     if ( this.date_time_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > = 
+      const value : StepEntityBase< EntityTypesAP214 > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof date ) && !( value instanceof date_and_time ) && !( value instanceof local_time ) ) {
@@ -53,14 +53,14 @@ export  class approval_date_time extends StepEntityBase< EntityTypesIfc > {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.APPROVAL_DATE_TIME ]
+    [ EntityTypesAP214.APPROVAL_DATE_TIME ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.APPROVAL_DATE_TIME
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.APPROVAL_DATE_TIME
 }

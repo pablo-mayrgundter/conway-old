@@ -1,17 +1,17 @@
 
 /* This is generated code, don't alter */
 
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/surface_tolerance_parameter.htm */
-export class surface_tolerance_parameter extends StepEntityBase< EntityTypesIfc > {    
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.SURFACE_TOLERANCE_PARAMETER
+// *  */
+export class surface_tolerance_parameter extends StepEntityBase< EntityTypesAP214 > {    
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.SURFACE_TOLERANCE_PARAMETER
   }
 
   private Value_? : number;
@@ -26,14 +26,14 @@ export class surface_tolerance_parameter extends StepEntityBase< EntityTypesIfc 
 
   constructor(
       localID: number,
-      internalReference: StepEntityInternalReference< EntityTypesIfc >,
-      model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+      internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+      model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
      super( localID, internalReference, model )
   }
 
   public static readonly query =
-    [ EntityTypesIfc.SURFACE_TOLERANCE_PARAMETER ]
+    [ EntityTypesAP214.SURFACE_TOLERANCE_PARAMETER ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.SURFACE_TOLERANCE_PARAMETER
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.SURFACE_TOLERANCE_PARAMETER
 }

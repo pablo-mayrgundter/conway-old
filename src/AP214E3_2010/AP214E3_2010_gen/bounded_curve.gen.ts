@@ -2,29 +2,29 @@
 import { curve } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/bounded_curve.htm */
+// *  */
 export  class bounded_curve extends curve {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.BOUNDED_CURVE
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.BOUNDED_CURVE
   }
 
 
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.BOUNDED_CURVE, EntityTypesIfc.POLYLINE, EntityTypesIfc.B_SPLINE_CURVE, EntityTypesIfc.TRIMMED_CURVE, EntityTypesIfc.BOUNDED_PCURVE, EntityTypesIfc.BOUNDED_SURFACE_CURVE, EntityTypesIfc.COMPOSITE_CURVE, EntityTypesIfc.UNIFORM_CURVE, EntityTypesIfc.B_SPLINE_CURVE_WITH_KNOTS, EntityTypesIfc.QUASI_UNIFORM_CURVE, EntityTypesIfc.BEZIER_CURVE ]
+    [ EntityTypesAP214.BOUNDED_CURVE, EntityTypesAP214.POLYLINE, EntityTypesAP214.B_SPLINE_CURVE, EntityTypesAP214.TRIMMED_CURVE, EntityTypesAP214.BOUNDED_PCURVE, EntityTypesAP214.BOUNDED_SURFACE_CURVE, EntityTypesAP214.COMPOSITE_CURVE, EntityTypesAP214.UNIFORM_CURVE, EntityTypesAP214.B_SPLINE_CURVE_WITH_KNOTS, EntityTypesAP214.QUASI_UNIFORM_CURVE, EntityTypesAP214.BEZIER_CURVE ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.BOUNDED_CURVE
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.BOUNDED_CURVE
 }

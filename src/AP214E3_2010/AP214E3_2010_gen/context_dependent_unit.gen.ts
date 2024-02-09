@@ -3,16 +3,16 @@ import { named_unit } from "./index"
 import { label } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/context_dependent_unit.htm */
+// *  */
 export  class context_dependent_unit extends named_unit {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.CONTEXT_DEPENDENT_UNIT
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.CONTEXT_DEPENDENT_UNIT
   }
   private name_? : string
 
@@ -25,14 +25,14 @@ export  class context_dependent_unit extends named_unit {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.CONTEXT_DEPENDENT_UNIT ]
+    [ EntityTypesAP214.CONTEXT_DEPENDENT_UNIT ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.CONTEXT_DEPENDENT_UNIT
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.CONTEXT_DEPENDENT_UNIT
 }

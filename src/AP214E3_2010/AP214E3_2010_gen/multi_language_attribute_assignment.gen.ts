@@ -81,16 +81,16 @@ import {
 } from '../ap214_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/multi_language_attribute_assignment.htm */
+// *  */
 export  class multi_language_attribute_assignment extends attribute_value_assignment {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.MULTI_LANGUAGE_ATTRIBUTE_ASSIGNMENT
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.MULTI_LANGUAGE_ATTRIBUTE_ASSIGNMENT
   }
   private items_? : Array<action | action_directive | action_method | action_property | action_relationship | alternate_product_relationship | application_context | approval_relationship | assembly_component_usage_substitute | certification | configuration_design | configuration_item | contract | data_environment | date_role | date_time_role | descriptive_representation_item | document_relationship | draughting_title | effectivity | effectivity_relationship | event_occurrence | external_source | general_property | general_property_relationship | geometric_representation_item | geometric_tolerance | group | group_relationship | identification_role | kinematic_pair | mapped_item | name_assignment | organization_relationship | organization_role | organizational_project | organizational_project_relationship | pair_actuator | person_and_organization_role | presentation_layer_assignment | process_product_association | product | product_concept | product_concept_feature | product_concept_feature_association | product_concept_relationship | product_definition | product_definition_formation | product_definition_formation_relationship | product_definition_relationship | product_definition_substitute | product_related_product_category | property_definition | property_definition_relationship | representation | representation_relationship | requirement_for_action_resource | resource_property | resource_requirement_type | security_classification | shape_aspect | shape_aspect_relationship | styled_item | time_interval_role | topological_representation_item | uncertainty_measure_with_unit | uncertainty_qualifier | versioned_action_request | versioned_action_request_relationship>
 
@@ -111,7 +111,7 @@ export  class multi_language_attribute_assignment extends attribute_value_assign
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
+        const value1Untyped : StepEntityBase< EntityTypesAP214 > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof action ) && !( value1Untyped instanceof action_directive ) && !( value1Untyped instanceof action_method ) && !( value1Untyped instanceof action_property ) && !( value1Untyped instanceof action_relationship ) && !( value1Untyped instanceof alternate_product_relationship ) && !( value1Untyped instanceof application_context ) && !( value1Untyped instanceof approval_relationship ) && !( value1Untyped instanceof assembly_component_usage_substitute ) && !( value1Untyped instanceof certification ) && !( value1Untyped instanceof configuration_design ) && !( value1Untyped instanceof configuration_item ) && !( value1Untyped instanceof contract ) && !( value1Untyped instanceof data_environment ) && !( value1Untyped instanceof date_role ) && !( value1Untyped instanceof date_time_role ) && !( value1Untyped instanceof descriptive_representation_item ) && !( value1Untyped instanceof document_relationship ) && !( value1Untyped instanceof draughting_title ) && !( value1Untyped instanceof effectivity ) && !( value1Untyped instanceof effectivity_relationship ) && !( value1Untyped instanceof event_occurrence ) && !( value1Untyped instanceof external_source ) && !( value1Untyped instanceof general_property ) && !( value1Untyped instanceof general_property_relationship ) && !( value1Untyped instanceof geometric_representation_item ) && !( value1Untyped instanceof geometric_tolerance ) && !( value1Untyped instanceof group ) && !( value1Untyped instanceof group_relationship ) && !( value1Untyped instanceof identification_role ) && !( value1Untyped instanceof kinematic_pair ) && !( value1Untyped instanceof mapped_item ) && !( value1Untyped instanceof name_assignment ) && !( value1Untyped instanceof organization_relationship ) && !( value1Untyped instanceof organization_role ) && !( value1Untyped instanceof organizational_project ) && !( value1Untyped instanceof organizational_project_relationship ) && !( value1Untyped instanceof pair_actuator ) && !( value1Untyped instanceof person_and_organization_role ) && !( value1Untyped instanceof presentation_layer_assignment ) && !( value1Untyped instanceof process_product_association ) && !( value1Untyped instanceof product ) && !( value1Untyped instanceof product_concept ) && !( value1Untyped instanceof product_concept_feature ) && !( value1Untyped instanceof product_concept_feature_association ) && !( value1Untyped instanceof product_concept_relationship ) && !( value1Untyped instanceof product_definition ) && !( value1Untyped instanceof product_definition_formation ) && !( value1Untyped instanceof product_definition_formation_relationship ) && !( value1Untyped instanceof product_definition_relationship ) && !( value1Untyped instanceof product_definition_substitute ) && !( value1Untyped instanceof product_related_product_category ) && !( value1Untyped instanceof property_definition ) && !( value1Untyped instanceof property_definition_relationship ) && !( value1Untyped instanceof representation ) && !( value1Untyped instanceof representation_relationship ) && !( value1Untyped instanceof requirement_for_action_resource ) && !( value1Untyped instanceof resource_property ) && !( value1Untyped instanceof resource_requirement_type ) && !( value1Untyped instanceof security_classification ) && !( value1Untyped instanceof shape_aspect ) && !( value1Untyped instanceof shape_aspect_relationship ) && !( value1Untyped instanceof styled_item ) && !( value1Untyped instanceof time_interval_role ) && !( value1Untyped instanceof topological_representation_item ) && !( value1Untyped instanceof uncertainty_measure_with_unit ) && !( value1Untyped instanceof uncertainty_qualifier ) && !( value1Untyped instanceof versioned_action_request ) && !( value1Untyped instanceof versioned_action_request_relationship ) ) {
@@ -139,14 +139,14 @@ export  class multi_language_attribute_assignment extends attribute_value_assign
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.MULTI_LANGUAGE_ATTRIBUTE_ASSIGNMENT ]
+    [ EntityTypesAP214.MULTI_LANGUAGE_ATTRIBUTE_ASSIGNMENT ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.MULTI_LANGUAGE_ATTRIBUTE_ASSIGNMENT
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.MULTI_LANGUAGE_ATTRIBUTE_ASSIGNMENT
 }

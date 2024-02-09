@@ -11,16 +11,16 @@ import {
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/invisibility.htm */
-export  class invisibility extends StepEntityBase< EntityTypesIfc > {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.INVISIBILITY
+// *  */
+export  class invisibility extends StepEntityBase< EntityTypesAP214 > {
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.INVISIBILITY
   }
   private invisible_items_? : Array<draughting_callout | presentation_layer_assignment | representation | styled_item>
 
@@ -41,7 +41,7 @@ export  class invisibility extends StepEntityBase< EntityTypesIfc > {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
+        const value1Untyped : StepEntityBase< EntityTypesAP214 > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof draughting_callout ) && !( value1Untyped instanceof presentation_layer_assignment ) && !( value1Untyped instanceof representation ) && !( value1Untyped instanceof styled_item ) ) {
@@ -65,14 +65,14 @@ export  class invisibility extends StepEntityBase< EntityTypesIfc > {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.INVISIBILITY ]
+    [ EntityTypesAP214.INVISIBILITY ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.INVISIBILITY
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.INVISIBILITY
 }

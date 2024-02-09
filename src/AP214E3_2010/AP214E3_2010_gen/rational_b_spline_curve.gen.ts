@@ -12,16 +12,16 @@ import {
 } from '../ap214_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/rational_b_spline_curve.htm */
+// *  */
 export  class rational_b_spline_curve extends b_spline_curve {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.RATIONAL_B_SPLINE_CURVE
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.RATIONAL_B_SPLINE_CURVE
   }
   private weights_data_? : Array<number>
 
@@ -64,14 +64,14 @@ export  class rational_b_spline_curve extends b_spline_curve {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.RATIONAL_B_SPLINE_CURVE ]
+    [ EntityTypesAP214.RATIONAL_B_SPLINE_CURVE ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.RATIONAL_B_SPLINE_CURVE
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.RATIONAL_B_SPLINE_CURVE
 }

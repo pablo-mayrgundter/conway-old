@@ -4,16 +4,16 @@ import { surface } from "./index"
 import { definitional_representation } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/pcurve.htm */
+// *  */
 export  class pcurve extends curve {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.PCURVE
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.PCURVE
   }
   private basis_surface_? : surface
   private reference_to_curve_? : definitional_representation
@@ -35,14 +35,14 @@ export  class pcurve extends curve {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.PCURVE ]
+    [ EntityTypesAP214.PCURVE ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.PCURVE
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.PCURVE
 }

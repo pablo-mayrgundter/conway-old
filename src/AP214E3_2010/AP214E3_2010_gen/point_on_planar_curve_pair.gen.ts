@@ -3,16 +3,16 @@ import { kinematic_pair } from "./index"
 import { curve } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/point_on_planar_curve_pair.htm */
+// *  */
 export  class point_on_planar_curve_pair extends kinematic_pair {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.POINT_ON_PLANAR_CURVE_PAIR
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.POINT_ON_PLANAR_CURVE_PAIR
   }
   private pair_curve_? : curve
   private orientation_? : boolean
@@ -34,14 +34,14 @@ export  class point_on_planar_curve_pair extends kinematic_pair {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.POINT_ON_PLANAR_CURVE_PAIR ]
+    [ EntityTypesAP214.POINT_ON_PLANAR_CURVE_PAIR ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.POINT_ON_PLANAR_CURVE_PAIR
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.POINT_ON_PLANAR_CURVE_PAIR
 }

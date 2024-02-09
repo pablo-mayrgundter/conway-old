@@ -12,16 +12,16 @@ import {
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/b_spline_surface_with_knots.htm */
+// *  */
 export  class b_spline_surface_with_knots extends b_spline_surface {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.B_SPLINE_SURFACE_WITH_KNOTS
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.B_SPLINE_SURFACE_WITH_KNOTS
   }
   private u_multiplicities_? : Array<number>
   private v_multiplicities_? : Array<number>
@@ -182,14 +182,14 @@ export  class b_spline_surface_with_knots extends b_spline_surface {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.B_SPLINE_SURFACE_WITH_KNOTS ]
+    [ EntityTypesAP214.B_SPLINE_SURFACE_WITH_KNOTS ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.B_SPLINE_SURFACE_WITH_KNOTS
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.B_SPLINE_SURFACE_WITH_KNOTS
 }

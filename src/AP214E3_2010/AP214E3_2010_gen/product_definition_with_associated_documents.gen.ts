@@ -9,16 +9,16 @@ import {
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/product_definition_with_associated_documents.htm */
+// *  */
 export  class product_definition_with_associated_documents extends product_definition {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.PRODUCT_DEFINITION_WITH_ASSOCIATED_DOCUMENTS
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.PRODUCT_DEFINITION_WITH_ASSOCIATED_DOCUMENTS
   }
   private documentation_ids_? : Array<document>
 
@@ -56,14 +56,14 @@ export  class product_definition_with_associated_documents extends product_defin
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.PRODUCT_DEFINITION_WITH_ASSOCIATED_DOCUMENTS ]
+    [ EntityTypesAP214.PRODUCT_DEFINITION_WITH_ASSOCIATED_DOCUMENTS ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.PRODUCT_DEFINITION_WITH_ASSOCIATED_DOCUMENTS
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.PRODUCT_DEFINITION_WITH_ASSOCIATED_DOCUMENTS
 }

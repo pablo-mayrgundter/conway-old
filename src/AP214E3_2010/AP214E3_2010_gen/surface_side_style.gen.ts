@@ -16,16 +16,16 @@ import {
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/surface_side_style.htm */
+// *  */
 export  class surface_side_style extends founded_item {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.SURFACE_SIDE_STYLE
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.SURFACE_SIDE_STYLE
   }
   private name_? : string
   private styles_? : Array<surface_style_fill_area | surface_style_boundary | surface_style_silhouette | surface_style_segmentation_curve | surface_style_control_grid | surface_style_parameter_line | surface_style_rendering>
@@ -55,7 +55,7 @@ export  class surface_side_style extends founded_item {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
+        const value1Untyped : StepEntityBase< EntityTypesAP214 > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof surface_style_fill_area ) && !( value1Untyped instanceof surface_style_boundary ) && !( value1Untyped instanceof surface_style_silhouette ) && !( value1Untyped instanceof surface_style_segmentation_curve ) && !( value1Untyped instanceof surface_style_control_grid ) && !( value1Untyped instanceof surface_style_parameter_line ) && !( value1Untyped instanceof surface_style_rendering ) ) {
@@ -79,14 +79,14 @@ export  class surface_side_style extends founded_item {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.SURFACE_SIDE_STYLE ]
+    [ EntityTypesAP214.SURFACE_SIDE_STYLE ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.SURFACE_SIDE_STYLE
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.SURFACE_SIDE_STYLE
 }

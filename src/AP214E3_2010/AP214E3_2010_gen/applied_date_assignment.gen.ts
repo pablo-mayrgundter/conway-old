@@ -60,16 +60,16 @@ import {
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/applied_date_assignment.htm */
+// *  */
 export  class applied_date_assignment extends date_assignment {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.APPLIED_DATE_ASSIGNMENT
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.APPLIED_DATE_ASSIGNMENT
   }
   private items_? : Array<action | action_directive | action_method | action_property | action_relationship | action_request_solution | alternate_product_relationship | applied_action_assignment | applied_classification_assignment | applied_organization_assignment | applied_person_and_organization_assignment | approval_person_organization | approval_status | assembly_component_usage_substitute | certification | class_ | class_system | configuration_design | configuration_item | configured_effectivity_assignment | contract | document_file | draughting_model | drawing_revision | effectivity | event_occurrence | executed_action | general_property | material_designation | mechanical_design_geometric_presentation_representation | organization_relationship | organizational_project | person_and_organization | presentation_area | product | product_concept | product_concept_feature | product_concept_feature_association | product_concept_feature_category | product_concept_feature_category_usage | product_definition | product_definition_formation | product_definition_formation_relationship | product_definition_relationship | product_definition_substitute | property_definition | requirement_for_action_resource | resource_property | security_classification | security_classification_level | shape_representation | versioned_action_request>
 
@@ -90,7 +90,7 @@ export  class applied_date_assignment extends date_assignment {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
+        const value1Untyped : StepEntityBase< EntityTypesAP214 > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof action ) && !( value1Untyped instanceof action_directive ) && !( value1Untyped instanceof action_method ) && !( value1Untyped instanceof action_property ) && !( value1Untyped instanceof action_relationship ) && !( value1Untyped instanceof action_request_solution ) && !( value1Untyped instanceof alternate_product_relationship ) && !( value1Untyped instanceof applied_action_assignment ) && !( value1Untyped instanceof applied_classification_assignment ) && !( value1Untyped instanceof applied_organization_assignment ) && !( value1Untyped instanceof applied_person_and_organization_assignment ) && !( value1Untyped instanceof approval_person_organization ) && !( value1Untyped instanceof approval_status ) && !( value1Untyped instanceof assembly_component_usage_substitute ) && !( value1Untyped instanceof certification ) && !( value1Untyped instanceof class_ ) && !( value1Untyped instanceof class_system ) && !( value1Untyped instanceof configuration_design ) && !( value1Untyped instanceof configuration_item ) && !( value1Untyped instanceof configured_effectivity_assignment ) && !( value1Untyped instanceof contract ) && !( value1Untyped instanceof document_file ) && !( value1Untyped instanceof draughting_model ) && !( value1Untyped instanceof drawing_revision ) && !( value1Untyped instanceof effectivity ) && !( value1Untyped instanceof event_occurrence ) && !( value1Untyped instanceof executed_action ) && !( value1Untyped instanceof general_property ) && !( value1Untyped instanceof material_designation ) && !( value1Untyped instanceof mechanical_design_geometric_presentation_representation ) && !( value1Untyped instanceof organization_relationship ) && !( value1Untyped instanceof organizational_project ) && !( value1Untyped instanceof person_and_organization ) && !( value1Untyped instanceof presentation_area ) && !( value1Untyped instanceof product ) && !( value1Untyped instanceof product_concept ) && !( value1Untyped instanceof product_concept_feature ) && !( value1Untyped instanceof product_concept_feature_association ) && !( value1Untyped instanceof product_concept_feature_category ) && !( value1Untyped instanceof product_concept_feature_category_usage ) && !( value1Untyped instanceof product_definition ) && !( value1Untyped instanceof product_definition_formation ) && !( value1Untyped instanceof product_definition_formation_relationship ) && !( value1Untyped instanceof product_definition_relationship ) && !( value1Untyped instanceof product_definition_substitute ) && !( value1Untyped instanceof property_definition ) && !( value1Untyped instanceof requirement_for_action_resource ) && !( value1Untyped instanceof resource_property ) && !( value1Untyped instanceof security_classification ) && !( value1Untyped instanceof security_classification_level ) && !( value1Untyped instanceof shape_representation ) && !( value1Untyped instanceof versioned_action_request ) ) {
@@ -114,14 +114,14 @@ export  class applied_date_assignment extends date_assignment {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.APPLIED_DATE_ASSIGNMENT ]
+    [ EntityTypesAP214.APPLIED_DATE_ASSIGNMENT ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.APPLIED_DATE_ASSIGNMENT
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.APPLIED_DATE_ASSIGNMENT
 }

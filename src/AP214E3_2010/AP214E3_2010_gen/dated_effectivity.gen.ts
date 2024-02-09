@@ -6,16 +6,16 @@ import { local_time } from "./index"
 import { event_occurrence } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/dated_effectivity.htm */
+// *  */
 export  class dated_effectivity extends effectivity {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.DATED_EFFECTIVITY
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.DATED_EFFECTIVITY
   }
   private effectivity_end_date_? : date | date_and_time | local_time | event_occurrence | null
   private effectivity_start_date_? : date | date_and_time | local_time | event_occurrence
@@ -23,7 +23,7 @@ export  class dated_effectivity extends effectivity {
   public get effectivity_end_date() : date | date_and_time | local_time | event_occurrence | null {
     if ( this.effectivity_end_date_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null = 
+      const value : StepEntityBase< EntityTypesAP214 >| null = 
         this.extractReference( 1, true )
 
       if ( !( value instanceof date ) && !( value instanceof date_and_time ) && !( value instanceof local_time ) && !( value instanceof event_occurrence ) && value !== null ) {
@@ -40,7 +40,7 @@ export  class dated_effectivity extends effectivity {
   public get effectivity_start_date() : date | date_and_time | local_time | event_occurrence {
     if ( this.effectivity_start_date_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > = 
+      const value : StepEntityBase< EntityTypesAP214 > = 
         this.extractReference( 2, false )
 
       if ( !( value instanceof date ) && !( value instanceof date_and_time ) && !( value instanceof local_time ) && !( value instanceof event_occurrence ) ) {
@@ -55,14 +55,14 @@ export  class dated_effectivity extends effectivity {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.DATED_EFFECTIVITY ]
+    [ EntityTypesAP214.DATED_EFFECTIVITY ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.DATED_EFFECTIVITY
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.DATED_EFFECTIVITY
 }

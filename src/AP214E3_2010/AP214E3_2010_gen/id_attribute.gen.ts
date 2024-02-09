@@ -12,16 +12,16 @@ import { organizational_project } from "./index"
 import { representation } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/id_attribute.htm */
-export  class id_attribute extends StepEntityBase< EntityTypesIfc > {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.ID_ATTRIBUTE
+// *  */
+export  class id_attribute extends StepEntityBase< EntityTypesAP214 > {
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.ID_ATTRIBUTE
   }
   private attribute_value_? : string
   private identified_item_? : action | address | product_category | property_definition | shape_aspect | shape_aspect_relationship | application_context | group | organizational_project | representation
@@ -37,7 +37,7 @@ export  class id_attribute extends StepEntityBase< EntityTypesIfc > {
   public get identified_item() : action | address | product_category | property_definition | shape_aspect | shape_aspect_relationship | application_context | group | organizational_project | representation {
     if ( this.identified_item_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > = 
+      const value : StepEntityBase< EntityTypesAP214 > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof action ) && !( value instanceof address ) && !( value instanceof product_category ) && !( value instanceof property_definition ) && !( value instanceof shape_aspect ) && !( value instanceof shape_aspect_relationship ) && !( value instanceof application_context ) && !( value instanceof group ) && !( value instanceof organizational_project ) && !( value instanceof representation ) ) {
@@ -52,14 +52,14 @@ export  class id_attribute extends StepEntityBase< EntityTypesIfc > {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.ID_ATTRIBUTE ]
+    [ EntityTypesAP214.ID_ATTRIBUTE ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.ID_ATTRIBUTE
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.ID_ATTRIBUTE
 }

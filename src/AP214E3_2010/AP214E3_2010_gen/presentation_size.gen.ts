@@ -5,16 +5,16 @@ import { area_in_set } from "./index"
 import { planar_box } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/presentation_size.htm */
-export  class presentation_size extends StepEntityBase< EntityTypesIfc > {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.PRESENTATION_SIZE
+// *  */
+export  class presentation_size extends StepEntityBase< EntityTypesAP214 > {
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.PRESENTATION_SIZE
   }
   private unit_? : presentation_view | presentation_area | area_in_set
   private size_? : planar_box
@@ -22,7 +22,7 @@ export  class presentation_size extends StepEntityBase< EntityTypesIfc > {
   public get unit() : presentation_view | presentation_area | area_in_set {
     if ( this.unit_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > = 
+      const value : StepEntityBase< EntityTypesAP214 > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof presentation_view ) && !( value instanceof presentation_area ) && !( value instanceof area_in_set ) ) {
@@ -45,14 +45,14 @@ export  class presentation_size extends StepEntityBase< EntityTypesIfc > {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.PRESENTATION_SIZE ]
+    [ EntityTypesAP214.PRESENTATION_SIZE ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.PRESENTATION_SIZE
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.PRESENTATION_SIZE
 }

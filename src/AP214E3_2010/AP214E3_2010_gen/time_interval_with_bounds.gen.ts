@@ -7,16 +7,16 @@ import { event_occurrence } from "./index"
 import { time_measure_with_unit } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/time_interval_with_bounds.htm */
+// *  */
 export  class time_interval_with_bounds extends time_interval {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.TIME_INTERVAL_WITH_BOUNDS
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.TIME_INTERVAL_WITH_BOUNDS
   }
   private primary_bound_? : date | date_and_time | local_time | event_occurrence | null
   private secondary_bound_? : date | date_and_time | local_time | event_occurrence | null
@@ -25,7 +25,7 @@ export  class time_interval_with_bounds extends time_interval {
   public get primary_bound() : date | date_and_time | local_time | event_occurrence | null {
     if ( this.primary_bound_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null = 
+      const value : StepEntityBase< EntityTypesAP214 >| null = 
         this.extractReference( 3, true )
 
       if ( !( value instanceof date ) && !( value instanceof date_and_time ) && !( value instanceof local_time ) && !( value instanceof event_occurrence ) && value !== null ) {
@@ -42,7 +42,7 @@ export  class time_interval_with_bounds extends time_interval {
   public get secondary_bound() : date | date_and_time | local_time | event_occurrence | null {
     if ( this.secondary_bound_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc >| null = 
+      const value : StepEntityBase< EntityTypesAP214 >| null = 
         this.extractReference( 4, true )
 
       if ( !( value instanceof date ) && !( value instanceof date_and_time ) && !( value instanceof local_time ) && !( value instanceof event_occurrence ) && value !== null ) {
@@ -65,14 +65,14 @@ export  class time_interval_with_bounds extends time_interval {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.TIME_INTERVAL_WITH_BOUNDS ]
+    [ EntityTypesAP214.TIME_INTERVAL_WITH_BOUNDS ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.TIME_INTERVAL_WITH_BOUNDS
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.TIME_INTERVAL_WITH_BOUNDS
 }

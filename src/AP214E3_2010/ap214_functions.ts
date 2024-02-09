@@ -15,7 +15,7 @@ import {
   geometric_representation_item,
   object_role,
 } from './AP214E3_2010_gen'
-import EntityTypesIfc from './AP214E3_2010_gen/entity_types_ifc.gen'
+import EntityTypesIfc from './AP214E3_2010_gen/entity_types_ap214.gen'
 
 /**
  * Make an array from an array.

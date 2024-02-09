@@ -3,16 +3,16 @@ import { assembly_component_usage } from "./index"
 import { next_assembly_usage_occurrence } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/specified_higher_usage_occurrence.htm */
+// *  */
 export  class specified_higher_usage_occurrence extends assembly_component_usage {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.SPECIFIED_HIGHER_USAGE_OCCURRENCE
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.SPECIFIED_HIGHER_USAGE_OCCURRENCE
   }
   private upper_usage_? : assembly_component_usage
   private next_usage_? : next_assembly_usage_occurrence
@@ -34,14 +34,14 @@ export  class specified_higher_usage_occurrence extends assembly_component_usage
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.SPECIFIED_HIGHER_USAGE_OCCURRENCE ]
+    [ EntityTypesAP214.SPECIFIED_HIGHER_USAGE_OCCURRENCE ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.SPECIFIED_HIGHER_USAGE_OCCURRENCE
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.SPECIFIED_HIGHER_USAGE_OCCURRENCE
 }

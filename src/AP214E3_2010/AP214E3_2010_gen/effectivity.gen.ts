@@ -8,16 +8,16 @@ import {
 } from '../ap214_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/effectivity.htm */
-export  class effectivity extends StepEntityBase< EntityTypesIfc > {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.EFFECTIVITY
+// *  */
+export  class effectivity extends StepEntityBase< EntityTypesAP214 > {
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.EFFECTIVITY
   }
   private id_? : string
 
@@ -38,14 +38,14 @@ export  class effectivity extends StepEntityBase< EntityTypesIfc > {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.EFFECTIVITY, EntityTypesIfc.SERIAL_NUMBERED_EFFECTIVITY, EntityTypesIfc.DATED_EFFECTIVITY, EntityTypesIfc.LOT_EFFECTIVITY, EntityTypesIfc.TIME_INTERVAL_BASED_EFFECTIVITY ]
+    [ EntityTypesAP214.EFFECTIVITY, EntityTypesAP214.SERIAL_NUMBERED_EFFECTIVITY, EntityTypesAP214.DATED_EFFECTIVITY, EntityTypesAP214.LOT_EFFECTIVITY, EntityTypesAP214.TIME_INTERVAL_BASED_EFFECTIVITY ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.EFFECTIVITY
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.EFFECTIVITY
 }

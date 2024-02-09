@@ -12,16 +12,16 @@ import { product_definition_substitute } from "./index"
 import { property_definition_representation } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/name_attribute.htm */
-export  class name_attribute extends StepEntityBase< EntityTypesIfc > {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.NAME_ATTRIBUTE
+// *  */
+export  class name_attribute extends StepEntityBase< EntityTypesAP214 > {
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.NAME_ATTRIBUTE
   }
   private attribute_value_? : string
   private named_item_? : action_request_solution | address | configuration_design | context_dependent_shape_representation | derived_unit | effectivity | person_and_organization | product_definition | product_definition_substitute | property_definition_representation
@@ -37,7 +37,7 @@ export  class name_attribute extends StepEntityBase< EntityTypesIfc > {
   public get named_item() : action_request_solution | address | configuration_design | context_dependent_shape_representation | derived_unit | effectivity | person_and_organization | product_definition | product_definition_substitute | property_definition_representation {
     if ( this.named_item_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > = 
+      const value : StepEntityBase< EntityTypesAP214 > = 
         this.extractReference( 1, false )
 
       if ( !( value instanceof action_request_solution ) && !( value instanceof address ) && !( value instanceof configuration_design ) && !( value instanceof context_dependent_shape_representation ) && !( value instanceof derived_unit ) && !( value instanceof effectivity ) && !( value instanceof person_and_organization ) && !( value instanceof product_definition ) && !( value instanceof product_definition_substitute ) && !( value instanceof property_definition_representation ) ) {
@@ -52,14 +52,14 @@ export  class name_attribute extends StepEntityBase< EntityTypesIfc > {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.NAME_ATTRIBUTE ]
+    [ EntityTypesAP214.NAME_ATTRIBUTE ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.NAME_ATTRIBUTE
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.NAME_ATTRIBUTE
 }

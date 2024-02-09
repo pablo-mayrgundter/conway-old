@@ -6,16 +6,16 @@ import {
 } from '../ap214_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/oriented_path.htm */
+// *  */
 export  class oriented_path extends path {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.ORIENTED_PATH
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.ORIENTED_PATH
   }
   private path_element_? : path
   private orientation_? : boolean
@@ -41,14 +41,14 @@ export  class oriented_path extends path {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.ORIENTED_PATH ]
+    [ EntityTypesAP214.ORIENTED_PATH ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.ORIENTED_PATH
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.ORIENTED_PATH
 }

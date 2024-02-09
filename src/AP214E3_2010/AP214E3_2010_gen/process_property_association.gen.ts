@@ -8,16 +8,16 @@ import { shape_aspect } from "./index"
 import { shape_aspect_relationship } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/process_property_association.htm */
-export  class process_property_association extends StepEntityBase< EntityTypesIfc > {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.PROCESS_PROPERTY_ASSOCIATION
+// *  */
+export  class process_property_association extends StepEntityBase< EntityTypesAP214 > {
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.PROCESS_PROPERTY_ASSOCIATION
   }
   private name_? : string
   private description_? : string
@@ -51,7 +51,7 @@ export  class process_property_association extends StepEntityBase< EntityTypesIf
   public get property_or_shape() : property_definition | product_definition_shape | shape_aspect | shape_aspect_relationship {
     if ( this.property_or_shape_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > = 
+      const value : StepEntityBase< EntityTypesAP214 > = 
         this.extractReference( 3, false )
 
       if ( !( value instanceof property_definition ) && !( value instanceof product_definition_shape ) && !( value instanceof shape_aspect ) && !( value instanceof shape_aspect_relationship ) ) {
@@ -66,14 +66,14 @@ export  class process_property_association extends StepEntityBase< EntityTypesIf
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.PROCESS_PROPERTY_ASSOCIATION ]
+    [ EntityTypesAP214.PROCESS_PROPERTY_ASSOCIATION ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.PROCESS_PROPERTY_ASSOCIATION
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.PROCESS_PROPERTY_ASSOCIATION
 }

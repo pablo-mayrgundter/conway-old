@@ -49,16 +49,16 @@ import {
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/applied_document_usage_constraint_assignment.htm */
+// *  */
 export  class applied_document_usage_constraint_assignment extends document_usage_constraint_assignment {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.APPLIED_DOCUMENT_USAGE_CONSTRAINT_ASSIGNMENT
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.APPLIED_DOCUMENT_USAGE_CONSTRAINT_ASSIGNMENT
   }
   private items_? : Array<action_directive | action_method | action_relationship | applied_action_assignment | approval | certification | class_ | class_system | configuration_design | configuration_item | contract | descriptive_representation_item | executed_action | externally_defined_dimension_definition | feature_definition | general_property | material_designation | organization | organizational_project | person | presentation_area | process_plan | product | product_concept | product_concept_feature | product_concept_feature_category | product_definition | product_definition_formation | product_definition_formation_relationship | product_definition_process | product_definition_relationship | product_definition_substitute | product_related_product_category | property_definition | representation | resource_requirement_type | retention | security_classification | shape_aspect | shape_aspect_relationship | versioned_action_request>
 
@@ -79,7 +79,7 @@ export  class applied_document_usage_constraint_assignment extends document_usag
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
+        const value1Untyped : StepEntityBase< EntityTypesAP214 > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof action_directive ) && !( value1Untyped instanceof action_method ) && !( value1Untyped instanceof action_relationship ) && !( value1Untyped instanceof applied_action_assignment ) && !( value1Untyped instanceof approval ) && !( value1Untyped instanceof certification ) && !( value1Untyped instanceof class_ ) && !( value1Untyped instanceof class_system ) && !( value1Untyped instanceof configuration_design ) && !( value1Untyped instanceof configuration_item ) && !( value1Untyped instanceof contract ) && !( value1Untyped instanceof descriptive_representation_item ) && !( value1Untyped instanceof executed_action ) && !( value1Untyped instanceof externally_defined_dimension_definition ) && !( value1Untyped instanceof feature_definition ) && !( value1Untyped instanceof general_property ) && !( value1Untyped instanceof material_designation ) && !( value1Untyped instanceof organization ) && !( value1Untyped instanceof organizational_project ) && !( value1Untyped instanceof person ) && !( value1Untyped instanceof presentation_area ) && !( value1Untyped instanceof process_plan ) && !( value1Untyped instanceof product ) && !( value1Untyped instanceof product_concept ) && !( value1Untyped instanceof product_concept_feature ) && !( value1Untyped instanceof product_concept_feature_category ) && !( value1Untyped instanceof product_definition ) && !( value1Untyped instanceof product_definition_formation ) && !( value1Untyped instanceof product_definition_formation_relationship ) && !( value1Untyped instanceof product_definition_process ) && !( value1Untyped instanceof product_definition_relationship ) && !( value1Untyped instanceof product_definition_substitute ) && !( value1Untyped instanceof product_related_product_category ) && !( value1Untyped instanceof property_definition ) && !( value1Untyped instanceof representation ) && !( value1Untyped instanceof resource_requirement_type ) && !( value1Untyped instanceof retention ) && !( value1Untyped instanceof security_classification ) && !( value1Untyped instanceof shape_aspect ) && !( value1Untyped instanceof shape_aspect_relationship ) && !( value1Untyped instanceof versioned_action_request ) ) {
@@ -103,14 +103,14 @@ export  class applied_document_usage_constraint_assignment extends document_usag
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.APPLIED_DOCUMENT_USAGE_CONSTRAINT_ASSIGNMENT ]
+    [ EntityTypesAP214.APPLIED_DOCUMENT_USAGE_CONSTRAINT_ASSIGNMENT ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.APPLIED_DOCUMENT_USAGE_CONSTRAINT_ASSIGNMENT
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.APPLIED_DOCUMENT_USAGE_CONSTRAINT_ASSIGNMENT
 }

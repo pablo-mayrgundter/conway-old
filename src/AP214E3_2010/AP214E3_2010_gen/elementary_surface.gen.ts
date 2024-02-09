@@ -3,16 +3,16 @@ import { surface } from "./index"
 import { axis2_placement_3d } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/elementary_surface.htm */
+// *  */
 export  class elementary_surface extends surface {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.ELEMENTARY_SURFACE
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.ELEMENTARY_SURFACE
   }
   private position_? : axis2_placement_3d
 
@@ -25,14 +25,14 @@ export  class elementary_surface extends surface {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.ELEMENTARY_SURFACE, EntityTypesIfc.PLANE, EntityTypesIfc.CYLINDRICAL_SURFACE, EntityTypesIfc.CONICAL_SURFACE, EntityTypesIfc.SPHERICAL_SURFACE, EntityTypesIfc.TOROIDAL_SURFACE ]
+    [ EntityTypesAP214.ELEMENTARY_SURFACE, EntityTypesAP214.PLANE, EntityTypesAP214.CYLINDRICAL_SURFACE, EntityTypesAP214.CONICAL_SURFACE, EntityTypesAP214.SPHERICAL_SURFACE, EntityTypesAP214.TOROIDAL_SURFACE ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.ELEMENTARY_SURFACE
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.ELEMENTARY_SURFACE
 }

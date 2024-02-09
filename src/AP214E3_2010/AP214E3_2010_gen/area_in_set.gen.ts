@@ -3,16 +3,16 @@ import { presentation_area } from "./index"
 import { presentation_set } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/area_in_set.htm */
-export  class area_in_set extends StepEntityBase< EntityTypesIfc > {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.AREA_IN_SET
+// *  */
+export  class area_in_set extends StepEntityBase< EntityTypesAP214 > {
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.AREA_IN_SET
   }
   private area_? : presentation_area
   private in_set_? : presentation_set
@@ -34,14 +34,14 @@ export  class area_in_set extends StepEntityBase< EntityTypesIfc > {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.AREA_IN_SET ]
+    [ EntityTypesAP214.AREA_IN_SET ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.AREA_IN_SET
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.AREA_IN_SET
 }

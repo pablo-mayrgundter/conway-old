@@ -11,16 +11,16 @@ import { right_circular_cone } from "./index"
 import { right_circular_cylinder } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/boolean_result.htm */
+// *  */
 export  class boolean_result extends geometric_representation_item {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.BOOLEAN_RESULT
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.BOOLEAN_RESULT
   }
   private operator_? : boolean_operator
   private first_operand_? : solid_model | half_space_solid | sphere | block | right_angular_wedge | torus | right_circular_cone | right_circular_cylinder | boolean_result
@@ -37,7 +37,7 @@ export  class boolean_result extends geometric_representation_item {
   public get first_operand() : solid_model | half_space_solid | sphere | block | right_angular_wedge | torus | right_circular_cone | right_circular_cylinder | boolean_result {
     if ( this.first_operand_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > = 
+      const value : StepEntityBase< EntityTypesAP214 > = 
         this.extractReference( 2, false )
 
       if ( !( value instanceof solid_model ) && !( value instanceof half_space_solid ) && !( value instanceof sphere ) && !( value instanceof block ) && !( value instanceof right_angular_wedge ) && !( value instanceof torus ) && !( value instanceof right_circular_cone ) && !( value instanceof right_circular_cylinder ) && !( value instanceof boolean_result ) ) {
@@ -54,7 +54,7 @@ export  class boolean_result extends geometric_representation_item {
   public get second_operand() : solid_model | half_space_solid | sphere | block | right_angular_wedge | torus | right_circular_cone | right_circular_cylinder | boolean_result {
     if ( this.second_operand_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > = 
+      const value : StepEntityBase< EntityTypesAP214 > = 
         this.extractReference( 3, false )
 
       if ( !( value instanceof solid_model ) && !( value instanceof half_space_solid ) && !( value instanceof sphere ) && !( value instanceof block ) && !( value instanceof right_angular_wedge ) && !( value instanceof torus ) && !( value instanceof right_circular_cone ) && !( value instanceof right_circular_cylinder ) && !( value instanceof boolean_result ) ) {
@@ -69,14 +69,14 @@ export  class boolean_result extends geometric_representation_item {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.BOOLEAN_RESULT ]
+    [ EntityTypesAP214.BOOLEAN_RESULT ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.BOOLEAN_RESULT
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.BOOLEAN_RESULT
 }

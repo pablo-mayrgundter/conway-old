@@ -3,16 +3,16 @@ import { surface } from "./index"
 import { curve } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/swept_surface.htm */
+// *  */
 export  class swept_surface extends surface {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.SWEPT_SURFACE
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.SWEPT_SURFACE
   }
   private swept_curve_? : curve
 
@@ -25,14 +25,14 @@ export  class swept_surface extends surface {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.SWEPT_SURFACE, EntityTypesIfc.SURFACE_OF_LINEAR_EXTRUSION, EntityTypesIfc.SURFACE_OF_REVOLUTION ]
+    [ EntityTypesAP214.SWEPT_SURFACE, EntityTypesAP214.SURFACE_OF_LINEAR_EXTRUSION, EntityTypesAP214.SURFACE_OF_REVOLUTION ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.SWEPT_SURFACE
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.SWEPT_SURFACE
 }

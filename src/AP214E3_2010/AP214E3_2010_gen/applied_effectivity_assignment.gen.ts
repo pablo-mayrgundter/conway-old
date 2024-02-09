@@ -43,16 +43,16 @@ import {
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/applied_effectivity_assignment.htm */
+// *  */
 export  class applied_effectivity_assignment extends effectivity_assignment {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.APPLIED_EFFECTIVITY_ASSIGNMENT
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.APPLIED_EFFECTIVITY_ASSIGNMENT
   }
   private items_? : Array<action | action_method | action_method_relationship | action_property | action_relationship | assembly_component_usage_substitute | class_ | class_system | configuration_design | configuration_item | configured_effectivity_assignment | document_file | draughting_model | drawing_revision | general_property | material_designation | mechanical_design_geometric_presentation_representation | presentation_area | product | product_concept | product_concept_feature | product_concept_feature_association | product_concept_feature_category | product_concept_feature_category_usage | product_definition | product_definition_formation | product_definition_formation_relationship | product_definition_relationship | product_definition_substitute | property_definition | requirement_for_action_resource | resource_property | security_classification | shape_aspect | shape_representation>
 
@@ -73,7 +73,7 @@ export  class applied_effectivity_assignment extends effectivity_assignment {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
+        const value1Untyped : StepEntityBase< EntityTypesAP214 > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof action ) && !( value1Untyped instanceof action_method ) && !( value1Untyped instanceof action_method_relationship ) && !( value1Untyped instanceof action_property ) && !( value1Untyped instanceof action_relationship ) && !( value1Untyped instanceof assembly_component_usage_substitute ) && !( value1Untyped instanceof class_ ) && !( value1Untyped instanceof class_system ) && !( value1Untyped instanceof configuration_design ) && !( value1Untyped instanceof configuration_item ) && !( value1Untyped instanceof configured_effectivity_assignment ) && !( value1Untyped instanceof document_file ) && !( value1Untyped instanceof draughting_model ) && !( value1Untyped instanceof drawing_revision ) && !( value1Untyped instanceof general_property ) && !( value1Untyped instanceof material_designation ) && !( value1Untyped instanceof mechanical_design_geometric_presentation_representation ) && !( value1Untyped instanceof presentation_area ) && !( value1Untyped instanceof product ) && !( value1Untyped instanceof product_concept ) && !( value1Untyped instanceof product_concept_feature ) && !( value1Untyped instanceof product_concept_feature_association ) && !( value1Untyped instanceof product_concept_feature_category ) && !( value1Untyped instanceof product_concept_feature_category_usage ) && !( value1Untyped instanceof product_definition ) && !( value1Untyped instanceof product_definition_formation ) && !( value1Untyped instanceof product_definition_formation_relationship ) && !( value1Untyped instanceof product_definition_relationship ) && !( value1Untyped instanceof product_definition_substitute ) && !( value1Untyped instanceof property_definition ) && !( value1Untyped instanceof requirement_for_action_resource ) && !( value1Untyped instanceof resource_property ) && !( value1Untyped instanceof security_classification ) && !( value1Untyped instanceof shape_aspect ) && !( value1Untyped instanceof shape_representation ) ) {
@@ -97,14 +97,14 @@ export  class applied_effectivity_assignment extends effectivity_assignment {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.APPLIED_EFFECTIVITY_ASSIGNMENT ]
+    [ EntityTypesAP214.APPLIED_EFFECTIVITY_ASSIGNMENT ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.APPLIED_EFFECTIVITY_ASSIGNMENT
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.APPLIED_EFFECTIVITY_ASSIGNMENT
 }

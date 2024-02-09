@@ -37,16 +37,16 @@ import {
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/applied_security_classification_assignment.htm */
+// *  */
 export  class applied_security_classification_assignment extends security_classification_assignment {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.APPLIED_SECURITY_CLASSIFICATION_ASSIGNMENT
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.APPLIED_SECURITY_CLASSIFICATION_ASSIGNMENT
   }
   private items_? : Array<action | action_directive | action_property | applied_action_assignment | assembly_component_usage_substitute | class_system | configuration_design | configuration_effectivity | configured_effectivity_assignment | document_file | draughting_model | drawing_revision | executed_action | general_property | material_designation | mechanical_design_geometric_presentation_representation | organizational_project | presentation_area | product | product_concept | product_concept_feature | product_concept_feature_category | product_definition | product_definition_formation | product_definition_relationship | property_definition | resource_property | shape_representation | versioned_action_request>
 
@@ -67,7 +67,7 @@ export  class applied_security_classification_assignment extends security_classi
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
+        const value1Untyped : StepEntityBase< EntityTypesAP214 > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof action ) && !( value1Untyped instanceof action_directive ) && !( value1Untyped instanceof action_property ) && !( value1Untyped instanceof applied_action_assignment ) && !( value1Untyped instanceof assembly_component_usage_substitute ) && !( value1Untyped instanceof class_system ) && !( value1Untyped instanceof configuration_design ) && !( value1Untyped instanceof configuration_effectivity ) && !( value1Untyped instanceof configured_effectivity_assignment ) && !( value1Untyped instanceof document_file ) && !( value1Untyped instanceof draughting_model ) && !( value1Untyped instanceof drawing_revision ) && !( value1Untyped instanceof executed_action ) && !( value1Untyped instanceof general_property ) && !( value1Untyped instanceof material_designation ) && !( value1Untyped instanceof mechanical_design_geometric_presentation_representation ) && !( value1Untyped instanceof organizational_project ) && !( value1Untyped instanceof presentation_area ) && !( value1Untyped instanceof product ) && !( value1Untyped instanceof product_concept ) && !( value1Untyped instanceof product_concept_feature ) && !( value1Untyped instanceof product_concept_feature_category ) && !( value1Untyped instanceof product_definition ) && !( value1Untyped instanceof product_definition_formation ) && !( value1Untyped instanceof product_definition_relationship ) && !( value1Untyped instanceof property_definition ) && !( value1Untyped instanceof resource_property ) && !( value1Untyped instanceof shape_representation ) && !( value1Untyped instanceof versioned_action_request ) ) {
@@ -91,14 +91,14 @@ export  class applied_security_classification_assignment extends security_classi
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.APPLIED_SECURITY_CLASSIFICATION_ASSIGNMENT ]
+    [ EntityTypesAP214.APPLIED_SECURITY_CLASSIFICATION_ASSIGNMENT ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.APPLIED_SECURITY_CLASSIFICATION_ASSIGNMENT
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.APPLIED_SECURITY_CLASSIFICATION_ASSIGNMENT
 }

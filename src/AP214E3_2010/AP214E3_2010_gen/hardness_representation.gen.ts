@@ -2,29 +2,29 @@
 import { representation } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/hardness_representation.htm */
+// *  */
 export  class hardness_representation extends representation {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.HARDNESS_REPRESENTATION
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.HARDNESS_REPRESENTATION
   }
 
 
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.HARDNESS_REPRESENTATION ]
+    [ EntityTypesAP214.HARDNESS_REPRESENTATION ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.HARDNESS_REPRESENTATION
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.HARDNESS_REPRESENTATION
 }

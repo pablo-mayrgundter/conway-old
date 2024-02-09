@@ -4,23 +4,23 @@ import { curve_style } from "./index"
 import { curve_style_rendering } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/surface_style_control_grid.htm */
+// *  */
 export  class surface_style_control_grid extends founded_item {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.SURFACE_STYLE_CONTROL_GRID
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.SURFACE_STYLE_CONTROL_GRID
   }
   private style_of_control_grid_? : curve_style | curve_style_rendering
 
   public get style_of_control_grid() : curve_style | curve_style_rendering {
     if ( this.style_of_control_grid_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > = 
+      const value : StepEntityBase< EntityTypesAP214 > = 
         this.extractReference( 0, false )
 
       if ( !( value instanceof curve_style ) && !( value instanceof curve_style_rendering ) ) {
@@ -35,14 +35,14 @@ export  class surface_style_control_grid extends founded_item {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.SURFACE_STYLE_CONTROL_GRID ]
+    [ EntityTypesAP214.SURFACE_STYLE_CONTROL_GRID ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.SURFACE_STYLE_CONTROL_GRID
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.SURFACE_STYLE_CONTROL_GRID
 }

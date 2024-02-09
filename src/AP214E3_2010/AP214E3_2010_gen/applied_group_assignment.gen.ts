@@ -14,16 +14,16 @@ import {
 } from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/applied_group_assignment.htm */
+// *  */
 export  class applied_group_assignment extends group_assignment {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.APPLIED_GROUP_ASSIGNMENT
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.APPLIED_GROUP_ASSIGNMENT
   }
   private items_? : Array<geometric_representation_item | mapped_item | product_concept_feature | shape_aspect | styled_item | topological_representation_item>
 
@@ -44,7 +44,7 @@ export  class applied_group_assignment extends group_assignment {
       cursor = Math.abs( signedCursor0 )
 
       while ( signedCursor0 >= 0 ) {
-        const value1Untyped : StepEntityBase< EntityTypesIfc > | undefined = 
+        const value1Untyped : StepEntityBase< EntityTypesAP214 > | undefined = 
           this.extractBufferReference( buffer, cursor, endCursor )
 
         if ( !( value1Untyped instanceof geometric_representation_item ) && !( value1Untyped instanceof mapped_item ) && !( value1Untyped instanceof product_concept_feature ) && !( value1Untyped instanceof shape_aspect ) && !( value1Untyped instanceof styled_item ) && !( value1Untyped instanceof topological_representation_item ) ) {
@@ -68,14 +68,14 @@ export  class applied_group_assignment extends group_assignment {
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.APPLIED_GROUP_ASSIGNMENT ]
+    [ EntityTypesAP214.APPLIED_GROUP_ASSIGNMENT ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.APPLIED_GROUP_ASSIGNMENT
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.APPLIED_GROUP_ASSIGNMENT
 }

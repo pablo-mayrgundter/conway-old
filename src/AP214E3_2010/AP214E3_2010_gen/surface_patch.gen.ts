@@ -4,16 +4,16 @@ import { bounded_surface } from "./index"
 import { transition_code, transition_codeDeserializeStep } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/surface_patch.htm */
+// *  */
 export  class surface_patch extends founded_item {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.SURFACE_PATCH
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.SURFACE_PATCH
   }
   private parent_surface_? : bounded_surface
   private u_transition_? : transition_code
@@ -63,14 +63,14 @@ export  class surface_patch extends founded_item {
 
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.SURFACE_PATCH ]
+    [ EntityTypesAP214.SURFACE_PATCH ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.SURFACE_PATCH
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.SURFACE_PATCH
 }

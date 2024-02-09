@@ -7,16 +7,16 @@ import { action_property } from "./index"
 import { resource_property } from "./index"
 
 /* This is generated code, don't modify */
-import EntityTypesIfc from './entity_types_ifc.gen'
+import EntityTypesAP214 from './entity_types_ap214.gen'
 import StepEntityInternalReference from '../../step/step_entity_internal_reference'
 import StepEntityBase from '../../step/step_entity_base'
 import StepModelBase from '../../step/step_model_base'
 
 ///**
-// * http://www.buildingsmart-tech.org/ifc/ifc4/final/html/link/general_property_association.htm */
-export  class general_property_association extends StepEntityBase< EntityTypesIfc > {
-  public get type(): EntityTypesIfc {
-    return EntityTypesIfc.GENERAL_PROPERTY_ASSOCIATION
+// *  */
+export  class general_property_association extends StepEntityBase< EntityTypesAP214 > {
+  public get type(): EntityTypesAP214 {
+    return EntityTypesAP214.GENERAL_PROPERTY_ASSOCIATION
   }
   private name_? : string
   private description_? : string | null
@@ -50,7 +50,7 @@ export  class general_property_association extends StepEntityBase< EntityTypesIf
   public get derived_definition() : property_definition | action_property | resource_property {
     if ( this.derived_definition_ === void 0 ) {
       
-      const value : StepEntityBase< EntityTypesIfc > = 
+      const value : StepEntityBase< EntityTypesAP214 > = 
         this.extractReference( 3, false )
 
       if ( !( value instanceof property_definition ) && !( value instanceof action_property ) && !( value instanceof resource_property ) ) {
@@ -65,14 +65,14 @@ export  class general_property_association extends StepEntityBase< EntityTypesIf
   }
   constructor(
     localID: number,
-    internalReference: StepEntityInternalReference< EntityTypesIfc >,
-    model: StepModelBase< EntityTypesIfc, StepEntityBase< EntityTypesIfc > > ) {
+    internalReference: StepEntityInternalReference< EntityTypesAP214 >,
+    model: StepModelBase< EntityTypesAP214, StepEntityBase< EntityTypesAP214 > > ) {
     super( localID, internalReference, model )
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.GENERAL_PROPERTY_ASSOCIATION ]
+    [ EntityTypesAP214.GENERAL_PROPERTY_ASSOCIATION ]
 
-  public static readonly expectedType: EntityTypesIfc =
-    EntityTypesIfc.GENERAL_PROPERTY_ASSOCIATION
+  public static readonly expectedType: EntityTypesAP214 =
+    EntityTypesAP214.GENERAL_PROPERTY_ASSOCIATION
 }
