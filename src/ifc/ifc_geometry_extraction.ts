@@ -63,6 +63,7 @@ import {
   NativeVectorSegment,
   WasmModule,
 } from '../core/native_types'
+import { ExtractResult } from '../core/shared_constants'
 import {
   IfcArbitraryClosedProfileDef,
   IfcAxis2Placement2D,
@@ -177,20 +178,6 @@ import IfcStepModel from './ifc_step_model'
 
 type Mutable<T> = { -readonly [P in keyof T]: T[P] }
 
-/**
- * Enum presenting the extraction results.
- */
-/* eslint-disable no-shadow, no-unused-vars, no-magic-numbers */
-// -- eslint doesn't understand enums properly.
-export enum ExtractResult {
-
-  COMPLETE = 0,
-  INCOMPLETE = 1,
-  SYNTAX_ERROR = 2,
-  MISSING_TYPE = 3,
-  INVALID_STEP = 4
-}
-/* eslint-enable no-shadow, no-unused-vars, no-magic-numbers */
 
 /**
  * Extract a specular highlight, converting specular exponents to a roughness value.
