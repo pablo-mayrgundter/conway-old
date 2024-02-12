@@ -6,7 +6,7 @@ import { StepEntityInternalReferencePrivate } from './step_entity_internal_refer
 import { IIndexSetCursor } from '../core/i_index_set_cursor'
 import { extractOneHotLow } from '../indexing/bit_operations'
 import { MultiIndexSet } from '../indexing/multi_index_set'
-import StepEntityConstructor, { StepEntityConstructorAbstract } from './step_entity_constructor'
+import { StepEntityConstructorAbstract } from './step_entity_constructor'
 import { Model } from '../core/model'
 import { ReadonlyUint32Array } from '../core/readonly_typed_array'
 import { TriangleElementMap } from '../core/triangle_element_map'
