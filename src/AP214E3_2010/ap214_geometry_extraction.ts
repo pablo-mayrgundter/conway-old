@@ -306,7 +306,7 @@ export class AP214GeometryExtraction {
   /**
    *
    * @param initialSize number - initial size of the vector (optional)
-   * @return {NativeVectorGeometry} - a native std::vector<GeometryObject> from the wasm module
+   * @return {StdVector<GeometryObject>} - a native std::vector<GeometryObject> from the wasm module
    */
   nativeVectorGeometry(initialSize?: number): StdVector<GeometryObject> {
     const nativeVectorGeometry_ =
@@ -1208,10 +1208,10 @@ export class AP214GeometryExtraction {
    * @param temporary
    */
   extractExtrudedAreaSolid(
-    from: extruded_area_solid,
-    temporary: boolean = false ) {
+      from: extruded_area_solid,
+      temporary: boolean = false ) {
 
-    let axis2PlacementTransform: any | undefined = (void 0)
+    const axis2PlacementTransform: any | undefined = (void 0)
 
     const profile: CanonicalProfile | undefined = this.extractProfile( from.swept_area )
 
@@ -1529,7 +1529,8 @@ export class AP214GeometryExtraction {
     //   const canonicalProfileParent = this.extractProfile(from.ParentProfile)
 
     //   if (canonicalProfileParent?.nativeProfile !== void 0) {
-    //     const transformation = this.extractCartesianTransformOperator2D(from.Operator) // glm::dmat3
+    //     const transformation = this.extractCartesianTransformOperator2D(from.Operator)
+    // glm::dmat3
 
     //     const paramsTransformProfile = this.paramsTransformProfilePool!.acquire()
     //     paramsTransformProfile.transformation = transformation
@@ -1562,7 +1563,7 @@ export class AP214GeometryExtraction {
     //   }
 
     // } else {
-    //   console.log(`Unsupported Profile! Type: 
+    //   console.log(`Unsupported Profile! Type:
     //   ${EntityTypesAP214[from.type]} expressID: ${from.expressID}`)
     // }
 
@@ -1573,7 +1574,8 @@ export class AP214GeometryExtraction {
     //   if (profile.profiles !== void 0 && profile.profiles.length > 0) {
     //     isComposite = true
 
-    //     const profilesArray: NativeVectorProfile = this.nativeVectorProfile(profile.profiles.length)
+    //     const profilesArray: NativeVectorProfile =
+    //       this.nativeVectorProfile(profile.profiles.length)
 
     //     if (!profile.curve) {
     //       // create a blank curve for a composite profile
@@ -1967,7 +1969,7 @@ export class AP214GeometryExtraction {
     if (
       from.master_representation === trimming_preference.CARTESIAN ||
       from.master_representation === trimming_preference.UNSPECIFIED) {
-      
+
       for (let trimIndex = 0; trimIndex < from.trim_1.length; trimIndex++) {
 
         const trim1 = from.trim_1[ trimIndex ]
@@ -1994,7 +1996,7 @@ export class AP214GeometryExtraction {
       for (let trimIndex = 0; trimIndex < from.trim_2.length; trimIndex++) {
 
         const trim2 = from.trim_2[trimIndex]
-        
+
         if ( trim2 instanceof cartesian_point ) {
 
           if (from.Dim === this.TWO_DIMENSIONS) {
@@ -2047,7 +2049,7 @@ export class AP214GeometryExtraction {
 
     if ( from.basis_curve instanceof circle) {
 
-      const curveObject = this.extractAP214Circle( from.basis_curve , paramsGetAP214TrimmedCurve)
+      const curveObject = this.extractAP214Circle( from.basis_curve, paramsGetAP214TrimmedCurve)
 
       if (curveObject !== void 0) {
         return curveObject
@@ -3366,9 +3368,8 @@ export class AP214GeometryExtraction {
    */
   extractPlacement(from: placement) {
 
-    let result: AP214SceneTransform | undefined
-
-    result = this.scene.getTransform(from.localID)
+    const result: AP214SceneTransform | undefined =
+      this.scene.getTransform(from.localID)
 
     if (result !== void 0) {
 
@@ -3509,7 +3510,8 @@ export class AP214GeometryExtraction {
    */
   // populateMaterialDefinitionsMap() {
   //   // populate MaterialDefinitionsMap
-  //   const materialDefinitionRepresentations = this.model.types(AP214MaterialDefinitionRepresentation)
+  //   const materialDefinitionRepresentations =
+  //     this.model.types(AP214MaterialDefinitionRepresentation)
 
   //   for (const materialDefinitionRep of materialDefinitionRepresentations) {
 

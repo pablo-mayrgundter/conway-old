@@ -119,7 +119,7 @@ export class AP214SceneBuilder implements Scene< StepEntityBase< EntityTypesAP21
   /**
    *
    * @param localID
-   * @return {IfcSceneNode | undefined}
+   * @return {AP214SceneNode | undefined}
    */
   private get(localID: number): AP214SceneNode | undefined {
 
@@ -158,7 +158,7 @@ export class AP214SceneBuilder implements Scene< StepEntityBase< EntityTypesAP21
   /**
    * Build a packed/optimised mesh model with triangle element maps.
    *
-   * @return {PackedMesh< IfcStepModel >} Maps materials to a geometry object
+   * @return {PackedMesh< AP214StepModel >} Maps materials to a geometry object
    * and triangle element map.
    */
   public buildPackedMeshModel(): PackedMesh<AP214StepModel> {
@@ -355,7 +355,7 @@ export class AP214SceneBuilder implements Scene< StepEntityBase< EntityTypesAP21
   /**
    *
    * @param localID
-   * @return {IfcSceneGeometry}
+   * @return {AP214SceneGeometry}
    */
   public addGeometry(
       localID: number,

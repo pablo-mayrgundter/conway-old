@@ -12,7 +12,6 @@ import {
   kinematic_link_representation,
   derived_unit,
   named_unit,
-  geometric_representation_item,
   object_role,
 } from './AP214E3_2010_gen'
 import EntityTypesIfc from './AP214E3_2010_gen/entity_types_ap214.gen'
@@ -25,6 +24,7 @@ import EntityTypesIfc from './AP214E3_2010_gen/entity_types_ap214.gen'
  * @param u1
  * @param low2
  * @param u2
+ * @template T The inner type of the array
  * @return {Array<Array<T>>} The sectioned array.
  */
 export function make_array_of_array< T >(
@@ -57,81 +57,128 @@ export function make_array_of_array< T >(
  * @param list The initial list
  * @param lower The lower bound (inclusive)
  * @param upper The upper bound (exclusive)
+ * @template T The inner type of the array
  * @return {T[]} The sliced array.
  */
 export function list_to_array< T >(list: T[], lower: number, upper: number): T[] {
   return list.slice(lower, upper)
 }
 
+// eslint-disable-next-line jsdoc/require-returns-check
 /**
- * 
+ *
  *
  * @param name The unit name
  * @return {dimensional_exponents} The matching exponents
  */
 export function dimensions_for_si_unit(name: si_unit_name): dimensional_exponents {
-  throw new Error("Function not implemented.")
+  throw new Error('Function not implemented.')
 }
 
 /**
- * 
- * @param orientation 
- * @param items 
+ *
+ * @param orientation
+ * @param items
+ * @template T The inner type of the array
+ * @return {T[]} The conditionally reversed array
  */
 export function conditional_reverse< T >(orientation: boolean, items: T[]): T[] {
   return orientation ? items : [...items].reverse()
 }
 
 /**
- * 
- * @param arg0 
+ *
+ * @param arg0
  */
 export function get_basis_surface(arg0: curve): surface[] {
-  throw new Error("Function not implemented.")
+  throw new Error('Function not implemented.')
 }
 
+/**
+ * Choose between two values based on the value of a boolean. (ife)
+ *
+ * @param orientation
+ * @param fromTrue
+ * @param fromFalse
+ * @template T The inner type of the array
+ * @return {T} The chosen value
+ */
 export function boolean_choose< T >(orientation: boolean, fromTrue: T, fromFalse: T): T {
-  return orientation ? fromTrue : fromFalse 
+  return orientation ? fromTrue : fromFalse
 }
 
+/**
+ *
+ */
 export function build_2axes(ref_direction: direction | null): direction[] {
-  throw new Error("Function not implemented.")
+  throw new Error('Function not implemented.')
 }
 
+/**
+ *
+ */
 export function build_axes(axis: direction | null, ref_direction: direction | null): direction[] {
-  throw new Error("Function not implemented.")
+  throw new Error('Function not implemented.')
 }
 
+/**
+ *
+ */
 export function is_sql_mappable(arg0: expression): boolean {
-  throw new Error("Function not implemented.")
+  throw new Error('Function not implemented.')
 }
 
+/**
+ *
+ */
 export function is_int_expr(arg0: expression): boolean {
-  throw new Error("Function not implemented.")
+  throw new Error('Function not implemented.')
 }
 
+/**
+ *
+ */
 export function representation_of_link(base: kinematic_link): kinematic_link_representation {
-  throw new Error("Function not implemented.")
+  throw new Error('Function not implemented.')
 }
 
+/**
+ *
+ */
 export function get_name_value(arg0: StepEntityBase< EntityTypesIfc >): string {
-  throw new Error("Function not implemented.")
+  throw new Error('Function not implemented.')
 }
 
+/**
+ * Get the express ID of a particular entity
+ *
+ * @param arg0 The element to extract the express ID from
+ * @return {string} The express id or "inline" for inline elements
+ */
 export function get_id_value(arg0: StepEntityBase< EntityTypesIfc >): string {
-  return arg0.expressID?.toString() ?? "inline"
+  return arg0.expressID?.toString() ?? 'inline'
 }
 
+/**
+ *
+ */
 export function get_description_value(arg0: StepEntityBase< EntityTypesIfc >): string {
-  throw new Error("Function not implemented.")
+  throw new Error('Function not implemented.')
 }
 
+/**
+ *
+ */
 export function get_multi_language(arg0: StepEntityBase< EntityTypesIfc >): string {
-  throw new Error("Function not implemented.")
+  throw new Error('Function not implemented.')
 }
 
-export function derive_dimensional_exponents( unit: derived_unit | named_unit ): dimensional_exponents {
-  throw new Error("Function not implemented.")
+/**
+ *
+ */
+export function derive_dimensional_exponents( unit: derived_unit | named_unit ):
+  dimensional_exponents {
+  throw new Error('Function not implemented.')
 }
 
 /**
@@ -141,7 +188,7 @@ export function derive_dimensional_exponents( unit: derived_unit | named_unit ):
  * @throws {Error} Not implemented.
  */
 export function dimension_of(arg0: StepEntityBase< EntityTypesIfc >): number {
-  throw new Error("Function not implemented.")
+  throw new Error('Function not implemented.')
 }
 
 /**
@@ -151,5 +198,5 @@ export function dimension_of(arg0: StepEntityBase< EntityTypesIfc >): number {
  * @throws {Error} Not implemented.
  */
 export function get_role(arg0: StepEntityBase< EntityTypesIfc >): object_role {
-  throw new Error("Function not implemented.")
+  throw new Error('Function not implemented.')
 }
