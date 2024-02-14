@@ -6,7 +6,7 @@ import { StepEntityInternalReferencePrivate } from './step_entity_internal_refer
 import { IIndexSetCursor } from '../core/i_index_set_cursor'
 import { extractOneHotLow } from '../indexing/bit_operations'
 import { MultiIndexSet } from '../indexing/multi_index_set'
-import { StepEntityConstructorAbstract } from './step_entity_constructor'
+import StepEntityConstructor, { StepEntityConstructorAbstract } from './step_entity_constructor'
 import { Model } from '../core/model'
 import { ReadonlyUint32Array } from '../core/readonly_typed_array'
 import { TriangleElementMap } from '../core/triangle_element_map'
@@ -20,7 +20,8 @@ export default abstract class StepModelBase<
   EntityTypeIDs extends number,
   BaseEntity extends StepEntityBase<EntityTypeIDs> = StepEntityBase<EntityTypeIDs> >
 implements Iterable<BaseEntity>, Model {
-  public readonly abstract typeIndex: MultiIndexSet<EntityTypeIDs>;
+  public readonly abstract typeIndex: MultiIndexSet<EntityTypeIDs>
+  public readonly abstract externalMappingType: StepEntityConstructor< EntityTypeIDs, BaseEntity >
 
   private readonly vtableBuilder_: StepVtableBuilder = new StepVtableBuilder()
   private readonly expressIDMap_: InterpolationSearchTable32
@@ -321,7 +322,7 @@ implements Iterable<BaseEntity>, Model {
       const constructorRead =
         elementTypeID !== 0 ?
           this.schema.constructors[elementTypeID] :
-          StepExternalMapping<EntityTypeIDs>
+          this.externalMappingType
 
       if (constructorRead !== void 0) {
         // eslint-disable-next-line new-cap -- This is a variable constructor.
