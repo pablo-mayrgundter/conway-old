@@ -5,7 +5,7 @@ import StepEntityInternalReference from './step_entity_internal_reference'
 /**
  * Implements the external mapping functionality.
  */
-export default class StepExternalMapping<
+export default abstract class StepExternalMapping<
     EntityTypeIDs extends number
   > extends StepEntityBase<EntityTypeIDs> {
 
