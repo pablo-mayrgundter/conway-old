@@ -1,6 +1,10 @@
 
 import { face } from "./index"
+import { dimension_count } from "./index"
 import { surface } from "./index"
+import {
+  dimension_of,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesAP214 from './entity_types_ap214.gen'
@@ -16,6 +20,10 @@ export  class face_surface extends face {
   }
   private face_geometry_? : surface
   private same_sense_? : boolean
+
+  public get dim() : number {
+    return dimension_of(this);
+  }
 
   public get face_geometry() : surface {
     if ( this.face_geometry_ === void 0 ) {

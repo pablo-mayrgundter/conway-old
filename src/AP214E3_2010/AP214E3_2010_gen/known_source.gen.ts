@@ -1,5 +1,6 @@
 
 import { external_source } from "./index"
+import { label } from "./index"
 
 /* This is generated code, don't modify */
 import EntityTypesAP214 from './entity_types_ap214.gen'
@@ -13,8 +14,15 @@ export  class known_source extends external_source {
   public get type(): EntityTypesAP214 {
     return EntityTypesAP214.KNOWN_SOURCE
   }
+  private name_? : string
 
+  public get name() : string {
+    if ( this.name_ === void 0 ) {
+      this.name_ = this.extractString( 1, false )
+    }
 
+    return this.name_ as string
+  }
   constructor(
     localID: number,
     internalReference: StepEntityInternalReference< EntityTypesAP214 >,

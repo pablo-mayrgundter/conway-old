@@ -1,5 +1,6 @@
 
 import { annotation_occurrence } from "./index"
+import { dimension_count } from "./index"
 import { draughting_callout } from "./index"
 import { styled_item } from "./index"
 import { plane } from "./index"
@@ -10,6 +11,9 @@ import {
   stepExtractArrayBegin,
   skipValue,
 } from '../../step/parsing/step_deserialization_functions'
+import {
+  dimension_of,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesAP214 from './entity_types_ap214.gen'
@@ -24,6 +28,10 @@ export  class annotation_plane extends annotation_occurrence {
     return EntityTypesAP214.ANNOTATION_PLANE
   }
   private elements_? : Array<draughting_callout | styled_item> | null
+
+  public get dim() : number {
+    return dimension_of(this);
+  }
 
   public get elements() : Array<draughting_callout | styled_item> | null {
     if ( this.elements_ === void 0 ) {

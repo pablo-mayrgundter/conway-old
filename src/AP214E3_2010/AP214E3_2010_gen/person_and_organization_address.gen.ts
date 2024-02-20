@@ -1,5 +1,13 @@
 
 import { organizational_address } from "./index"
+import { person } from "./index"
+import { text } from "./index"
+import {
+  stepExtractOptional,
+  stepExtractArrayToken,
+  stepExtractArrayBegin,
+  skipValue,
+} from '../../step/parsing/step_deserialization_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesAP214 from './entity_types_ap214.gen'
@@ -13,7 +21,40 @@ export  class person_and_organization_address extends organizational_address {
   public get type(): EntityTypesAP214 {
     return EntityTypesAP214.PERSON_AND_ORGANIZATION_ADDRESS
   }
+  private people_? : Array<person>
 
+  public get people() : Array<person> {
+    if ( this.people_ === void 0 ) {
+      
+      let   cursor    = this.getOffsetCursor( 14 )
+      const buffer    = this.buffer
+      const endCursor = buffer.length
+
+      if ( stepExtractOptional( buffer, cursor, endCursor ) === null ) {
+        return []
+      }
+
+      const value : Array<person> = []
+
+      let signedCursor0 = stepExtractArrayBegin( buffer, cursor, endCursor )
+      cursor = Math.abs( signedCursor0 )
+
+      while ( signedCursor0 >= 0 ) {
+        const value1 = this.extractBufferElement( buffer, cursor, endCursor, person )
+        if ( value1 === void 0 ) {
+          throw new Error( 'Value in STEP was incorrectly typed' )
+        }
+        cursor = skipValue( buffer, cursor, endCursor )
+        value.push( value1 )
+        signedCursor0 = stepExtractArrayToken( buffer, cursor, endCursor )
+        cursor = Math.abs( signedCursor0 )
+      }
+
+      this.people_ = value
+    }
+
+    return this.people_ as Array<person>
+  }
 
   constructor(
     localID: number,
