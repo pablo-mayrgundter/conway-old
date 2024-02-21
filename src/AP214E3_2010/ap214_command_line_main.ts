@@ -159,6 +159,7 @@ async function doWork() {
             const fileNameWithExtension = ifcFile.split('/').pop()!
             // Get the filename without extension
             const fileName = fileNameWithExtension.split('.')[0]
+
             const result = await geometryExtraction(model)
 
             if (result !== void 0) {
@@ -458,17 +459,27 @@ async function geometryExtraction(model: AP214StepModel):
 
   const conwayModel = new AP214GeometryExtraction(conwaywasm, model)
 
-  // parse + extract data model + geometry data
-  const [extractionResult, scene] =
-    conwayModel.extractAP214GeometryData(true)
+  try {
+    // parse + extract data model + geometry data
+    const [extractionResult, scene] =
+      conwayModel.extractAP214GeometryData(true)
 
-  model.invalidate( true )
+    model.invalidate( true )
 
-  if (extractionResult !== ExtractResult.COMPLETE) {
-    console.error('Could not extract geometry, exiting...')
-    return void 0
+    if (extractionResult !== ExtractResult.COMPLETE) {
+      console.error('Could not extract geometry, exiting...')
+      return void 0
+    }
+
+    return [scene, conwaywasm]
+  } catch ( ex ) {
+
+    console.log( ex )
+
+    if ( ex instanceof Error ) {
+      console.log( ex.stack )
+    }
+    throw ex
   }
-
-  return [scene, conwaywasm]
 }
 

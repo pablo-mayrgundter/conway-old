@@ -1,5 +1,7 @@
 
 import { geometric_representation_item } from "./index"
+import { label } from "./index"
+import { text } from "./index"
 import { direction } from "./index"
 import { cartesian_point } from "./index"
 import {
@@ -18,14 +20,23 @@ export  class cartesian_transformation_operator extends geometric_representation
   public get type(): EntityTypesAP214 {
     return EntityTypesAP214.CARTESIAN_TRANSFORMATION_OPERATOR
   }
+  private description_? : string | null
   private axis1_? : direction | null
   private axis2_? : direction | null
   private local_origin_? : cartesian_point
   private scale_? : number | null
 
+  public get description() : string | null {
+    if ( this.description_ === void 0 ) {
+      this.description_ = this.extractString( 1, true )
+    }
+
+    return this.description_ as string | null
+  }
+
   public get axis1() : direction | null {
     if ( this.axis1_ === void 0 ) {
-      this.axis1_ = this.extractElement( 1, true, direction )
+      this.axis1_ = this.extractElement( 2, true, direction )
     }
 
     return this.axis1_ as direction | null
@@ -33,7 +44,7 @@ export  class cartesian_transformation_operator extends geometric_representation
 
   public get axis2() : direction | null {
     if ( this.axis2_ === void 0 ) {
-      this.axis2_ = this.extractElement( 2, true, direction )
+      this.axis2_ = this.extractElement( 3, true, direction )
     }
 
     return this.axis2_ as direction | null
@@ -41,7 +52,7 @@ export  class cartesian_transformation_operator extends geometric_representation
 
   public get local_origin() : cartesian_point {
     if ( this.local_origin_ === void 0 ) {
-      this.local_origin_ = this.extractElement( 3, false, cartesian_point )
+      this.local_origin_ = this.extractElement( 4, false, cartesian_point )
     }
 
     return this.local_origin_ as cartesian_point
@@ -49,7 +60,7 @@ export  class cartesian_transformation_operator extends geometric_representation
 
   public get scale() : number | null {
     if ( this.scale_ === void 0 ) {
-      this.scale_ = this.extractNumber( 4, true )
+      this.scale_ = this.extractNumber( 5, true )
     }
 
     return this.scale_ as number | null

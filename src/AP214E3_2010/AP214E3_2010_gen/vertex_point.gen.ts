@@ -1,6 +1,10 @@
 
 import { vertex } from "./index"
+import { dimension_count } from "./index"
 import { point } from "./index"
+import {
+  dimension_of,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesAP214 from './entity_types_ap214.gen'
@@ -15,6 +19,10 @@ export  class vertex_point extends vertex {
     return EntityTypesAP214.VERTEX_POINT
   }
   private vertex_geometry_? : point
+
+  public get dim() : number {
+    return dimension_of(this);
+  }
 
   public get vertex_geometry() : point {
     if ( this.vertex_geometry_ === void 0 ) {

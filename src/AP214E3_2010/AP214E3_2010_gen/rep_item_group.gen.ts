@@ -1,5 +1,6 @@
 
 import { group } from "./index"
+import { label } from "./index"
 
 /* This is generated code, don't modify */
 import EntityTypesAP214 from './entity_types_ap214.gen'

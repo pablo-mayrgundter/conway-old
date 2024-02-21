@@ -1,5 +1,7 @@
 
 import { geometric_representation_item } from "./index"
+import { label } from "./index"
+import { text } from "./index"
 import { axis2_placement_3d } from "./index"
 
 /* This is generated code, don't modify */
@@ -14,13 +16,22 @@ export  class kinematic_frame_based_transformation extends geometric_representat
   public get type(): EntityTypesAP214 {
     return EntityTypesAP214.KINEMATIC_FRAME_BASED_TRANSFORMATION
   }
+  private description_? : string | null
   private transformator_? : axis2_placement_3d
+
+  public get description() : string | null {
+    if ( this.description_ === void 0 ) {
+      this.description_ = this.extractString( 1, true )
+    }
+
+    return this.description_ as string | null
+  }
 
   public get transformator() : axis2_placement_3d {
     if ( this.transformator_ === void 0 ) {
       
       const value : StepEntityBase< EntityTypesAP214 > = 
-        this.extractReference( 1, false )
+        this.extractReference( 2, false )
 
       if ( !( value instanceof axis2_placement_3d ) ) {
         throw new Error( 'Value in STEP was incorrectly typed for field' )

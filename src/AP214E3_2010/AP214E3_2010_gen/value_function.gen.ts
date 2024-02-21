@@ -1,5 +1,6 @@
 
 import { numeric_expression } from "./index"
+import { generic_expression } from "./index"
 import { string_expression } from "./index"
 
 /* This is generated code, don't modify */
@@ -14,7 +15,15 @@ export  class value_function extends numeric_expression {
   public get type(): EntityTypesAP214 {
     return EntityTypesAP214.VALUE_FUNCTION
   }
+  private operand_? : generic_expression
 
+  public get operand() : generic_expression {
+    if ( this.operand_ === void 0 ) {
+      this.operand_ = this.extractElement( 0, false, generic_expression )
+    }
+
+    return this.operand_ as generic_expression
+  }
 
   constructor(
     localID: number,

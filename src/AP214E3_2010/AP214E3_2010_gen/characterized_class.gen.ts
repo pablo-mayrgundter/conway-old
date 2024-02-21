@@ -1,5 +1,11 @@
 
 import { characterized_object } from "./index"
+import { label } from "./index"
+import { text } from "./index"
+import { identifier } from "./index"
+import {
+  get_id_value,
+} from '../ap214_functions'
 
 /* This is generated code, don't modify */
 import EntityTypesAP214 from './entity_types_ap214.gen'
@@ -15,6 +21,9 @@ export  class characterized_class extends characterized_object {
   }
 
 
+  public get id() : string {
+    return get_id_value(this);
+  }
   constructor(
     localID: number,
     internalReference: StepEntityInternalReference< EntityTypesAP214 >,

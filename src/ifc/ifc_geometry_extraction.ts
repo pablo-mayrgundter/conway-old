@@ -2617,7 +2617,8 @@ export class IfcGeometryExtraction {
       axis2Placement2D = this.extractAxis2Placement2D(from.Position)
       axis2Placement3D = (new (this.wasmModule.Glmdmat4)) as any
     } else {
-      axis2Placement3D = this.extractAxis2Placement3D(from.Position, from.localID, true)
+      axis2Placement3D = this.conwayModel.getAxis2Placement3D(
+          this.extractAxis2Placement3D(from.Position, from.localID, true) )
       axis2Placement2D = (new (this.wasmModule.Glmdmat3)) as any
     }
 
@@ -2628,6 +2629,12 @@ export class IfcGeometryExtraction {
       radius: from.Radius,
       paramsGetIfcTrimmedCurve: parametersTrimmedCurve,
     }
+
+
+    parametersTrimmedCurve.trim1Cartesian2D ??= { x: 0, y: 0 }
+    parametersTrimmedCurve.trim1Cartesian3D ??= { x: 0, y: 0, z: 0 }
+    parametersTrimmedCurve.trim2Cartesian2D ??= { x: 0, y: 0 }
+    parametersTrimmedCurve.trim2Cartesian3D ??= { x: 0, y: 0, z: 0 }
 
     const curve: CurveObject = this.conwayModel.getIfcCircle(parametersIfcCircle)
 

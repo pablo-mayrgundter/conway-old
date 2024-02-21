@@ -1,5 +1,7 @@
 
 import { general_property } from "./index"
+import { identifier } from "./index"
+import { external_source } from "./index"
 
 /* This is generated code, don't modify */
 import EntityTypesAP214 from './entity_types_ap214.gen'
@@ -13,8 +15,33 @@ export  class externally_defined_general_property extends general_property {
   public get type(): EntityTypesAP214 {
     return EntityTypesAP214.EXTERNALLY_DEFINED_GENERAL_PROPERTY
   }
+  private item_id_? : identifier
+  private source_? : external_source
 
+  public get item_id() : identifier {
+    if ( this.item_id_ === void 0 ) {
+      
+      const value : StepEntityBase< EntityTypesAP214 > = 
+        this.extractReference( 3, false )
 
+      if ( !( value instanceof identifier ) ) {
+        throw new Error( 'Value in STEP was incorrectly typed for field' )
+      }
+
+      this.item_id_ = value as (identifier)
+
+    }
+
+    return this.item_id_ as identifier
+  }
+
+  public get source() : external_source {
+    if ( this.source_ === void 0 ) {
+      this.source_ = this.extractElement( 4, false, external_source )
+    }
+
+    return this.source_ as external_source
+  }
   constructor(
     localID: number,
     internalReference: StepEntityInternalReference< EntityTypesAP214 >,

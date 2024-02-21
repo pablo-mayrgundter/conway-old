@@ -1,5 +1,6 @@
 
 import { composite_shape_aspect } from "./index"
+import { identifier } from "./index"
 
 /* This is generated code, don't modify */
 import EntityTypesAP214 from './entity_types_ap214.gen'
@@ -13,7 +14,15 @@ export  class common_datum extends composite_shape_aspect {
   public get type(): EntityTypesAP214 {
     return EntityTypesAP214.COMMON_DATUM
   }
+  private identification_? : string
 
+  public get identification() : string {
+    if ( this.identification_ === void 0 ) {
+      this.identification_ = this.extractString( 4, false )
+    }
+
+    return this.identification_ as string
+  }
 
   constructor(
     localID: number,
