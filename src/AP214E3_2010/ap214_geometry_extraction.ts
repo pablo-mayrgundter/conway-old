@@ -1706,24 +1706,25 @@ export class AP214GeometryExtraction {
 
     if ( from instanceof b_spline_curve ) {
 
-      /* const AP214Curve = this.extractBSplineCurve(from)
+      const bsplineCurve = this.extractBSplineCurve(from)
 
-      if (trimmingArguments !== void 0) {
-        //invert curve
-        console.log("inverting curve")
-        AP214Curve.invert()
+      if (bsplineCurve !== void 0) {
+        if (!bsplineCurve.isCCW()) {
+          // console.log("inverting curve")
+          bsplineCurve.invert()
+        }
       }
 
       //console.log(`Curve type: ${EntityTypesAP214[from.type]} - express ID: ${from.expressID}`)
-      for (let i = 0; i < AP214Curve.getPointsSize(); ++i) {
-        if (from.Degree === 2) {
-          const pt_ = AP214Curve.get2d(i)
-          console.log(`Point ${i}: x: ${pt_.x}, y: ${pt_.y}, z: ${pt_.z}`)
-        }
-      }
-      return AP214Curve*/
-      console.log('BSplineCurve not currently supported.')
-      return
+      // for (let i = 0; i < bsplineCurve.getPointsSize(); ++i) {
+
+      //   if (from.degree === 2) {
+      //     const pt_ = AP214Curve.get2d(i)
+      //     console.log(`Point ${i}: x: ${pt_.x}, y: ${pt_.y}, z: ${pt_.z}`)
+      //   }
+      // }
+
+      return bsplineCurve
     }
 
     if ( from instanceof trimmed_curve ) {

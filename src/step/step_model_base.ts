@@ -11,7 +11,7 @@ import { Model } from '../core/model'
 import { ReadonlyUint32Array } from '../core/readonly_typed_array'
 import { TriangleElementMap } from '../core/triangle_element_map'
 import InterpolationSearchTable32 from '../indexing/interpolation_search_table_32'
-import StepExternalMapping from './step_external_mapping'
+
 
 /**
  * The base for models parsed from STEP.
