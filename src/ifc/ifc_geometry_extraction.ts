@@ -2109,7 +2109,8 @@ export class IfcGeometryExtraction {
       const paramsGetCShapeCurve: ParamsGetCShapeCurve = {
         hasPlacement: false,
         placement: this.identity2DNativeMatrix,
-        hasFillet: (from.InternalFilletRadius !== null),
+        hasFillet: false, // TODO(nickcastel50): Add fillet support to C curves
+        // hasFillet: (from.InternalFilletRadius !== null),
         depth: from.Depth,
         width: from.Width,
         thickness: from.WallThickness,
