@@ -192,7 +192,7 @@ export class Statistics {
       timeZone: 'UTC',
     }
 
-    const dateString = date.toLocaleDateString('en-US', options)
+    const dateString = date.toLocaleDateString('en-US', options).replace(/,/g, '')
     const versionMatch = versionString.match(/v(\d+\.\d+\.\d+)/)
     let conwayVersionNumber: string
 
