@@ -276,7 +276,12 @@ function doWork() {
             statistics.setParseTime(dataParseTime)
             statistics.setTotalTime(allTime)
 
-            const FILE_NAME = stepHeader.headers.get('FILE_NAME')
+            let FILE_NAME = stepHeader.headers.get('FILE_NAME')
+
+            if (FILE_NAME !== void 0) {
+              // strip start / end parenthesis
+              FILE_NAME = FILE_NAME.substring(1, FILE_NAME.length - 1)
+            }
             const ifcVersion = stepHeader.headers.get('FILE_SCHEMA')
 
             if (ifcVersion !== void 0) {
@@ -284,13 +289,13 @@ function doWork() {
             }
 
             if (FILE_NAME !== void 0) {
-              const fileNameSplit: string[] = FILE_NAME.split(',')
+              const fileNameSplit: string[] = parseFileHeader(FILE_NAME)
 
 
               // eslint-disable-next-line no-magic-numbers
-              if (fileNameSplit.length > 5) {
-                const preprocessorVersion = fileNameSplit[4]
-                const originatingSystem = fileNameSplit[5]
+              if (fileNameSplit.length > 6) {
+                const preprocessorVersion = fileNameSplit[5]
+                const originatingSystem = fileNameSplit[6]
 
                 statistics.setPreprocessorVersion(preprocessorVersion)
                 statistics.setOriginatingSystem(originatingSystem)
@@ -305,6 +310,39 @@ function doWork() {
           Logger.printStatistics(modelID)
         })
         .help().argv
+}
+
+/**
+ *
+ * @param input - FILE_HEADER from step header
+ * @return {string[]} array of fields in FILE_NAME
+ */
+function parseFileHeader(input: string): string[] {
+  const result: string[] = []
+  let currentSegment = ''
+  let parenthesesCount = 0
+
+  for (const char of input) {
+    if (char === '(') {
+      parenthesesCount++
+    } else if (char === ')') {
+      parenthesesCount--
+    }
+
+    if (char === ',' && parenthesesCount === 0) {
+      result.push(currentSegment.trim())
+      currentSegment = ''
+    } else {
+      currentSegment += char
+    }
+  }
+
+  // Add the last segment if it's not empty
+  if (currentSegment.trim() !== '') {
+    result.push(currentSegment.trim())
+  }
+
+  return result
 }
 
 
