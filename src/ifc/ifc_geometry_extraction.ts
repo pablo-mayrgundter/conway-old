@@ -886,7 +886,6 @@ export class IfcGeometryExtraction {
       let coordIndex:number = 0
 
       if (polygonalFace instanceof IfcIndexedPolygonalFaceWithVoids) {
-
         indicesPerFace = polygonalFace.CoordIndex.length
 
         allStartIndices.push(0)
@@ -905,6 +904,10 @@ export class IfcGeometryExtraction {
       }
     })
 
+    // Add the final entry
+    polygonalFaceBufferOffsets.push(allIndices.length)
+    startIndicesBufferOffsets.push(allStartIndices.length)
+
 
     // Convert to typed arrays for transfer to WebAssembly
     const indicesArray = new Uint32Array(allIndices)
@@ -916,7 +919,6 @@ export class IfcGeometryExtraction {
     const startIndicesBufferOffsetsArray = new Uint32Array(startIndicesBufferOffsets)
     const startIndicesBufferOffsetsArrayPtr = this.arrayToWasmHeap(startIndicesBufferOffsetsArray)
 
-    // const pointsArray = new Float32Array(points)
     const pointsArrayPtr = this.arrayToWasmHeap(points)
 
     const polygonalFaceVector = this.wasmModule.buildIndexedPolygonalFaceVector(
