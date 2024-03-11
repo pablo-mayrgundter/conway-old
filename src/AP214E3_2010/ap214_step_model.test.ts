@@ -9,7 +9,6 @@ import { product_definition_formation } from './AP214E3_2010_gen'
 
 const parser = AP214StepParser.Instance
 
-// eslint-disable-next-line max-len
 const contextString = `#2 = APPLICATION_CONTEXT(
   'core data for automotive mechanical design processes');
 #6 = PRODUCT_DEFINITION_FORMATION('','',#7);

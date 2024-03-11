@@ -1657,7 +1657,7 @@ export class AP214GeometryExtraction {
     for (let i = 0; i < from.segments.length; i++) {
       const parentCurve = from.segments[i].parent_curve
 
-      let currentCurveObject
+      let currentCurveObject: CurveObject | undefined = void 0
 
       if ( parentCurve instanceof composite_curve ) {
 
@@ -1672,11 +1672,9 @@ export class AP214GeometryExtraction {
       if ( currentCurveObject !== void 0 ) {
         if (i === 0) {
           compositeCurve = currentCurveObject
-        } else if (from.segments[i].Dim === this.TWO_DIMENSIONS) {
-          for (let j = 0; j < currentCurveObject.getPointsSize(); ++j) {
-            compositeCurve!.add2d(currentCurveObject.get2d(j))
-          }
-        } else if (from.segments[i].Dim === this.THREE_DIMENSIONS) {
+        } else {
+
+          // Note, copying 3D points is fine here because 2D points are just 3D points with Z = 0
           for (let j = 0; j < currentCurveObject.getPointsSize(); ++j) {
             compositeCurve!.add3d(currentCurveObject.get3d(j))
           }
@@ -1706,24 +1704,25 @@ export class AP214GeometryExtraction {
 
     if ( from instanceof b_spline_curve ) {
 
-      /* const AP214Curve = this.extractBSplineCurve(from)
+      const bsplineCurve = this.extractBSplineCurve(from)
 
-      if (trimmingArguments !== void 0) {
-        //invert curve
-        console.log("inverting curve")
-        AP214Curve.invert()
-      }
-
-      //console.log(`Curve type: ${EntityTypesAP214[from.type]} - express ID: ${from.expressID}`)
-      for (let i = 0; i < AP214Curve.getPointsSize(); ++i) {
-        if (from.Degree === 2) {
-          const pt_ = AP214Curve.get2d(i)
-          console.log(`Point ${i}: x: ${pt_.x}, y: ${pt_.y}, z: ${pt_.z}`)
+      if (bsplineCurve !== void 0) {
+        if (!bsplineCurve.isCCW()) {
+          // console.log("inverting curve")
+          bsplineCurve.invert()
         }
       }
-      return AP214Curve*/
-      console.log('BSplineCurve not currently supported.')
-      return
+
+      // console.log(`Curve type: ${EntityTypesAP214[from.type]} - express ID: ${from.expressID}`)
+      // for (let i = 0; i < bsplineCurve.getPointsSize(); ++i) {
+
+      //   if (from.degree === 2) {
+      //     const pt_ = AP214Curve.get2d(i)
+      //     console.log(`Point ${i}: x: ${pt_.x}, y: ${pt_.y}, z: ${pt_.z}`)
+      //   }
+      // }
+
+      return bsplineCurve
     }
 
     if ( from instanceof trimmed_curve ) {
@@ -1835,8 +1834,6 @@ export class AP214GeometryExtraction {
    */
   extractBSplineCurve(from: b_spline_curve): CurveObject {
 
-    console.log(`express ID: ${from.expressID} degree === ${from.degree}`)
-
     // degree is NOT dimensions (NC)
     let dimensions: number = 3
 
@@ -1870,18 +1867,16 @@ export class AP214GeometryExtraction {
 
       const outputPoints = params.points3
 
-      console.log(`express ID: ${from.expressID} controlPointsList: ${from.control_points_list}`)
-
       for (const point of from.control_points_list) {
 
         // eslint-disable-next-line no-magic-numbers
-        if (point.Dim !== 3) {
+        if (point.coordinates.length !== 3) {
           continue
         }
 
         const coords = point.coordinates
 
-        console.log(`express ID: ${from.expressID} -  coords: ${coords}`)
+        // console.log(`express ID: ${from.expressID} -  coords: ${coords}`)
 
         outputPoints.push_back({ x: coords[0], y: coords[1], z: coords[2] })
       }
@@ -1957,10 +1952,7 @@ export class AP214GeometryExtraction {
       }
     }
 
-    const curveObject = this.conwayModel.getBSplineCurve(params)
-
-
-    return curveObject
+    return this.conwayModel.getBSplineCurve(params)
   }
 
 
@@ -2030,6 +2022,8 @@ export class AP214GeometryExtraction {
     let trim2Cartesian3D: Vector3 = { x: 0, y: 0, z: 0 }
     let trim2Double: number = 0
 
+    let dimension: number | undefined = void 0
+
     // use Cartesian if unspecified
     if (
       from.master_representation === trimming_preference.CARTESIAN ||
@@ -2041,12 +2035,14 @@ export class AP214GeometryExtraction {
 
         if ( trim1 instanceof cartesian_point ) {
 
-          if (from.Dim === this.TWO_DIMENSIONS) {
+          dimension = trim1.coordinates.length
+
+          if ( dimension === this.TWO_DIMENSIONS ) {
             trim1Cartesian2D = {
               x: trim1.coordinates[0],
               y: trim1.coordinates[1],
             }
-          } else if (from.Dim === this.THREE_DIMENSIONS) {
+          } else if ( dimension === this.THREE_DIMENSIONS ) {
             trim1Cartesian3D = {
               x: trim1.coordinates[0],
               y: trim1.coordinates[1],
@@ -2064,12 +2060,14 @@ export class AP214GeometryExtraction {
 
         if ( trim2 instanceof cartesian_point ) {
 
-          if (from.Dim === this.TWO_DIMENSIONS) {
+          dimension ??= trim2.coordinates.length
+
+          if ( dimension === this.TWO_DIMENSIONS ) {
             trim2Cartesian2D = {
               x: trim2.coordinates[0],
               y: trim2.coordinates[1],
             }
-          } else if (from.Dim === this.THREE_DIMENSIONS) {
+          } else if ( dimension === this.THREE_DIMENSIONS ) {
             trim2Cartesian3D = {
               x: trim2.coordinates[0],
               y: trim2.coordinates[1],
@@ -2102,7 +2100,7 @@ export class AP214GeometryExtraction {
 
     const paramsGetAP214TrimmedCurve: ParamsGetIfcTrimmedCurve = {
       masterRepresentation: from.master_representation.valueOf(),
-      dimensions: from.Dim,
+      dimensions: dimension ?? 0,
       senseAgreement: from.sense_agreement,
       trim1Cartesian2D: trim1Cartesian2D,
       trim1Cartesian3D: trim1Cartesian3D,
@@ -2799,7 +2797,7 @@ export class AP214GeometryExtraction {
                 const startPoint = edgeStart.vertex_geometry
 
                 // eslint-disable-next-line no-magic-numbers
-                if (startPoint instanceof cartesian_point && startPoint.Dim === 3) {
+                if (startPoint instanceof cartesian_point && startPoint.coordinates.length === 3) {
 
                   const startCoords = startPoint.coordinates
 
@@ -2823,7 +2821,7 @@ export class AP214GeometryExtraction {
                 const endPoint = edgeEnd.vertex_geometry
 
                 // eslint-disable-next-line no-magic-numbers
-                if (endPoint instanceof cartesian_point && endPoint.Dim === 3) {
+                if (endPoint instanceof cartesian_point && endPoint.coordinates.length === 3) {
 
                   const endCoords = endPoint.coordinates
 
@@ -2914,7 +2912,7 @@ export class AP214GeometryExtraction {
                 const startPoint = start.vertex_geometry
 
                 // eslint-disable-next-line no-magic-numbers
-                if (startPoint instanceof cartesian_point && startPoint.Dim === 3) {
+                if (startPoint instanceof cartesian_point && startPoint.coordinates.length === 3) {
 
                   const startCoords = startPoint.coordinates
 
