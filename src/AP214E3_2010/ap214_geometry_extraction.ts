@@ -2452,7 +2452,6 @@ export class AP214GeometryExtraction {
 
                 if ( !edge.orientation ) {
                   // reverse curve
-                  //console.log("edge orientation != true, inverting curve")
                   curveValue.invert()
                 }
 
@@ -2585,7 +2584,6 @@ export class AP214GeometryExtraction {
 
       this.conwayModel.addFaceToGeometry(parameters, geometry)
 
-     // nativeSurface.delete()
       bound3DVector.delete()
     }
   }
