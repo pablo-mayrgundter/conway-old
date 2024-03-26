@@ -1277,370 +1277,15 @@ export class AP214GeometryExtraction {
       return foundProfile
     }
 
-    let profile: CanonicalProfile | undefined
-
-    // if (from instanceof arbitrary_) {
-    //   const outerCurve = from.OuterCurve
-    //   if (outerCurve instanceof AP214CompositeCurve) {
-    //     const compositeCurve = this.extractCompositeCurve(outerCurve)
-    //     const holesArray: NativeVectorCurve = this.nativeVectorCurve()
-    //     if (compositeCurve !== void 0) {
-    //       for (let holeIndex = 0; holeIndex < from.InnerCurves.length; ++holeIndex) {
-    //         const holeCurve = from.InnerCurves[holeIndex]
-
-    //         if (holeCurve instanceof AP214CompositeCurve) {
-    //           const compositeCurve_ = this.extractCompositeCurve(holeCurve)
-
-    //           if (compositeCurve_ !== void 0) {
-    //             holesArray.push_back(compositeCurve_)
-    //           }
-    //         } else {
-
-    //           const curveObject = this.extractCurve(holeCurve)
-
-    //           if (curveObject !== void 0) {
-    //             holesArray.push_back(curveObject)
-    //           }
-    //         }
-    //       }
-    //       profile = {
-    //         localID: from.localID,
-    //         curve: compositeCurve,
-    //         holes: holesArray,
-    //         profiles: (void 0),
-    //         nativeProfile: (void 0),
-    //       }
-    //     }
-    //   } else {
-
-    //     const curveObject = this.extractCurve(outerCurve)
-
-    //     if (curveObject !== void 0) {
-    //       const holesArray: NativeVectorCurve = this.nativeVectorCurve()
-    //       for (let holeIndex = 0; holeIndex < from.InnerCurves.length; ++holeIndex) {
-    //         const holeCurve = from.InnerCurves[holeIndex]
-
-    //         if (holeCurve instanceof AP214CompositeCurve) {
-    //           const compositeCurve = this.extractCompositeCurve(holeCurve)
-
-    //           if (compositeCurve !== void 0) {
-    //             holesArray.push_back(compositeCurve)
-    //           }
-    //         } else {
-
-    //           const curveObject_ = this.extractCurve(holeCurve)
-    //           if (curveObject_ !== void 0) {
-    //             holesArray.push_back(curveObject_)
-    //           }
-    //         }
-    //       }
-
-    //       profile = {
-    //         localID: from.localID,
-    //         curve: curveObject,
-    //         holes: holesArray,
-    //         profiles: (void 0),
-    //         nativeProfile: (void 0),
-    //       }
-    //     }
-    //   }
-    // } else if (
-    //   from instanceof AP214ArbitraryClosedProfileDef ||
-    //   from instanceof AP214ArbitraryOpenProfileDef) {
-
-    //   const profileCurve =
-    //     from instanceof AP214ArbitraryClosedProfileDef ? from.OuterCurve : from.Curve
-
-    //   if (profileCurve instanceof AP214CompositeCurve) {
-    //     const compositeCurve = this.extractCompositeCurve(profileCurve)
-    //     const holesArray: NativeVectorCurve = this.nativeVectorCurve()
-
-    //     if (compositeCurve !== void 0) {
-    //       profile = {
-    //         localID: from.localID,
-    //         curve: compositeCurve,
-    //         holes: holesArray,
-    //       }
-    //     }
-    //   } else {
-
-    //     const curveObject = this.extractCurve(profileCurve)
-
-    //     if (curveObject !== void 0) {
-    //       const holesArray: NativeVectorCurve = this.nativeVectorCurve()
-    //       profile = {
-    //         localID: from.localID,
-    //         curve: curveObject,
-    //         holes: holesArray,
-    //       }
-    //     }
-    //   }
-    // } else if (from instanceof AP214EllipseProfileDef) {
-    //   const curveObject = this.extractEllipseProfileCurve(from)
-
-    //   if (curveObject !== void 0) {
-    //     if (!curveObject.isCCW()) {
-    //       // console.log("inverting curve")
-    //       curveObject.invert()
-    //     }
-    //     const holesArray: NativeVectorCurve = this.nativeVectorCurve()
-    //     profile = {
-    //       localID: from.localID,
-    //       curve: curveObject,
-    //       holes: holesArray,
-    //     }
-    //   }
-    // } else if (from instanceof AP214CircleProfileDef) {
-
-    //   const curveObject = this.extractCircleCurve(from)
-
-    //   if (curveObject !== void 0) {
-    //     if (!curveObject.isCCW()) {
-    //       // console.log("inverting curve")
-    //       curveObject.invert()
-    //     }
-    //     const holesArray: NativeVectorCurve = this.nativeVectorCurve()
-
-    //     if (from instanceof AP214CircleHollowProfileDef) {
-    //       const holeCurve = this.extractCircleHollowHoleCurve(from)
-
-    //       if (holeCurve !== void 0) {
-    //         holesArray.push_back(holeCurve)
-    //       }
-    //     }
-    //     profile = {
-    //       localID: from.localID,
-    //       curve: curveObject,
-    //       holes: holesArray,
-    //     }
-    //   }
-    // } else if (from instanceof AP214CompositeProfileDef) {
-    //   const holesArray: NativeVectorCurve = this.nativeVectorCurve()
-    //   profile = {
-    //     localID: from.localID,
-    //     curve: (void 0),
-    //     holes: holesArray,
-    //   }
-
-    //   const profiles: CanonicalProfile[] = []
-
-    //   for (let profileIndex = 0; profileIndex < from.Profiles.length; ++profileIndex) {
-    //     const profile_ = this.extractProfile(from.Profiles[profileIndex])
-
-    //     if (profile_ !== void 0) {
-    //       profiles.push(profile_)
-    //     }
-    //   }
-
-    //   profile.profiles = profiles
-    // } else if (from instanceof AP214RectangleProfileDef) {
-    //   const curveObject = this.extractRectangleCurve(from)
-
-    //   if (curveObject !== void 0) {
-    //     const holesArray: NativeVectorCurve = this.nativeVectorCurve()
-
-    //     if (from instanceof AP214RectangleHollowProfileDef) {
-    //       const holeCurve = this.extractRectangleHollowHoleCurve(from)
-
-    //       if (holeCurve !== void 0) {
-    //         holesArray.push_back(holeCurve)
-    //       }
-    //     }
-    //     profile = {
-    //       localID: from.localID,
-    //       curve: curveObject,
-    //       holes: holesArray,
-    //     }
-    //   }
-
-    // } else if (from instanceof AP214CShapeProfileDef) {
-    //   const curveObject = this.extractCShapeCurve(from)
-
-    //   if (curveObject !== void 0) {
-    //     const holesArray: NativeVectorCurve = this.nativeVectorCurve()
-
-    //     profile = {
-    //       localID: from.localID,
-    //       curve: curveObject,
-    //       holes: holesArray,
-    //     }
-    //   }
-    // } else if (from instanceof AP214IShapeProfileDef) {
-
-    //   const curveObject = this.extractIShapeCurve(from)
-
-    //   if (curveObject !== void 0) {
-    //     const holesArray: NativeVectorCurve = this.nativeVectorCurve()
-
-    //     profile = {
-    //       localID: from.localID,
-    //       curve: curveObject,
-    //       holes: holesArray,
-    //     }
-    //   }
-
-    // } else if (from instanceof AP214LShapeProfileDef) {
-    //   const curveObject = this.extractLShapeCurve(from)
-
-    //   if (curveObject !== void 0) {
-    //     const holesArray: NativeVectorCurve = this.nativeVectorCurve()
-
-    //     profile = {
-    //       localID: from.localID,
-    //       curve: curveObject,
-    //       holes: holesArray,
-    //     }
-    //   }
-
-    // } else if (from instanceof AP214TShapeProfileDef) {
-    //   const curveObject = this.extractTShapeCurve(from)
-
-    //   if (curveObject !== void 0) {
-    //     const holesArray: NativeVectorCurve = this.nativeVectorCurve()
-
-    //     profile = {
-    //       localID: from.localID,
-    //       curve: curveObject,
-    //       holes: holesArray,
-    //     }
-    //   }
-
-    // } else if (from instanceof AP214UShapeProfileDef) {
-    //   const curveObject = this.extractUShapeCurve(from)
-
-    //   if (curveObject !== void 0) {
-    //     const holesArray: NativeVectorCurve = this.nativeVectorCurve()
-
-    //     profile = {
-    //       localID: from.localID,
-    //       curve: curveObject,
-    //       holes: holesArray,
-    //     }
-    //   }
-
-    // } else if (from instanceof AP214ZShapeProfileDef) {
-    //   const curveObject = this.extractZShapeCurve(from)
-
-    //   if (curveObject !== void 0) {
-    //     const holesArray: NativeVectorCurve = this.nativeVectorCurve()
-
-    //     profile = {
-    //       localID: from.localID,
-    //       curve: curveObject,
-    //       holes: holesArray,
-    //     }
-    //   }
-
-    // } else if (from instanceof AP214DerivedProfileDef) {
-    //   const canonicalProfileParent = this.extractProfile(from.ParentProfile)
-
-    //   if (canonicalProfileParent?.nativeProfile !== void 0) {
-    //     const transformation = this.extractCartesianTransformOperator2D(from.Operator)
-    // glm::dmat3
-
-    //     const paramsTransformProfile = this.paramsTransformProfilePool!.acquire()
-    //     paramsTransformProfile.transformation = transformation
-    //     paramsTransformProfile.profile = canonicalProfileParent.nativeProfile
-
-    //     const newNativeProfile = this.conwayModel.transformProfile(paramsTransformProfile)
-
-    //     profile = {
-    //       localID: from.localID,
-    //       curve: newNativeProfile.getCurve(),
-    //       holes: newNativeProfile.getHoles(),
-    //       nativeProfile: newNativeProfile,
-    //       profiles: canonicalProfileParent.profiles,
-    //     }
-
-    //     // Check if profile is already in the model's profiles
-    //     const existingProfile = this.model.profiles.getByLocalID(profile.localID)
-
-    //     if (!existingProfile) {
-    //       // If profile is not already in the model's profiles, add it
-    //       this.model.profiles.add(profile)
-    //     }
-
-    //     this.paramsTransformProfilePool!.release(paramsTransformProfile)
-
-    //     return profile
-
-    //   } else {
-    //     console.log(`AP214DerivedProfileDef not parsed properly, express ID: ${from.expressID}`)
-    //   }
-
-    // } else {
-    //   console.log(`Unsupported Profile! Type:
-    //   ${EntityTypesAP214[from.type]} expressID: ${from.expressID}`)
-    // }
-
-    // // add profile to the list of profile objects
-    // let isComposite: boolean = false
-    // if (profile !== void 0) {
-
-    //   if (profile.profiles !== void 0 && profile.profiles.length > 0) {
-    //     isComposite = true
-
-    //     const profilesArray: NativeVectorProfile =
-    //       this.nativeVectorProfile(profile.profiles.length)
-
-    //     if (!profile.curve) {
-    //       // create a blank curve for a composite profile
-    //       profile.curve = new (this.wasmModule.AP214Curve as any)
-    //     }
-
-    //     // we must create a native profile for each profile
-    //     for (let profileIndex = 0; profileIndex < profile.profiles.length; ++profileIndex) {
-    //       const profilesArrayCurrent: NativeVectorProfile = this.nativeVectorProfile()
-    //       const parameters: ParamsCreateNativeAP214Profile = {
-    //         curve: profile.profiles[profileIndex].curve,
-    //         // TODO(nickcastel50): support profiles with holes (out of scope at the moment)
-    //         holes: profile.profiles[profileIndex].holes,
-    //         isConvex: false,
-    //         isComposite: false,
-    //         profiles: profilesArrayCurrent,
-    //       }
-
-    //       profile.profiles[profileIndex].nativeProfile =
-    //         this.conwayModel.createNativeAP214Profile(parameters)
-
-    //       profilesArray.set(profileIndex, profile.profiles[profileIndex].nativeProfile)
-    //     }
-
-
-    //     // create native AP214Profile vector
-    //     const parameters: ParamsCreateNativeAP214Profile = {
-    //       curve: profile.curve,
-    //       // TODO(nickcastel50): support profiles with holes (out of scope at the moment)
-    //       holes: profile.holes,
-    //       isConvex: false,
-    //       isComposite: isComposite,
-    //       profiles: profilesArray,
-    //     }
-
-    //     profile.nativeProfile = this.conwayModel.createNativeAP214Profile(parameters)
-    //   } else {
-
-    //     const profilesArray: NativeVectorProfile = this.nativeVectorProfile()
-    //     const parameters: ParamsCreateNativeAP214Profile = {
-    //       curve: profile.curve,
-    //       // TODO(nickcastel50): support profiles with holes (out of scope at the moment)
-    //       holes: profile.holes,
-    //       isConvex: false,
-    //       isComposite: isComposite,
-    //       profiles: profilesArray,
-    //     }
-
-    //     profile.nativeProfile = this.conwayModel.createNativeAP214Profile(parameters)
-    //   }
-
-    //   // Check if profile is already in the model's profiles
-    //   const existingProfile = this.model.profiles.getByLocalID(profile.localID)
-
-    //   if (!existingProfile) {
-    //     // If profile is not already in the model's profiles, add it
-    //     this.model.profiles.add(profile)
-    //   }
-    // }
+    const profile: CanonicalProfile = {
+      localID: from.localID,
+      curve: this.extractCurve( from ),
+      holes: (void 0),
+      profiles: (void 0),
+      nativeProfile: (void 0),
+    }
+
+    this.model.profiles.add( profile )
 
     return profile
   }
@@ -1690,14 +1335,16 @@ export class AP214GeometryExtraction {
    * @param from
    * @return {CurveObject | undefined}
    */
-  extractCurve(from: curve |
-    trimmed_curve |
-    polyline |
-    circle |
-    b_spline_curve |
-    b_spline_curve_with_knots |
-    rational_b_spline_curve,
-  trimmingArguments: TrimmingArguments | undefined = void 0): CurveObject | undefined {
+  extractCurve(
+      from: curve |
+      trimmed_curve |
+      polyline |
+      circle |
+      b_spline_curve |
+      b_spline_curve_with_knots |
+      rational_b_spline_curve,
+      trimmingArguments: TrimmingArguments | undefined = void 0) :
+    CurveObject | undefined {
 
     // console.log("[extractCurve]: curve express ID: "
     // + from.expressID + " type: " + EntityTypesAP214[from.type])
@@ -1706,22 +1353,6 @@ export class AP214GeometryExtraction {
 
       const bsplineCurve = this.extractBSplineCurve(from)
 
-      if (bsplineCurve !== void 0) {
-        if (!bsplineCurve.isCCW()) {
-          // console.log("inverting curve")
-          bsplineCurve.invert()
-        }
-      }
-
-      // console.log(`Curve type: ${EntityTypesAP214[from.type]} - express ID: ${from.expressID}`)
-      // for (let i = 0; i < bsplineCurve.getPointsSize(); ++i) {
-
-      //   if (from.degree === 2) {
-      //     const pt_ = AP214Curve.get2d(i)
-      //     console.log(`Point ${i}: x: ${pt_.x}, y: ${pt_.y}, z: ${pt_.z}`)
-      //   }
-      // }
-
       return bsplineCurve
     }
 
@@ -1729,12 +1360,6 @@ export class AP214GeometryExtraction {
 
       const trimmedCurve = this.extractAP214TrimmedCurve(from)
 
-      if (trimmedCurve !== void 0) {
-        if (!trimmedCurve.isCCW()) {
-          // console.log("inverting curve")
-          trimmedCurve.invert()
-        }
-      }
       return trimmedCurve
     }
 
@@ -1742,30 +1367,12 @@ export class AP214GeometryExtraction {
 
       const polyCurve = this.extractPolyline(from)
 
-      if (polyCurve !== void 0) {
-
-        if (trimmingArguments?.exist) {
-          // console.log("edge curve, inverting...")
-          polyCurve.invert()
-        } else if (!polyCurve.isCCW()) {
-          // console.log("inverting curve")
-          polyCurve.invert()
-        }
-      }
-
       return polyCurve
     }
 
     if ( from instanceof circle ) {
 
       const circleCurve = this.extractAP214Circle(from)
-
-      if (circleCurve !== void 0) {
-        if (!circleCurve.isCCW()) {
-          // console.log("inverting curve")
-          circleCurve.invert()
-        }
-      }
 
       return circleCurve
     }
@@ -1778,13 +1385,6 @@ export class AP214GeometryExtraction {
     if ( from instanceof line ) {
 
       const lineCurve = this.extractLine( from )
-
-      if (lineCurve !== void 0) {
-        if (!lineCurve.isCCW()) {
-          // console.log("inverting curve")
-          lineCurve.invert()
-        }
-      }
 
       return lineCurve
     }
@@ -2850,53 +2450,12 @@ export class AP214GeometryExtraction {
 
               if (curveValue !== void 0) {
 
-                if ( edge.orientation ) {
+                if ( !edge.orientation ) {
                   // reverse curve
-                  // console.log("edge orientation == true, inverting curve")
                   curveValue.invert()
                 }
 
-                // console.log("curve points size: " + curve.getPointsSize())
-                /* for (let i = 0; i < curve.getPointsSize(); ++i) {
-                  if (edgeCurve.Dim === this.TWO_DIMENSIONS) {
-                    const pt__ = curve.get2d(i)
-
-                    //    console.log(`[${EntityTypesAP214[edge.type]}]:
-                     Point ${i}: x: ${pt__.x}, y: ${pt__.y}`)
-                  } else if (edgeCurve.Dim === this.TWO_DIMENSIONS) {
-                    const pt__ = curve.get3d(i)
-
-                    //    console.log(`[${EntityTypesAP214[edge.type]}]:
-                     Point ${i}: x: ${pt__.x}, y: ${pt__.y}, z: ${pt__.z}`)
-                  }
-                }*/
-
                 nativeEdgeCurves.push_back(curveValue)
-                // console.log("nativeEdgeCurves size: " + nativeEdgeCurves.size())
-
-                // Important not to repeat the last point otherwise triangulation fails
-                // if the list has zero points this is initial, no repetition is possible,
-                // otherwise we must check
-                /* if (vec3Array.size() === 0) {
-                   for (
-                     let where = 0, pointCount = curve.getPointsSize();
-                     where < pointCount;
-                     ++where) {
-
-                     vec3Array.push_back(curve.get3d(where))
-                   }
-                 } else {
-                   for (
-                     let where = 0, pointCount = curve.getPointsSize();
-                     where < pointCount;
-                     ++where) {
-
-                     const pt3d = curve.get3d(where)
-                     if (this.notPresent(pt3d, vec3Array)) {
-                       vec3Array.push_back(pt3d)
-                     }
-                   }
-                 }*/
 
               } else {
                 console.log(`curve === undefined, type: ${EntityTypesAP214[edgeCurve.type]}`)

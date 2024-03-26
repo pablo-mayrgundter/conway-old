@@ -3763,52 +3763,52 @@ export class IfcGeometryExtraction {
 
       } else if (surface instanceof IfcRationalBSplineSurfaceWithKnots) {
 
-        /* nativeSurface.bspline = this.extractRationalBSplineSurfaceWithKnots(surface)
+        nativeSurface.bspline = this.extractRationalBSplineSurfaceWithKnots(surface)
 
         if (!nativeSurface.bspline.active) {
           return
-        }*/
+        }
 
       } else if (surface instanceof IfcBSplineSurfaceWithKnots) {
 
-        /* nativeSurface.bspline = this.extractBSplineSurfaceWithKnots(surface)
+        nativeSurface.bspline = this.extractBSplineSurfaceWithKnots(surface)
 
         if (!nativeSurface.bspline.active) {
-          Logger.warning("bspline surface not active, returning")
+          Logger.warning('bspline surface not active, returning')
           return
-        }*/
+        }
 
       } else if (surface instanceof IfcBSplineSurface) {
 
-        /* nativeSurface.bspline = this.extractBSplineSurface(surface)
+        nativeSurface.bspline = this.extractBSplineSurface(surface)
 
         if (!nativeSurface.bspline.active) {
           return
-        }*/
+        }
 
       } else if (surface instanceof IfcCylindricalSurface) {
 
-        /* this.extractCylindricalSurface(surface, nativeSurface)
+        this.extractCylindricalSurface(surface, nativeSurface)
 
         if (!nativeSurface.cylinder.active) {
           return
-        }*/
+        }
 
       } else if (surface instanceof IfcSurfaceOfRevolution) {
 
-        /* this.extractSurfaceOfRevolution(surface, nativeSurface)
+        this.extractSurfaceOfRevolution(surface, nativeSurface)
 
         if (!nativeSurface.revolution.active) {
           return
-        }*/
+        }
 
       } else if (surface instanceof IfcSurfaceOfLinearExtrusion) {
 
-        /* this.extractSurfaceOfLinearExtrusion(surface, nativeSurface)
+        this.extractSurfaceOfLinearExtrusion(surface, nativeSurface)
 
         if (!nativeSurface.extrusion.active) {
           return
-        }*/
+        }
 
       } else {
 
