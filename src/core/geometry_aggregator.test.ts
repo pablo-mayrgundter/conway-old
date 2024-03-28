@@ -18,7 +18,7 @@ const conwayGeometry: ConwayGeometry = new ConwayGeometry()
  */
 async function initializeGeometryExtractor() {
   const parser = IfcStepParser.Instance
-  const indexIfcBuffer: Buffer = fs.readFileSync('index.ifc')
+  const indexIfcBuffer: Buffer = fs.readFileSync('data/index.ifc')
   const bufferInput = new ParsingBuffer(indexIfcBuffer)
   const result0 = parser.parseHeader(bufferInput)[1]
 

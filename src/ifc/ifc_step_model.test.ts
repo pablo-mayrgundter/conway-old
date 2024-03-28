@@ -22,7 +22,7 @@ import {
 
 
 const parser = IfcStepParser.Instance
-const indexIfcBuffer = fs.readFileSync( 'index.ifc' )
+const indexIfcBuffer = fs.readFileSync( 'data/index.ifc' )
 
 const EXPECTED_ENTITY_COUNT = 287
 

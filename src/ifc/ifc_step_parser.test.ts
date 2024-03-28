@@ -7,7 +7,7 @@ import IfcStepParser from './ifc_step_parser'
 
 
 const parser = IfcStepParser.Instance
-const indexIfcBuffer = fs.readFileSync( 'index.ifc' )
+const indexIfcBuffer = fs.readFileSync( 'data/index.ifc' )
 
 /**
  * Test parsing an index header.
