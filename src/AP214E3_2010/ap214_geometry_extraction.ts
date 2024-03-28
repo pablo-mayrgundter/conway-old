@@ -1400,21 +1400,27 @@ export class AP214GeometryExtraction {
    */
   extractLine( from: line ): CurveObject | undefined {
 
-    const point = from.pnt
-    const dim = point.coordinates.length
-    // eslint-disable-next-line no-magic-numbers
-    const pointsFlattened = new Float32Array( dim * 2 )
+    const point = from.pnt.coordinates
 
-    pointsFlattened[ 0 ] = point.coordinates[ 0 ]
-    pointsFlattened[ 1 ] = point.coordinates[ 1 ]
-    pointsFlattened[ 2 ] = point.coordinates[ 2 ]
+    const dim   = point.length
+    // eslint-disable-next-line no-magic-numbers
+    const pointsFlattened = new Float32Array( dim )
+
+    pointsFlattened[ 0 ] = point[ 0 ]
+    pointsFlattened[ 1 ] = point[ 1 ]
+
+    // eslint-disable-next-line no-magic-numbers
+    if ( dim > 2 ) {
+
+      pointsFlattened[ 2 ] = point[ 2 ]
+    }
 
     const pointsPtr = this.arrayToWasmHeap(pointsFlattened)
 
     const parameters = this.paramsGetPolyCurvePool!.acquire()
 
     parameters.points = pointsPtr
-    parameters.pointsLength = 2
+    parameters.pointsLength = 1
     parameters.dimensions = dim
 
     const curve_ = this.conwayModel.getPolyCurve(parameters)
@@ -2383,8 +2389,8 @@ export class AP214GeometryExtraction {
 
               const edgeCurve = edge.edge_element.edge_geometry
 
-              //  console.log("curve type: " +
-              // EntityTypesAP214[edgeCurve.type] + " express ID: " + edgeCurve.expressID)
+              // console.log("curve type: " +
+              //   EntityTypesAP214[edgeCurve.type] + " express ID: " + edgeCurve.expressID)
 
               const edgeStart = edge.edge_element.edge_start
               const edgeEnd = edge.edge_element.edge_end
@@ -2801,7 +2807,6 @@ export class AP214GeometryExtraction {
       scale1 = from.scale
       scale2 = scale1
     }
-
 
     const position: Vector2 = {
       x: from.local_origin.coordinates[0],
