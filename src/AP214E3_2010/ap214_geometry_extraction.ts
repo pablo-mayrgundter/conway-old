@@ -1403,7 +1403,7 @@ export class AP214GeometryExtraction {
     const point = from.pnt.coordinates
 
     const dim   = point.length
-    // eslint-disable-next-line no-magic-numbers
+
     const pointsFlattened = new Float32Array( dim )
 
     pointsFlattened[ 0 ] = point[ 0 ]
