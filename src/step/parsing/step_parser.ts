@@ -98,19 +98,26 @@ export type HeaderParseResult = [StepHeader, ParseResult]
 const textDecoder = new TextDecoder()
 
 /**
- * Parses out STEP files to allow indexing and deserialization.
+ * Parser base for header parsing.
  */
-export default class StepParser<TypeIDType> {
+export class StepHeaderParser {
 
-  /* eslint-disable no-useless-constructor, no-empty-function */
+  private static instance_?: StepHeaderParser
+
   /**
-   * Construct this with the type-index that will be used to map element types
-   * to tokens.
+   * Get the singleton static instance of this.
    *
-   * @param index_ The index.
+   * @return {StepHeaderParser} The singleton instance of this.
    */
-  constructor(private readonly index_: Readonly<TypeIndex<TypeIDType>>) { }
-  /* eslint-enable no-useless-constructor, no-empty-function */
+  public static get instance(): StepHeaderParser {
+
+    if ( this.instance_ === void 0 ) {
+
+      this.instance_ = new StepHeaderParser()
+    }
+
+    return this.instance_
+  }
 
   /**
    * Will parse the input up to data block (including the DATA token).
@@ -303,6 +310,23 @@ export default class StepParser<TypeIDType> {
 
     return parseResult(ParseResult.COMPLETE)
   }
+
+}
+/**
+ * Parses out STEP files to allow indexing and deserialization.
+ */
+export default class StepParser<TypeIDType> extends StepHeaderParser {
+
+  /**
+   * Construct this with the type-index that will be used to map element types
+   * to tokens.
+   *
+   * @param index_ The index.
+   */
+  constructor(private readonly index_: Readonly<TypeIndex<TypeIDType>>) {
+    super()
+  }
+
 
   /**
    * This uses a much lighter non correctness verifying parse to extract the locations of
