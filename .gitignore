@@ -21,3 +21,5 @@ index*.bin
 index*.gltf
 index*.glb
 *.bin
+scripts/test_runs/
+*.tgz

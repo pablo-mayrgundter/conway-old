@@ -873,7 +873,6 @@ export class IfcGeometryExtraction {
       let coordIndex:number = 0
 
       if (polygonalFace instanceof IfcIndexedPolygonalFaceWithVoids) {
-
         indicesPerFace = polygonalFace.CoordIndex.length
 
         allStartIndices.push(0)
@@ -892,6 +891,10 @@ export class IfcGeometryExtraction {
       }
     })
 
+    // Add the final entry
+    polygonalFaceBufferOffsets.push(allIndices.length)
+    startIndicesBufferOffsets.push(allStartIndices.length)
+
 
     // Convert to typed arrays for transfer to WebAssembly
     const indicesArray = new Uint32Array(allIndices)
@@ -903,7 +906,6 @@ export class IfcGeometryExtraction {
     const startIndicesBufferOffsetsArray = new Uint32Array(startIndicesBufferOffsets)
     const startIndicesBufferOffsetsArrayPtr = this.arrayToWasmHeap(startIndicesBufferOffsetsArray)
 
-    // const pointsArray = new Float32Array(points)
     const pointsArrayPtr = this.arrayToWasmHeap(points)
 
     const polygonalFaceVector = this.wasmModule.buildIndexedPolygonalFaceVector(
@@ -2096,7 +2098,8 @@ export class IfcGeometryExtraction {
       const paramsGetCShapeCurve: ParamsGetCShapeCurve = {
         hasPlacement: false,
         placement: this.identity2DNativeMatrix,
-        hasFillet: (from.InternalFilletRadius !== null),
+        hasFillet: false, // TODO(nickcastel50): Add fillet support to C curves
+        // hasFillet: (from.InternalFilletRadius !== null),
         depth: from.Depth,
         width: from.Width,
         thickness: from.WallThickness,
