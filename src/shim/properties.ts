@@ -5,6 +5,7 @@ import {
   IFCRELCONTAINEDINSPATIALSTRUCTURE,
   IFCRELDEFINESBYPROPERTIES, IFCRELDEFINESBYTYPE,
 } from './ifc_api'
+import { IfcApiProxyIfc } from './ifc_api_proxy_ifc';
 
 import { IfcElements, IfcTypesMap } from './types-map'
 
@@ -59,43 +60,43 @@ export class Properties {
 
   private types: any
 
-  constructor(private api: IfcAPI) {
+  constructor(private api: IfcApiProxyIfc) {
   }
 
   getIfcType(type: number) {
     return IfcTypesMap[type]
   }
 
-  async getItemProperties(modelID: number, id: number, recursive = false) {
-    return this.api.GetLine(modelID, id, recursive)
+  async getItemProperties(id: number, recursive = false) {
+    return this.api.getLine(id, recursive)
   }
 
-  async getPropertySets(modelID: number, elementID: number, recursive = false) {
-    return await this.getProperty(modelID, elementID, recursive, PropsNames.psets)
+  async getPropertySets(elementID: number, recursive = false) {
+    return await this.getProperty(elementID, recursive, PropsNames.psets)
   }
 
-  async getTypeProperties(modelID: number, elementID: number, recursive = false) {
-    return await this.getProperty(modelID, elementID, recursive, PropsNames.type)
+  async getTypeProperties(elementID: number, recursive = false) {
+    return await this.getProperty(elementID, recursive, PropsNames.type)
   }
 
-  async getMaterialsProperties(modelID: number, elementID: number, recursive = false) {
-    return await this.getProperty(modelID, elementID, recursive, PropsNames.materials)
+  async getMaterialsProperties(elementID: number, recursive = false) {
+    return await this.getProperty(elementID, recursive, PropsNames.materials)
   }
 
-  async getSpatialStructure(modelID: number, includeProperties?: boolean) {
-    await this.getAllTypesOfModel(modelID)
-    const chunks = await this.getSpatialTreeChunks(modelID)
-    const allLines = await this.api.GetLineIDsWithType(modelID, IFCPROJECT)
+  async getSpatialStructure(includeProperties?: boolean) {
+    await this.getAllTypesOfModel()
+    const chunks = await this.getSpatialTreeChunks()
+    const allLines = await this.api.getLineIDsWithType(IFCPROJECT)
     const projectID = allLines.get(0)
     const project = Properties.newIfcProject(projectID)
-    await this.getSpatialNode(modelID, project, chunks, includeProperties)
+    await this.getSpatialNode(project, chunks, includeProperties)
     this.cleanupTypes()
     return project
   }
 
-  async getAllItemsOfType(modelID: number, type: number, verbose: boolean) {
+  async getAllItemsOfType(type: number, verbose: boolean) {
     const items: number[] = []
-    const lines = await this.api.GetLineIDsWithType(modelID, type)
+    const lines = await this.api.getLineIDsWithType(type)
     for (let i = 0; i < lines.size(); i++) {
       items.push(lines.get(i))
     }
@@ -104,24 +105,24 @@ export class Properties {
     }
     const result: any[] = []
     for (let i = 0; i < items.length; i++) {
-      result.push(await this.api.GetLine(modelID, items[i]))
+      result.push(await this.api.getLine(items[i]))
     }
     return result
   }
 
-  private async getProperty(modelID: number, elementID: number, recursive = false, propName: pName) {
-    const propSetIds = await this.getAllRelatedItemsOfType(modelID, elementID, propName)
+  private async getProperty(elementID: number, recursive = false, propName: pName) {
+    const propSetIds = await this.getAllRelatedItemsOfType(elementID, propName)
     const result: any[] = []
     for (let i = 0; i < propSetIds.length; i++) {
-      result.push(await this.api.GetLine(modelID, propSetIds[i], recursive))
+      result.push(await this.api.getLine(propSetIds[i], recursive))
     }
     return result
   }
 
-  private async getChunks(modelID: number, chunks: any, propNames: pName) {
-    const relation = await this.api.GetLineIDsWithType(modelID, propNames.name)
+  private async getChunks(chunks: any, propNames: pName) {
+    const relation = await this.api.getLineIDsWithType(propNames.name)
     for (let i = 0; i < relation.size(); i++) {
-      const rel = await this.api.GetLine(modelID, relation.get(i), false)
+      const rel = await this.api.getLine(relation.get(i), false)
       this.saveChunk(chunks, propNames, rel)
     }
   }
@@ -143,12 +144,12 @@ export class Properties {
     }
   }
 
-  private async getSpatialNode(modelID: number, node: Node, treeChunks: any, includeProperties?: boolean) {
-    await this.getChildren(modelID, node, treeChunks, PropsNames.aggregates, includeProperties)
-    await this.getChildren(modelID, node, treeChunks, PropsNames.spatial, includeProperties)
+  private async getSpatialNode(node: Node, treeChunks: any, includeProperties?: boolean) {
+    await this.getChildren(node, treeChunks, PropsNames.aggregates, includeProperties)
+    await this.getChildren(node, treeChunks, PropsNames.spatial, includeProperties)
   }
 
-  private async getChildren(modelID: number, node: Node, treeChunks: any, propNames: pName, includeProperties?: boolean) {
+  private async getChildren(node: Node, treeChunks: any, propNames: pName, includeProperties?: boolean) {
     const children = treeChunks[node.expressID]
     if (children == undefined) {
       return
@@ -159,10 +160,10 @@ export class Properties {
       const child = children[i]
       let node = this.newNode(child)
       if (includeProperties) {
-        const properties = await this.getItemProperties(modelID, node.expressID) as any
+        const properties = await this.getItemProperties(node.expressID) as any
         node = {...properties, ...node}
       }
-      await this.getSpatialNode(modelID, node, treeChunks, includeProperties)
+      await this.getSpatialNode(node, treeChunks, includeProperties)
       nodes.push(node)
     }
     (node[prop] as Node[]) = nodes
@@ -182,10 +183,10 @@ export class Properties {
     return IfcElements[typeID]
   }
 
-  private async getSpatialTreeChunks(modelID: number) {
+  private async getSpatialTreeChunks() {
     const treeChunks: any = {}
-    await this.getChunks(modelID, treeChunks, PropsNames.aggregates)
-    await this.getChunks(modelID, treeChunks, PropsNames.spatial)
+    await this.getChunks(treeChunks, PropsNames.aggregates)
+    await this.getChunks(treeChunks, PropsNames.spatial)
     return treeChunks
   }
 
@@ -208,11 +209,11 @@ export class Properties {
     }
   }
 
-  private async getAllRelatedItemsOfType(modelID: number, id: number, propNames: pName) {
-    const lines = await this.api.GetLineIDsWithType(modelID, propNames.name)
+  private async getAllRelatedItemsOfType(id: number, propNames: pName) {
+    const lines = await this.api.getLineIDsWithType(propNames.name)
     const IDs: number[] = []
     for (let i = 0; i < lines.size(); i++) {
-      const rel = await this.api.GetLine(modelID, lines.get(i))
+      const rel = await this.api.getLine(lines.get(i))
       const isRelated = Properties.isRelated(id, rel, propNames)
       if (isRelated) {
         this.getRelated(rel, propNames, IDs)
@@ -225,12 +226,12 @@ export class Properties {
     this.types = {}
   }
 
-  private async getAllTypesOfModel(modelID: number) {
+  private async getAllTypesOfModel() {
     const result: { [key: number]: number } = {}
     const elements = Object.keys(IfcElements).map((e) => parseInt(e))
     for (let i = 0; i < elements.length; i++) {
       const element = elements[i]
-      const lines = await this.api.GetLineIDsWithType(modelID, element)
+      const lines = await this.api.getLineIDsWithType(element)
       const size = lines.size()
       // @ts-ignore
       for (let i = 0; i < size; i++) {
