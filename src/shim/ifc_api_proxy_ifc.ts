@@ -17,7 +17,7 @@ import {
 } from './ifc_api'
 import { IfcApiModelPassthrough } from './ifc_api_model_passthrough'
 import * as glmatrix from 'gl-matrix'
-import { Properties } from './properties'
+import { IfcProperties } from './ifc_properties'
 import Logger from '../logging/logger'
 import IfcStepParser from '../ifc/ifc_step_parser'
 import ParsingBuffer from '../parsing/parsing_buffer'
@@ -60,7 +60,7 @@ export class IfcApiProxyIfc implements IfcApiModelPassthrough {
   /**
    * Contains all the logic and methods regarding properties, psets, qsets, etc.
    */
-  properties = new Properties(this)
+  properties = new IfcProperties(this)
 
   /**
    * Construct wwih a wasm module.
@@ -342,8 +342,7 @@ export class IfcApiProxyIfc implements IfcApiModelPassthrough {
     const result = this.model
 
     if (result !== void 0) {
-      // eslint-disable-next-line no-unused-vars
-      const [model, scene, placedGeometryVec, geometryMap] = result
+      const geometryMap = result[3]
 
       const mapResult = geometryMap.get(geometryExpressID)
 

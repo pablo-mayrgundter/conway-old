@@ -6,6 +6,7 @@ import Logger from '../logging/logger'
 import Environment from '../utilities/environment'
 import { IfcApiModelPassthrough } from './ifc_api_model_passthrough'
 import { IfcApiModelPassthroughFactory } from './ifc_api_model_passthrough_factory'
+import { Properties } from './properties'
 
 
 export * from './ifc2x4'
@@ -107,6 +108,18 @@ export class IfcAPI {
       0, 1, 0, 0,  // Third column
       0, 0, 0, 1,   // Fourth column
   )
+
+  properties = new Properties(this)
+
+  /**
+   * Get the passthrough for a particular model id.
+   *
+   * @param modelID
+   * @return {IfcApiModelPassthrough | undefined}
+   */
+  public getPassthrough( modelID: number ): IfcApiModelPassthrough | undefined {
+    return this.models.get( modelID )
+  }
 
   /**
    * Initializes the WASM module (WebIFCWasm), required before using any other functionality.
