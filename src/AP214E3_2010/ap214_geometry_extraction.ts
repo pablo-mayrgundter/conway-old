@@ -86,6 +86,7 @@ import {
   placement, plane,
   poly_loop,
   polyline,
+  product,
   ratio_measure,
   rational_b_spline_curve,
   rational_b_spline_surface,
@@ -215,6 +216,24 @@ export class AP214GeometryExtraction {
     this.getIdentityMatrices()
     this.initializeMemoryPools()
   }
+
+  /**
+   * Get the product name for this.
+   *
+   * @return {string} The product name or an empty struct if none can be found.
+   */
+  getAP214ProductName(): string {
+
+    for ( const productValue of this.model.types( product ) ) {
+
+      if ( productValue.name.length > 0 ) {
+        return productValue.name
+      }
+    }
+
+    return ''
+  }
+
 
   /**
    * Initializes memory pools for various parameter objects.
