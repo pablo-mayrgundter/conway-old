@@ -334,6 +334,45 @@ export class IfcAPI {
 
   }
 
+
+  /**
+   * Get all line ids with the matching type
+   *
+   * @param modelID
+   * @param type
+   * @return {Vector<number>} The matching express IDs
+   */
+  GetLineIDsWithType(modelID: number, type: number): Vector<number> {
+    const result = this.models.get(modelID)
+
+    if (result === void 0) {
+
+      Logger.error('[GetLineIDsWithType]: model === undefined')
+
+      const vectorArray: Array<number> = []
+      return {
+        get(index: number): number {
+          // Your implementation here
+          if (index >= vectorArray.length) {
+            return -1
+          }
+
+          return vectorArray[index]
+        },
+        size(): number {
+          // Your implementation here
+          return vectorArray.length
+        },
+
+        push(parameter: number): void {
+          vectorArray.push(parameter)
+        },
+      }
+    }
+
+    return result.getLineIDsWithType(type)
+  }
+
   /**
    *
    * @param modelID
@@ -345,7 +384,7 @@ export class IfcAPI {
 
     if (result === void 0) {
 
-      Logger.error('[GetRawLineData]: model === undefined')
+      Logger.error('[GetAllLines]: model === undefined')
 
       const vectorArray: Array<number> = []
       return {
@@ -471,7 +510,7 @@ export class IfcAPI {
    * @param types
    * @param meshCallback
    */
-  streamAllMeshesWithTypes(modelID: number,
+  StreamAllMeshesWithTypes(modelID: number,
       types: Array<number>,
       meshCallback: (mesh: FlatMesh) => void): void {
     const result = this.models.get(modelID)
