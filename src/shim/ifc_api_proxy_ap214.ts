@@ -458,7 +458,7 @@ export class IfcApiProxyAP214 implements IfcApiModelPassthrough {
         if (result_[1] === ParseResult.COMPLETE) {
           const rawLineData: RawLineData = {
             ID: expressID,
-            type: -1,
+            type: element.type,
             arguments: result_[0],
           }
 
@@ -470,7 +470,7 @@ export class IfcApiProxyAP214 implements IfcApiModelPassthrough {
 
       const rawLineData: RawLineData = {
         ID: expressID,
-        type: -1,
+        type: element.type,
         arguments: args,
       }
 
