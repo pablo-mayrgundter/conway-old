@@ -41,7 +41,7 @@ export class IfcApiProxyAP214 implements IfcApiModelPassthrough {
       Map<number, [Vector<PlacedGeometry>, FlatMesh]>,
       Map<number, [GeometryObject, CanonicalMaterial, number[]]>,
       Vector<FlatMesh>, glmatrix.mat4]
-  conwaywasm = new ConwayGeometry()
+  conwaywasm: ConwayGeometry
   _isCoordinated: boolean = false
   linearScalingFactor: number = 1
   identity: number[] = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
@@ -79,6 +79,9 @@ export class IfcApiProxyAP214 implements IfcApiModelPassthrough {
       data: Uint8Array,
       private readonly wasmModule: any,
       private readonly settings?: Loadersettings ) {
+
+    this.conwaywasm = new ConwayGeometry(wasmModule)
+
     const allTimeStart = Date.now()
     const parser = AP214StepParser.Instance
     const bufferInput = new ParsingBuffer(data)
@@ -455,7 +458,7 @@ export class IfcApiProxyAP214 implements IfcApiModelPassthrough {
         if (result_[1] === ParseResult.COMPLETE) {
           const rawLineData: RawLineData = {
             ID: expressID,
-            type: -1,
+            type: element.type,
             arguments: result_[0],
           }
 
@@ -467,7 +470,7 @@ export class IfcApiProxyAP214 implements IfcApiModelPassthrough {
 
       const rawLineData: RawLineData = {
         ID: expressID,
-        type: -1,
+        type: element.type,
         arguments: args,
       }
 

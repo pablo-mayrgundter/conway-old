@@ -36,8 +36,6 @@ export default class ModelFormatDetector {
 
       const schema = stepHeader.headers.get( 'FILE_SCHEMA' )?.toLocaleUpperCase()
 
-      console.log( schema )
-
       if ( schema !== void 0 ) {
 
         if ( schema.replaceAll( ' ', '' ).startsWith( '((\'IFC' ) ) {

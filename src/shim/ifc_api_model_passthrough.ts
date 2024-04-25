@@ -12,6 +12,7 @@ export interface IfcApiModelPassthrough {
   streamAllMeshes(meshCallback: (mesh: FlatMesh) => void): void
   getCoordinationMatrix(): number[]
   getAllLines(): Vector<number>
+  getLineIDsWithType(type: number): Vector<number>
   getRawLineData(expressID: number): RawLineData
   flattenLine(line: any): void
   getLine(expressID: number, flatten?: boolean): string | void
