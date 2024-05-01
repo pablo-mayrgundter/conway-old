@@ -80,9 +80,11 @@ import {
   faceted_brep,
   half_space_solid,
   line,
+  loop,
   manifold_solid_brep,
   mapped_item,
   parameter_value,
+  pcurve,
   placement, plane,
   poly_loop,
   polyline,
@@ -1361,7 +1363,8 @@ export class AP214GeometryExtraction {
       circle |
       b_spline_curve |
       b_spline_curve_with_knots |
-      rational_b_spline_curve,
+      rational_b_spline_curve |
+      line,
       trimmingArguments: TrimmingArguments | undefined = void 0) :
     CurveObject | undefined {
 
@@ -1398,12 +1401,12 @@ export class AP214GeometryExtraction {
 
     if ( from instanceof surface_curve ) {
 
-      return this.extractCurve(from.curve_3d)
+      return this.extractCurve(from.curve_3d, trimmingArguments)
     }
 
     if ( from instanceof line ) {
 
-      const lineCurve = this.extractLine( from )
+      const lineCurve = this.extractLine( from, trimmingArguments )
 
       return lineCurve
     }
@@ -1412,18 +1415,25 @@ export class AP214GeometryExtraction {
   }
 
   /**
-   * Extract a line
    *
-   * @param from The line to extract.
-   * @return {CurveObject | undefined} The curve object for the line.
+   * @param from
+   * @return {CurveObject | undefined}
    */
-  extractLine( from: line ): CurveObject | undefined {
+  extractPScurve1( from: pcurve ): CurveObject | undefined {
 
-    const point = from.pnt.coordinates
+    const surface = from.basis_surface
+
+    if ( !( surface instanceof plane ) ) {
+      console.log( 'not a plane')
+      return
+    }
+
+    const point = surface.position.location.coordinates
+
 
     const dim   = point.length
 
-    const pointsFlattened = new Float32Array( dim )
+    const pointsFlattened = new Float32Array( dim * 1 )
 
     pointsFlattened[ 0 ] = point[ 0 ]
     pointsFlattened[ 1 ] = point[ 1 ]
@@ -1432,6 +1442,13 @@ export class AP214GeometryExtraction {
     if ( dim > 2 ) {
 
       pointsFlattened[ 2 ] = point[ 2 ]
+
+      // pointsFlattened[ 3 ] = point[ 0 ] + ( dir[ 0 ] * mag )
+      // pointsFlattened[ 4 ] = point[ 1 ] + ( dir[ 1 ] * mag )
+      // pointsFlattened[ 5 ] = point[ 2 ] + ( dir[ 2 ] * mag )
+    } else {
+      // pointsFlattened[ 2 ] = point[ 0 ] + ( dir[ 0 ] * mag )
+      // pointsFlattened[ 3 ] = point[ 1 ] + ( dir[ 1 ] * mag )
     }
 
     const pointsPtr = this.arrayToWasmHeap(pointsFlattened)
@@ -1449,6 +1466,79 @@ export class AP214GeometryExtraction {
     this.wasmModule._free(pointsPtr)
 
     return curve_
+  }
+
+  /**
+   * Extract a line
+   *
+   * @param from The line to extract.
+   * @return {CurveObject | undefined} The curve object for the line.
+   */
+  extractLine( from: line, trimmingArguments?: TrimmingArguments ): CurveObject | undefined {
+
+    if ( trimmingArguments === void 0 ) {
+      const point = from.pnt.coordinates
+
+
+      const dim   = point.length
+
+      const pointsFlattened = new Float32Array( dim * 1 )
+
+      pointsFlattened[ 0 ] = point[ 0 ]
+      pointsFlattened[ 1 ] = point[ 1 ]
+
+      // eslint-disable-next-line no-magic-numbers
+      if ( dim > 2 ) {
+
+        pointsFlattened[ 2 ] = point[ 2 ]
+
+      }
+
+      const pointsPtr = this.arrayToWasmHeap(pointsFlattened)
+
+      const parameters = this.paramsGetPolyCurvePool!.acquire()
+
+      parameters.points = pointsPtr
+      parameters.pointsLength = 1
+      parameters.dimensions = dim
+
+      const curve_ = this.conwayModel.getPolyCurve(parameters)
+
+      this.paramsGetPolyCurvePool!.release(parameters)
+
+      this.wasmModule._free(pointsPtr)
+
+      return curve_
+
+    } else {
+
+      // eslint-disable-next-line no-magic-numbers
+      const pointsFlattened = new Float32Array( 6 )
+
+      pointsFlattened[ 0 ] = trimmingArguments.start?.pos3D?.x ?? 0
+      pointsFlattened[ 1 ] = trimmingArguments.start?.pos3D?.y ?? 0
+      pointsFlattened[ 2 ] = trimmingArguments.start?.pos3D?.z ?? 0
+      pointsFlattened[ 3 ] = trimmingArguments.end?.pos3D?.x ?? 0
+      pointsFlattened[ 4 ] = trimmingArguments.end?.pos3D?.y ?? 0
+      pointsFlattened[ 5 ] = trimmingArguments.end?.pos3D?.z ?? 0
+
+      const pointsPtr = this.arrayToWasmHeap(pointsFlattened)
+
+      const parameters = this.paramsGetPolyCurvePool!.acquire()
+
+      parameters.points = pointsPtr
+      parameters.pointsLength = 2
+      parameters.dimensions = 3
+
+      const curve_ = this.conwayModel.getPolyCurve(parameters)
+
+      this.paramsGetPolyCurvePool!.release(parameters)
+
+      this.wasmModule._free(pointsPtr)
+
+      return curve_
+
+    }
   }
 
   /**
@@ -2360,6 +2450,151 @@ export class AP214GeometryExtraction {
     return true
   }
 
+  /**
+   *
+   * @param from
+   * @param points
+   * @param curves
+   */
+  extractLoop(from: loop, points: StdVector< Vector3 >, curves: StdVector< CurveObject > ) {
+
+    if ( from instanceof poly_loop ) {
+
+      console.log( 'poly _loop' )
+
+      let prevLocalID: number = -1
+
+      for ( const point of from.polygon ) {
+
+        const coords = point.coordinates
+        const vec3 = {
+          x: coords[0],
+          y: coords[1],
+          z: coords[2],
+        }
+
+        const currentLocalID: number = point.localID
+
+        if ( currentLocalID !== prevLocalID ) {
+          points.push_back(vec3)
+          prevLocalID = currentLocalID
+        }
+      }
+    } else if ( from instanceof edge_loop ) {
+
+      for ( const edge of from.edge_list ) {
+
+        if (edge.edge_element instanceof edge_curve) {
+
+          const edgeCurve = edge.edge_element.edge_geometry
+
+          // console.log("curve type: " +
+          //   EntityTypesAP214[edgeCurve.type] + " express ID: " + edgeCurve.expressID)
+
+          const edgeStart = edge.edge_element.edge_start
+          const edgeEnd = edge.edge_element.edge_end
+
+          let trimmingStart: TrimmingSelect | undefined
+          let trimmingEnd: TrimmingSelect | undefined
+
+          if (edgeStart instanceof vertex_point) {
+
+            const startPoint = edgeStart.vertex_geometry
+
+            // eslint-disable-next-line no-magic-numbers
+            if (startPoint instanceof cartesian_point && startPoint.coordinates.length === 3) {
+
+              const startCoords = startPoint.coordinates
+
+              trimmingStart = {
+                hasParam: false,
+                hasPos: true,
+                hasLength: false,
+                param: 0.0,
+                pos: void 0,
+                pos3D: {
+                  x: startCoords[0],
+                  y: startCoords[1],
+                  z: startCoords[2],
+                },
+              }
+            }
+          }
+
+          if (edgeEnd instanceof vertex_point) {
+
+            const endPoint = edgeEnd.vertex_geometry
+
+            // eslint-disable-next-line no-magic-numbers
+            if (endPoint instanceof cartesian_point && endPoint.coordinates.length === 3) {
+
+              const endCoords = endPoint.coordinates
+
+              trimmingEnd = {
+                hasParam: false,
+                hasPos: true,
+                hasLength: false,
+                param: 0.0,
+                pos: void 0,
+                pos3D: {
+                  x: endCoords[0],
+                  y: endCoords[1],
+                  z: endCoords[2],
+                },
+              }
+            }
+          }
+
+          const trimmingArguments: TrimmingArguments = {
+            exist: !!((trimmingStart !== void 0 && trimmingEnd !== void 0)),
+            start: trimmingStart,
+            end: trimmingEnd,
+          }
+
+          const curveValue = this.extractCurve(edgeCurve, trimmingArguments)
+
+          if (curveValue !== void 0) {
+
+            if ( !edge.orientation ) {
+              // reverse curve
+              curveValue.invert()
+            }
+
+            curves.push_back(curveValue)
+
+          } else {
+            console.log(`curve === undefined, type: ${EntityTypesAP214[edgeCurve.type]}`)
+          }
+
+        } else {
+
+          console.log( 'oriented_edge case' )
+
+          //  console.log("curve === null")
+          const start = edge.edge_start
+
+          if (start instanceof vertex_point) {
+
+            const startPoint = start.vertex_geometry
+
+            // eslint-disable-next-line no-magic-numbers
+            if (startPoint instanceof cartesian_point && startPoint.coordinates.length === 3) {
+
+              const startCoords = startPoint.coordinates
+
+              points.push_back({
+                x: startCoords[0],
+                y: startCoords[1],
+                z: startCoords[2],
+              })
+            }
+          }
+        }
+      }
+    } else {
+      console.log(`Unsupported bound ${loop}`)
+    }
+  }
 
   /**
    * Extract an advanced (NURBS) b-rep face.
@@ -2380,140 +2615,7 @@ export class AP214GeometryExtraction {
         const nativeEdgeCurves = this.nativeVectorCurve()
         // console.log("innerBound type: " + EntityTypesAP214[innerBound.type])
 
-        if ( innerBound instanceof poly_loop ) {
-
-          let prevLocalID: number = -1
-
-          for ( const point of innerBound.polygon ) {
-
-            const coords = point.coordinates
-            const vec3 = {
-              x: coords[0],
-              y: coords[1],
-              z: coords[2],
-            }
-
-            const currentLocalID: number = point.localID
-
-            if ( currentLocalID !== prevLocalID ) {
-              vec3Array.push_back(vec3)
-              prevLocalID = currentLocalID
-            }
-          }
-        } else if ( innerBound instanceof edge_loop ) {
-
-          for ( const edge of innerBound.edge_list ) {
-
-            if (edge.edge_element instanceof edge_curve) {
-
-              const edgeCurve = edge.edge_element.edge_geometry
-
-              // console.log("curve type: " +
-              //   EntityTypesAP214[edgeCurve.type] + " express ID: " + edgeCurve.expressID)
-
-              const edgeStart = edge.edge_element.edge_start
-              const edgeEnd = edge.edge_element.edge_end
-
-              let trimmingStart: TrimmingSelect | undefined
-              let trimmingEnd: TrimmingSelect | undefined
-
-              if (edgeStart instanceof vertex_point) {
-
-                const startPoint = edgeStart.vertex_geometry
-
-                // eslint-disable-next-line no-magic-numbers
-                if (startPoint instanceof cartesian_point && startPoint.coordinates.length === 3) {
-
-                  const startCoords = startPoint.coordinates
-
-                  trimmingStart = {
-                    hasParam: false,
-                    hasPos: true,
-                    hasLength: false,
-                    param: 0.0,
-                    pos: void 0,
-                    pos3D: {
-                      x: startCoords[0],
-                      y: startCoords[1],
-                      z: startCoords[2],
-                    },
-                  }
-                }
-              }
-
-              if (edgeEnd instanceof vertex_point) {
-
-                const endPoint = edgeEnd.vertex_geometry
-
-                // eslint-disable-next-line no-magic-numbers
-                if (endPoint instanceof cartesian_point && endPoint.coordinates.length === 3) {
-
-                  const endCoords = endPoint.coordinates
-
-                  trimmingEnd = {
-                    hasParam: false,
-                    hasPos: true,
-                    hasLength: false,
-                    param: 0.0,
-                    pos: void 0,
-                    pos3D: {
-                      x: endCoords[0],
-                      y: endCoords[1],
-                      z: endCoords[2],
-                    },
-                  }
-                }
-              }
-
-              const trimmingArguments: TrimmingArguments = {
-                exist: !!((trimmingStart !== void 0 && trimmingEnd !== void 0)),
-                start: trimmingStart,
-                end: trimmingEnd,
-              }
-
-              const curveValue = this.extractCurve(edgeCurve, trimmingArguments)
-
-              if (curveValue !== void 0) {
-
-                if ( !edge.orientation ) {
-                  // reverse curve
-                  curveValue.invert()
-                }
-
-                nativeEdgeCurves.push_back(curveValue)
-
-              } else {
-                console.log(`curve === undefined, type: ${EntityTypesAP214[edgeCurve.type]}`)
-              }
-
-            } else {
-
-              //  console.log("curve === null")
-              const start = edge.edge_start
-
-              if (start instanceof vertex_point) {
-
-                const startPoint = start.vertex_geometry
-
-                // eslint-disable-next-line no-magic-numbers
-                if (startPoint instanceof cartesian_point && startPoint.coordinates.length === 3) {
-
-                  const startCoords = startPoint.coordinates
-
-                  vec3Array.push_back({
-                    x: startCoords[0],
-                    y: startCoords[1],
-                    z: startCoords[2],
-                  })
-                }
-              }
-            }
-          }
-
-        } else {
-          console.log(`Unsupported bound ${bound.bound}`)
-          return
-        }
+        this.extractLoop( innerBound, vec3Array, nativeEdgeCurves )
 
         // get curve
         const parameters: ParamsGetLoop = {
