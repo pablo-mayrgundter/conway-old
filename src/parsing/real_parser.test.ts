@@ -109,6 +109,20 @@ function testScientific() {
 }
 
 /**
+ * Tests parsing an signed negative number with scientific notation (lowercase e)
+ * with the decimal point just before e.
+ *
+ * @return {boolean} True if the test passes.
+ */
+function testScientificPeriod() {
+  const data = new TextEncoder().encode( '-0123456789.e534' )
+
+  const result = parserInstance.signed( data, 0, data.length )
+
+  return result === data.length
+}
+
+/**
  * Tests parsing an signed negative number with scientific notation (uppercase E).
  *
  * @return {boolean} True if the test passes.
@@ -182,6 +196,11 @@ describe('Real Parsing Test', () => {
   test('testScientific()', () => {
 
     expect(testScientific()).toBe(true)
+
+  })
+  test('testScientificPeriod()', () => {
+
+    expect(testScientificPeriod()).toBe(true)
 
   })
 
