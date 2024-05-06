@@ -541,44 +541,49 @@ export default class ParsingBuffer {
     if ( input[ cursor ] === DOT ) {
       ++cursor
 
-      const firstChar = input[ cursor ] - ZERO
+      const firstReadChar = input[ cursor ]
 
-      if ( firstChar < 0 || firstChar > 9 ) {
-        this.cursor_ = cursor
-        return primary
-      }
+      if ( firstReadChar !== LOWER_E && firstReadChar !== E ) {
 
-      absPrimary = ( 10 * absPrimary ) + firstChar
+        const firstChar = firstReadChar - ZERO
 
-      ++cursor
-
-      while ( cursor < end ) {
-        const currentChar = input[ cursor ] - ZERO
-
-        if ( currentChar < 0 || currentChar > 9 ) {
-          break
+        if ( firstChar < 0 || firstChar > 9 ) {
+          this.cursor_ = cursor
+          return primary
         }
 
-        if ( absPrimary >= MAX_SAFE_FACTOR_INT ) {
-          break
-        }
-
-        absPrimary *= 10
-        absPrimary += currentChar
+        absPrimary = ( 10 * absPrimary ) + firstChar
 
         ++cursor
-      }
 
-      decimals -= ( ( cursor ) - this.cursor_ ) - 1
+        while ( cursor < end ) {
+          const currentChar = input[ cursor ] - ZERO
 
-      while ( cursor < end ) {
-        const currentChar = input[ cursor ] - ZERO
+          if ( currentChar < 0 || currentChar > 9 ) {
+            break
+          }
 
-        if ( currentChar < 0 || currentChar > 9 ) {
-          break
+          if ( absPrimary >= MAX_SAFE_FACTOR_INT ) {
+            break
+          }
+
+          absPrimary *= 10
+          absPrimary += currentChar
+
+          ++cursor
         }
 
-        ++cursor
+        decimals -= ( ( cursor ) - this.cursor_ ) - 1
+
+        while ( cursor < end ) {
+          const currentChar = input[ cursor ] - ZERO
+
+          if ( currentChar < 0 || currentChar > 9 ) {
+            break
+          }
+
+          ++cursor
+        }
       }
     }
 
