@@ -2,6 +2,7 @@ import {
   BlendMode,
   ConwayGeometry,
   GeometryObject,
+  Vector3,
 } from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMaterial } from '../core/canonical_material'
 import { IfcSceneBuilder } from '../ifc/ifc_scene_builder'
@@ -724,17 +725,24 @@ export class IfcApiProxyIfc implements IfcApiModelPassthrough {
         } else {
           material_ = material
         }
-        // extract min
-        const geomMin: glmatrix.vec3 = glmatrix.vec3.create()
 
-        const minPt = geometry.geometry.getMin()
-        geomMin[0] = minPt.x
-        geomMin[1] = minPt.y
-        geomMin[2] = minPt.z
+        let nativePt:Vector3
+        if (!this._isCoordinated && this.settings?.COORDINATE_TO_ORIGIN) {
+          nativePt = geometry.geometry.getPoint(0)
+        }
+
+        // extract center
+        const geomCenter: glmatrix.vec3 = glmatrix.vec3.create()
+        const center = geometry.geometry.normalize()
+
+
+        geomCenter[0] = center.x
+        geomCenter[1] = center.y
+        geomCenter[2] = center.z
 
         // Create a translation matrix from geom.min
         const translationMatrixGeomMin: glmatrix.mat4 = glmatrix.mat4.create()
-        glmatrix.mat4.fromTranslation(translationMatrixGeomMin, geomMin)
+        glmatrix.mat4.fromTranslation(translationMatrixGeomMin, geomCenter)
 
         // create PlacedGeometry
         const expressID = model.getElementByLocalID(geometry.localID)?.expressID as number
@@ -767,9 +775,7 @@ export class IfcApiProxyIfc implements IfcApiModelPassthrough {
 
         if (!this._isCoordinated && this.settings?.COORDINATE_TO_ORIGIN) {
           // coordinate the geometry to the origin
-          // eslint-disable-next-line new-cap
-          const nativePt = geometry.geometry.GetPoint(0)
-          const pt: number[] = [nativePt.x, nativePt.y, nativePt.z]
+          const pt: number[] = [nativePt!.x, nativePt!.y, nativePt!.z]
 
           // Transform the point by the matrix.
           const transformedPt: glmatrix.vec4 = glmatrix.vec4.create()
@@ -800,13 +806,6 @@ export class IfcApiProxyIfc implements IfcApiModelPassthrough {
 
           this._isCoordinated = true
         }
-
-        // normalize geometry
-        if (!geometry.geometry.normalized) {
-          // eslint-disable-next-line new-cap
-          geometry.geometry.NormalizeInPlace()
-        }
-
 
         // extract color
         const newTransform = glmatrix.mat4.create()
@@ -970,16 +969,23 @@ export class IfcApiProxyIfc implements IfcApiModelPassthrough {
           }
         }
 
-        // extract min
-        const geomMin: glmatrix.vec3 = glmatrix.vec3.create()
-        const minPt = geometry.geometry.getMin()
-        geomMin[0] = minPt.x
-        geomMin[1] = minPt.y
-        geomMin[2] = minPt.z
+        let nativePt:Vector3
+        if (!this._isCoordinated && this.settings?.COORDINATE_TO_ORIGIN) {
+          nativePt = geometry.geometry.getPoint(0)
+        }
+
+        // extract center
+        const geomCenter: glmatrix.vec3 = glmatrix.vec3.create()
+        const center = geometry.geometry.normalize()
+
+
+        geomCenter[0] = center.x
+        geomCenter[1] = center.y
+        geomCenter[2] = center.z
 
         // Create a translation matrix from geom.min
         const translationMatrixGeomMin: glmatrix.mat4 = glmatrix.mat4.create()
-        glmatrix.mat4.fromTranslation(translationMatrixGeomMin, geomMin)
+        glmatrix.mat4.fromTranslation(translationMatrixGeomMin, geomCenter)
 
         // create PlacedGeometry
         const expressID = model.getElementByLocalID(geometry.localID)?.expressID as number
@@ -1013,9 +1019,9 @@ export class IfcApiProxyIfc implements IfcApiModelPassthrough {
           // In TypeScript, you can represent it as number[] or Float64Array.
           Logger.info('Setting up coordinationMatrix')
 
-          // eslint-disable-next-line new-cap
-          const nativePt = geometry.geometry.GetPoint(0)
-          const pt: number[] = [nativePt.x, nativePt.y, nativePt.z]
+
+          // const nativePt = geometry.geometry.GetPoint(0)
+          const pt: number[] = [nativePt!.x, nativePt!.y, nativePt!.z]
 
           // Transform the point by the matrix.
           const transformedPt: glmatrix.vec4 = glmatrix.vec4.create()
@@ -1046,13 +1052,6 @@ export class IfcApiProxyIfc implements IfcApiModelPassthrough {
 
           this._isCoordinated = true
         }
-
-        // normalize geometry
-        if (!geometry.geometry.normalized) {
-          // eslint-disable-next-line new-cap
-          geometry.geometry.NormalizeInPlace()
-        }
-
 
         // extract color
         const newTransform = glmatrix.mat4.create()
@@ -1197,16 +1196,23 @@ export class IfcApiProxyIfc implements IfcApiModelPassthrough {
           material_ = material
         }
 
-        // extract min
-        const geomMin: glmatrix.vec3 = glmatrix.vec3.create()
-        const minPt = geometry.geometry.getMin()
-        geomMin[0] = minPt.x
-        geomMin[1] = minPt.y
-        geomMin[2] = minPt.z
+        let nativePt:Vector3
+        if (!this._isCoordinated && this.settings?.COORDINATE_TO_ORIGIN) {
+          nativePt = geometry.geometry.getPoint(0)
+        }
+
+        // extract center
+        const geomCenter: glmatrix.vec3 = glmatrix.vec3.create()
+        const center = geometry.geometry.normalize()
+
+
+        geomCenter[0] = center.x
+        geomCenter[1] = center.y
+        geomCenter[2] = center.z
 
         // Create a translation matrix from geom.min
         const translationMatrixGeomMin: glmatrix.mat4 = glmatrix.mat4.create()
-        glmatrix.mat4.fromTranslation(translationMatrixGeomMin, geomMin)
+        glmatrix.mat4.fromTranslation(translationMatrixGeomMin, geomCenter)
 
         // create PlacedGeometry
         const expressID = model.getElementByLocalID(geometry.localID)?.expressID as number
@@ -1240,9 +1246,8 @@ export class IfcApiProxyIfc implements IfcApiModelPassthrough {
           // In TypeScript, you can represent it as number[] or Float64Array.
           Logger.info('Setting up coordinationMatrix')
 
-          // eslint-disable-next-line new-cap
-          const nativePt = geometry.geometry.GetPoint(0)
-          const pt: number[] = [nativePt.x, nativePt.y, nativePt.z]
+
+          const pt: number[] = [nativePt!.x, nativePt!.y, nativePt!.z]
 
           // Transform the point by the matrix.
           const transformedPt: glmatrix.vec4 = glmatrix.vec4.create()
@@ -1272,12 +1277,6 @@ export class IfcApiProxyIfc implements IfcApiModelPassthrough {
               coordinationMatrix)
 
           this._isCoordinated = true
-        }
-
-        // normalize geometry
-        if (!geometry.geometry.normalized) {
-          // eslint-disable-next-line new-cap
-          geometry.geometry.NormalizeInPlace()
         }
 
 

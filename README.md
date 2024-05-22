@@ -70,6 +70,7 @@ If you have Visual Studio Code, Conway also comes with a Visual Studio Code work
 ```
 yarn test
 yarn build-web  # stamps build version string
+grep '"version"' package.json # should see the new version string, 1 more than what the repo shows in GH
 npm pack
 ```
 

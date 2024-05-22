@@ -76,7 +76,6 @@ export default class GeometryConvertor {
             chunk.count )
 
         ++currentChunkIndex
-        break
       }
     }
   }
