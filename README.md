@@ -26,13 +26,16 @@ brew install dotnet@6
  
 Clone the repository, then in the root directory of the repository, run the yarn install, followed by using yarn to initialise the IFC-gen submodule:
 ```
+# 1) Setup your EMSDK environment
+# 2) Make sure you're in main repo, not fork
+git pull
 yarn install
 yarn submodule-update
 
-# set emsdk environment
 cd dependencies/conway-geom/dependencies/wasm/
 unzip dependencies.zip
 cd -
+
 yarn build
 yarn test
 ```
