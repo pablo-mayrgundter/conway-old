@@ -4582,7 +4582,7 @@ export class IfcGeometryExtraction {
 
       const parameters: ParamsRelVoidSubtract = {
         flatFirstMesh: relatedBuildingElementMeshVector,
-        flatSecondMesh: relVoidMeshVector_,
+        flatSecondMesh: relVoidMeshVector,
         operatorType: 2,
         parentMatrix: productTransform?.absoluteNativeTransform,
       }
@@ -4614,18 +4614,16 @@ export class IfcGeometryExtraction {
    * @return {[NativeVectorGeometry, number[]] | undefined}
    */
   extractRelVoids(from: IfcProduct): [NativeVectorGeometry, number[]] | undefined {
-    let isRelVoid: boolean = false
-    let relVoidLocalIDs: number[] | undefined
+    const relVoidLocalIDs: number[] = []
     if (this.productToVoidGeometryMap.has(from.localID)) {
       // product has voids
-      relVoidLocalIDs = this.productToVoidGeometryMap.get(from.localID)
+      const voidsLocalIDMap = this.productToVoidGeometryMap.get(from.localID)
       // console.log("[extractRelVoids]: " + relVoidLocalIDs)
       const relVoidMeshVector = this.nativeVectorGeometry()
 
-      if (relVoidLocalIDs !== void 0) {
+      if (voidsLocalIDMap !== void 0) {
 
-        for (const relVoidLocalID of relVoidLocalIDs) {
-          let flattenedVoidGeometry: GeometryObject | undefined
+        for (const relVoidLocalID of voidsLocalIDMap) {
 
           const relVoid =
             this.model.getElementByLocalID(relVoidLocalID) as IfcFeatureElementSubtraction
@@ -4657,8 +4655,6 @@ export class IfcGeometryExtraction {
                 this.extractRepresentationItem(item, undefined, true)
                 const mesh = this.model.voidGeometry.getByLocalID(item.localID)
                 if (mesh !== undefined && mesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
-
-                  isRelVoid = true
                   const localGeometry = mesh.geometry.clone()
 
                   if (item instanceof IfcExtrudedAreaSolid) {
@@ -4684,19 +4680,11 @@ export class IfcGeometryExtraction {
                     }
                   }
 
-                  if (flattenedVoidGeometry === undefined) {
-                    // TODO: not sure if we need to clone here..
-                    flattenedVoidGeometry = localGeometry
-                  } else {
-                    flattenedVoidGeometry.appendGeometry(localGeometry)
-                  }
+                  relVoidMeshVector.push_back(localGeometry)
+                  relVoidLocalIDs.push(item.localID)
 
                 }
               }
-            }
-
-            if (isRelVoid && flattenedVoidGeometry !== void 0) {
-              relVoidMeshVector.push_back(flattenedVoidGeometry)
             }
           }
         }
@@ -4982,7 +4970,7 @@ export class IfcGeometryExtraction {
       // const objContent = this.conwayModel.toObj(geometry)
 
       // Write to the output file
-      // fs.writeFileSync(outputFilePath, objContent, 'utf8');
+      //  fs.writeFileSync(outputFilePath, objContent, 'utf8');
       // console.log(`Geometry exported to ${outputFilePath}`);
     }
   }
