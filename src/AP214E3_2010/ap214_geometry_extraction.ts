@@ -1680,13 +1680,14 @@ export class AP214GeometryExtraction {
   extractAP214Circle( from: circle, parametersTrimmedCurve: ParamsGetIfcTrimmedCurve = {
     masterRepresentation: 0,
     dimensions: 0,
-    senseAgreement: false,
+    senseAgreement: true,
     trim1Cartesian2D: undefined,
     trim1Cartesian3D: undefined,
     trim1Double: 0,
     trim2Cartesian2D: undefined,
     trim2Cartesian3D: undefined,
     trim2Double: 0,
+    trimExists: false,
   }): CurveObject | undefined {
 
     let axis2Placement2D: any = void 0 // glmdmat3
@@ -1823,6 +1824,7 @@ export class AP214GeometryExtraction {
       trim2Cartesian2D: trim2Cartesian2D,
       trim2Cartesian3D: trim2Cartesian3D,
       trim2Double: trim2Double,
+      trimExists: true,
     }
 
     if ( from.basis_curve instanceof circle) {

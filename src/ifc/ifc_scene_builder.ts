@@ -74,7 +74,8 @@ export class IfcSceneGeometry implements SceneNodeGeometry {
     public readonly index: number,
     public readonly relatedElementLocalId?: number,
     public readonly parentIndex?: number,
-    public readonly isSpace: boolean = false ) { }
+    public readonly isSpace: boolean = false,
+    public readonly materialOverideLocalID?: number ) { }
   /* eslint-enable no-useless-constructor, no-empty-function */
 }
 
@@ -309,7 +310,8 @@ export class IfcSceneBuilder implements Scene< StepEntityBase< EntityTypesIfc > 
           parentNode = this.scene_[parentIndex] as IfcSceneTransform
         }
 
-        const material = this.materials.getMaterialByGeometryID(geometry.localID)
+        const material =
+          this.materials.getMaterialByGeometryID(node.materialOverideLocalID ?? geometry.localID)
 
         yield [
           parentNode?.absoluteTransform,
@@ -363,7 +365,8 @@ export class IfcSceneBuilder implements Scene< StepEntityBase< EntityTypesIfc > 
   public addGeometry(
       localID: number,
       owningElementLocalID?: number,
-      isSpace?: boolean ): IfcSceneGeometry {
+      isSpace?: boolean,
+      materialOverrideLocalID?: number ): IfcSceneGeometry {
 
     const nodeIndex = this.scene_.length
 
@@ -388,7 +391,8 @@ export class IfcSceneBuilder implements Scene< StepEntityBase< EntityTypesIfc > 
           nodeIndex,
           owningElementLocalID,
           parentIndex,
-          isSpace )
+          isSpace,
+          materialOverrideLocalID )
 
     this.scene_.push(result)
 
@@ -405,7 +409,8 @@ export class IfcSceneBuilder implements Scene< StepEntityBase< EntityTypesIfc > 
   public addTransform(
       localID: number,
       transform: ReadonlyArray<number>,
-      nativeTransform: NativeTransform): IfcSceneTransform {
+      nativeTransform: NativeTransform,
+      isMappedItem:boolean = false): IfcSceneTransform {
 
     if (this.sceneLocalIdMap_.has(localID)) {
       const transform_ = this.getTransform(localID)
@@ -455,7 +460,9 @@ export class IfcSceneBuilder implements Scene< StepEntityBase< EntityTypesIfc > 
 
     this.scene_.push(result)
 
-    this.sceneLocalIdMap_.set(localID, nodeIndex)
+    if (!isMappedItem) {
+      this.sceneLocalIdMap_.set(localID, nodeIndex)
+    }
 
     this.pushTransform(result)
 
