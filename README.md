@@ -33,6 +33,7 @@ yarn install
 yarn submodule-update
 
 cd dependencies/conway-geom/dependencies/wasm/
+# Answer yes or all to replace files if they've already been unzipped before
 unzip dependencies.zip
 cd -
 
