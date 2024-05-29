@@ -1128,6 +1128,13 @@ export class IfcGeometryExtraction {
     }
 
     if (firstMesh !== void 0 && firstMesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
+
+      /* const _testEntity = this.model.getElementByLocalID(firstMesh.localID)!
+      const outputFilePath_ =
+      `${_testEntity.expressID}_${EntityTypesIfc[_testEntity.type]}FIRST_MESH.obj`
+
+      this.dumpGeometry(outputFilePath_, firstMesh.geometry) */
+
       const geometryParts = firstMesh.geometry.getParts()
 
       if (geometryParts.size() > 0) {
@@ -1159,6 +1166,10 @@ export class IfcGeometryExtraction {
       secondMesh = this.model.geometry.getByLocalID(from.SecondOperand.localID)
     }
     if (secondMesh !== void 0 && secondMesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
+      /* const _testEntity2 = this.model.getElementByLocalID(secondMesh.localID)!
+      const outputFilePath_ =
+      `${_testEntity2.expressID}_${EntityTypesIfc[_testEntity2.type]}_SECOND_MESH.obj`
+      this.dumpGeometry(outputFilePath_, secondMesh.geometry) */
       const geometryParts = secondMesh.geometry.getParts()
 
       if (geometryParts.size() > 0) {
@@ -1186,6 +1197,12 @@ export class IfcGeometryExtraction {
     parameters.operatorType = from.Operator.valueOf()
 
     const booleanGeometryObject: GeometryObject = this.conwayModel.getBooleanResult(parameters)
+
+
+    // const outputFilePath =
+    // `${from.expressID}_${EntityTypesIfc[from.type]}_post_subtract_test.obj`
+
+    // this.dumpGeometry(outputFilePath, booleanGeometryObject)
 
     if (firstMesh.type === CanonicalMeshType.BUFFER_GEOMETRY &&
         secondMesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
@@ -1305,6 +1322,12 @@ export class IfcGeometryExtraction {
       }
       if (firstMesh !== void 0 && firstMesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
 
+        /* const _testEntity = this.model.getElementByLocalID(firstMesh.localID)!
+        const outputFilePath_ =
+        `${_testEntity.expressID}_${EntityTypesIfc[_testEntity.type]}FIRST_MESH.obj`
+
+        this.dumpGeometry(outputFilePath_, firstMesh.geometry) */
+
         const geometryParts = firstMesh.geometry.getParts()
 
         if (geometryParts.size() > 0) {
@@ -1335,6 +1358,13 @@ export class IfcGeometryExtraction {
         secondMesh = this.model.geometry.getByLocalID(from.SecondOperand.localID)
       }
       if (secondMesh !== void 0 && secondMesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
+
+        /* const _testEntity2 = this.model.getElementByLocalID(secondMesh.localID)!
+        const outputFilePath_ =
+        `${_testEntity2.expressID}_${EntityTypesIfc[_testEntity2.type]}_SECOND_MESH.obj`
+
+        this.dumpGeometry(outputFilePath_, secondMesh.geometry) */
+
         const geometryParts = secondMesh.geometry.getParts()
 
         if (geometryParts.size() > 0) {
@@ -1362,6 +1392,11 @@ export class IfcGeometryExtraction {
       parameters.operatorType = from.Operator.valueOf()
 
       const booleanGeometryObject: GeometryObject = this.conwayModel.getBooleanResult(parameters)
+
+      // const outputFilePath =
+      // `${from.expressID}_${EntityTypesIfc[from.type]}_post_subtract_operand.obj`
+
+      // this.dumpGeometry(outputFilePath, booleanGeometryObject)
 
       const canonicalMesh: CanonicalMesh = {
         type: CanonicalMeshType.BUFFER_GEOMETRY,
@@ -1696,8 +1731,13 @@ export class IfcGeometryExtraction {
 
     const geometry = this.wasmModule.getPolygonalBoundedHalfspace(parameters)
 
-    const _outputFilePath = `${from.expressID}_${EntityTypesIfc[from.type]}.obj`
-    this.dumpGeometry(_outputFilePath, geometry)
+    // apply transform
+    if (axis2PlacementTransform !== void 0) {
+      geometry.applyTransform(axis2PlacementTransform)
+    }
+
+    // const _outputFilePath = `${from.expressID}_${EntityTypesIfc[from.type]}.obj`
+    // this.dumpGeometry(_outputFilePath, geometry)
 
     const canonicalMesh: CanonicalMesh = {
       type: CanonicalMeshType.BUFFER_GEOMETRY,
@@ -1754,13 +1794,13 @@ export class IfcGeometryExtraction {
 
       const geometry: GeometryObject = this.conwayModel.getExtrudedAreaSolid(parameters)
 
-      const _outputFilePath = `${from.expressID}_${EntityTypesIfc[from.type]}.obj`
-      this.dumpGeometry(_outputFilePath, geometry)
-
       // apply transform
       if (axis2PlacementTransform !== void 0) {
         geometry.applyTransform(axis2PlacementTransform)
       }
+
+      // const _outputFilePath = `${from.expressID}_${EntityTypesIfc[from.type]}.obj`
+      // this.dumpGeometry(_outputFilePath, geometry)
 
       const canonicalMesh: CanonicalMesh = {
         type: CanonicalMeshType.BUFFER_GEOMETRY,
@@ -4616,7 +4656,7 @@ export class IfcGeometryExtraction {
       }
 
       // flatten the relvoid mesh vector
-      const relVoidFlattenedMesh = relVoidMeshVector.get(0)
+      /* const relVoidFlattenedMesh = relVoidMeshVector.get(0)
 
       const _element = this.model.getElementByLocalID(relVoidLocalIDs[0])!
       const _outputFilePath = `${_element.expressID}_${EntityTypesIfc[_element.type]}.obj`
@@ -4633,7 +4673,7 @@ export class IfcGeometryExtraction {
 
       // set mesh back to vector
       const relVoidMeshVector_ = this.nativeVectorGeometry()
-      relVoidMeshVector_.push_back(relVoidFlattenedMesh)
+      relVoidMeshVector_.push_back(relVoidFlattenedMesh)*/
 
       const relatedBuildingElementMeshVector = this.nativeVectorGeometry(1)
 
@@ -4641,9 +4681,9 @@ export class IfcGeometryExtraction {
 
       // const element_ = this.model.getElementByLocalID(mesh.localID)!
 
-      let outputFilePath = `${from.expressID}_${EntityTypesIfc[from.type]}.obj`
+      // let outputFilePath = `${from.expressID}_${EntityTypesIfc[from.type]}.obj`
 
-      this.dumpGeometry(outputFilePath, flattenedGeometry)
+      // this.dumpGeometry(outputFilePath, flattenedGeometry)
 
       const parameters: ParamsRelVoidSubtract = {
         flatFirstMesh: relatedBuildingElementMeshVector,
@@ -4665,12 +4705,8 @@ export class IfcGeometryExtraction {
       this.model.geometry.add(canonicalMesh)
       this.scene.addGeometry(from.localID, owningElementLocalID, isSpace)
 
-      outputFilePath = `${from.expressID}_${EntityTypesIfc[from.type]}_post_subtract.obj`
-
-      this.dumpGeometry(outputFilePath, booleanGeometryObject)
-
       relatedBuildingElementMeshVector.delete()
-      relVoidMeshVector_.delete()
+      // relVoidMeshVector_.delete()
     }
   }
   /**
@@ -5032,7 +5068,7 @@ export class IfcGeometryExtraction {
       // const objContent = this.conwayModel.toObj(geometry)
 
       // Write to the output file
-      //  fs.writeFileSync(outputFilePath, objContent, 'utf8')
+      // fs.writeFileSync(outputFilePath, objContent, 'utf8')
     }
   }
 
