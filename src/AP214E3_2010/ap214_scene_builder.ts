@@ -175,7 +175,9 @@ export class AP214SceneBuilder implements Scene< StepEntityBase< EntityTypesAP21
 
         const clonedGeometry = geometry.geometry.clone()
 
-        clonedGeometry.applyTransform(nativeTransform)
+        if ( nativeTransform !== void 0 ) {
+          clonedGeometry.applyTransform(nativeTransform)
+        }
 
         const primitiveIndex = materialMap.get(material)
 
