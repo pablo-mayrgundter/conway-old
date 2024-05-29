@@ -1765,14 +1765,14 @@ export class IfcGeometryExtraction {
       isRelVoid: boolean = false) {
 
     let axis2PlacementTransform: any | undefined = (void 0)
-    if (from.Position !== null) {
-      // we need to apply the transform if it is temporary (i.e not top level)
-      if (temporary || !isRelVoid) {
-        const paramsAxis2Placement3D: ParamsAxis2Placement3D =
-          this.extractAxis2Placement3D(from.Position, from.localID, true)
-        axis2PlacementTransform = this.conwayModel
-            .getAxis2Placement3D(paramsAxis2Placement3D)
-      }
+
+    const position = from.Position
+
+    if (position !== null) {
+      const paramsAxis2Placement3D: ParamsAxis2Placement3D =
+        this.extractAxis2Placement3D(position, position.localID, true)
+      axis2PlacementTransform = this.conwayModel
+          .getAxis2Placement3D(paramsAxis2Placement3D)
     }
 
     const profile: CanonicalProfile | undefined = this.extractProfile(from.SweptArea)
@@ -1796,6 +1796,7 @@ export class IfcGeometryExtraction {
 
       // apply transform
       if (axis2PlacementTransform !== void 0) {
+
         geometry.applyTransform(axis2PlacementTransform)
       }
 

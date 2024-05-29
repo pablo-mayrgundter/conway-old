@@ -177,7 +177,9 @@ export class IfcSceneBuilder implements Scene< StepEntityBase< EntityTypesIfc > 
 
         const clonedGeometry = geometry.geometry.clone()
 
-        clonedGeometry.applyTransform(nativeTransform)
+        if ( nativeTransform !== void 0 ) {
+          clonedGeometry.applyTransform(nativeTransform)
+        }
 
         const primitiveIndex = materialMap.get(material)
 
