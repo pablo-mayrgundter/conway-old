@@ -4615,28 +4615,7 @@ export class IfcGeometryExtraction {
 
       flattenedGeometry = mesh.geometry.clone()
 
-      if (from instanceof IfcExtrudedAreaSolid) {
-        if (from.Position !== null) {
-
-          const paramsAxis2Placement3D: ParamsAxis2Placement3D =
-            this.extractAxis2Placement3DRelVoid(from.Position, from.localID, true)
-          const axis2PlacementTransform = this.conwayModel
-              .getAxis2Placement3D(paramsAxis2Placement3D)
-
-          if (axis2PlacementTransform !== void 0) {
-
-            if (productTransform !== void 0) {
-              const multiplyResultMat =
-                this.conwayModel.multiplyNativeMatrices(
-                    productTransform.absoluteNativeTransform, axis2PlacementTransform)
-
-              flattenedGeometry.applyTransform(multiplyResultMat)
-            } else {
-              flattenedGeometry.applyTransform(axis2PlacementTransform.absoluteNativeTransform)
-            }
-          }
-        }
-      } else if (productTransform !== void 0) {
+      if (productTransform !== void 0) {
         flattenedGeometry.applyTransform(productTransform.absoluteNativeTransform)
       }
 
@@ -4756,27 +4735,9 @@ export class IfcGeometryExtraction {
                 if (mesh !== undefined && mesh.type === CanonicalMeshType.BUFFER_GEOMETRY) {
                   const localGeometry = mesh.geometry.clone()
 
-                  if (item instanceof IfcExtrudedAreaSolid) {
-                    if (item.Position !== null) {
-                      const paramsAxis2Placement3D: ParamsAxis2Placement3D =
-                        this.extractAxis2Placement3DRelVoid(item.Position, item.localID, true)
-                      const axis2PlacementTransform = this.conwayModel
-                          .getAxis2Placement3D(paramsAxis2Placement3D)
 
-                      if (axis2PlacementTransform !== void 0) {
-                        if (relVoidPlacementTransform !== void 0) {
-                          const multiplyResultMat =
-                            this.conwayModel.multiplyNativeMatrices(
-                                relVoidPlacementTransform.absoluteNativeTransform,
-                                axis2PlacementTransform)
-
-                          localGeometry.applyTransform(multiplyResultMat)
-                        } else {
-                          localGeometry.applyTransform(
-                              axis2PlacementTransform.absoluteNativeTransform)
-                        }
-                      }
-                    }
+                  if (relVoidPlacementTransform !== void 0) {
+                    localGeometry.applyTransform(relVoidPlacementTransform.absoluteNativeTransform)
                   }
 
                   relVoidMeshVector.push_back(localGeometry)
