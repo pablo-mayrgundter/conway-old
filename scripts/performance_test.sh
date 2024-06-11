@@ -70,7 +70,7 @@ find "${modelDir}/ifc" -type f \( -name "*.ifc" \) -print0 | while IFS= read -r 
   encoded_file_name=$(python3 -c "import urllib.parse, sys; print(urllib.parse.quote(sys.argv[1]))" "$file_name")
 
   # Construct the URL with the encoded filename
-  url="http://127.0.0.1:8081/${dir_path}/${encoded_file_name}"
+  url="http://127.0.0.1:8080/${dir_path}/${encoded_file_name}"
 
   # Define the output PNG file path
   outputPng="${outputDir}/${file_name}-fit.png"
