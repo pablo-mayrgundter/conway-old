@@ -44,6 +44,7 @@ import {
   ParamsGetTriangulatedFaceSetGeometry,
   ParamsGetPolyCurve,
   ParamsGetPolygonalBoundedHalfspace,
+  ParamsGetIfcLine,
 } from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMaterial, ColorRGBA, exponentToRoughness } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
@@ -172,6 +173,7 @@ import {
   IfcTriangulatedFaceSet,
   IfcPolygonalBoundedHalfSpace,
   IfcSurface,
+  IfcLine,
 } from './ifc4_gen'
 import EntityTypesIfc from './ifc4_gen/entity_types_ifc.gen'
 import { IfcMaterialCache } from './ifc_material_cache'
@@ -2524,28 +2526,27 @@ export class IfcGeometryExtraction {
    */
   extractCurve(from: IfcCurve,
       parentSense:boolean = true,
+      isEdge:boolean = false,
       trimmingArguments: TrimmingArguments | undefined = void 0): CurveObject | undefined {
 
     if (from instanceof IfcBSplineCurve) {
 
-      /* const ifcCurve = this.extractBSplineCurve(from)
+      const ifcCurve = this.extractBSplineCurve(from, parentSense, isEdge)
 
       if (trimmingArguments !== void 0) {
-        //invert curve
-        Logger.info("inverting curve")
+        // invert curve
+        Logger.info('inverting curve')
         ifcCurve.invert()
       }
 
-      //Logger.info(`Curve type: ${EntityTypesIfc[from.type]} - express ID: ${from.expressID}`)
-      for (let i = 0; i < ifcCurve.getPointsSize(); ++i) {
+      // Logger.info(`Curve type: ${EntityTypesIfc[from.type]} - express ID: ${from.expressID}`)
+      /* for (let i = 0; i < ifcCurve.getPointsSize(); ++i) {
         if (from.Degree === 2) {
           const pt_ = ifcCurve.get2d(i)
           Logger.info(`Point ${i}: x: ${pt_.x}, y: ${pt_.y}, z: ${pt_.z}`)
         }
-      }
-      return ifcCurve*/
-      Logger.warning('BSplineCurve not currently supported.')
-      return
+      }*/
+      return ifcCurve
     }
 
     if (from instanceof IfcTrimmedCurve) {
@@ -2560,7 +2561,7 @@ export class IfcGeometryExtraction {
     }
 
     if (from instanceof IfcPolyline) {
-      const ifcCurve = this.extractIfcPolyline(from)
+      const ifcCurve = this.extractIfcPolyline(from, parentSense, isEdge)
 
       if (ifcCurve !== void 0) {
 
@@ -2607,7 +2608,10 @@ export class IfcGeometryExtraction {
    * @param from The bspline curve, potentially with knots/rational.
    * @return {CurveObject} The constructed curve object.
    */
-  extractBSplineCurve(from: IfcBSplineCurve): CurveObject {
+  extractBSplineCurve(from: IfcBSplineCurve,
+      parentSense:boolean = true,
+      isEdge:boolean = false,
+  ): CurveObject {
 
     // Logger.info(`express ID: ${from.expressID} degree === ${from.Degree}`)
 
@@ -2624,6 +2628,8 @@ export class IfcGeometryExtraction {
       points3: this.nativeVectorGlmdVec3(),
       knots: this.conwayModel.nativeVectorDouble(),
       weights: this.conwayModel.nativeVectorDouble(),
+      senseAgreement: parentSense,
+      isEdge: isEdge,
     }
 
     // eslint-disable-next-line no-magic-numbers
@@ -2641,7 +2647,7 @@ export class IfcGeometryExtraction {
     } else {
 
       const outputPoints = params.points3
-      Logger.info(`express ID: ${from.expressID} controlPointsList: ${from.ControlPointsList}`)
+      // Logger.info(`express ID: ${from.expressID} controlPointsList: ${from.ControlPointsList}`)
       for (const point of from.ControlPointsList) {
 
         // eslint-disable-next-line no-magic-numbers
@@ -2651,7 +2657,7 @@ export class IfcGeometryExtraction {
 
         const coords = point.Coordinates
 
-        Logger.info(`express ID: ${from.expressID} -  coords: ${coords}`)
+        // Logger.info(`express ID: ${from.expressID} -  coords: ${coords}`)
 
         outputPoints.push_back({ x: coords[0], y: coords[1], z: coords[2] })
       }
@@ -2735,6 +2741,90 @@ export class IfcGeometryExtraction {
 
   /* eslint-disable default-param-last */
   /**
+   * Extract a IfcLine curve
+   *
+   * @param from - IfcLine
+   * @param parentSense - sense agreement
+   * @param isEdge - is curve an edge curve
+   * @param parametersTrimmedCurve - trimmed curve parameters
+   * @return {CurveObject} The constructed curve object.
+   */
+  extractIfcLine(from:IfcLine,
+      parentSense:boolean = true,
+      isEdge:boolean = false,
+      parametersTrimmedCurve?: ParamsGetIfcTrimmedCurve ): CurveObject | undefined {
+    parametersTrimmedCurve ??= {
+      masterRepresentation: 0,
+      dimensions: 0,
+      senseAgreement: true,
+      trim1Cartesian2D: undefined,
+      trim1Cartesian3D: undefined,
+      trim1Double: 0,
+      trim2Cartesian2D: undefined,
+      trim2Cartesian3D: undefined,
+      trim2Double: 0,
+      trimExists: false,
+    }
+
+    // This potentially mutates a paremeter, but the trimming parameters should always be
+    // specific to this single curve. - CS
+    parametersTrimmedCurve.senseAgreement = parametersTrimmedCurve.senseAgreement === parentSense
+
+    let cartesianPoint2D: Vector2 = { x: 0, y: 0 }
+    let cartesianPoint3D: Vector3 = { x: 0, y: 0, z: 0 }
+    let vectorOrientation: Vector3 = { x: 0, y: 0, z: 0 }
+
+    const cartesianPointArray =  from.Pnt.Coordinates
+
+
+    if (from.Dim === this.TWO_DIMENSIONS) {
+      cartesianPoint2D = {
+        x: cartesianPointArray[0],
+        y: cartesianPointArray[1],
+      }
+    } else if (from.Dim === this.THREE_DIMENSIONS) {
+      cartesianPoint3D = {
+        x: cartesianPointArray[0],
+        y: cartesianPointArray[1],
+        z: cartesianPointArray[2],
+      }
+    }
+
+    const vectorDirectionRatios = from.Dir.Orientation.DirectionRatios
+
+    vectorOrientation = {
+      x: vectorDirectionRatios[0],
+      y: vectorDirectionRatios[1],
+      z: vectorDirectionRatios[2],
+    }
+
+    const vectorMagnitude = from.Dir.Magnitude
+
+    const parametersIfcCircle: ParamsGetIfcLine = {
+      dimensions: from.Dim,
+      cartesianPoint2D: cartesianPoint2D,
+      cartesianPoint3D: cartesianPoint3D,
+      vectorOrientation: vectorOrientation,
+      vectorMagnitude: vectorMagnitude,
+      isEdge: isEdge,
+      paramsGetIfcTrimmedCurve: parametersTrimmedCurve,
+    }
+
+
+    parametersTrimmedCurve.trim1Cartesian2D ??= { x: 0, y: 0 }
+    parametersTrimmedCurve.trim1Cartesian3D ??= { x: 0, y: 0, z: 0 }
+    parametersTrimmedCurve.trim2Cartesian2D ??= { x: 0, y: 0 }
+    parametersTrimmedCurve.trim2Cartesian3D ??= { x: 0, y: 0, z: 0 }
+
+    const curve: CurveObject = this.conwayModel.getIfcLine(parametersIfcCircle)
+
+    return curve
+  }
+  /* eslint-enable default-param-last */
+
+
+  /* eslint-disable default-param-last */
+  /**
    *
    * @param from
    * @param parametersTrimmedCurve
@@ -2800,6 +2890,7 @@ export class IfcGeometryExtraction {
    */
   extractIfcTrimmedCurve(from: IfcTrimmedCurve,
       parentSense:boolean = true,
+      isEdge:boolean = false,
   ): CurveObject | undefined {
 
     let trim1Cartesian2D: Vector2 = { x: 0, y: 0 }
@@ -2893,6 +2984,15 @@ export class IfcGeometryExtraction {
       if (curveObject !== void 0) {
         return curveObject
       }
+    } else if (from.BasisCurve instanceof IfcLine) {
+      const curveObject =
+      this.extractIfcLine(from.BasisCurve, parentSense, isEdge, paramsGetIfcTrimmedCurve)
+
+      if (curveObject !== void 0) {
+        return curveObject
+      }
+    } else {
+      Logger.warning(`Unsupported basis curve type: ${  EntityTypesIfc[from.BasisCurve.type]}`)
     }
 
     return undefined
@@ -2924,7 +3024,10 @@ export class IfcGeometryExtraction {
    * @param from
    * @return {CurveObject | undefined }
    */
-  extractIfcPolyline(from: IfcPolyline): CurveObject | undefined {
+  extractIfcPolyline(from: IfcPolyline,
+      parentSense:boolean = true,
+      isEdge:boolean = false,
+  ): CurveObject | undefined {
     const points = from.Points
     const pointsLength = from.Points.length
     const dim = from.Dim
@@ -2939,6 +3042,8 @@ export class IfcGeometryExtraction {
       parameters.points = pointsPtr
       parameters.pointsLength = pointsLength
       parameters.dimensions = dim
+      parameters.senseAgreement = parentSense
+      parameters.isEdge = isEdge
 
       const curve = this.conwayModel.getPolyCurve(parameters)
 
@@ -3637,7 +3742,9 @@ export class IfcGeometryExtraction {
       from: Array<Array<number>>,
       to: StdVector<StdVector<number>>): void {
 
-    to.resize(from.length)
+    this.wasmModule.resizeVectorVectorDouble(to, from.length)
+
+    // to.resize(from.length)
 
     for (let where = 0, end = from.length; where < end; ++where) {
 
@@ -3822,7 +3929,7 @@ export class IfcGeometryExtraction {
                 end: trimmingEnd,
               }
 
-              const curve = this.extractCurve(edgeCurve, true, trimmingArguments)
+              const curve = this.extractCurve(edgeCurve, true, true, trimmingArguments)
 
 
               if (curve !== void 0) {
@@ -4079,11 +4186,7 @@ export class IfcGeometryExtraction {
     nativeSurface.revolution = {
       active: true,
       direction: this.conwayModel.getAxis1Placement3D(axisDirection),
-      profile: {
-        type: from.SweptCurve.ProfileName ?? '',
-        curve: profile.curve,
-        isConvex: false,
-      },
+      profile: profile.nativeProfile!,
     }
   }
 

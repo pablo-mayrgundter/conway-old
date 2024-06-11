@@ -32,6 +32,7 @@ import {
   ParamsGetTriangulatedFaceSetGeometry,
   ParamsGetPolyCurve,
   TrimmingSelect,
+  ParamsCreateNativeIfcProfile,
 } from '../../dependencies/conway-geom/conway_geometry'
 import { CanonicalMaterial, ColorRGBA } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
@@ -1564,6 +1565,8 @@ export class AP214GeometryExtraction {
       points3: this.nativeVectorGlmdVec3(),
       knots: this.conwayModel.nativeVectorDouble(),
       weights: this.conwayModel.nativeVectorDouble(),
+      senseAgreement: true,
+      isEdge: false,
     }
 
     // eslint-disable-next-line no-magic-numbers
@@ -2759,22 +2762,30 @@ export class AP214GeometryExtraction {
 
     const sweptCurve = from.swept_curve
 
-    const profile = this.extractCurve(sweptCurve)
+    const nativeCurve = this.extractCurve(sweptCurve)
 
-    if ( profile === void 0 ) {
+    if ( nativeCurve === void 0 ) {
       return
     }
 
     const axisDirection = this.extractAxis1Placement3D( from.axis_position, from.localID, true )
 
+    // create native IfcProfile vector
+    const parameters: ParamsCreateNativeIfcProfile = {
+      curve: nativeCurve,
+      // TODO(nickcastel50): support profiles with holes (out of scope at the moment)
+      holes: void 0,
+      isConvex: false,
+      isComposite: false,
+      profiles: void 0,
+    }
+
+    const nativeProfile = this.conwayModel.createNativeIfcProfile(parameters)
+
     nativeSurface.revolution = {
       active: true,
       direction: this.conwayModel.getAxis1Placement3D(axisDirection),
-      profile: {
-        type: '',
-        curve: profile,
-        isConvex: false,
-      },
+      profile: nativeProfile,
     }
   }
 
