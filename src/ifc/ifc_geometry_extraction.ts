@@ -1848,14 +1848,14 @@ export class IfcGeometryExtraction {
     if (from instanceof IfcArbitraryProfileDefWithVoids) {
       const outerCurve = from.OuterCurve
       if (outerCurve instanceof IfcCompositeCurve) {
-        const compositeCurve = this.extractCompositeCurve(outerCurve)
+        const compositeCurve = this.extractCompositeCurve(outerCurve, undefined, true)
         const holesArray: NativeVectorCurve = this.nativeVectorCurve()
         if (compositeCurve !== void 0) {
           for (let holeIndex = 0; holeIndex < from.InnerCurves.length; ++holeIndex) {
             const holeCurve = from.InnerCurves[holeIndex]
 
             if (holeCurve instanceof IfcCompositeCurve) {
-              const compositeCurve_ = this.extractCompositeCurve(holeCurve)
+              const compositeCurve_ = this.extractCompositeCurve(holeCurve, undefined, true)
 
               if (compositeCurve_ !== void 0) {
                 holesArray.push_back(compositeCurve_)
@@ -1887,7 +1887,7 @@ export class IfcGeometryExtraction {
             const holeCurve = from.InnerCurves[holeIndex]
 
             if (holeCurve instanceof IfcCompositeCurve) {
-              const compositeCurve = this.extractCompositeCurve(holeCurve)
+              const compositeCurve = this.extractCompositeCurve(holeCurve, undefined, true )
 
               if (compositeCurve !== void 0) {
                 holesArray.push_back(compositeCurve)
@@ -1918,7 +1918,11 @@ export class IfcGeometryExtraction {
         from instanceof IfcArbitraryClosedProfileDef ? from.OuterCurve : from.Curve
 
       if (profileCurve instanceof IfcCompositeCurve) {
-        const compositeCurve = this.extractCompositeCurve(profileCurve)
+        const compositeCurve =
+          this.extractCompositeCurve(
+              profileCurve,
+              void 0,
+              from instanceof IfcArbitraryClosedProfileDef)
         const holesArray: NativeVectorCurve = this.nativeVectorCurve()
 
         if (compositeCurve !== void 0) {
@@ -2487,6 +2491,7 @@ export class IfcGeometryExtraction {
    */
   extractCompositeCurve(from: IfcCompositeCurve,
       parentSense:boolean = true,
+      close:boolean = false,
   ): CurveObject | undefined {
     let compositeCurve: CurveObject | undefined
     for (let i = 0; i < from.Segments.length; i++) {
@@ -2496,12 +2501,18 @@ export class IfcGeometryExtraction {
       const sameSense = from.Segments[i].SameSense === parentSense
 
       if (parentCurve instanceof IfcCompositeCurve) {
-        currentCurveObject = this.extractCompositeCurve(parentCurve, sameSense)
+        currentCurveObject = this.extractCompositeCurve(parentCurve, true)
       } else {
-        currentCurveObject = this.extractCurve(from.Segments[i].ParentCurve, sameSense)
+        currentCurveObject = this.extractCurve(from.Segments[i].ParentCurve, true)
       }
 
       if (currentCurveObject !== undefined) {
+
+        if ( !sameSense ) {
+
+          currentCurveObject.invert()
+        }
+
         if (i === 0) {
           compositeCurve = currentCurveObject
         } else if (from.Segments[i].Dim === this.TWO_DIMENSIONS) {
@@ -2514,6 +2525,10 @@ export class IfcGeometryExtraction {
           }
         }
       }
+    }
+
+    if ( close ) {
+      compositeCurve?.add3d( compositeCurve.get3d( 0 ) )
     }
 
     return compositeCurve
