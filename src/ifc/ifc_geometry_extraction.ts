@@ -182,7 +182,8 @@ import IfcStepModel from './ifc_step_model'
 import Logger from '../logging/logger'
 // import fs from 'fs'
 import Environment, { EnvironmentType } from '../utilities/environment'
-import IfcParserQuirks from './ifc_parser_quirks'
+import { REFLECTANCE_METHOD_PERMISSIVE,
+  MATERIAL_RELATED_OBJECTS_PERMISSIVE } from './ifc_parser_quirks'
 
 
 type Mutable<T> = { -readonly [P in keyof T]: T[P] }
@@ -301,11 +302,6 @@ export class IfcGeometryExtraction {
 
   private identity2DNativeMatrix: any
   private identity3DNativeMatrix: any
-
-  private parserQuirks = IfcParserQuirks.getInstance()
-  private readonly reflectanceMethodPermissive = this.parserQuirks.getFlag('reflectanceMethod')
-  private readonly relAssociatesMaterialRelatedObjectsPermissive =
-    this.parserQuirks.getFlag('relAssociatesMaterialRelatedObjects')
 
   /**
    * Construct a geometry extraction from an IFC step model and conway model
@@ -1513,7 +1509,7 @@ export class IfcGeometryExtraction {
             reflectanceMethod = style.ReflectanceMethod
           } catch (ex) {
             if (ex instanceof Error) {
-              if (this.reflectanceMethodPermissive) {
+              if (REFLECTANCE_METHOD_PERMISSIVE) {
                 Logger.error(
                     `Found null for nonnullable field IfcReflectanceMethodEnum. expressID: ${
                       style.expressID}`,
@@ -5222,7 +5218,7 @@ export class IfcGeometryExtraction {
           }
         } catch (ex) {
           if (ex instanceof Error) {
-            if (this.relAssociatesMaterialRelatedObjectsPermissive) {
+            if (MATERIAL_RELATED_OBJECTS_PERMISSIVE) {
               Logger.error('Error processing relatingMaterial expressID: ' +
                 `${relatingMaterial.expressID}, error: ${ex.message}`)
             } else {
