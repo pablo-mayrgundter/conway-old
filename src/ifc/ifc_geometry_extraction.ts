@@ -182,6 +182,7 @@ import IfcStepModel from './ifc_step_model'
 import Logger from '../logging/logger'
 // import fs from 'fs'
 import Environment, { EnvironmentType } from '../utilities/environment'
+import IfcParserQuirks from './ifc_parser_quirks'
 
 
 type Mutable<T> = { -readonly [P in keyof T]: T[P] }
@@ -300,6 +301,11 @@ export class IfcGeometryExtraction {
 
   private identity2DNativeMatrix: any
   private identity3DNativeMatrix: any
+
+  private parserQuirks = IfcParserQuirks.getInstance()
+  private readonly reflectanceMethodPermissive = this.parserQuirks.getFlag('reflectanceMethod')
+  private readonly relAssociatesMaterialRelatedObjectsPermissive =
+    this.parserQuirks.getFlag('relAssociatesMaterialRelatedObjects')
 
   /**
    * Construct a geometry extraction from an IFC step model and conway model
@@ -1501,7 +1507,24 @@ export class IfcGeometryExtraction {
           newMaterial.specular = style.SpecularColour !== null ?
             extractColorOrFactor(style.SpecularColour, surfaceColor) : void 0
 
-          switch (style.ReflectanceMethod) {
+          let reflectanceMethod = IfcReflectanceMethodEnum.NOTDEFINED
+
+          try {
+            reflectanceMethod = style.ReflectanceMethod
+          } catch (ex) {
+            if (ex instanceof Error) {
+              if (this.reflectanceMethodPermissive) {
+                Logger.error(
+                    `Found null for nonnullable field IfcReflectanceMethodEnum. expressID: ${
+                      style.expressID}`,
+                )
+              } else {
+                throw ex
+              }
+            }
+          }
+
+          switch (reflectanceMethod) {
 
             case IfcReflectanceMethodEnum.NOTDEFINED:
             case IfcReflectanceMethodEnum.PHONG:
@@ -5177,22 +5200,36 @@ export class IfcGeometryExtraction {
 
       for (const relAssociateMaterial of relAssociatesMaterials) {
         const relatingMaterial = relAssociateMaterial.RelatingMaterial
-        for (const relatedObject of relAssociateMaterial.RelatedObjects) {
-          const product = relatedObject
+        try {
+          const relatedObjects = relAssociateMaterial.RelatedObjects
+          for (const relatedObject of relatedObjects) {
+            const product = relatedObject
 
-          if (product instanceof IfcProduct) {
-            if (product instanceof IfcOpeningElement ||
-              product instanceof IfcSpace ||
-              product instanceof IfcOpeningStandardCase) {
-              continue
+            if (product instanceof IfcProduct) {
+              if (product instanceof IfcOpeningElement ||
+                product instanceof IfcSpace ||
+                product instanceof IfcOpeningStandardCase) {
+                continue
+              }
+
+              // save mapping of IfcProduct --> IfcMaterial
+              this.materials.relMaterialsMap.set(
+                  product.localID,
+                  relatingMaterial.localID)
+            } else {
+              //     Logger.warning(`type other than IfcProduct: ${EntityTypesIfc[product.type]}`)
             }
-
-            // save mapping of IfcProduct --> IfcMaterial
-            this.materials.relMaterialsMap.set(
-                product.localID,
-                relatingMaterial.localID)
+          }
+        } catch (ex) {
+          if (ex instanceof Error) {
+            if (this.relAssociatesMaterialRelatedObjectsPermissive) {
+              Logger.error('Error processing relatingMaterial expressID: ' +
+                `${relatingMaterial.expressID}, error: ${ex.message}`)
+            } else {
+              throw ex
+            }
           } else {
-            //     Logger.warning(`type other than IfcProduct: ${EntityTypesIfc[product.type]}`)
+            Logger.error('Unknown exception processing IfcRelAssociateMaterials.')
           }
         }
       }
