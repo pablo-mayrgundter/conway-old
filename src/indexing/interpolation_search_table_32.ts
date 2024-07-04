@@ -317,6 +317,7 @@ export default class InterpolationSearchTable32 implements
       lowerBound = interpolationTable[ bucket ]
       upperBound = interpolationTable[ bucket + 1 ]
 
+
     } else {
 
       lowerBound = 0

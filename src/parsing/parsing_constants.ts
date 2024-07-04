@@ -7,6 +7,11 @@ const whitespaceSet   = new ByteBitSet()
 
 whitespaceSet.set( whiteSpaceBuffer )
 
+const commaEndBracketBuffer = encodeToken( ',)' )
+const commaEndBracketSet   = new ByteBitSet()
+
+commaEndBracketSet.set( commaEndBracketBuffer )
+
 /**
  * Constants to be used for parsing value or STEP.
  */
@@ -51,4 +56,6 @@ export default class ParsingConstants {
   public static readonly DASH            = encodeCharacter( '-' )
   public static readonly WHITE_SPACE     = whiteSpaceBuffer
   public static readonly WHITE_SPACE_SET = whitespaceSet
+  public static readonly COMMA_END_BRACE = commaEndBracketBuffer
+  public static readonly COMMA_END_SET   = commaEndBracketSet
 }

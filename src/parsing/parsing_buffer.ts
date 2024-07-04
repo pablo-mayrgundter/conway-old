@@ -1,3 +1,4 @@
+import ByteBitSet from './char_bit_set'
 import HexParser from './hex_parser'
 import IntegerParser from './integer_parser'
 import ParsingConstants from './parsing_constants'
@@ -148,6 +149,30 @@ export default class ParsingBuffer {
   public begin = (): void => {
 
     this.rewindStack_.push( this.cursor_ )
+  }
+
+  /**
+   * Move the cursor forwards while a particular char isn't found.
+   *
+   * @param char
+   */
+  public whileNot = ( chars: ByteBitSet ): void => {
+    let   localCursor  = this.cursor_
+    const end          = this.end
+    const input        = this.buffer
+
+    while ( localCursor < end ) {
+
+      const currentChar = input[ localCursor ]
+
+      if ( chars.has( currentChar ) ) {
+        break
+      }
+
+      ++localCursor
+    }
+
+    this.cursor_ = localCursor
   }
 
   /**

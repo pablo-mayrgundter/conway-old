@@ -405,12 +405,14 @@ export default class StepStringParser extends ParsingDfa16Table {
       return
     }
 
-    return super.match(
+    const result = super.match(
         input,
         STRING_PARSER_TERMINUS_FLAGS,
         cursor + 1,
         endCursor,
         STRING_PARSER_STATE.REGULAR)
+
+    return result
   }
 
   public static readonly Instance = new StepStringParser()

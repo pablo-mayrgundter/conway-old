@@ -440,6 +440,7 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
     const real = input.real
     const negativeInf = () => input.char( DASH ) && tokenws( INF )
     const unsigned = input.unsigned
+    const whileNotCommaBracket = () => input.whileNot( ParsingConstants.COMMA_END_SET )
     const unsignedws = () => {
       whitespace(); return unsigned()
     }
@@ -541,6 +542,8 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
             if (!real() && !negativeInf()) {
               return syntaxError()
             }
+
+            whileNotCommaBracket()
             break
 
           case ATTRIBUTE_PARSE_TYPE.ENUM:
@@ -749,6 +752,9 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
             if (!real() && !negativeInf()) {
               return syntaxError()
             }
+
+            whileNotCommaBracket()
+
             break
 
           case ATTRIBUTE_PARSE_TYPE.ENUM:
@@ -905,7 +911,6 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
         switch (attributeMap(nextChar)) {
           case ATTRIBUTE_PARSE_TYPE.INVALID:
 
-            console.log('syntaxError parsing: INVALID')
             return syntaxError()
 
           case ATTRIBUTE_PARSE_TYPE.INLINE_INSTANCE: {
@@ -932,14 +937,7 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
               } else {
                 indexResult.push(arg_)
               }
-
-              /* const testChar_ = input.peek()
-
-              if (testChar_ !== void 0) {
-                console.log("read real, Peek: " + String.fromCharCode(testChar_))
-              }*/
             } else {
-              console.log('syntaxError parsing NUMBER')
               return syntaxError()
             }
 
@@ -978,7 +976,6 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
               return syntaxError()
             }
 
-            // console.log("extracting string...")
             const extractString = stepExtractString(input.buffer, startString_, input.cursor)
 
             if (extractString === void 0) {
@@ -1000,7 +997,6 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
 
           case ATTRIBUTE_PARSE_TYPE.REFERENCE:
 
-            //  console.log("extracting reference...")
             input.step()
 
             const expressID_ = input.readUnsigned()
@@ -1017,21 +1013,13 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
                 indexResult.push(arg_)
               }
 
-              /* const refTest = input.peek()
-
-              if (refTest !== void 0) {
-                console.log("reference case? Peek: " + String.fromCharCode(refTest))
-              }*/
-
             } else {
-              console.log('syntaxError parsing REFERENCE')
               return syntaxError()
             }
             break
 
           case ATTRIBUTE_PARSE_TYPE.CONTAINER:
 
-            // console.log("found container")
             firstAttribute = true
             input.step()
             ++stackDepth
@@ -1043,7 +1031,6 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
           case ATTRIBUTE_PARSE_TYPE.HEXBITS:
 
             if (!binaryHex()) {
-              console.log('syntaxError parsing HEXBITS')
               return syntaxError()
             }
             break
@@ -1064,11 +1051,6 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
             break
 
           default:
-            const _testChar = input.peek()
-
-            if (_testChar !== void 0) {
-              console.log(`default case? Peek: ${  String.fromCharCode(_testChar)}`)
-            }
         }
         /* eslint-enable no-case-declarations */
       }
@@ -1098,7 +1080,6 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
 
       if (!firstAttribute) {
         if (!char(COMMA)) {
-          console.log('COMMA not found, exiting...')
           return syntaxError()
         }
       }
@@ -1110,7 +1091,6 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
       const nextChar = input.peek()
 
       if (nextChar === (void 0)) {
-        console.log('nextChar === undefined')
         return syntaxError()
       }
 
@@ -1120,7 +1100,6 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
       switch (attributeMap(nextChar)) {
         case ATTRIBUTE_PARSE_TYPE.INVALID:
 
-          console.log('syntaxError parsing: INVALID')
           return syntaxError()
 
         case ATTRIBUTE_PARSE_TYPE.INLINE_INSTANCE: {
@@ -1147,14 +1126,7 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
             } else {
               indexResult.push(arg)
             }
-
-            /* const testChar_ = input.peek()
-
-            if (testChar_ !== void 0) {
-              console.log("read real, Peek: " + String.fromCharCode(testChar_))
-            }*/
           } else {
-            console.log('syntaxError parsing NUMBER')
             return syntaxError()
           }
 
@@ -1171,8 +1143,6 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
           // do not include the trailing period delimiter
           const subArray = input.buffer.subarray(startEnum_ + 1, input.cursor - 1)
           const enumString = new TextDecoder().decode(subArray)
-
-          // console.log("enumString: " + enumString)
 
           arg = {
             type: 3,
@@ -1195,7 +1165,6 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
             return syntaxError()
           }
 
-          // console.log("extracting string...")
           const extractString = stepExtractString(input.buffer, startString_, input.cursor)
 
           if (extractString === void 0) {
@@ -1217,7 +1186,6 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
 
         case ATTRIBUTE_PARSE_TYPE.REFERENCE:
 
-          //  console.log("extracting reference...")
           input.step()
 
           const expressID_ = input.readUnsigned()
@@ -1234,21 +1202,13 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
               indexResult.push(arg)
             }
 
-            /* const refTest = input.peek()
-
-            if (refTest !== void 0) {
-              console.log("reference case? Peek: " + String.fromCharCode(refTest))
-            }*/
-
           } else {
-            console.log('syntaxError parsing REFERENCE')
             return syntaxError()
           }
           break
 
         case ATTRIBUTE_PARSE_TYPE.CONTAINER:
 
-          // console.log("found container")
           firstAttribute = true
           input.step()
           ++stackDepth
@@ -1260,7 +1220,6 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
         case ATTRIBUTE_PARSE_TYPE.HEXBITS:
 
           if (!binaryHex()) {
-            console.log('syntaxError parsing HEXBITS')
             return syntaxError()
           }
           break
@@ -1281,17 +1240,11 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
           break
 
         default:
-          const _testChar = input.peek()
-
-          if (_testChar !== void 0) {
-            console.log(`default case? Peek: ${  String.fromCharCode(_testChar)}`)
-          }
       }
       /* eslint-enable no-case-declarations */
     }
 
     if (!charws(SEMICOLON)) {
-      console.log('syntaxError parsing SEMICOLON')
       return syntaxError()
     }
 

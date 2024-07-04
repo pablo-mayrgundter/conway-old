@@ -95,8 +95,6 @@ implements Iterable<BaseEntity>, Model {
 
     this.inlineAddressMap_ = inlineAddressMap
 
-    // console.log( 'Inline Address Map', inlineAddressMap.size )
-
     const expressIdTable = new Uint32Array( firstInlineElement << 1 )
 
     let expressIdsAlreadySorted = true
@@ -132,9 +130,6 @@ implements Iterable<BaseEntity>, Model {
     // }
 
     this.expressIDMap_ = expressIDMap
-
-    // console.log( 'Express ID Map', expressIDMap.size )
-
     this.elementIndex_ = localElementIndex
   }
 
