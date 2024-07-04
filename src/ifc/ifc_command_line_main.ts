@@ -168,8 +168,36 @@ function doWork() {
           }
 
           const parseDataTimeStart = Date.now()
-          const model: IfcStepModel | undefined = parser.parseDataToModel(bufferInput)[1]
+          const [result1, model] = parser.parseDataToModel(bufferInput)
           const parseDataTimeEnd = Date.now()
+
+          switch (result1) {
+            case ParseResult.COMPLETE:
+
+              break
+
+            case ParseResult.INCOMPLETE:
+
+              Logger.warning('Parse incomplete but no errors')
+              break
+
+            case ParseResult.INVALID_STEP:
+
+              Logger.error('Invalid STEP detected in parse, but no syntax error detected')
+              break
+
+            case ParseResult.MISSING_TYPE:
+
+              Logger.error('Missing STEP type, but no syntax error detected')
+              break
+
+            case ParseResult.SYNTAX_ERROR:
+
+              Logger.error(`Syntax error detected on line ${bufferInput.lineCount}`)
+              break
+
+            default:
+          }
 
           if (model === void 0) {
             return
