@@ -2633,6 +2633,18 @@ export class IfcGeometryExtraction {
       return ifcCurve
     }
 
+    if (from instanceof IfcCompositeCurve) {
+      const ifcCurve = this.extractCompositeCurve(from, parentSense)
+
+      if (ifcCurve !== void 0) {
+        if (!ifcCurve.isCCW()) {
+          ifcCurve.invert()
+        }
+      }
+
+      return ifcCurve
+    }
+
     Logger.warning(`Unsupported Curve! Type: ${EntityTypesIfc[from.type]}`)
   }
 
