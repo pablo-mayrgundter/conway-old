@@ -1716,11 +1716,14 @@ export class AP214GeometryExtraction {
     parametersTrimmedCurve.trim2Cartesian2D ??= { x: 0, y: 0 }
     parametersTrimmedCurve.trim2Cartesian3D ??= { x: 0, y: 0, z: 0 }
 
+    const radius = from.radius
+
     const parametersCircle: ParamsGetIfcCircle = {
       dimensions: dimension,
       axis2Placement2D: axis2Placement2D,
       axis2Placement3D: axis2Placement3D,
-      radius: from.radius,
+      radius: radius,
+      radius2: radius,
       paramsGetIfcTrimmedCurve: parametersTrimmedCurve,
     }
 
