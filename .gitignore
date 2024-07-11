@@ -22,6 +22,7 @@ index*.gltf
 index*.glb
 *.bin
 scripts/test_runs/
+scripts/*/
 *.tgz
 *.obj
 *.glb

@@ -7,6 +7,8 @@ This document provides detailed instructions on how to set up and run the perfor
 Before you begin, ensure you have the following installed:
 - Node.js and npm (for `npx http-server`)
 - A Unix-like environment (for running shell scripts)
+- Install google-cloud-firestore ```python3 -m pip install google-cloud-firestore```
+- Add app.json to this folder for Firestore authentication.       
 
 ## Step 1: Start the HTTP Server
 
@@ -14,7 +16,7 @@ Before you begin, ensure you have the following installed:
 2. Run the following command to start a local HTTP server:
 
    ```bash
-   npx http-server
+   npx http-server -c-1
    ```
 
    This command serves the files over HTTP, which is necessary for the performance test.
@@ -30,6 +32,20 @@ Before you begin, ensure you have the following installed:
    ```
 
    Replace `/path/to/headless_three` and `/path/to/model_directory` with the actual paths to the `headless_three` directory and the model directory, respectively.
+
+## Step 3: gen_csv.py
+1. You can generate a csv for any document in the Firestore test_runs collection with the following command
+
+   ```
+   python gen_csv.py <document_name> <output_csv_filename>
+   ```
+
+## Step 4: gen_delta_csv.py
+1. You can generate a delta csv to compute delta processing time changes for any two documents in the Firestore test_runs collection with the following command:
+
+   ```
+   python gen_delta_csv.py <document_name1> <document_name2> <output_csv_filename>
+   ```
 
 ## Additional Information
 
