@@ -39,7 +39,11 @@ def compute_deltas(data1, data2):
             "schemaVersion": entry1.get("schemaVersion"),
             "parseTimeDelta": parse_value(entry2.get("parseTime")) - parse_value(entry1.get("parseTime")),
             "geometryTimeDelta": parse_value(entry2.get("geometryTime")) - parse_value(entry1.get("geometryTime")),
-            "totalTimeDelta": parse_value(entry2.get("totalTime")) - parse_value(entry1.get("totalTime"))
+            "totalTimeDelta": parse_value(entry2.get("totalTime")) - parse_value(entry1.get("totalTime")),
+            "geometryMemoryDelta": parse_value(entry2.get("geometryMemory")) - parse_value(entry1.get("geometryMemory")),
+            "rssDelta": parse_value(entry2.get("rss")) - parse_value(entry1.get("rss")),
+            "heapUsedDelta": parse_value(entry2.get("heapUsed")) - parse_value(entry1.get("heapUsed")),
+            "heapTotalDelta": parse_value(entry2.get("heapTotal")) - parse_value(entry1.get("heapTotal"))
         }
         deltas.append(delta)
     return deltas
@@ -47,7 +51,8 @@ def compute_deltas(data1, data2):
 def write_data_to_csv(data, csv_filename):
     # Define CSV header
     csv_header = ["timestamp", "loadStatus1", "loadStatus2", "uname", "conwayVersion1", "conwayVersion2",
-                  "fileName", "schemaVersion", "parseTimeDelta", "geometryTimeDelta", "totalTimeDelta"]
+                  "fileName", "schemaVersion", "parseTimeDelta", "geometryTimeDelta", "totalTimeDelta",
+                  "geometryMemoryDelta", "rssDelta", "heapUsedDelta", "heapTotalDelta"]
     
     # Write data to CSV
     with open(csv_filename, mode='w', newline='') as file:
