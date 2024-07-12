@@ -174,6 +174,7 @@ import {
   IfcPolygonalBoundedHalfSpace,
   IfcSurface,
   IfcLine,
+  IfcEllipse,
 } from './ifc4_gen'
 import EntityTypesIfc from './ifc4_gen/entity_types_ifc.gen'
 import { IfcMaterialCache } from './ifc_material_cache'
@@ -2908,11 +2909,74 @@ export class IfcGeometryExtraction {
       axis2Placement2D = (new (this.wasmModule.Glmdmat3)) as any
     }
 
+    const radius = from.Radius
     const parametersIfcCircle: ParamsGetIfcCircle = {
       dimensions: from.Dim,
       axis2Placement2D: axis2Placement2D,
       axis2Placement3D: axis2Placement3D,
-      radius: from.Radius,
+      radius: radius,
+      radius2: radius,
+      paramsGetIfcTrimmedCurve: parametersTrimmedCurve,
+    }
+
+
+    parametersTrimmedCurve.trim1Cartesian2D ??= { x: 0, y: 0 }
+    parametersTrimmedCurve.trim1Cartesian3D ??= { x: 0, y: 0, z: 0 }
+    parametersTrimmedCurve.trim2Cartesian2D ??= { x: 0, y: 0 }
+    parametersTrimmedCurve.trim2Cartesian3D ??= { x: 0, y: 0, z: 0 }
+
+    const curve: CurveObject = this.conwayModel.getIfcCircle(parametersIfcCircle)
+
+    return curve
+  }
+
+  /* eslint-enable default-param-last */
+
+  /* eslint-disable default-param-last */
+  /**
+   *
+   * @param from
+   * @param parametersTrimmedCurve
+   * @return {CurveObject | undefined}
+   */
+  extractIfcEllipse(from: IfcEllipse,
+      parentSense:boolean = true,
+      parametersTrimmedCurve?: ParamsGetIfcTrimmedCurve ): CurveObject | undefined {
+
+    parametersTrimmedCurve ??= {
+      masterRepresentation: 0,
+      dimensions: 0,
+      senseAgreement: true,
+      trim1Cartesian2D: undefined,
+      trim1Cartesian3D: undefined,
+      trim1Double: 0,
+      trim2Cartesian2D: undefined,
+      trim2Cartesian3D: undefined,
+      trim2Double: 0,
+      trimExists: false,
+    }
+
+    // This potentially mutates a paremeter, but the trimming parameters should always be
+    // specific to this single curve. - CS
+    parametersTrimmedCurve.senseAgreement = parametersTrimmedCurve.senseAgreement === parentSense
+
+    let axis2Placement2D: any = void 0 // glmdmat3
+    let axis2Placement3D: any = void 0 // glmdmat4
+    if (from.Position instanceof IfcAxis2Placement2D) {
+      axis2Placement2D = this.extractAxis2Placement2D(from.Position)
+      axis2Placement3D = (new (this.wasmModule.Glmdmat4)) as any
+    } else {
+      axis2Placement3D = this.conwayModel.getAxis2Placement3D(
+          this.extractAxis2Placement3D(from.Position, from.localID, true) )
+      axis2Placement2D = (new (this.wasmModule.Glmdmat3)) as any
+    }
+
+    const parametersIfcCircle: ParamsGetIfcCircle = {
+      dimensions: from.Dim,
+      axis2Placement2D: axis2Placement2D,
+      axis2Placement3D: axis2Placement3D,
+      radius: from.SemiAxis1,
+      radius2: from.SemiAxis2,
       paramsGetIfcTrimmedCurve: parametersTrimmedCurve,
     }
 
@@ -3023,22 +3087,31 @@ export class IfcGeometryExtraction {
       trimExists: true,
     }
 
-    if (from.BasisCurve instanceof IfcCircle) {
+    const basisCurve = from.BasisCurve
+
+    if (basisCurve instanceof IfcCircle) {
       const curveObject =
-      this.extractIfcCircle(from.BasisCurve, parentSense, paramsGetIfcTrimmedCurve)
+      this.extractIfcCircle(basisCurve, parentSense, paramsGetIfcTrimmedCurve)
 
       if (curveObject !== void 0) {
         return curveObject
       }
-    } else if (from.BasisCurve instanceof IfcLine) {
+    } else if (basisCurve instanceof IfcLine) {
       const curveObject =
-      this.extractIfcLine(from.BasisCurve, parentSense, isEdge, paramsGetIfcTrimmedCurve)
+      this.extractIfcLine(basisCurve, parentSense, isEdge, paramsGetIfcTrimmedCurve)
+
+      if (curveObject !== void 0) {
+        return curveObject
+      }
+    } else if (basisCurve instanceof IfcEllipse) {
+      const curveObject =
+      this.extractIfcEllipse(basisCurve, parentSense, paramsGetIfcTrimmedCurve)
 
       if (curveObject !== void 0) {
         return curveObject
       }
     } else {
-      Logger.warning(`Unsupported basis curve type: ${  EntityTypesIfc[from.BasisCurve.type]}`)
+      Logger.warning(`Unsupported basis curve type: ${  EntityTypesIfc[basisCurve.type]}`)
     }
 
     return undefined

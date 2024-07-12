@@ -21,7 +21,10 @@ index*.bin
 index*.gltf
 index*.glb
 *.bin
+scripts/*.csv
+scripts/app.json
 scripts/test_runs/
+scripts/*/
 *.tgz
 *.obj
 *.glb
