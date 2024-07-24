@@ -24,7 +24,6 @@ const hexParser     = HexParser.Instance
 const RADIX_LUT_SIZE = 64
 
 const radixLUT  = new Float64Array( RADIX_LUT_SIZE )
-const iradixLUT = new Float64Array( RADIX_LUT_SIZE )
 
 {
   let radixMultiplier = 1
@@ -32,7 +31,6 @@ const iradixLUT = new Float64Array( RADIX_LUT_SIZE )
   for ( let where = 0; where < RADIX_LUT_SIZE; ++where ) {
 
     radixLUT[ where ] = radixMultiplier
-    iradixLUT[ where ] = 1.0 / radixMultiplier
 
     // eslint-disable-next-line no-magic-numbers
     radixMultiplier *= 10
@@ -659,7 +657,9 @@ export default class ParsingBuffer {
       const radixLutEntry = Math.min( -decimals, RADIX_LUT_SIZE )
 
       decimals += radixLutEntry
-      primary *= iradixLUT[ radixLutEntry ]
+      // Note, we need to use division here not a multiply
+      // by inverse to get the matching rounding mode behaviour.
+      primary  /= radixLUT[ radixLutEntry ]
     }
 
     while ( decimals > 0 ) {
@@ -667,7 +667,7 @@ export default class ParsingBuffer {
       const radixLutEntry = Math.min( decimals, RADIX_LUT_SIZE )
 
       decimals -= radixLutEntry
-      primary *= radixLUT[ radixLutEntry ]
+      primary  *= radixLUT[ radixLutEntry ]
     }
 
     return primary
