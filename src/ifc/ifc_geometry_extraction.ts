@@ -4607,13 +4607,15 @@ export class IfcGeometryExtraction {
       return
     }
 
-    const result = this.scene.getTransform(parentLocalId)
+    if ( !extractOnly ) {
+      const result = this.scene.getTransform(parentLocalId)
 
-    if (result !== void 0) {
+      if (result !== void 0) {
 
-      this.scene.pushTransform(result)
+        this.scene.pushTransform(result)
 
-      return
+        return
+      }
     }
 
     let normalizeZ: boolean = false
