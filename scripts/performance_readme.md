@@ -1,4 +1,4 @@
-# Project Readme
+# Performance Benchmark
 
 This document provides detailed instructions on how to set up and run the performance tests for the project. The process involves two main steps: starting a local HTTP server and running a performance test script.
 
