@@ -61,13 +61,22 @@ export default class IfcModelCurves extends SimpleMemoization< CurveObject > {
 
       const localID = curveItem.localID
 
-      const curveExpressID = curveItem.expressID
+      const outputExpressID = curveItem.expressID
       const outputFileName =
-        curveExpressID !== void 0 ?
-          `${curveExpressID}.obj` :
-          `${localID}_inline.obj`
+          outputExpressID !== void 0 ?
+              `${outputExpressID}.obj` :
+              `${localID}_inline.obj`
 
-      const outputFilePath = path.join( folder, outputFileName )
+      const RADIX_CHARS = 2
+
+      const outputFolder = path.join(
+          folder, outputExpressID !== void 0 ?
+            String( outputExpressID ).padStart( RADIX_CHARS, '0' ).substring( 0, RADIX_CHARS ) :
+            'inline' )
+
+      await fsPromises.mkdir( outputFolder, { recursive: true } )
+
+      const outputFilePath = path.join( outputFolder, outputFileName )
 
       writePromises.push( fsPromises.writeFile( outputFilePath, objFileContents ) )
 
