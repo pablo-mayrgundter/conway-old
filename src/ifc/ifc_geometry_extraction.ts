@@ -321,10 +321,10 @@ export class IfcGeometryExtraction {
     private readonly conwayModel: ConwayGeometry,
     public readonly model: IfcStepModel) {
 
-    this.materials = new IfcMaterialCache()
+    this.materials = model.materials
     this.scene = new IfcSceneBuilder(model, conwayModel, this.materials)
 
-    this.voidMaterials = new IfcMaterialCache()
+    this.voidMaterials = model.voidMaterials
     this.voidScene = new IfcSceneBuilder(model, conwayModel, this.voidMaterials)
 
     this.relVoidsMap = new Map<number, number>()
@@ -1452,12 +1452,20 @@ export class IfcGeometryExtraction {
 
       // add mesh to the list of mesh objects
       if (!isRelVoid) {
-        this.dropNonSceneGeometry(firstMesh.localID)
-        this.dropNonSceneGeometry(secondMesh.localID)
+
+        if ( RegressionCaptureState.memoization !== MemoizationCapture.FULL ) {
+          this.dropNonSceneGeometry(firstMesh.localID)
+          this.dropNonSceneGeometry(secondMesh.localID)
+        }
+
         this.model.geometry.add(canonicalMesh)
       } else {
-        this.model.voidGeometry.delete(firstMesh.localID)
-        this.model.voidGeometry.delete(secondMesh.localID)
+
+        if ( RegressionCaptureState.memoization !== MemoizationCapture.FULL ) {
+          this.model.voidGeometry.delete(firstMesh.localID)
+          this.model.voidGeometry.delete(secondMesh.localID)
+        }
+
         this.model.voidGeometry.add(canonicalMesh)
       }
 

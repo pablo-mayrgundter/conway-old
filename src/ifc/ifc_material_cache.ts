@@ -1,4 +1,15 @@
-import { CanonicalMaterial } from '../core/canonical_material'
+/* eslint-disable no-empty-function */
+/* eslint-disable no-useless-constructor */
+import { CanonicalMaterial, dumpMTL } from '../core/canonical_material'
+import IfcStepModel from './ifc_step_model'
+import path from 'path'
+import fsPromises from 'fs/promises'
+import crypto from 'crypto'
+import StepEntityBase from '../step/step_entity_base'
+import EntityTypesIfc from './ifc4_gen/entity_types_ifc.gen'
+
+
+const MAX_FILES_OPEN = 64
 
 /**
  * Cache of materials via their local ID
@@ -14,6 +25,14 @@ export class IfcMaterialCache {
   readonly relMaterialsMap = new Map<number, number>()
   readonly materialDefinitionsMap = new Map<number, number>()
   readonly styledItemMap = new Map<number, number>()
+
+
+  /**
+   * Construct this with an IFC step model.
+   *
+   * @param model The model this is from
+   */
+  constructor( public readonly model: IfcStepModel, public readonly isVoid: boolean = false ) {}
 
   /**
    * If there is a material for a whole element, this is used to
@@ -136,5 +155,89 @@ export class IfcMaterialCache {
     }
 
     return [material, materialID]
+  }
+
+  /**
+   * Get the OBJs for all the curves in the cache (lazily)
+   *
+   * @yields {[StepEntityBase, string]} Curves with their matching OBJ as a string
+   */
+  public* mtls() : IterableIterator< [StepEntityBase< EntityTypesIfc >, string] > {
+
+    const model = this.model
+
+    for ( const [localID, material] of this.cache_ ) {
+
+      const materialItem = model.getElementByLocalID( localID )
+
+      if ( materialItem === void 0 ) {
+        continue
+      }
+
+      const mtlFileContents = dumpMTL( material )
+
+      yield [materialItem, mtlFileContents]
+    }
+  }
+
+  /**
+   * Dump the OBJs in this to a particular folder
+   *
+   * @param folder The folder to dump to
+   * @return {Promise<void>} A promise to wait on when this completes.
+   */
+  public async dumpMTLs( folder: string ): Promise< void > {
+
+    await fsPromises.mkdir( folder, { recursive: true })
+
+    const writePromises: Promise< void >[] = []
+
+    for ( const [curveItem, objFileContents] of this.mtls() ) {
+
+      const localID = curveItem.localID
+
+      const outputExpressID = curveItem.expressID
+      const outputFileName =
+        outputExpressID !== void 0 ?
+          `${outputExpressID}.obj` :
+          `${localID}_inline.obj`
+
+      const RADIX_CHARS = 2
+
+      const outputFolder = path.join(
+          folder, outputExpressID !== void 0 ?
+            String( outputExpressID ).padStart( RADIX_CHARS, '0' ).substring( 0, RADIX_CHARS ) :
+            'inline' )
+
+      await fsPromises.mkdir( outputFolder, { recursive: true } )
+
+      const outputFilePath = path.join( outputFolder, outputFileName )
+
+      writePromises.push( fsPromises.writeFile( outputFilePath, objFileContents ) )
+
+      if ( writePromises.length >= MAX_FILES_OPEN ) {
+
+        await Promise.all( writePromises )
+        writePromises.length = 0
+      }
+    }
+
+    await Promise.all( writePromises )
+  }
+
+  /**
+   * Build a set of hashes with their matching IFC curves.
+   *
+   * @yields {[StepEntityBase, Uint8Array]} A list of curves with
+   * their corresponding hash.
+   */
+  public* hashes(): IterableIterator< [StepEntityBase< EntityTypesIfc >, Uint8Array] >  {
+
+    for ( const [curveItem, objFileContents] of this.mtls() ) {
+
+      const objHash = crypto.createHash( 'sha1' ).update( objFileContents ).digest()
+
+      yield [curveItem, objHash]
+    }
   }
 }

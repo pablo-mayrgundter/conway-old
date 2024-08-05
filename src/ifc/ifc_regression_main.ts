@@ -176,7 +176,7 @@ function doWork() {
               const csvPath       = `${outputPath}.csv`
               const csvFileHandle = await fsPromises.open( csvPath, 'w' )
 
-              await csvFileHandle.write( `ID,Hash,Type,Operand 1,Operand2\n` )
+              await csvFileHandle.write( `ID,Hash,Type,Operand 1,Operand2,Void\n` )
 
               for ( const [item, hash] of model.geometry.hashes() ) {
 
@@ -192,21 +192,52 @@ function doWork() {
 
                 csvLines.push([item.expressID ?? item.toString(),
                   // eslint-disable-next-line max-len
-                  `${item.toString()},${Buffer.from(hash).toString( 'hex' )},${EntityTypesIfc[item.type]},${operand1},${operand2}\n`])
+                  `${item.toString()},${Buffer.from(hash).toString( 'hex' )},${EntityTypesIfc[item.type]},${operand1},${operand2},FALSE\n`])
+              }
+
+              for ( const [item, hash] of model.voidGeometry.hashes() ) {
+
+                let operand1 = ''
+                let operand2 = ''
+
+                if ( item instanceof IfcBooleanResult ) {
+
+                  operand1 = item.FirstOperand.toString()
+                  operand2 = item.SecondOperand.toString()
+
+                }
+
+                csvLines.push([item.expressID ?? item.toString(),
+                  // eslint-disable-next-line max-len
+                  `${item.toString()},${Buffer.from(hash).toString( 'hex' )},${EntityTypesIfc[item.type]},${operand1},${operand2},TRUE\n`])
               }
 
               for ( const [item, hash] of model.curves.hashes() ) {
 
                 csvLines.push([item.expressID ?? item.toString(),
                   // eslint-disable-next-line max-len
-                  `${item.toString()},${Buffer.from(hash).toString( 'hex' )},${EntityTypesIfc[item.type]},,\n`])
+                  `${item.toString()},${Buffer.from(hash).toString( 'hex' )},${EntityTypesIfc[item.type]},,,\n`])
               }
 
               for ( const [item, hash] of model.profiles.hashes() ) {
 
                 csvLines.push([item.expressID ?? item.toString(),
                   // eslint-disable-next-line max-len
-                  `${item.toString()},${Buffer.from(hash).toString( 'hex' )},${EntityTypesIfc[item.type]},,\n`])
+                  `${item.toString()},${Buffer.from(hash).toString( 'hex' )},${EntityTypesIfc[item.type]},,,\n`])
+              }
+
+              for ( const [item, hash] of model.materials.hashes() ) {
+
+                csvLines.push([item.expressID ?? item.toString(),
+                  // eslint-disable-next-line max-len
+                  `${item.toString()},${Buffer.from(hash).toString( 'hex' )},${EntityTypesIfc[item.type]},,,\n`])
+              }
+
+              for ( const [item, hash] of model.voidMaterials.hashes() ) {
+
+                csvLines.push([item.expressID ?? item.toString(),
+                  // eslint-disable-next-line max-len
+                  `${item.toString()},${Buffer.from(hash).toString( 'hex' )},${EntityTypesIfc[item.type]},,,\n`])
               }
 
               csvLines.sort( ( a, b ) => {
@@ -243,6 +274,7 @@ function doWork() {
               const objFolder = `${outputPath}_obj`
 
               model.geometry.dumpOBJs( objFolder )
+              model.voidGeometry.dumpOBJs( objFolder )
               model.curves.dumpOBJs( objFolder )
               model.profiles.dumpOBJs( objFolder )
             }

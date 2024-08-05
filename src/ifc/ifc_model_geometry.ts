@@ -6,6 +6,7 @@ import path from 'path'
 import fsPromises from 'fs/promises'
 import { IfcBooleanResult, IfcGeometricRepresentationItem } from './ifc4_gen'
 import crypto from 'crypto'
+import { CanonicalMaterial, dumpMTL, getMTLCleanName } from '../core/canonical_material'
 
 
 const MAX_FILES_OPEN = 64
@@ -22,7 +23,7 @@ export class IfcModelGeometry implements ModelGeometry {
    *
    * @param model The model this is from
    */
-  constructor( public readonly model: IfcStepModel ) {}
+  constructor( public readonly model: IfcStepModel, public readonly isVoid: boolean = false ) {}
 
   /**
    * @return {number}
@@ -102,13 +103,20 @@ export class IfcModelGeometry implements ModelGeometry {
     return size
   }
 
-
   /**
    * Get the OBJs for all the curves in the cache (lazily)
    *
    * @yields {[IfcGeometricRepresentationItem, string]} Curves with their matching OBJ as a string
    */
-  public* objs() : IterableIterator< [IfcGeometricRepresentationItem, string] > {
+  public* objs() : IterableIterator< [
+    IfcGeometricRepresentationItem,
+    string,
+    CanonicalMaterial,
+    string] | [
+    IfcGeometricRepresentationItem,
+    string,
+    undefined,
+    undefined]> {
 
     const model = this.model
 
@@ -134,9 +142,31 @@ export class IfcModelGeometry implements ModelGeometry {
         preamble += `# IfcBooleanResult ${firstOperand} ${secondOperand}\n`
       }
 
+      const materials = this.isVoid ? this.model.voidMaterials : this.model.materials
+
+      const geometryMaterial = materials.getMaterialByGeometryID( localID )
+
+      if ( geometryMaterial !== void 0 ) {
+
+        const materialObject = this.model.getElementByLocalID( geometryMaterial[ 1 ] )
+
+        if ( materialObject !== void 0 ) {
+
+          const materialName = `${geometryItem.expressID!}_${materialObject.expressID!}.mtl`
+
+          preamble += `mtllib ${materialName}\n`
+          preamble += `usemtl ${getMTLCleanName( geometryMaterial[ 0 ] )}\n`
+
+          const objFileContents = mesh.geometry.dumpToOBJ( preamble )
+
+          yield [geometryItem, objFileContents, geometryMaterial[ 0 ], materialName]
+
+        }
+      }
+
       const objFileContents = mesh.geometry.dumpToOBJ( preamble )
 
-      yield [geometryItem, objFileContents]
+      yield [geometryItem, objFileContents, undefined, undefined]
     }
   }
 
@@ -152,11 +182,11 @@ export class IfcModelGeometry implements ModelGeometry {
 
     const writePromises: Promise< void >[] = []
 
-    for ( const [curveItem, objFileContents] of this.objs() ) {
+    for ( const [geometryItem, objFileContents, material, materialName] of this.objs() ) {
 
-      const localID = curveItem.localID
+      const localID = geometryItem.localID
 
-      const outputExpressID = curveItem.expressID
+      const outputExpressID = geometryItem.expressID
       const outputFileName =
         outputExpressID !== void 0 ?
           `${outputExpressID}.obj` :
@@ -170,6 +200,13 @@ export class IfcModelGeometry implements ModelGeometry {
             'inline' )
 
       await fsPromises.mkdir( outputFolder, { recursive: true } )
+
+      if ( material !== void 0 ) {
+
+        const materialFilePath = path.join( outputFolder, materialName )
+
+        writePromises.push( fsPromises.writeFile( materialFilePath, dumpMTL( material ) ) )
+      }
 
       const outputFilePath = path.join( outputFolder, outputFileName )
 
