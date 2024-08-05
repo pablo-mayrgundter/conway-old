@@ -142,7 +142,7 @@ You may also wish to use a low rename threshold no-commit merge strategy for som
 git merge -X rename-threshold=25 --no-commit
 ```
 
-### Regression Testing Framework
+# Regression Testing Framework
 
 Conway has a regression testing framework for IFC files, which has a manifest digest mode (which produces a CSV hash manifest of all the curve, profile and mesh components of an IFC file) and a verbose mode (produces OBJ files for all the same components in a directory).
 
