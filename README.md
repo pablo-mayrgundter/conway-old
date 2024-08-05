@@ -141,3 +141,18 @@ You may also wish to use a low rename threshold no-commit merge strategy for som
 ```
 git merge -X rename-threshold=25 --no-commit
 ```
+
+### Regression Testing Framework
+
+Conway has a regression testing framework for IFC files, which has a manifest digest mode (which produces a CSV hash manifest of all the curve, profile and mesh components of an IFC file) and a verbose mode (produces OBJ files for all the same components in a directory).
+
+It can be run with:
+
+```
+node --experimental-specifier-resolution=node ./compiled/src/ifc/ifc_regression_main.js -d <ifc file path> [output path]
+node --experimental-specifier-resolution=node ./compiled/src/ifc/ifc_regression_main.js -v <ifc file path> [output path]
+node --experimental-specifier-resolution=node ./compiled/src/ifc/ifc_regression_main.js -d -v <ifc file path> [output path]
+```
+
+The digest (-d) or verbose OBJ modes (-v) can be run separately or together. The output path is optional and is otherwise the ifc file path without the ".ifc" extension. For verbose mode a folder with "_obj" appended will be used for the output, and for the digest mode, the ".csv" extension will be appended to the output path.
+  
