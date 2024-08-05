@@ -185,6 +185,9 @@ import Logger from '../logging/logger'
 import Environment, { EnvironmentType } from '../utilities/environment'
 import { REFLECTANCE_METHOD_PERMISSIVE,
   MATERIAL_RELATED_OBJECTS_PERMISSIVE } from './ifc_parser_quirks'
+import IfcModelCurves from './ifc_model_curves'
+import { CsgMemoization, CsgOperationType } from '../core/csg_operations'
+import { MemoizationCapture, RegressionCaptureState } from '../core/regression_capture_state'
 
 
 type Mutable<T> = { -readonly [P in keyof T]: T[P] }
@@ -287,6 +290,10 @@ export class IfcGeometryExtraction {
 
   private readonly relVoidsMap: Map<number, number>
 
+  public readonly curves: IfcModelCurves
+
+  public readonly csgOperations: CsgMemoization
+
   private readonly productToVoidGeometryMap: Map<number, number[]>
   private linearScalingFactor: number
 
@@ -299,7 +306,7 @@ export class IfcGeometryExtraction {
   private paramsGetTriangulatedFaceSetPool:
   ObjectPool<ParamsGetTriangulatedFaceSetGeometry> | undefined
 
-  private paramsGetPolyCurvePool:ObjectPool<ParamsGetPolyCurve> | undefined
+  private paramsGetPolyCurvePool: ObjectPool<ParamsGetPolyCurve> | undefined
 
   private identity2DNativeMatrix: any
   private identity3DNativeMatrix: any
@@ -327,6 +334,8 @@ export class IfcGeometryExtraction {
     this.ifcProjectName = null
     this.getIdentityMatrices()
     this.initializeMemoryPools()
+    this.curves = model.curves
+    this.csgOperations = model.csgOperations
   }
 
   /**
@@ -1101,6 +1110,15 @@ export class IfcGeometryExtraction {
   extractBooleanResult(from: IfcBooleanResult | IfcBooleanClippingResult,
       isRelVoid: boolean = false) {
 
+    this.csgOperations.add(
+        from.localID,
+        {
+          type: CsgOperationType.DIFFERENCE,
+          operand1ID: from.FirstOperand.localID,
+          operand2ID: from.SecondOperand.localID,
+        },
+        true )
+
     if (from.FirstOperand instanceof IfcExtrudedAreaSolid ||
       from.FirstOperand instanceof IfcPolygonalFaceSet ||
       from.FirstOperand instanceof IfcBooleanClippingResult ||
@@ -1237,13 +1255,19 @@ export class IfcGeometryExtraction {
 
       // add mesh to the list of mesh objects
       if (!isRelVoid) {
+        if ( RegressionCaptureState.memoization !== MemoizationCapture.FULL ) {
+          this.dropNonSceneGeometry(firstMesh.localID)
+          this.dropNonSceneGeometry(secondMesh.localID)
+        }
 
-        this.dropNonSceneGeometry(firstMesh.localID)
-        this.dropNonSceneGeometry(secondMesh.localID)
         this.model.geometry.add(canonicalMesh)
       } else {
-        this.model.voidGeometry.delete(firstMesh.localID)
-        this.model.voidGeometry.delete(secondMesh.localID)
+
+        if ( RegressionCaptureState.memoization !== MemoizationCapture.FULL ) {
+          this.model.voidGeometry.delete(firstMesh.localID)
+          this.model.voidGeometry.delete(secondMesh.localID)
+        }
+
         this.model.voidGeometry.add(canonicalMesh)
       }
     }
@@ -2530,6 +2554,7 @@ export class IfcGeometryExtraction {
 
         if ( !sameSense ) {
 
+          currentCurveObject = currentCurveObject.clone()
           currentCurveObject.invert()
         }
 
@@ -2564,9 +2589,17 @@ export class IfcGeometryExtraction {
       isEdge:boolean = false,
       trimmingArguments: TrimmingArguments | undefined = void 0): CurveObject | undefined {
 
+    let ifcCurve: CurveObject | undefined
+
+    ifcCurve = this.curves.get( from.localID )
+
+    if ( ifcCurve !== void 0 ) {
+      return ifcCurve
+    }
+
     if (from instanceof IfcBSplineCurve) {
 
-      const ifcCurve = this.extractBSplineCurve(from, parentSense, isEdge)
+      ifcCurve = this.extractBSplineCurve(from, parentSense, isEdge)
 
       if (trimmingArguments !== void 0) {
         // invert curve
@@ -2581,72 +2614,64 @@ export class IfcGeometryExtraction {
           Logger.info(`Point ${i}: x: ${pt_.x}, y: ${pt_.y}, z: ${pt_.z}`)
         }
       }*/
-      return ifcCurve
-    }
+    } else if (from instanceof IfcTrimmedCurve) {
 
-    if (from instanceof IfcTrimmedCurve) {
-      const ifcCurve = this.extractIfcTrimmedCurve(from, parentSense)
+      ifcCurve = this.extractIfcTrimmedCurve(from, parentSense)
+
+      if (ifcCurve !== void 0) {
+
+        if (!ifcCurve.isCCW()) {
+          ifcCurve.invert()
+        }
+      }
+
+    } else if (from instanceof IfcPolyline) {
+
+      ifcCurve = this.extractIfcPolyline(from, parentSense, isEdge)
+
+      if (ifcCurve !== void 0) {
+
+        if (trimmingArguments?.exist || !ifcCurve.isCCW() ) {
+          ifcCurve.invert()
+        }
+      }
+
+    } else if (from instanceof IfcIndexedPolyCurve) {
+      ifcCurve = this.extractIndexedPolyCurve(from)
 
       if (ifcCurve !== void 0) {
         if (!ifcCurve.isCCW()) {
           ifcCurve.invert()
         }
       }
-      return ifcCurve
-    }
+    } else if (from instanceof IfcCircle) {
 
-    if (from instanceof IfcPolyline) {
-      const ifcCurve = this.extractIfcPolyline(from, parentSense, isEdge)
-
-      if (ifcCurve !== void 0) {
-
-        if (trimmingArguments?.exist) {
-          ifcCurve.invert()
-        } else if (!ifcCurve.isCCW()) {
-          ifcCurve.invert()
-        }
-      }
-
-      return ifcCurve
-    }
-
-    if (from instanceof IfcIndexedPolyCurve) {
-      const ifcCurve = this.extractIndexedPolyCurve(from)
+      ifcCurve = this.extractIfcCircle(from, parentSense)
 
       if (ifcCurve !== void 0) {
         if (!ifcCurve.isCCW()) {
           ifcCurve.invert()
         }
       }
+    } else if (from instanceof IfcCompositeCurve) {
 
-      return ifcCurve
-    }
-
-    if (from instanceof IfcCircle) {
-      const ifcCurve = this.extractIfcCircle(from, parentSense)
+      ifcCurve = this.extractCompositeCurve(from, parentSense)
 
       if (ifcCurve !== void 0) {
         if (!ifcCurve.isCCW()) {
           ifcCurve.invert()
         }
       }
-
-      return ifcCurve
     }
 
-    if (from instanceof IfcCompositeCurve) {
-      const ifcCurve = this.extractCompositeCurve(from, parentSense)
-
-      if (ifcCurve !== void 0) {
-        if (!ifcCurve.isCCW()) {
-          ifcCurve.invert()
-        }
-      }
-
-      return ifcCurve
+    if ( ifcCurve === void 0 ) {
+      Logger.warning(`Unsupported Curve! Type: ${EntityTypesIfc[from.type]}`)
+      return
     }
 
-    Logger.warning(`Unsupported Curve! Type: ${EntityTypesIfc[from.type]}`)
+    this.curves.add( from.localID, ifcCurve )
+
+    return ifcCurve
   }
 
   /**
@@ -4048,14 +4073,15 @@ export class IfcGeometryExtraction {
                 end: trimmingEnd,
               }
 
-              const curve = this.extractCurve(edgeCurve, true, true, trimmingArguments)
-
+              let curve = this.extractCurve(edgeCurve, true, true, trimmingArguments)
 
               if (curve !== void 0) {
 
                 if (edge.Orientation) {
                   // reverse curve
                   // Logger.info("edge orientation == true, inverting curve")
+                  curve = curve.clone()
+
                   curve.invert()
                 }
 

@@ -1,6 +1,14 @@
+/* eslint-disable no-useless-constructor, no-empty-function */
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
 import { ModelGeometry } from '../core/model'
+import IfcStepModel from './ifc_step_model'
+import path from 'path'
+import fsPromises from 'fs/promises'
+import { IfcBooleanResult, IfcGeometricRepresentationItem } from './ifc4_gen'
+import crypto from 'crypto'
 
+
+const MAX_FILES_OPEN = 64
 
 /**
  *
@@ -8,6 +16,13 @@ import { ModelGeometry } from '../core/model'
 export class IfcModelGeometry implements ModelGeometry {
 
   private readonly meshes_ = new Map<number, CanonicalMesh>()
+
+  /**
+   * Construct this with an IFC step model.
+   *
+   * @param model The model this is from
+   */
+  constructor( public readonly model: IfcStepModel ) {}
 
   /**
    * @return {number}
@@ -85,6 +100,105 @@ export class IfcModelGeometry implements ModelGeometry {
     }
 
     return size
+  }
+
+
+  /**
+   * Get the OBJs for all the curves in the cache (lazily)
+   *
+   * @yields {[IfcGeometricRepresentationItem, string]} Curves with their matching OBJ as a string
+   */
+  public* objs() : IterableIterator< [IfcGeometricRepresentationItem, string] > {
+
+    const model = this.model
+
+    for ( const [localID, mesh] of this.meshes_ ) {
+
+      const geometryItem = model.getElementByLocalID( localID )
+
+      if ( !( geometryItem instanceof IfcGeometricRepresentationItem ) ) {
+        continue
+      }
+
+      if ( mesh.type !== CanonicalMeshType.BUFFER_GEOMETRY ) {
+        continue
+      }
+
+      let preamble = `# Mesh for ${geometryItem.toString()}\n`
+
+      if ( geometryItem instanceof IfcBooleanResult ) {
+
+        const firstOperand = geometryItem.FirstOperand.toString()
+        const secondOperand = geometryItem.SecondOperand.toString()
+
+        preamble += `# IfcBooleanResult ${firstOperand} ${secondOperand}\n`
+      }
+
+      const objFileContents = mesh.geometry.dumpToOBJ( preamble )
+
+      yield [geometryItem, objFileContents]
+    }
+  }
+
+  /**
+   * Dump the OBJs in this to a particular folder
+   *
+   * @param folder The folder to dump to
+   * @return {Promise<void>} A promise to wait on when this completes.
+   */
+  public async dumpOBJs( folder: string ): Promise< void > {
+
+    await fsPromises.mkdir( folder, { recursive: true })
+
+    const writePromises: Promise< void >[] = []
+
+    for ( const [curveItem, objFileContents] of this.objs() ) {
+
+      const localID = curveItem.localID
+
+      const outputExpressID = curveItem.expressID
+      const outputFileName =
+        outputExpressID !== void 0 ?
+          `${outputExpressID}.obj` :
+          `${localID}_inline.obj`
+
+      const RADIX_CHARS = 2
+
+      const outputFolder = path.join(
+          folder, outputExpressID !== void 0 ?
+            String( outputExpressID ).padStart( RADIX_CHARS, '0' ).substring( 0, RADIX_CHARS ) :
+            'inline' )
+
+      await fsPromises.mkdir( outputFolder, { recursive: true } )
+
+      const outputFilePath = path.join( outputFolder, outputFileName )
+
+      writePromises.push( fsPromises.writeFile( outputFilePath, objFileContents ) )
+
+      if ( writePromises.length >= MAX_FILES_OPEN ) {
+
+        await Promise.all( writePromises )
+        writePromises.length = 0
+      }
+    }
+
+    await Promise.all( writePromises )
+  }
+
+  /**
+   * Build a set of hashes with their matching IFC curves.
+   *
+   * @yields {[IfcGeometricRepresentationItem, Uint8Array]} A list of curves with
+   * their corresponding hash.
+   */
+  public* hashes(): IterableIterator< [IfcGeometricRepresentationItem, Uint8Array] >  {
+
+    for ( const [curveItem, objFileContents] of this.objs() ) {
+
+      const objHash = crypto.createHash( 'sha1' ).update( objFileContents ).digest()
+
+      yield [curveItem, objHash]
+    }
   }
 
 }

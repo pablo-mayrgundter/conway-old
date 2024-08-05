@@ -282,7 +282,7 @@ export class AP214SceneBuilder implements Scene< StepEntityBase< EntityTypesAP21
    * the canonical material and the associated step element as it walks the hierarchy.
    * @param walkTemporary Include temporary items.
    */
-  public* walk(walkTemporary: boolean = false, includeSpaces: boolean = false):
+  public* walk(includeSpaces: boolean = false):
     IterableIterator<[readonly number[] | undefined,
       NativeTransform | undefined,
       CanonicalMesh,
