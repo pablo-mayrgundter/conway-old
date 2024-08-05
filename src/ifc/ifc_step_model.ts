@@ -7,6 +7,8 @@ import {MultiIndexSet} from '../indexing/multi_index_set'
 import { IfcModelGeometry } from './ifc_model_geometry'
 import { IfcModelProfile } from './ifc_model_profile'
 import IfcStepExternalMapping from './ifc_step_external_mapping'
+import IfcModelCurves from './ifc_model_curves'
+import { CsgMemoization } from '../core/csg_operations'
 
 
 const indexerInstance = new StepTypeIndexer< EntityTypesIfc >( EntityTypesIfcCount )
@@ -18,9 +20,11 @@ export default class IfcStepModel extends StepModelBase< EntityTypesIfc > {
 
   public readonly typeIndex: MultiIndexSet< EntityTypesIfc >
   public readonly externalMappingType = IfcStepExternalMapping
-  public readonly geometry = new IfcModelGeometry()
-  public readonly voidGeometry = new IfcModelGeometry()
-  public readonly profiles = new IfcModelProfile()
+  public readonly geometry = new IfcModelGeometry( this )
+  public readonly voidGeometry = new IfcModelGeometry( this )
+  public readonly profiles = new IfcModelProfile(this)
+  public readonly curves = new IfcModelCurves(this)
+  public readonly csgOperations = new CsgMemoization()
 
   /**
    * Construct this model given a buffer containing the data and the parsed data index on that,

@@ -13,7 +13,7 @@ export interface Scene< BaseEntityType > {
 
     isAllSpaces(): boolean
 
-    walk( walkTemporary?: boolean, includeSpaces?: boolean ):
+    walk( includeSpaces?: boolean ):
       IterableIterator<[readonly number[] | undefined,
         NativeTransform | undefined,
         CanonicalMesh,

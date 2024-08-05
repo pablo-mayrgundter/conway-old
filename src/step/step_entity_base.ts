@@ -168,7 +168,7 @@ export default abstract class StepEntityBase<EntityTypeIDs extends number> imple
    * @return {string} Convert this to a string
    */
   public toString(): string {
-    return `#${this.expressID ?? 'inline'}`
+    return `#${this.expressID ?? `inline(${this.localID})`}`
   }
 
   /**
