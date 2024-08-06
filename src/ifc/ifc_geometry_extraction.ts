@@ -3482,22 +3482,29 @@ export class IfcGeometryExtraction {
           true)
 
       const styledItemLocalID_ =
-      this.materials.styledItemMap.get(representationItem.localID)
+        this.materials.styledItemMap.get(representationItem.localID)
+
       if (styledItemLocalID_ !== undefined) {
+
         const styledItem_ = this.model.getElementByLocalID(styledItemLocalID_) as IfcStyledItem
+
         this.extractStyledItem(styledItem_)
         this.scene.addGeometry(representationItem.localID, owningElementLocalID, isSpace)
       } else {
         // get material from parent
         const styledItemParentLocalID = this.materials.styledItemMap.get(from.localID)
+
         if (styledItemParentLocalID !== undefined) {
+
           const styledItemParent =
-          this.model.getElementByLocalID(styledItemParentLocalID) as IfcStyledItem
+            this.model.getElementByLocalID(styledItemParentLocalID) as IfcStyledItem
+
           this.extractStyledItem(styledItemParent, from)
           this.scene.addGeometry(representationItem.localID,
               owningElementLocalID,
               isSpace,
               from.localID)
+
         } else {
           this.scene.addGeometry(representationItem.localID, owningElementLocalID, isSpace)
         }
@@ -3528,7 +3535,7 @@ export class IfcGeometryExtraction {
 
     let foundGeometry
 
-    if (addGeometry) {
+    if (!isRelVoid) {
       foundGeometry = this.model.geometry.getByLocalID(from.localID)
     } else {
       foundGeometry = this.model.voidGeometry.getByLocalID(from.localID)
