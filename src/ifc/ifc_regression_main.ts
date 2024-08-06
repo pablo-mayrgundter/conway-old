@@ -17,7 +17,10 @@ import fsPromises from 'fs/promises'
 import EntityTypesIfc from './ifc4_gen/entity_types_ifc.gen'
 import { IfcBooleanResult } from './ifc4_gen'
 import { MemoizationCapture, RegressionCaptureState } from '../core/regression_capture_state'
-
+import { dumpMTLs, materialHashes } from './ifc_material_cache_node'
+import { dumpGeometryOBJs, geometryHashes } from './ifc_model_geometry_node'
+import { curveHashes, dumpCurveOBJs } from './ifc_model_curves_node'
+import { dumpProfileOBJs, profileHashes } from './ifc_model_profile_node'
 
 main()
 
@@ -178,7 +181,7 @@ function doWork() {
 
               await csvFileHandle.write( `ID,Hash,Type,Operand 1,Operand2,Void\n` )
 
-              for ( const [item, hash] of model.geometry.hashes() ) {
+              for ( const [item, hash] of geometryHashes( model.geometry ) ) {
 
                 let operand1 = ''
                 let operand2 = ''
@@ -195,7 +198,7 @@ function doWork() {
                   `${item.toString()},${Buffer.from(hash).toString( 'hex' )},${EntityTypesIfc[item.type]},${operand1},${operand2},FALSE\n`])
               }
 
-              for ( const [item, hash] of model.voidGeometry.hashes() ) {
+              for ( const [item, hash] of geometryHashes( model.voidGeometry ) ) {
 
                 let operand1 = ''
                 let operand2 = ''
@@ -212,28 +215,28 @@ function doWork() {
                   `${item.toString()},${Buffer.from(hash).toString( 'hex' )},${EntityTypesIfc[item.type]},${operand1},${operand2},TRUE\n`])
               }
 
-              for ( const [item, hash] of model.curves.hashes() ) {
+              for ( const [item, hash] of curveHashes( model.curves ) ) {
 
                 csvLines.push([item.expressID ?? item.toString(),
                   // eslint-disable-next-line max-len
                   `${item.toString()},${Buffer.from(hash).toString( 'hex' )},${EntityTypesIfc[item.type]},,,\n`])
               }
 
-              for ( const [item, hash] of model.profiles.hashes() ) {
+              for ( const [item, hash] of profileHashes( model.profiles ) ) {
 
                 csvLines.push([item.expressID ?? item.toString(),
                   // eslint-disable-next-line max-len
                   `${item.toString()},${Buffer.from(hash).toString( 'hex' )},${EntityTypesIfc[item.type]},,,\n`])
               }
 
-              for ( const [item, hash] of model.materials.hashes() ) {
+              for ( const [item, hash] of materialHashes( model.materials ) ) {
 
                 csvLines.push([item.expressID ?? item.toString(),
                   // eslint-disable-next-line max-len
                   `${item.toString()},${Buffer.from(hash).toString( 'hex' )},${EntityTypesIfc[item.type]},,,\n`])
               }
 
-              for ( const [item, hash] of model.voidMaterials.hashes() ) {
+              for ( const [item, hash] of materialHashes( model.voidMaterials ) ) {
 
                 csvLines.push([item.expressID ?? item.toString(),
                   // eslint-disable-next-line max-len
@@ -273,10 +276,10 @@ function doWork() {
 
               const objFolder = `${outputPath}_obj`
 
-              model.geometry.dumpOBJs( objFolder )
-              model.voidGeometry.dumpOBJs( objFolder )
-              model.curves.dumpOBJs( objFolder )
-              model.profiles.dumpOBJs( objFolder )
+              dumpGeometryOBJs( model.geometry, objFolder )
+              dumpGeometryOBJs( model.voidGeometry, objFolder )
+              dumpCurveOBJs( model.curves, objFolder )
+              dumpProfileOBJs( model.profiles, objFolder )
             }
           }
 
