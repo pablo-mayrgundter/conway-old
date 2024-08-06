@@ -50,39 +50,3 @@ if __name__ == '__main__':
     stats = read_stats(sys.argv[1])
     # print(stats)
     log_to_firestore(stats)
-
-
-    
-# Function to log data to Firestore
-# log_to_firestore() {
-#  python3 log_to_firestore.py '$1' '$2' '$3' '$4' '$5' '$6' '$7' '$8' '$9' '${10}' '${11}' '${12}' '${13}' '${14}' '${15}' '${16}' 2>> '${outputDir}/firestore.err.txt'
-# }
-
-# Log data to Firestore
-# log_to_firestore '$timestamp' 'OK' '$uname' '$conwayVersion' '$fileName' '$schemaVersion' '$parseTime' '$geometryTime' '$totalTime' '$geometryMemory' '$rss' '$heapUsed' '$heapTotal' '$preprocessorVersion' '$originatingSystem' '$testRunName'
-
-# Log failure to Firestore
-# log_to_firestore '$timestamp' 'FAIL' '$uname' 'N/A' '$fileName' 'N/A' 'N/A' 'N/A' 'N/A' 'N/A' 'N/A' 'N/A' 'N/A' 'N/A' 'N/A' '$testRunName' 
-
-
-# Iterate over each row in the CSV file
-      # for row in csvreader:
-      #     model_stats = {
-      #         'timestamp': row[0],
-      #         'loadStatus': row[1],
-      #         'uname': row[2],
-      #         'conwayVersion': row[3],
-      #         'fileName': row[4],
-      #         'schemaVersion': row[5],
-      #         'parseTime': row[6],
-      #         'geometryTime': row[7],
-      #         'totalTime': row[8],
-      #         'geometryMemory': row[9],
-      #         'rss': row[10],
-      #         'heapUsed': row[11],
-      #         'heapTotal': row[12],
-      #         'preprocessorVersion': row[13],
-      #         'originatingSystem': row[14],
-      #         'currentDate': row[15]
-      #     }
-      #     models_stats.append(model_stats)
