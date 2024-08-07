@@ -61,17 +61,20 @@ testRunName=${engine}_${modelDirName}
 outputDir="${scriptDir}/test_runs/${testRunName}"
 mkdir -p "$outputDir"
 
+# Output from this script
+basicStatsFilename="${outputDir}/performance.csv"
+
+# Detailed rollup of stats for each model
+detailedStatsFilename="${outputDir}/performance-detail.csv"
+
 # Define the main error log file
-errorLogFile="${outputDir}/performance.err.log"
+errorLogFile="${outputDir}/performance.err.txt"
 
 # Temporary file for storing server output
-tempServerOutputFile="${outputDir}/rendering-server.log"
-
-# CSV file
-csvFile="${outputDir}/performance.csv"
+tempServerOutputFile="${outputDir}/rendering-server.log.txt"
 
 # Write CSV headers
-echo "timestamp,loadStatus,uname,engine,filename,schemaVersion,parseTimeMs,geometryTimeMs,totalTimeMs,geometryMemoryMb,rssMb,heapUsedMb,heapTotalMb,preprocessorVersion,originatingSystem" > "$csvFile"
+echo "timestamp,loadStatus,uname,engine,filename,schemaVersion,parseTimeMs,geometryTimeMs,totalTimeMs,geometryMemoryMb,rssMb,heapUsedMb,heapTotalMb,preprocessorVersion,originatingSystem" > "$detailedStatsFilename"
 
 # Convert a list of filenames to exclude to a regex pattern
 exclude_pattern=$(echo $EXCLUDE_FILENAMES | sed 's/ \+/|/g')
@@ -79,7 +82,10 @@ exclude_pattern=$(echo $EXCLUDE_FILENAMES | sed 's/ \+/|/g')
 # Kept for output below
 uname=$(uname -p)
 
+rm -f "$basicStatsFilename"
 rm -f "$errorLogFile"
+
+all_status='OK'
 
 start_time=$(date "+%s")
 # Process files and save outputs to the new directory
@@ -89,7 +95,7 @@ find "${modelDir}/ifc" -type f \( -name "*.ifc" \) -print0 | while IFS= read -r 
   
   # Check if the filename matches any in the exclude list
   if echo "$base_filename" | grep -Eq "$exclude_pattern"; then
-    echo "skip, 0s, ${f#$modelDir/}"
+    echo "skip, 0s, ${f#$modelDir/}" >> $basicStatsFilename
     continue  # Skip this file and continue with the next iteration
   fi
 
@@ -135,15 +141,15 @@ find "${modelDir}/ifc" -type f \( -name "*.ifc" \) -print0 | while IFS= read -r 
        -o "$output_png" --fail --silent \
        http://localhost:8001/render; then
     # If there's an error, append it to the main error log
-    echo "Error processing file $url" >> "$errorLogFile"
+    echo "Error processing file $url" >> $errorLogFile
     curl_success=false
     model_end_time=$(date "+%s")
     delta_time=$((model_end_time - model_start_time))
-    echo "error, ${delta_time}s, ${f#$modelDir/}"
+    echo "error, ${delta_time}s, ${f#$modelDir/}" >> $basicStatsFilename
   else
     model_end_time=$(date "+%s")
     delta_time=$((model_end_time - model_start_time))
-    echo "ok, ${delta_time}s, ${f#$modelDir/}"
+    echo "ok, ${delta_time}s, ${f#$modelDir/}" >> $basicStatsFilename
   fi
 
   # Extract statistics only if curl command was successful
@@ -180,16 +186,16 @@ find "${modelDir}/ifc" -type f \( -name "*.ifc" \) -print0 | while IFS= read -r 
     fi
 
     # Write the extracted data to the CSV file
-    echo "$timestamp,OK,$uname,$engine,$filename,$schemaVersion,$parseTimeMs,$geometryTimeMs,$totalTimeMs,$geometryMemoryMb,$rssMb,$heapUsedMb,$heapTotalMb,$preprocessorVersion,$originatingSystem" >> "$csvFile"
+    echo "$timestamp,OK,$uname,$engine,$filename,$schemaVersion,$parseTimeMs,$geometryTimeMs,$totalTimeMs,$geometryMemoryMb,$rssMb,$heapUsedMb,$heapTotalMb,$preprocessorVersion,$originatingSystem" >> "$detailedStatsFilename"
 
   else
     # If curl failed, log the failure
     timestamp=$(date +"%Y%m%d_%H%M%S")
     uname=$(uname -p)
     filename=$(basename "$f")
-
+    all_status='fail'
     # Write the failure data to the CSV file
-    echo "$timestamp,FAIL,$uname,N/A,$filename,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A" >> "$csvFile"
+    echo "$timestamp,FAIL,$uname,N/A,$filename,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A" >> "$detailedStatsFilename"
   fi
 
   # Change back to server directory to safely stop the server
@@ -204,4 +210,4 @@ find "${modelDir}/ifc" -type f \( -name "*.ifc" \) -print0 | while IFS= read -r 
 done
 end_time=$(date "+%s")
 delta_time=$((end_time - start_time))
-echo "Total time: ${delta_time}s"
+echo "${all_status}, ${delta_time}s, ALL_FILES" >> $basicStatsFilename

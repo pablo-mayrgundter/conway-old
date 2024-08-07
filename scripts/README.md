@@ -31,9 +31,10 @@ error, 1s, bath-csg-solid.ifc
 ```
 
 This will also leave output in the `test_runs` directory named for the engine and model dir being tested, e.g. `test_runs/conway0.1.553_test-models`, including:
-- performance.csv          A rollup of detailed stats for all models
-- performance.err.log      The error output from the script
-- rendering-server.log     Output from the headless-three http server, including model loading problems
+- performance.csv             Basic status and timings from performance script
+- performance-detail.csv      A rollup of detailed stats from the renering server for all models
+- performance.err.txt         The error output from the script
+- rendering-server.log.txt    Output from the headless-three http server, including model loading problems
 
 There are also per model outputs including .png renders and .txt detailed stats:
 ```
