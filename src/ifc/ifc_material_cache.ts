@@ -1,4 +1,10 @@
-import { CanonicalMaterial } from '../core/canonical_material'
+/* eslint-disable no-empty-function */
+/* eslint-disable no-useless-constructor */
+import { CanonicalMaterial, dumpMTL } from '../core/canonical_material'
+import IfcStepModel from './ifc_step_model'
+import StepEntityBase from '../step/step_entity_base'
+import EntityTypesIfc from './ifc4_gen/entity_types_ifc.gen'
+
 
 /**
  * Cache of materials via their local ID
@@ -14,6 +20,14 @@ export class IfcMaterialCache {
   readonly relMaterialsMap = new Map<number, number>()
   readonly materialDefinitionsMap = new Map<number, number>()
   readonly styledItemMap = new Map<number, number>()
+
+
+  /**
+   * Construct this with an IFC step model.
+   *
+   * @param model The model this is from
+   */
+  constructor( public readonly model: IfcStepModel, public readonly isVoid: boolean = false ) {}
 
   /**
    * If there is a material for a whole element, this is used to
@@ -136,5 +150,28 @@ export class IfcMaterialCache {
     }
 
     return [material, materialID]
+  }
+
+  /**
+   * Get the OBJs for all the curves in the cache (lazily)
+   *
+   * @yields {[StepEntityBase, string]} Curves with their matching OBJ as a string
+   */
+  public* mtls() : IterableIterator< [StepEntityBase< EntityTypesIfc >, string] > {
+
+    const model = this.model
+
+    for ( const [localID, material] of this.cache_ ) {
+
+      const materialItem = model.getElementByLocalID( localID )
+
+      if ( materialItem === void 0 ) {
+        continue
+      }
+
+      const mtlFileContents = dumpMTL( material )
+
+      yield [materialItem, mtlFileContents]
+    }
   }
 }

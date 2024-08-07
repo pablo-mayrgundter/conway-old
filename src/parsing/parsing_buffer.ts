@@ -21,13 +21,21 @@ const integerParser = IntegerParser.Instance
 const realParser    = RealParser.Instance
 const hexParser     = HexParser.Instance
 
-const MAX_INTERN_POWER   = 16
-const MAX_INTERN_PRIMARY = 65535
-const MAX_INTERN_SHIFT   = 16
+const RADIX_LUT_SIZE = 64
 
-// We use these to intern exponents for lower vales.
-const positiveFloatLut = new Float64Array( ( MAX_INTERN_PRIMARY + 1 ) * MAX_INTERN_POWER )
-const negativeFloatLut = new Float64Array( ( MAX_INTERN_PRIMARY + 1 ) * MAX_INTERN_POWER )
+const radixLUT  = new Float64Array( RADIX_LUT_SIZE )
+
+{
+  let radixMultiplier = 1
+
+  for ( let where = 0; where < RADIX_LUT_SIZE; ++where ) {
+
+    radixLUT[ where ] = radixMultiplier
+
+    // eslint-disable-next-line no-magic-numbers
+    radixMultiplier *= 10
+  }
+}
 
 // eslint-disable-next-line no-magic-numbers
 const MAX_SAFE_FACTOR_INT = Math.trunc( Number.MAX_SAFE_INTEGER / 10 )
@@ -640,26 +648,29 @@ export default class ParsingBuffer {
 
     this.cursor_ = cursor
 
-    if ( decimals === 0 ) {
+    if ( decimals === 0 || primary === 0 ) {
       return primary
     }
 
-    const absDecimals = Math.abs( decimals )
+    while ( decimals < 0 ) {
 
-    if ( absPrimary <= MAX_INTERN_PRIMARY && absDecimals <= MAX_INTERN_POWER ) {
-      const lut          = decimals < 0 ? negativeFloatLut : positiveFloatLut
-      const address      = ( ( absDecimals - 1 ) << MAX_INTERN_SHIFT ) | absPrimary
-      let internResult = lut[ address ]
+      const radixLutEntry = Math.min( -decimals, RADIX_LUT_SIZE )
 
-      if ( internResult === 0 ) {
-        internResult = Number.parseFloat( `${absPrimary}e${decimals}` )
-        lut[ address ] = internResult
-      }
-
-      return primarySign * internResult
+      decimals += radixLutEntry
+      // Note, we need to use division here not a multiply
+      // by inverse to get the matching rounding mode behaviour.
+      primary  /= radixLUT[ radixLutEntry ]
     }
 
-    return Number.parseFloat( `${primary}e${decimals}` )
+    while ( decimals > 0 ) {
+
+      const radixLutEntry = Math.min( decimals, RADIX_LUT_SIZE )
+
+      decimals -= radixLutEntry
+      primary  *= radixLUT[ radixLutEntry ]
+    }
+
+    return primary
   }
 
   /**

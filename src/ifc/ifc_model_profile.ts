@@ -1,5 +1,9 @@
+/* eslint-disable no-empty-function */
+/* eslint-disable no-useless-constructor */
 import { CanonicalProfile } from '../core/canonical_profile'
 import {ModelProfile} from '../core/model'
+import { IfcProfileDef } from './ifc4_gen'
+import IfcStepModel from './ifc_step_model'
 
 
 /**
@@ -8,6 +12,13 @@ import {ModelProfile} from '../core/model'
 export class IfcModelProfile implements ModelProfile {
 
   private readonly profiles_ = new Map< number, CanonicalProfile >()
+
+  /**
+   * Construct this with its parent model.
+   *
+   * @param model The model for this.
+   */
+  constructor( public readonly model: IfcStepModel ) {}
 
   /**
    * Get the number of profiles in this.
@@ -46,4 +57,29 @@ export class IfcModelProfile implements ModelProfile {
     return this.profiles_.values()
   }
 
+
+  /**
+   * Get the OBJs for all the curves in the cache (lazily)
+   *
+   * @yields {[IfcProfileDef, string]} Curves with their matching OBJ as a string
+   */
+  public* objs() : IterableIterator< [IfcProfileDef, string] > {
+
+    const model = this.model
+
+    for ( const [localID, profile] of this.profiles_ ) {
+
+      const profileItem = model.getElementByLocalID( localID )
+      const nativeProfile = profile.nativeProfile
+
+      if ( !( profileItem instanceof IfcProfileDef ) || nativeProfile === void 0 ) {
+        continue
+      }
+
+      const objFileContents = nativeProfile.dumpToOBJ()
+
+      yield [profileItem, objFileContents]
+    }
+
+  }
 }
