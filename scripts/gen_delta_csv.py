@@ -128,15 +128,15 @@ def parse_value(value):
 if __name__ == '__main__':
     # Ensure the document names are provided as arguments
     if len(sys.argv) != 4:
-        print('Usage: python script_name.py <document_name1> <document_name2> <output_csv_filename>')
+        print('Usage: python script_name.py <run_name1> <run_name2> <output_csv_filename>')
         sys.exit(1)
     
-    document_name1 = sys.argv[1]
-    document_name2 = sys.argv[2]
+    run_name1 = sys.argv[1]
+    run_name2 = sys.argv[2]
     output_csv_filename = sys.argv[3]
     
-    data1 = read_data_from_csv(document_name1)
-    data2 = read_data_from_csv(document_name2)
+    data1 = read_data_from_csv(run_name1)
+    data2 = read_data_from_csv(run_name2)
 
     # Compute deltas
     deltas = compute_deltas(data1, data2)

@@ -1,8 +1,9 @@
 #!/bin/bash
 
-
 usageAndExit() {
   echo "Usage: $0 /path/to/headless_three /path/to/model_directory [useWebIfc]"
+  echo ""
+  echo "    EXCLUDE_FILENAMES    list file names to filter for exclusion, e.g. 'foo.ifc bar.ifc'. Optional"
   exit 1
 }
 
@@ -43,39 +44,44 @@ scriptDir=$(pwd)
 # Get current date in YYYYMMDD_HMS format
 currentDate=$(date +"%Y%m%d_%H%M%S")
 
-# Extract the last folder name from the model directory path
-modelDirName=$(basename "$modelDir")
-
-testRunName=${currentDate}_${modelDirName}
-
-# Create the output directory with the model directory name appended
-outputDir="${scriptDir}/test_runs/${testRunName}${engineSuffix}"
-mkdir -p "$outputDir"
-
 # If web-ifc, get the version once
-if [ $isEngineConway -eq 0 ] ; then
-  webifcVersion=$(cd $serverDir; yarn list web-ifc 2>&1 | grep web-ifc | sed 's/.*@//g' ; cd $scriptDir)
+if [ $isEngineConway -eq 1 ] ; then
+  engine="conway"$(cd $serverDir; yarn list --pattern @bldrs-ai/conway 2>&1 | grep conway | sed 's/.*@//g' ; cd $scriptDir)
+else
+  engine="webifc"$(cd $serverDir; yarn list --pattern web-ifc 2>&1 | grep web-ifc | sed 's/.*@//g' ; cd $scriptDir)
 fi
 
+# Extract the last folder name from the model directory path, e.g. test-models
+modelDirName=$(basename "$modelDir")
+
+# e.g. conway@0.1.560_test-models
+testRunName=${engine}_${modelDirName}
+
+# Create the output directory with the model directory name appended
+outputDir="${scriptDir}/test_runs/${testRunName}"
+mkdir -p "$outputDir"
+
 # Define the main error log file
-errorLogFile="${outputDir}/main_error.log"
+errorLogFile="${outputDir}/performance.err.log"
 
 # Temporary file for storing server output
-tempServerOutputFile="${outputDir}/temp_server_output.txt"
+tempServerOutputFile="${outputDir}/rendering-server.log"
 
 # CSV file
-csvFile="${outputDir}/statistics.csv"
+csvFile="${outputDir}/performance.csv"
 
 # Write CSV headers
 echo "timestamp,loadStatus,uname,engine,filename,schemaVersion,parseTimeMs,geometryTimeMs,totalTimeMs,geometryMemoryMb,rssMb,heapUsedMb,heapTotalMb,preprocessorVersion,originatingSystem" > "$csvFile"
 
-# Define the array of filenames to exclude
-filenames_to_exclude=("20-234-X-AR2-NA-XX-M3-A-0001-Tragwerk.ifc")
+# Convert a list of filenames to exclude to a regex pattern
+exclude_pattern=$(echo $EXCLUDE_FILENAMES | sed 's/ \+/|/g')
 
-# Convert the array of filenames to a regex pattern
-exclude_pattern=$(printf "|%s" "${filenames_to_exclude[@]}")
-exclude_pattern=${exclude_pattern:1}  # Remove the leading '|'
+# Kept for output below
+uname=$(uname -p)
 
+rm -f "$errorLogFile"
+
+start_time=$(date "+%s")
 # Process files and save outputs to the new directory
 find "${modelDir}/ifc" -type f \( -name "*.ifc" \) -print0 | while IFS= read -r -d '' f; do
   # Extract the base filename
@@ -83,6 +89,7 @@ find "${modelDir}/ifc" -type f \( -name "*.ifc" \) -print0 | while IFS= read -r 
   
   # Check if the filename matches any in the exclude list
   if echo "$base_filename" | grep -Eq "$exclude_pattern"; then
+    echo "skip, 0s, ${f#$modelDir/}"
     continue  # Skip this file and continue with the next iteration
   fi
 
@@ -103,50 +110,50 @@ find "${modelDir}/ifc" -type f \( -name "*.ifc" \) -print0 | while IFS= read -r 
 
   # Split the directory and filename
   absoluteDirPath=$(dirname "$f")
-  file_name=$(basename "$f")
+  filename=$(basename "$f")
 
   # Get the relative directory path by removing the current working directory prefix
   dir_path=$(echo "$absoluteDirPath" | sed "s|^$modelDir/||")
 
   # Encode only the filename, replacing spaces with %20
-  encoded_file_name=$(python3 -c "import urllib.parse, sys; print(urllib.parse.quote(sys.argv[1]))" "$file_name")
+  encoded_file_name=$(python3 -c "import urllib.parse, sys; print(urllib.parse.quote(sys.argv[1]))" "$filename")
 
   # Construct the URL with the encoded filename
   # url="http://127.0.0.1:8001/${dir_path}/${encoded_file_name}"
-  url="file:///Users/pablo/c/b/${modelDirName}/${dir_path}/${encoded_file_name}"
+  url="file://${absoluteDirPath}/${encoded_file_name}"
 
   # Define the output PNG file path
-  output_png="${outputDir}/${file_name}-fit.png"
+  output_png="${outputDir}/${filename}-fit.png"
 
   # Flag to track if curl command is successful
   curl_success=true
 
-  echo "Fetching url: $url"
-
+  model_start_time=$(date "+%s")
   # Execute the curl command and check for errors
   if ! curl -f -d "{\"url\": \"$url\"}" \
        -H 'content-type: application/json' \
-       -o "$output_png" --fail --silent --show-error \
-       -D- http://localhost:8001/render; then
+       -o "$output_png" --fail --silent \
+       http://localhost:8001/render; then
     # If there's an error, append it to the main error log
-    echo "Error processing file $f" >> "$errorLogFile"
+    echo "Error processing file $url" >> "$errorLogFile"
     curl_success=false
-    echo -n "Tail of server output"
-    tail -10 $tempServerOutputFile
-    echo
+    model_end_time=$(date "+%s")
+    delta_time=$((model_end_time - model_start_time))
+    echo "error, ${delta_time}s, ${f#$modelDir/}"
+  else
+    model_end_time=$(date "+%s")
+    delta_time=$((model_end_time - model_start_time))
+    echo "ok, ${delta_time}s, ${f#$modelDir/}"
   fi
 
   # Extract statistics only if curl command was successful
   if [ "$curl_success" = true ]; then
-    statFile="${outputDir}/${file_name}-statistics.txt"
+    statFile="${outputDir}/${filename}-statistics.txt"
 
     if [ $isEngineConway -eq 1 ] ; then
       awk '/\[.*\]: Load Status: OK/{flag=1} flag; /MB, Heap Used:.*MB/{flag=0}' "$tempServerOutputFile" > "$statFile"
       # Extract Statistics from file
       timestamp=$(awk -F ']: ' '/Load Status/{print $1}' "$statFile" | tr -d '[')
-      uname=$(uname -p)
-      engine="conway"$(awk -F 'Conway Version: ' '{print $2}' "$statFile" | awk '{print $1}' | awk -F ',' '{print $1}')
-      fileName=$(basename "$statFile" "-statistics.txt" | tr -d ',')
       schemaVersion=$(awk -F ', ' '{for(i=1;i<=NF;i++) if ($i ~ /Version:/ && $(i+1) ~ /Conway Version:/) print $i}' "$statFile" | awk -F 'Version: ' '{print $2}')
       parseTimeMs=$(awk -F 'Parse Time: ' '{print $2}' "$statFile" | awk '{print $1}' | tr -d ' ms')
       geometryTimeMs=$(awk -F 'Geometry Time: ' '{print $2}' "$statFile" | awk '{print $1}' | tr -d ' ms')
@@ -160,9 +167,6 @@ find "${modelDir}/ifc" -type f \( -name "*.ifc" \) -print0 | while IFS= read -r 
     else
       grep -E '(Total Time|web-ifc memory)' "$tempServerOutputFile" | tr \\n , > "$statFile"
       timestamp=$(awk -F ']: ' '/Total Time/{print $1}' "$statFile" | tr -d '[')
-      uname=$(uname -p)
-      engine="webifc@${webifcVersion}"
-      fileName=$(basename "$statFile" "-statistics.txt" | tr -d ',')
       schemaVersion='N/A'
       parseTimeMs=0
       geometryTimeMs=0
@@ -176,17 +180,16 @@ find "${modelDir}/ifc" -type f \( -name "*.ifc" \) -print0 | while IFS= read -r 
     fi
 
     # Write the extracted data to the CSV file
-    echo "$timestamp,OK,$uname,$engine,$fileName,$schemaVersion,$parseTimeMs,$geometryTimeMs,$totalTimeMs,$geometryMemoryMb,$rssMb,$heapUsedMb,$heapTotalMb,$preprocessorVersion,$originatingSystem" >> "$csvFile"
+    echo "$timestamp,OK,$uname,$engine,$filename,$schemaVersion,$parseTimeMs,$geometryTimeMs,$totalTimeMs,$geometryMemoryMb,$rssMb,$heapUsedMb,$heapTotalMb,$preprocessorVersion,$originatingSystem" >> "$csvFile"
 
   else
-    echo "Curl failed"
     # If curl failed, log the failure
     timestamp=$(date +"%Y%m%d_%H%M%S")
     uname=$(uname -p)
-    fileName=$(basename "$f")
+    filename=$(basename "$f")
 
     # Write the failure data to the CSV file
-    echo "$timestamp,FAIL,$uname,N/A,$fileName,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A" >> "$csvFile"
+    echo "$timestamp,FAIL,$uname,N/A,$filename,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A" >> "$csvFile"
   fi
 
   # Change back to server directory to safely stop the server
@@ -199,3 +202,6 @@ find "${modelDir}/ifc" -type f \( -name "*.ifc" \) -print0 | while IFS= read -r 
   # Change back to the script directory
   cd "$scriptDir"
 done
+end_time=$(date "+%s")
+delta_time=$((end_time - start_time))
+echo "Total time: ${delta_time}s"
