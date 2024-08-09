@@ -22,6 +22,7 @@ import { dumpGeometryOBJs, geometryHashes } from './ifc_model_geometry_node'
 import { curveHashes, dumpCurveOBJs } from './ifc_model_curves_node'
 import { dumpProfileOBJs, profileHashes } from './ifc_model_profile_node'
 
+
 main()
 
 /**
