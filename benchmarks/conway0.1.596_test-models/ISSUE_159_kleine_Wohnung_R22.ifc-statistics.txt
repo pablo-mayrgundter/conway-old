@@ -1,0 +1,1 @@
+[Aug 9 2024 04:52:27 PM]: Load Status: OK, Project Name: Projektnummer, Version: IFC4, Conway Version: 0.1.596, Parse Time: 168 ms, Geometry Time: 1501 ms, Total Time: 1670 ms, Geometry Memory: 32.231 MB, Memory Statistics: Node Memory Usage: RSS 373.281 MB, Heap Total: 153.922 MB, Heap Used: 120.858 MB, Preprocessor Version: 'BlenderBIM 0.0.220420', Originating System: ''
