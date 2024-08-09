@@ -1,0 +1,1 @@
+[Aug 7 2024 01:27:31 PM]: Load Status: OK, Project Name: IfcOpenHouse, Version: IFC4, Conway Version: 0.1.553, Parse Time: 8 ms, Geometry Time: 35 ms, Total Time: 43 ms, Geometry Memory: 0.125 MB, Memory Statistics: Node Memory Usage: RSS 288.875 MB, Heap Total: 122.375 MB, Heap Used: 91.138 MB, Preprocessor Version: 'IfcOpenShell 0.5.0-dev', Originating System: ''
