@@ -976,7 +976,7 @@ export class IfcGeometryExtraction {
   }
 
   /** @return {number} Pointer/memory address */
-  arrayToWasmHeap(array:Float32Array | Uint32Array): any {
+  arrayToWasmHeap(array:Float32Array | Float64Array | Uint32Array): any {
     // Allocate memory for the array within the Wasm module
     const bytesPerElement = array.BYTES_PER_ELEMENT
     const numBytes = array.length * bytesPerElement
@@ -1055,6 +1055,7 @@ export class IfcGeometryExtraction {
    * @return {any} The internal matrix type extract.
    */
   extractCartesianTransformOperator3D(from: IfcCartesianTransformationOperator3D) {
+
     const conwayModel = this.conwayModel
 
     const position: Vector3 = {
@@ -3490,6 +3491,7 @@ export class IfcGeometryExtraction {
 
         this.extractStyledItem(styledItem_)
         this.scene.addGeometry(representationItem.localID, owningElementLocalID, isSpace)
+
       } else {
         // get material from parent
         const styledItemParentLocalID = this.materials.styledItemMap.get(from.localID)
@@ -3549,7 +3551,11 @@ export class IfcGeometryExtraction {
       return
     }
 
-    if (from instanceof IfcPolygonalFaceSet) {
+    if (from instanceof IfcMappedItem) {
+
+      this.extractMappedItem(from, owningElementLocalID, isRelVoid, isSpace)
+      return
+    } else if (from instanceof IfcPolygonalFaceSet) {
 
       const faceSetResult: ExtractResult =
         this.extractPolygonalFaceSet(from, false, isRelVoid)
@@ -3558,88 +3564,53 @@ export class IfcGeometryExtraction {
         Logger.warning(`Face set express ID: ${from.expressID} extraction incomplete.`)
       }
 
-      if (addGeometry) {
-        this.scene.addGeometry(from.localID, owningElementLocalID, isSpace)
-      }
     } else if (from instanceof IfcTriangulatedFaceSet) {
-      this.extractTriangulatedFaceSet(from, false, isRelVoid)
 
-      if (addGeometry) {
-        this.scene.addGeometry(from.localID, owningElementLocalID, isSpace)
-      }
+      this.extractTriangulatedFaceSet(from, false, isRelVoid)
 
     } else if (from instanceof IfcBooleanResult) {
 
       // also handles IfcBooleanClippingResult
       this.extractBooleanResult(from, isRelVoid)
 
-      if (addGeometry) {
-        this.scene.addGeometry(from.localID, owningElementLocalID, isSpace)
-      }
-
     } else if (from instanceof IfcExtrudedAreaSolid) {
 
       this.extractExtrudedAreaSolid(from, false, isRelVoid)
 
-      if (addGeometry) {
-        this.scene.addGeometry(from.localID, owningElementLocalID, isSpace)
-      }
-
     } else if (from instanceof IfcPolygonalBoundedHalfSpace) {
+
       this.extractPolygonalBoundedHalfSpace(from, false, isRelVoid)
 
-      if (addGeometry) {
-        this.scene.addGeometry(from.localID, owningElementLocalID, isSpace)
-      }
     } else if (from instanceof IfcHalfSpaceSolid) {
 
       this.extractHalfspaceSolid(from, false, isRelVoid)
 
-      if (addGeometry) {
-        this.scene.addGeometry(from.localID, owningElementLocalID, isSpace)
-      }
-
-    } else if (from instanceof IfcMappedItem) {
-
-      this.extractMappedItem(from, owningElementLocalID, isRelVoid, isSpace)
-
-    } else if (from instanceof IfcPolyline) {
-      // web-ifc ignores IfcPolylines as meshes
     } else if (from instanceof IfcFacetedBrep) {
 
       this.extractIfcFacetedBrep(from, false, isRelVoid)
 
-      if (addGeometry) {
-        this.scene.addGeometry(from.localID, owningElementLocalID, isSpace)
-      }
     } else if (from instanceof IfcShellBasedSurfaceModel) {
 
       this.extractIfcShellBasedSurfaceModel(from, owningElementLocalID, isRelVoid)
 
-      // todo, fix these
-      if (addGeometry) {
-        this.scene.addGeometry(from.localID, owningElementLocalID, isSpace)
-      }
-    } else if (from instanceof IfcBoundingBox) {
-      // I don't think this is necessary right now
+    } else if (from instanceof IfcBoundingBox || from instanceof IfcPolyline) {
+      // These types aren't meshes.
+      return
     } else if (from instanceof IfcFaceBasedSurfaceModel) {
 
       this.extractIfcFaceBasedSurfaceModel(from, isRelVoid)
-
-      if (addGeometry) {
-        this.scene.addGeometry(from.localID, owningElementLocalID, isSpace)
-      }
 
     } else if (from instanceof IfcAdvancedBrep) {
 
       this.extractIfcAdvancedBrep(from, isRelVoid)
 
-      if (addGeometry) {
-        this.scene.addGeometry(from.localID, owningElementLocalID, isSpace)
-      }
     } else {
       Logger.warning(`Unsupported type: ${EntityTypesIfc[from.type]} ` +
       `expressID: ${from.expressID}`)
+    }
+
+    if (addGeometry) {
+      this.scene.addGeometry(from.localID, owningElementLocalID, isSpace)
     }
   }
 
@@ -5320,7 +5291,13 @@ export class IfcGeometryExtraction {
 
     try {
 
-      this.model.elementMemoization = false
+      // 256 meg limit for memoization - smaller models get a big
+      // win from memoization, but much larger models it uses far too much heap.
+      const MEMOIZATION_THRESHOLD = 256 * 1024 * 1024
+
+      if ( this.model.bufferBytesize > MEMOIZATION_THRESHOLD ) {
+        this.model.elementMemoization = false
+      }
 
       for (const relAssociateMaterial of relAssociatesMaterials) {
         const relatingMaterial = relAssociateMaterial.RelatingMaterial

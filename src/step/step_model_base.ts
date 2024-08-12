@@ -222,6 +222,16 @@ implements Iterable<BaseEntity>, Model {
    *
    * @return {number} The number of elements.
    */
+  public get bufferBytesize(): number {
+    return this.buffer_.byteLength
+  }
+
+
+  /**
+   * Get the number of elements/entities in this model.
+   *
+   * @return {number} The number of elements.
+   */
   public get size(): number {
     return this.elementIndex_.length
   }

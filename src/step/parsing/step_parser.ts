@@ -436,19 +436,11 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
     }
 
     const stringMatch = () => match(stringParser)
-    const binaryHex = () => match(binaryParser)
-    const real = input.real
-    const negativeInf = () => input.char( DASH ) && tokenws( INF )
-    const unsigned = input.unsigned
     const whileNotCommaBracket = () => input.whileNot( ParsingConstants.COMMA_END_SET )
-    const unsignedws = () => {
-      whitespace(); return unsigned()
-    }
     const readUnsigned = input.readUnsigned
     const readUnsignedws = () => {
       whitespace(); return readUnsigned()
     }
-    const enumeration = () => match(enumParser)
     const identifier = () => match(identifierParser)
     const parseResult = (value: ParseResult): BlockParseResult<TypeIDType> => {
       /* console.trace();*/ return [indexResult, value]
@@ -538,19 +530,11 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
           }
 
           case ATTRIBUTE_PARSE_TYPE.NUMBER:
-
-            if (!real() && !negativeInf()) {
-              return syntaxError()
-            }
-
             whileNotCommaBracket()
             break
 
           case ATTRIBUTE_PARSE_TYPE.ENUM:
-
-            if (!enumeration()) {
-              return syntaxError()
-            }
+            whileNotCommaBracket()
             break
 
           case ATTRIBUTE_PARSE_TYPE.STRING:
@@ -562,11 +546,7 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
 
           case ATTRIBUTE_PARSE_TYPE.REFERENCE:
 
-            input.step()
-
-            if (!unsignedws()) {
-              return syntaxError()
-            }
+            whileNotCommaBracket()
             break
 
           case ATTRIBUTE_PARSE_TYPE.CONTAINER:
@@ -578,9 +558,7 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
 
           case ATTRIBUTE_PARSE_TYPE.HEXBITS:
 
-            if (!binaryHex()) {
-              return syntaxError()
-            }
+            whileNotCommaBracket()
             break
 
           case ATTRIBUTE_PARSE_TYPE.NULL:
@@ -749,19 +727,13 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
 
           case ATTRIBUTE_PARSE_TYPE.NUMBER:
 
-            if (!real() && !negativeInf()) {
-              return syntaxError()
-            }
-
             whileNotCommaBracket()
 
             break
 
           case ATTRIBUTE_PARSE_TYPE.ENUM:
 
-            if (!enumeration()) {
-              return syntaxError()
-            }
+            whileNotCommaBracket()
             break
 
           case ATTRIBUTE_PARSE_TYPE.STRING:
@@ -773,11 +745,8 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
 
           case ATTRIBUTE_PARSE_TYPE.REFERENCE:
 
-            input.step()
 
-            if (!unsignedws()) {
-              return syntaxError()
-            }
+            whileNotCommaBracket()
             break
 
           case ATTRIBUTE_PARSE_TYPE.CONTAINER:
@@ -789,9 +758,7 @@ export default class StepParser<TypeIDType> extends StepHeaderParser {
 
           case ATTRIBUTE_PARSE_TYPE.HEXBITS:
 
-            if (!binaryHex()) {
-              return syntaxError()
-            }
+            whileNotCommaBracket()
             break
 
           case ATTRIBUTE_PARSE_TYPE.NULL:

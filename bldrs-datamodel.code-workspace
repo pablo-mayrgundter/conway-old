@@ -136,7 +136,8 @@
       "format": "cpp",
       "core": "cpp",
       "charconv": "cpp",
-      "span": "cpp"
+      "span": "cpp",
+      "resumable": "cpp"
     },
     "dotnet.defaultSolution": "disable"
 	}
