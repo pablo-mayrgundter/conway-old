@@ -28,7 +28,7 @@ export default class IntegerParser extends ParsingDfa4Table {
     this.range( INTEGER_STATES.MUST_DIGIT, '0', '9', INTEGER_STATES.MAYBE_DIGIT )
     this.range( INTEGER_STATES.MAYBE_DIGIT, '0', '9', INTEGER_STATES.MAYBE_DIGIT )
 
-    this.set( INTEGER_STATES.SIGN_OR_DIGIT, '-', INTEGER_STATES.MUST_DIGIT )
+    this.set( INTEGER_STATES.SIGN_OR_DIGIT, '-+', INTEGER_STATES.MUST_DIGIT )
   }
 
   /**
