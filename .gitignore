@@ -1,3 +1,15 @@
+# Model outputs
+*.bin
+*.tgz
+*.obj
+*.glb
+*.gltf
+
+# Misc files
+.DS_Store
+*~
+
+# Build
 compiled
 dist
 node_modules/
@@ -12,20 +24,13 @@ index_test.obj
 index_test_draco.bin
 index_test_draco.glb
 index_test_draco.gltf
-.DS_Store
 /.vs
 Momentum*
 v8.json
 isolate*.log
-index*.bin
-index*.gltf
-index*.glb
-*.bin
+
+# Scripts, perf test
 scripts/*.csv
 scripts/app.json
 scripts/test_runs/
 scripts/*/
-*.tgz
-*.obj
-*.glb
-*.gltf

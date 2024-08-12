@@ -1,17 +1,35 @@
 #!/bin/bash
 
-# Check if the server directory path is provided as the first argument
-if [ -z "$1" ]; then
-  echo "Error: No server directory path provided."
-  echo "Usage: $0 /path/to/headless_three /path/to/model_directory"
+usageAndExit() {
+  echo "Usage: $0 /path/to/headless_three /path/to/model_directory [useWebIfc]"
+  echo ""
+  echo "    EXCLUDE_FILENAMES    list file names to filter for exclusion, e.g. 'foo.ifc bar.ifc'. Optional"
   exit 1
+}
+
+# Check if the server directory path is provided as the first argument
+if [ -z "${1}" ]; then
+  echo "Error: No server directory path provided."
+  usageAndExit
 fi
 
 # Check if the model directory path is provided as the second argument
-if [ -z "$2" ]; then
+if [ -z "${2}" ]; then
   echo "Error: No model directory path provided."
-  echo "Usage: $0 /path/to/headless_three /path/to/model_directory"
-  exit 1
+  usageAndExit
+fi
+
+# If left blank, will use conway for server.  Otherwise assert it's useWebIfc
+if [ -z "${3}" ]; then
+  isEngineConway=1
+  engineSuffix=""
+else
+  if [ "${3}" != "useWebIfc" ]; then
+    echo "Error: unknown engine command (to use conway leave blank)."
+    usageAndExit
+  fi
+  isEngineConway=0
+  engineSuffix="-webifc"
 fi
 
 # Server directory path passed as the first argument
@@ -26,159 +44,158 @@ scriptDir=$(pwd)
 # Get current date in YYYYMMDD_HMS format
 currentDate=$(date +"%Y%m%d_%H%M%S")
 
-# Extract the last folder name from the model directory path
+# If web-ifc, get the version once
+if [ $isEngineConway -eq 1 ] ; then
+  engine="conway"$(cd $serverDir; yarn list --pattern @bldrs-ai/conway 2>&1 | grep conway | sed 's/.*@//g' ; cd $scriptDir)
+else
+  engine="webifc"$(cd $serverDir; yarn list --pattern web-ifc 2>&1 | grep web-ifc | sed 's/.*@//g' ; cd $scriptDir)
+fi
+
+# Extract the last folder name from the model directory path, e.g. test-models
 modelDirName=$(basename "$modelDir")
 
-testRunName=${currentDate}_${modelDirName}
+# e.g. conway@0.1.560_test-models
+testRunName=${engine}_${modelDirName}
 
 # Create the output directory with the model directory name appended
 outputDir="${scriptDir}/test_runs/${testRunName}"
 mkdir -p "$outputDir"
 
+# Output from this script
+basicStatsFilename="${outputDir}/performance.csv"
+
+# Detailed rollup of stats for each model
+detailedStatsFilename="${outputDir}/performance-detail.csv"
+
 # Define the main error log file
-errorLogFile="${outputDir}/main_error.log"
+errorLogFile="${outputDir}/performance.err.txt"
 
 # Temporary file for storing server output
-tempServerOutputFile="${outputDir}/temp_server_output.txt"
-
-# CSV file
-csvFile="${outputDir}/statistics.csv"
+tempServerOutputFile="${outputDir}/rendering-server.log.txt"
 
 # Write CSV headers
-echo "Timestamp, Load Status, uname, Conway Version, File name, Schema Version, Parse Time (ms), Geometry Time (ms), Total Time (ms), Geometry Memory (MB), RSS (MB), Heap Used (MB), Heap Total (MB), Preprocessor Version, Originating System" > "$csvFile"
+echo "timestamp,loadStatus,uname,engine,filename,schemaVersion,parseTimeMs,geometryTimeMs,totalTimeMs,geometryMemoryMb,rssMb,heapUsedMb,heapTotalMb,preprocessorVersion,originatingSystem" > "$detailedStatsFilename"
 
-# Function to log data to Firestore
-log_to_firestore() {
-  python3 <<END
-import sys
-from google.cloud import firestore
+# Convert a list of filenames to exclude to a regex pattern
+exclude_pattern=$(echo $EXCLUDE_FILENAMES | sed 's/ \+/|/g')
 
-# Initialize Firestore
-db = firestore.Client.from_service_account_json('app.json')
+# Kept for output below
+uname=$(uname -p)
 
-# Data to log
-data = {
-    "timestamp": "$1",
-    "loadStatus": "$2",
-    "uname": "$3",
-    "conwayVersion": "$4",
-    "fileName": "$5",
-    "schemaVersion": "$6",
-    "parseTime": "$7",
-    "geometryTime": "$8",
-    "totalTime": "$9",
-    "geometryMemory": "${10}",
-    "rss": "${11}",
-    "heapUsed": "${12}",
-    "heapTotal": "${13}",
-    "preprocessorVersion": "${14}",
-    "originatingSystem": "${15}"
-}
+rm -f "$basicStatsFilename"
+rm -f "$errorLogFile"
 
-# Add data to Firestore under test_runs/currentDate/data
-currentDate = "${16}"
-# Reference to the document
-doc_ref = db.collection("test_runs").document(currentDate)
+all_status='OK'
 
-# Get the current data in the document
-doc = doc_ref.get()
-
-if doc.exists:
-    # If the document exists, append the new data to the existing list
-    existing_data = doc.to_dict().get('data', [])
-    existing_data.append(data)
-else:
-    # If the document does not exist, create a new list with the data
-    existing_data = [data]
-
-# Update the document with the new data
-doc_ref.set({'data': existing_data}, merge=True)
-END
-}
-
+start_time=$(date "+%s")
 # Process files and save outputs to the new directory
 find "${modelDir}/ifc" -type f \( -name "*.ifc" \) -print0 | while IFS= read -r -d '' f; do
+  # Extract the base filename
+  base_filename=$(basename "$f")
+  
+  # Check if the filename matches any in the exclude list
+  if echo "$base_filename" | grep -Eq "$exclude_pattern"; then
+    echo "skip, 0s, ${f#$modelDir/}" >> $basicStatsFilename
+    continue  # Skip this file and continue with the next iteration
+  fi
+
   # Change to server directory
   cd "$serverDir"
 
   # Start the server (redirect output to tmp file)
-  yarn serve > "$tempServerOutputFile" 2>&1 &
+  yarn "serve${engineSuffix}" > "$tempServerOutputFile" 2>&1 &
 
   # Get the PID of the last background process (yarn serve)
   server_pid=$!
 
   # Wait a bit for the server to be fully up and running
-  sleep 2
+  sleep 3
 
   # Change back to the original script directory
   cd "$scriptDir"
 
   # Split the directory and filename
   absoluteDirPath=$(dirname "$f")
-  file_name=$(basename "$f")
+  filename=$(basename "$f")
 
   # Get the relative directory path by removing the current working directory prefix
   dir_path=$(echo "$absoluteDirPath" | sed "s|^$modelDir/||")
 
   # Encode only the filename, replacing spaces with %20
-  encoded_file_name=$(python3 -c "import urllib.parse, sys; print(urllib.parse.quote(sys.argv[1]))" "$file_name")
+  encoded_file_name=$(python3 -c "import urllib.parse, sys; print(urllib.parse.quote(sys.argv[1]))" "$filename")
 
   # Construct the URL with the encoded filename
-  url="http://127.0.0.1:8080/${dir_path}/${encoded_file_name}"
+  # url="http://127.0.0.1:8001/${dir_path}/${encoded_file_name}"
+  url="file://${absoluteDirPath}/${encoded_file_name}"
 
   # Define the output PNG file path
-  outputPng="${outputDir}/${file_name}-fit.png"
+  output_png="${outputDir}/${filename}-fit.png"
 
   # Flag to track if curl command is successful
   curl_success=true
 
+  model_start_time=$(date "+%s")
   # Execute the curl command and check for errors
   if ! curl -f -d "{\"url\": \"$url\"}" \
        -H 'content-type: application/json' \
-       -o "$outputPng" --fail --silent --show-error \
-       -D- http://localhost:8001/render; then
+       -o "$output_png" --fail --silent \
+       http://localhost:8001/render; then
     # If there's an error, append it to the main error log
-    echo "Error processing file $f" >> "$errorLogFile"
+    echo "Error processing file $url" >> $errorLogFile
     curl_success=false
+    model_end_time=$(date "+%s")
+    delta_time=$((model_end_time - model_start_time))
+    echo "error, ${delta_time}s, ${f#$modelDir/}" >> $basicStatsFilename
+  else
+    model_end_time=$(date "+%s")
+    delta_time=$((model_end_time - model_start_time))
+    echo "ok, ${delta_time}s, ${f#$modelDir/}" >> $basicStatsFilename
   fi
 
   # Extract statistics only if curl command was successful
   if [ "$curl_success" = true ]; then
-    statFile="${outputDir}/${file_name}-statistics.txt"
-    awk '/\[.*\]: Load Status: OK/{flag=1} flag; /MB, Heap Used:.*MB/{flag=0}' "$tempServerOutputFile" > "$statFile"
+    statFile="${outputDir}/${filename}-statistics.txt"
 
-    # Extract Statistics from file
-    timestamp=$(awk -F ']: ' '/Load Status/{print $1}' "$statFile" | tr -d '[')
-    uname=$(uname -p)
-    conwayVersion=$(awk -F 'Conway Version: ' '{print $2}' "$statFile" | awk '{print $1}' | awk -F ',' '{print $1}')
-    fileName=$(basename "$statFile" "-statistics.txt" | tr -d ',')
-    schemaVersion=$(awk -F ', ' '{for(i=1;i<=NF;i++) if ($i ~ /Version:/ && $(i+1) ~ /Conway Version:/) print $i}' "$statFile" | awk -F 'Version: ' '{print $2}')
-    parseTime=$(awk -F 'Parse Time: ' '{print $2}' "$statFile" | awk '{print $1}' | tr -d ' ms')
-    geometryTime=$(awk -F 'Geometry Time: ' '{print $2}' "$statFile" | awk '{print $1}' | tr -d ' ms')
-    totalTime=$(awk -F 'Total Time: ' '{print $2}' "$statFile" | awk '{print $1}' | tr -d ' ms')
-    geometryMemory=$(awk -F 'Geometry Memory: ' '{print $2}' "$statFile" | awk '{print $1}' | tr -d ' MB')
-    rss=$(awk -F 'RSS ' '{print $2}' "$statFile" | awk '{print $1}' | tr -d ' MB')
-    heapUsed=$(awk -F 'Heap Used: ' '{print $2}' "$statFile" | awk '{print $1}' | tr -d ' MB')
-    heapTotal=$(awk -F 'Heap Total: ' '{print $2}' "$statFile" | awk '{print $1}' | tr -d ' MB')
-    preprocessorVersion=$(awk -F"Preprocessor Version: '" '{split($2, a, "'\''"); print a[1]}' "$statFile")
-    originatingSystem=$(awk -F"Originating System: '" '{split($2, a, "'\''"); print a[1]}' "$statFile")
+    if [ $isEngineConway -eq 1 ] ; then
+      awk '/\[.*\]: Load Status: OK/{flag=1} flag; /MB, Heap Used:.*MB/{flag=0}' "$tempServerOutputFile" > "$statFile"
+      # Extract Statistics from file
+      timestamp=$(awk -F ']: ' '/Load Status/{print $1}' "$statFile" | tr -d '[')
+      schemaVersion=$(awk -F ', ' '{for(i=1;i<=NF;i++) if ($i ~ /Version:/ && $(i+1) ~ /Conway Version:/) print $i}' "$statFile" | awk -F 'Version: ' '{print $2}')
+      parseTimeMs=$(awk -F 'Parse Time: ' '{print $2}' "$statFile" | awk '{print $1}' | tr -d ' ms')
+      geometryTimeMs=$(awk -F 'Geometry Time: ' '{print $2}' "$statFile" | awk '{print $1}' | tr -d ' ms')
+      totalTimeMs=$(awk -F 'Total Time: ' '{print $2}' "$statFile" | awk '{print $1}' | tr -d ' ms')
+      geometryMemoryMb=$(awk -F 'Geometry Memory: ' '{print $2}' "$statFile" | awk '{print $1}' | tr -d ' MB')
+      rssMb=$(awk -F 'RSS ' '{print $2}' "$statFile" | awk '{print $1}' | tr -d ' MB')
+      heapUsedMb=$(awk -F 'Heap Used: ' '{print $2}' "$statFile" | awk '{print $1}' | tr -d ' MB')
+      heapTotalMb=$(awk -F 'Heap Total: ' '{print $2}' "$statFile" | awk '{print $1}' | tr -d ' MB')
+      preprocessorVersion=$(awk -F"Preprocessor Version: '" '{split($2, a, "'\''"); print a[1]}' "$statFile")
+      originatingSystem=$(awk -F"Originating System: '" '{split($2, a, "'\''"); print a[1]}' "$statFile")
+    else
+      grep -E '(Total Time|web-ifc memory)' "$tempServerOutputFile" | tr \\n , > "$statFile"
+      timestamp=$(awk -F ']: ' '/Total Time/{print $1}' "$statFile" | tr -d '[')
+      schemaVersion='N/A'
+      parseTimeMs=0
+      geometryTimeMs=0
+      totalTimeMs=$(awk -F 'Total Time: ' '{print $2}' "$statFile" | awk '{print $1}' | tr -d ' ms')
+      geometryMemoryMb=$(awk -F 'Geometry Memory: ' '{print $2}' "$statFile" | awk '{print $1}' | tr -d ' MB')
+      rssMb=$(awk -F 'RSS ' '{print $2}' "$statFile" | awk '{print $1}' | tr -d ' MB')
+      heapUsedMb=$(awk -F 'Heap Used: ' '{print $2}' "$statFile" | awk '{print $1}' | tr -d ' MB')
+      heapTotalMb=$(awk -F 'Heap Total: ' '{print $2}' "$statFile" | awk '{print $1}' | tr -d ' MB')
+      preprocessorVersion=0
+      originatingSystem=0
+    fi
 
     # Write the extracted data to the CSV file
-    echo "$timestamp, OK, $uname, $conwayVersion, $fileName, $schemaVersion, $parseTime, $geometryTime, $totalTime, $geometryMemory, $rss, $heapUsed, $heapTotal, $preprocessorVersion, $originatingSystem" >> "$csvFile"
+    echo "$timestamp,OK,$uname,$engine,$filename,$schemaVersion,$parseTimeMs,$geometryTimeMs,$totalTimeMs,$geometryMemoryMb,$rssMb,$heapUsedMb,$heapTotalMb,$preprocessorVersion,$originatingSystem" >> "$detailedStatsFilename"
 
-    # Log data to Firestore
-    log_to_firestore "$timestamp" "OK" "$uname" "$conwayVersion" "$fileName" "$schemaVersion" "$parseTime" "$geometryTime" "$totalTime" "$geometryMemory" "$rss" "$heapUsed" "$heapTotal" "$preprocessorVersion" "$originatingSystem" "$testRunName"
   else
     # If curl failed, log the failure
     timestamp=$(date +"%Y%m%d_%H%M%S")
     uname=$(uname -p)
-    fileName=$(basename "$f")
-
+    filename=$(basename "$f")
+    all_status='fail'
     # Write the failure data to the CSV file
-    echo "$timestamp, FAIL, $uname, N/A, $fileName, N/A, N/A, N/A, N/A, N/A, N/A, N/A, N/A, N/A" >> "$csvFile"
-
-    # Log failure to Firestore
-    log_to_firestore "$timestamp" "FAIL" "$uname" "N/A" "$fileName" "N/A" "N/A" "N/A" "N/A" "N/A" "N/A" "N/A" "N/A" "N/A" "N/A" "$testRunName"
+    echo "$timestamp,FAIL,$uname,N/A,$filename,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A" >> "$detailedStatsFilename"
   fi
 
   # Change back to server directory to safely stop the server
@@ -191,3 +208,6 @@ find "${modelDir}/ifc" -type f \( -name "*.ifc" \) -print0 | while IFS= read -r 
   # Change back to the script directory
   cd "$scriptDir"
 done
+end_time=$(date "+%s")
+delta_time=$((end_time - start_time))
+echo "${all_status}, ${delta_time}s, ALL_FILES" >> $basicStatsFilename

@@ -1,0 +1,7 @@
+Error processing file file:///Users/pablo/c/b/test-models/ifc/misc/bath-csg-solid.ifc
+Error processing file file:///Users/pablo/c/b/test-models/ifc/bldrs/%C3%AFndex%20w%C3%ABird%2C%20chars%21123.ifc
+Error processing file file:///Users/pablo/c/b/test-models/ifc/openifcmodels/20160125Trapelo%20-%20Existing-Trapelo_Design_Intent.ifc
+Error processing file file:///Users/pablo/c/b/test-models/ifc/thatopen/ifcfiles/Sample_entities.ifc
+Error processing file file:///Users/pablo/c/b/test-models/ifc/thatopen/ifcfiles/S_Office_Integrated%20Design%20Archi.ifc
+Error processing file file:///Users/pablo/c/b/test-models/ifc/thatopen/ifcfiles/ISSUE_021_Mini%20Project.ifc
+Error processing file file:///Users/pablo/c/b/test-models/ifc/thatopen/ifcfiles/KIT-Simple-Road-Test-Web-IFC4x3_RC2.ifc
