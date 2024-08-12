@@ -32,7 +32,9 @@ export default class ParsingConstants {
   public static readonly ZERO            = encodeCharacter( '0' )
   public static readonly NINE            = encodeCharacter( '9' )
   public static readonly SIGN            = encodeCharacter( '-' )
+  public static readonly PLUS            = encodeCharacter( '+' )
   public static readonly SIGN_NUM        = ParsingConstants.SIGN - ParsingConstants.ZERO
+  public static readonly PLUS_NUM        = ParsingConstants.PLUS - ParsingConstants.ZERO
   public static readonly DOT             = encodeCharacter( '.' )
   public static readonly DOT_NUM         = ParsingConstants.DOT - ParsingConstants.ZERO
   public static readonly CAPITAL_X       = encodeCharacter( 'X' )

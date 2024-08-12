@@ -31,6 +31,20 @@ function testUnsignedNegative() {
 }
 
 /**
+ * Tests that parsing an unsigned with a negative fails.
+ *
+ * @return {boolean} True if the test passes.
+ */
+function testSignedPositive() {
+  const data = new TextEncoder().encode( '+0123456789' )
+
+  const result = parserInstance.unsigned( data, 0, data.length )
+
+  return result === void 0
+}
+
+
+/**
  * Tests parsing an signed positive number.
  *
  * @return {boolean} True if the test passes.
@@ -160,6 +174,12 @@ describe('Real Parsing Test', () => {
   test('testUnsignedNegative()', () => {
 
     expect(testUnsignedNegative()).toBe(true)
+
+  })
+
+  test('testSignedPositive()', () => {
+
+    expect(testSignedPositive()).toBe(true)
 
   })
 

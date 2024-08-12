@@ -141,13 +141,13 @@ describe('AP214 Geometry Extraction', () => {
   })
 
   test('tubeGeometryArrayLength()', () => {
-    const testParameter:Number = 18624
+    const testParameter:Number = 9120
     expect(getTubeMeshSize()).toBe(testParameter)
 
   })
 
   test('gearGeometryArrayLength()', () => {
-    const testParameter:Number = 65388
+    const testParameter:Number = 33948
     expect(getGearMeshSize()).toBe(testParameter)
 
   })

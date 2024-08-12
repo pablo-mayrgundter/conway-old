@@ -742,9 +742,11 @@ export default class ParsingBuffer {
     let firstChar    = input[ cursor ] - ZERO
     let sign         = 1
 
-    if ( firstChar === ParsingConstants.SIGN_NUM ) {
+    if ( firstChar === ParsingConstants.SIGN_NUM || firstChar === ParsingConstants.PLUS_NUM ) {
 
-      sign = -1
+      if ( firstChar === ParsingConstants.SIGN_NUM ) {
+        sign = -1
+      }
 
       ++cursor
 
