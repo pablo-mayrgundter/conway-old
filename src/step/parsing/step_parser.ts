@@ -77,7 +77,6 @@ const CLOSE_PAREN = ParsingConstants.CLOSE_PAREN
 const SEMICOLON = ParsingConstants.SEMICOLON
 const WHITESPACE = ParsingConstants.WHITE_SPACE_SET
 const QUOTE = ParsingConstants.QUOTE
-const DASH = ParsingConstants.DASH
 
 const enumParser = StepEnumParser.Instance.match
 const identifierParser = StepEntityIdentifierParser.Instance.match
