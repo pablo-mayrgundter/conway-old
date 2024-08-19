@@ -1,6 +1,7 @@
 import { Statistics } from '../statistics/statistics'
 import Environment, { EnvironmentType } from '../utilities/environment'
 
+
 type LogLevel = 'info' | 'warning' | 'error'
 
 export interface LogEntry {

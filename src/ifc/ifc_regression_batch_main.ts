@@ -58,7 +58,7 @@ async function runDiff(
 
   await fsPromises.mkdir( diffOutputFolder, { recursive: true } )
 
-  // eslint-disable-next-line max-len
+
   const process = await exec( `git diff ${target} ${outputFolder}` )
 
   await fsPromises.writeFile( `${diffOutputPath}.txt`, process.stdout )
@@ -67,7 +67,7 @@ async function runDiff(
 
     await exec( `git restore -sQ -SW -- "${outputFolder}"` )
   }
-} 
+}
 
 /**
  * Run a regression test digest for a file.
