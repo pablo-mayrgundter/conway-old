@@ -51,13 +51,12 @@ function csvSafeString( from: string ): string {
 async function runDiff(
     outputFolder: string,
     target: string,
-    diffOutputPath:
-    string, isDryRun: boolean ): Promise< void > {
+    diffOutputPath: string,
+    isDryRun: boolean ): Promise< void > {
 
   const diffOutputFolder = path.dirname( path.resolve( diffOutputPath ) )
 
   await fsPromises.mkdir( diffOutputFolder, { recursive: true } )
-
 
   const process = await exec( `git diff ${target} ${outputFolder}` )
 
@@ -121,52 +120,51 @@ const args = // eslint-disable-line no-unused-vars
       .command('$0 <model_folder> <output_folder>', 'Regression test', (yargs2) => {
 
         yargs2.option('target', {
-
           describe: 'Git diff target',
           type: 'string',
           alias: 't',
           default: '',
         })
         yargs2.option('dryrun', {
-
           describe: 'Roll back the changes to the output folder using git',
           type: 'boolean',
           alias: 'd',
           default: false,
         })
         yargs2.option('changes', {
-
           describe: 'Custom output location for the diff output (filepath, should include ' +
           'file name but not extension, the folder will be created if it doesn\'t exist',
           type: 'string',
           alias: 'c',
           default: '',
         })
-
         yargs2.positional('model_folder', {
           describe: 'The folder containing IFC files, which will be walked recursively',
           type: 'string' })
-        yargs2.positional('output_folder', { describe: 'The folder ', type: 'string' })
+        yargs2.positional('output_folder', {
+          // eslint-disable-next-line max-len
+          describe: 'The folder is where manifests and output artefacts, with the potential exception of changes/diff output',
+          type: 'string' })
 
       }, async (argv) => {
 
-        const ifcFolder = argv['model_folder'] as string
-        const outputPath = argv['output_folder'] as string
-        let changes = argv[ 'changes' ] as string ?? ''
-        const target = argv[ 'target' ] as string ?? ''
-        const dryRun = argv[ 'dryrun' ] as boolean ?? false
+        const ifcFolder  = argv[ 'model_folder' ] as string
+        const outputPath = argv[ 'output_folder' ] as string
+        let   changes    = argv[ 'changes' ] as string ?? ''
+        const target     = argv[ 'target' ] as string ?? ''
+        const dryRun     = argv[ 'dryrun' ] as boolean ?? false
 
         if ( changes.length === 0 ) {
-          changes = path.join( path.dirname( outputPath ), 'changes' )
+          changes = path.join( outputPath, 'changes' )
         }
 
         await fsPromises.mkdir( outputPath, { recursive: true })
 
-        const mainPath = path.join( outputPath, 'main.csv' )
+        const mainPath  = path.join( outputPath, 'main.csv' )
         const errorPath = path.join( outputPath, 'errors.csv' )
 
         const errorLines: string[] = []
-        const fileLines: string[] = []
+        const fileLines:  string[] = []
 
         const recursiveWalk = async ( parentPath: string ) => {
 
@@ -212,6 +210,5 @@ const args = // eslint-disable-line no-unused-vars
         await errorFile.close()
 
         await runDiff( outputPath, target, changes, dryRun )
-
       })
       .help().argv
