@@ -1,7 +1,6 @@
 import { Statistics } from '../statistics/statistics'
 import Environment, { EnvironmentType } from '../utilities/environment'
 
-
 type LogLevel = 'info' | 'warning' | 'error'
 
 export interface LogEntry {
@@ -162,6 +161,19 @@ export default class Logger {
     } else {
       Logger.error(`No statistics for modelID: ${modelID}`)
     }
+  }
+
+  /**
+   * Compresses the logs if they haven't been compressed,
+   * then returns a list of just the errors.
+   *
+   * @return {LogEntry[]} The errors.
+   */
+  public static getErrors(): LogEntry[] {
+
+    Logger.compressLogs()
+
+    return this.logs.filter( ( where ) => where.level === 'error' )
   }
 
   /**

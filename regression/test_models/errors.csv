@@ -1,0 +1,12 @@
+message,count,expressids,file
+Error extracting firstOperand geometry for,1,
+        200 - type: 
+        IFCBLOCK - isRelVoid: False,bath-csg-solid.ifc
+No basis found for brep!,12,,SEESTRASSE.ifc
+Syntax error detected on line 870400,1,,sp-231MB.ifc
+No basis found for brep!,3,,sp-231MB.ifc
+Syntax error detected on line 870400,1,,sp-469MB.ifc
+No basis found for brep!,3,,sp-469MB.ifc
+Syntax error detected on line 870400,1,,sp-946MB.ifc
+No basis found for brep!,3,,sp-946MB.ifc
+No basis found for brep!,41,,SKYLARK250_design-kit_blocks_detailed.ifc
