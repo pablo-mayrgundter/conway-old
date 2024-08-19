@@ -21,9 +21,55 @@ import { materialHashes } from './ifc_material_cache_node'
 import { dumpGeometryOBJs, geometryHashes } from './ifc_model_geometry_node'
 import { curveHashes, dumpCurveOBJs } from './ifc_model_curves_node'
 import { dumpProfileOBJs, profileHashes } from './ifc_model_profile_node'
+import { Console } from 'console'
 
 
 main()
+
+/**
+ * Encapsultes a string in a CSV safe way.
+ *
+ * @param from
+ * @return {string}
+ */
+function csvSafeString( from: string ): string {
+
+  if ( from.includes( '\n' ) ||
+    from.includes( '\r') ||
+    from.includes( '"') ||
+    from.includes( ',' ) ) {
+
+    return `"${from.replaceAll( '"', '""' )}"`
+  }
+
+  return from
+}
+
+/**
+ * Display errors and dump errors errors to stderr
+ */
+function displayErrors( filePath: string ) {
+
+  const fileName = csvSafeString( path.basename( filePath ) )
+
+  if ( Logger.getLogs().length > 0 ) {
+    Logger.displayLogs()
+
+    const errors = Logger.getErrors()
+
+    if ( errors.length > 0 ) {
+      const errConsole = new Console( process.stderr )
+
+      errConsole.log( 'message,count,expressids,file' )
+
+      for ( const error of errors ) {
+
+        // eslint-disable-next-line max-len
+        errConsole.log( `${csvSafeString(error.message)},${error.count},${Array.from(error.expressIDs.keys()).join(' ')},${fileName}`)
+      }
+    }
+  }
+}
 
 /**
  * Generalised error handling wrapper
@@ -89,12 +135,14 @@ function doWork() {
           } catch (ex) {
             Logger.error(
                 'Couldn\'t read file, check that it is accessible at the specified path.')
+            displayErrors(ifcFile)
             exit()
           }
 
           if (indexIfcBuffer === void 0) {
             Logger.error(
                 'Couldn\'t read file, check that it is accessible at the specified path.')
+            displayErrors(ifcFile)
             exit()
           }
 
@@ -284,7 +332,7 @@ function doWork() {
             }
           }
 
-          Logger.displayLogs()
+          displayErrors(ifcFile)
         })
         .help().argv
 }

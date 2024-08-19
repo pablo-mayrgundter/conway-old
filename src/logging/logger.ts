@@ -165,6 +165,19 @@ export default class Logger {
   }
 
   /**
+   * Compresses the logs if they haven't been compressed,
+   * then returns a list of just the errors.
+   *
+   * @return {LogEntry[]} The errors.
+   */
+  public static getErrors(): LogEntry[] {
+
+    Logger.compressLogs()
+
+    return this.logs.filter( ( where ) => where.level === 'error' )
+  }
+
+  /**
    *
    * @param message - log message
    */
