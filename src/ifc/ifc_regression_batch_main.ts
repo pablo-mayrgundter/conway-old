@@ -12,6 +12,8 @@ const exec = promisify( childProcess.exec )
 
 const SKIP_PARAMS = 2
 
+const STD_OUT_ERR_MAX_BUFFER = 64 * 1024 * 1024
+
 interface RunResults {
 
   errorLines?: string[]
@@ -22,7 +24,7 @@ interface RunResults {
 }
 
 /**
- * Encapsultes a string in a CSV safe way.
+ * Encapsulates a string in a CSV safe way.
  *
  * @param from
  * @return {string}
@@ -39,6 +41,32 @@ function csvSafeString( from: string ): string {
 
   return from
 }
+
+/**
+ * Encapsulates a string in a CSV safe way, taking
+ * file paths (assumed by directory characters / and \,
+ * ) and shortening them to file names without ".csv".
+ *
+ * @param from
+ * @return {string}
+ */
+function csvSafeStringFileNames( from: string ): string {
+
+  if ( from.includes( '\\' ) || from.includes( '/' ) ) {
+    from = path.basename( from, ".csv" )
+  }
+
+  if ( from.includes( '\n' ) ||
+    from.includes( '\r') ||
+    from.includes( '"') ||
+    from.includes( ',' ) ) {
+
+    return `"${from.replaceAll( '"', '""' )}"`
+  }
+
+  return from
+}
+
 
 /**
  * Run the git diff
@@ -58,13 +86,17 @@ async function runDiff(
 
   await fsPromises.mkdir( diffOutputFolder, { recursive: true } )
 
-  const process = await exec( `git diff ${target} ${outputFolder}` )
+  const process = await exec( `git diff -r --numstat --minimal ${target} -- ${outputFolder}`,
+      { maxBuffer: STD_OUT_ERR_MAX_BUFFER }  )
 
-  await fsPromises.writeFile( `${diffOutputPath}.txt`, process.stdout )
+  const csvDiff = `Added,Removed,File\n${process.stdout.split( '\n' ).map(
+      ( line ) => line.split( '\t' ).map( csvSafeStringFileNames ).join( ',' ) ).join( '\n' )}`
+
+  await fsPromises.writeFile( `${diffOutputPath}.csv`, csvDiff )
 
   if ( isDryRun ) {
 
-    await exec( `git restore -sQ -SW -- "${outputFolder}"` )
+    await exec( `git checkout -- "${outputFolder}"` )
   }
 }
 
@@ -74,7 +106,8 @@ async function runDiff(
 async function runForFile( filePath: string, outputPath: string ): Promise< RunResults > {
 
   // eslint-disable-next-line max-len
-  const process = await exec( `node --experimental-specifier-resolution=node ./compiled/src/ifc/ifc_regression_main.js -d "${filePath}" "${outputPath}"` )
+  const process = await exec( `node --experimental-specifier-resolution=node ./compiled/src/ifc/ifc_regression_main.js -d "${filePath}" "${outputPath}"`,
+      { maxBuffer: STD_OUT_ERR_MAX_BUFFER } )
 
   let stdErr = process.stderr
 
@@ -138,6 +171,12 @@ const args = // eslint-disable-line no-unused-vars
           alias: 'c',
           default: '',
         })
+        yargs2.option('exclude', {
+          describe: 'An file-path exclusion regex filter (javascript syntax)',
+          type: 'string',
+          alias: 'e',
+          default: '',
+        })
         yargs2.positional('model_folder', {
           describe: 'The folder containing IFC files, which will be walked recursively',
           type: 'string' })
@@ -148,11 +187,12 @@ const args = // eslint-disable-line no-unused-vars
 
       }, async (argv) => {
 
-        const ifcFolder  = argv[ 'model_folder' ] as string
-        const outputPath = argv[ 'output_folder' ] as string
-        let   changes    = argv[ 'changes' ] as string ?? ''
-        const target     = argv[ 'target' ] as string ?? ''
-        const dryRun     = argv[ 'dryrun' ] as boolean ?? false
+        const ifcFolder     = argv[ 'model_folder' ] as string
+        const outputPath    = argv[ 'output_folder' ] as string
+        let   changes       = argv[ 'changes' ] as string ?? ''
+        const target        = argv[ 'target' ] as string ?? ''
+        const dryRun        = argv[ 'dryrun' ] as boolean ?? false
+        const excludeFilter = argv[ 'exclude' ] as string ?? ''
 
         if ( changes.length === 0 ) {
           changes = path.join( outputPath, 'changes' )
@@ -166,11 +206,26 @@ const args = // eslint-disable-line no-unused-vars
         const errorLines: string[] = []
         const fileLines:  string[] = []
 
+        const excludeRegex: RegExp | undefined =
+            excludeFilter.length > 0 ? new RegExp( excludeFilter ) : void 0
+
+        const isExcluded = excludeRegex !== void 0 ?
+          ( ( testPath: string ) => excludeRegex?.test( testPath ) ) :
+          ( testPath: string ) => false
+
         const recursiveWalk = async ( parentPath: string ) => {
 
           const items = await fsPromises.readdir( parentPath, { withFileTypes: true } )
 
+          items.sort( ( a, b ) => a.name > b.name ? 1 : -1 )
+
           for ( const item of items ) {
+
+            const relativePath = path.join( parentPath, item.name )
+
+            if ( isExcluded( relativePath ) ) {
+              continue
+            }
 
             const resolved = path.resolve( parentPath, item.name )
 
