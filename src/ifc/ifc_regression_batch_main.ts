@@ -12,6 +12,7 @@ const exec = promisify( childProcess.exec )
 
 const SKIP_PARAMS = 2
 
+// eslint-disable-next-line no-magic-numbers
 const STD_OUT_ERR_MAX_BUFFER = 64 * 1024 * 1024
 
 interface RunResults {
@@ -53,7 +54,7 @@ function csvSafeString( from: string ): string {
 function csvSafeStringFileNames( from: string ): string {
 
   if ( from.includes( '\\' ) || from.includes( '/' ) ) {
-    from = path.basename( from, ".csv" )
+    from = path.basename( from, '.csv' )
   }
 
   if ( from.includes( '\n' ) ||
