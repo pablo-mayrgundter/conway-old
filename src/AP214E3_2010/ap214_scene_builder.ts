@@ -1,9 +1,8 @@
-import { ConwayGeometry, GeometryObject, ParamsLocalPlacement } from
-  '../../dependencies/conway-geom/conway_geometry'
+import { ConwayGeometry, GeometryObject, NativeTransform4x4, ParamsLocalPlacement } from
+  '../../dependencies/conway-geom'
 import { CanonicalMaterial } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
 import { Model } from '../core/model'
-import { NativeTransform } from '../core/native_types'
 import { PackedMesh } from '../core/packed_mesh'
 import { Scene } from '../core/scene'
 import {
@@ -45,8 +44,8 @@ export class AP214SceneTransform implements SceneNodeTransform {
     public readonly absoluteTransform: ReadonlyArray<number>,
     public readonly localID: number,
     public readonly index: number,
-    public readonly nativeTransform: NativeTransform,
-    public readonly absoluteNativeTransform: NativeTransform,
+    public readonly nativeTransform: NativeTransform4x4,
+    public readonly absoluteNativeTransform: NativeTransform4x4,
     public readonly parentIndex?: number) { }
   /* eslint-enable no-useless-constructor, no-empty-function */
   public children: number[] = []
@@ -284,7 +283,7 @@ export class AP214SceneBuilder implements Scene< StepEntityBase< EntityTypesAP21
    */
   public* walk(includeSpaces: boolean = false):
     IterableIterator<[readonly number[] | undefined,
-      NativeTransform | undefined,
+      NativeTransform4x4 | undefined,
       CanonicalMesh,
       CanonicalMaterial | undefined,
       StepEntityBase<EntityTypesAP214> | undefined]> {
@@ -402,7 +401,7 @@ export class AP214SceneBuilder implements Scene< StepEntityBase< EntityTypesAP21
   public addTransform(
       localID: number,
       transform: ReadonlyArray<number>,
-      nativeTransform: NativeTransform): AP214SceneTransform {
+      nativeTransform: NativeTransform4x4): AP214SceneTransform {
 
     if (this.sceneLocalIdMap_.has(localID)) {
       const transform_ = this.getTransform(localID)
@@ -417,7 +416,7 @@ export class AP214SceneBuilder implements Scene< StepEntityBase< EntityTypesAP21
     const nodeIndex = this.scene_.length
     let parentIndex: number | undefined
 
-    let absoluteNativeTransform: NativeTransform
+    let absoluteNativeTransform: NativeTransform4x4
 
     if (this.currentParent_ !== void 0) {
 

@@ -13,9 +13,7 @@ import {
   ParamsCreateNativeIfcProfile,
   ParamsGetExtrudedAreaSolid,
   ParamsGetBooleanResult,
-  MaterialObject,
   BlendMode,
-  toAlphaMode,
   Vector2,
   ParamsGetIfcCircle,
   ParamsGetIfcTrimmedCurve,
@@ -45,13 +43,14 @@ import {
   ParamsGetPolyCurve,
   ParamsGetPolygonalBoundedHalfspace,
   ParamsGetIfcLine,
-} from '../../dependencies/conway-geom/conway_geometry'
+  NativeTransform4x4,
+  NativeTransform3x3,
+} from '../../dependencies/conway-geom'
 import { CanonicalMaterial, ColorRGBA, exponentToRoughness } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
 import { CanonicalProfile } from '../core/canonical_profile'
 import { ObjectPool } from '../core/native_pool'
 import {
-  NativeTransform,
   NativeULongVector,
   NativeUintVector,
   NativeVectorBound3D,
@@ -308,8 +307,8 @@ export class IfcGeometryExtraction {
 
   private paramsGetPolyCurvePool: ObjectPool<ParamsGetPolyCurve> | undefined
 
-  private identity2DNativeMatrix: any
-  private identity3DNativeMatrix: any
+  private identity2DNativeMatrix: NativeTransform3x3
+  private identity3DNativeMatrix: NativeTransform4x4
 
   /**
    * Construct a geometry extraction from an IFC step model and conway model
@@ -332,7 +331,8 @@ export class IfcGeometryExtraction {
     this.linearScalingFactor = 1
     this.wasmModule = conwayModel.wasmModule
     this.ifcProjectName = null
-    this.getIdentityMatrices()
+    this.identity2DNativeMatrix = this.wasmModule.getIdentity2DMatrix()
+    this.identity3DNativeMatrix = this.wasmModule.getIdentity3DMatrix()
     this.initializeMemoryPools()
     this.curves = model.curves
     this.csgOperations = model.csgOperations
@@ -405,15 +405,6 @@ export class IfcGeometryExtraction {
   }
 
   /**
-   * Retrieves and stores identity matrices from the WebAssembly module.
-   */
-  getIdentityMatrices() {
-    this.identity2DNativeMatrix = this.wasmModule.getIdentity2DMatrix()
-    this.identity3DNativeMatrix = this.wasmModule.getIdentity3DMatrix()
-  }
-
-
-  /**
    *
    * @return {number} linear matrix scaling factor for geometry
    */
@@ -471,38 +462,6 @@ export class IfcGeometryExtraction {
     return nativeVectorGeometryCollection
   }
 
-  /**
-   * Create a native material from a canonical one.
-   *
-   * @param from The material to create the native material from
-   * @return {MaterialObject} The created canonical material.
-   */
-  nativeMaterial(from: CanonicalMaterial): MaterialObject {
-    const native: MaterialObject = {
-
-      alphaCutoff: 0,
-      alphaMode: toAlphaMode(this.wasmModule, from.blend),
-      base: {
-        x: from.baseColor[0],
-        y: from.baseColor[1],
-        z: from.baseColor[2],
-        w: from.baseColor[3],
-      },
-      doubleSided: from.doubleSided,
-      /* eslint-disable no-magic-numbers */
-      ior: from.ior ?? 1.4,
-      metallic: from.metalness ?? 1.0,
-      roughness: from.roughness ?? 1.0,
-      specular: from.specular !== void 0 ? {
-        x: from.specular[0],
-        y: from.specular[1],
-        z: from.specular[2],
-        w: from.specular[3],
-      } : void 0,
-    }
-    /* eslint-enable no-magic-numbers */
-    return native
-  }
 
   /**
    *
@@ -1043,7 +1002,7 @@ export class IfcGeometryExtraction {
     return {
       x: from.DirectionRatios[0],
       y: from.DirectionRatios[1],
-      // eslint-disable-next-line no-magic-numbers
+
       z: (from.DirectionRatios.length > 2) ? from.DirectionRatios[2] : 0,
     }
   }
@@ -2211,7 +2170,7 @@ export class IfcGeometryExtraction {
         for (let profileIndex = 0; profileIndex < profile.profiles.length; ++profileIndex) {
           const profilesArrayCurrent: NativeVectorProfile = this.nativeVectorProfile()
           const parameters: ParamsCreateNativeIfcProfile = {
-            curve: profile.profiles[profileIndex].curve,
+            curve: profile.profiles[profileIndex].curve!,
             // TODO(nickcastel50): support profiles with holes (out of scope at the moment)
             holes: profile.profiles[profileIndex].holes,
             isConvex: false,
@@ -2228,7 +2187,7 @@ export class IfcGeometryExtraction {
 
         // create native IfcProfile vector
         const parameters: ParamsCreateNativeIfcProfile = {
-          curve: profile.curve,
+          curve: profile.curve!,
           // TODO(nickcastel50): support profiles with holes (out of scope at the moment)
           holes: profile.holes,
           isConvex: false,
@@ -2241,7 +2200,7 @@ export class IfcGeometryExtraction {
 
         const profilesArray: NativeVectorProfile = this.nativeVectorProfile()
         const parameters: ParamsCreateNativeIfcProfile = {
-          curve: profile.curve,
+          curve: profile.curve!,
           // TODO(nickcastel50): support profiles with holes (out of scope at the moment)
           holes: profile.holes,
           isConvex: false,
@@ -3418,29 +3377,45 @@ export class IfcGeometryExtraction {
       }
     }
 
-    if (from.Points instanceof IfcCartesianPointList2D) {
-      const points = from.Points.CoordList.map(([x, y]) => ({ x: x, y: y } as Vector2))
+    const fromPoints = from.Points
 
-      // initialize new native glm::vec3 array object (free memory with delete())
-      const pointsArray: NativeVectorGlmVec2 = this.nativeVectorGlmVec2(points.length)
-
-      // populate points array
-      for (let i = 0; i < points.length; i++) {
-        pointsArray.set(i, points[i])
-      }
-
-      const paramsGetIndexedPolyCurve: ParamsGetIfcIndexedPolyCurve = {
-        dimensions: 2,
-        segments: segmentVector,
-        points: pointsArray,
-      }
-
-      const ifcCurve: CurveObject = this.conwayModel.getIndexedPolyCurve(paramsGetIndexedPolyCurve)
-
-      segmentVector.delete()
-
-      return ifcCurve
+    if ( fromPoints === null ) {
+      return
     }
+
+    //   points = from.Points.CoordList.map(([x, y]) => ({ x: x, y: y, z: 0 } as Vector2))
+    // } else if ( from.Points instanceof IfcCartesianPointList3D ) {
+    //   points = from.Points.CoordList.map(([x, y]) => ({ x: x, y: y, z: 0 } as Vector2))
+    // } else {
+    //   return
+    // }
+    // initialize new native glm::vec3 array object (free memory with delete())
+    const pointsArray = this.nativeVectorGlmVec2((fromPoints as any).CoordList.length)
+
+    if ( fromPoints instanceof IfcCartesianPointList2D ||
+       fromPoints instanceof IfcCartesianPointList3D ) {
+
+      const coords = fromPoints.CoordList
+      // populate points array
+      for (let i = 0; i < coords.length; i++) {
+
+        const coord = coords[ i ]
+
+        pointsArray.set(i, { x: coord[ 0 ], y: coord[ 1 ] })
+      }
+    }
+
+    const paramsGetIndexedPolyCurve: ParamsGetIfcIndexedPolyCurve = {
+      dimensions: 2,
+      segments: segmentVector,
+      points: pointsArray,
+    }
+
+    const ifcCurve: CurveObject = this.conwayModel.getIndexedPolyCurve(paramsGetIndexedPolyCurve)
+
+    segmentVector.delete()
+
+    return ifcCurve
 
   }
 
@@ -3763,9 +3738,9 @@ export class IfcGeometryExtraction {
    * Extract an IFC plane.
    *
    * @param from The plane to extract from
-   * @return {NativeTransform} The transform matching the plane.
+   * @return {NativeTransform4x4} The transform matching the plane.
    */
-  extractPlane(from: IfcPlane): NativeTransform {
+  extractPlane(from: IfcPlane): NativeTransform4x4 {
 
     const location = from.Position
 
@@ -4420,7 +4395,9 @@ export class IfcGeometryExtraction {
 
     let normalizeX: boolean = false
 
-    if (from.RefDirection !== null) {
+    const refDirection = from.RefDirection
+
+    if (refDirection !== null) {
       normalizeX = true
     }
 
@@ -4429,10 +4406,10 @@ export class IfcGeometryExtraction {
       y: from.Location.Coordinates[1],
     }
 
-    const xAxisRef = {
-      x: from.RefDirection?.DirectionRatios[0],
-      y: from.RefDirection?.DirectionRatios[1],
-    }
+    const xAxisRef = refDirection !== null ? {
+      x: refDirection.DirectionRatios[0],
+      y: refDirection.DirectionRatios[1],
+    } : { x: 1, y: 0 }
 
     const axis2Placement2DParameters: ParamsGetAxis2Placement2D = {
       isAxis2Placement2D: true,
@@ -4905,7 +4882,7 @@ export class IfcGeometryExtraction {
         flatFirstMesh: relatedBuildingElementMeshVector,
         flatSecondMesh: relVoidMeshVector,
         operatorType: 2,
-        parentMatrix: productTransform?.absoluteNativeTransform,
+        parentMatrix: productTransform?.absoluteNativeTransform ?? this.identity3DNativeMatrix,
       }
 
       const booleanGeometryObject: GeometryObject = this.conwayModel.relVoidSubtract(parameters)

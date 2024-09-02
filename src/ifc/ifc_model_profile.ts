@@ -76,7 +76,7 @@ export class IfcModelProfile implements ModelProfile {
         continue
       }
 
-      const objFileContents = nativeProfile.dumpToOBJ()
+      const objFileContents = nativeProfile.dumpToOBJ( '' )
 
       yield [profileItem, objFileContents]
     }

@@ -3,7 +3,7 @@ import {
   ConwayGeometry,
   GeometryObject,
   Vector3,
-} from '../../dependencies/conway-geom/conway_geometry'
+} from '../../dependencies/conway-geom'
 import { CanonicalMaterial } from '../core/canonical_material'
 import { IfcSceneBuilder } from '../ifc/ifc_scene_builder'
 import IfcStepModel from '../ifc/ifc_step_model'

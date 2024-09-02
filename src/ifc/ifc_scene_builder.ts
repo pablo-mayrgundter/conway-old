@@ -1,9 +1,9 @@
 import { ConwayGeometry, GeometryObject, ParamsLocalPlacement } from
-  '../../dependencies/conway-geom/conway_geometry'
+  '../../dependencies/conway-geom'
 import { CanonicalMaterial } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
 import { Model } from '../core/model'
-import { NativeTransform } from '../core/native_types'
+import { NativeTransform4x4 } from '../../dependencies/conway-geom'
 import { PackedMesh } from '../core/packed_mesh'
 import { Scene } from '../core/scene'
 import {
@@ -45,8 +45,8 @@ export class IfcSceneTransform implements SceneNodeTransform {
     public readonly absoluteTransform: ReadonlyArray<number>,
     public readonly localID: number,
     public readonly index: number,
-    public readonly nativeTransform: NativeTransform,
-    public readonly absoluteNativeTransform: NativeTransform,
+    public readonly nativeTransform: NativeTransform4x4,
+    public readonly absoluteNativeTransform: NativeTransform4x4,
     public readonly parentIndex?: number) { }
   /* eslint-enable no-useless-constructor, no-empty-function */
   public children: number[] = []
@@ -287,8 +287,8 @@ export class IfcSceneBuilder implements Scene< StepEntityBase< EntityTypesIfc > 
    * @param walkTemporary Include temporary items.
    */
   public* walk(includeSpaces: boolean = false):
-    IterableIterator<[readonly number[] | undefined,
-      NativeTransform | undefined,
+      IterableIterator<[readonly number[] | undefined,
+      NativeTransform4x4 | undefined,
       CanonicalMesh,
       CanonicalMaterial | undefined,
       StepEntityBase<EntityTypesIfc> | undefined]> {
@@ -411,7 +411,7 @@ export class IfcSceneBuilder implements Scene< StepEntityBase< EntityTypesIfc > 
   public addTransform(
       localID: number,
       transform: ReadonlyArray<number>,
-      nativeTransform: NativeTransform,
+      nativeTransform: NativeTransform4x4,
       isMappedItem:boolean = false): IfcSceneTransform {
 
     if (this.sceneLocalIdMap_.has(localID)) {
@@ -427,7 +427,7 @@ export class IfcSceneBuilder implements Scene< StepEntityBase< EntityTypesIfc > 
     const nodeIndex = this.scene_.length
     let parentIndex: number | undefined
 
-    let absoluteNativeTransform: NativeTransform
+    let absoluteNativeTransform: NativeTransform4x4
 
     if (this.currentParent_ !== void 0) {
 

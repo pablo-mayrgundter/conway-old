@@ -10,10 +10,9 @@ import {
   StdVector,
   Vector2,
   Vector3,
-} from '../../dependencies/conway-geom/conway_geometry'
+} from '../../dependencies/conway-geom'
 
 
-export type NativeTransform = { getValues(): Readonly<number[]> }
 export type NativeVectorGlmVec3 = StdVector<Vector3>
 export type NativeVectorGlmVec2 = StdVector<Vector2>
 export type NativeUintVector = StdVector<number>

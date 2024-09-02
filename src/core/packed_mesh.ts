@@ -1,4 +1,4 @@
-import { GeometryObject } from '../../dependencies/conway-geom/conway_geometry'
+import { GeometryObject } from '../../dependencies/conway-geom'
 import { extractOneHotLow } from '../indexing/bit_operations'
 import { CanonicalMaterial } from './canonical_material'
 import { IIndexSetCursor } from './i_index_set_cursor'

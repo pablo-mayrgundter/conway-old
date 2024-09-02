@@ -1,4 +1,4 @@
-import { CurveObject } from '../../dependencies/conway-geom/conway_geometry'
+import { CurveObject } from '../../dependencies/conway-geom'
 import SimpleMemoization from '../core/simple_memoization'
 import IfcStepModel from './ifc_step_model'
 import { IfcCurve } from './ifc4_gen'
@@ -32,7 +32,7 @@ export default class IfcModelCurves extends SimpleMemoization< CurveObject > {
         continue
       }
 
-      const objFileContents = curve.dumpToOBJ()
+      const objFileContents = curve.dumpToOBJ( '' )
 
       yield [curveItem, objFileContents]
     }
