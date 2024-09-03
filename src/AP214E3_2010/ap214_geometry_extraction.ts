@@ -1927,19 +1927,9 @@ export class AP214GeometryExtraction {
         thickness: -1,
       }
 
+      // Note - we may need to handle the 3D case for STEP that we don't for IFC
+
       return this.conwayModel.getCircleCurve(paramsGetCircleCurve)
-      // }
-
-      // const placement3D = this.extractAxis2Placement3D( position, from.localID, true )
-
-      // const paramsGetCircleCurve: ParamsGetCircleCurve = {
-      //   radius: from.radius,
-      //   hasPlacement: true,
-      //   placement: placement3D,
-      //   thickness: -1,
-      // }
-
-      // return this.conwayModel.getCircleCurve(paramsGetCircleCurve)
 
     } else {
 
@@ -1981,20 +1971,7 @@ export class AP214GeometryExtraction {
 
       return this.conwayModel.getEllipseCurve(paramsGetEllipseCurve)
 
-      // }
-
-      // const placement3D = this.extractAxis2Placement3D( position, from.localID, true )
-
-      // const paramsGetEllipseCurve: ParamsGetEllipseCurve = {
-      //   radiusX: from.semi_axis_1,
-      //   radiusY: from.semi_axis_2,
-      //   hasPlacement: true,
-      //   placement: placement3D,
-      //   circleSegments: this.circleSegments,
-      // }
-
-      // return this.conwayModel.getEllipseCurve(paramsGetEllipseCurve)
-
+      // Note - we may need to handle the 3D case for STEP that we don't for IFC
 
     } else {
 

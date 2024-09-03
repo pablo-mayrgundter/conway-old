@@ -3383,12 +3383,6 @@ export class IfcGeometryExtraction {
       return
     }
 
-    //   points = from.Points.CoordList.map(([x, y]) => ({ x: x, y: y, z: 0 } as Vector2))
-    // } else if ( from.Points instanceof IfcCartesianPointList3D ) {
-    //   points = from.Points.CoordList.map(([x, y]) => ({ x: x, y: y, z: 0 } as Vector2))
-    // } else {
-    //   return
-    // }
     // initialize new native glm::vec3 array object (free memory with delete())
     const pointsArray = this.nativeVectorGlmVec2((fromPoints as any).CoordList.length)
 
