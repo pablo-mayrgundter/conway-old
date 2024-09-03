@@ -10,7 +10,7 @@ import IfcStepModel from './ifc_step_model'
 import { IfcGeometryExtraction } from './ifc_geometry_extraction'
 import { IfcPropertyExtraction } from './ifc_property_extraction'
 import { ConwayGeometry }
-  from '../../dependencies/conway-geom/conway_geometry'
+  from '../../dependencies/conway-geom'
 import { IfcSceneBuilder } from './ifc_scene_builder'
 import GeometryConvertor from '../core/geometry_convertor'
 import GeometryAggregator from '../core/geometry_aggregator'

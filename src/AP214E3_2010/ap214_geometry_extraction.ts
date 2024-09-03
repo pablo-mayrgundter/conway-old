@@ -33,13 +33,14 @@ import {
   ParamsGetPolyCurve,
   TrimmingSelect,
   ParamsCreateNativeIfcProfile,
-} from '../../dependencies/conway-geom/conway_geometry'
+  NativeTransform3x3,
+  NativeTransform4x4,
+} from '../../dependencies/conway-geom'
 import { CanonicalMaterial, ColorRGBA } from '../core/canonical_material'
 import { CanonicalMesh, CanonicalMeshType } from '../core/canonical_mesh'
 import { CanonicalProfile } from '../core/canonical_profile'
 import { ObjectPool } from '../core/native_pool'
 import {
-  NativeTransform,
   NativeULongVector,
   NativeUintVector,
   NativeVectorBound3D,
@@ -1915,28 +1916,18 @@ export class AP214GeometryExtraction {
 
     if ( position !== null) {
 
-      if ( position instanceof axis2_placement_2d ) {
+      // if ( position instanceof axis2_placement_2d ) {
 
-        const placement2D = this.extractAxis2Placement2D( position )
-
-        const paramsGetCircleCurve: ParamsGetCircleCurve = {
-          radius: from.radius,
-          hasPlacement: true,
-          placement: placement2D,
-          thickness: -1,
-        }
-
-        return this.conwayModel.getCircleCurve(paramsGetCircleCurve)
-      }
-
-      const placement3D = this.extractAxis2Placement3D( position, from.localID, true )
+      const placement2D = this.extractAxis2Placement2D( position as axis2_placement_2d )
 
       const paramsGetCircleCurve: ParamsGetCircleCurve = {
         radius: from.radius,
         hasPlacement: true,
-        placement: placement3D,
+        placement: placement2D,
         thickness: -1,
       }
+
+      // Note - we may need to handle the 3D case for STEP that we don't for IFC
 
       return this.conwayModel.getCircleCurve(paramsGetCircleCurve)
 
@@ -1966,34 +1957,21 @@ export class AP214GeometryExtraction {
 
     if ( position !== null) {
 
-      if ( position instanceof axis2_placement_2d ) {
+      //   if ( position instanceof axis2_placement_2d ) {
 
-        const placement2D = this.extractAxis2Placement2D( position )
-
-        const paramsGetEllipseCurve: ParamsGetEllipseCurve = {
-          radiusX: from.semi_axis_1,
-          radiusY: from.semi_axis_2,
-          hasPlacement: true,
-          placement: placement2D,
-          circleSegments: this.circleSegments,
-        }
-
-        return this.conwayModel.getEllipseCurve(paramsGetEllipseCurve)
-
-      }
-
-      const placement3D = this.extractAxis2Placement3D( position, from.localID, true )
+      const placement2D = this.extractAxis2Placement2D( position as axis2_placement_2d )
 
       const paramsGetEllipseCurve: ParamsGetEllipseCurve = {
         radiusX: from.semi_axis_1,
         radiusY: from.semi_axis_2,
         hasPlacement: true,
-        placement: placement3D,
+        placement: placement2D,
         circleSegments: this.circleSegments,
       }
 
       return this.conwayModel.getEllipseCurve(paramsGetEllipseCurve)
 
+      // Note - we may need to handle the 3D case for STEP that we don't for IFC
 
     } else {
 
@@ -2275,9 +2253,9 @@ export class AP214GeometryExtraction {
    * Extract an AP214 plane.
    *
    * @param from The plane to extract from
-   * @return {NativeTransform} The transform matching the plane.
+   * @return {NativeTransform4x4} The transform matching the plane.
    */
-  extractPlane( from: plane ): NativeTransform {
+  extractPlane( from: plane ): NativeTransform4x4 {
 
     const location = from.position
 
@@ -2888,11 +2866,13 @@ export class AP214GeometryExtraction {
    * @param from The axis 2 placement to extract.
    * @return {any} The native placement transform.
    */
-  extractAxis2Placement2D( from: axis2_placement_2d ): any {
+  extractAxis2Placement2D( from: axis2_placement_2d ): NativeTransform3x3 {
 
     let normalizeX: boolean = false
 
-    if (from.ref_direction !== null) {
+    const refDirection = from.ref_direction
+
+    if (refDirection !== null) {
       normalizeX = true
     }
 
@@ -2901,10 +2881,11 @@ export class AP214GeometryExtraction {
       y: from.location.coordinates[1],
     }
 
-    const xAxisRef = {
-      x: from.ref_direction?.direction_ratios[0],
-      y: from.ref_direction?.direction_ratios[1],
-    }
+
+    const xAxisRef = refDirection !== null ? {
+      x: refDirection.direction_ratios[0],
+      y: refDirection.direction_ratios[1],
+    } : { x: 1, y: 0 }
 
     const axis2Placement2DParameters: ParamsGetAxis2Placement2D = {
       isAxis2Placement2D: true,

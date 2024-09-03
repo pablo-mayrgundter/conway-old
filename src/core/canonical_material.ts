@@ -1,6 +1,9 @@
 import {
   BlendMode,
-} from '../../dependencies/conway-geom/conway_geometry'
+  ConwayGeometryWasm,
+  MaterialObject,
+  toAlphaMode,
+} from '../../dependencies/conway-geom'
 
 
 export type ColorRGBA = [number, number, number, number]
@@ -168,4 +171,46 @@ export function dumpMTL( from: CanonicalMaterial ): string {
   }
 
   return result
+}
+
+
+/**
+ * Convert a canonical material to a native material
+ *
+ * @param wasm The wasm object to use for conversion.
+ * @param from The material to convert.
+ * @return {MaterialObject} The native material object.
+ */
+export function toNativeMaterial(
+    wasm: ConwayGeometryWasm,
+    from: CanonicalMaterial): MaterialObject {
+  const native: MaterialObject = {
+
+    alphaCutoff: 0,
+    alphaMode: toAlphaMode(wasm, from.blend),
+    base: {
+      x: from.baseColor[0],
+      y: from.baseColor[1],
+      z: from.baseColor[2],
+      w: from.baseColor[3],
+    },
+    doubleSided: from.doubleSided,
+    /* eslint-disable no-magic-numbers */
+    ior: from.ior ?? 1.4,
+    metallic: from.metalness ?? 1.0,
+    roughness: from.roughness ?? 1.0,
+    specular: from.specular !== void 0 ? {
+      x: from.specular[0],
+      y: from.specular[1],
+      z: from.specular[2],
+      w: from.specular[3],
+    } : {
+      x: 0,
+      y: 0,
+      z: 0,
+      w: 1,
+    },
+  }
+  /* eslint-enable no-magic-numbers */
+  return native
 }

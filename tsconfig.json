@@ -102,6 +102,7 @@
   "exclude": ["external/**/*", "compiled/**/*", "dependencies/**/compiled/**"],
   "include": [
     "src/**/*",
-    "dependencies/conway-geom/*.ts"
+    "dependencies/conway-geom/*.ts",
+    "dependencies/conway-geom/interface/**/*"
   ]
 }

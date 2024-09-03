@@ -1,5 +1,5 @@
-import { ConwayGeometry, GeometryCollection } from '../../dependencies/conway-geom/conway_geometry'
-import { CanonicalMaterial } from './canonical_material'
+import { ConwayGeometry, GeometryCollection } from '../../dependencies/conway-geom'
+import { CanonicalMaterial, toNativeMaterial } from './canonical_material'
 import { CanonicalMeshType } from './canonical_mesh'
 import { NativeVectorGeometryCollection, NativeVectorMaterial } from './native_types'
 import { Scene } from './scene'
@@ -140,7 +140,7 @@ export default class GeometryAggregator {
 
         materialIndex = materialVector.size()
 
-        const nativeMaterial = conwaywasm.nativeMaterial(material)
+        const nativeMaterial = toNativeMaterial( this.wasmModule.wasmModule!, material )
 
         materialVector.push_back(nativeMaterial)
       }

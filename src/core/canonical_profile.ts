@@ -1,6 +1,6 @@
 import { CurveObject,
   ProfileObject,
-  StdVector } from '../../dependencies/conway-geom/conway_geometry'
+  StdVector } from '../../dependencies/conway-geom'
 
 /**
  * Represents a profile as cached canonically for extrusion/sweeps
