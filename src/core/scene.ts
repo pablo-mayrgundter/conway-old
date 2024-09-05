@@ -1,6 +1,6 @@
 import { CanonicalMaterial } from './canonical_material'
 import { CanonicalMesh } from './canonical_mesh'
-import { NativeTransform } from './native_types'
+import { NativeTransform4x4 } from '../../dependencies/conway-geom'
 import { ReadonlyUint32Array } from './readonly_typed_array'
 import { SceneNode } from './scene_node'
 
@@ -15,7 +15,7 @@ export interface Scene< BaseEntityType > {
 
     walk( includeSpaces?: boolean ):
       IterableIterator<[readonly number[] | undefined,
-        NativeTransform | undefined,
+        NativeTransform4x4 | undefined,
         CanonicalMesh,
         CanonicalMaterial | undefined,
         BaseEntityType | undefined]>

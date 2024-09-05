@@ -1,4 +1,4 @@
-import { GeometryObject } from '../../dependencies/conway-geom/conway_geometry'
+import { GeometryObject } from '../../dependencies/conway-geom'
 import { Model } from './model'
 
 

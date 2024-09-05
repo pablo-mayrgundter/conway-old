@@ -2,7 +2,7 @@ import {
   ConwayGeometry,
   GeometryObject,
   ResultsGltf,
-} from '../../dependencies/conway-geom/conway_geometry'
+} from '../../dependencies/conway-geom'
 import { AggregatedNativeGeometry } from './geometry_aggregator'
 import { NativeVectorGeometryCollection, NativeVectorMaterial } from './native_types'
 

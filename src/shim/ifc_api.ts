@@ -1,5 +1,5 @@
-import { ConwayGeometry }
-  from '../../dependencies/conway-geom/conway_geometry'
+import { ConwayGeometry, FileHandlerFunction as FileHandlerCallback }
+  from '../../dependencies/conway-geom'
 import * as glmatrix from 'gl-matrix'
 import { versionString } from '../version/version'
 import Logger from '../logging/logger'
@@ -83,7 +83,7 @@ export function ms(): number {
   return new Date().getTime()
 }
 
-export type LocateFileHandlerFn = (path: string, prefix: string) => string
+export type LocateFileHandlerFn = FileHandlerCallback
 
 /**
  * IfcAPI - Web-IFC API Shim Implementation for full read functionality

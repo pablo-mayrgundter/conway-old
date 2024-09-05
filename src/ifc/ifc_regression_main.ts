@@ -7,7 +7,7 @@ import fs from 'fs'
 import IfcStepModel from './ifc_step_model'
 import { IfcGeometryExtraction } from './ifc_geometry_extraction'
 import { ConwayGeometry }
-  from '../../dependencies/conway-geom/conway_geometry'
+  from '../../dependencies/conway-geom'
 import { IfcSceneBuilder } from './ifc_scene_builder'
 import Logger from '../logging/logger'
 import Environment from '../utilities/environment'

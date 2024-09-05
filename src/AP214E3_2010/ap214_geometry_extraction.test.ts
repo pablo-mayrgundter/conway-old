@@ -4,7 +4,7 @@ import { AP214GeometryExtraction } from './ap214_geometry_extraction'
 import { ParseResult } from '../step/parsing/step_parser'
 import IfcStepParser from './ap214_step_parser'
 import ParsingBuffer from '../parsing/parsing_buffer'
-import { ConwayGeometry, GeometryObject } from '../../dependencies/conway-geom/conway_geometry'
+import { ConwayGeometry, GeometryObject } from '../../dependencies/conway-geom'
 import { ExtractResult } from '../core/shared_constants'
 
 

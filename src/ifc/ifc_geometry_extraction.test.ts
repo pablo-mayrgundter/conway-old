@@ -4,7 +4,7 @@ import { IfcGeometryExtraction } from './ifc_geometry_extraction'
 import { ParseResult } from '../step/parsing/step_parser'
 import IfcStepParser from './ifc_step_parser'
 import ParsingBuffer from '../parsing/parsing_buffer'
-import { ConwayGeometry } from '../../dependencies/conway-geom/conway_geometry'
+import { ConwayGeometry } from '../../dependencies/conway-geom'
 import { ColorRGBA } from '../core/canonical_material'
 import { ExtractResult } from '../core/shared_constants'
 
