@@ -34,3 +34,4 @@ scripts/*.csv
 scripts/app.json
 scripts/test_runs/
 scripts/*/
+benchmarks/*private

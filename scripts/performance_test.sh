@@ -93,11 +93,15 @@ find "${modelDir}/ifc" -type f \( -name "*.ifc" \) -print0 | while IFS= read -r 
   # Extract the base filename
   base_filename=$(basename "$f")
   
-  # Check if the filename matches any in the exclude list
-  if echo "$base_filename" | grep -Eq "$exclude_pattern"; then
-    echo "skip, 0s, ${f#$modelDir/}" >> $basicStatsFilename
-    continue  # Skip this file and continue with the next iteration
+  # Check if exclude_pattern is not empty
+  if [ -n "$exclude_pattern" ]; then
+    # Check if the filename matches any in the exclude list
+    if echo "$base_filename" | grep -Eq "$exclude_pattern"; then
+      echo "skip, 0s, ${f#$modelDir/}" >> $basicStatsFilename
+      continue  # Skip this file and continue with the next iteration
+    fi
   fi
+
 
   # Change to server directory
   cd "$serverDir"
