@@ -1,12 +1,12 @@
-export { default as IfcStepParser } from './ifc/ifc_step_parser'
-export {default as ParsingBuffer} from './parsing/parsing_buffer'
 export { ParseResult } from './step/parsing/step_parser'
-export {default as EntityTypesIfc} from './ifc/ifc4_gen/entity_types_ifc.gen'
-export {default as StepEntityBase} from './step/step_entity_base'
-export {default as IfcStepModel} from './ifc/ifc_step_model'
 export { IfcGeometryExtraction } from './ifc/ifc_geometry_extraction'
 export { IfcPropertyExtraction } from './ifc/ifc_property_extraction'
-export { ConwayGeometry, GeometryObject} from '../dependencies/conway-geom'
+export { ConwayGeometry, GeometryObject, FileHandlerFunction} from '../dependencies/conway-geom'
+export { versionString } from './version/version'
+// Replace your current Logger export with this
+export { default as Logger } from './logging/logger'
+// eslint-disable-next-line camelcase
+export { product, shape_definition_representation } from './AP214E3_2010/AP214E3_2010_gen'
 export { CanonicalMeshType } from './core/canonical_mesh'
 export { CanonicalMaterial } from './core/canonical_material'
 export { ExtractResult } from './core/shared_constants'

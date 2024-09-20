@@ -3,7 +3,7 @@
   "description": "bldrs.ai datamodel",
   "author": "bldrs.ai",
   "license": "AGPL-3.0",
-  "version": "0.1.620",
+  "version": "0.1.631",
   "repository": "https://github.com/bldrs-ai/conway",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -11,12 +11,14 @@
   "files": [
     "./compiled/**/*"
   ],
-  "main": "./compiled/index.js",
-  "browser": "./compiled/index.js",
+  "main": "./compiled/src/index.js",
+  "browser": "./compiled/src/index.js",
+  "types": "./compiled/src/index.d.ts",
   "exports": {
     ".": {
-      "require": "./compiled/index.js",
-      "import": "./compiled/index.js"
+      "types": "./compiled/src/index.d.ts",
+      "require": "./compiled/src/index.js",
+      "import": "./compiled/src/index.js"
     },
     "./package.json": "./package.json"
   },
