@@ -3,7 +3,7 @@
   "description": "bldrs.ai datamodel",
   "author": "bldrs.ai",
   "license": "AGPL-3.0",
-  "version": "0.1.631",
+  "version": "0.1.632",
   "repository": "https://github.com/bldrs-ai/conway",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -20,6 +20,8 @@
       "require": "./compiled/src/index.js",
       "import": "./compiled/src/index.js"
     },
+    "./src/*": "./compiled/src/*.js",
+    "./dependencies/conway-geom": "./dependencies/conway-geom/index.js",
     "./package.json": "./package.json"
   },
   "scripts": {
