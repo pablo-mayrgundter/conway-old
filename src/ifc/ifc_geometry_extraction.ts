@@ -5451,10 +5451,10 @@ export class IfcGeometryExtraction {
           // used this as a top level over-ride for a rel-void.
           // for all objects in the aggregate - CS
           const relatingObject = relAggregate.RelatingObject
-          const masterRelVoids = 
+          const masterRelVoids =
             relatingObject instanceof IfcProduct ?
               this.extractRelVoids( relatingObject ) :
-              void 0 
+              void 0
 
           const relatedObjects = relAggregate.RelatedObjects
 
@@ -5603,7 +5603,7 @@ export class IfcGeometryExtraction {
           if ( masterRelVoids !== void 0 ) {
             masterRelVoids[ 0 ].delete()
           }
-      } catch (ex) {
+        } catch (ex) {
           if (ex instanceof Error) {
             if (MATERIAL_RELATED_OBJECTS_PERMISSIVE) {
               Logger.error('Error processing relAggregate expressID: ' +
