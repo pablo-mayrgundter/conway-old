@@ -4915,9 +4915,9 @@ export class IfcGeometryExtraction {
           const relVoid =
             this.model.getElementByLocalID(relVoidLocalID) as IfcFeatureElementSubtraction
 
-
           const relVoidObjectPlacement = relVoid.ObjectPlacement
           let relVoidPlacementTransform: IfcSceneTransform | undefined
+
           if (relVoidObjectPlacement !== null) {
             this.extractPlacement(relVoidObjectPlacement, true)
             relVoidPlacementTransform = this.voidScene.getTransform(relVoidObjectPlacement.localID)
@@ -5445,6 +5445,17 @@ export class IfcGeometryExtraction {
       for ( const relAggregate of relAggregates ) {
 
         try {
+
+          // Note, this is required because the relating object
+          // can be where the rel-void is applied, so we
+          // used this as a top level over-ride for a rel-void.
+          // for all objects in the aggregate - CS
+          const relatingObject = relAggregate.RelatingObject
+          const masterRelVoids = 
+            relatingObject instanceof IfcProduct ?
+              this.extractRelVoids( relatingObject ) :
+              void 0 
+
           const relatedObjects = relAggregate.RelatedObjects
 
           for ( const productRepresentation of relatedObjects ) {
@@ -5475,7 +5486,7 @@ export class IfcGeometryExtraction {
                 const styledItemID: number | undefined =
                   this.extractMaterialStyle(product)
 
-                const extractRelVoidsResult = this.extractRelVoids(product)
+                const extractRelVoidsResult = masterRelVoids ?? this.extractRelVoids(product)
 
                 let hasRelVoid: boolean = false
 
@@ -5582,11 +5593,17 @@ export class IfcGeometryExtraction {
                   }
                 }
 
-                relVoidsMeshVector?.delete()
+                if ( masterRelVoids === void 0 ) {
+                  relVoidsMeshVector?.delete()
+                }
               }
             }
           }
-        } catch (ex) {
+
+          if ( masterRelVoids !== void 0 ) {
+            masterRelVoids[ 0 ].delete()
+          }
+      } catch (ex) {
           if (ex instanceof Error) {
             if (MATERIAL_RELATED_OBJECTS_PERMISSIVE) {
               Logger.error('Error processing relAggregate expressID: ' +
