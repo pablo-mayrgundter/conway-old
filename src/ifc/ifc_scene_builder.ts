@@ -95,6 +95,15 @@ export class IfcSceneBuilder implements Scene< StepEntityBase< EntityTypesIfc > 
   private sceneStack_: IfcSceneTransform[] = []
   private currentParent_?: IfcSceneTransform
 
+  /**
+   * Get the current transform for this.
+   *
+   * @return {IfcSceneTransform|undefined}
+   */
+  public get currentTransform(): IfcSceneTransform | undefined {
+    return this.currentParent_
+  }
+
   /* eslint-disable no-useless-constructor, no-empty-function */
   /**
    *
@@ -150,6 +159,23 @@ export class IfcSceneBuilder implements Scene< StepEntityBase< EntityTypesIfc > 
     const result = this.get(localID)
 
     if (result instanceof IfcSceneTransform) {
+
+      return result
+    }
+
+    return void 0
+  }
+
+  /**
+   *
+   * @param localID
+   * @return {IfcSceneGeometry | undefined}
+   */
+  public getGeometry(localID: number): IfcSceneGeometry | undefined {
+
+    const result = this.get(localID)
+
+    if (result instanceof IfcSceneGeometry) {
 
       return result
     }
