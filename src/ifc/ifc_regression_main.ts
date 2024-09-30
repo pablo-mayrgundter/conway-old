@@ -65,7 +65,7 @@ function displayErrors( filePath: string ) {
       for ( const error of errors ) {
 
         // eslint-disable-next-line max-len
-        errConsole.log( `${csvSafeString(error.message)},${error.count},${Array.from(error.expressIDs.keys()).join(' ')},${fileName}`)
+        errConsole.log( `${csvSafeString(error.message)},${error.count},${csvSafeString( Array.from(error.expressIDs.keys()).join(' ') ) },${fileName}`)
       }
     }
   }
