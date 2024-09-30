@@ -73,8 +73,8 @@ If you have Visual Studio Code, Conway also comes with a Visual Studio Code work
 # Production NPM Build
 ```
 yarn test
-yarn build-web  # stamps build version string
-grep '"version"' package.json # should see the new version string, 1 more than what the repo shows in GH
+yarn build                      # stamps build version string
+grep '"version"' package.json   # should see the new version string, 1 more than what the repo shows in GH
 npm pack
 ```
 
@@ -148,7 +148,7 @@ Conway also has a regression testing framework, which can be run on individual m
 
 
 # Release Steps
-1. Build Conway via the above steps depending on your platform. 
+1. Build Conway with `yarn build` via the above steps depending on your platform.
 2. Run the performance test script, instructions outlined in the [performance documentation](scripts/README.md)
 3. Run the regression testing batch script, instructions outlined in the [regression documentation](regression/README.md)
 4. Publish to GitHub. From the repository root, log in with npm, and then publish the package. Once published, it will appear in the list of releases in the repository: 
