@@ -174,6 +174,7 @@ import {
   IfcSurface,
   IfcLine,
   IfcEllipse,
+  IfcMaterialLayerSet,
 } from './ifc4_gen'
 import EntityTypesIfc from './ifc4_gen/entity_types_ifc.gen'
 import { IfcMaterialCache } from './ifc_material_cache'
@@ -254,6 +255,41 @@ export function extractColorOrFactor(
 
   if (from instanceof IfcColourRgb) {
     return extractColorRGB(from, alpha)
+  } else {
+
+    const factor = from.Value
+
+    return [
+      factor * surfaceColor[0],
+      factor * surfaceColor[1],
+      factor * surfaceColor[2],
+      alpha * surfaceColor[3],
+    ]
+  }
+}
+
+/**
+ * Use to extract a color or a factor from a color/factor select.
+ *
+ * @param from The color or factor to extract this from.
+ * @param surfaceColor The surface color (if this is a factor), which will be used to
+ * create the factor.
+ * @param alpha The alpha to use for this.
+ * @return {ColorRGBA}
+ */
+export function extractColorOrFactorMultiply(
+    from: IfcColourRgb | IfcNormalisedRatioMeasure,
+    surfaceColor: ColorRGBA, alpha: number = 1): ColorRGBA {
+
+  if (from instanceof IfcColourRgb) {
+    const extracted = extractColorRGB(from, alpha)
+
+    return [
+      extracted[ 0 ] * surfaceColor[ 0 ],
+      extracted[ 1 ] * surfaceColor[ 1 ],
+      extracted[ 2 ] * surfaceColor[ 2 ],
+      extracted[ 3 ] * surfaceColor[ 3 ],
+    ]
   } else {
 
     const factor = from.Value
@@ -1489,12 +1525,12 @@ export class IfcGeometryExtraction {
           const surfaceColor = extractColorRGBPremultiplied(style.SurfaceColour, 1 - transparency)
 
           newMaterial.baseColor = style.DiffuseColour !== null ?
-            extractColorOrFactor(style.DiffuseColour, surfaceColor) : surfaceColor
+            extractColorOrFactorMultiply(style.DiffuseColour, surfaceColor) : surfaceColor
 
           newMaterial.legacyColor = surfaceColor
           newMaterial.roughness = extractSpecularHighlight(style.SpecularHighlight)
           newMaterial.specular = style.SpecularColour !== null ?
-            extractColorOrFactor(style.SpecularColour, surfaceColor) : void 0
+            extractColorOrFactorMultiply(style.SpecularColour, surfaceColor) : void 0
 
           let reflectanceMethod = IfcReflectanceMethodEnum.NOTDEFINED
 
@@ -3422,7 +3458,8 @@ export class IfcGeometryExtraction {
       from: IfcMappedItem,
       owningElement: IfcProduct,
       isRelVoid: boolean = false,
-      isSpace: boolean = false ) {
+      isSpace: boolean = false,
+      parents: IfcMappedItem[] | undefined = void 0 ) {
 
     const representationMap = from.MappingSource
     const mappingTarget = from.MappingTarget
@@ -3458,52 +3495,77 @@ export class IfcGeometryExtraction {
 
     for (const representationItem of representationMap.MappedRepresentation.Items) {
 
-      this.extractRepresentationItem(representationItem,
-          owningElement.localID,
-          isRelVoid,
-          isSpace,
-          true)
+      if ( representationItem instanceof IfcMappedItem ) {
 
-      const styledItemLocalID_ =
-        this.materials.styledItemMap.get(representationItem.localID)
-
-      let materialOverrideID: number | undefined
-
-      if (styledItemLocalID_ !== undefined) {
-
-        const styledItem_ = this.model.getElementByLocalID(styledItemLocalID_) as IfcStyledItem
-
-        this.extractStyledItem(styledItem_)
-
-      } else {
-        // get material from parent
-        const styledItemParentLocalID = this.materials.styledItemMap.get(from.localID)
-
-        if (styledItemParentLocalID !== undefined) {
-
-          const styledItemParent =
-            this.model.getElementByLocalID(styledItemParentLocalID) as IfcStyledItem
-
-          this.extractStyledItem(styledItemParent, from)
-
-          materialOverrideID = from.localID
-        }
-      }
-
-      if ( isRelVoid ) {
-        this.applyRelVoidToRepresentation(
+        this.extractMappedItem(
             representationItem,
-            relVoidsMeshVector!,
-            owningElement.localID,
-            relVoidLocalIDs!,
-            materialOverrideID,
-            isSpace)
-      } else {
-        this.scene.addGeometry(
-            representationItem.localID,
-            owningElement.localID,
+            owningElement,
+            isRelVoid,
             isSpace,
-            materialOverrideID)
+            parents !== void 0 ? [from, ...parents] : [from] )
+
+      } else {
+
+        this.extractRepresentationItem(representationItem,
+            owningElement.localID,
+            isRelVoid,
+            isSpace,
+            true)
+
+        const styledItemLocalID =
+          this.materials.styledItemMap.get(representationItem.localID) ??
+          this.extractMaterialStyle(owningElement)
+
+        let materialOverrideID: number | undefined = void 0
+
+        if (styledItemLocalID !== undefined) {
+
+          const styledItem = this.model.getElementByLocalID(styledItemLocalID) as IfcStyledItem
+
+          this.extractStyledItem(styledItem)
+
+        } else {
+          // get material from parent
+          let styledItemParentLocalID = this.materials.styledItemMap.get(from.localID)
+          let styleParent = from
+
+          if ( parents !== void 0 ) {
+            for ( const parent of parents ) {
+              if ( styledItemParentLocalID !== void 0 ) {
+                break
+              }
+
+              styledItemParentLocalID = this.materials.styledItemMap.get(parent.localID)
+              styleParent = parent
+            }
+          }
+
+          if (styledItemParentLocalID !== void 0 ) {
+
+            const styledItemParent =
+              this.model.getElementByLocalID(styledItemParentLocalID) as IfcStyledItem
+
+            this.extractStyledItem(styledItemParent, styleParent)
+
+            materialOverrideID = styleParent.localID
+          }
+        }
+
+        if ( isRelVoid ) {
+          this.applyRelVoidToRepresentation(
+              representationItem,
+              relVoidsMeshVector!,
+              owningElement.localID,
+              relVoidLocalIDs!,
+              materialOverrideID,
+              isSpace)
+        } else {
+          this.scene.addGeometry(
+              representationItem.localID,
+              owningElement.localID,
+              isSpace,
+              materialOverrideID)
+        }
       }
     }
 
@@ -4996,6 +5058,7 @@ export class IfcGeometryExtraction {
       IfcMaterialProfileSet |
       IfcMaterialConstituent |
       IfcMaterialLayerSetUsage |
+      IfcMaterialLayerSet |
       IfcMaterialConstituentSet): number | undefined {
     if (from instanceof IfcMaterial) {
       return this.materials.materialDefinitionsMap.get(from.localID)
@@ -5003,7 +5066,16 @@ export class IfcGeometryExtraction {
       for (const layer of from.ForLayerSet.MaterialLayers) {
         if (layer.Material) {
           const styledItemID = this.extractMaterial(layer.Material)
-          if (styledItemID !== undefined) {
+          if (styledItemID !== void 0 ) {
+            return styledItemID
+          }
+        }
+      }
+    } else if (from instanceof IfcMaterialLayerSet) {
+      for (const layer of from.MaterialLayers) {
+        if (layer.Material) {
+          const styledItemID = this.extractMaterial(layer.Material)
+          if (styledItemID !== void 0 ) {
             return styledItemID
           }
         }
@@ -5012,7 +5084,7 @@ export class IfcGeometryExtraction {
       for (const _material of from.Materials) {
         if (_material instanceof IfcMaterial) {
           const styledItemID = this.extractMaterial(_material)
-          if (styledItemID !== undefined) {
+          if (styledItemID !== void 0 ) {
             return styledItemID
           }
         }
@@ -5020,7 +5092,7 @@ export class IfcGeometryExtraction {
     } else if (from instanceof IfcMaterialProfile) {
       if (from.Material !== null) {
         const styledItemID = this.extractMaterial(from.Material)
-        if (styledItemID !== undefined) {
+        if (styledItemID !== void 0 ) {
           return styledItemID
         }
       } else {
@@ -5069,6 +5141,8 @@ export class IfcGeometryExtraction {
           if (material instanceof IfcMaterial) {
             styledItemID = this.extractMaterial(material)
           } else if (material instanceof IfcMaterialLayerSetUsage) {
+            styledItemID = this.extractMaterial(material)
+          } else if (material instanceof IfcMaterialLayerSet) {
             styledItemID = this.extractMaterial(material)
           } else if (material instanceof IfcMaterialList) {
             styledItemID = this.extractMaterial(material)
