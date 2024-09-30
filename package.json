@@ -60,7 +60,7 @@
     "code-gen": "yarn code-gen-ifc && yarn code-gen-ap214",
     "dist": "tsc --project tsconfig.dist.json",
     "lint": "yarn eslint src",
-    "precommit": "yarn build-rebuild && yarn lint && yarn test",
+    "precommit": "yarn lint && yarn test",
     "prepare": "husky install",
     "submodule-update": "git submodule update --init --recursive",
     "test-watch": "jest --watchAll  --notify",
