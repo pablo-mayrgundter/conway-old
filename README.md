@@ -31,6 +31,8 @@ Clone the repository, then in the root directory of the repository, run the yarn
 git pull
 yarn install
 yarn submodule-update
+cd dependencies/conway-geom
+git status   # verify this is on HEAD of the main branch
 
 cd dependencies/conway-geom/dependencies/wasm/
 # Answer yes or all to replace files if they've already been unzipped before

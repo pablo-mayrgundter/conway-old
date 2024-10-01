@@ -56,7 +56,7 @@ const notInsertSet: number[] = []
 
   while ( !restDone ) {
 
-    notInsertSet.push( restValue );
+    notInsertSet.push( restValue! );
 
     ({value: restValue, done: restDone} = filterSetOneIterator.next())
   }
