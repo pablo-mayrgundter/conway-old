@@ -61,7 +61,7 @@ const notDeletedList: number[] = []
 
   while ( !restDone ) {
 
-    notDeletedList.push( restValue );
+    notDeletedList.push( restValue! );
 
     ({value: restValue, done: restDone} = filterSetOneIterator.next())
   }
