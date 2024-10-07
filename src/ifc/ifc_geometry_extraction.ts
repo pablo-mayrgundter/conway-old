@@ -4997,6 +4997,8 @@ export class IfcGeometryExtraction {
 
         for (const relVoidLocalID of voidsLocalIDMap) {
 
+          this.voidScene.clearParentStack()
+
           const relVoid =
             this.model.getElementByLocalID(relVoidLocalID) as IfcFeatureElementSubtraction
 
