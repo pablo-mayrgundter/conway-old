@@ -1,7 +1,7 @@
 import yargs from 'yargs/yargs'
 import fs from 'fs'
 import fsPromises from 'fs/promises'
-import childProcess from 'child_process'
+import childProcess, { ExecException } from 'child_process'
 import { promisify } from 'util'
 import path from 'path'
 import crypto from 'crypto'
@@ -10,19 +10,62 @@ import crypto from 'crypto'
 const errorCSVHeader = 'message,count,expressids,file'
 const exec = promisify( childProcess.exec )
 
+/**
+ * Safe execute a process command
+ *
+ * @param command The command to run
+ * @return {ExecException | { type: 'Success', stdout: string, stderr: string }}
+ */
+async function safeExec( command: string ):
+  Promise< RunErrorResults | { type: 'Success', stdout: string, stderr: string } > {
+
+  try {
+    const result = await exec( command, { maxBuffer: STD_OUT_ERR_MAX_BUFFER } )
+
+    return {
+      type: 'Success',
+      stdout: result.stdout,
+      stderr: result.stderr,
+    }
+  } catch ( err ) {
+
+    const errResult = err as ExecException
+
+    return {
+      type: 'Failed',
+      name: errResult.name,
+      message: errResult.message,
+      code: errResult.code,
+      cmd: errResult.cmd,
+      signal: errResult.signal,
+      killed: errResult.killed,
+    }
+  }
+}
+
 const SKIP_PARAMS = 2
 
 // eslint-disable-next-line no-magic-numbers
 const STD_OUT_ERR_MAX_BUFFER = 64 * 1024 * 1024
 
-interface RunResults {
+interface RunSuccessResults {
+
+  type: 'Run'
 
   errorLines?: string[]
 
   outputFile: string
 
   hash?: string
+
 }
+
+interface RunErrorResults extends ExecException {
+
+  type: 'Failed'
+}
+
+type RunResults = RunSuccessResults | RunErrorResults
 
 /**
  * Encapsulates a string in a CSV safe way.
@@ -107,8 +150,12 @@ async function runDiff(
 async function runForFile( filePath: string, outputPath: string ): Promise< RunResults > {
 
   // eslint-disable-next-line max-len
-  const process = await exec( `node --experimental-specifier-resolution=node ./compiled/src/ifc/ifc_regression_main.js -d "${filePath}" "${outputPath}"`,
-      { maxBuffer: STD_OUT_ERR_MAX_BUFFER } )
+  const process = await safeExec( `node --experimental-specifier-resolution=node ./compiled/src/ifc/ifc_regression_main.js -d "${filePath}" "${outputPath}"` )
+
+  if ( process.type === 'Failed' ) {
+
+    return process
+  }
 
   let stdErr = process.stderr
 
@@ -142,6 +189,7 @@ async function runForFile( filePath: string, outputPath: string ): Promise< RunR
   }
 
   return {
+    type: 'Run',
     errorLines: errorLines.length > 0 ? errorLines : void 0,
     outputFile: outputFile,
     hash: fileHash,
@@ -203,9 +251,11 @@ const args = // eslint-disable-line no-unused-vars
 
         const mainPath  = path.join( outputPath, 'main.csv' )
         const errorPath = path.join( outputPath, 'errors.csv' )
+        const failedPath = path.join( outputPath, 'failed.csv' )
 
-        const errorLines: string[] = []
-        const fileLines:  string[] = []
+        const errorLines:  string[] = []
+        const fileLines:   string[] = []
+        const failedLines: string[] = []
 
         const excludeRegex: RegExp | undefined =
             excludeFilter.length > 0 ? new RegExp( excludeFilter ) : void 0
@@ -241,12 +291,18 @@ const args = // eslint-disable-line no-unused-vars
                       resolved,
                       path.join( outputPath, path.basename( resolved, '.ifc' ) ) )
 
-              if ( fileResults.errorLines !== void 0 ) {
-                errorLines.push( ...fileResults.errorLines )
-              }
+              if ( fileResults.type === 'Run' ) {
+                if ( fileResults.errorLines !== void 0 ) {
+                  errorLines.push( ...fileResults.errorLines )
+                }
 
-              // eslint-disable-next-line max-len
-              fileLines.push( `${csvSafeString( path.basename( resolved ) )},${csvSafeString( fileResults.hash ?? '' )},${errorLines.length}\n` )
+                // eslint-disable-next-line max-len
+                fileLines.push( `${csvSafeString( path.basename( resolved ) )},${csvSafeString( fileResults.hash ?? '' )},${errorLines.length}\n` )
+              } else {
+
+                // eslint-disable-next-line max-len
+                failedLines.push( `${csvSafeString( path.basename( resolved ) )},${csvSafeString( fileResults.code?.toString() ?? '' )},${csvSafeString( fileResults.signal ?? '' )}\n` )
+              }
             }
           }
         }
@@ -264,6 +320,12 @@ const args = // eslint-disable-line no-unused-vars
         await errorFile.writeFile( `${errorCSVHeader}\n` )
         await errorFile.writeFile( errorLines as any )
         await errorFile.close()
+
+        const failedFile = await fsPromises.open( failedPath, 'w' )
+
+        await failedFile.writeFile( 'file,code,signal\n' )
+        await failedFile.writeFile( failedLines as any )
+        await failedFile.close()
 
         await runDiff( outputPath, target, changes, dryRun )
       })
