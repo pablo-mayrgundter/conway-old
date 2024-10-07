@@ -477,7 +477,7 @@ export default class ParsingBuffer {
   }
 
   /**
-   * Match an integer
+   * Match a real
    *
    * @return {boolean} True if an integer has been parsed at the current location,
    * false if no integer has been found and the cursor has been rewound
