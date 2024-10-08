@@ -454,6 +454,7 @@ import { IfcFlowMeter } from './index'
 import { IfcProtectiveDevice } from './index'
 import { IfcSwitchingDevice } from './index'
 import { IfcValve } from './index'
+import { IfcElectricDistributionPoint } from './index'
 import { IfcFlowMeterType } from './index'
 import { IfcProtectiveDeviceType } from './index'
 import { IfcSwitchingDeviceType } from './index'
@@ -988,6 +989,7 @@ import { IfcDuctSegmentTypeEnum } from './index'
 import { IfcDuctSilencerTypeEnum } from './index'
 import { IfcElectricApplianceTypeEnum } from './index'
 import { IfcElectricDistributionBoardTypeEnum } from './index'
+import { IfcElectricDistributionPointFunctionEnum } from './index'
 import { IfcElectricFlowStorageDeviceTypeEnum } from './index'
 import { IfcElectricGeneratorTypeEnum } from './index'
 import { IfcElectricMotorTypeEnum } from './index'
@@ -1570,6 +1572,7 @@ let constructors : ( StepEntityConstructor< EntityTypesIfc, StepEntityBase< Enti
   IfcProtectiveDevice,
   IfcSwitchingDevice,
   IfcValve,
+  IfcElectricDistributionPoint,
   IfcFlowMeterType,
   IfcProtectiveDeviceType,
   IfcSwitchingDeviceType,
@@ -2482,6 +2485,7 @@ let queries : EntityTypesIfc[][] = [
   IfcProtectiveDevice.query,
   IfcSwitchingDevice.query,
   IfcValve.query,
+  IfcElectricDistributionPoint.query,
   IfcFlowMeterType.query,
   IfcProtectiveDeviceType.query,
   IfcSwitchingDeviceType.query,
@@ -3501,6 +3505,7 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
        e.IFCPROTECTIVEDEVICE,
        e.IFCSWITCHINGDEVICE,
        e.IFCVALVE,
+       e.IFCELECTRICDISTRIBUTIONPOINT,
     ],
   },
   {
@@ -14839,6 +14844,26 @@ let descriptions : EntityDescription< EntityTypesIfc >[] = [
       },
     },
     typeId: e.IFCVALVE,
+    isAbstract: false,
+    superType: e.IFCFLOWCONTROLLER,
+  },
+  {
+    fields: {
+      DistributionPointFunction: {
+        kind: f.ENUM,
+        optional: false,
+        derived: false,
+        offset: 8,
+        type: IfcElectricDistributionPointFunctionEnum,
+      },
+      UserDefinedFunction: {
+        kind: f.STRING,
+        optional: true,
+        derived: false,
+        offset: 9,
+      },
+    },
+    typeId: e.IFCELECTRICDISTRIBUTIONPOINT,
     isAbstract: false,
     superType: e.IFCFLOWCONTROLLER,
   },
