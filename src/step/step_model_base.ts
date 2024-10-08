@@ -61,9 +61,6 @@ implements Iterable<BaseEntity>, Model {
 
     let where = 0
 
-    elementIndex.filter( (errorEntity) => errorEntity.typeID === void 0 )
-        .forEach( (errorEntity) => console.log( `Cannot find type: #${errorEntity.expressID}`) )
-
     const firstInlineElement = localElementIndex.length
 
     while (where < localElementIndex.length) {
