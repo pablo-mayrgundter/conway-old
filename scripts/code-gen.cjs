@@ -4,7 +4,7 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-const ifcGenPath = path.resolve(__dirname, '../external/IFC-gen');
+const ifcGenPath = path.resolve(__dirname, '../external/IFC-gen-internal');
 
 function runCommand(command, options = {}) {
   try {
@@ -24,12 +24,12 @@ function main() {
     process.exit(1);
   }
 
-  // Check if IFC-gen directory exists
+  // Check if IFC-gen-internal directory exists
   if (!fs.existsSync(ifcGenPath)) {
-    console.log('IFC-gen not found. Attempting to clone...');
-    const cloneCommand = `git clone git@github.com:bldrs-ai/IFC-gen.git ${ifcGenPath}`;
+    console.log('IFC-gen-internal not found. Attempting to clone...');
+    const cloneCommand = `git clone git@github.com:bldrs-ai/IFC-gen-internal.git ${ifcGenPath}`;
     if (!runCommand(cloneCommand)) {
-      console.log('Could not clone IFC-gen. Please ensure you have access rights.');
+      console.log('Could not clone IFC-gen-internal. Please ensure you have access rights.');
       process.exit(0); // Exit gracefully
     }
   }
