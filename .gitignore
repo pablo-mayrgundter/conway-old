@@ -35,3 +35,7 @@ scripts/app.json
 scripts/test_runs/
 scripts/*/
 benchmarks/*private
+
+#external
+/external/IFC-gen/
+/external/IFC-gen/*
