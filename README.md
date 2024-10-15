@@ -28,7 +28,7 @@ Clone the repository, then in the root directory of the repository, run the yarn
 ```
 # 1) Setup your EMSDK environment
 # 2) Make sure you're in main repo, not fork
-git pull
+git pull  # if you get an error about a submodule not found, run yarn submodule-update here and then pull again
 yarn install
 yarn submodule-update
 cd dependencies/conway-geom
