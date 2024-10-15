@@ -46,7 +46,7 @@ currentDate=$(date +"%Y%m%d_%H%M%S")
 
 # If web-ifc, get the version once
 if [ $isEngineConway -eq 1 ] ; then
-  engine="conway"$(cd $serverDir; yarn list --pattern @bldrs-ai/conway 2>&1 | grep conway | sed 's/.*@//g' ; cd $scriptDir)
+   engine="conway"$(cd $serverDir; yarn list --pattern @bldrs-ai/conway 2>&1 | grep '@bldrs-ai/conway@' | sed 's/.*@//g' ; cd $scriptDir)
 else
   engine="webifc"$(cd $serverDir; yarn list --pattern web-ifc 2>&1 | grep web-ifc | sed 's/.*@//g' ; cd $scriptDir)
 fi
