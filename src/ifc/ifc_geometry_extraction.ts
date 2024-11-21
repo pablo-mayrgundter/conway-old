@@ -1156,7 +1156,7 @@ export class IfcGeometryExtraction {
 
       const geometryParts = firstMesh.geometry.getParts()
 
-      if (geometryParts.size() > 0) {
+      if (false) {//geometryParts.size() > 0) {
         /* for (let geometryPartIndex = 0;
           geometryPartIndex < geometryParts.size(); ++geometryPartIndex) {
           flatFirstMeshVector.push_back(geometryParts.get(geometryPartIndex))
@@ -1191,7 +1191,7 @@ export class IfcGeometryExtraction {
       this.dumpGeometry(outputFilePath_, secondMesh.geometry) */
       const geometryParts = secondMesh.geometry.getParts()
 
-      if (geometryParts.size() > 0) {
+      if (false) {//geometryParts.size() > 0) {
 
         flatSecondMeshVector = geometryParts
         flatSecondMeshVectorFromParts = true
@@ -1322,7 +1322,10 @@ export class IfcGeometryExtraction {
         from.FirstOperand instanceof IfcPolygonalBoundedHalfSpace ||
         from.FirstOperand instanceof IfcHalfSpaceSolid ||
         from.FirstOperand instanceof IfcFacetedBrep) {
+
         this.extractBooleanOperand(from.FirstOperand, isRelVoid, representationItem)
+
+
       }
 
       if (from.SecondOperand instanceof IfcExtrudedAreaSolid ||
@@ -1355,7 +1358,7 @@ export class IfcGeometryExtraction {
 
         const geometryParts = firstMesh.geometry.getParts()
 
-        if (geometryParts.size() > 0) {
+        if (false) {//geometryParts.size() > 0) {
           /* for (let geometryPartIndex = 0;
             geometryPartIndex < geometryParts.size(); ++geometryPartIndex) {
             flatFirstMeshVector.push_back(geometryParts.get(geometryPartIndex))
@@ -1392,7 +1395,7 @@ export class IfcGeometryExtraction {
 
         const geometryParts = secondMesh.geometry.getParts()
 
-        if (geometryParts.size() > 0) {
+        if (false) {//(geometryParts.size() > 0) {
           /* for (let geometryPartIndex = 0;
             geometryPartIndex < geometryParts.size(); ++geometryPartIndex) {
             flatSecondMeshVector.push_back(geometryParts.get(geometryPartIndex))
@@ -4213,7 +4216,6 @@ export class IfcGeometryExtraction {
         // Logger.info("isEdgeLoop: " + (isEdgeLoop) ? "TRUE" : "FALSE")
         const curve: CurveObject = this.conwayModel.getLoop(parameters)
 
-
         // create bound vector
         const parametersCreateBounds3D: ParamsCreateBound3D = {
           curve: curve,
@@ -4956,6 +4958,8 @@ export class IfcGeometryExtraction {
       // let outputFilePath = `${from.expressID}_${EntityTypesIfc[from.type]}.obj`
 
       // this.dumpGeometry(outputFilePath, flattenedGeometry)
+
+      // console.log( "from: ", from.expressID, "to: ", relVoidLocalIDs.map( value => this.model.getElementByLocalID( value )!.expressID ) )
 
       const parameters: ParamsRelVoidSubtract = {
         flatFirstMesh: relatedBuildingElementMeshVector,
