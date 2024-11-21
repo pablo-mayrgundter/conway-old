@@ -23,7 +23,7 @@ export  class IfcFlowController extends IfcDistributionFlowElement {
   }
 
   public static readonly query = 
-    [ EntityTypesIfc.IFCFLOWCONTROLLER, EntityTypesIfc.IFCAIRTERMINALBOX, EntityTypesIfc.IFCDAMPER, EntityTypesIfc.IFCELECTRICDISTRIBUTIONBOARD, EntityTypesIfc.IFCELECTRICTIMECONTROL, EntityTypesIfc.IFCFLOWMETER, EntityTypesIfc.IFCPROTECTIVEDEVICE, EntityTypesIfc.IFCSWITCHINGDEVICE, EntityTypesIfc.IFCVALVE ]
+    [ EntityTypesIfc.IFCFLOWCONTROLLER, EntityTypesIfc.IFCAIRTERMINALBOX, EntityTypesIfc.IFCDAMPER, EntityTypesIfc.IFCELECTRICDISTRIBUTIONBOARD, EntityTypesIfc.IFCELECTRICTIMECONTROL, EntityTypesIfc.IFCFLOWMETER, EntityTypesIfc.IFCPROTECTIVEDEVICE, EntityTypesIfc.IFCSWITCHINGDEVICE, EntityTypesIfc.IFCVALVE, EntityTypesIfc.IFCELECTRICDISTRIBUTIONPOINT ]
 
   public static readonly expectedType: EntityTypesIfc =
     EntityTypesIfc.IFCFLOWCONTROLLER
