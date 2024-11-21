@@ -1138,7 +1138,7 @@ export class IfcGeometryExtraction {
     // get geometry TODO(nickcastel50): eventually support flattening meshes
     let flatFirstMeshVector: StdVector<GeometryObject>// = this.nativeVectorGeometry()
     let firstMesh: CanonicalMesh | undefined
-    let flatFirstMeshVectorFromParts: boolean = false
+    const flatFirstMeshVectorFromParts: boolean = false
 
     if (isRelVoid) {
       firstMesh = this.model.voidGeometry.getByLocalID(from.FirstOperand.localID)
@@ -1154,19 +1154,19 @@ export class IfcGeometryExtraction {
 
       this.dumpGeometry(outputFilePath_, firstMesh.geometry) */
 
-      const geometryParts = firstMesh.geometry.getParts()
+      // const geometryParts = firstMesh.geometry.getParts()
 
-      if (false) {//geometryParts.size() > 0) {
-        /* for (let geometryPartIndex = 0;
-          geometryPartIndex < geometryParts.size(); ++geometryPartIndex) {
-          flatFirstMeshVector.push_back(geometryParts.get(geometryPartIndex))
-        }*/
-        flatFirstMeshVector = geometryParts
-        flatFirstMeshVectorFromParts = true
-      } else {
-        flatFirstMeshVector = this.nativeVectorGeometry()
-        flatFirstMeshVector.push_back(firstMesh.geometry)
-      }
+      // if (geometryParts.size() > 0) {
+      //   /* for (let geometryPartIndex = 0;
+      //     geometryPartIndex < geometryParts.size(); ++geometryPartIndex) {
+      //     flatFirstMeshVector.push_back(geometryParts.get(geometryPartIndex))
+      //   }*/
+      //   flatFirstMeshVector = geometryParts
+      //   flatFirstMeshVectorFromParts = true
+      // } else {
+      flatFirstMeshVector = this.nativeVectorGeometry()
+      flatFirstMeshVector.push_back(firstMesh.geometry)
+      // }
     } else {
       Logger.error(
           `Error extracting firstOperand geometry for expressID: 
@@ -1176,7 +1176,7 @@ export class IfcGeometryExtraction {
     }
 
     let flatSecondMeshVector: StdVector<GeometryObject>// = this.nativeVectorGeometry()
-    let flatSecondMeshVectorFromParts: boolean = false
+    const flatSecondMeshVectorFromParts: boolean = false
     let secondMesh: CanonicalMesh | undefined
 
     if (isRelVoid) {
@@ -1189,18 +1189,18 @@ export class IfcGeometryExtraction {
       const outputFilePath_ =
       `${_testEntity2.expressID}_${EntityTypesIfc[_testEntity2.type]}_SECOND_MESH.obj`
       this.dumpGeometry(outputFilePath_, secondMesh.geometry) */
-      const geometryParts = secondMesh.geometry.getParts()
+      // const geometryParts = secondMesh.geometry.getParts()
 
-      if (false) {//geometryParts.size() > 0) {
+      // if (false) {// geometryParts.size() > 0) {
 
-        flatSecondMeshVector = geometryParts
-        flatSecondMeshVectorFromParts = true
+      //   flatSecondMeshVector = geometryParts
+      //   flatSecondMeshVectorFromParts = true
 
-      } else {
+      // } else {
 
-        flatSecondMeshVector = this.nativeVectorGeometry()
-        flatSecondMeshVector.push_back(secondMesh.geometry)
-      }
+      flatSecondMeshVector = this.nativeVectorGeometry()
+      flatSecondMeshVector.push_back(secondMesh.geometry)
+      // }
     } else {
       Logger.error(
           `Error extracting secondOperand geometry for expressID: 
@@ -1356,18 +1356,18 @@ export class IfcGeometryExtraction {
 
         this.dumpGeometry(outputFilePath_, firstMesh.geometry) */
 
-        const geometryParts = firstMesh.geometry.getParts()
+        // const geometryParts = firstMesh.geometry.getParts()
 
-        if (false) {//geometryParts.size() > 0) {
-          /* for (let geometryPartIndex = 0;
-            geometryPartIndex < geometryParts.size(); ++geometryPartIndex) {
-            flatFirstMeshVector.push_back(geometryParts.get(geometryPartIndex))
-          }*/
-          flatFirstMeshVector = geometryParts
-        } else {
-          flatFirstMeshVector = this.nativeVectorGeometry()
-          flatFirstMeshVector.push_back(firstMesh.geometry)
-        }
+        // if (geometryParts.size() > 0) {
+        //   /* for (let geometryPartIndex = 0;
+        //     geometryPartIndex < geometryParts.size(); ++geometryPartIndex) {
+        //     flatFirstMeshVector.push_back(geometryParts.get(geometryPartIndex))
+        //   }*/
+        //   flatFirstMeshVector = geometryParts
+        // } else {
+        flatFirstMeshVector = this.nativeVectorGeometry()
+        flatFirstMeshVector.push_back(firstMesh.geometry)
+        // }
       } else {
         Logger.error(
             `(Operand) Error extracting firstOperand geometry for expressID: 
@@ -1393,18 +1393,18 @@ export class IfcGeometryExtraction {
 
         this.dumpGeometry(outputFilePath_, secondMesh.geometry) */
 
-        const geometryParts = secondMesh.geometry.getParts()
+        // const geometryParts = secondMesh.geometry.getParts()
 
-        if (false) {//(geometryParts.size() > 0) {
-          /* for (let geometryPartIndex = 0;
-            geometryPartIndex < geometryParts.size(); ++geometryPartIndex) {
-            flatSecondMeshVector.push_back(geometryParts.get(geometryPartIndex))
-          }*/
-          flatSecondMeshVector = geometryParts
-        } else {
-          flatSecondMeshVector = this.nativeVectorGeometry()
-          flatSecondMeshVector.push_back(secondMesh.geometry)
-        }
+        // if (geometryParts.size() > 0) {
+        //   /* for (let geometryPartIndex = 0;
+        //     geometryPartIndex < geometryParts.size(); ++geometryPartIndex) {
+        //     flatSecondMeshVector.push_back(geometryParts.get(geometryPartIndex))
+        //   }*/
+        //   flatSecondMeshVector = geometryParts
+        // } else {
+        flatSecondMeshVector = this.nativeVectorGeometry()
+        flatSecondMeshVector.push_back(secondMesh.geometry)
+        // }
       } else {
         Logger.error(
             `(Operand) Error extracting secondOperand geometry for expressID: 
@@ -4959,7 +4959,11 @@ export class IfcGeometryExtraction {
 
       // this.dumpGeometry(outputFilePath, flattenedGeometry)
 
-      // console.log( "from: ", from.expressID, "to: ", relVoidLocalIDs.map( value => this.model.getElementByLocalID( value )!.expressID ) )
+      // console.log(
+      //  "from: ",
+      // from.expressID,
+      // "to: ",
+      // relVoidLocalIDs.map( value => this.model.getElementByLocalID( value )!.expressID ) )
 
       const parameters: ParamsRelVoidSubtract = {
         flatFirstMesh: relatedBuildingElementMeshVector,
