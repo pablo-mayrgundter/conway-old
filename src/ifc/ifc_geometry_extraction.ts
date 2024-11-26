@@ -1,5 +1,6 @@
 import {
   ConwayGeometry,
+  ParamsGetSweptDiskSolid,
   ParamsPolygonalFaceSet,
   GeometryObject,
   ParamsAxis2Placement3D,
@@ -175,6 +176,7 @@ import {
   IfcLine,
   IfcEllipse,
   IfcMaterialLayerSet,
+  IfcSweptDiskSolid,
 } from './ifc4_gen'
 import EntityTypesIfc from './ifc4_gen/entity_types_ifc.gen'
 import { IfcMaterialCache } from './ifc_material_cache'
@@ -1311,6 +1313,8 @@ export class IfcGeometryExtraction {
       this.extractPolygonalBoundedHalfSpace(from, true, isRelVoid)
     } else if (from instanceof IfcHalfSpaceSolid) {
       this.extractHalfspaceSolid(from, true, isRelVoid)
+    } else if (from instanceof IfcSweptDiskSolid) {
+      this.extractSweptDiskSolid(from, true, isRelVoid)
     } else if (from instanceof IfcFacetedBrep) {
       this.extractIfcFacetedBrep(from, true, isRelVoid)
     } else if (from instanceof IfcBooleanResult) {
@@ -1700,6 +1704,59 @@ export class IfcGeometryExtraction {
 
     return surfaceStyleID
   }
+
+  /**
+   *
+   * @param from ifc type to extract
+   * @param temporary is geometry temporary
+   * @param isRelVoid  is it a relative void
+   */
+  extractSweptDiskSolid(
+      from: IfcSweptDiskSolid,
+      temporary: boolean = false,
+      isRelVoid: boolean = false): void {
+    const directrix = this.extractCurve(from.Directrix)
+    if (!directrix) {
+      Logger.error(`Directrix extraction failed for IFCSWEPTDISKSOLID, expressID: 
+        ${from.expressID}`)
+      return
+    }
+
+    const radius = from.Radius
+    const innerRadius = from.InnerRadius || -1
+    const startParam = from.StartParam || -1
+    const endParam = from.EndParam || -1
+    const closed = false
+
+    const parameters: ParamsGetSweptDiskSolid = {
+      directrix,
+      radius,
+      innerRadius,
+      startParam,
+      endParam,
+      closed,
+      circleSegments: this.circleSegments,
+      scalingFactor: this.linearScalingFactor,
+    }
+
+    const geometry = this.conwayModel.getSweptDiskSolid(parameters)
+
+    const canonicalMesh: CanonicalMesh = {
+      type: CanonicalMeshType.BUFFER_GEOMETRY,
+      geometry,
+      localID: from.localID,
+      model: this.model,
+      temporary,
+    }
+
+    // add mesh to the list of mesh objects
+    if (!isRelVoid) {
+      this.model.geometry.add(canonicalMesh)
+    } else {
+      this.model.voidGeometry.add(canonicalMesh)
+    }
+  }
+
 
   /**
    *
@@ -3646,6 +3703,8 @@ export class IfcGeometryExtraction {
 
       this.extractHalfspaceSolid(from, false, isRelVoid)
 
+    } else if (from instanceof IfcSweptDiskSolid) {
+      this.extractSweptDiskSolid(from, false, isRelVoid)
     } else if (from instanceof IfcFacetedBrep) {
 
       this.extractIfcFacetedBrep(from, false, isRelVoid)
