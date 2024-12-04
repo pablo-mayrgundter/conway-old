@@ -143,6 +143,7 @@ find "${modelDir}/ifc" -type f \( -name "*.ifc" \) -print0 | while IFS= read -r 
   if ! curl -f -d "{\"url\": \"$url\"}" \
        -H 'content-type: application/json' \
        -o "$output_png" --fail --silent \
+       --max-time 180 \
        http://localhost:8001/render; then
     # If there's an error, append it to the main error log
     echo "Error processing file $url" >> $errorLogFile
@@ -215,3 +216,24 @@ done
 end_time=$(date "+%s")
 delta_time=$((end_time - start_time))
 echo "${all_status}, ${delta_time}s, ALL_FILES" >> $basicStatsFilename
+
+# Use npm to get the latest version of @bldrs-ai/conway
+latestVersion=$(npm show @bldrs-ai/conway version --registry=https://npm.pkg.github.com/)
+
+# Construct the paths for the current and latest runs
+currentRunPath="$outputDir/performance-detail.csv"
+latestRunPath="${scriptDir}/test_runs/conway${latestVersion}_${modelDirName}/performance-detail.csv"
+
+# Extract the version number
+engineVersion=$(echo "$engine" | awk -F'conway' '{print $2}')
+
+# Construct the output path for the delta file
+deltaOutputPath="${scriptDir}/test_runs/conway${engineVersion}_${latestVersion}_delta.csv"
+
+# Check if the latest version's performance-detail.csv exists
+if [ -f "$latestRunPath" ]; then
+  echo "Generating delta file: $deltaOutputPath"
+  python gen_delta_csv.py "$currentRunPath" "$latestRunPath" "$deltaOutputPath"
+else
+  echo "Warning: Latest version's performance-detail.csv not found at $latestRunPath. Delta file not generated."
+fi
