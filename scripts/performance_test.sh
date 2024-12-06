@@ -44,12 +44,16 @@ scriptDir=$(pwd)
 # Get current date in YYYYMMDD_HMS format
 currentDate=$(date +"%Y%m%d_%H%M%S")
 
+echo BEFORE
 # If web-ifc, get the version once
 if [ $isEngineConway -eq 1 ] ; then
-   engine="conway"$(cd $serverDir; yarn list --pattern @bldrs-ai/conway 2>&1 | grep '@bldrs-ai/conway@' | sed 's/.*@//g' ; cd $scriptDir)
+   engine="conway"$(cd "$serverDir/node_modules/@bldrs-ai/conway-web-ifc-adapter/node_modules/@bldrs-ai/conway"; \
+  node -p "require('./package.json').version"; \
+  cd "$scriptDir")
 else
   engine="webifc"$(cd $serverDir; yarn list --pattern web-ifc 2>&1 | grep web-ifc | sed 's/.*@//g' ; cd $scriptDir)
 fi
+echo AFTER
 
 # Extract the last folder name from the model directory path, e.g. test-models
 modelDirName=$(basename "$modelDir")
@@ -57,6 +61,7 @@ modelDirName=$(basename "$modelDir")
 # e.g. conway@0.1.560_test-models
 testRunName=${engine}_${modelDirName}
 
+echo BEFOREMKDIR
 # Create the output directory with the model directory name appended
 outputBase="${scriptDir}/../benchmarks"
 outputDir="${outputBase}/${testRunName}"
@@ -233,7 +238,7 @@ deltaOutputPath="${outputDir}/conway${newVersion}_${oldVersion}_delta.csv"
 # Check if the latest version's performance-detail.csv exists
 if [ -f "$oldResults" ]; then
   echo "Generating delta file: $deltaOutputPath"
-  python3 gen_delta_csv.py "$newResults" "$oldResults" "$deltaOutputPath"
+  python3 gen_delta_csv.py "$oldResults" "$newResults" "$deltaOutputPath"
 else
   echo "Warning: Latest version's performance-detail.csv not found at $oldResults. Delta file not generated."
 fi
