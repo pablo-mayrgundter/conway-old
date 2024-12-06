@@ -44,12 +44,16 @@ scriptDir=$(pwd)
 # Get current date in YYYYMMDD_HMS format
 currentDate=$(date +"%Y%m%d_%H%M%S")
 
+echo BEFORE
 # If web-ifc, get the version once
 if [ $isEngineConway -eq 1 ] ; then
-   engine="conway"$(cd $serverDir; yarn list --pattern @bldrs-ai/conway 2>&1 | grep '@bldrs-ai/conway@' | sed 's/.*@//g' ; cd $scriptDir)
+   engine="conway"$(cd "$serverDir/node_modules/@bldrs-ai/conway-web-ifc-adapter/node_modules/@bldrs-ai/conway"; \
+  node -p "require('./package.json').version"; \
+  cd "$scriptDir")
 else
   engine="webifc"$(cd $serverDir; yarn list --pattern web-ifc 2>&1 | grep web-ifc | sed 's/.*@//g' ; cd $scriptDir)
 fi
+echo AFTER
 
 # Extract the last folder name from the model directory path, e.g. test-models
 modelDirName=$(basename "$modelDir")
@@ -57,15 +61,17 @@ modelDirName=$(basename "$modelDir")
 # e.g. conway@0.1.560_test-models
 testRunName=${engine}_${modelDirName}
 
+echo BEFOREMKDIR
 # Create the output directory with the model directory name appended
-outputDir="${scriptDir}/test_runs/${testRunName}"
+outputBase="${scriptDir}/../benchmarks"
+outputDir="${outputBase}/${testRunName}"
 mkdir -p "$outputDir"
 
 # Output from this script
 basicStatsFilename="${outputDir}/performance.csv"
 
 # Detailed rollup of stats for each model
-detailedStatsFilename="${outputDir}/performance-detail.csv"
+newResults="${outputDir}/performance-detail.csv"
 
 # Define the main error log file
 errorLogFile="${outputDir}/performance.err.txt"
@@ -74,7 +80,7 @@ errorLogFile="${outputDir}/performance.err.txt"
 tempServerOutputFile="${outputDir}/rendering-server.log.txt"
 
 # Write CSV headers
-echo "timestamp,loadStatus,uname,engine,filename,schemaVersion,parseTimeMs,geometryTimeMs,totalTimeMs,geometryMemoryMb,rssMb,heapUsedMb,heapTotalMb,preprocessorVersion,originatingSystem" > "$detailedStatsFilename"
+echo "timestamp,loadStatus,uname,engine,filename,schemaVersion,parseTimeMs,geometryTimeMs,totalTimeMs,geometryMemoryMb,rssMb,heapUsedMb,heapTotalMb,preprocessorVersion,originatingSystem" > "$newResults"
 
 # Convert a list of filenames to exclude to a regex pattern
 exclude_pattern=$(echo $EXCLUDE_FILENAMES | sed 's/ \+/|/g')
@@ -191,7 +197,7 @@ find "${modelDir}/ifc" -type f \( -name "*.ifc" \) -print0 | while IFS= read -r 
     fi
 
     # Write the extracted data to the CSV file
-    echo "$timestamp,OK,$uname,$engine,$filename,$schemaVersion,$parseTimeMs,$geometryTimeMs,$totalTimeMs,$geometryMemoryMb,$rssMb,$heapUsedMb,$heapTotalMb,$preprocessorVersion,$originatingSystem" >> "$detailedStatsFilename"
+    echo "$timestamp,OK,$uname,$engine,$filename,$schemaVersion,$parseTimeMs,$geometryTimeMs,$totalTimeMs,$geometryMemoryMb,$rssMb,$heapUsedMb,$heapTotalMb,$preprocessorVersion,$originatingSystem" >> "$newResults"
 
   else
     # If curl failed, log the failure
@@ -200,7 +206,7 @@ find "${modelDir}/ifc" -type f \( -name "*.ifc" \) -print0 | while IFS= read -r 
     filename=$(basename "$f")
     all_status='fail'
     # Write the failure data to the CSV file
-    echo "$timestamp,FAIL,$uname,N/A,$filename,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A" >> "$detailedStatsFilename"
+    echo "$timestamp,FAIL,$uname,N/A,$filename,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A" >> "$newResults"
   fi
 
   # Change back to server directory to safely stop the server
@@ -218,22 +224,21 @@ delta_time=$((end_time - start_time))
 echo "${all_status}, ${delta_time}s, ALL_FILES" >> $basicStatsFilename
 
 # Use npm to get the latest version of @bldrs-ai/conway
-latestVersion=$(npm show @bldrs-ai/conway version --registry=https://npm.pkg.github.com/)
+oldVersion=$(npm show @bldrs-ai/conway version --registry=https://npm.pkg.github.com/)
 
 # Construct the paths for the current and latest runs
-currentRunPath="$outputDir/performance-detail.csv"
-latestRunPath="${scriptDir}/test_runs/conway${latestVersion}_${modelDirName}/performance-detail.csv"
+oldResults="${outputBase}/conway${oldVersion}_${modelDirName}/performance-detail.csv"
 
 # Extract the version number
-engineVersion=$(echo "$engine" | awk -F'conway' '{print $2}')
+newVersion=$(echo "$engine" | awk -F'conway' '{print $2}')
 
 # Construct the output path for the delta file
-deltaOutputPath="${scriptDir}/test_runs/conway${engineVersion}_${latestVersion}_delta.csv"
+deltaOutputPath="${outputDir}/conway${newVersion}_${oldVersion}_delta.csv"
 
 # Check if the latest version's performance-detail.csv exists
-if [ -f "$latestRunPath" ]; then
+if [ -f "$oldResults" ]; then
   echo "Generating delta file: $deltaOutputPath"
-  python gen_delta_csv.py "$currentRunPath" "$latestRunPath" "$deltaOutputPath"
+  python3 gen_delta_csv.py "$oldResults" "$newResults" "$deltaOutputPath"
 else
-  echo "Warning: Latest version's performance-detail.csv not found at $latestRunPath. Delta file not generated."
+  echo "Warning: Latest version's performance-detail.csv not found at $oldResults. Delta file not generated."
 fi
