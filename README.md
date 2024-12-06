@@ -153,9 +153,7 @@ Conway also has a regression testing framework, which can be run on individual m
 1. Build Conway with `yarn build` via the above steps depending on your platform.
 2. Run the performance test script, instructions outlined in the [performance documentation](scripts/README.md)
 3. Run the regression testing batch script, instructions outlined in the [regression documentation](regression/README.md)
-4. Publish to GitHub. From the repository root, log in with npm, and then publish the package. Once published, it will appear in the list of releases in the repository: 
-
-```
-npm login --registry=https://npm.pkg.github.com
-npm publish
-```
+4. Run `yarn create-release-candidate <major | minor> <GITHUB_PAT>`. This package release is by default tagged "latest". 
+5. Send PR with updated version + benchmarks and await approval.
+6. Once approved, Go to GitHub, select the new tagged version, and create a release from it. This means we also have changelogs for patch level releases.
+7. Once release has been deployed into Share, tag package as stable.
