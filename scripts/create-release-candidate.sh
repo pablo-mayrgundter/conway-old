@@ -34,9 +34,19 @@ elif [ "$BUMP_TYPE" == "minor" ]; then
     NEW_VERSION="$MAJOR.$((MINOR + 1)).$PATCH"
 fi
 
-# Update package.json manually
+# Update package.json version
 echo "Updating package.json version to $NEW_VERSION..."
 npm version "$NEW_VERSION" --no-git-tag-version
+
+# Update version in src/version/version.ts
+VERSION_FILE="src/version/version.ts"
+if [ -f "$VERSION_FILE" ]; then
+    echo "Updating version in $VERSION_FILE to $NEW_VERSION..."
+    sed -i '' "s/Conway Web-Ifc Shim v[0-9]*\.[0-9]*\.[0-9]*/Conway Web-Ifc Shim v$NEW_VERSION/" "$VERSION_FILE"
+else
+    echo "Error: Version file $VERSION_FILE not found!"
+    exit 1
+fi
 
 echo "New version is $NEW_VERSION"
 
