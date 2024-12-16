@@ -1,0 +1,18 @@
+{
+  "entryPoints": ["src/**/*.ts"], 
+  "out": "docs",
+  "includeVersion": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "hideGenerator": true,
+  "name": "conway",
+  "readme": "README.md",
+  "tsconfig": "./tsconfig.json",
+  "plugin": ["typedoc-plugin-markdown"],
+  "outputFileStrategy": "Members",
+  "exclude": [
+    "**/node_modules/**",
+    "**/dependencies/**/*.ts",
+    "**/*.test.ts"
+  ]
+}

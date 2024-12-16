@@ -5,6 +5,9 @@
 *.glb
 *.gltf
 
+# Docs for now
+docs
+
 # Misc files
 .DS_Store
 *~
