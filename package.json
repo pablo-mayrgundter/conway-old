@@ -54,6 +54,7 @@
     "build-test-conway_geom:win32": "cd ./dependencies/conway-geom/ && .\\build_win.bat test",
     "build-test-watch": "yarn build-incremental && concurrently \"yarn build-watch\" \"yarn test-watch\"",
     "build-watch": "yarn prebuild:node && tsc --build --watch",
+    "build:docs": "typedoc",
     "clean-conway_geom": "run-script-os",
     "clean-conway_geom:darwin": "cd ./dependencies/conway-geom/ && ./build_osx.sh clean",
     "clean-conway_geom:win32": "cd ./dependencies/conway-geom/ && call .\\build_win.bat clean",
@@ -107,6 +108,8 @@
     "run-script-os": "^1.1.6",
     "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",
+    "typedoc": "^0.27.5",
+    "typedoc-plugin-markdown": "^4.3.2",
     "typescript": "^4.8.4"
   },
   "type": "module"
