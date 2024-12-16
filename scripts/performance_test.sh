@@ -44,7 +44,6 @@ scriptDir=$(pwd)
 # Get current date in YYYYMMDD_HMS format
 currentDate=$(date +"%Y%m%d_%H%M%S")
 
-echo BEFORE
 # If web-ifc, get the version once
 if [ $isEngineConway -eq 1 ] ; then
    engine="conway"$(cd "$serverDir/node_modules/@bldrs-ai/conway-web-ifc-adapter/node_modules/@bldrs-ai/conway"; \
@@ -53,7 +52,6 @@ if [ $isEngineConway -eq 1 ] ; then
 else
   engine="webifc"$(cd $serverDir; yarn list --pattern web-ifc 2>&1 | grep web-ifc | sed 's/.*@//g' ; cd $scriptDir)
 fi
-echo AFTER
 
 # Extract the last folder name from the model directory path, e.g. test-models
 modelDirName=$(basename "$modelDir")
@@ -61,7 +59,6 @@ modelDirName=$(basename "$modelDir")
 # e.g. conway@0.1.560_test-models
 testRunName=${engine}_${modelDirName}
 
-echo BEFOREMKDIR
 # Create the output directory with the model directory name appended
 outputBase="${scriptDir}/../benchmarks"
 outputDir="${outputBase}/${testRunName}"
